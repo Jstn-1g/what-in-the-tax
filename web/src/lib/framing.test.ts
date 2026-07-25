@@ -76,3 +76,35 @@ describe('framing and language guardrails', () => {
     for (const f of findings) expect(f.billImpactCad).toBeNull()
   })
 })
+
+type GapRow = { id: string; title: string; detail: string; neededEvidence: string[]; searchTrail?: string[] }
+
+describe('gap discipline', () => {
+  const gaps: GapRow[] = ledger.gaps
+
+  it('every open gap says what evidence would close it', () => {
+    for (const g of gaps) expect(g.neededEvidence.length).toBeGreaterThan(0)
+  })
+
+  it('gaps we have actively searched for record where we looked', () => {
+    const searched = ['GAP-PEER-BENCHMARK', 'GAP-ND-POP-CURRENT', 'GAP-TWINPAD-OPERATING-DELTA']
+    for (const id of searched) {
+      const g = gaps.find((x) => x.id === id)
+      expect(g, id).toBeDefined()
+      expect(g?.searchTrail?.length ?? 0, id + ' searchTrail').toBeGreaterThan(0)
+    }
+  })
+
+  it('resolved gaps are archived rather than deleted', () => {
+    expect(ledger.closedGaps.length).toBeGreaterThan(0)
+    for (const c of ledger.closedGaps as { id: string; resolution: string }[]) {
+      expect(c.resolution.length).toBeGreaterThan(0)
+    }
+  })
+
+  it('the unbenchmarked admin finding does not read as a settled conclusion', () => {
+    const f = findings.find((x) => x.id === 'FIND-ADMIN-CORP-SCALE')
+    expect(f?.gapIds).toContain('GAP-PEER-BENCHMARK')
+    expect(f?.gapIds).toContain('GAP-ND-POP-CURRENT')
+  })
+})

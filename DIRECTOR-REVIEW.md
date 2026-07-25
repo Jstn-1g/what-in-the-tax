@@ -278,3 +278,37 @@ The correct denominator for "where does my township tax dollar go" is the expend
 **The part of the original point that survives.** Governance cost is not *absent*, it is *invisible* — buried inside Corporate Services with no disclosure. Surfacing it as a nested sub-line, **Council & Elections $34.08 of the $298.54 Corporate Services figure**, is genuinely worth doing and adds nothing to the base. That is the fix; the one I originally prescribed was not.
 
 **Process note.** This is the second claim in this review that came from reading structure wrongly rather than reading numbers wrongly (the first was the CRLF artifact in section 0). Both were caught by re-deriving from the source before acting, not by being careful the first time. The generator change was never made, so nothing wrong reached the repo.
+
+---
+
+## 9. Resolution status as of 2026-07-25
+
+This review was written against `a455829`. Five commits later, here is what actually happened to each item. Two of my own findings did not survive contact with the sources.
+
+| review item | status |
+|---|---|
+| §0 CRTF/CRLF churn (4,229 lines) | **Withdrawn** — artifact of reading the repo through the desktop file bridge. `core.autocrlf=true`; the repo was clean. |
+| §2 P0 `severitySeverity` crash | **Fixed** `81ef257`, in the generator and all four JSON copies. Guard test proves it catches a regression. |
+| §2 P1(a) Council/Elections missing from base | **Withdrawn** — see §8. They were already inside Corporate Services; the fix would have double-counted $238,703. |
+| §2 P1(b) capital 1,625,000 vs 1,607,500 | **Fixed** `25366d4` — base uses the p.7 figure, conflict recorded rather than hidden. |
+| §2 P2 `lineItemsSumCheckCad` 2541 vs 2543 | **Fixed** `81ef257`. |
+| §2 P2 rounding plug rendered as "flagged" | **Fixed** `81ef257` — now a neutral `ROUNDING` badge. |
+| §1.2 `GAP-RURAL-HH-LINE-SUM` ($2 difference) | **Closed** `07ec81a` as source-side per-line rounding. |
+| §3 `GAP-5000-BILL` rationale wrong | **Fixed** `07ec81a`, and the combined receipt was then built at one assessment in `29105a4`. |
+| §5 #2 pull the April 27 by-law | **Done** `07ec81a` — By-law 3637-26, agenda p.103. |
+| §4 admin per-capita uses 2021 population | **Open** — `GAP-ND-POP-CURRENT`. Searched 2026-07-25, not obtainable; trail recorded in the ledger. |
+| §4 no peer benchmark | **Open** — `GAP-PEER-BENCHMARK`. FIR is the right instrument but its per-municipality archives were not retrievable. Finding explicitly marked not-a-conclusion. |
+| §4 ACC finding over-severe | **Fixed** `8687d49` — downgraded to `watch`, counter-explanation recorded, removed from marquee. |
+| §4 arena per-capita framing | **Fixed** `8687d49` — demoted to secondary with the lifetime-vs-annual caveat stated. |
+| §4 missing operating-delta gap | **Added** `8687d49` — `GAP-TWINPAD-OPERATING-DELTA`, still open. |
+| §4 materiality floor | **Done** `8687d49` — $22,506; sub-floor items retained in ledger, excluded from published output. |
+| §5 #4 retire "bloat" | **Done** `8687d49` — category renamed, test asserts the word appears nowhere in shipped data. |
+| §5 #4 right of reply | **Done** `8687d49` — `townshipResponse` on every finding. |
+| §5 #6 approval gates for "flagged $" | **Not implemented** — `GAP-FLAGGED-DOLLARS-ON-BILL` remains open by design. No dollar is called inefficient anywhere. |
+| §6 full line-by-line paper trail | **Not started** — deliberately deferred until the denominator was trustworthy. It now is. |
+
+### What a reader should take from this
+
+The evidence discipline held. Across five commits no invented number entered the ledger, every `billImpactCad` is still null, and both of my own erroneous claims were caught by re-deriving from source before acting rather than by care at the time.
+
+The two remaining weaknesses are honest ones. The administrative-scale finding still has no comparator, so it is a number rather than a conclusion, and it is now labelled that way in the data. And nothing in the model yet describes what the new arena costs to *run* — which, for a household receipt, matters more than the construction cost that currently dominates the findings.

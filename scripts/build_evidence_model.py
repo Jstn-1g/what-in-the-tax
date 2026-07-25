@@ -927,6 +927,13 @@ gaps.extend(
             detail="Every per-capita figure in this ledger divides 2026 dollars by the 2021 Census population of 10,619. North Dumfries has grown since, so all per-capita metrics are biased upward by an unknown amount. This weakens any 'large per capita' reading.",
             blocks=["per_capita_comparisons"],
             neededEvidence=["Current North Dumfries population estimate for 2026 with a citation"],
+            searchTrail=[
+                "Region of Waterloo year-end population and household estimate bulletins: the 2024 and 2022 bulletin PDFs are indexed by search engines but both returned HTTP 404 on retrieval (2026-07-25).",
+                "regionofwaterloo.ca census page lists bulletins only up to the 2016 Census with no township-level estimate links exposed.",
+                "Waterloo Region Community Profile ArcGIS hub publishes region-wide figures only (587,165 Census 2021 / 617,000 provincial / 632,880 Region estimate) with no area-municipality breakdown.",
+                "northdumfries.ca demographics page returned HTTP 404.",
+                "Conclusion: a citable current township population was not obtainable from public web sources on this attempt. Likely available in the Region's Year-End Population and Household Estimates bulletin if the current PDF can be located, or in the Township's Development Charges Background Study.",
+            ],
         ),
         gap(
             id="GAP-TWINPAD-OPERATING-DELTA",
@@ -934,6 +941,10 @@ gaps.extend(
             detail="The ledger covers the one-time capital cost but holds no evidence on what the Twin Pad costs to RUN versus the ACC ice it replaces. For a household receipt the recurring operating change matters more than the capital event.",
             blocks=["twinpad_recurring_cost_on_bill"],
             neededEvidence=["Projected annual operating cost for the Twin Pad and the offsetting ACC ice savings"],
+            searchTrail=[
+                "Not present in any of the four budget documents or the four council packages already ingested.",
+                "Likely requires a facility business case, the 10-year operating forecast, or a records request. Do not estimate it.",
+            ],
         ),
         gap(
             id="GAP-PEER-BENCHMARK",
@@ -941,6 +952,12 @@ gaps.extend(
             detail="Findings that call a figure 'large' name no peer set. Without a cited comparator, $197/capita for Corporate Services is a number, not a finding. In a township of ~10,600 that department also bundles clerk, treasury, IT, HR and communications that a city reports separately, so naive comparison is invalid.",
             blocks=["administrative_scale_conclusions"],
             neededEvidence=["Per-capita administrative spend for comparable Ontario townships, cited, on a like-for-like basis"],
+            searchTrail=[
+                "Correct instrument identified: Ontario Financial Information Return (FIR), 'General government' line, which is defined consistently across all filers. Municipality-level department names are NOT comparable and must not be used.",
+                "FIR multi-year data is published at efis.fma.csc.gov.on.ca as per-municipality ZIP archives (pattern MULTI-YR-<Municipality>.zip). No aggregated general-government-by-municipality report is published, and the archives were not retrievable with the tooling available on this attempt (2026-07-25).",
+                "Preferred peer set remains the same-region lower-tier townships (Wellesley, Wilmot, Woolwich) because they share the same upper-tier service bundle; widen to Puslinch / Blandford-Blenheim / Perth East only if needed.",
+                "Conclusion: gap stays OPEN. Until a normalised comparator exists, FIND-ADMIN-CORP-SCALE asserts scale without a benchmark and must not be published as a conclusion.",
+            ],
         ),
     ]
 )
@@ -953,7 +970,7 @@ findings = [
         "title": "Corporate Services is a large share of the township budget — unbenchmarked",
         "opportunitySeverity": "needs_review",
         "citedFactIds": ["ND-DEPT-CORPORATE-2026", "ND-LEVY-2026", "DRV-ND-CORP-PER-CAPITA", "ND-POP-CENSUS-2021"],
-        "evidenceSummary": "Corporate Services draft $2,091,306 vs municipal levy $9,002,499; ≈$197/capita at 2021 population.",
+        "evidenceSummary": "Corporate Services $2,091,306 against a municipal levy of $9,002,499; about $197 per 2021-census capita. NOT YET A CONCLUSION: no peer comparator has been obtained (GAP-PEER-BENCHMARK), and the per-capita figure uses 2021 population against a 2026 budget so it is biased upward (GAP-ND-POP-CURRENT). In a township of this size the department also bundles clerk, treasury, IT, HR and communications that larger municipalities report separately.",
         "billImpactCad": None,
         "gapIds": ["GAP-FLAGGED-DOLLARS-ON-BILL"],
     },

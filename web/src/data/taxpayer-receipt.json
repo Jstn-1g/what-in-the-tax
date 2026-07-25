@@ -388,7 +388,7 @@
         "DRV-ND-CORP-PER-CAPITA",
         "ND-POP-CENSUS-2021"
       ],
-      "evidenceSummary": "Corporate Services draft $2,091,306 vs municipal levy $9,002,499; \u2248$197/capita at 2021 population.",
+      "evidenceSummary": "Corporate Services $2,091,306 against a municipal levy of $9,002,499; about $197 per 2021-census capita. NOT YET A CONCLUSION: no peer comparator has been obtained (GAP-PEER-BENCHMARK), and the per-capita figure uses 2021 population against a 2026 budget so it is biased upward (GAP-ND-POP-CURRENT). In a township of this size the department also bundles clerk, treasury, IT, HR and communications that larger municipalities report separately.",
       "billImpactCad": null,
       "gapIds": [
         "GAP-FLAGGED-DOLLARS-ON-BILL",

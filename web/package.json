@@ -3,11 +3,12 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "//heapNote": "tsc/vitest are invoked via node --max-old-space-size because the default heap on some installs aborts them with a V8 allocation failure",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5173",
-    "build": "tsc && vite build",
+    "build": "node --max-old-space-size=2048 ./node_modules/typescript/bin/tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "node --max-old-space-size=2048 ./node_modules/vitest/vitest.mjs run"
   },
   "dependencies": {
     "react": "^19.2.0",

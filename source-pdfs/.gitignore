@@ -1,0 +1,10 @@
+# Council packages downloaded while searching for the tax rate by-law but NOT cited
+# as sources in data/evidence-ledger.json. Kept locally in case they become evidence.
+# Cited sources ARE committed - see the `sources` array in the ledger.
+2026-02-23-council-agenda.pdf
+2026-02-23-council-minutes.pdf
+2026-02-23-council-addendum.pdf
+2026-04-13-council-agenda.pdf
+2026-04-13-council-minutes.pdf
+2026-04-13-council-addendum.pdf
+2026-04-27-council-addendum.pdf
