@@ -1,8 +1,7 @@
-import { money } from '../lib/format'
-import type { ForensicFinding } from '../types'
+import type { Finding } from '../types'
 
 type Props = {
-  flags: ForensicFinding[]
+  flags: Finding[]
   onOpen: (flagId: string) => void
 }
 
@@ -13,7 +12,7 @@ export default function MarqueeFlags({ flags, onOpen }: Props) {
     <section className="section marquee-flags" aria-labelledby="marquee-title">
       <div className="section-head">
         <h2 id="marquee-title">Watch these first</h2>
-        <p>Highest-signal forensic flags from the current bill model.</p>
+        <p>Highest-signal findings — judgment only; no invented bill dollars.</p>
       </div>
       <ul className="marquee-list">
         {flags.map((flag) => (
@@ -21,7 +20,7 @@ export default function MarqueeFlags({ flags, onOpen }: Props) {
             <button type="button" className="marquee-card" onClick={() => onOpen(flag.id)}>
               <span className="flag-id">{flag.id}</span>
               <strong>{flag.title}</strong>
-              <span className="marquee-impact">{money(flag.estimatedBillImpactCad)}</span>
+              <span className="marquee-impact">review</span>
             </button>
           </li>
         ))}

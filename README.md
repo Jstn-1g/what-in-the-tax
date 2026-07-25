@@ -1,24 +1,20 @@
 # Taxpayer Receipt
 
-Prototype forensic budget model + Tax Receipt UI for **North Dumfries** / **Region of Waterloo**.
+Evidence-first forensic budget model + Tax Receipt UI for **North Dumfries** / **Region of Waterloo**.
 
 ## What’s included
 
-- `data/taxpayer-receipt.json` — foundational data model for a hypothetical property-tax bill
-- `source-pdfs/` — downloaded 2025/2026 township + regional budget PDFs
+- `data/evidence-ledger.json` — FACT / DERIVED / GAP / JUDGMENT ledger with citations
+- `data/taxpayer-receipt.json` — UI profile (supported household slices; `$5,000` bill marked not allocatable)
+- `source-pdfs/` — downloaded budget PDFs
 - `web/` — Vite + React Tax Receipt screen
 
-## UI features
+## Evidence rules
 
-- Itemized receipt with necessary / education / flagged filters
-- Forensic findings (admin bloat, capital, unusual items) with linked-line drawer
-- Bill scaler (slider + presets)
-- Assessment → estimated bill calculator
-- Copy / share / CSV export / print receipt summary
-- Shareable URL state (`?bill=5000&assessment=455000`)
-- “Watch these first” marquee flags
-- Baseline compare vs the $5,000 model
-- Local persistence for bill + assessment values
+- FACT: cited from PDF (page + excerpt)
+- DERIVED: formula from fact IDs only
+- GAP: missing evidence — never invent amounts
+- JUDGMENT: interpretive findings; no invented bill dollars
 
 ## Run
 
@@ -28,12 +24,11 @@ npm install
 npm run dev
 ```
 
-Open the URL Vite prints (default `http://127.0.0.1:5173`).
-
 ```bash
 npm test
+npm run build
 ```
 
 ## Notes
 
-Figures are modeled from publicly published draft/final budget materials. Education is a provincial pass-through. Flag tags are forensic hypotheses for UI highlighting, not audit findings of illegality.
+Township 2026 figures are **draft**. Region rural household table uses **$354,500** assessment; township rural average uses **$455,000** — do not add them into one “real” bill without a final combined tax schedule.

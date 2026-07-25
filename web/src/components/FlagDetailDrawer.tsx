@@ -1,55 +1,21 @@
 import { useEffect, useRef } from 'react'
-import { money } from '../lib/format'
-import type { ForensicFinding, ReceiptLineItem } from '../types'
+import type { Finding } from '../types'
 
 type Props = {
-  flag: ForensicFinding
-  linkedLines: ReceiptLineItem[]
+  flag: Finding
   onClose: () => void
-  onSelectLine: (lineId: string) => void
 }
 
-export default function FlagDetailDrawer({
-  flag,
-  linkedLines,
-  onClose,
-  onSelectLine,
-}: Props) {
+export default function FlagDetailDrawer({ flag, onClose }: Props) {
   const panelRef = useRef<HTMLElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    const panel = panelRef.current
     const previouslyFocused = document.activeElement as HTMLElement | null
     closeRef.current?.focus()
-
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose()
-        return
-      }
-      if (event.key !== 'Tab' || !panel) return
-
-      const focusable = [
-        ...panel.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-        ),
-      ].filter((el) => !el.hasAttribute('disabled'))
-
-      if (focusable.length === 0) return
-      const first = focusable[0]
-      const last = focusable[focusable.length - 1]
-      const active = document.activeElement as HTMLElement | null
-
-      if (event.shiftKey && active === first) {
-        event.preventDefault()
-        last.focus()
-      } else if (!event.shiftKey && active === last) {
-        event.preventDefault()
-        first.focus()
-      }
+      if (event.key === 'Escape') onClose()
     }
-
     document.addEventListener('keydown', onKey)
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
@@ -61,52 +27,53 @@ export default function FlagDetailDrawer({
   }, [onClose])
 
   return (
-    <div className="drawer-root" role="presentation">
-      <button type="button" className="drawer-backdrop" aria-label="Close flag details" onClick={onClose} />
+    <div className="drawer-root" role="presentation" onClick={onClose}>
       <aside
         ref={panelRef}
         className="drawer-panel"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="flag-drawer-title"
+        aria-labelledby="drawer-title"
+        onClick={(event) => event.stopPropagation()}
       >
-        <div className="drawer-handle" aria-hidden="true" />
-        <header className="drawer-header">
+        <header className="drawer-head">
           <div>
             <p className="flag-id">{flag.id}</p>
-            <h2 id="flag-drawer-title">{flag.title}</h2>
+            <h2 id="drawer-title">{flag.title}</h2>
           </div>
           <button ref={closeRef} type="button" className="drawer-close" onClick={onClose}>
             Close
           </button>
         </header>
-
-        <div className="drawer-body">
-          <p className="drawer-impact">
-            Estimated bill impact <strong>{money(flag.estimatedBillImpactCad)}</strong>
-          </p>
-          <p className={`drawer-severity severity-${flag.opportunitySeverity}`}>
-            Severity: {flag.opportunitySeverity}
-          </p>
-          <p className="drawer-evidence">{flag.evidence}</p>
-          {flag.uiHint ? <p className="drawer-hint">{flag.uiHint}</p> : null}
-
-          <h3>Linked receipt lines</h3>
-          {linkedLines.length === 0 ? (
-            <p className="drawer-empty">No receipt lines linked to this flag yet.</p>
-          ) : (
-            <ul className="drawer-lines">
-              {linkedLines.map((line) => (
-                <li key={line.id}>
-                  <button type="button" onClick={() => onSelectLine(line.id)}>
-                    <span>{line.label}</span>
-                    <strong>{money(line.amountCad)}</strong>
-                  </button>
+        <p className="drawer-severity">{flag.opportunitySeverity.replace(/_/g, ' ')}</p>
+        <p>{flag.evidenceSummary}</p>
+        <p className="drawer-note">
+          Bill impact: not allocatable from sources (see gaps). Judgment only.
+        </p>
+        {flag.citedFactIds.length > 0 ? (
+          <div>
+            <h3>Cited facts</h3>
+            <ul className="child-list">
+              {flag.citedFactIds.map((id) => (
+                <li key={id}>
+                  <code>{id}</code>
                 </li>
               ))}
             </ul>
-          )}
-        </div>
+          </div>
+        ) : null}
+        {flag.gapIds.length > 0 ? (
+          <div>
+            <h3>Related gaps</h3>
+            <ul className="child-list">
+              {flag.gapIds.map((id) => (
+                <li key={id}>
+                  <code>{id}</code>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </aside>
     </div>
   )

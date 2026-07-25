@@ -1,172 +1,109 @@
-import { useEffect, useMemo, useState } from 'react'
-import { money, pct } from '../lib/format'
-import { scaleReceipt } from '../lib/scaleReceipt'
-import {
-  loadAssessmentCad,
-  loadBillCad,
-  saveAssessmentCad,
-  saveBillCad,
-} from '../lib/storage'
-import { buildReceiptSummary } from '../lib/summaryText'
-import { readUrlState, writeUrlState } from '../lib/urlState'
-import type {
-  ForensicFinding,
-  LineClassification,
-  TaxpayerReceipt,
-  UiFilter,
-} from '../types'
-import AssessmentEstimator from './AssessmentEstimator'
-import BaselineCompare from './BaselineCompare'
-import BillControls from './BillControls'
+import { useMemo, useState } from 'react'
+import { money } from '../lib/format'
+import type { Finding, Gap, ReceiptLineItem, TaxpayerReceipt } from '../types'
 import FlagDetailDrawer from './FlagDetailDrawer'
 import MarqueeFlags from './MarqueeFlags'
-import ShareActions from './ShareActions'
 
-const FLAG_TABS = [
-  { id: 'administrativeBloat', label: 'Admin bloat' },
-  { id: 'questionableCapitalProjects', label: 'Capital' },
-  { id: 'unusualLineItems', label: 'Unusual items' },
+const FINDING_TABS = [
+  { id: 'administrative_bloat', label: 'Admin' },
+  { id: 'questionable_capital', label: 'Capital' },
+  { id: 'unusual_line_items', label: 'Unusual' },
 ] as const
 
-type FlagTab = (typeof FLAG_TABS)[number]['id']
+type FindingTab = (typeof FINDING_TABS)[number]['id']
 
-function useCountUp(target: number, durationMs = 1100) {
-  const [value, setValue] = useState(0)
-
-  useEffect(() => {
-    const safeTarget = Number.isFinite(target) ? Math.max(0, target) : 0
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) {
-      setValue(safeTarget)
-      return
-    }
-
-    let frame = 0
-    let start: number | null = null
-    let cancelled = false
-    setValue(0)
-
-    const tick = (now: number) => {
-      if (cancelled) return
-      if (start === null) start = now
-      const t = Math.min(1, (now - start) / durationMs)
-      const eased = 1 - (1 - t) ** 3
-      setValue(safeTarget * eased)
-      if (t < 1) frame = requestAnimationFrame(tick)
-      else setValue(safeTarget)
-    }
-
-    frame = requestAnimationFrame(tick)
-    return () => {
-      cancelled = true
-      cancelAnimationFrame(frame)
-    }
-  }, [target, durationMs])
-
-  return value
+function LineList({
+  title,
+  subtitle,
+  totalCad,
+  lines,
+}: {
+  title: string
+  subtitle: string
+  totalCad: number
+  lines: ReceiptLineItem[]
+}) {
+  const sorted = [...lines].sort((a, b) => Math.abs(b.amountCad) - Math.abs(a.amountCad))
+  return (
+    <section className="section receipt-section" aria-labelledby={`${title}-id`}>
+      <div className="section-head">
+        <h2 id={`${title}-id`}>{title}</h2>
+        <p>{subtitle}</p>
+      </div>
+      <div className="receipt-sheet">
+        <div className="perforation" aria-hidden="true" />
+        <ol className="receipt-lines">
+          {sorted.map((line, index) => (
+            <li
+              key={line.id}
+              className={[
+                'receipt-line',
+                line.evidenceStatus === 'GAP' ? 'flagged' : 'necessary',
+              ].join(' ')}
+              style={{ animationDelay: `${index * 25}ms` }}
+            >
+              <div className="line-main">
+                <div>
+                  <p className="line-service">{line.label}</p>
+                  <p className="line-meta">
+                    {line.evidenceStatus}
+                    {line.note ? ` · ${line.note}` : ''}
+                  </p>
+                </div>
+                <div className="line-right">
+                  <span
+                    className={
+                      line.evidenceStatus === 'GAP' ? 'badge badge-flagged' : 'badge badge-necessary'
+                    }
+                  >
+                    {line.evidenceStatus}
+                  </span>
+                  <strong>{money(line.amountCad)}</strong>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div className="receipt-total">
+          <span>Published / allocated total</span>
+          <strong>{money(totalCad)}</strong>
+        </div>
+      </div>
+    </section>
+  )
 }
 
-function classLabel(value: LineClassification): string {
-  switch (value) {
-    case 'pass_through':
-      return 'education'
-    case 'flagged_admin':
-      return 'flagged · admin'
-    case 'flagged_capital':
-      return 'flagged · capital'
-    case 'flagged_unusual':
-      return 'flagged · unusual'
-    default:
-      return 'necessary'
-  }
-}
-
-function badgeClass(value: LineClassification): string {
-  if (value === 'necessary') return 'badge badge-necessary'
-  if (value === 'pass_through') return 'badge badge-pass'
-  return 'badge badge-flagged'
-}
-
-export default function TaxReceiptScreen({ data }: { data: TaxpayerReceipt }) {
-  const [billCad, setBillCad] = useState(() => {
-    const fromUrl = readUrlState().billCad
-    return fromUrl ?? loadBillCad(data.receiptTotals.billCad)
-  })
-  const [assessmentCad, setAssessmentCad] = useState(() => {
-    const fromUrl = readUrlState().assessmentCad
-    return fromUrl ?? loadAssessmentCad(data.jurisdiction.medianAssessmentUsedInTownshipDocs)
-  })
-  const [filter, setFilter] = useState<UiFilter>('all')
-  const [flagTab, setFlagTab] = useState<FlagTab>('administrativeBloat')
+export default function TaxReceiptScreen({
+  data,
+  gaps,
+  evidenceRules,
+}: {
+  data: TaxpayerReceipt
+  gaps: Gap[]
+  evidenceRules: string[]
+}) {
+  const profile = data.profiles.supportedAverageHousehold
+  const [flagTab, setFlagTab] = useState<FindingTab>('questionable_capital')
   const [selectedFlagId, setSelectedFlagId] = useState<string | null>(null)
-  const [highlightLineId, setHighlightLineId] = useState<string | null>(null)
-  const view = useMemo(() => scaleReceipt(data, billCad), [data, billCad])
-  const summaryText = useMemo(() => buildReceiptSummary(view), [view])
-  const animatedTotal = useCountUp(view.receiptTotals.billCad)
-  const totals = view.receiptTotals
-  const segments = view.uiModelHints.heroMetric.segments
 
-  useEffect(() => {
-    saveBillCad(billCad)
-  }, [billCad])
-
-  useEffect(() => {
-    saveAssessmentCad(assessmentCad)
-  }, [assessmentCad])
-
-  useEffect(() => {
-    writeUrlState({ billCad, assessmentCad })
-  }, [billCad, assessmentCad])
-
-  const allFlags = useMemo(() => {
-    const list: ForensicFinding[] = [
-      ...view.forensicFindings.administrativeBloat,
-      ...view.forensicFindings.questionableCapitalProjects,
-      ...view.forensicFindings.unusualLineItems,
-    ]
-    return new Map(list.map((flag) => [flag.id, flag]))
-  }, [view.forensicFindings])
+  const findingsById = useMemo(() => {
+    return new Map(data.findings.map((finding) => [finding.id, finding]))
+  }, [data.findings])
 
   const marqueeFlags = useMemo(() => {
-    return data.uiModelHints.marqueeFlags
-      .map((id) => allFlags.get(id))
-      .filter((flag): flag is ForensicFinding => Boolean(flag))
-  }, [allFlags, data.uiModelHints.marqueeFlags])
+    return data.uiModelHints.marqueeFindings
+      .map((id) => findingsById.get(id))
+      .filter((flag): flag is Finding => Boolean(flag))
+  }, [data.uiModelHints.marqueeFindings, findingsById])
 
-  const selectedFlag = selectedFlagId ? allFlags.get(selectedFlagId) ?? null : null
+  const tabFindings = useMemo(
+    () => data.findings.filter((finding) => finding.category === flagTab),
+    [data.findings, flagTab],
+  )
 
-  const linkedLines = useMemo(() => {
-    if (!selectedFlagId) return []
-    return view.receiptLineItems.filter((line) => line.flagIds.includes(selectedFlagId))
-  }, [view.receiptLineItems, selectedFlagId])
-
-  const lines = useMemo(() => {
-    const sorted = [...view.receiptLineItems].sort((a, b) => b.amountCad - a.amountCad)
-    if (filter === 'all') return sorted
-    if (filter === 'flagged') return sorted.filter((line) => line.flagged)
-    if (filter === 'pass_through') {
-      return sorted.filter((line) => line.classification === 'pass_through')
-    }
-    return sorted.filter((line) => line.necessary && line.classification !== 'pass_through')
-  }, [view.receiptLineItems, filter])
-
-  useEffect(() => {
-    if (!highlightLineId) return
-    const node = document.getElementById(`line-${highlightLineId}`)
-    node?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    const timer = window.setTimeout(() => setHighlightLineId(null), 1800)
-    return () => window.clearTimeout(timer)
-  }, [highlightLineId])
-
-  const necessaryCorePct =
-    (totals.necessaryExcludingPassThroughCad / totals.billCad) * 100
-  const educationPct = (totals.passThroughCad / totals.billCad) * 100
-  const flaggedPct = totals.flaggedShareOfBill * 100
-
-  const openFlag = (flagId: string) => setSelectedFlagId(flagId)
-  const openFirstFlagForLine = (flagIds: string[]) => {
-    if (flagIds[0]) setSelectedFlagId(flagIds[0])
-  }
+  const selectedFlag = selectedFlagId ? findingsById.get(selectedFlagId) ?? null : null
+  const townshipLines = profile.township.lineItems ?? []
+  const regionLines = profile.region.lineItems ?? []
 
   return (
     <div className="page">
@@ -174,202 +111,111 @@ export default function TaxReceiptScreen({ data }: { data: TaxpayerReceipt }) {
         <div className="hero-atmosphere" aria-hidden="true" />
         <div className="hero-inner">
           <p className="brand">Taxpayer Receipt</p>
-          <h1>Your {money(billCad)} property tax bill, itemized</h1>
+          <h1>Evidence-based household profile</h1>
           <p className="hero-support">
-            North Dumfries + Region of Waterloo · 2026 budget model
+            North Dumfries draft + Region rural household table · no filler allocations
           </p>
           <div className="hero-cta-row">
-            <a className="cta" href="#bill-controls">
-              Set your bill
+            <a className="cta" href="#gaps">
+              See gaps
             </a>
             <a className="cta cta-ghost" href="#findings">
-              Jump to flags
+              Findings
             </a>
           </div>
           <p className="hero-amount" aria-live="polite">
-            <span className="hero-amount-label">{view.uiModelHints.heroMetric.label}</span>
-            <span className="hero-amount-value">{money(animatedTotal)}</span>
+            <span className="hero-amount-label">Supported slices (not one combined bill)</span>
+            <span className="hero-amount-value">
+              Twp {money(profile.township.amountCad ?? 0)} · Reg {money(profile.region.amountCad ?? 0)}
+            </span>
           </p>
         </div>
       </header>
 
       <main>
-        <div id="bill-controls">
-          <BillControls billCad={billCad} onChange={setBillCad} />
-        </div>
-
-        <AssessmentEstimator
-          assessment={assessmentCad}
-          onAssessmentChange={setAssessmentCad}
-          rates={data.methodology.jurisdictionSplit}
-          onApplyBill={setBillCad}
-        />
-
-        <BaselineCompare
-          baseBillCad={data.receiptTotals.billCad}
-          currentBillCad={billCad}
-          baseFlaggedCad={data.receiptTotals.flaggedCad}
-          currentFlaggedCad={totals.flaggedCad}
-          onReset={() => setBillCad(data.receiptTotals.billCad)}
-        />
-
-        <section className="section mix-section" aria-labelledby="mix-title">
+        <section className="section" id="gaps" aria-labelledby="gaps-title">
           <div className="section-head">
-            <h2 id="mix-title">Necessary vs flagged</h2>
-            <p>{totals.uiSummary.headline}</p>
+            <h2 id="gaps-title">Evidence gaps</h2>
+            <p>Missing proof is listed — not filled with invented numbers.</p>
           </div>
-          <ShareActions summaryText={summaryText} view={view} />
-          <div className="mix-bar" role="img" aria-label="Bill classification mix">
-            <span className="mix-seg necessary" style={{ width: `${necessaryCorePct}%` }} />
-            <span className="mix-seg pass" style={{ width: `${educationPct}%` }} />
-            <span className="mix-seg flagged" style={{ width: `${flaggedPct}%` }} />
+          <ul className="flag-list">
+            {gaps.map((gap) => (
+              <li key={gap.id} className="flag-item severity-watch">
+                <div className="flag-top">
+                  <div>
+                    <p className="flag-id">{gap.id}</p>
+                    <h3>{gap.title}</h3>
+                  </div>
+                  <span className="flag-impact">gap</span>
+                </div>
+                <p>{gap.detail}</p>
+                {gap.neededEvidence.length > 0 ? (
+                  <p className="line-meta">Need: {gap.neededEvidence.join(' · ')}</p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+          <div className="section-head" style={{ marginTop: '1.5rem' }}>
+            <h3>Policy</h3>
+            <ul className="child-list">
+              {evidenceRules.map((rule) => (
+                <li key={rule}>{rule}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="section mix-section" aria-labelledby="status-title">
+          <div className="section-head">
+            <h2 id="status-title">Model status</h2>
+            <p>{data.purpose}</p>
           </div>
           <ul className="mix-legend">
-            {segments.map((segment) => (
-              <li key={segment.key}>
-                <span className={`swatch ${segment.colorToken}`} />
-                {segment.label} {money(segment.valueCad)}
-              </li>
+            <li>
+              <span className="swatch necessary" />
+              Township rural avg @ $455k: {money(profile.township.amountCad ?? 0)} (draft)
+            </li>
+            <li>
+              <span className="swatch pass" />
+              Region rural HH @ $354.5k: {money(profile.region.amountCad ?? 0)} (final table)
+            </li>
+            <li>
+              <span className="swatch flagged" />
+              Education / $5,000 combined bill: GAP
+            </li>
+          </ul>
+          <ul className="child-list">
+            {profile.warnings.map((warning) => (
+              <li key={warning}>{warning}</li>
             ))}
+            <li>{profile.combinedTotalNote}</li>
+            <li>{data.profiles.hypothetical5000.message}</li>
           </ul>
         </section>
 
-        <MarqueeFlags flags={marqueeFlags} onOpen={openFlag} />
+        <MarqueeFlags flags={marqueeFlags} onOpen={setSelectedFlagId} />
 
-        <section className="section" aria-labelledby="where-title">
-          <div className="section-head">
-            <h2 id="where-title">Where the bill goes</h2>
-            <p>Township, Region (with police), and provincial education shares.</p>
-          </div>
-          <ul className="jurisdiction-list">
-            {view.jurisdictionBreakdown.map((slice) => (
-              <li key={slice.id}>
-                <div className="jurisdiction-row">
-                  <div>
-                    <h3>{slice.label}</h3>
-                    {slice.children ? (
-                      <ul className="child-list">
-                        {slice.children.map((child) => (
-                          <li key={child.id}>
-                            {child.label}: {money(child.amountCad)}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </div>
-                  <div className="jurisdiction-figures">
-                    <strong>{money(slice.amountCad)}</strong>
-                    <span>{pct(slice.shareOfBill * 100)}</span>
-                  </div>
-                </div>
-                <div className="thin-track">
-                  <span style={{ width: `${slice.shareOfBill * 100}%` }} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <LineList
+          title="Township portion"
+          subtitle={profile.township.basis}
+          totalCad={profile.township.amountCad ?? 0}
+          lines={townshipLines}
+        />
 
-        <section className="section receipt-section" id="itemized" aria-labelledby="itemized-title">
-          <div className="section-head">
-            <h2 id="itemized-title">Itemized receipt</h2>
-            <p>Every modeled dollar, sorted by size. Tap a flagged line for details.</p>
-          </div>
-
-          <div className="filter-row" role="group" aria-label="Filter by classification">
-            {(
-              [
-                ['all', 'all'],
-                ['necessary', 'necessary'],
-                ['flagged', 'flagged'],
-                ['pass_through', 'education'],
-              ] as const
-            ).map(([key, label]) => (
-              <button
-                key={key}
-                type="button"
-                className={filter === key ? 'filter active' : 'filter'}
-                onClick={() => setFilter(key)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-
-          <div className="receipt-sheet">
-            <div className="perforation" aria-hidden="true" />
-            <ol className="receipt-lines">
-              {lines.map((line, index) => {
-                const interactive = line.flagIds.length > 0
-                return (
-                  <li
-                    key={line.id}
-                    id={`line-${line.id}`}
-                    className={[
-                      'receipt-line',
-                      line.flagged ? 'flagged' : line.classification,
-                      interactive ? 'interactive' : '',
-                      highlightLineId === line.id ? 'pulse' : '',
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
-                    style={{ animationDelay: `${index * 35}ms` }}
-                  >
-                    {interactive ? (
-                      <button
-                        type="button"
-                        className="line-button"
-                        onClick={() => openFirstFlagForLine(line.flagIds)}
-                      >
-                        <LineBody
-                          label={line.label}
-                          category={line.category}
-                          tier={line.tier}
-                          classification={line.classification}
-                          amountCad={line.amountCad}
-                          billCad={totals.billCad}
-                        />
-                      </button>
-                    ) : (
-                      <LineBody
-                        label={line.label}
-                        category={line.category}
-                        tier={line.tier}
-                        classification={line.classification}
-                        amountCad={line.amountCad}
-                        billCad={totals.billCad}
-                      />
-                    )}
-                  </li>
-                )
-              })}
-            </ol>
-            <div className="receipt-total">
-              <span>Total</span>
-              <strong>{money(totals.billCad)}</strong>
-            </div>
-          </div>
-        </section>
+        <LineList
+          title="Region portion (rural household)"
+          subtitle={profile.region.basis}
+          totalCad={profile.region.amountCad ?? 0}
+          lines={regionLines}
+        />
 
         <section className="section" id="findings" aria-labelledby="findings-title">
           <div className="section-head">
-            <h2 id="findings-title">Forensic findings</h2>
-            <p>
-              Population basis{' '}
-              {view.budgetSnapshots.northDumfries2026Draft.perCapita.populationBasis.toLocaleString()}
-              {' · '}
-              corporate services ~
-              {money(view.budgetSnapshots.northDumfries2026Draft.perCapita.corporateServicesPerCapita)}
-              /capita
-              {' · '}
-              twin-pad project ~
-              {money(view.budgetSnapshots.northDumfries2026Draft.perCapita.netZeroArenaProjectPerCapita)}
-              /capita
-            </p>
+            <h2 id="findings-title">Findings (judgment)</h2>
+            <p>Cited to facts; bill dollars stay null until a formula is approved.</p>
           </div>
-
           <div className="filter-row" role="tablist" aria-label="Finding categories">
-            {FLAG_TABS.map((tab) => (
+            {FINDING_TABS.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
@@ -382,20 +228,19 @@ export default function TaxReceiptScreen({ data }: { data: TaxpayerReceipt }) {
               </button>
             ))}
           </div>
-
           <ul className="flag-list">
-            {view.forensicFindings[flagTab].map((flag) => (
+            {tabFindings.map((flag) => (
               <li key={flag.id} className={`flag-item severity-${flag.opportunitySeverity}`}>
-                <button type="button" className="flag-button" onClick={() => openFlag(flag.id)}>
+                <button type="button" className="flag-button" onClick={() => setSelectedFlagId(flag.id)}>
                   <div className="flag-top">
                     <div>
                       <p className="flag-id">{flag.id}</p>
                       <h3>{flag.title}</h3>
                     </div>
-                    <span className="flag-impact">{money(flag.estimatedBillImpactCad)}</span>
+                    <span className="flag-impact">n/a</span>
                   </div>
-                  <p>{flag.evidence}</p>
-                  <span className="flag-cta">View linked receipt lines</span>
+                  <p>{flag.evidenceSummary}</p>
+                  <span className="flag-cta">View citations</span>
                 </button>
               </li>
             ))}
@@ -403,55 +248,14 @@ export default function TaxReceiptScreen({ data }: { data: TaxpayerReceipt }) {
         </section>
 
         <footer className="footer">
-          <p>{view.purpose}</p>
-          <p>Generated {view.generatedAt}</p>
+          <p>{data.status}</p>
+          <p>{data.evidencePolicyRef}</p>
         </footer>
       </main>
 
       {selectedFlag ? (
-        <FlagDetailDrawer
-          flag={selectedFlag}
-          linkedLines={linkedLines}
-          onClose={() => setSelectedFlagId(null)}
-          onSelectLine={(lineId) => {
-            setSelectedFlagId(null)
-            setFilter('all')
-            setHighlightLineId(lineId)
-          }}
-        />
+        <FlagDetailDrawer flag={selectedFlag} onClose={() => setSelectedFlagId(null)} />
       ) : null}
-    </div>
-  )
-}
-
-function LineBody({
-  label,
-  category,
-  tier,
-  classification,
-  amountCad,
-  billCad,
-}: {
-  label: string
-  category: string
-  tier: string
-  classification: LineClassification
-  amountCad: number
-  billCad: number
-}) {
-  return (
-    <div className="line-main">
-      <div>
-        <p className="line-service">{label}</p>
-        <p className="line-meta">
-          {category} · {tier}
-        </p>
-      </div>
-      <div className="line-right">
-        <span className={badgeClass(classification)}>{classLabel(classification)}</span>
-        <strong>{money(amountCad)}</strong>
-        <span>{pct((amountCad / billCad) * 100)}</span>
-      </div>
     </div>
   )
 }

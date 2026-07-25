@@ -1,115 +1,83 @@
-export type LineClassification =
-  | 'necessary'
-  | 'pass_through'
-  | 'flagged_admin'
-  | 'flagged_capital'
-  | 'flagged_unusual'
-
-export type UiFilter = 'all' | 'necessary' | 'flagged' | 'pass_through'
+export type EvidenceStatus = 'FACT' | 'DERIVED' | 'GAP' | 'JUDGMENT'
 
 export type ReceiptLineItem = {
   id: string
-  tier: string
-  category: string
   label: string
   amountCad: number
-  classification: LineClassification
-  necessary: boolean
-  flagged: boolean
-  flagIds: string[]
+  classification: string
+  evidenceStatus: EvidenceStatus | string
+  sourceFactId?: string
+  gapId?: string
+  note?: string
 }
 
-export type ForensicFinding = {
+export type ProfileBucket = {
+  basis: string
+  amountCad: number | null
+  assessmentCad?: number
+  evidenceStatus: string
+  sourceFactId?: string
+  gapId?: string
+  lineItems?: ReceiptLineItem[]
+  warnings?: string[]
+  note?: string
+}
+
+export type Finding = {
   id: string
-  tier: string
+  kind: string
+  category: string
   title: string
-  evidence: string
   opportunitySeverity: string
-  estimatedBillImpactCad: number
-  uiHint?: string
+  citedFactIds: string[]
+  evidenceSummary: string
+  billImpactCad: number | null
+  gapIds: string[]
+}
+
+export type Gap = {
+  id: string
+  kind: string
+  title: string
+  detail: string
+  blocks: string[]
+  neededEvidence: string[]
 }
 
 export type TaxpayerReceipt = {
+  schemaVersion: string
+  artifact: string
+  status: string
   purpose: string
-  generatedAt: string
-  jurisdiction: {
-    lowerTier: string
-    upperTier: string
-    province: string
-    populationCensus2021: number
-    medianAssessmentUsedInTownshipDocs: number
-  }
-  hypotheticalBill: {
-    amountCad: number
-    currency: string
-  }
-  methodology: {
-    jurisdictionSplit: {
-      basis: string
-      townshipRate: number
-      regionRate: number
-      educationRate: number
-      sharesOfTotalBill: {
-        township: number
-        region: number
-        education: number
-      }
+  evidencePolicyRef: string
+  profiles: {
+    supportedAverageHousehold: {
+      description: string
+      township: ProfileBucket
+      region: ProfileBucket
+      education: ProfileBucket
+      combinedTotalCad: number | null
+      combinedTotalNote: string
+      warnings: string[]
     }
-  }
-  jurisdictionBreakdown: Array<{
-    id: string
-    label: string
-    amountCad: number
-    shareOfBill: number
-    children?: Array<{
-      id: string
-      label: string
+    hypothetical5000: {
       amountCad: number
-      shareOfBill: number
-    }>
-  }>
-  receiptLineItems: ReceiptLineItem[]
-  receiptTotals: {
-    billCad: number
-    necessaryCad: number
-    flaggedCad: number
-    passThroughCad: number
-    necessaryExcludingPassThroughCad: number
-    flaggedShareOfBill: number
-    necessaryShareOfBill: number
-    byClassification: Record<string, number>
-    uiSummary: {
-      headline: string
-      necessaryLabel: string
-      flaggedLabel: string
-      passThroughLabel: string
+      evidenceStatus: string
+      gapId: string
+      allocatable: boolean
+      message: string
     }
   }
-  forensicFindings: {
-    administrativeBloat: ForensicFinding[]
-    questionableCapitalProjects: ForensicFinding[]
-    unusualLineItems: ForensicFinding[]
-  }
+  findings: Finding[]
   uiModelHints: {
-    heroMetric: {
-      label: string
-      primaryValueCad: number
-      segments: Array<{
-        key: string
-        label: string
-        valueCad: number
-        colorToken: string
-      }>
-    }
-    marqueeFlags: string[]
+    defaultProfile: string
+    showGapsAsFirstClassUi: boolean
+    forbidFillerAllocation: boolean
+    marqueeFindings: string[]
   }
-  budgetSnapshots: {
-    northDumfries2026Draft: {
-      perCapita: {
-        populationBasis: number
-        corporateServicesPerCapita: number
-        netZeroArenaProjectPerCapita: number
-      }
-    }
-  }
+}
+
+export type EvidenceLedger = {
+  gaps: Gap[]
+  evidencePolicy: { rules: string[] }
 }

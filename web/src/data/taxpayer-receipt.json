@@ -1,694 +1,452 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
-  "purpose": "Foundational data model for the Tax Receipt screen — allocates a hypothetical $5,000 annual property tax bill for a North Dumfries residential taxpayer across necessary vs flagged/inefficient services.",
-  "generatedAt": "2026-07-25",
-  "jurisdiction": {
-    "lowerTier": "Township of North Dumfries",
-    "upperTier": "Region of Waterloo",
-    "province": "Ontario",
-    "populationCensus2021": 10619,
-    "medianAssessmentUsedInTownshipDocs": 455000
+  "status": "partial_evidence_based",
+  "purpose": "UI data model using only supported allocations. Hypothetical $5,000 combined bill is NOT fully allocatable \u2014 see gaps.",
+  "evidencePolicyRef": "data/evidence-ledger.json",
+  "profiles": {
+    "supportedAverageHousehold": {
+      "description": "Best evidence-based profile without inventing a $5,000 bill.",
+      "township": {
+        "basis": "ND 2026 draft rural average at $455,000 assessment \u2014 TOWNSHIP PORTION ONLY",
+        "amountCad": 1434.63,
+        "assessmentCad": 455000,
+        "evidenceStatus": "FACT",
+        "sourceFactId": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "lineItems": [
+          {
+            "id": "ND-DEPT-CORPORATE-2026",
+            "label": "Corporate Services",
+            "amountCad": 298.02,
+            "classification": "township_draft_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "ND-DEPT-CORPORATE-2026",
+            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+          },
+          {
+            "id": "ND-DEPT-PROTECTIVE-2026",
+            "label": "Protective Services (incl. Fire)",
+            "amountCad": 221.56,
+            "classification": "township_draft_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "ND-DEPT-PROTECTIVE-2026",
+            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+          },
+          {
+            "id": "ND-DEPT-PW-2026",
+            "label": "Public Works",
+            "amountCad": 353.04,
+            "classification": "township_draft_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "ND-DEPT-PW-2026",
+            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+          },
+          {
+            "id": "ND-DEPT-REC-2026",
+            "label": "Recreation Services",
+            "amountCad": 266.12,
+            "classification": "township_draft_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "ND-DEPT-REC-2026",
+            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+          },
+          {
+            "id": "ND-DEPT-PLANNING-2026",
+            "label": "Planning",
+            "amountCad": 64.32,
+            "classification": "township_draft_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "ND-DEPT-PLANNING-2026",
+            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+          },
+          {
+            "id": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
+            "label": "Capital reserve transfers (tax-funded)",
+            "amountCad": 231.57,
+            "classification": "township_draft_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
+            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+          }
+        ]
+      },
+      "region": {
+        "basis": "Region 2026 Budget Book p.12 Rural column (North Dumfries + Wellesley) at $354,500 assessment",
+        "amountCad": 2543,
+        "assessmentCad": 354500,
+        "evidenceStatus": "FACT",
+        "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+        "lineItems": [
+          {
+            "id": "ROW-RURAL-HH-01",
+            "label": "Police Service",
+            "amountCad": 900,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-01"
+          },
+          {
+            "id": "ROW-RURAL-HH-02",
+            "label": "Public Transit (area-rated; rural)",
+            "amountCad": 63,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-02"
+          },
+          {
+            "id": "ROW-RURAL-HH-03",
+            "label": "Housing Services",
+            "amountCad": 429,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-03"
+          },
+          {
+            "id": "ROW-RURAL-HH-04",
+            "label": "Roads / Design & Construction / Engineering",
+            "amountCad": 240,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-04"
+          },
+          {
+            "id": "ROW-RURAL-HH-05",
+            "label": "Waste Management",
+            "amountCad": 213,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-05"
+          },
+          {
+            "id": "ROW-RURAL-HH-06",
+            "label": "Financial Expenses",
+            "amountCad": 89,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-06"
+          },
+          {
+            "id": "ROW-RURAL-HH-07",
+            "label": "Paramedic Services",
+            "amountCad": 134,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-07"
+          },
+          {
+            "id": "ROW-RURAL-HH-08",
+            "label": "Employment / Income Support",
+            "amountCad": 53,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-08"
+          },
+          {
+            "id": "ROW-RURAL-HH-09",
+            "label": "Seniors' Services",
+            "amountCad": 51,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-09"
+          },
+          {
+            "id": "ROW-RURAL-HH-10",
+            "label": "Human Resources",
+            "amountCad": 39,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-10"
+          },
+          {
+            "id": "ROW-RURAL-HH-11",
+            "label": "Information Technology Services",
+            "amountCad": 49,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-11"
+          },
+          {
+            "id": "ROW-RURAL-HH-12",
+            "label": "Public Health",
+            "amountCad": 45,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-12"
+          },
+          {
+            "id": "ROW-RURAL-HH-13",
+            "label": "Facilities & Fleet Management",
+            "amountCad": 24,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-13"
+          },
+          {
+            "id": "ROW-RURAL-HH-14",
+            "label": "Cultural Services",
+            "amountCad": 33,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-14"
+          },
+          {
+            "id": "ROW-RURAL-HH-15",
+            "label": "Children's Services",
+            "amountCad": 30,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-15"
+          },
+          {
+            "id": "ROW-RURAL-HH-16",
+            "label": "Elected Offices & Office of the CAO",
+            "amountCad": 17,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-16"
+          },
+          {
+            "id": "ROW-RURAL-HH-17",
+            "label": "Resident Experience, Strategy and Communications",
+            "amountCad": 19,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-17"
+          },
+          {
+            "id": "ROW-RURAL-HH-18",
+            "label": "Airport",
+            "amountCad": 31,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-18"
+          },
+          {
+            "id": "ROW-RURAL-HH-19",
+            "label": "Planning, Development & Legislative Services",
+            "amountCad": 21,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-19"
+          },
+          {
+            "id": "ROW-RURAL-HH-20",
+            "label": "Finance",
+            "amountCad": 24,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-20"
+          },
+          {
+            "id": "ROW-RURAL-HH-21",
+            "label": "Regional Library (area-rated; rural)",
+            "amountCad": 79,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-21"
+          },
+          {
+            "id": "ROW-RURAL-HH-22",
+            "label": "Build Waterloo Region",
+            "amountCad": 16,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-22"
+          },
+          {
+            "id": "ROW-RURAL-HH-23",
+            "label": "Strategy, Performance and Partnerships",
+            "amountCad": 20,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-23"
+          },
+          {
+            "id": "ROW-PIL-OFFSET",
+            "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
+            "amountCad": -78,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+            "note": "Source reduces rural household to $2,543 after PIL/supplementary taxes."
+          },
+          {
+            "id": "ROW-TABLE-ROUNDING",
+            "label": "Unallocated table-rounding difference (source total vs summed lines)",
+            "amountCad": 2,
+            "classification": "reconciling_item",
+            "evidenceStatus": "GAP",
+            "gapId": "GAP-RURAL-HH-LINE-SUM",
+            "note": "Do not treat as a service. Needed so line items reconcile to published rural total $2,543."
+          }
+        ],
+        "lineItemsSumCheckCad": 2541
+      },
+      "education": {
+        "amountCad": null,
+        "evidenceStatus": "GAP",
+        "gapId": "GAP-EDUCATION-2026"
+      },
+      "combinedTotalCad": null,
+      "combinedTotalNote": "Not summed: township and region use different assessment bases ($455k vs $354.5k). See GAP-5000-BILL.",
+      "warnings": [
+        "Do not add township $1,434.63 + region $2,543 and call it a real bill \u2014 assessment bases differ.",
+        "North Dumfries operating amounts are DRAFT."
+      ]
+    },
+    "hypothetical5000": {
+      "amountCad": 5000,
+      "evidenceStatus": "GAP",
+      "gapId": "GAP-5000-BILL",
+      "allocatable": false,
+      "receiptLineItems": [],
+      "receiptTotals": null,
+      "message": "No evidence-complete allocation for a $5,000 combined bill is published in this dataset. UI should show an incomplete state and list gaps, not filler percentages."
+    }
   },
-  "hypotheticalBill": {
-    "amountCad": 5000,
-    "currency": "CAD",
-    "assumption": "Illustrative annual residential property tax bill for a North Dumfries homeowner. Split across township / region / education using North Dumfries 2022 residential tax-rate ratios as a structural proxy."
-  },
-  "sources": [
+  "findings": [
     {
-      "id": "nd-2026-draft",
-      "title": "Township of North Dumfries 2026 Municipal Draft Budget Binder",
-      "url": "https://www.northdumfries.ca/media/csjjshvf/2026-draft-budget-binder.pdf",
-      "localPath": "source-pdfs/2026-draft-budget-binder.pdf"
+      "id": "FIND-ADMIN-CORP-SCALE",
+      "kind": "JUDGMENT",
+      "category": "administrative_bloat",
+      "title": "Corporate Services is a large share of the township draft budget",
+      "severitySeverity": "needs_review",
+      "citedFactIds": [
+        "ND-DEPT-CORPORATE-2026",
+        "ND-LEVY-2026",
+        "DRV-ND-CORP-PER-CAPITA",
+        "ND-POP-CENSUS-2021"
+      ],
+      "evidenceSummary": "Corporate Services draft $2,091,306 vs municipal levy $9,002,499; \u2248$197/capita at 2021 population.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
     },
     {
-      "id": "nd-2025-book",
-      "title": "Township of North Dumfries 2025 Budget Book",
-      "url": "https://www.northdumfries.ca/media/w1jelynw/2025-township-of-north-dumfries-budget-book-december.pdf",
-      "localPath": "source-pdfs/2025-township-of-north-dumfries-budget-book-december.pdf"
+      "id": "FIND-ADMIN-LEGAL-STACK",
+      "kind": "JUDGMENT",
+      "category": "administrative_bloat",
+      "title": "Multiple legal expense lines across departments",
+      "opportunitySeverity": "needs_review",
+      "citedFactIds": [
+        "DRV-ND-LEGAL-STACK-2026",
+        "ND-LEGAL-ADMIN-2026",
+        "ND-LEGAL-TAX-SALE-2026",
+        "ND-LEGAL-BUILDING-2026",
+        "ND-LEGAL-BYLAW-2026",
+        "ND-LEGAL-PLANNING-2026"
+      ],
+      "evidenceSummary": "Identified legal lines sum to $94,000.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
     },
     {
-      "id": "row-2026-book",
-      "title": "Region of Waterloo 2026 Final Budget Book",
-      "url": "https://www.regionofwaterloo.ca/media/ynro4cd2/2026_final_budget_book.pdf",
-      "localPath": "source-pdfs/2026_final_budget_book_region.pdf"
+      "id": "FIND-CAP-ARENA",
+      "kind": "JUDGMENT",
+      "category": "questionable_capital",
+      "title": "Net Zero Twin Pad dominates 2026 capital program",
+      "opportunitySeverity": "high_attention",
+      "citedFactIds": [
+        "ND-CAP-ARENA-2026",
+        "ND-CAPITAL-PROGRAM-2026",
+        "ND-CAP-DEBT-TWINPAD",
+        "DRV-ND-ARENA-PER-CAPITA",
+        "DRV-ND-ARENA-SHARE-OF-CAPITAL"
+      ],
+      "evidenceSummary": "$16,190,160 of $31,192,121 capital (~51.9%); $5M new debt; debt service starts 2027.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-ARENA-2026-TAX-IMPACT",
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
     },
     {
-      "id": "row-2026-summary",
-      "title": "Region of Waterloo 2026 Plan and Budget Summary Booklet",
-      "url": "https://www.regionofwaterloo.ca/media/3two5ebp/2026-plan-and-budget-summary-booklet.pdf",
-      "localPath": "source-pdfs/2026-plan-and-budget-summary-booklet.pdf"
+      "id": "FIND-CAP-DUAL-FACILITY",
+      "kind": "JUDGMENT",
+      "category": "questionable_capital",
+      "title": "ACC $3.5M exterior rehab concurrent with new Twin Pad",
+      "opportunitySeverity": "high_attention",
+      "citedFactIds": [
+        "ND-CAP-ACC-EXTERIOR-2026",
+        "ND-CAP-ARENA-2026"
+      ],
+      "evidenceSummary": "ACC exterior rehab $3,500,000 ($1M Ontario grant) while Twin Pad under construction; ACC ice to be decommissioned on Twin Pad opening.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
+    },
+    {
+      "id": "FIND-CAP-PUMPTRACK",
+      "kind": "JUDGMENT",
+      "category": "questionable_capital",
+      "title": "Pump track amenity \u2014 mostly externally funded",
+      "opportunitySeverity": "watch",
+      "citedFactIds": [
+        "ND-CAP-PUMPTRACK-2026"
+      ],
+      "evidenceSummary": "$568,756 total; Township cash $70,000; donations/fundraising $498,756.",
+      "billImpactCad": null,
+      "gapIds": []
+    },
+    {
+      "id": "FIND-UNUSUAL-GRANTS",
+      "kind": "JUDGMENT",
+      "category": "unusual_line_items",
+      "title": "Community grants and cemetery/service-club transfers",
+      "opportunitySeverity": "watch",
+      "citedFactIds": [
+        "ND-GRANTS-COMMUNITY-2026",
+        "ND-GRANT-AYR-CEMETERY-2026",
+        "ND-GRANT-SHEFFIELD-LIONS-2026"
+      ],
+      "evidenceSummary": "Community grants $40,000; Ayr Cemetery $10,000; Sheffield Lions $3,500.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
+    },
+    {
+      "id": "FIND-UNUSUAL-PARTNERSHIP-FEES",
+      "kind": "JUDGMENT",
+      "category": "unusual_line_items",
+      "title": "Economic development / tourism / sustainability fees",
+      "opportunitySeverity": "watch",
+      "citedFactIds": [
+        "ND-WREDC-2026",
+        "ND-TOURISM-2026",
+        "ND-SUSTAINABLE-WR-2026"
+      ],
+      "evidenceSummary": "WREDC $20,000; Tourism $5,000; Sustainable WR $1,725.",
+      "billImpactCad": null,
+      "gapIds": []
+    },
+    {
+      "id": "FIND-UNUSUAL-HERITAGE-SOFTWARE",
+      "kind": "JUDGMENT",
+      "category": "unusual_line_items",
+      "title": "Heritage software licensing",
+      "opportunitySeverity": "watch",
+      "citedFactIds": [
+        "ND-HERITAGE-SOFTWARE-2026"
+      ],
+      "evidenceSummary": "Heritage annual software licensing $5,000.",
+      "billImpactCad": null,
+      "gapIds": []
     }
   ],
-  "methodology": {
-    "jurisdictionSplit": {
-      "basis": "2022 North Dumfries residential (RT) tax rates",
-      "townshipRate": 0.00256586,
-      "regionRate": 0.00521492,
-      "educationRate": 0.00153,
-      "sharesOfTotalBill": {
-        "township": 0.2756,
-        "region": 0.5601,
-        "education": 0.1643
-      }
-    },
-    "townshipServiceAllocation": "Pro-rata of 2026 draft net departmental budgets against the township portion of the $5,000 bill.",
-    "regionServiceAllocation": "Region levy split using approved 2026 property tax levy ($887.3M) with WRPS levy ($272.6M). Remaining regional services allocated using Summary Booklet operating mix as a modeling proxy.",
-    "flaggingRules": [
-      "Administrative bloat: elevated corporate/admin share vs population; legal/consulting/membership/grant bundles",
-      "Questionable capital: high $/capita or dual-facility recreation spends; weakly justified amenity projects",
-      "Unusual line items: niche fees, pet projects, or programs atypical for a ~10-13k township"
-    ],
-    "confidence": {
-      "jurisdictionSplit": "medium",
-      "townshipOperatingLines": "high",
-      "regionOperatingLines": "medium",
-      "flagDollarAttribution": "medium-low"
-    }
-  },
-  "budgetSnapshots": {
-    "northDumfries2026Draft": {
-      "municipalLevyCad": 9002499,
-      "levyIncreaseCad": 574672,
-      "taxRateIncreasePct": 5.5,
-      "ofWhichCapitalReserveIncreasePctPoints": 3,
-      "capitalProgramCad": 31191121,
-      "netZeroArenaProjectCad": 16190160,
-      "newDebtForTwinPadCad": 5000000,
-      "federalNetZeroGrantCad": 5000000,
-      "communityFundraisingCad": 2121360,
-      "departmentNetBudgetsCad": {
-        "corporateServices": 2091306,
-        "protectiveServicesInclFire": 1554793,
-        "fireOnly": 1182646,
-        "publicWorks": 2477423,
-        "recreation": 1867455,
-        "planning": 451372,
-        "taxFundedCapitalReserves": 1607500
-      },
-      "perCapita": {
-        "populationBasis": 10619,
-        "corporateServicesPerCapita": 197,
-        "municipalLevyPerCapita": 848,
-        "netZeroArenaProjectPerCapita": 1525
-      }
-    },
-    "regionOfWaterloo2026": {
-      "operatingBudgetCad": 1800000000,
-      "propertyTaxLevyCad": 887328641,
-      "wrpsLevyCad": 272610413,
-      "directRegionalServicesLevyCad": 617067367,
-      "capitalBudgetCad": 772000000,
-      "tenYearCapitalProgramCad": 7900000000,
-      "averageHouseholdImpactCad": 142,
-      "grossOperatingMixCad": {
-        "police": 299000000,
-        "busesAndTrains": 231100000,
-        "housingAndHomelessness": 178400000,
-        "waterSupplyAndTreatment": 188700000,
-        "publicHealthSeniorsOwChildrens": 488800000,
-        "corporateHrTechFinance": 107200000,
-        "paramedicServices": 86400000,
-        "roadsTrailsSignals": 78500000,
-        "wasteManagement": 80100000,
-        "airport": 19900000,
-        "museumsAndLibraries": 15500000,
-        "economicDevelopment": 6300000,
-        "provincialOffencesRoadSafety": 21600000
-      }
-    }
-  },
-  "forensicFindings": {
-    "administrativeBloat": [
-      {
-        "id": "ADMIN-01",
-        "tier": "north_dumfries",
-        "title": "Corporate Services share elevated for township size",
-        "evidence": "2026 draft Corporate Services net budget $2,091,306 (~$197/capita; ~23% of municipal levy).",
-        "opportunitySeverity": "high",
-        "estimatedBillImpactCad": 71.68
-      },
-      {
-        "id": "ADMIN-02",
-        "tier": "north_dumfries",
-        "title": "Legal + consulting stack",
-        "evidence": "Operating legal lines ~$94,000; Official Plan rewrite consultant envelope $405,000; Broadband Strategy Phase 1 $150,000.",
-        "opportunitySeverity": "medium",
-        "estimatedBillImpactCad": 14.38
-      },
-      {
-        "id": "ADMIN-03",
-        "tier": "north_dumfries",
-        "title": "Council training / memberships",
-        "evidence": "Council budget $201,669; ~$4,000 training capacity per member; AMO membership ~$4,000.",
-        "opportunitySeverity": "low",
-        "estimatedBillImpactCad": 5.2
-      },
-      {
-        "id": "ADMIN-04",
-        "tier": "region",
-        "title": "Regional corporate / back-office share",
-        "evidence": "HR, Technology, Finance and more at $107.2M (6% of gross operating).",
-        "opportunitySeverity": "watch",
-        "estimatedBillImpactCad": 48.5
-      }
-    ],
-    "questionableCapitalProjects": [
-      {
-        "id": "CAP-07",
-        "tier": "region",
-        "title": "Region 10-year capital ~38.5% unsecured",
-        "evidence": "Region 2026 book: ~$3.1B unsecured of ~$8.1B 2026–2035 capital program. Projects may not proceed without senior-government subsidies.",
-        "opportunitySeverity": "high",
-        "estimatedBillImpactCad": 40
-      },
-      {
-        "id": "CAP-01",
-        "tier": "north_dumfries",
-        "title": "Net Zero Twin Pad Arena @ NDCC",
-        "evidence": "$16,190,160 of $31.19M 2026 capital (~52%). Funding: $5M federal grant, $5M new debt, $2.12M fundraising, $520k DCs.",
-        "opportunitySeverity": "high",
-        "estimatedBillImpactCad": 85,
-        "uiHint": "Marquee capital flag with funding-stack breakdown."
-      },
-      {
-        "id": "CAP-02",
-        "tier": "north_dumfries",
-        "title": "Ayr Community Centre exterior rehab concurrent with new arena",
-        "evidence": "$3,500,000 exterior rehab with $1M Ontario grant while Twin Pad is under construction.",
-        "opportunitySeverity": "high",
-        "estimatedBillImpactCad": 32
-      },
-      {
-        "id": "CAP-03",
-        "tier": "north_dumfries",
-        "title": "Pump Track at Jim Schmidt Memorial Park",
-        "evidence": "$568,756 design/build; Township cash only $70,000 (rest donated).",
-        "opportunitySeverity": "medium",
-        "estimatedBillImpactCad": 10.71
-      },
-      {
-        "id": "CAP-04",
-        "tier": "north_dumfries",
-        "title": "Clyde Park Phase I + trail studies",
-        "evidence": "Clyde park $185,500; Nith River Trail design $132,800; Campbell Trail $27,500.",
-        "opportunitySeverity": "medium",
-        "estimatedBillImpactCad": 18.5
-      },
-      {
-        "id": "CAP-05",
-        "tier": "north_dumfries",
-        "title": "New Townhall (10-year forecast)",
-        "evidence": "Grandbridge Energy income (~$586,774) reserved for new Townhall and facility projects.",
-        "opportunitySeverity": "watch",
-        "estimatedBillImpactCad": 0
-      },
-      {
-        "id": "CAP-06",
-        "tier": "region",
-        "title": "Region capital scale and unsecured funding risk",
-        "evidence": "2026 capital ~$772M; 10-year program ~$7.9B with material unsecured funding noted in consultation materials.",
-        "opportunitySeverity": "medium",
-        "estimatedBillImpactCad": 40
-      }
-    ],
-    "unusualLineItems": [
-      {
-        "id": "DOC-02",
-        "tier": "cross_entity",
-        "title": "Assessment-anchor mismatch (ND $455k vs Region $354.5k)",
-        "evidence": "North Dumfries household illustrations use $455,000 CVA; Region rural household table uses $354,500. Do not add tax impacts without rescaling.",
-        "opportunitySeverity": "medium",
-        "estimatedBillImpactCad": 0,
-        "uiHint": "Methodology caveat for combined township+region bill math."
-      },
-      {
-        "id": "DOC-01",
-        "tier": "north_dumfries",
-        "title": "OMPF documentation errata (year swap)",
-        "evidence": "2026 draft binder highlights correctly state OMPF = $291,800 (+$33,300). Page 10 narrative incorrectly says 2026 OMPF = $258,500 (that is the 2025 figure).",
-        "opportunitySeverity": "high",
-        "estimatedBillImpactCad": 0,
-        "uiHint": "Documentation integrity flag — no direct tax-dollar allocation."
-      },
-      {
-        "id": "UNUSUAL-01",
-        "tier": "north_dumfries",
-        "title": "Community grants, cemetery and service-club transfers",
-        "evidence": "Community grants $40,000; Ayr Cemetery $10,000; Cedar Creek $2,800; Sheffield Lions $3,500.",
-        "opportunitySeverity": "low",
-        "estimatedBillImpactCad": 8.61
-      },
-      {
-        "id": "UNUSUAL-02",
-        "tier": "north_dumfries",
-        "title": "Beaver extraction and animal-control contract",
-        "evidence": "Animal control net $10,875; notes reference beaver extraction contractors and inflation-indexed contract.",
-        "opportunitySeverity": "low",
-        "estimatedBillImpactCad": 1.66
-      },
-      {
-        "id": "UNUSUAL-03",
-        "tier": "north_dumfries",
-        "title": "Economic development / tourism levies",
-        "evidence": "WREDC $20,000; Tourism Marketing $5,000; Sustainable Waterloo Region $1,725.",
-        "opportunitySeverity": "medium",
-        "estimatedBillImpactCad": 4.09
-      },
-      {
-        "id": "UNUSUAL-04",
-        "tier": "north_dumfries",
-        "title": "Heritage software subscription",
-        "evidence": "Heritage budget includes $5,000 software subscription.",
-        "opportunitySeverity": "low",
-        "estimatedBillImpactCad": 0.76
-      },
-      {
-        "id": "UNUSUAL-05",
-        "tier": "north_dumfries",
-        "title": "Historic records digitization contractor",
-        "evidence": "$8,500 for outside-contractor records preservation/digitization.",
-        "opportunitySeverity": "low",
-        "estimatedBillImpactCad": 1.3
-      },
-      {
-        "id": "UNUSUAL-06",
-        "tier": "region",
-        "title": "Museums, libraries and cultural programming",
-        "evidence": "Region museums and libraries $15.5M; Doon Heritage Village reopening highlighted.",
-        "opportunitySeverity": "watch",
-        "estimatedBillImpactCad": 12
-      },
-      {
-        "id": "UNUSUAL-07",
-        "tier": "region",
-        "title": "Airport and economic-development spend",
-        "evidence": "Airport $19.9M; Building our economy $6.3M in Summary Booklet mix.",
-        "opportunitySeverity": "watch",
-        "estimatedBillImpactCad": 8
-      }
-    ]
-  },
-  "jurisdictionBreakdown": [
-    {
-      "id": "township",
-      "label": "Township of North Dumfries",
-      "amountCad": 1377.8,
-      "shareOfBill": 0.2756
-    },
-    {
-      "id": "region",
-      "label": "Region of Waterloo (incl. WRPS)",
-      "amountCad": 2800.5,
-      "shareOfBill": 0.5601,
-      "children": [
-        {
-          "id": "region-services",
-          "label": "Direct Regional Services",
-          "amountCad": 1940.11,
-          "shareOfBill": 0.388
-        },
-        {
-          "id": "wrps",
-          "label": "Waterloo Regional Police Service",
-          "amountCad": 860.39,
-          "shareOfBill": 0.1721
-        }
-      ]
-    },
-    {
-      "id": "education",
-      "label": "Education (Provincial / School Boards)",
-      "amountCad": 821.7,
-      "shareOfBill": 0.1643
-    }
-  ],
-  "receiptLineItems": [
-    {
-      "id": "EDU-01",
-      "tier": "education",
-      "category": "Education",
-      "label": "School boards (provincially set rate)",
-      "amountCad": 821.7,
-      "classification": "pass_through",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "WRPS-01",
-      "tier": "region",
-      "category": "Public Safety",
-      "label": "Waterloo Regional Police Service",
-      "amountCad": 860.39,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "REG-TRANSIT",
-      "tier": "region",
-      "category": "Transit",
-      "label": "Buses and trains (GRT / mobility)",
-      "amountCad": 485.0,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "REG-HEALTH",
-      "tier": "region",
-      "category": "Health & Social Supports",
-      "label": "Public Health, Seniors, Ontario Works, Children's Services (municipal share)",
-      "amountCad": 388.0,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "REG-HOUSING",
-      "tier": "region",
-      "category": "Housing",
-      "label": "Housing and homelessness programs",
-      "amountCad": 349.0,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "REG-EMS",
-      "tier": "region",
-      "category": "Emergency Services",
-      "label": "Paramedic Services",
-      "amountCad": 233.0,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "REG-WASTE",
-      "tier": "region",
-      "category": "Waste",
-      "label": "Garbage, compost, landfills",
-      "amountCad": 194.0,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "REG-ROADS",
-      "tier": "region",
-      "category": "Roads",
-      "label": "Regional roads, trails, signals",
-      "amountCad": 155.0,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "REG-CORP",
-      "tier": "region",
-      "category": "Administration",
-      "label": "Regional HR, Technology, Finance and corporate",
-      "amountCad": 48.5,
-      "classification": "flagged_admin",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "ADMIN-04"
-      ]
-    },
-    {
-      "id": "REG-CULTURE",
-      "tier": "region",
-      "category": "Culture",
-      "label": "Region museums and libraries",
-      "amountCad": 12.0,
-      "classification": "flagged_unusual",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "UNUSUAL-06"
-      ]
-    },
-    {
-      "id": "REG-AIRPORT-ECON",
-      "tier": "region",
-      "category": "Economic Development",
-      "label": "Airport and economic development",
-      "amountCad": 8.0,
-      "classification": "flagged_unusual",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "UNUSUAL-07"
-      ]
-    },
-    {
-      "id": "REG-CAPITAL-RISK",
-      "tier": "region",
-      "category": "Capital / Debt Pressure",
-      "label": "Regional capital program and debt-servicing pressure",
-      "amountCad": 40.0,
-      "classification": "flagged_capital",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "CAP-06"
-      ]
-    },
-    {
-      "id": "REG-OTHER",
-      "tier": "region",
-      "category": "Other Regional",
-      "label": "Other direct regional services (balancing)",
-      "amountCad": 27.61,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "ND-FIRE",
-      "tier": "township",
-      "category": "Fire & Protective",
-      "label": "Fire and emergency planning",
-      "amountCad": 162.13,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "ND-PROTECTIVE-OTHER",
-      "tier": "township",
-      "category": "Fire & Protective",
-      "label": "By-law, crossing guards, animal control",
-      "amountCad": 51.02,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": [
-        "UNUSUAL-02"
-      ]
-    },
-    {
-      "id": "ND-ROADS",
-      "tier": "township",
-      "category": "Public Works",
-      "label": "Roads, winter control, bridges, sidewalks",
-      "amountCad": 237.74,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "ND-PW-OVERHEAD",
-      "tier": "township",
-      "category": "Public Works",
-      "label": "Transportation services overhead (elevated)",
-      "amountCad": 101.89,
-      "classification": "flagged_admin",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "ADMIN-01"
-      ]
-    },
-    {
-      "id": "ND-REC-CORE",
-      "tier": "township",
-      "category": "Recreation",
-      "label": "Parks, facilities operations, programs",
-      "amountCad": 109.79,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "ND-REC-OVERHEAD",
-      "tier": "township",
-      "category": "Recreation",
-      "label": "Recreation and cultural services overhead",
-      "amountCad": 146.21,
-      "classification": "flagged_admin",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "ADMIN-01"
-      ]
-    },
-    {
-      "id": "ND-PLANNING",
-      "tier": "township",
-      "category": "Planning",
-      "label": "Planning and development (core)",
-      "amountCad": 43.3,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "ND-PLANNING-STUDIES",
-      "tier": "township",
-      "category": "Planning",
-      "label": "Planning studies / consultant pressure",
-      "amountCad": 18.56,
-      "classification": "flagged_admin",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "ADMIN-02"
-      ]
-    },
-    {
-      "id": "ND-CORP-CORE",
-      "tier": "township",
-      "category": "Administration",
-      "label": "Core corporate services (clerk, treasury, IT baseline)",
-      "amountCad": 185.04,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "ND-CORP-BLOAT",
-      "tier": "township",
-      "category": "Administration",
-      "label": "Elevated admin, legal, grants and memberships",
-      "amountCad": 101.68,
-      "classification": "flagged_admin",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "ADMIN-01",
-        "ADMIN-02",
-        "ADMIN-03",
-        "UNUSUAL-01",
-        "UNUSUAL-03",
-        "UNUSUAL-04",
-        "UNUSUAL-05"
-      ]
-    },
-    {
-      "id": "ND-CAPITAL-CORE",
-      "tier": "township",
-      "category": "Capital Reserves",
-      "label": "Core infrastructure reserve transfers (roads/bridges/fleet)",
-      "amountCad": 74.24,
-      "classification": "necessary",
-      "necessary": true,
-      "flagged": false,
-      "flagIds": []
-    },
-    {
-      "id": "ND-CAPITAL-FLAGGED",
-      "tier": "township",
-      "category": "Capital Reserves",
-      "label": "Arena / facilities capital ambition (Twin Pad, ACC, amenities)",
-      "amountCad": 146.21,
-      "classification": "flagged_capital",
-      "necessary": false,
-      "flagged": true,
-      "flagIds": [
-        "CAP-01",
-        "CAP-02",
-        "CAP-03",
-        "CAP-04"
-      ]
-    }
-  ],
-  "receiptTotals": {
-    "billCad": 5000,
-    "necessaryCad": 4394.96,
-    "flaggedCad": 605.04,
-    "passThroughCad": 821.7,
-    "necessaryExcludingPassThroughCad": 3573.26,
-    "flaggedShareOfBill": 0.121,
-    "necessaryShareOfBill": 0.879,
-    "byClassification": {
-      "necessary": 3573.26,
-      "pass_through": 821.7,
-      "flagged_admin": 416.84,
-      "flagged_capital": 186.21,
-      "flagged_unusual": 20.0
-    },
-    "uiSummary": {
-      "headline": "Of your $5,000 property tax bill, about $605 (12%) maps to flagged admin overhead, questionable capital ambition, or unusual discretionary items — the rest funds core township, regional, police, and education services.",
-      "necessaryLabel": "Necessary / core services",
-      "flaggedLabel": "Flagged / inefficient / discretionary",
-      "passThroughLabel": "Education (not set by Township/Region councils)"
-    }
-  },
   "uiModelHints": {
     "screen": "TaxReceipt",
-    "heroMetric": {
-      "label": "Your $5,000 breakdown",
-      "primaryValueCad": 5000,
-      "segments": [
-        {
-          "key": "necessary",
-          "label": "Necessary",
-          "valueCad": 3573.26,
-          "colorToken": "necessary"
-        },
-        {
-          "key": "pass_through",
-          "label": "Education",
-          "valueCad": 821.7,
-          "colorToken": "neutral"
-        },
-        {
-          "key": "flagged",
-          "label": "Flagged",
-          "valueCad": 605.04,
-          "colorToken": "flagged"
-        }
-      ]
-    },
-    "groupBy": [
-      "tier",
-      "classification",
-      "category"
-    ],
-    "expandableFlagCards": true,
-    "showPerCapitaComparisons": true,
-    "marqueeFlags": [
-      "CAP-01",
-      "ADMIN-01",
-      "CAP-02"
+    "defaultProfile": "supportedAverageHousehold",
+    "showGapsAsFirstClassUi": true,
+    "forbidFillerAllocation": true,
+    "marqueeFindings": [
+      "FIND-CAP-ARENA",
+      "FIND-CAP-DUAL-FACILITY",
+      "FIND-ADMIN-CORP-SCALE"
     ]
   }
 }
