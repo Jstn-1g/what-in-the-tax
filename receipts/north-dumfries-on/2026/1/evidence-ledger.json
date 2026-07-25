@@ -6,7 +6,7 @@
       "FACT: must include sourceId, excerpt, and page when from PDF.",
       "DERIVED: must include formula and input ids; no new external numbers.",
       "GAP: record missing evidence; never invent amounts to fill UI.",
-      "JUDGMENT: interpretive only; billImpactCad stays null.",
+      "JUDGMENT: interpretive only; billImpactCad null unless a cited formula exists.",
       "Draft vs final: North Dumfries 2026 operating figures are approved (By-law 3617-26); final residential rates from By-law 3637-26 Schedule A."
     ]
   },

@@ -27,10 +27,10 @@ publication:
   publisher: null  # required before Published
   contact: null
   refreshDueBy: "2027-04-30"
-  sealedPath: receipts/north-dumfries-on/2026/3
-  packTag: pack/north-dumfries-on/2026.3
+  sealedPath: receipts/north-dumfries-on/2026/2
+  packTag: pack/north-dumfries-on/2026.2
   notes: >
-    Citation audit hard failures cleared 2026-07-25. Sealed provisional preview at 2026.3.
+    Citation audit hard failures cleared 2026-07-25. Sealed provisional preview at 2026.2.
     Not Published until publisher/contact/corrections surface are set (PUBLISH.md).
 
 artifacts:

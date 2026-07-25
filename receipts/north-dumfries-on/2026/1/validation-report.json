@@ -1,8 +1,8 @@
 {
   "slug": "north-dumfries-on",
-  "validatedAt": "2026-07-25T20:15:31.832225+00:00",
+  "validatedAt": "2026-07-25T20:11:44.731529+00:00",
   "ok": true,
-  "publicationStatusDeclared": "sealed",
+  "publicationStatusDeclared": "draft",
   "errors": [],
   "warnings": [],
   "citationAudit": {
@@ -19,7 +19,7 @@
   "contentHashes": {
     "ledger": {
       "path": "data/evidence-ledger.json",
-      "sha256": "625d8cfd8a09ddd21da7a0f0eb303f44d89387f22c4574ee1b4826a37c05d608"
+      "sha256": "7f33b1d5701d336d0f7d39ae997c45ecae7cf24f3c20ff801cc69e8b17b8da26"
     },
     "receipt": {
       "path": "data/taxpayer-receipt.json",
@@ -27,7 +27,7 @@
     },
     "pack": {
       "path": "corpus/north-dumfries-on/pack.yaml",
-      "sha256": "c4261d0f72acbc389bc5d98d6b3b849e6383764439ccf819961d22b69a0ecae2"
+      "sha256": "ef447323b9d02ae87b6d7c75d628b2f81d7ae3c30164c77b8cdc04acf3e7b53c"
     }
   },
   "engineNote": "Bridge validator for legacy data/ artifacts. Full corpus YAML + Identity engine arrives with Phase 1 transcription (docs/GENERALIZATION-PLAN.md)."

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "seal-1.0.0",
+  "slug": "north-dumfries-on",
+  "fiscalYear": "2026",
+  "revision": 1,
+  "packTag": "pack/north-dumfries-on/2026.1",
+  "engineTag": "engine/0.1.0-bridge",
+  "sealedAt": "2026-07-25T20:11:44.846408+00:00",
+  "gitRev": "717287b2aec94dbcdc960c1cc35de7310bf7e0f6",
+  "files": {
+    "evidence-ledger.json": "7f33b1d5701d336d0f7d39ae997c45ecae7cf24f3c20ff801cc69e8b17b8da26",
+    "taxpayer-receipt.json": "64df6c89a4c3ecb736d35173f256694e6e583ba5581b85d143fa93a90e422fa9",
+    "citation-audit.json": "3a213b2987a037d2dd5643738fa1f5ffc85b0d6e70b39203dcac72eb7bc58455",
+    "validation-report.json": "62a3c3792b8e40df56111a24685059bc3c183c47402beaa0794a55b25b71a2ee",
+    "pack.yaml": "ef447323b9d02ae87b6d7c75d628b2f81d7ae3c30164c77b8cdc04acf3e7b53c"
+  },
+  "note": "Bridge seal of legacy data/ artifacts. Re-seal after corpus YAML transcription; never mutate this directory."
+}

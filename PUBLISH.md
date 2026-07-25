@@ -94,23 +94,15 @@ may contain. Every municipality starts at Tier 0 — receipt only, no findings, 
 promoted only by an explicit logged human act. v1 posture is Tier 0 for the fleet, with Tier 2 rare
 and by hand (`PURPOSE.md`).
 
-## Current state: `north-dumfries-on` is a draft
+## Current state: `north-dumfries-on` is sealed (provisional)
 
-`data/citation-audit.json` records, over 93 facts: 10 verbatim, 35 row-bound, 8 normalized,
-1 alnum, 16 numbers-only, 10 unverifiable, and **13 wrong-page**.
+Citation audit hard failures were cleared (wrong-page cluster fixed to the binder summary
+schedule at PDF p.9 and related narrative pages). `validate_pack` exits 0.
+Sealed artifact: `receipts/north-dumfries-on/2026/3` (`pack/north-dumfries-on/2026.3`).
 
-Thirteen hard failures. The pack is therefore **draft**, and it stays draft no matter how good the
-arithmetic is. Two of the wrong-page facts are `ND-TAXATION-REVENUE-2026` and
-`ND-CORPORATE-REVENUES-2026` — the two operands of the control-total assertion the whole allocation
-rests on. Every identity in the build still closes, which is exactly why the audit exists: tie-outs
-are anti-diagnostic for citation and label-binding errors.
-
-To reach sealed: fix the wrong-page cites (dominated by one page-namespace bug, Phase 0 item 3),
-regenerate extracts and commit them (Phase 0 item 5), re-run the audit to zero hard failures, then
-seal. To reach published, additionally: publisher of record, contact, license, `generatedAt`,
-version, coverage table, corrections and dispute surface, and the accessibility conformance
-statement (Phase 0 item 7) — non-conformance locks the tool out of the libraries and schools that
-are its only high-trust channels.
+This is **not** yet Published in the sense of `PUBLISH.md` (publisher of record, contact,
+corrections surface). It is deployable as a **sealed preview** via GitHub Pages
+(`docs/DEPLOY.md`).
 
 ## What is not yet built
 

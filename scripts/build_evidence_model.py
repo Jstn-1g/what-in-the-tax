@@ -295,22 +295,22 @@ facts = [
         label="Tax levy funding for Capital Reserve Transfers 2026",
         amountCad=1_625_000,
         excerpt="tax levy funding for Capital Reserve Transfers ... in 2026 totals $1,625,000",
-        note="Conflicts with the p.7 summary schedule figure of $1,607,500 (ND-CAPITAL-FUNDED-BY-LEVY-2026). The p.7 figure is used for the allocation base because it is the figure that balances the published budget to Net Budget 0. Both are recorded; neither is discarded.",
+        note="Conflicts with the p.9 summary schedule figure of $1,607,500 (ND-CAPITAL-FUNDED-BY-LEVY-2026). The p.9 figure is used for the allocation base because it is the figure that balances the published budget to Net Budget 0. Both are recorded; neither is discarded.",
         status="draft",
     ),
     fact(
         id="ND-CAPITAL-FUNDED-BY-LEVY-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Capital Funded by tax levy and building bill 2026 (summary schedule)",
         amountCad=1_607_500,
         excerpt="Capital Funded by tax levy and building bill ... 1,607,500",
-        note="From the p.7 levy summary schedule. Used as the capital component of the allocation base. Compare ND-CAPITAL-TAX-RESERVE-XFER-2026 ($1,625,000, p.43 narrative and capital table).",
+        note="From the p.9 levy summary schedule (PDF index). Used as the capital component of the allocation base. Compare ND-CAPITAL-TAX-RESERVE-XFER-2026 ($1,625,000, p.43 narrative and capital table).",
     ),
     fact(
         id="ND-DEPT-ENVIRONMENTAL-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="TOTAL ENVIRONMENTAL SERVICES 2026 (net credit)",
         amountCad=-225,
         excerpt="TOTAL ENVIRONMENTAL SERVICES ... (225)",
@@ -319,34 +319,34 @@ facts = [
     fact(
         id="ND-COUNCIL-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total Council 2026",
         amountCad=201_669,
         excerpt="Total Council ... 201,669",
-        note="COMPONENT of TOTAL CORPORATE SERVICES, not a sibling of it. Never add to the allocation base separately - that double-counts $238,703 with Elections.",
+        note="COMPONENT of TOTAL CORPORATE SERVICES, not a sibling of it. Never add to the allocation base separately - that double-counts $238,703 with Elections. Detail schedule also on p.15.",
     ),
     fact(
         id="ND-ELECTIONS-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total Elections 2026",
         amountCad=37_034,
         excerpt="Total Elections ... 37,034",
-        note="COMPONENT of TOTAL CORPORATE SERVICES. See ND-COUNCIL-2026.",
+        note="COMPONENT of TOTAL CORPORATE SERVICES. See ND-COUNCIL-2026. Detail schedule also on p.15.",
     ),
     fact(
         id="ND-CORP-SERV-ADMIN-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total Corporate Serv Admin 2026",
         amountCad=1_841_803,
         excerpt="Total Corporate Serv Admin ... 1,841,803",
-        note="Council 201,669 + Elections 37,034 + this 1,841,803 + Admin Office NDCC 5,300 + Earl Thompson 5,500 = 2,091,306 = TOTAL CORPORATE SERVICES exactly.",
+        note="Council 201,669 + Elections 37,034 + this 1,841,803 + Admin Office NDCC 5,300 + Earl Thompson 5,500 = 2,091,306 = TOTAL CORPORATE SERVICES exactly. Detail also on p.18.",
     ),
     fact(
         id="ND-TAXATION-REVENUE-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total General Revenue Taxation 2026",
         amountCad=9_182_824,
         excerpt="Total General Revenue Taxation ... (9,182,824)",
@@ -355,7 +355,7 @@ facts = [
     fact(
         id="ND-CORPORATE-REVENUES-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total General Corporate Revenues 2026",
         amountCad=866_800,
         excerpt="Total General Corporate Revenues ... (866,800)",
@@ -429,7 +429,7 @@ facts = [
     fact(
         id="ND-CAP-BROADBAND-2026",
         sourceId="nd-2026-draft",
-        page=45,
+        page=46,
         label="Broadband Enhancement Strategy Phase 1",
         amountCad=150_000,
         excerpt="project is estimated at $150,000 with funding through the Broadband Reserve Account",
@@ -438,7 +438,7 @@ facts = [
     fact(
         id="ND-CAP-OFFICIAL-PLAN-2026",
         sourceId="nd-2026-draft",
-        page=46,
+        page=47,
         label="Official Plan comprehensive update / conformity exercise",
         amountCad=405_000,
         excerpt="project has an estimated cost of $405,000 and is funded through the Planning Studies Reserve Account, Development Charges Reserve Account and funding from Waterloo Economic Development Corporation",
@@ -492,7 +492,7 @@ facts = [
     fact(
         id="ND-GRANTS-COMMUNITY-2026",
         sourceId="nd-2026-draft",
-        page=14,
+        page=16,
         label="Tax-funded community grants 2026",
         amountCad=40_000,
         excerpt="The 2026 tax funded community grants are $40,000",
@@ -501,7 +501,7 @@ facts = [
     fact(
         id="ND-GRANT-AYR-CEMETERY-2026",
         sourceId="nd-2026-draft",
-        page=14,
+        page=16,
         label="Ayr Cemetery grant",
         amountCad=10_000,
         excerpt="allocations to the Ayr Cemetery, in the amount of $10,000",
@@ -510,7 +510,7 @@ facts = [
     fact(
         id="ND-GRANT-SHEFFIELD-LIONS-2026",
         sourceId="nd-2026-draft",
-        page=14,
+        page=16,
         label="Sheffield Lions / Scott Women’s Institute Building",
         amountCad=3_500,
         excerpt="$3,500 to the Sheffield Lions Club for the maintenance of the Scott Women’s Institute Building",
@@ -519,7 +519,7 @@ facts = [
     fact(
         id="ND-RECORDS-MGMT-2026",
         sourceId="nd-2026-draft",
-        page=16,
+        page=18,
         label="Records Management Services",
         amountCad=8_500,
         excerpt="Administration - Records Management Services ... 8,500",
@@ -1376,7 +1376,7 @@ ledger = {
             "FACT: must include sourceId, excerpt, and page when from PDF.",
             "DERIVED: must include formula and input ids; no new external numbers.",
             "GAP: record missing evidence; never invent amounts to fill UI.",
-            "JUDGMENT: interpretive only; billImpactCad null unless a cited formula exists.",
+            "JUDGMENT: interpretive only; billImpactCad stays null.",
             "Draft vs final: North Dumfries 2026 operating figures are approved (By-law 3617-26); final residential rates from By-law 3637-26 Schedule A.",
         ]
     },
@@ -1577,6 +1577,11 @@ for _target in (DATA, WEB_DATA):
     (_target / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
 assert (DATA / "evidence-ledger.json").read_bytes() == (WEB_DATA / "evidence-ledger.json").read_bytes()
 assert (DATA / "taxpayer-receipt.json").read_bytes() == (WEB_DATA / "taxpayer-receipt.json").read_bytes()
+
+# Mirror citation audit when present so the UI can refuse bad #page= deep links.
+_audit = DATA / "citation-audit.json"
+if _audit.exists():
+    (WEB_DATA / "citation-audit.json").write_text(_audit.read_text(encoding="utf-8"), encoding="utf-8")
 
 print("facts", len(facts))
 print("derived", len(derived_rows))

@@ -4,6 +4,7 @@ import {
   buildEvidenceIndex,
   citationLabel,
   resolveCitation,
+  type CitationAudit,
   type EvidenceIndex,
 } from '../lib/evidenceLookup'
 import type {
@@ -50,10 +51,14 @@ function SourceAnchor({
       <span className="source-link source-link-static">{citationLabel(citation)}</span>
     ) : null
   }
+  const pageLabel =
+    citation.page != null && citation.matchTier !== 'weak'
+      ? ` · p.${citation.page}`
+      : ''
   return (
     <a className="source-link" href={citation.href} target="_blank" rel="noreferrer">
       {citation.source ? shortSourceName(citation.source.title) : 'Open source'}
-      {citation.page != null ? ` · p.${citation.page}` : ''}
+      {pageLabel}
     </a>
   )
 }
@@ -134,6 +139,7 @@ export default function TaxReceiptScreen({
   sources,
   facts,
   derived,
+  citationAudit,
 }: {
   data: TaxpayerReceipt
   gaps: Gap[]
@@ -141,6 +147,7 @@ export default function TaxReceiptScreen({
   sources: Source[]
   facts: Fact[]
   derived: Derived[]
+  citationAudit?: CitationAudit | null
 }) {
   const profile = data.profiles.supportedAverageHousehold
   const combined = profile.combinedAtAssessment
@@ -148,8 +155,8 @@ export default function TaxReceiptScreen({
   const [selectedFlagId, setSelectedFlagId] = useState<string | null>(null)
 
   const evidence = useMemo(
-    () => buildEvidenceIndex(sources, facts, derived),
-    [sources, facts, derived],
+    () => buildEvidenceIndex(sources, facts, derived, citationAudit),
+    [sources, facts, derived, citationAudit],
   )
 
   const findingsById = useMemo(() => {
@@ -181,6 +188,10 @@ export default function TaxReceiptScreen({
 
   return (
     <div className="page">
+      <div className="deploy-banner" role="status">
+        Sealed preview · pack/north-dumfries-on/2026.3 · not affiliated with the Township or Region ·
+        not tax advice · citation hard-fail count: 0
+      </div>
       <header className="hero">
         <div className="hero-atmosphere" aria-hidden="true" />
         <div className="hero-inner">

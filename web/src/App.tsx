@@ -1,4 +1,5 @@
 import TaxReceiptScreen from './components/TaxReceiptScreen'
+import audit from './data/citation-audit.json'
 import ledger from './data/evidence-ledger.json'
 import receipt from './data/taxpayer-receipt.json'
 import type { EvidenceLedger, TaxpayerReceipt } from './types'
@@ -14,6 +15,12 @@ export default function App() {
       sources={evidence.sources}
       facts={evidence.facts}
       derived={evidence.derived}
+      citationAudit={
+        audit as {
+          counts?: Record<string, number>
+          results?: { id?: string; tier?: string }[]
+        }
+      }
     />
   )
 }

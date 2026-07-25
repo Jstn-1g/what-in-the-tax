@@ -1,6 +1,6 @@
 {
   "slug": "north-dumfries-on",
-  "validatedAt": "2026-07-25T20:15:31.832225+00:00",
+  "validatedAt": "2026-07-25T20:14:46.381124+00:00",
   "ok": true,
   "publicationStatusDeclared": "sealed",
   "errors": [],
@@ -27,7 +27,7 @@
     },
     "pack": {
       "path": "corpus/north-dumfries-on/pack.yaml",
-      "sha256": "c4261d0f72acbc389bc5d98d6b3b849e6383764439ccf819961d22b69a0ecae2"
+      "sha256": "38fb457d011f298269ab1595816abb6a02a8320a42a06c7bdbba4a5fa9bd5413"
     }
   },
   "engineNote": "Bridge validator for legacy data/ artifacts. Full corpus YAML + Identity engine arrives with Phase 1 transcription (docs/GENERALIZATION-PLAN.md)."

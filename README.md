@@ -62,7 +62,7 @@ python scripts/validate_pack.py north-dumfries-on   # must exit 0 to seal
 python scripts/seal_pack.py north-dumfries-on 1     # writes receipts/.../manifest.json
 ```
 
-**Pack status today:** `north-dumfries-on` is **draft**. Citation hard failures are non-zero, so sealing is refused on purpose. MARAI may only block publish wording; export reviews to `review.jsonl` — do not treat gitignored `marai-ledger/` as the record.
+**Pack status today:** `north-dumfries-on` is **sealed** at `pack/north-dumfries-on/2026.3` (provisional preview). Citation hard failures are zero. See `docs/DEPLOY.md` to host on GitHub Pages. Full “Published” still needs the human steps in `PUBLISH.md`.
 
 ## Reconciliation
 
