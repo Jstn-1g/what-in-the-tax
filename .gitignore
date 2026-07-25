@@ -19,6 +19,11 @@ corpus/*/pdf/
 .env.*
 !.env.example
 
+# Cloudflare Wrangler
+.wrangler
+.dev.vars*
+!.dev.vars.example
+
 # Editors and OS
 .vscode/
 .idea/

@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tax-receipt-prototype",
+  "compatibility_date": "2026-07-25",
+  "observability": {
+    "enabled": true
+  },
+  // Serve the Vite *production* build, not the raw web/ source (that points at /src/main.tsx and shows a blank page).
+  "assets": {
+    "directory": "./web/dist",
+    "not_found_handling": "single-page-application"
+  }
+}
