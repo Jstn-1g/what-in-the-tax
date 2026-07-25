@@ -37,11 +37,32 @@ The three rate columns sum exactly to the printed Total 2026 Rate, and the towns
 
 ## Evidence rules
 
-- **FACT** — quoted from a source with a page or URL and a verbatim excerpt.
+- **FACT** — cited to a source with a page or URL and an excerpt. Excerpts are reconstructions unless `data/citation-audit.json` reports a verbatim (or stronger) match for that fact.
 - **DERIVED** — computed only from fact IDs, with the formula recorded.
 - **GAP** — missing evidence. Never invent a number to fill one. Resolved gaps move to `closedGaps` rather than being deleted, so the audit trail survives.
-- **JUDGMENT** — interpretive. `billImpactCad` stays `null`, always.
+- **JUDGMENT** — interpretive only. `billImpactCad` stays `null`, always.
 - A documented dead end is a correct outcome. Gaps carry a `searchTrail` recording where we looked.
+
+## Static packs, validation, and versioning
+
+Rollout is **static jurisdiction packs** (files + git), not a shared multi-tenant database. Integrity is content hashes and citation audit — not a blockchain as source of truth.
+
+| doc | role |
+|---|---|
+| `PURPOSE.md` | Who it's for; what v1 refuses |
+| `PUBLISH.md` | draft → sealed → Published (only path) |
+| `docs/VERSIONING.md` | `engine/x.y.z` vs `pack/<slug>/YYYY.N` |
+| `corpus/` | Pack descriptors + `_template` |
+| `LICENSE` | MIT |
+
+```bash
+python scripts/build_evidence_model.py
+python scripts/audit_citations.py
+python scripts/validate_pack.py north-dumfries-on   # must exit 0 to seal
+python scripts/seal_pack.py north-dumfries-on 1     # writes receipts/.../manifest.json
+```
+
+**Pack status today:** `north-dumfries-on` is **draft**. Citation hard failures are non-zero, so sealing is refused on purpose. MARAI may only block publish wording; export reviews to `review.jsonl` — do not treat gitignored `marai-ledger/` as the record.
 
 ## Reconciliation
 
@@ -73,16 +94,19 @@ python scripts/build_evidence_model.py   # regenerate both data copies
 cd web
 npm install
 npm run dev        # http://127.0.0.1:5173
-npm test           # 31 tests
+npm test           # vitest suite in web/
 npm run build      # tsc + vite
 ```
 
 ## Known open gaps
 
-Three remain open, each with a search trail in the ledger:
+Open gaps (each with a search trail in the ledger):
 
-- `GAP-PEER-BENCHMARK` — no normalised peer comparator obtained, so the administrative-scale finding is not a conclusion.
-- `GAP-ND-POP-CURRENT` — per-capita metrics still divide 2026 dollars by 2021 census population, biasing them upward.
-- `GAP-TWINPAD-OPERATING-DELTA` — no evidence on the recurring operating cost change once the new arena opens.
+- `GAP-TWINPAD-OPERATING-DELTA` — no published Twin Pad vs ACC ice operating delta
+- `GAP-FLAGGED-DOLLARS-ON-BILL` — no approved rule for “flagged” dollars on a household bill
+- `GAP-ARENA-2026-TAX-IMPACT` — Twin Pad debt service tax impact not stated for 2026
+- `GAP-BEAVER-LINE-AMOUNT` — beaver extraction spend not isolated as a line amount
 
-Also open: `GAP-FLAGGED-DOLLARS-ON-BILL`, `GAP-ARENA-2026-TAX-IMPACT`, `GAP-BEAVER-LINE-AMOUNT`.
+Closed (retained in `closedGaps`): `GAP-PEER-BENCHMARK`, `GAP-ND-POP-CURRENT`, and earlier resolved items. The ledger is authority over this list.
+
+**Before Published:** citation audit hard failures must be zero (`PUBLISH.md`). That bar is currently not met.

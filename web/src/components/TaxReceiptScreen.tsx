@@ -1,6 +1,20 @@
 import { useMemo, useState } from 'react'
 import { money } from '../lib/format'
-import type { Finding, Gap, ReceiptLineItem, TaxpayerReceipt } from '../types'
+import {
+  buildEvidenceIndex,
+  citationLabel,
+  resolveCitation,
+  type EvidenceIndex,
+} from '../lib/evidenceLookup'
+import type {
+  Derived,
+  Fact,
+  Finding,
+  Gap,
+  ReceiptLineItem,
+  Source,
+  TaxpayerReceipt,
+} from '../types'
 import FlagDetailDrawer from './FlagDetailDrawer'
 import MarqueeFlags from './MarqueeFlags'
 
@@ -22,22 +36,60 @@ function lineTone(line: ReceiptLineItem) {
   return { row: 'necessary', badge: 'badge-necessary', label: line.evidenceStatus }
 }
 
+function SourceAnchor({
+  evidence,
+  factId,
+}: {
+  evidence: EvidenceIndex
+  factId?: string
+}) {
+  if (!factId) return null
+  const citation = resolveCitation(evidence, factId)
+  if (!citation.href) {
+    return citation.kind === 'DERIVED' ? (
+      <span className="source-link source-link-static">{citationLabel(citation)}</span>
+    ) : null
+  }
+  return (
+    <a className="source-link" href={citation.href} target="_blank" rel="noreferrer">
+      {citation.source ? shortSourceName(citation.source.title) : 'Open source'}
+      {citation.page != null ? ` · p.${citation.page}` : ''}
+    </a>
+  )
+}
+
+function shortSourceName(title: string) {
+  if (title.includes('By-law 3637')) return 'By-law 3637-26 Schedule A'
+  if (title.includes('Draft Budget')) return 'ND 2026 budget binder'
+  if (title.includes('Final Budget Book')) return 'Region 2026 budget book'
+  if (title.includes('Summary Booklet')) return 'Region budget summary'
+  if (title.includes('17-10-0155')) return 'StatCan population estimates'
+  if (title.includes('FIR')) return 'Ontario FIR 2023'
+  if (title.includes('Census')) return 'StatCan 2021 Census'
+  return title.length > 42 ? `${title.slice(0, 40)}…` : title
+}
+
 function LineList({
+  id,
   title,
   subtitle,
   totalCad,
   lines,
+  evidence,
 }: {
+  id: string
   title: string
   subtitle: string
   totalCad: number
   lines: ReceiptLineItem[]
+  evidence: EvidenceIndex
 }) {
   const sorted = [...lines].sort((a, b) => Math.abs(b.amountCad) - Math.abs(a.amountCad))
   return (
-    <section className="section receipt-section" aria-labelledby={`${title}-id`}>
+    <section className="section receipt-section" id={id} aria-labelledby={`${id}-title`}>
       <div className="section-head">
-        <h2 id={`${title}-id`}>{title}</h2>
+        <p className="section-kicker">On the bill</p>
+        <h2 id={`${id}-title`}>{title}</h2>
         <p>{subtitle}</p>
       </div>
       <div className="receipt-sheet">
@@ -46,10 +98,7 @@ function LineList({
           {sorted.map((line, index) => (
             <li
               key={line.id}
-              className={[
-                'receipt-line',
-                lineTone(line).row,
-              ].join(' ')}
+              className={['receipt-line', lineTone(line).row].join(' ')}
               style={{ animationDelay: `${index * 25}ms` }}
             >
               <div className="line-main">
@@ -59,15 +108,10 @@ function LineList({
                     {lineTone(line).label}
                     {line.note ? ` · ${line.note}` : ''}
                   </p>
+                  <SourceAnchor evidence={evidence} factId={line.sourceFactId} />
                 </div>
                 <div className="line-right">
-                  <span
-                    className={
-                      'badge ' + lineTone(line).badge
-                    }
-                  >
-                    {lineTone(line).label}
-                  </span>
+                  <span className={'badge ' + lineTone(line).badge}>{lineTone(line).label}</span>
                   <strong>{money(line.amountCad)}</strong>
                 </div>
               </div>
@@ -87,18 +131,32 @@ export default function TaxReceiptScreen({
   data,
   gaps,
   evidenceRules,
+  sources,
+  facts,
+  derived,
 }: {
   data: TaxpayerReceipt
   gaps: Gap[]
   evidenceRules: string[]
+  sources: Source[]
+  facts: Fact[]
+  derived: Derived[]
 }) {
   const profile = data.profiles.supportedAverageHousehold
+  const combined = profile.combinedAtAssessment
   const [flagTab, setFlagTab] = useState<FindingTab>('questionable_capital')
   const [selectedFlagId, setSelectedFlagId] = useState<string | null>(null)
+
+  const evidence = useMemo(
+    () => buildEvidenceIndex(sources, facts, derived),
+    [sources, facts, derived],
+  )
 
   const findingsById = useMemo(() => {
     return new Map(data.findings.map((finding) => [finding.id, finding]))
   }, [data.findings])
+
+  const gapsById = useMemo(() => new Map(gaps.map((gap) => [gap.id, gap])), [gaps])
 
   const marqueeFlags = useMemo(() => {
     return data.uiModelHints.marqueeFindings
@@ -115,113 +173,129 @@ export default function TaxReceiptScreen({
   const townshipLines = profile.township.lineItems ?? []
   const regionLines = profile.region.lineItems ?? []
 
+  const primarySources = sources.filter((s) =>
+    ['nd-2026-tax-rate-bylaw', 'nd-2026-draft', 'row-2026-book', 'nd-2026-budget-minutes'].includes(
+      s.id,
+    ),
+  )
+
   return (
     <div className="page">
       <header className="hero">
         <div className="hero-atmosphere" aria-hidden="true" />
         <div className="hero-inner">
           <p className="brand">Taxpayer Receipt</p>
-          <h1>Evidence-based household profile</h1>
+          <h1>What a $455,000 rural bill pays in 2026</h1>
           <p className="hero-support">
-            Township + Region + Education at one assessment, every rate cited to By-law 3637-26 Schedule A
+            One assessment. Three rates from By-law 3637-26 Schedule A. Every dollar traces to a
+            published source.
           </p>
           <div className="hero-cta-row">
-            <a className="cta" href="#gaps">
-              See gaps
+            <a className="cta" href="#bill">
+              Your bill
             </a>
-            <a className="cta cta-ghost" href="#findings">
-              Findings
+            <a className="cta cta-ghost" href="#sources">
+              Sources
+            </a>
+            <a className="cta cta-ghost" href="#gaps">
+              Gaps
             </a>
           </div>
           <p className="hero-amount" aria-live="polite">
-            <span className="hero-amount-label">Total 2026 residential bill at $455,000 (By-law 3637-26)</span>
-            <span className="hero-amount-value">
-              {money(profile.combinedTotalCad ?? 0)}
-            </span>
+            <span className="hero-amount-label">Total residential bill · rural · By-law 3637-26</span>
+            <span className="hero-amount-value">{money(profile.combinedTotalCad ?? 0)}</span>
           </p>
         </div>
       </header>
 
+      <nav className="page-nav" aria-label="On this page">
+        <a href="#bill">Bill</a>
+        <a href="#township">Township</a>
+        <a href="#region">Region</a>
+        <a href="#watch">Watch</a>
+        <a href="#findings">Findings</a>
+        <a href="#gaps">Gaps</a>
+        <a href="#sources">Sources</a>
+      </nav>
+
       <main>
-        <section className="section" id="gaps" aria-labelledby="gaps-title">
+        <section className="section bill-section" id="bill" aria-labelledby="bill-title">
           <div className="section-head">
-            <h2 id="gaps-title">Evidence gaps</h2>
-            <p>Missing proof is listed — not filled with invented numbers.</p>
+            <p className="section-kicker">1 · Combined receipt</p>
+            <h2 id="bill-title">How the total is built</h2>
+            <p>
+              {combined?.basis ??
+                'Township + Region + Education at one $455,000 assessment.'}
+            </p>
           </div>
-          <ul className="flag-list">
-            {gaps.map((gap) => (
-              <li key={gap.id} className="flag-item severity-watch">
-                <div className="flag-top">
-                  <div>
-                    <p className="flag-id">{gap.id}</p>
-                    <h3>{gap.title}</h3>
-                  </div>
-                  <span className="flag-impact">gap</span>
+
+          <ol className="bill-stack">
+            {(combined?.components ?? []).map((component) => (
+              <li key={component.label} className="bill-stack-row">
+                <div>
+                  <h3>{component.label}</h3>
+                  <p className="line-meta">
+                    Rate {component.rate.toFixed(8)} × {money(combined?.assessmentCad ?? 455000)}
+                  </p>
+                  <SourceAnchor evidence={evidence} factId={component.sourceFactId} />
                 </div>
-                <p>{gap.detail}</p>
-                {gap.neededEvidence.length > 0 ? (
-                  <p className="line-meta">Need: {gap.neededEvidence.join(' · ')}</p>
-                ) : null}
+                <strong className="bill-stack-amount">{money(component.amountCad)}</strong>
               </li>
             ))}
-          </ul>
-          <div className="section-head" style={{ marginTop: '1.5rem' }}>
-            <h3>Policy</h3>
+          </ol>
+
+          <div className="bill-stack-total">
+            <span>Combined total</span>
+            <strong>{money(combined?.totalCad ?? profile.combinedTotalCad ?? 0)}</strong>
+          </div>
+
+          <p className="bill-note">{profile.combinedTotalNote}</p>
+
+          <details className="fold">
+            <summary>Model notes &amp; caveats</summary>
             <ul className="child-list">
-              {evidenceRules.map((rule) => (
-                <li key={rule}>{rule}</li>
+              {profile.warnings.map((warning) => (
+                <li key={warning}>{warning}</li>
               ))}
+              <li>
+                Township rural avg @ $455k: {money(profile.township.amountCad ?? 0)} (approved
+                operating allocation below)
+              </li>
+              <li>
+                Region rural HH table @ $354.5k: {money(profile.region.amountCad ?? 0)} — different
+                assessment base; do not add to the combined total above
+              </li>
+              <li>{data.profiles.hypothetical5000.message}</li>
             </ul>
-          </div>
+          </details>
         </section>
-
-        <section className="section mix-section" aria-labelledby="status-title">
-          <div className="section-head">
-            <h2 id="status-title">Model status</h2>
-            <p>{data.purpose}</p>
-          </div>
-          <ul className="mix-legend">
-            <li>
-              <span className="swatch necessary" />
-              Township rural avg @ $455k: {money(profile.township.amountCad ?? 0)} (approved)
-            </li>
-            <li>
-              <span className="swatch pass" />
-              Region rural HH @ $354.5k: {money(profile.region.amountCad ?? 0)} (final table)
-            </li>
-            <li>
-              <span className="swatch pass" />
-              Education rate: FACT (By-law 3637-26) · combined $5k bill deferred
-            </li>
-          </ul>
-          <ul className="child-list">
-            {profile.warnings.map((warning) => (
-              <li key={warning}>{warning}</li>
-            ))}
-            <li>{profile.combinedTotalNote}</li>
-            <li>{data.profiles.hypothetical5000.message}</li>
-          </ul>
-        </section>
-
-        <MarqueeFlags flags={marqueeFlags} onOpen={setSelectedFlagId} />
 
         <LineList
+          id="township"
           title="Township portion"
           subtitle={profile.township.basis}
           totalCad={profile.township.amountCad ?? 0}
           lines={townshipLines}
+          evidence={evidence}
         />
 
         <LineList
-          title="Region portion (rural household)"
+          id="region"
+          title="Region portion (rural household table)"
           subtitle={profile.region.basis}
           totalCad={profile.region.amountCad ?? 0}
           lines={regionLines}
+          evidence={evidence}
         />
+
+        <div id="watch">
+          <MarqueeFlags flags={marqueeFlags} onOpen={setSelectedFlagId} />
+        </div>
 
         <section className="section" id="findings" aria-labelledby="findings-title">
           <div className="section-head">
-            <h2 id="findings-title">Findings (judgment)</h2>
+            <p className="section-kicker">2 · Needs explanation</p>
+            <h2 id="findings-title">Findings</h2>
             <p>Cited to facts; bill dollars stay null until a formula is approved.</p>
             <p className="line-meta">
               {data.uiModelHints.flaggedDefinition ??
@@ -243,19 +317,100 @@ export default function TaxReceiptScreen({
             ))}
           </div>
           <ul className="flag-list">
-            {tabFindings.map((flag) => (
-              <li key={flag.id} className={`flag-item severity-${flag.opportunitySeverity}`}>
-                <button type="button" className="flag-button" onClick={() => setSelectedFlagId(flag.id)}>
-                  <div className="flag-top">
-                    <div>
-                      <p className="flag-id">{flag.id}</p>
-                      <h3>{flag.title}</h3>
+            {tabFindings.map((flag) => {
+              const firstCite = flag.citedFactIds[0]
+                ? resolveCitation(evidence, flag.citedFactIds[0])
+                : null
+              return (
+                <li key={flag.id} className={`flag-item severity-${flag.opportunitySeverity}`}>
+                  <button
+                    type="button"
+                    className="flag-button"
+                    onClick={() => setSelectedFlagId(flag.id)}
+                  >
+                    <div className="flag-top">
+                      <div>
+                        <p className="flag-id">{flag.id}</p>
+                        <h3>{flag.title}</h3>
+                      </div>
+                      <span className="flag-impact">review</span>
                     </div>
-                    <span className="flag-impact">n/a</span>
+                    <p>{flag.evidenceSummary}</p>
+                    {firstCite?.source ? (
+                      <p className="line-meta">Primary: {citationLabel(firstCite)}</p>
+                    ) : null}
+                    <span className="flag-cta">Open citations</span>
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+
+        <section className="section" id="gaps" aria-labelledby="gaps-title">
+          <div className="section-head">
+            <p className="section-kicker">3 · Still missing</p>
+            <h2 id="gaps-title">Evidence gaps</h2>
+            <p>Missing proof is listed — not filled with invented numbers.</p>
+          </div>
+          <ul className="flag-list">
+            {gaps.map((gap) => (
+              <li key={gap.id} id={gap.id} className="flag-item severity-watch">
+                <div className="flag-top">
+                  <div>
+                    <p className="flag-id">{gap.id}</p>
+                    <h3>{gap.title}</h3>
                   </div>
-                  <p>{flag.evidenceSummary}</p>
-                  <span className="flag-cta">View citations</span>
-                </button>
+                  <span className="flag-impact">gap</span>
+                </div>
+                <p>{gap.detail}</p>
+                {gap.neededEvidence.length > 0 ? (
+                  <p className="line-meta">Need: {gap.neededEvidence.join(' · ')}</p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+          <details className="fold">
+            <summary>Evidence policy</summary>
+            <ul className="child-list">
+              {evidenceRules.map((rule) => (
+                <li key={rule}>{rule}</li>
+              ))}
+            </ul>
+          </details>
+        </section>
+
+        <section className="section sources-section" id="sources" aria-labelledby="sources-title">
+          <div className="section-head">
+            <p className="section-kicker">References</p>
+            <h2 id="sources-title">Direct sources</h2>
+            <p>Open the published documents behind this receipt.</p>
+          </div>
+
+          <div className="source-priority">
+            <h3>Start here</h3>
+            <ul className="source-list">
+              {primarySources.map((source) => (
+                <li key={source.id}>
+                  <a className="source-card" href={source.url} target="_blank" rel="noreferrer">
+                    <span className="source-auth">{source.authority ?? 'source'}</span>
+                    <strong>{source.title}</strong>
+                    <span className="source-open">Open document →</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <h3 className="source-all-heading">Full bibliography</h3>
+          <ul className="source-list source-list-compact">
+            {sources.map((source) => (
+              <li key={source.id}>
+                <a href={source.url} target="_blank" rel="noreferrer">
+                  {source.title}
+                </a>
+                {source.asOf ? <span className="line-meta"> · as of {source.asOf}</span> : null}
+                {source.note ? <p className="line-meta">{source.note}</p> : null}
               </li>
             ))}
           </ul>
@@ -268,7 +423,12 @@ export default function TaxReceiptScreen({
       </main>
 
       {selectedFlag ? (
-        <FlagDetailDrawer flag={selectedFlag} onClose={() => setSelectedFlagId(null)} />
+        <FlagDetailDrawer
+          flag={selectedFlag}
+          evidence={evidence}
+          gapsById={gapsById}
+          onClose={() => setSelectedFlagId(null)}
+        />
       ) : null}
     </div>
   )

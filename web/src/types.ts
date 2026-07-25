@@ -1,5 +1,39 @@
 export type EvidenceStatus = 'FACT' | 'DERIVED' | 'GAP' | 'JUDGMENT'
 
+export type Source = {
+  id: string
+  title: string
+  url: string
+  localPath?: string | null
+  asOf?: string
+  authority?: string
+  note?: string
+}
+
+export type Fact = {
+  id: string
+  sourceId: string
+  page?: number
+  label: string
+  amountCad?: number
+  value?: number
+  excerpt?: string
+  status?: string
+  note?: string
+  kind?: string
+  url?: string
+}
+
+export type Derived = {
+  id: string
+  label: string
+  amountCad?: number
+  formula?: string
+  inputs?: string[]
+  note?: string
+  kind?: string
+}
+
 export type ReceiptLineItem = {
   id: string
   label: string
@@ -97,4 +131,7 @@ export type TaxpayerReceipt = {
 export type EvidenceLedger = {
   gaps: Gap[]
   evidencePolicy: { rules: string[] }
+  sources: Source[]
+  facts: Fact[]
+  derived: Derived[]
 }

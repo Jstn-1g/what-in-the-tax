@@ -1570,10 +1570,11 @@ receipt = {
 
 # Write BOTH the canonical copy and the UI mirror. The mirror used to be copied by
 # hand, so running this script silently left the UI reading stale data.
+# Pack metadata lives in corpus/north-dumfries-on/pack.yaml (bridge until YAML corpus).
 WEB_DATA = ROOT / "web" / "src" / "data"
 for _target in (DATA, WEB_DATA):
-    (_target / "evidence-ledger.json").write_text(json.dumps(ledger, indent=2), encoding="utf-8")
-    (_target / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+    (_target / "evidence-ledger.json").write_text(json.dumps(ledger, indent=2) + "\n", encoding="utf-8")
+    (_target / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
 assert (DATA / "evidence-ledger.json").read_bytes() == (WEB_DATA / "evidence-ledger.json").read_bytes()
 assert (DATA / "taxpayer-receipt.json").read_bytes() == (WEB_DATA / "taxpayer-receipt.json").read_bytes()
 
@@ -1582,6 +1583,7 @@ print("derived", len(derived_rows))
 print("gaps", len(gaps))
 print("closedGaps", len(closed_gaps))
 print("findings", len(findings))
+print("pack", "corpus/north-dumfries-on (status: see pack.yaml — run scripts/validate_pack.py)")
 print("region rural lines sum", region_sum, "after PIL", region_sum - 78)
 print("township alloc sum", round(sum(x["amountCad"] for x in township_lines), 2))
 print("wrote evidence-ledger.json and taxpayer-receipt.json")

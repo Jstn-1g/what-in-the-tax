@@ -1,0 +1,44 @@
+# MARAI (Morrow review harness) local working state — SQLite in WAL mode.
+# Not the review record: a review that gates publication must be exported into the
+# pack as review.jsonl and committed. See PUBLISH.md step 4.
+marai-ledger/
+
+# Python
+**/__pycache__/
+*.py[cod]
+.Python
+.venv/
+venv/
+
+# Local document caches — never served, never redistributed.
+# Cited sources are committed; see source-pdfs/.gitignore.
+corpus/*/pdf/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# web/ has its own .gitignore (node_modules, dist).
+
+# Deliberately NOT ignored — these are the evidence trail, and excluding them
+# turns every citation into an unverifiable claim:
+#   data/evidence-ledger.json      the ledger
+#   data/taxpayer-receipt.json     the UI data model
+#   data/citation-audit.json       our own measured citation-fidelity counts
+#   data/_extracts/                page-marked text a third party reconciles against
+#   corpus/**/*.yaml               pack inputs
+#   corpus/*/extracts/             pack extracts
+#   corpus/*/sources.lock          source hashes
+#   receipts/**                    sealed output, including manifest.json and rendered/
+# data/.gitignore currently excludes data/_extracts/ and the superseded
+# taxpayer-receipt.ui-v1.json; GENERALIZATION-PLAN Phase 0 item 5 requires both to be
+# committed. That contradiction is in data/.gitignore, not here.
