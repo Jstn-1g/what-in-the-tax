@@ -649,7 +649,7 @@ findings = [
         "kind": "JUDGMENT",
         "category": "administrative_bloat",
         "title": "Corporate Services is a large share of the township draft budget",
-        "severitySeverity": "needs_review",
+        "opportunitySeverity": "needs_review",
         "citedFactIds": ["ND-DEPT-CORPORATE-2026", "ND-LEVY-2026", "DRV-ND-CORP-PER-CAPITA", "ND-POP-CENSUS-2021"],
         "evidenceSummary": "Corporate Services draft $2,091,306 vs municipal levy $9,002,499; ≈$197/capita at 2021 population.",
         "billImpactCad": None,
@@ -882,7 +882,7 @@ receipt = {
                 "evidenceStatus": "FACT",
                 "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
                 "lineItems": region_lines,
-                "lineItemsSumCheckCad": region_sum - 78,
+                "lineItemsSumCheckCad": sum(item["amountCad"] for item in region_lines),
             },
             "education": {
                 "amountCad": None,

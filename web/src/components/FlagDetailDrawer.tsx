@@ -45,7 +45,7 @@ export default function FlagDetailDrawer({ flag, onClose }: Props) {
             Close
           </button>
         </header>
-        <p className="drawer-severity">{flag.opportunitySeverity.replace(/_/g, ' ')}</p>
+        <p className="drawer-severity">{(flag.opportunitySeverity ?? 'unrated').replace(/_/g, ' ')}</p>
         <p>{flag.evidenceSummary}</p>
         <p className="drawer-note">
           Bill impact: not allocatable from sources (see gaps). Judgment only.

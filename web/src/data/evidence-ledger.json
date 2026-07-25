@@ -1062,7 +1062,7 @@
       "kind": "JUDGMENT",
       "category": "administrative_bloat",
       "title": "Corporate Services is a large share of the township draft budget",
-      "severitySeverity": "needs_review",
+      "opportunitySeverity": "needs_review",
       "citedFactIds": [
         "ND-DEPT-CORPORATE-2026",
         "ND-LEVY-2026",

@@ -12,6 +12,16 @@ const FINDING_TABS = [
 
 type FindingTab = (typeof FINDING_TABS)[number]['id']
 
+function lineTone(line: ReceiptLineItem) {
+  if (line.classification === 'reconciling_item') {
+    return { row: 'pass_through', badge: 'badge-pass', label: 'ROUNDING' }
+  }
+  if (line.evidenceStatus === 'GAP') {
+    return { row: 'flagged', badge: 'badge-flagged', label: line.evidenceStatus }
+  }
+  return { row: 'necessary', badge: 'badge-necessary', label: line.evidenceStatus }
+}
+
 function LineList({
   title,
   subtitle,
@@ -38,7 +48,7 @@ function LineList({
               key={line.id}
               className={[
                 'receipt-line',
-                line.evidenceStatus === 'GAP' ? 'flagged' : 'necessary',
+                lineTone(line).row,
               ].join(' ')}
               style={{ animationDelay: `${index * 25}ms` }}
             >
@@ -46,17 +56,17 @@ function LineList({
                 <div>
                   <p className="line-service">{line.label}</p>
                   <p className="line-meta">
-                    {line.evidenceStatus}
+                    {lineTone(line).label}
                     {line.note ? ` · ${line.note}` : ''}
                   </p>
                 </div>
                 <div className="line-right">
                   <span
                     className={
-                      line.evidenceStatus === 'GAP' ? 'badge badge-flagged' : 'badge badge-necessary'
+                      'badge ' + lineTone(line).badge
                     }
                   >
-                    {line.evidenceStatus}
+                    {lineTone(line).label}
                   </span>
                   <strong>{money(line.amountCad)}</strong>
                 </div>

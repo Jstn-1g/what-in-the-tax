@@ -20,3 +20,41 @@ describe('evidence-first receipt', () => {
     expect(data.findings.every((finding) => finding.billImpactCad === null)).toBe(true)
   })
 })
+
+describe('schema guards', () => {
+  const data = receipt as unknown as TaxpayerReceipt
+
+  it('every finding has a usable opportunitySeverity', () => {
+    for (const finding of data.findings) {
+      expect(typeof finding.opportunitySeverity, finding.id).toBe('string')
+    }
+  })
+
+  it('no finding carries a stray severity-like key', () => {
+    for (const finding of data.findings) {
+      const strays = Object.keys(finding).filter(
+        (key) => /severity/i.test(key) && key !== 'opportunitySeverity',
+      )
+      expect(strays, finding.id).toEqual([])
+    }
+  })
+
+  it('every marquee finding resolves to a real finding', () => {
+    const ids = new Set(data.findings.map((finding) => finding.id))
+    for (const id of data.uiModelHints.marqueeFindings) {
+      expect(ids.has(id), id).toBe(true)
+    }
+  })
+
+  it('region line items reconcile to the published total', () => {
+    const region = data.profiles.supportedAverageHousehold.region
+    const sum = (region.lineItems ?? []).reduce((acc, line) => acc + line.amountCad, 0)
+    expect(sum).toBe(region.amountCad)
+  })
+
+  it('township allocated lines tie to the cited township total', () => {
+    const township = data.profiles.supportedAverageHousehold.township
+    const sum = (township.lineItems ?? []).reduce((acc, line) => acc + line.amountCad, 0)
+    expect(sum).toBeCloseTo(township.amountCad ?? 0, 2)
+  })
+})
