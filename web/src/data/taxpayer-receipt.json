@@ -379,8 +379,8 @@
     {
       "id": "FIND-ADMIN-CORP-SCALE",
       "kind": "JUDGMENT",
-      "category": "administrative_bloat",
-      "title": "Corporate Services is a large share of the township draft budget",
+      "category": "administrative_scale",
+      "title": "Corporate Services is a large share of the township budget \u2014 unbenchmarked",
       "opportunitySeverity": "needs_review",
       "citedFactIds": [
         "ND-DEPT-CORPORATE-2026",
@@ -391,13 +391,17 @@
       "evidenceSummary": "Corporate Services draft $2,091,306 vs municipal levy $9,002,499; \u2248$197/capita at 2021 population.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+        "GAP-FLAGGED-DOLLARS-ON-BILL",
+        "GAP-PEER-BENCHMARK",
+        "GAP-ND-POP-CURRENT"
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-ADMIN-LEGAL-STACK",
       "kind": "JUDGMENT",
-      "category": "administrative_bloat",
+      "category": "administrative_scale",
       "title": "Multiple legal expense lines across departments",
       "opportunitySeverity": "needs_review",
       "citedFactIds": [
@@ -411,8 +415,11 @@
       "evidenceSummary": "Identified legal lines sum to $94,000.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+        "GAP-FLAGGED-DOLLARS-ON-BILL",
+        "GAP-PEER-BENCHMARK"
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-CAP-ARENA",
@@ -427,28 +434,33 @@
         "DRV-ND-ARENA-PER-CAPITA",
         "DRV-ND-ARENA-SHARE-OF-CAPITAL"
       ],
-      "evidenceSummary": "$16,190,160 of $31,192,121 capital (~51.9%); $5M new debt; debt service starts 2027.",
+      "evidenceSummary": "$16,190,160 of $31,192,121 capital (~51.9%); $5M new debt, debt service starting 2027. Per-capita figure is SECONDARY only: $1,524.64/capita divides a lifetime capital cost by a single year of population, so it overstates the annual burden. The honest recurring number is annual debt service per household, available once the amortization schedule is published.",
       "billImpactCad": null,
       "gapIds": [
         "GAP-ARENA-2026-TAX-IMPACT",
-        "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+        "GAP-FLAGGED-DOLLARS-ON-BILL",
+        "GAP-TWINPAD-OPERATING-DELTA"
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-CAP-DUAL-FACILITY",
       "kind": "JUDGMENT",
       "category": "questionable_capital",
-      "title": "ACC $3.5M exterior rehab concurrent with new Twin Pad",
-      "opportunitySeverity": "high_attention",
+      "title": "ACC $3.5M exterior rehab overlaps the Twin Pad build \u2014 explanation not established",
+      "opportunitySeverity": "watch",
       "citedFactIds": [
         "ND-CAP-ACC-EXTERIOR-2026",
         "ND-CAP-ARENA-2026"
       ],
-      "evidenceSummary": "ACC exterior rehab $3,500,000 ($1M Ontario grant) while Twin Pad under construction; ACC ice to be decommissioned on Twin Pad opening.",
+      "evidenceSummary": "ACC exterior rehab $3,500,000 ($1M Ontario grant; residual from reserve accounts rather than the levy) while the Twin Pad is under construction. Counter-explanation already on the record: the ACC ice is decommissioned when the Twin Pad opens, so envelope work on a building that continues in non-ice community use is not duplication. Downgraded from high_attention because 'concurrent' does not establish waste.",
       "billImpactCad": null,
       "gapIds": [
         "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-CAP-PUMPTRACK",
@@ -461,7 +473,9 @@
       ],
       "evidenceSummary": "$568,756 total; Township cash $70,000; donations/fundraising $498,756.",
       "billImpactCad": null,
-      "gapIds": []
+      "gapIds": [],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-UNUSUAL-GRANTS",
@@ -478,7 +492,9 @@
       "billImpactCad": null,
       "gapIds": [
         "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-UNUSUAL-PARTNERSHIP-FEES",
@@ -493,7 +509,9 @@
       ],
       "evidenceSummary": "WREDC $20,000; Tourism $5,000; Sustainable WR $1,725.",
       "billImpactCad": null,
-      "gapIds": []
+      "gapIds": [],
+      "townshipResponse": null,
+      "belowMateriality": true
     },
     {
       "id": "FIND-UNUSUAL-HERITAGE-SOFTWARE",
@@ -506,7 +524,9 @@
       ],
       "evidenceSummary": "Heritage annual software licensing $5,000.",
       "billImpactCad": null,
-      "gapIds": []
+      "gapIds": [],
+      "townshipResponse": null,
+      "belowMateriality": true
     }
   ],
   "uiModelHints": {
@@ -514,10 +534,21 @@
     "defaultProfile": "supportedAverageHousehold",
     "showGapsAsFirstClassUi": true,
     "forbidFillerAllocation": true,
-    "marqueeFindings": [
+    "materialityFloorCad": 22506,
+    "materialityNote": "Findings below this floor (0.25% of the municipal levy) stay in the ledger but are excluded from published output. Publishing a $1,725 line beside a $16M project invites dismissal of the whole instrument.",
+    "flaggedDefinition": "Flagged means this line needs an explanation. It does not mean the money was wasted.",
+    "publishedFindingIds": [
+      "FIND-ADMIN-CORP-SCALE",
+      "FIND-ADMIN-LEGAL-STACK",
       "FIND-CAP-ARENA",
       "FIND-CAP-DUAL-FACILITY",
-      "FIND-ADMIN-CORP-SCALE"
+      "FIND-CAP-PUMPTRACK",
+      "FIND-UNUSUAL-GRANTS"
+    ],
+    "marqueeFindings": [
+      "FIND-CAP-ARENA",
+      "FIND-ADMIN-CORP-SCALE",
+      "FIND-ADMIN-LEGAL-STACK"
     ]
   }
 }

@@ -5,7 +5,7 @@ import FlagDetailDrawer from './FlagDetailDrawer'
 import MarqueeFlags from './MarqueeFlags'
 
 const FINDING_TABS = [
-  { id: 'administrative_bloat', label: 'Admin' },
+  { id: 'administrative_scale', label: 'Admin' },
   { id: 'questionable_capital', label: 'Capital' },
   { id: 'unusual_line_items', label: 'Unusual' },
 ] as const
@@ -107,7 +107,7 @@ export default function TaxReceiptScreen({
   }, [data.uiModelHints.marqueeFindings, findingsById])
 
   const tabFindings = useMemo(
-    () => data.findings.filter((finding) => finding.category === flagTab),
+    () => data.findings.filter((finding) => finding.category === flagTab && !finding.belowMateriality),
     [data.findings, flagTab],
   )
 
@@ -223,6 +223,10 @@ export default function TaxReceiptScreen({
           <div className="section-head">
             <h2 id="findings-title">Findings (judgment)</h2>
             <p>Cited to facts; bill dollars stay null until a formula is approved.</p>
+            <p className="line-meta">
+              {data.uiModelHints.flaggedDefinition ??
+                'Flagged means this line needs an explanation. It does not mean the money was wasted.'}
+            </p>
           </div>
           <div className="filter-row" role="tablist" aria-label="Finding categories">
             {FINDING_TABS.map((tab) => (

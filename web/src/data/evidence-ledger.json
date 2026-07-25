@@ -1335,6 +1335,42 @@
         "Invoice/contract line or GL detail"
       ],
       "kind": "GAP"
+    },
+    {
+      "id": "GAP-ND-POP-CURRENT",
+      "title": "Per-capita metrics use 2021 census population against a 2026 budget",
+      "detail": "Every per-capita figure in this ledger divides 2026 dollars by the 2021 Census population of 10,619. North Dumfries has grown since, so all per-capita metrics are biased upward by an unknown amount. This weakens any 'large per capita' reading.",
+      "blocks": [
+        "per_capita_comparisons"
+      ],
+      "neededEvidence": [
+        "Current North Dumfries population estimate for 2026 with a citation"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-TWINPAD-OPERATING-DELTA",
+      "title": "Net operating cost change once Twin Pad opens is not established",
+      "detail": "The ledger covers the one-time capital cost but holds no evidence on what the Twin Pad costs to RUN versus the ACC ice it replaces. For a household receipt the recurring operating change matters more than the capital event.",
+      "blocks": [
+        "twinpad_recurring_cost_on_bill"
+      ],
+      "neededEvidence": [
+        "Projected annual operating cost for the Twin Pad and the offsetting ACC ice savings"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-PEER-BENCHMARK",
+      "title": "Administrative-scale findings have no cited peer comparator",
+      "detail": "Findings that call a figure 'large' name no peer set. Without a cited comparator, $197/capita for Corporate Services is a number, not a finding. In a township of ~10,600 that department also bundles clerk, treasury, IT, HR and communications that a city reports separately, so naive comparison is invalid.",
+      "blocks": [
+        "administrative_scale_conclusions"
+      ],
+      "neededEvidence": [
+        "Per-capita administrative spend for comparable Ontario townships, cited, on a like-for-like basis"
+      ],
+      "kind": "GAP"
     }
   ],
   "closedGaps": [
@@ -1374,8 +1410,8 @@
     {
       "id": "FIND-ADMIN-CORP-SCALE",
       "kind": "JUDGMENT",
-      "category": "administrative_bloat",
-      "title": "Corporate Services is a large share of the township draft budget",
+      "category": "administrative_scale",
+      "title": "Corporate Services is a large share of the township budget \u2014 unbenchmarked",
       "opportunitySeverity": "needs_review",
       "citedFactIds": [
         "ND-DEPT-CORPORATE-2026",
@@ -1386,13 +1422,17 @@
       "evidenceSummary": "Corporate Services draft $2,091,306 vs municipal levy $9,002,499; \u2248$197/capita at 2021 population.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+        "GAP-FLAGGED-DOLLARS-ON-BILL",
+        "GAP-PEER-BENCHMARK",
+        "GAP-ND-POP-CURRENT"
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-ADMIN-LEGAL-STACK",
       "kind": "JUDGMENT",
-      "category": "administrative_bloat",
+      "category": "administrative_scale",
       "title": "Multiple legal expense lines across departments",
       "opportunitySeverity": "needs_review",
       "citedFactIds": [
@@ -1406,8 +1446,11 @@
       "evidenceSummary": "Identified legal lines sum to $94,000.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+        "GAP-FLAGGED-DOLLARS-ON-BILL",
+        "GAP-PEER-BENCHMARK"
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-CAP-ARENA",
@@ -1422,28 +1465,33 @@
         "DRV-ND-ARENA-PER-CAPITA",
         "DRV-ND-ARENA-SHARE-OF-CAPITAL"
       ],
-      "evidenceSummary": "$16,190,160 of $31,192,121 capital (~51.9%); $5M new debt; debt service starts 2027.",
+      "evidenceSummary": "$16,190,160 of $31,192,121 capital (~51.9%); $5M new debt, debt service starting 2027. Per-capita figure is SECONDARY only: $1,524.64/capita divides a lifetime capital cost by a single year of population, so it overstates the annual burden. The honest recurring number is annual debt service per household, available once the amortization schedule is published.",
       "billImpactCad": null,
       "gapIds": [
         "GAP-ARENA-2026-TAX-IMPACT",
-        "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+        "GAP-FLAGGED-DOLLARS-ON-BILL",
+        "GAP-TWINPAD-OPERATING-DELTA"
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-CAP-DUAL-FACILITY",
       "kind": "JUDGMENT",
       "category": "questionable_capital",
-      "title": "ACC $3.5M exterior rehab concurrent with new Twin Pad",
-      "opportunitySeverity": "high_attention",
+      "title": "ACC $3.5M exterior rehab overlaps the Twin Pad build \u2014 explanation not established",
+      "opportunitySeverity": "watch",
       "citedFactIds": [
         "ND-CAP-ACC-EXTERIOR-2026",
         "ND-CAP-ARENA-2026"
       ],
-      "evidenceSummary": "ACC exterior rehab $3,500,000 ($1M Ontario grant) while Twin Pad under construction; ACC ice to be decommissioned on Twin Pad opening.",
+      "evidenceSummary": "ACC exterior rehab $3,500,000 ($1M Ontario grant; residual from reserve accounts rather than the levy) while the Twin Pad is under construction. Counter-explanation already on the record: the ACC ice is decommissioned when the Twin Pad opens, so envelope work on a building that continues in non-ice community use is not duplication. Downgraded from high_attention because 'concurrent' does not establish waste.",
       "billImpactCad": null,
       "gapIds": [
         "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-CAP-PUMPTRACK",
@@ -1456,7 +1504,9 @@
       ],
       "evidenceSummary": "$568,756 total; Township cash $70,000; donations/fundraising $498,756.",
       "billImpactCad": null,
-      "gapIds": []
+      "gapIds": [],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-UNUSUAL-GRANTS",
@@ -1473,7 +1523,9 @@
       "billImpactCad": null,
       "gapIds": [
         "GAP-FLAGGED-DOLLARS-ON-BILL"
-      ]
+      ],
+      "townshipResponse": null,
+      "belowMateriality": false
     },
     {
       "id": "FIND-UNUSUAL-PARTNERSHIP-FEES",
@@ -1488,7 +1540,9 @@
       ],
       "evidenceSummary": "WREDC $20,000; Tourism $5,000; Sustainable WR $1,725.",
       "billImpactCad": null,
-      "gapIds": []
+      "gapIds": [],
+      "townshipResponse": null,
+      "belowMateriality": true
     },
     {
       "id": "FIND-UNUSUAL-HERITAGE-SOFTWARE",
@@ -1501,7 +1555,9 @@
       ],
       "evidenceSummary": "Heritage annual software licensing $5,000.",
       "billImpactCad": null,
-      "gapIds": []
+      "gapIds": [],
+      "townshipResponse": null,
+      "belowMateriality": true
     }
   ]
 }

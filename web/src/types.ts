@@ -32,6 +32,8 @@ export type Finding = {
   citedFactIds: string[]
   evidenceSummary: string
   billImpactCad: number | null
+  townshipResponse?: string | null
+  belowMateriality?: boolean
   gapIds: string[]
 }
 
@@ -84,6 +86,10 @@ export type TaxpayerReceipt = {
     defaultProfile: string
     showGapsAsFirstClassUi: boolean
     forbidFillerAllocation: boolean
+    materialityFloorCad?: number
+    materialityNote?: string
+    flaggedDefinition?: string
+    publishedFindingIds?: string[]
     marqueeFindings: string[]
   }
 }

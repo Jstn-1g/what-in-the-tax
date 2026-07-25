@@ -919,12 +919,38 @@ gaps = [
     ),
 ]
 
+gaps.extend(
+    [
+        gap(
+            id="GAP-ND-POP-CURRENT",
+            title="Per-capita metrics use 2021 census population against a 2026 budget",
+            detail="Every per-capita figure in this ledger divides 2026 dollars by the 2021 Census population of 10,619. North Dumfries has grown since, so all per-capita metrics are biased upward by an unknown amount. This weakens any 'large per capita' reading.",
+            blocks=["per_capita_comparisons"],
+            neededEvidence=["Current North Dumfries population estimate for 2026 with a citation"],
+        ),
+        gap(
+            id="GAP-TWINPAD-OPERATING-DELTA",
+            title="Net operating cost change once Twin Pad opens is not established",
+            detail="The ledger covers the one-time capital cost but holds no evidence on what the Twin Pad costs to RUN versus the ACC ice it replaces. For a household receipt the recurring operating change matters more than the capital event.",
+            blocks=["twinpad_recurring_cost_on_bill"],
+            neededEvidence=["Projected annual operating cost for the Twin Pad and the offsetting ACC ice savings"],
+        ),
+        gap(
+            id="GAP-PEER-BENCHMARK",
+            title="Administrative-scale findings have no cited peer comparator",
+            detail="Findings that call a figure 'large' name no peer set. Without a cited comparator, $197/capita for Corporate Services is a number, not a finding. In a township of ~10,600 that department also bundles clerk, treasury, IT, HR and communications that a city reports separately, so naive comparison is invalid.",
+            blocks=["administrative_scale_conclusions"],
+            neededEvidence=["Per-capita administrative spend for comparable Ontario townships, cited, on a like-for-like basis"],
+        ),
+    ]
+)
+
 findings = [
     {
         "id": "FIND-ADMIN-CORP-SCALE",
         "kind": "JUDGMENT",
-        "category": "administrative_bloat",
-        "title": "Corporate Services is a large share of the township draft budget",
+        "category": "administrative_scale",
+        "title": "Corporate Services is a large share of the township budget — unbenchmarked",
         "opportunitySeverity": "needs_review",
         "citedFactIds": ["ND-DEPT-CORPORATE-2026", "ND-LEVY-2026", "DRV-ND-CORP-PER-CAPITA", "ND-POP-CENSUS-2021"],
         "evidenceSummary": "Corporate Services draft $2,091,306 vs municipal levy $9,002,499; ≈$197/capita at 2021 population.",
@@ -934,7 +960,7 @@ findings = [
     {
         "id": "FIND-ADMIN-LEGAL-STACK",
         "kind": "JUDGMENT",
-        "category": "administrative_bloat",
+        "category": "administrative_scale",
         "title": "Multiple legal expense lines across departments",
         "opportunitySeverity": "needs_review",
         "citedFactIds": ["DRV-ND-LEGAL-STACK-2026", *legal_ids],
@@ -955,7 +981,7 @@ findings = [
             "DRV-ND-ARENA-PER-CAPITA",
             "DRV-ND-ARENA-SHARE-OF-CAPITAL",
         ],
-        "evidenceSummary": "$16,190,160 of $31,192,121 capital (~51.9%); $5M new debt; debt service starts 2027.",
+        "evidenceSummary": "$16,190,160 of $31,192,121 capital (~51.9%); $5M new debt, debt service starting 2027. Per-capita figure is SECONDARY only: $1,524.64/capita divides a lifetime capital cost by a single year of population, so it overstates the annual burden. The honest recurring number is annual debt service per household, available once the amortization schedule is published.",
         "billImpactCad": None,
         "gapIds": ["GAP-ARENA-2026-TAX-IMPACT", "GAP-FLAGGED-DOLLARS-ON-BILL"],
     },
@@ -963,10 +989,10 @@ findings = [
         "id": "FIND-CAP-DUAL-FACILITY",
         "kind": "JUDGMENT",
         "category": "questionable_capital",
-        "title": "ACC $3.5M exterior rehab concurrent with new Twin Pad",
-        "opportunitySeverity": "high_attention",
+        "title": "ACC $3.5M exterior rehab overlaps the Twin Pad build — explanation not established",
+        "opportunitySeverity": "watch",
         "citedFactIds": ["ND-CAP-ACC-EXTERIOR-2026", "ND-CAP-ARENA-2026"],
-        "evidenceSummary": "ACC exterior rehab $3,500,000 ($1M Ontario grant) while Twin Pad under construction; ACC ice to be decommissioned on Twin Pad opening.",
+        "evidenceSummary": "ACC exterior rehab $3,500,000 ($1M Ontario grant; residual from reserve accounts rather than the levy) while the Twin Pad is under construction. Counter-explanation already on the record: the ACC ice is decommissioned when the Twin Pad opens, so envelope work on a building that continues in non-ice community use is not duplication. Downgraded from high_attention because 'concurrent' does not establish waste.",
         "billImpactCad": None,
         "gapIds": ["GAP-FLAGGED-DOLLARS-ON-BILL"],
     },
@@ -1019,6 +1045,31 @@ findings = [
         "gapIds": [],
     },
 ]
+
+# --- Step 4 post-processing: disclosure fields, materiality floor ---
+for _f in findings:
+    _f.setdefault("townshipResponse", None)
+
+_extra_gaps = {
+    "FIND-ADMIN-CORP-SCALE": ["GAP-PEER-BENCHMARK", "GAP-ND-POP-CURRENT"],
+    "FIND-ADMIN-LEGAL-STACK": ["GAP-PEER-BENCHMARK"],
+    "FIND-CAP-ARENA": ["GAP-TWINPAD-OPERATING-DELTA"],
+}
+for _f in findings:
+    for _g in _extra_gaps.get(_f["id"], []):
+        if _g not in _f["gapIds"]:
+            _f["gapIds"].append(_g)
+
+MATERIALITY_FLOOR = round(0.0025 * 9_002_499)
+_below = {"FIND-UNUSUAL-HERITAGE-SOFTWARE", "FIND-UNUSUAL-PARTNERSHIP-FEES"}
+for _f in findings:
+    _f["belowMateriality"] = _f["id"] in _below
+PUBLISHED_FINDING_IDS = [_f["id"] for _f in findings if not _f["belowMateriality"]]
+
+_gap_ids_all = {_g["id"] for _g in gaps}
+for _f in findings:
+    for _g in _f["gapIds"]:
+        assert _g in _gap_ids_all, "finding %s references missing gap %s" % (_f["id"], _g)
 
 sources = [
     {
@@ -1273,7 +1324,21 @@ receipt = {
         "defaultProfile": "supportedAverageHousehold",
         "showGapsAsFirstClassUi": True,
         "forbidFillerAllocation": True,
-        "marqueeFindings": ["FIND-CAP-ARENA", "FIND-CAP-DUAL-FACILITY", "FIND-ADMIN-CORP-SCALE"],
+        "materialityFloorCad": MATERIALITY_FLOOR,
+        "materialityNote": (
+            "Findings below this floor (0.25% of the municipal levy) stay in the ledger but are "
+            "excluded from published output. Publishing a $1,725 line beside a $16M project invites "
+            "dismissal of the whole instrument."
+        ),
+        "flaggedDefinition": (
+            "Flagged means this line needs an explanation. It does not mean the money was wasted."
+        ),
+        "publishedFindingIds": PUBLISHED_FINDING_IDS,
+        "marqueeFindings": [
+            _id
+            for _id in ["FIND-CAP-ARENA", "FIND-ADMIN-CORP-SCALE", "FIND-ADMIN-LEGAL-STACK"]
+            if _id in PUBLISHED_FINDING_IDS
+        ],
     },
 }
 
