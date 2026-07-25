@@ -8,7 +8,7 @@
     "supportedAverageHousehold": {
       "description": "Best evidence-based profile without inventing a $5,000 bill.",
       "township": {
-        "basis": "ND 2026 draft rural average at $455,000 assessment \u2014 TOWNSHIP PORTION ONLY",
+        "basis": "ND 2026 approved rural average at $455,000 assessment \u2014 TOWNSHIP PORTION ONLY (rate confirmed in By-law 3637-26)",
         "amountCad": 1434.63,
         "assessmentCad": 455000,
         "evidenceStatus": "FACT",
@@ -21,7 +21,7 @@
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-CORPORATE-2026",
-            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
           },
           {
             "id": "ND-DEPT-PROTECTIVE-2026",
@@ -30,7 +30,7 @@
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-PROTECTIVE-2026",
-            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
           },
           {
             "id": "ND-DEPT-PW-2026",
@@ -39,7 +39,7 @@
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-PW-2026",
-            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
           },
           {
             "id": "ND-DEPT-REC-2026",
@@ -48,7 +48,7 @@
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-REC-2026",
-            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
           },
           {
             "id": "ND-DEPT-PLANNING-2026",
@@ -57,7 +57,7 @@
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-PLANNING-2026",
-            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
           },
           {
             "id": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
@@ -66,7 +66,7 @@
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
-            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63"
+            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
           }
         ]
       },
@@ -275,33 +275,33 @@
             "label": "Unallocated table-rounding difference (source total vs summed lines)",
             "amountCad": 2,
             "classification": "reconciling_item",
-            "evidenceStatus": "GAP",
-            "gapId": "GAP-RURAL-HH-LINE-SUM",
-            "note": "Do not treat as a service. Needed so line items reconcile to published rural total $2,543."
+            "evidenceStatus": "RECONCILING",
+            "note": "Source rounding (resolved): printed lines sum $2,619; printed subtotal $2,621; less ($78) PIL = $2,543. Do not treat as a service."
           }
         ],
         "lineItemsSumCheckCad": 2543
       },
       "education": {
+        "basis": "By-law 3637-26 Schedule A \u2014 RT Residential Education Rate 0.00153000",
         "amountCad": null,
-        "evidenceStatus": "GAP",
-        "gapId": "GAP-EDUCATION-2026"
+        "evidenceStatus": "FACT",
+        "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
+        "note": "Rate ingested; household education dollars at one assessment deferred (combined receipt not built this step)."
       },
       "combinedTotalCad": null,
-      "combinedTotalNote": "Not summed: township and region use different assessment bases ($455k vs $354.5k). See GAP-5000-BILL.",
+      "combinedTotalNote": "Final residential rates are in the ledger (By-law 3637-26 Schedule A). Combined receipt at a single assessment is deferred \u2014 do not add township avg $1,434.63 (@$455k) to Region rural HH $2,543 (@$354.5k). Both figures use the same MPAC January 1, 2016 valuation base; they differ only in which average property each government reports.",
       "warnings": [
-        "Do not add township $1,434.63 + region $2,543 and call it a real bill \u2014 assessment bases differ.",
-        "North Dumfries operating amounts are DRAFT."
+        "Do not add township $1,434.63 + region $2,543 as one bill \u2014 different average properties on the same 2016 MPAC base.",
+        "North Dumfries operating amounts are approved (By-law 3617-26); township allocation base unchanged this step."
       ]
     },
     "hypothetical5000": {
       "amountCad": 5000,
-      "evidenceStatus": "GAP",
-      "gapId": "GAP-5000-BILL",
+      "evidenceStatus": "DEFERRED",
       "allocatable": false,
       "receiptLineItems": [],
       "receiptTotals": null,
-      "message": "No evidence-complete allocation for a $5,000 combined bill is published in this dataset. UI should show an incomplete state and list gaps, not filler percentages."
+      "message": "Final township/Region/education rates are ingested. A modelled $5,000 combined composition is not built in this step \u2014 no filler allocation."
     }
   },
   "findings": [

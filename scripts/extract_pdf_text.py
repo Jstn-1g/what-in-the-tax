@@ -10,6 +10,11 @@ FILES = [
     "2026-draft-budget-binder.pdf",
     "2026-plan-and-budget-summary-booklet.pdf",
     "2026_final_budget_book_region.pdf",
+    "2026-04-27-council-agenda.pdf",
+    "2026-04-27-council-minutes.pdf",
+    "2026-02-02-special-budget-agenda.pdf",
+    "2026-02-02-special-budget-minutes.pdf",
+    "2026-02-23-council-agenda.pdf",
 ]
 
 for name in FILES:

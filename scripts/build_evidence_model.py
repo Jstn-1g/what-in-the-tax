@@ -99,6 +99,64 @@ facts = [
         value=0.00315303,
         excerpt="Residential Township Tax Rate 0.00315303 (2026 Rural)",
         status="draft",
+        note="Matches final RT Township Rate in By-law 3637-26 Schedule A (see ND-TAXRATE-RES-TOWNSHIP-2026-FINAL).",
+    ),
+    fact(
+        id="ND-LEVY-2026-ADOPTED",
+        sourceId="nd-2026-budget-minutes",
+        page=5,
+        label="North Dumfries 2026 adopted municipal tax levy (By-law 3617-26)",
+        amountCad=9_002_499,
+        excerpt="By-law No. 3617-26, being a By-law to approve the Township of North Dumfries 2026 Budget with a tax levy of $9,002,499 plus$ 160,117 for the Ayr Special Area levy",
+        status="approved",
+    ),
+    fact(
+        id="ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
+        sourceId="nd-2026-tax-rate-bylaw",
+        page=103,
+        label="2026 final residential township tax rate (RT)",
+        value=0.00315303,
+        excerpt="RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+        status="final",
+        note="Schedule 'A' to By-law 3637-26 — Township Rate column for CODE RT Residential.",
+    ),
+    fact(
+        id="ND-TAXRATE-RES-REGION-2026-FINAL",
+        sourceId="nd-2026-tax-rate-bylaw",
+        page=103,
+        label="2026 final residential Region tax rate (RT)",
+        value=0.00717545,
+        excerpt="RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+        status="final",
+        note="Schedule 'A' to By-law 3637-26 — Regional Rate column for CODE RT Residential.",
+    ),
+    fact(
+        id="ND-TAXRATE-RES-EDUCATION-2026-FINAL",
+        sourceId="nd-2026-tax-rate-bylaw",
+        page=103,
+        label="2026 final residential education tax rate (RT)",
+        value=0.00153000,
+        excerpt="RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+        status="final",
+        note="Schedule 'A' to By-law 3637-26 — Education Rate column for CODE RT Residential.",
+    ),
+    fact(
+        id="ND-TAXRATE-BYLAW-ADOPTION-2026",
+        sourceId="nd-2026-tax-rate-minutes",
+        page=6,
+        label="Council adopted By-law 3637-26 (2026 final tax rates)",
+        excerpt="AND THAT Council adopt By-law No. 3637-26, being a By-law to adopt the 2026 Tax Rates By-law which includes the Township of North Dumfries Municipal Tax Rate for General and Special Area Levy, Region of Waterloo Tax Rates and the Province of Ontario School Board Tax Rates, be enacted. CARRIED",
+        status="final",
+    ),
+    fact(
+        id="ND-BUDGET-REQUIREMENT-TAXBYLAW-2026",
+        sourceId="nd-2026-tax-rate-bylaw",
+        page=101,
+        label="Municipal budget requirement stated in By-law 3637-26",
+        amountCad=9_002_462,
+        excerpt="And Whereas the Municipal Budget requirement for the Township of North Dumfries amounts to $9,002,462 for 2026;",
+        status="final",
+        note="$37 below adopted levy $9,002,499 in By-law 3617-26; cited for transparency. Allocation base not rebuilt in this step.",
     ),
     fact(
         id="ND-AVG-ASSESSMENT",
@@ -591,32 +649,48 @@ derived_rows.append(
     )
 )
 
-# Gaps
-gaps = [
-    gap(
-        id="GAP-5000-BILL",
-        title="No source supports a single accurate $5,000 combined tax bill composition",
-        detail="Township average assessment ($455,000) and Region household table assessment ($354,500) differ. No extracted 2026 final combined township+region+education tax rate schedule for North Dumfries at one assessment was used.",
-        blocks=["hypothetical_$5000_receipt_allocation"],
-        neededEvidence=[
-            "2026 final North Dumfries tax rate by-law (township + region + education)",
-            "OR a sample final tax bill for a North Dumfries residential property totaling ~$5,000",
+# Flip ND draft binder facts to approved after By-law 3617-26 (levy unchanged; dept nets unchanged).
+for f in facts:
+    if f.get("sourceId") == "nd-2026-draft" and f.get("status") == "draft":
+        f["status"] = "approved"
+
+# Gaps (closed gaps recorded separately; only open gaps ship to the UI list)
+closed_gaps = [
+    {
+        "id": "GAP-EDUCATION-2026",
+        "status": "closed",
+        "resolution": "Replaced by FACT ND-TAXRATE-RES-EDUCATION-2026-FINAL from By-law 3637-26 Schedule A (agenda p.103); adopted C-153-26 / third reading C-163-26.",
+        "replacedByFactIds": ["ND-TAXRATE-RES-EDUCATION-2026-FINAL"],
+    },
+    {
+        "id": "GAP-ND-FINAL-BUDGET",
+        "status": "closed",
+        "resolution": "2026 Budget approved Feb 2, 2026 via By-law 3617-26 at tax levy $9,002,499 (Special Budget minutes p.5). ND binder facts flipped draft→approved. Department published nets unchanged by the Feb 2 amendments (fireworks reallocation; heritage capital from reserves).",
+        "replacedByFactIds": ["ND-LEVY-2026-ADOPTED"],
+    },
+    {
+        "id": "GAP-5000-BILL",
+        "status": "closed",
+        "resolution": (
+            "Final RT rates ingested (township 0.00315303, Region 0.00717545, education 0.00153000). "
+            "Prior detail was wrong: township $455,000 and Region $354,500 sit on the SAME MPAC January 1, 2016 valuation base; "
+            "they are different average properties, not different assessment systems. "
+            "Combined receipt at one assessment is deferred to a later step — not built here."
+        ),
+        "replacedByFactIds": [
+            "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
+            "ND-TAXRATE-RES-REGION-2026-FINAL",
+            "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
         ],
-    ),
-    gap(
-        id="GAP-EDUCATION-2026",
-        title="2026 education portion for North Dumfries not extracted",
-        detail="Education rates are set provincially. Not pulled from a 2026 ND final tax schedule in this ledger.",
-        blocks=["education_share_of_bill"],
-        neededEvidence=["2026 education tax rate applicable to North Dumfries residential"],
-    ),
-    gap(
-        id="GAP-ND-FINAL-BUDGET",
-        title="North Dumfries 2026 figures are DRAFT (Dec 8, 2025 binder)",
-        detail="Operating and capital amounts may change after January/February 2026 budget meetings and final adoption.",
-        blocks=["treat_nd_amounts_as_final"],
-        neededEvidence=["Adopted 2026 North Dumfries budget / final tax rate by-law"],
-    ),
+    },
+    {
+        "id": "GAP-RURAL-HH-LINE-SUM",
+        "status": "closed",
+        "resolution": "resolved_source_rounding — 23 printed rural lines sum to $2,619; printed subtotal $2,621; less printed ($78) PIL = printed $2,543. Each line rounded to whole dollars; subtotal from unrounded values. $2,543 remains authoritative.",
+    },
+]
+
+gaps = [
     gap(
         id="GAP-FLAGGED-DOLLARS-ON-BILL",
         title="Cannot allocate 'flagged/inefficient' dollars on a household bill without an explicit rule set",
@@ -753,13 +827,50 @@ sources = [
         "extractedText": "data/_extracts/2026-draft-budget-binder.txt",
         "asOf": "2025-12-08",
         "authority": "draft",
+        "note": "Figures approved Feb 2, 2026 (By-law 3617-26) at the same municipal levy; used for department-line page cites.",
+    },
+    {
+        "id": "nd-2026-budget-agenda",
+        "title": "Special (Budget) Council Meeting Agenda — February 2, 2026",
+        "url": "https://calendar.northdumfries.ca/council/Detail/2026-02-02-1800-Special-Budget-Meeting/4251bc8c-cc76-48d8-89a2-b3e1012c9cca",
+        "localPath": "source-pdfs/2026-02-02-special-budget-agenda.pdf",
+        "extractedText": "data/_extracts/2026-02-02-special-budget-agenda.txt",
+        "asOf": "2026-02-02",
+        "authority": "approved",
+    },
+    {
+        "id": "nd-2026-budget-minutes",
+        "title": "Special (Budget) Council Meeting Minutes — February 2, 2026",
+        "url": "https://calendar.northdumfries.ca/council/Detail/2026-02-02-1800-Special-Budget-Meeting/06d26127-4ec5-4bf9-9070-b3fb0106ccf8",
+        "localPath": "source-pdfs/2026-02-02-special-budget-minutes.pdf",
+        "extractedText": "data/_extracts/2026-02-02-special-budget-minutes.txt",
+        "asOf": "2026-02-02",
+        "authority": "approved",
+    },
+    {
+        "id": "nd-2026-tax-rate-bylaw",
+        "title": "Council Agenda Package April 27, 2026 — includes By-law 3637-26 Schedule A (Final Tax Rates)",
+        "url": "https://calendar.northdumfries.ca/council/Detail/2026-04-27-1800-Council-Meeting/e53fc266-10b7-4886-a08f-b43901092c5d",
+        "localPath": "source-pdfs/2026-04-27-council-agenda.pdf",
+        "extractedText": "data/_extracts/2026-04-27-council-agenda.txt",
+        "asOf": "2026-04-27",
+        "authority": "final",
+    },
+    {
+        "id": "nd-2026-tax-rate-minutes",
+        "title": "Council Meeting Minutes — April 27, 2026 (adoption of By-law 3637-26)",
+        "url": "https://calendar.northdumfries.ca/council/Detail/2026-04-27-1800-Council-Meeting/a279405d-b775-47ec-b5d9-b44800f51f79",
+        "localPath": "source-pdfs/2026-04-27-council-minutes.pdf",
+        "extractedText": "data/_extracts/2026-04-27-council-minutes.txt",
+        "asOf": "2026-04-27",
+        "authority": "final",
     },
     {
         "id": "row-2026-book",
         "title": "Region of Waterloo 2026 Final Budget Book",
         "url": "https://www.regionofwaterloo.ca/media/ynro4cd2/2026_final_budget_book.pdf",
         "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
-        "extractedText": "data/_extracts/2026_final_budget_book_region.pdf".replace(".pdf", ".txt"),
+        "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
         "authority": "final",
     },
     {
@@ -787,13 +898,14 @@ ledger = {
             "DERIVED: must include formula and input ids; no new external numbers.",
             "GAP: record missing evidence; never invent amounts to fill UI.",
             "JUDGMENT: interpretive only; billImpactCad null unless a cited formula exists.",
-            "Draft vs final: North Dumfries 2026 amounts are draft until adopted budget is ingested.",
+            "Draft vs final: North Dumfries 2026 operating figures are approved (By-law 3617-26); final residential rates from By-law 3637-26 Schedule A.",
         ]
     },
     "sources": sources,
     "facts": facts,
     "derived": derived_rows,
     "gaps": gaps,
+    "closedGaps": closed_gaps,
     "findings": findings,
 }
 
@@ -830,9 +942,8 @@ region_lines.append(
         "label": "Unallocated table-rounding difference (source total vs summed lines)",
         "amountCad": 2,
         "classification": "reconciling_item",
-        "evidenceStatus": "GAP",
-        "gapId": "GAP-RURAL-HH-LINE-SUM",
-        "note": "Do not treat as a service. Needed so line items reconcile to published rural total $2,543.",
+        "evidenceStatus": "RECONCILING",
+        "note": "Source rounding (resolved): printed lines sum $2,619; printed subtotal $2,621; less ($78) PIL = $2,543. Do not treat as a service.",
     }
 )
 
@@ -854,7 +965,7 @@ for row in township_alloc:
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": row["factId"],
-            "note": "Pro-rata of draft department nets against rural average township tax $1,434.63",
+            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)",
         }
     )
 
@@ -868,7 +979,7 @@ receipt = {
         "supportedAverageHousehold": {
             "description": "Best evidence-based profile without inventing a $5,000 bill.",
             "township": {
-                "basis": "ND 2026 draft rural average at $455,000 assessment — TOWNSHIP PORTION ONLY",
+                "basis": "ND 2026 approved rural average at $455,000 assessment — TOWNSHIP PORTION ONLY (rate confirmed in By-law 3637-26)",
                 "amountCad": 1434.63,
                 "assessmentCad": 455_000,
                 "evidenceStatus": "FACT",
@@ -885,25 +996,30 @@ receipt = {
                 "lineItemsSumCheckCad": sum(item["amountCad"] for item in region_lines),
             },
             "education": {
+                "basis": "By-law 3637-26 Schedule A — RT Residential Education Rate 0.00153000",
                 "amountCad": None,
-                "evidenceStatus": "GAP",
-                "gapId": "GAP-EDUCATION-2026",
+                "evidenceStatus": "FACT",
+                "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
+                "note": "Rate ingested; household education dollars at one assessment deferred (combined receipt not built this step).",
             },
             "combinedTotalCad": None,
-            "combinedTotalNote": "Not summed: township and region use different assessment bases ($455k vs $354.5k). See GAP-5000-BILL.",
+            "combinedTotalNote": (
+                "Final residential rates are in the ledger (By-law 3637-26 Schedule A). "
+                "Combined receipt at a single assessment is deferred — do not add township avg $1,434.63 (@$455k) to Region rural HH $2,543 (@$354.5k). "
+                "Both figures use the same MPAC January 1, 2016 valuation base; they differ only in which average property each government reports."
+            ),
             "warnings": [
-                "Do not add township $1,434.63 + region $2,543 and call it a real bill — assessment bases differ.",
-                "North Dumfries operating amounts are DRAFT.",
+                "Do not add township $1,434.63 + region $2,543 as one bill — different average properties on the same 2016 MPAC base.",
+                "North Dumfries operating amounts are approved (By-law 3617-26); township allocation base unchanged this step.",
             ],
         },
         "hypothetical5000": {
             "amountCad": 5000,
-            "evidenceStatus": "GAP",
-            "gapId": "GAP-5000-BILL",
+            "evidenceStatus": "DEFERRED",
             "allocatable": False,
             "receiptLineItems": [],
             "receiptTotals": None,
-            "message": "No evidence-complete allocation for a $5,000 combined bill is published in this dataset. UI should show an incomplete state and list gaps, not filler percentages.",
+            "message": "Final township/Region/education rates are ingested. A modelled $5,000 combined composition is not built in this step — no filler allocation.",
         },
     },
     "findings": findings,
@@ -916,25 +1032,13 @@ receipt = {
     },
 }
 
-# Fix rural sum assertion - source says 2621, our sum 2619 (likely PDF column rounding). Record gap/note.
-if region_sum != 2621:
-    gaps.append(
-        gap(
-            id="GAP-RURAL-HH-LINE-SUM",
-            title="Rural household service lines sum does not exactly match source subtotal",
-            detail=f"Extracted rural service lines sum to ${region_sum}; source subtotal shown as $2,621 before -$78 PIL. Difference ${2621 - region_sum}. Likely PDF table parsing/rounding; kept source total $2,543 as authoritative.",
-            blocks=[],
-            neededEvidence=["Re-verify page 12 table digits against PDF"],
-        )
-    )
-    ledger["gaps"] = gaps
-
 (DATA / "evidence-ledger.json").write_text(json.dumps(ledger, indent=2), encoding="utf-8")
 (DATA / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
 
 print("facts", len(facts))
 print("derived", len(derived_rows))
 print("gaps", len(gaps))
+print("closedGaps", len(closed_gaps))
 print("findings", len(findings))
 print("region rural lines sum", region_sum, "after PIL", region_sum - 78)
 print("township alloc sum", round(sum(x["amountCad"] for x in township_lines), 2))

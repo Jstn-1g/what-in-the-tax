@@ -123,7 +123,7 @@ export default function TaxReceiptScreen({
           <p className="brand">Taxpayer Receipt</p>
           <h1>Evidence-based household profile</h1>
           <p className="hero-support">
-            North Dumfries draft + Region rural household table · no filler allocations
+            North Dumfries approved + Region rural household table · no filler allocations
           </p>
           <div className="hero-cta-row">
             <a className="cta" href="#gaps">
@@ -183,15 +183,15 @@ export default function TaxReceiptScreen({
           <ul className="mix-legend">
             <li>
               <span className="swatch necessary" />
-              Township rural avg @ $455k: {money(profile.township.amountCad ?? 0)} (draft)
+              Township rural avg @ $455k: {money(profile.township.amountCad ?? 0)} (approved)
             </li>
             <li>
               <span className="swatch pass" />
               Region rural HH @ $354.5k: {money(profile.region.amountCad ?? 0)} (final table)
             </li>
             <li>
-              <span className="swatch flagged" />
-              Education / $5,000 combined bill: GAP
+              <span className="swatch pass" />
+              Education rate: FACT (By-law 3637-26) · combined $5k bill deferred
             </li>
           </ul>
           <ul className="child-list">

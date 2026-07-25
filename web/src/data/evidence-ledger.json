@@ -7,7 +7,7 @@
       "DERIVED: must include formula and input ids; no new external numbers.",
       "GAP: record missing evidence; never invent amounts to fill UI.",
       "JUDGMENT: interpretive only; billImpactCad null unless a cited formula exists.",
-      "Draft vs final: North Dumfries 2026 amounts are draft until adopted budget is ingested."
+      "Draft vs final: North Dumfries 2026 operating figures are approved (By-law 3617-26); final residential rates from By-law 3637-26 Schedule A."
     ]
   },
   "sources": [
@@ -18,7 +18,44 @@
       "localPath": "source-pdfs/2026-draft-budget-binder.pdf",
       "extractedText": "data/_extracts/2026-draft-budget-binder.txt",
       "asOf": "2025-12-08",
-      "authority": "draft"
+      "authority": "draft",
+      "note": "Figures approved Feb 2, 2026 (By-law 3617-26) at the same municipal levy; used for department-line page cites."
+    },
+    {
+      "id": "nd-2026-budget-agenda",
+      "title": "Special (Budget) Council Meeting Agenda \u2014 February 2, 2026",
+      "url": "https://calendar.northdumfries.ca/council/Detail/2026-02-02-1800-Special-Budget-Meeting/4251bc8c-cc76-48d8-89a2-b3e1012c9cca",
+      "localPath": "source-pdfs/2026-02-02-special-budget-agenda.pdf",
+      "extractedText": "data/_extracts/2026-02-02-special-budget-agenda.txt",
+      "asOf": "2026-02-02",
+      "authority": "approved"
+    },
+    {
+      "id": "nd-2026-budget-minutes",
+      "title": "Special (Budget) Council Meeting Minutes \u2014 February 2, 2026",
+      "url": "https://calendar.northdumfries.ca/council/Detail/2026-02-02-1800-Special-Budget-Meeting/06d26127-4ec5-4bf9-9070-b3fb0106ccf8",
+      "localPath": "source-pdfs/2026-02-02-special-budget-minutes.pdf",
+      "extractedText": "data/_extracts/2026-02-02-special-budget-minutes.txt",
+      "asOf": "2026-02-02",
+      "authority": "approved"
+    },
+    {
+      "id": "nd-2026-tax-rate-bylaw",
+      "title": "Council Agenda Package April 27, 2026 \u2014 includes By-law 3637-26 Schedule A (Final Tax Rates)",
+      "url": "https://calendar.northdumfries.ca/council/Detail/2026-04-27-1800-Council-Meeting/e53fc266-10b7-4886-a08f-b43901092c5d",
+      "localPath": "source-pdfs/2026-04-27-council-agenda.pdf",
+      "extractedText": "data/_extracts/2026-04-27-council-agenda.txt",
+      "asOf": "2026-04-27",
+      "authority": "final"
+    },
+    {
+      "id": "nd-2026-tax-rate-minutes",
+      "title": "Council Meeting Minutes \u2014 April 27, 2026 (adoption of By-law 3637-26)",
+      "url": "https://calendar.northdumfries.ca/council/Detail/2026-04-27-1800-Council-Meeting/a279405d-b775-47ec-b5d9-b44800f51f79",
+      "localPath": "source-pdfs/2026-04-27-council-minutes.pdf",
+      "extractedText": "data/_extracts/2026-04-27-council-minutes.txt",
+      "asOf": "2026-04-27",
+      "authority": "final"
     },
     {
       "id": "row-2026-book",
@@ -51,7 +88,7 @@
       "label": "North Dumfries 2026 draft municipal levy requirement",
       "amountCad": 9002499,
       "excerpt": "2026 LEVY REQUIREMENT = $9,002,499",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -71,7 +108,7 @@
       "label": "Year-over-year levy increase (draft)",
       "amountCad": 574672,
       "excerpt": "Levy Increase $574,672",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -81,7 +118,71 @@
       "label": "2026 draft rural residential township tax rate",
       "value": 0.00315303,
       "excerpt": "Residential Township Tax Rate 0.00315303 (2026 Rural)",
-      "status": "draft",
+      "status": "approved",
+      "note": "Matches final RT Township Rate in By-law 3637-26 Schedule A (see ND-TAXRATE-RES-TOWNSHIP-2026-FINAL).",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-LEVY-2026-ADOPTED",
+      "sourceId": "nd-2026-budget-minutes",
+      "page": 5,
+      "label": "North Dumfries 2026 adopted municipal tax levy (By-law 3617-26)",
+      "amountCad": 9002499,
+      "excerpt": "By-law No. 3617-26, being a By-law to approve the Township of North Dumfries 2026 Budget with a tax levy of $9,002,499 plus$ 160,117 for the Ayr Special Area levy",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "label": "2026 final residential township tax rate (RT)",
+      "value": 0.00315303,
+      "excerpt": "RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+      "status": "final",
+      "note": "Schedule 'A' to By-law 3637-26 \u2014 Township Rate column for CODE RT Residential.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TAXRATE-RES-REGION-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "label": "2026 final residential Region tax rate (RT)",
+      "value": 0.00717545,
+      "excerpt": "RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+      "status": "final",
+      "note": "Schedule 'A' to By-law 3637-26 \u2014 Regional Rate column for CODE RT Residential.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "label": "2026 final residential education tax rate (RT)",
+      "value": 0.00153,
+      "excerpt": "RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+      "status": "final",
+      "note": "Schedule 'A' to By-law 3637-26 \u2014 Education Rate column for CODE RT Residential.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TAXRATE-BYLAW-ADOPTION-2026",
+      "sourceId": "nd-2026-tax-rate-minutes",
+      "page": 6,
+      "label": "Council adopted By-law 3637-26 (2026 final tax rates)",
+      "excerpt": "AND THAT Council adopt By-law No. 3637-26, being a By-law to adopt the 2026 Tax Rates By-law which includes the Township of North Dumfries Municipal Tax Rate for General and Special Area Levy, Region of Waterloo Tax Rates and the Province of Ontario School Board Tax Rates, be enacted. CARRIED",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-BUDGET-REQUIREMENT-TAXBYLAW-2026",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 101,
+      "label": "Municipal budget requirement stated in By-law 3637-26",
+      "amountCad": 9002462,
+      "excerpt": "And Whereas the Municipal Budget requirement for the Township of North Dumfries amounts to $9,002,462 for 2026;",
+      "status": "final",
+      "note": "$37 below adopted levy $9,002,499 in By-law 3617-26; cited for transparency. Allocation base not rebuilt in this step.",
       "kind": "FACT"
     },
     {
@@ -91,7 +192,7 @@
       "label": "Average residential assessment used by Township",
       "amountCad": 455000,
       "excerpt": "Average Residential Assessment for the Township of North Dumfries 455,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -101,7 +202,7 @@
       "label": "2026 draft township taxes \u2014 rural average assessment",
       "amountCad": 1434.63,
       "excerpt": "Township Taxes Annually $1,434.63 at $455,000 assessment (Rural; TOWNSHIP PORTION ONLY)",
-      "status": "draft",
+      "status": "approved",
       "note": "Computed check: 455000 * 0.00315303 = 1434.629 \u2248 1434.63",
       "kind": "FACT"
     },
@@ -112,7 +213,7 @@
       "label": "2026 draft township taxes \u2014 urban average assessment",
       "amountCad": 1505.47,
       "excerpt": "Township Taxes Annually $1,505.47 at $455,000 assessment (Urban; TOWNSHIP PORTION ONLY)",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -122,7 +223,7 @@
       "label": "TOTAL CORPORATE SERVICES 2026 draft",
       "amountCad": 2091306,
       "excerpt": "TOTAL CORPORATE SERVICES ... 2,091,306",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -132,7 +233,7 @@
       "label": "TOTAL FIRE 2026 draft",
       "amountCad": 1182646,
       "excerpt": "TOTAL FIRE ... 1,182,646",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -142,7 +243,7 @@
       "label": "TOTAL PROTECTIVE SERVICES 2026 draft (includes Fire)",
       "amountCad": 1554793,
       "excerpt": "TOTAL PROTECTIVE SERVICES ... 1,554,793",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -152,7 +253,7 @@
       "label": "TOTAL PUBLIC WORKS 2026 draft",
       "amountCad": 2477423,
       "excerpt": "TOTAL PUBLIC WORKS ... 2,477,423",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -162,7 +263,7 @@
       "label": "TOTAL RECREATION SERVICES 2026 draft",
       "amountCad": 1867455,
       "excerpt": "TOTAL RECREATION SERVICES ... 1,867,455",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -172,7 +273,7 @@
       "label": "Recreation and Cultural Services Overhead 2026 draft",
       "amountCad": 1468430,
       "excerpt": "Total Recreation and Cultural Services Overhead ... 1,468,430",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -182,7 +283,7 @@
       "label": "Transportation Services Overhead 2026 draft",
       "amountCad": 1466225,
       "excerpt": "Total Transportation Services - Overhead ... 1,466,225",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -192,7 +293,7 @@
       "label": "TOTAL PLANNING 2026 draft",
       "amountCad": 451372,
       "excerpt": "TOTAL PLANNING ... 451,372",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -202,7 +303,7 @@
       "label": "Tax levy funding for Capital Reserve Transfers 2026",
       "amountCad": 1625000,
       "excerpt": "tax levy funding for Capital Reserve Transfers ... in 2026 totals $1,625,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -212,7 +313,7 @@
       "label": "2026 draft capital program total",
       "amountCad": 31192121,
       "excerpt": "TOTAL $31,192,121",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -222,7 +323,7 @@
       "label": "NDCC Twin Pad / Net Zero Arena construction phase",
       "amountCad": 16190160,
       "excerpt": "construction phase of the project is estimated at a cost of $16,190,160",
-      "status": "draft",
+      "status": "approved",
       "funding": [
         {
           "source": "Federal Net Zero grant",
@@ -251,7 +352,7 @@
       "label": "New debt proposed for Twin Pad",
       "amountCad": 5000000,
       "excerpt": "new debt financing proposed [$5 million] to finance the Twin Pad Project ... first installment ... commence in fiscal year 2027 ... 20 year term",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -261,7 +362,7 @@
       "label": "Ayr Community Centre major exterior rehabilitation",
       "amountCad": 3500000,
       "excerpt": "projected cost for this work program is $3,500,000. Funding is derived from a Grant of $1 million ... residual drawn from Reserve Accounts",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -271,7 +372,7 @@
       "label": "Pump Track at Jim Schmidt Memorial Park",
       "amountCad": 568756,
       "excerpt": "estimated value of $568,756 ... fundraising and donations ... $498,756 ... Township is funding $70,000",
-      "status": "draft",
+      "status": "approved",
       "funding": [
         {
           "source": "Fundraising/donations (incl. Trillium $200k, Hallman $100k)",
@@ -291,7 +392,7 @@
       "label": "Clyde Park Phase I",
       "amountCad": 185500,
       "excerpt": "project cost is estimated at $185,500 and is funded from Grandbridge Energy Reserve Account and Parkland Trust Account",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -301,7 +402,7 @@
       "label": "Broadband Enhancement Strategy Phase 1",
       "amountCad": 150000,
       "excerpt": "project is estimated at $150,000 with funding through the Broadband Reserve Account",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -311,7 +412,7 @@
       "label": "Official Plan comprehensive update / conformity exercise",
       "amountCad": 405000,
       "excerpt": "project has an estimated cost of $405,000 and is funded through the Planning Studies Reserve Account, Development Charges Reserve Account and funding from Waterloo Economic Development Corporation",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -321,7 +422,7 @@
       "label": "Administration Legal Expense 2026 draft",
       "amountCad": 27000,
       "excerpt": "Administration - Legal Expense ... 27,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -331,7 +432,7 @@
       "label": "Administration Tax Sale Legal & Other Costs 2026 draft",
       "amountCad": 22000,
       "excerpt": "Administration - Tax Sale - Legal & Other Costs ... 22,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -341,7 +442,7 @@
       "label": "Building Services Legal Expense 2026 draft",
       "amountCad": 12000,
       "excerpt": "Building Services - Legal Expense ... 12,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -351,7 +452,7 @@
       "label": "By-Law Legal Expense 2026 draft",
       "amountCad": 25000,
       "excerpt": "By-Law - Legal Expense ... 25,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -361,7 +462,7 @@
       "label": "Planning Legal Expense 2026 draft",
       "amountCad": 8000,
       "excerpt": "Planning - Legal Expense ... 8,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -371,7 +472,7 @@
       "label": "Tax-funded community grants 2026",
       "amountCad": 40000,
       "excerpt": "The 2026 tax funded community grants are $40,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -381,7 +482,7 @@
       "label": "Ayr Cemetery grant",
       "amountCad": 10000,
       "excerpt": "allocations to the Ayr Cemetery, in the amount of $10,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -391,7 +492,7 @@
       "label": "Sheffield Lions / Scott Women\u2019s Institute Building",
       "amountCad": 3500,
       "excerpt": "$3,500 to the Sheffield Lions Club for the maintenance of the Scott Women\u2019s Institute Building",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -401,7 +502,7 @@
       "label": "Records Management Services",
       "amountCad": 8500,
       "excerpt": "Administration - Records Management Services ... 8,500",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -411,7 +512,7 @@
       "label": "Waterloo Region Economic Development Corporation fee",
       "amountCad": 20000,
       "excerpt": "Waterloo Region Economic Development Corporation ($20,000)",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -421,7 +522,7 @@
       "label": "Waterloo Region Tourism & Marketing Corporation fee",
       "amountCad": 5000,
       "excerpt": "Waterloo Region Tourism & Marketing Corporation ($5,000)",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -431,7 +532,7 @@
       "label": "Sustainable Waterloo Region levy",
       "amountCad": 1725,
       "excerpt": "Sustainable Waterloo Levy ($1,725)",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -441,7 +542,7 @@
       "label": "Heritage annual software licensing",
       "amountCad": 5000,
       "excerpt": "Heritage -Annual Licencing of Software ... 5,000",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -451,7 +552,7 @@
       "label": "Total Animal Control 2026 draft",
       "amountCad": 10875,
       "excerpt": "Total Animal Control ... 10,875",
-      "status": "draft",
+      "status": "approved",
       "kind": "FACT"
     },
     {
@@ -972,43 +1073,6 @@
   ],
   "gaps": [
     {
-      "id": "GAP-5000-BILL",
-      "title": "No source supports a single accurate $5,000 combined tax bill composition",
-      "detail": "Township average assessment ($455,000) and Region household table assessment ($354,500) differ. No extracted 2026 final combined township+region+education tax rate schedule for North Dumfries at one assessment was used.",
-      "blocks": [
-        "hypothetical_$5000_receipt_allocation"
-      ],
-      "neededEvidence": [
-        "2026 final North Dumfries tax rate by-law (township + region + education)",
-        "OR a sample final tax bill for a North Dumfries residential property totaling ~$5,000"
-      ],
-      "kind": "GAP"
-    },
-    {
-      "id": "GAP-EDUCATION-2026",
-      "title": "2026 education portion for North Dumfries not extracted",
-      "detail": "Education rates are set provincially. Not pulled from a 2026 ND final tax schedule in this ledger.",
-      "blocks": [
-        "education_share_of_bill"
-      ],
-      "neededEvidence": [
-        "2026 education tax rate applicable to North Dumfries residential"
-      ],
-      "kind": "GAP"
-    },
-    {
-      "id": "GAP-ND-FINAL-BUDGET",
-      "title": "North Dumfries 2026 figures are DRAFT (Dec 8, 2025 binder)",
-      "detail": "Operating and capital amounts may change after January/February 2026 budget meetings and final adoption.",
-      "blocks": [
-        "treat_nd_amounts_as_final"
-      ],
-      "neededEvidence": [
-        "Adopted 2026 North Dumfries budget / final tax rate by-law"
-      ],
-      "kind": "GAP"
-    },
-    {
       "id": "GAP-FLAGGED-DOLLARS-ON-BILL",
       "title": "Cannot allocate 'flagged/inefficient' dollars on a household bill without an explicit rule set",
       "detail": "Budget books do not label lines as inefficient. Any necessary-vs-flagged split is interpretive. Do not invent billImpactCad for judgment flags.",
@@ -1044,16 +1108,39 @@
         "Invoice/contract line or GL detail"
       ],
       "kind": "GAP"
+    }
+  ],
+  "closedGaps": [
+    {
+      "id": "GAP-EDUCATION-2026",
+      "status": "closed",
+      "resolution": "Replaced by FACT ND-TAXRATE-RES-EDUCATION-2026-FINAL from By-law 3637-26 Schedule A (agenda p.103); adopted C-153-26 / third reading C-163-26.",
+      "replacedByFactIds": [
+        "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+      ]
+    },
+    {
+      "id": "GAP-ND-FINAL-BUDGET",
+      "status": "closed",
+      "resolution": "2026 Budget approved Feb 2, 2026 via By-law 3617-26 at tax levy $9,002,499 (Special Budget minutes p.5). ND binder facts flipped draft\u2192approved. Department published nets unchanged by the Feb 2 amendments (fireworks reallocation; heritage capital from reserves).",
+      "replacedByFactIds": [
+        "ND-LEVY-2026-ADOPTED"
+      ]
+    },
+    {
+      "id": "GAP-5000-BILL",
+      "status": "closed",
+      "resolution": "Final RT rates ingested (township 0.00315303, Region 0.00717545, education 0.00153000). Prior detail was wrong: township $455,000 and Region $354,500 sit on the SAME MPAC January 1, 2016 valuation base; they are different average properties, not different assessment systems. Combined receipt at one assessment is deferred to a later step \u2014 not built here.",
+      "replacedByFactIds": [
+        "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
+        "ND-TAXRATE-RES-REGION-2026-FINAL",
+        "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+      ]
     },
     {
       "id": "GAP-RURAL-HH-LINE-SUM",
-      "title": "Rural household service lines sum does not exactly match source subtotal",
-      "detail": "Extracted rural service lines sum to $2619; source subtotal shown as $2,621 before -$78 PIL. Difference $2. Likely PDF table parsing/rounding; kept source total $2,543 as authoritative.",
-      "blocks": [],
-      "neededEvidence": [
-        "Re-verify page 12 table digits against PDF"
-      ],
-      "kind": "GAP"
+      "status": "closed",
+      "resolution": "resolved_source_rounding \u2014 23 printed rural lines sum to $2,619; printed subtotal $2,621; less printed ($78) PIL = printed $2,543. Each line rounded to whole dollars; subtotal from unrounded values. $2,543 remains authoritative."
     }
   ],
   "findings": [

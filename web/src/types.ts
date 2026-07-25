@@ -63,7 +63,7 @@ export type TaxpayerReceipt = {
     hypothetical5000: {
       amountCad: number
       evidenceStatus: string
-      gapId: string
+      gapId?: string
       allocatable: boolean
       message: string
     }
