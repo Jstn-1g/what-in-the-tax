@@ -1,0 +1,1193 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifact": "EvidenceLedger",
+  "evidencePolicy": {
+    "rules": [
+      "FACT: must include sourceId, excerpt, and page when from PDF.",
+      "DERIVED: must include formula and input ids; no new external numbers.",
+      "GAP: record missing evidence; never invent amounts to fill UI.",
+      "JUDGMENT: interpretive only; billImpactCad null unless a cited formula exists.",
+      "Draft vs final: North Dumfries 2026 amounts are draft until adopted budget is ingested."
+    ]
+  },
+  "sources": [
+    {
+      "id": "nd-2026-draft",
+      "title": "Township of North Dumfries 2026 Municipal Draft Budget Binder",
+      "url": "https://www.northdumfries.ca/media/csjjshvf/2026-draft-budget-binder.pdf",
+      "localPath": "source-pdfs/2026-draft-budget-binder.pdf",
+      "extractedText": "data/_extracts/2026-draft-budget-binder.txt",
+      "asOf": "2025-12-08",
+      "authority": "draft"
+    },
+    {
+      "id": "row-2026-book",
+      "title": "Region of Waterloo 2026 Final Budget Book",
+      "url": "https://www.regionofwaterloo.ca/media/ynro4cd2/2026_final_budget_book.pdf",
+      "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
+      "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
+      "authority": "final"
+    },
+    {
+      "id": "row-2026-summary",
+      "title": "Region of Waterloo 2026 Plan and Budget Summary Booklet",
+      "url": "https://www.regionofwaterloo.ca/media/3two5ebp/2026-plan-and-budget-summary-booklet.pdf",
+      "localPath": "source-pdfs/2026-plan-and-budget-summary-booklet.pdf",
+      "extractedText": "data/_extracts/2026-plan-and-budget-summary-booklet.txt",
+      "authority": "summary"
+    },
+    {
+      "id": "statcan-2021",
+      "title": "Statistics Canada 2021 Census Profile \u2014 North Dumfries",
+      "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
+      "authority": "external"
+    }
+  ],
+  "facts": [
+    {
+      "id": "ND-LEVY-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "label": "North Dumfries 2026 draft municipal levy requirement",
+      "amountCad": 9002499,
+      "excerpt": "2026 LEVY REQUIREMENT = $9,002,499",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-LEVY-2025",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "label": "North Dumfries 2025 levy requirement (comparator)",
+      "amountCad": 8427827,
+      "excerpt": "2025 LEVY REQUIREMENT = $8,427,827",
+      "status": "approved_prior_year",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-LEVY-INCREASE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "label": "Year-over-year levy increase (draft)",
+      "amountCad": 574672,
+      "excerpt": "Levy Increase $574,672",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TAXRATE-RURAL-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "label": "2026 draft rural residential township tax rate",
+      "value": 0.00315303,
+      "excerpt": "Residential Township Tax Rate 0.00315303 (2026 Rural)",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-AVG-ASSESSMENT",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "label": "Average residential assessment used by Township",
+      "amountCad": 455000,
+      "excerpt": "Average Residential Assessment for the Township of North Dumfries 455,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "label": "2026 draft township taxes \u2014 rural average assessment",
+      "amountCad": 1434.63,
+      "excerpt": "Township Taxes Annually $1,434.63 at $455,000 assessment (Rural; TOWNSHIP PORTION ONLY)",
+      "status": "draft",
+      "note": "Computed check: 455000 * 0.00315303 = 1434.629 \u2248 1434.63",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TOWNSHIP-TAX-URBAN-AVG-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "label": "2026 draft township taxes \u2014 urban average assessment",
+      "amountCad": 1505.47,
+      "excerpt": "Township Taxes Annually $1,505.47 at $455,000 assessment (Urban; TOWNSHIP PORTION ONLY)",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-CORPORATE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "TOTAL CORPORATE SERVICES 2026 draft",
+      "amountCad": 2091306,
+      "excerpt": "TOTAL CORPORATE SERVICES ... 2,091,306",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-FIRE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "TOTAL FIRE 2026 draft",
+      "amountCad": 1182646,
+      "excerpt": "TOTAL FIRE ... 1,182,646",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-PROTECTIVE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "TOTAL PROTECTIVE SERVICES 2026 draft (includes Fire)",
+      "amountCad": 1554793,
+      "excerpt": "TOTAL PROTECTIVE SERVICES ... 1,554,793",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-PW-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "TOTAL PUBLIC WORKS 2026 draft",
+      "amountCad": 2477423,
+      "excerpt": "TOTAL PUBLIC WORKS ... 2,477,423",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-REC-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "TOTAL RECREATION SERVICES 2026 draft",
+      "amountCad": 1867455,
+      "excerpt": "TOTAL RECREATION SERVICES ... 1,867,455",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-REC-OVERHEAD-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "Recreation and Cultural Services Overhead 2026 draft",
+      "amountCad": 1468430,
+      "excerpt": "Total Recreation and Cultural Services Overhead ... 1,468,430",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-PW-OVERHEAD-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "Transportation Services Overhead 2026 draft",
+      "amountCad": 1466225,
+      "excerpt": "Total Transportation Services - Overhead ... 1,466,225",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-PLANNING-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "TOTAL PLANNING 2026 draft",
+      "amountCad": 451372,
+      "excerpt": "TOTAL PLANNING ... 451,372",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 43,
+      "label": "Tax levy funding for Capital Reserve Transfers 2026",
+      "amountCad": 1625000,
+      "excerpt": "tax levy funding for Capital Reserve Transfers ... in 2026 totals $1,625,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAPITAL-PROGRAM-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 57,
+      "label": "2026 draft capital program total",
+      "amountCad": 31192121,
+      "excerpt": "TOTAL $31,192,121",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAP-ARENA-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 53,
+      "label": "NDCC Twin Pad / Net Zero Arena construction phase",
+      "amountCad": 16190160,
+      "excerpt": "construction phase of the project is estimated at a cost of $16,190,160",
+      "status": "draft",
+      "funding": [
+        {
+          "source": "Federal Net Zero grant",
+          "amountCad": 5000000
+        },
+        {
+          "source": "Debt financing",
+          "amountCad": 5000000
+        },
+        {
+          "source": "Centre for the Community Group fundraising",
+          "amountCad": 2121360
+        },
+        {
+          "source": "Development Charges",
+          "amountCad": 520000
+        }
+      ],
+      "note": "Capital table (p.57) also lists additional reserve/boundary/fundraising columns totaling $16,190,160. Debt P&I begins 2027 (p.43).",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAP-DEBT-TWINPAD",
+      "sourceId": "nd-2026-draft",
+      "page": 43,
+      "label": "New debt proposed for Twin Pad",
+      "amountCad": 5000000,
+      "excerpt": "new debt financing proposed [$5 million] to finance the Twin Pad Project ... first installment ... commence in fiscal year 2027 ... 20 year term",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAP-ACC-EXTERIOR-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 52,
+      "label": "Ayr Community Centre major exterior rehabilitation",
+      "amountCad": 3500000,
+      "excerpt": "projected cost for this work program is $3,500,000. Funding is derived from a Grant of $1 million ... residual drawn from Reserve Accounts",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAP-PUMPTRACK-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 54,
+      "label": "Pump Track at Jim Schmidt Memorial Park",
+      "amountCad": 568756,
+      "excerpt": "estimated value of $568,756 ... fundraising and donations ... $498,756 ... Township is funding $70,000",
+      "status": "draft",
+      "funding": [
+        {
+          "source": "Fundraising/donations (incl. Trillium $200k, Hallman $100k)",
+          "amountCad": 498756
+        },
+        {
+          "source": "Township cash",
+          "amountCad": 70000
+        }
+      ],
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAP-CLYDE-PARK-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 54,
+      "label": "Clyde Park Phase I",
+      "amountCad": 185500,
+      "excerpt": "project cost is estimated at $185,500 and is funded from Grandbridge Energy Reserve Account and Parkland Trust Account",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAP-BROADBAND-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 45,
+      "label": "Broadband Enhancement Strategy Phase 1",
+      "amountCad": 150000,
+      "excerpt": "project is estimated at $150,000 with funding through the Broadband Reserve Account",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAP-OFFICIAL-PLAN-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 46,
+      "label": "Official Plan comprehensive update / conformity exercise",
+      "amountCad": 405000,
+      "excerpt": "project has an estimated cost of $405,000 and is funded through the Planning Studies Reserve Account, Development Charges Reserve Account and funding from Waterloo Economic Development Corporation",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-LEGAL-ADMIN-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 18,
+      "label": "Administration Legal Expense 2026 draft",
+      "amountCad": 27000,
+      "excerpt": "Administration - Legal Expense ... 27,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-LEGAL-TAX-SALE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 18,
+      "label": "Administration Tax Sale Legal & Other Costs 2026 draft",
+      "amountCad": 22000,
+      "excerpt": "Administration - Tax Sale - Legal & Other Costs ... 22,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-LEGAL-BUILDING-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 24,
+      "label": "Building Services Legal Expense 2026 draft",
+      "amountCad": 12000,
+      "excerpt": "Building Services - Legal Expense ... 12,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-LEGAL-BYLAW-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 26,
+      "label": "By-Law Legal Expense 2026 draft",
+      "amountCad": 25000,
+      "excerpt": "By-Law - Legal Expense ... 25,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-LEGAL-PLANNING-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "label": "Planning Legal Expense 2026 draft",
+      "amountCad": 8000,
+      "excerpt": "Planning - Legal Expense ... 8,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-GRANTS-COMMUNITY-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 14,
+      "label": "Tax-funded community grants 2026",
+      "amountCad": 40000,
+      "excerpt": "The 2026 tax funded community grants are $40,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-GRANT-AYR-CEMETERY-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 14,
+      "label": "Ayr Cemetery grant",
+      "amountCad": 10000,
+      "excerpt": "allocations to the Ayr Cemetery, in the amount of $10,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-GRANT-SHEFFIELD-LIONS-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 14,
+      "label": "Sheffield Lions / Scott Women\u2019s Institute Building",
+      "amountCad": 3500,
+      "excerpt": "$3,500 to the Sheffield Lions Club for the maintenance of the Scott Women\u2019s Institute Building",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-RECORDS-MGMT-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 16,
+      "label": "Records Management Services",
+      "amountCad": 8500,
+      "excerpt": "Administration - Records Management Services ... 8,500",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-WREDC-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "label": "Waterloo Region Economic Development Corporation fee",
+      "amountCad": 20000,
+      "excerpt": "Waterloo Region Economic Development Corporation ($20,000)",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TOURISM-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "label": "Waterloo Region Tourism & Marketing Corporation fee",
+      "amountCad": 5000,
+      "excerpt": "Waterloo Region Tourism & Marketing Corporation ($5,000)",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-SUSTAINABLE-WR-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "label": "Sustainable Waterloo Region levy",
+      "amountCad": 1725,
+      "excerpt": "Sustainable Waterloo Levy ($1,725)",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-HERITAGE-SOFTWARE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "label": "Heritage annual software licensing",
+      "amountCad": 5000,
+      "excerpt": "Heritage -Annual Licencing of Software ... 5,000",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-ANIMAL-CONTROL-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "label": "Total Animal Control 2026 draft",
+      "amountCad": 10875,
+      "excerpt": "Total Animal Control ... 10,875",
+      "status": "draft",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-POP-CENSUS-2021",
+      "sourceId": "statcan-2021",
+      "page": null,
+      "label": "North Dumfries population (2021 Census)",
+      "amountCad": null,
+      "value": 10619,
+      "excerpt": "Statistics Canada 2021 Census: North Dumfries population 10,619",
+      "status": "external",
+      "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-LEVY-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Region of Waterloo 2026 property tax levy",
+      "amountCad": 887329000,
+      "excerpt": "Regional Tax Levy ... $887,329 ($000's)",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-WRPS-LEVY-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "WRPS 2026 property tax levy",
+      "amountCad": 272610000,
+      "excerpt": "Police Service ... Property Tax Levy ($000's) 272,610",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-TOTAL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Tax-supported regional services cost per average rural household (N. Dumfries / Wellesley)",
+      "amountCad": 2543,
+      "excerpt": "Rural ... Regional Tax Levy ... $2,543 ... Based on an average residential property valued at $354,500",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "note": "Rural column explicitly includes Wellesley and North Dumfries.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-SUMMARY-OP-FUNDING-TAX-2026",
+      "sourceId": "row-2026-summary",
+      "page": 6,
+      "label": "Summary booklet \u2014 property tax funding of operating budget",
+      "amountCad": 887000000,
+      "excerpt": "Property Taxes $887 M",
+      "status": "summary",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-SUMMARY-CAPITAL-2026",
+      "sourceId": "row-2026-summary",
+      "page": 7,
+      "label": "Summary booklet \u2014 2026 capital budget",
+      "amountCad": 772000000,
+      "excerpt": "$772 M 2026 Capital Budget Funding and Financing",
+      "status": "summary",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-SUMMARY-AVG-IMPACT-2026",
+      "sourceId": "row-2026-summary",
+      "page": 4,
+      "label": "Summary booklet \u2014 average property impact",
+      "amountCad": 142,
+      "excerpt": "5.1% ... $142 for an average property, or $12 per month",
+      "status": "summary",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-01",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Police Service",
+      "amountCad": 900,
+      "regionalNetExpenditure000s": 298907,
+      "regionalPropertyTaxLevy000s": 272610,
+      "excerpt": "Police Service ... Rural $900",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-02",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Public Transit (area-rated; rural)",
+      "amountCad": 63,
+      "regionalNetExpenditure000s": 231203,
+      "regionalPropertyTaxLevy000s": 156402,
+      "excerpt": "Public Transit (area-rated; rural) ... Rural $63",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-03",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Housing Services",
+      "amountCad": 429,
+      "regionalNetExpenditure000s": 178544,
+      "regionalPropertyTaxLevy000s": 129992,
+      "excerpt": "Housing Services ... Rural $429",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-04",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Roads / Design & Construction / Engineering",
+      "amountCad": 240,
+      "regionalNetExpenditure000s": 78529,
+      "regionalPropertyTaxLevy000s": 72779,
+      "excerpt": "Roads / Design & Construction / Engineering ... Rural $240",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-05",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Waste Management",
+      "amountCad": 213,
+      "regionalNetExpenditure000s": 80797,
+      "regionalPropertyTaxLevy000s": 64596,
+      "excerpt": "Waste Management ... Rural $213",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-06",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Financial Expenses",
+      "amountCad": 89,
+      "regionalNetExpenditure000s": 29630,
+      "regionalPropertyTaxLevy000s": 26969,
+      "excerpt": "Financial Expenses ... Rural $89",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-07",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Paramedic Services",
+      "amountCad": 134,
+      "regionalNetExpenditure000s": 86447,
+      "regionalPropertyTaxLevy000s": 40575,
+      "excerpt": "Paramedic Services ... Rural $134",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-08",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Employment / Income Support",
+      "amountCad": 53,
+      "regionalNetExpenditure000s": 144080,
+      "regionalPropertyTaxLevy000s": 16098,
+      "excerpt": "Employment / Income Support ... Rural $53",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-09",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Seniors' Services",
+      "amountCad": 51,
+      "regionalNetExpenditure000s": 54042,
+      "regionalPropertyTaxLevy000s": 15597,
+      "excerpt": "Seniors' Services ... Rural $51",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-10",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Human Resources",
+      "amountCad": 39,
+      "regionalNetExpenditure000s": 13269,
+      "regionalPropertyTaxLevy000s": 11955,
+      "excerpt": "Human Resources ... Rural $39",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-11",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Information Technology Services",
+      "amountCad": 49,
+      "regionalNetExpenditure000s": 14979,
+      "regionalPropertyTaxLevy000s": 14979,
+      "excerpt": "Information Technology Services ... Rural $49",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-12",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Public Health",
+      "amountCad": 45,
+      "regionalNetExpenditure000s": 45222,
+      "regionalPropertyTaxLevy000s": 13561,
+      "excerpt": "Public Health ... Rural $45",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-13",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Facilities & Fleet Management",
+      "amountCad": 24,
+      "regionalNetExpenditure000s": 10196,
+      "regionalPropertyTaxLevy000s": 7189,
+      "excerpt": "Facilities & Fleet Management ... Rural $24",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-14",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Cultural Services",
+      "amountCad": 33,
+      "regionalNetExpenditure000s": 11722,
+      "regionalPropertyTaxLevy000s": 10060,
+      "excerpt": "Cultural Services ... Rural $33",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-15",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Children's Services",
+      "amountCad": 30,
+      "regionalNetExpenditure000s": 245740,
+      "regionalPropertyTaxLevy000s": 9143,
+      "excerpt": "Children's Services ... Rural $30",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-16",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Elected Offices & Office of the CAO",
+      "amountCad": 17,
+      "regionalNetExpenditure000s": 5256,
+      "regionalPropertyTaxLevy000s": 5256,
+      "excerpt": "Elected Offices & Office of the CAO ... Rural $17",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-17",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Resident Experience, Strategy and Communications",
+      "amountCad": 19,
+      "regionalNetExpenditure000s": 5869,
+      "regionalPropertyTaxLevy000s": 5855,
+      "excerpt": "Resident Experience, Strategy and Communications ... Rural $19",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-18",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Airport",
+      "amountCad": 31,
+      "regionalNetExpenditure000s": 19855,
+      "regionalPropertyTaxLevy000s": 9281,
+      "excerpt": "Airport ... Rural $31",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-19",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Planning, Development & Legislative Services",
+      "amountCad": 21,
+      "regionalNetExpenditure000s": 34909,
+      "regionalPropertyTaxLevy000s": 6510,
+      "excerpt": "Planning, Development & Legislative Services ... Rural $21",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-20",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Finance",
+      "amountCad": 24,
+      "regionalNetExpenditure000s": 7524,
+      "regionalPropertyTaxLevy000s": 7369,
+      "excerpt": "Finance ... Rural $24",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-21",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Regional Library (area-rated; rural)",
+      "amountCad": 79,
+      "regionalNetExpenditure000s": 3809,
+      "regionalPropertyTaxLevy000s": 3314,
+      "excerpt": "Regional Library (area-rated; rural) ... Rural $79",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-22",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Build Waterloo Region",
+      "amountCad": 16,
+      "regionalNetExpenditure000s": 6277,
+      "regionalPropertyTaxLevy000s": 4925,
+      "excerpt": "Build Waterloo Region ... Rural $16",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-RURAL-HH-23",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Rural household \u2014 Strategy, Performance and Partnerships",
+      "amountCad": 20,
+      "regionalNetExpenditure000s": 5952,
+      "regionalPropertyTaxLevy000s": 5952,
+      "excerpt": "Strategy, Performance and Partnerships ... Rural $20",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    }
+  ],
+  "derived": [
+    {
+      "id": "DRV-ND-DEPT-SUM",
+      "label": "Sum of township draft dept nets used for allocation base",
+      "amountCad": 10067349,
+      "formula": "CORPORATE + PROTECTIVE + PW + REC + PLANNING + CAPITAL_RESERVE_XFER",
+      "inputs": [
+        "ND-DEPT-CORPORATE-2026",
+        "ND-DEPT-PROTECTIVE-2026",
+        "ND-DEPT-PW-2026",
+        "ND-DEPT-REC-2026",
+        "ND-DEPT-PLANNING-2026",
+        "ND-CAPITAL-TAX-RESERVE-XFER-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ALLOC-ND-DEPT-CORPORATE-2026",
+      "label": "Rural avg township bill share \u2014 ND-DEPT-CORPORATE-2026",
+      "amountCad": 298.02,
+      "formula": "1434.63 * (2091306 / 10067349)",
+      "inputs": [
+        "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "ND-DEPT-CORPORATE-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "shareOfTownshipBill": 0.207732,
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ALLOC-ND-DEPT-PROTECTIVE-2026",
+      "label": "Rural avg township bill share \u2014 ND-DEPT-PROTECTIVE-2026",
+      "amountCad": 221.56,
+      "formula": "1434.63 * (1554793 / 10067349)",
+      "inputs": [
+        "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "ND-DEPT-PROTECTIVE-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "shareOfTownshipBill": 0.154439,
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ALLOC-ND-DEPT-PW-2026",
+      "label": "Rural avg township bill share \u2014 ND-DEPT-PW-2026",
+      "amountCad": 353.04,
+      "formula": "1434.63 * (2477423 / 10067349)",
+      "inputs": [
+        "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "ND-DEPT-PW-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "shareOfTownshipBill": 0.246085,
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ALLOC-ND-DEPT-REC-2026",
+      "label": "Rural avg township bill share \u2014 ND-DEPT-REC-2026",
+      "amountCad": 266.12,
+      "formula": "1434.63 * (1867455 / 10067349)",
+      "inputs": [
+        "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "ND-DEPT-REC-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "shareOfTownshipBill": 0.185496,
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ALLOC-ND-DEPT-PLANNING-2026",
+      "label": "Rural avg township bill share \u2014 ND-DEPT-PLANNING-2026",
+      "amountCad": 64.32,
+      "formula": "1434.63 * (451372 / 10067349)",
+      "inputs": [
+        "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "ND-DEPT-PLANNING-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "shareOfTownshipBill": 0.044835,
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ALLOC-ND-CAPITAL-TAX-RESERVE-XFER-2026",
+      "label": "Rural avg township bill share \u2014 ND-CAPITAL-TAX-RESERVE-XFER-2026",
+      "amountCad": 231.57,
+      "formula": "1434.63 * (1625000 / 10067349)",
+      "inputs": [
+        "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "ND-CAPITAL-TAX-RESERVE-XFER-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "shareOfTownshipBill": 0.161413,
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-LEGAL-STACK-2026",
+      "label": "Sum of identified 2026 draft legal expense lines",
+      "amountCad": 94000,
+      "formula": "ADMIN + TAX_SALE + BUILDING + BYLAW + PLANNING legal lines",
+      "inputs": [
+        "ND-LEGAL-ADMIN-2026",
+        "ND-LEGAL-TAX-SALE-2026",
+        "ND-LEGAL-BUILDING-2026",
+        "ND-LEGAL-BYLAW-2026",
+        "ND-LEGAL-PLANNING-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-CORP-PER-CAPITA",
+      "label": "Corporate Services $ per 2021 census capita",
+      "amountCad": 196.94,
+      "formula": "ND-DEPT-CORPORATE-2026 / ND-POP-CENSUS-2021",
+      "inputs": [
+        "ND-DEPT-CORPORATE-2026",
+        "ND-POP-CENSUS-2021"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-ARENA-PER-CAPITA",
+      "label": "Arena project $ per 2021 census capita",
+      "amountCad": 1524.64,
+      "formula": "ND-CAP-ARENA-2026 / ND-POP-CENSUS-2021",
+      "inputs": [
+        "ND-CAP-ARENA-2026",
+        "ND-POP-CENSUS-2021"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-ARENA-SHARE-OF-CAPITAL",
+      "label": "Arena share of 2026 capital program",
+      "value": 0.519,
+      "formula": "ND-CAP-ARENA-2026 / ND-CAPITAL-PROGRAM-2026",
+      "inputs": [
+        "ND-CAP-ARENA-2026",
+        "ND-CAPITAL-PROGRAM-2026"
+      ],
+      "kind": "DERIVED"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "GAP-5000-BILL",
+      "title": "No source supports a single accurate $5,000 combined tax bill composition",
+      "detail": "Township average assessment ($455,000) and Region household table assessment ($354,500) differ. No extracted 2026 final combined township+region+education tax rate schedule for North Dumfries at one assessment was used.",
+      "blocks": [
+        "hypothetical_$5000_receipt_allocation"
+      ],
+      "neededEvidence": [
+        "2026 final North Dumfries tax rate by-law (township + region + education)",
+        "OR a sample final tax bill for a North Dumfries residential property totaling ~$5,000"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-EDUCATION-2026",
+      "title": "2026 education portion for North Dumfries not extracted",
+      "detail": "Education rates are set provincially. Not pulled from a 2026 ND final tax schedule in this ledger.",
+      "blocks": [
+        "education_share_of_bill"
+      ],
+      "neededEvidence": [
+        "2026 education tax rate applicable to North Dumfries residential"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-ND-FINAL-BUDGET",
+      "title": "North Dumfries 2026 figures are DRAFT (Dec 8, 2025 binder)",
+      "detail": "Operating and capital amounts may change after January/February 2026 budget meetings and final adoption.",
+      "blocks": [
+        "treat_nd_amounts_as_final"
+      ],
+      "neededEvidence": [
+        "Adopted 2026 North Dumfries budget / final tax rate by-law"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-FLAGGED-DOLLARS-ON-BILL",
+      "title": "Cannot allocate 'flagged/inefficient' dollars on a household bill without an explicit rule set",
+      "detail": "Budget books do not label lines as inefficient. Any necessary-vs-flagged split is interpretive. Do not invent billImpactCad for judgment flags.",
+      "blocks": [
+        "flagged_share_of_5000_bill"
+      ],
+      "neededEvidence": [
+        "User-approved classification rules (e.g. which object codes count as overhead)",
+        "Optional peer benchmarks with citations"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-ARENA-2026-TAX-IMPACT",
+      "title": "2026 tax-bill impact of Twin Pad debt service not stated",
+      "detail": "Debt P&I begins 2027. 2026 capital is funded by grant/debt/fundraising/DCs/reserves \u2014 not a stated 2026 operating levy line equal to $16.19M.",
+      "blocks": [
+        "arena_dollars_on_2026_tax_bill"
+      ],
+      "neededEvidence": [
+        "Debt amortization schedule / 2027+ levy impact estimate from Township"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-BEAVER-LINE-AMOUNT",
+      "title": "Beaver extraction spend not isolated as its own budget line amount",
+      "detail": "Narrative mentions external contractors for beaver extraction; no discrete dollar line extracted.",
+      "blocks": [
+        "beaver_extraction_amount"
+      ],
+      "neededEvidence": [
+        "Invoice/contract line or GL detail"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-RURAL-HH-LINE-SUM",
+      "title": "Rural household service lines sum does not exactly match source subtotal",
+      "detail": "Extracted rural service lines sum to $2619; source subtotal shown as $2,621 before -$78 PIL. Difference $2. Likely PDF table parsing/rounding; kept source total $2,543 as authoritative.",
+      "blocks": [],
+      "neededEvidence": [
+        "Re-verify page 12 table digits against PDF"
+      ],
+      "kind": "GAP"
+    }
+  ],
+  "findings": [
+    {
+      "id": "FIND-ADMIN-CORP-SCALE",
+      "kind": "JUDGMENT",
+      "category": "administrative_bloat",
+      "title": "Corporate Services is a large share of the township draft budget",
+      "severitySeverity": "needs_review",
+      "citedFactIds": [
+        "ND-DEPT-CORPORATE-2026",
+        "ND-LEVY-2026",
+        "DRV-ND-CORP-PER-CAPITA",
+        "ND-POP-CENSUS-2021"
+      ],
+      "evidenceSummary": "Corporate Services draft $2,091,306 vs municipal levy $9,002,499; \u2248$197/capita at 2021 population.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
+    },
+    {
+      "id": "FIND-ADMIN-LEGAL-STACK",
+      "kind": "JUDGMENT",
+      "category": "administrative_bloat",
+      "title": "Multiple legal expense lines across departments",
+      "opportunitySeverity": "needs_review",
+      "citedFactIds": [
+        "DRV-ND-LEGAL-STACK-2026",
+        "ND-LEGAL-ADMIN-2026",
+        "ND-LEGAL-TAX-SALE-2026",
+        "ND-LEGAL-BUILDING-2026",
+        "ND-LEGAL-BYLAW-2026",
+        "ND-LEGAL-PLANNING-2026"
+      ],
+      "evidenceSummary": "Identified legal lines sum to $94,000.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
+    },
+    {
+      "id": "FIND-CAP-ARENA",
+      "kind": "JUDGMENT",
+      "category": "questionable_capital",
+      "title": "Net Zero Twin Pad dominates 2026 capital program",
+      "opportunitySeverity": "high_attention",
+      "citedFactIds": [
+        "ND-CAP-ARENA-2026",
+        "ND-CAPITAL-PROGRAM-2026",
+        "ND-CAP-DEBT-TWINPAD",
+        "DRV-ND-ARENA-PER-CAPITA",
+        "DRV-ND-ARENA-SHARE-OF-CAPITAL"
+      ],
+      "evidenceSummary": "$16,190,160 of $31,192,121 capital (~51.9%); $5M new debt; debt service starts 2027.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-ARENA-2026-TAX-IMPACT",
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
+    },
+    {
+      "id": "FIND-CAP-DUAL-FACILITY",
+      "kind": "JUDGMENT",
+      "category": "questionable_capital",
+      "title": "ACC $3.5M exterior rehab concurrent with new Twin Pad",
+      "opportunitySeverity": "high_attention",
+      "citedFactIds": [
+        "ND-CAP-ACC-EXTERIOR-2026",
+        "ND-CAP-ARENA-2026"
+      ],
+      "evidenceSummary": "ACC exterior rehab $3,500,000 ($1M Ontario grant) while Twin Pad under construction; ACC ice to be decommissioned on Twin Pad opening.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
+    },
+    {
+      "id": "FIND-CAP-PUMPTRACK",
+      "kind": "JUDGMENT",
+      "category": "questionable_capital",
+      "title": "Pump track amenity \u2014 mostly externally funded",
+      "opportunitySeverity": "watch",
+      "citedFactIds": [
+        "ND-CAP-PUMPTRACK-2026"
+      ],
+      "evidenceSummary": "$568,756 total; Township cash $70,000; donations/fundraising $498,756.",
+      "billImpactCad": null,
+      "gapIds": []
+    },
+    {
+      "id": "FIND-UNUSUAL-GRANTS",
+      "kind": "JUDGMENT",
+      "category": "unusual_line_items",
+      "title": "Community grants and cemetery/service-club transfers",
+      "opportunitySeverity": "watch",
+      "citedFactIds": [
+        "ND-GRANTS-COMMUNITY-2026",
+        "ND-GRANT-AYR-CEMETERY-2026",
+        "ND-GRANT-SHEFFIELD-LIONS-2026"
+      ],
+      "evidenceSummary": "Community grants $40,000; Ayr Cemetery $10,000; Sheffield Lions $3,500.",
+      "billImpactCad": null,
+      "gapIds": [
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
+      ]
+    },
+    {
+      "id": "FIND-UNUSUAL-PARTNERSHIP-FEES",
+      "kind": "JUDGMENT",
+      "category": "unusual_line_items",
+      "title": "Economic development / tourism / sustainability fees",
+      "opportunitySeverity": "watch",
+      "citedFactIds": [
+        "ND-WREDC-2026",
+        "ND-TOURISM-2026",
+        "ND-SUSTAINABLE-WR-2026"
+      ],
+      "evidenceSummary": "WREDC $20,000; Tourism $5,000; Sustainable WR $1,725.",
+      "billImpactCad": null,
+      "gapIds": []
+    },
+    {
+      "id": "FIND-UNUSUAL-HERITAGE-SOFTWARE",
+      "kind": "JUDGMENT",
+      "category": "unusual_line_items",
+      "title": "Heritage software licensing",
+      "opportunitySeverity": "watch",
+      "citedFactIds": [
+        "ND-HERITAGE-SOFTWARE-2026"
+      ],
+      "evidenceSummary": "Heritage annual software licensing $5,000.",
+      "billImpactCad": null,
+      "gapIds": []
+    }
+  ]
+}
