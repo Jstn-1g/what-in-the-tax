@@ -78,6 +78,24 @@
       "title": "Statistics Canada 2021 Census Profile \u2014 North Dumfries",
       "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
       "authority": "external"
+    },
+    {
+      "id": "statcan-csd-estimates",
+      "title": "Statistics Canada Table 17-10-0155-01 \u2014 Population estimates, July 1, by census subdivision",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+      "localPath": null,
+      "authority": "external",
+      "asOf": "2025-07-01",
+      "note": "Downloaded CSV extract 17100155-eng.zip used to cite township estimates; full table not committed."
+    },
+    {
+      "id": "mmah-fir-2023",
+      "title": "Ontario MMAH Financial Information Return \u2014 fir_data_2023 (Schedule 40 General government)",
+      "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+      "localPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
+      "authority": "external",
+      "asOf": "2023-12-31",
+      "note": "Peer extract only is committed. Full provincial ZIP kept locally / gitignored."
     }
   ],
   "facts": [
@@ -669,6 +687,107 @@
       "excerpt": "Statistics Canada 2021 Census: North Dumfries population 10,619",
       "status": "external",
       "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-POP-STATCAN-2025",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "label": "North Dumfries population estimate (StatCan, July 1, 2025)",
+      "value": 13051,
+      "excerpt": "2025,North Dumfries (TP), Ontario,2021A00053530004,...,13051",
+      "status": "external",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+      "note": "Table 17-10-0155-01. Postcensal estimate adjusted for net undercoverage; not the unadjusted Census count.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-POP-STATCAN-2023",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "label": "North Dumfries population estimate (StatCan, July 1, 2023)",
+      "value": 12047,
+      "excerpt": "2023,North Dumfries (TP), Ontario,2021A00053530004,...,12047",
+      "status": "external",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+      "kind": "FACT"
+    },
+    {
+      "id": "FIR-GG-ND-2023",
+      "sourceId": "mmah-fir-2023",
+      "page": null,
+      "label": "FIR 2023 General government \u2014 Total Expenses Before Adjustments (North Dumfries)",
+      "amountCad": 1933805,
+      "excerpt": "2023,3001,North Dumfries Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,1933805",
+      "status": "external",
+      "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+      "note": "Schedule 40 Consolidated Statement of Operations: Expenses. Before Adjustments avoids peer differences in program-support allocation.",
+      "kind": "FACT"
+    },
+    {
+      "id": "FIR-GG-WELLESLEY-2023",
+      "sourceId": "mmah-fir-2023",
+      "page": null,
+      "label": "FIR 2023 General government \u2014 Total Expenses Before Adjustments (Wellesley)",
+      "amountCad": 2104106,
+      "excerpt": "2023,3024,Wellesley Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,2104106",
+      "status": "external",
+      "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+      "kind": "FACT"
+    },
+    {
+      "id": "FIR-GG-WILMOT-2023",
+      "sourceId": "mmah-fir-2023",
+      "page": null,
+      "label": "FIR 2023 General government \u2014 Total Expenses Before Adjustments (Wilmot)",
+      "amountCad": 4008877,
+      "excerpt": "2023,3018,Wilmot Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,4008877",
+      "status": "external",
+      "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+      "kind": "FACT"
+    },
+    {
+      "id": "FIR-GG-WOOLWICH-2023",
+      "sourceId": "mmah-fir-2023",
+      "page": null,
+      "label": "FIR 2023 General government \u2014 Total Expenses Before Adjustments (Woolwich)",
+      "amountCad": 4153213,
+      "excerpt": "2023,3029,Woolwich Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,4153213",
+      "status": "external",
+      "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+      "kind": "FACT"
+    },
+    {
+      "id": "STATCAN-POP-WELLESLEY-2023",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "label": "Wellesley population estimate (StatCan, July 1, 2023)",
+      "value": 12253,
+      "excerpt": "2023,Wellesley (TP), Ontario,...,12253",
+      "status": "external",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+      "kind": "FACT"
+    },
+    {
+      "id": "STATCAN-POP-WILMOT-2023",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "label": "Wilmot population estimate (StatCan, July 1, 2023)",
+      "value": 23244,
+      "excerpt": "2023,Wilmot (TP), Ontario,...,23244",
+      "status": "external",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+      "kind": "FACT"
+    },
+    {
+      "id": "STATCAN-POP-WOOLWICH-2023",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "label": "Woolwich population estimate (StatCan, July 1, 2023)",
+      "value": 30909,
+      "excerpt": "2023,Woolwich (TP), Ontario,...,30909",
+      "status": "external",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
       "kind": "FACT"
     },
     {
@@ -1273,6 +1392,30 @@
         "ND-DEPT-CORPORATE-2026",
         "ND-POP-CENSUS-2021"
       ],
+      "note": "Biased upward vs current population; see DRV-ND-CORP-PER-CAPITA-2025.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-CORP-PER-CAPITA-2025",
+      "label": "Corporate Services $ per StatCan July 1, 2025 capita",
+      "amountCad": 160.24,
+      "formula": "ND-DEPT-CORPORATE-2026 / ND-POP-STATCAN-2025",
+      "inputs": [
+        "ND-DEPT-CORPORATE-2026",
+        "ND-POP-STATCAN-2025"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-POP-BIAS-RATIO",
+      "label": "Inflation of per-capita metrics from using 2021 Census vs 2025 estimate",
+      "value": 1.229,
+      "formula": "ND-POP-STATCAN-2025 / ND-POP-CENSUS-2021",
+      "inputs": [
+        "ND-POP-STATCAN-2025",
+        "ND-POP-CENSUS-2021"
+      ],
+      "note": "2025 estimate is 22.9% above the 2021 Census count; census-based per-capita figures are inflated by that factor.",
       "kind": "DERIVED"
     },
     {
@@ -1287,6 +1430,17 @@
       "kind": "DERIVED"
     },
     {
+      "id": "DRV-ND-ARENA-PER-CAPITA-2025",
+      "label": "Arena project $ per StatCan July 1, 2025 capita",
+      "amountCad": 1240.53,
+      "formula": "ND-CAP-ARENA-2026 / ND-POP-STATCAN-2025",
+      "inputs": [
+        "ND-CAP-ARENA-2026",
+        "ND-POP-STATCAN-2025"
+      ],
+      "kind": "DERIVED"
+    },
+    {
       "id": "DRV-ND-ARENA-SHARE-OF-CAPITAL",
       "label": "Arena share of 2026 capital program",
       "value": 0.519,
@@ -1295,6 +1449,74 @@
         "ND-CAP-ARENA-2026",
         "ND-CAPITAL-PROGRAM-2026"
       ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-FIR-GG-PCAP-ND-2023",
+      "label": "FIR 2023 General government $ per capita \u2014 North Dumfries",
+      "amountCad": 160.52,
+      "formula": "FIR-GG-ND-2023 / ND-POP-STATCAN-2023",
+      "inputs": [
+        "FIR-GG-ND-2023",
+        "ND-POP-STATCAN-2023"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-FIR-GG-PCAP-WELLESLEY-2023",
+      "label": "FIR 2023 General government $ per capita \u2014 Wellesley",
+      "amountCad": 171.72,
+      "formula": "FIR-GG-WELLESLEY-2023 / STATCAN-POP-WELLESLEY-2023",
+      "inputs": [
+        "FIR-GG-WELLESLEY-2023",
+        "STATCAN-POP-WELLESLEY-2023"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-FIR-GG-PCAP-WILMOT-2023",
+      "label": "FIR 2023 General government $ per capita \u2014 Wilmot",
+      "amountCad": 172.47,
+      "formula": "FIR-GG-WILMOT-2023 / STATCAN-POP-WILMOT-2023",
+      "inputs": [
+        "FIR-GG-WILMOT-2023",
+        "STATCAN-POP-WILMOT-2023"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-FIR-GG-PCAP-WOOLWICH-2023",
+      "label": "FIR 2023 General government $ per capita \u2014 Woolwich",
+      "amountCad": 134.37,
+      "formula": "FIR-GG-WOOLWICH-2023 / STATCAN-POP-WOOLWICH-2023",
+      "inputs": [
+        "FIR-GG-WOOLWICH-2023",
+        "STATCAN-POP-WOOLWICH-2023"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-FIR-GG-PEER-MEAN-PCAP-2023",
+      "label": "Mean FIR 2023 General government $/capita \u2014 Wellesley/Wilmot/Woolwich",
+      "amountCad": 159.52,
+      "formula": "mean(DRV-FIR-GG-PCAP-WELLESLEY-2023, WILMOT, WOOLWICH)",
+      "inputs": [
+        "DRV-FIR-GG-PCAP-WELLESLEY-2023",
+        "DRV-FIR-GG-PCAP-WILMOT-2023",
+        "DRV-FIR-GG-PCAP-WOOLWICH-2023"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-FIR-GG-ND-VS-PEER-MEAN-2023",
+      "label": "North Dumfries FIR GG $/capita as ratio of peer-township mean",
+      "value": 1.0063,
+      "formula": "DRV-FIR-GG-PCAP-ND-2023 / DRV-FIR-GG-PEER-MEAN-PCAP-2023",
+      "inputs": [
+        "DRV-FIR-GG-PCAP-ND-2023",
+        "DRV-FIR-GG-PEER-MEAN-PCAP-2023"
+      ],
+      "note": "ND $160.52/capita vs peer mean $159.52/capita. Ratio \u22481.0 \u2014 not an outlier.",
       "kind": "DERIVED"
     }
   ],
@@ -1337,25 +1559,6 @@
       "kind": "GAP"
     },
     {
-      "id": "GAP-ND-POP-CURRENT",
-      "title": "Per-capita metrics use 2021 census population against a 2026 budget",
-      "detail": "Every per-capita figure in this ledger divides 2026 dollars by the 2021 Census population of 10,619. North Dumfries has grown since, so all per-capita metrics are biased upward by an unknown amount. This weakens any 'large per capita' reading.",
-      "blocks": [
-        "per_capita_comparisons"
-      ],
-      "neededEvidence": [
-        "Current North Dumfries population estimate for 2026 with a citation"
-      ],
-      "searchTrail": [
-        "Region of Waterloo year-end population and household estimate bulletins: the 2024 and 2022 bulletin PDFs are indexed by search engines but both returned HTTP 404 on retrieval (2026-07-25).",
-        "regionofwaterloo.ca census page lists bulletins only up to the 2016 Census with no township-level estimate links exposed.",
-        "Waterloo Region Community Profile ArcGIS hub publishes region-wide figures only (587,165 Census 2021 / 617,000 provincial / 632,880 Region estimate) with no area-municipality breakdown.",
-        "northdumfries.ca demographics page returned HTTP 404.",
-        "Conclusion: a citable current township population was not obtainable from public web sources on this attempt. Likely available in the Region's Year-End Population and Household Estimates bulletin if the current PDF can be located, or in the Township's Development Charges Background Study."
-      ],
-      "kind": "GAP"
-    },
-    {
       "id": "GAP-TWINPAD-OPERATING-DELTA",
       "title": "Net operating cost change once Twin Pad opens is not established",
       "detail": "The ledger covers the one-time capital cost but holds no evidence on what the Twin Pad costs to RUN versus the ACC ice it replaces. For a household receipt the recurring operating change matters more than the capital event.",
@@ -1366,26 +1569,11 @@
         "Projected annual operating cost for the Twin Pad and the offsetting ACC ice savings"
       ],
       "searchTrail": [
-        "Not present in any of the four budget documents or the four council packages already ingested.",
-        "Likely requires a facility business case, the 10-year operating forecast, or a records request. Do not estimate it."
-      ],
-      "kind": "GAP"
-    },
-    {
-      "id": "GAP-PEER-BENCHMARK",
-      "title": "Administrative-scale findings have no cited peer comparator",
-      "detail": "Findings that call a figure 'large' name no peer set. Without a cited comparator, $197/capita for Corporate Services is a number, not a finding. In a township of ~10,600 that department also bundles clerk, treasury, IT, HR and communications that a city reports separately, so naive comparison is invalid.",
-      "blocks": [
-        "administrative_scale_conclusions"
-      ],
-      "neededEvidence": [
-        "Per-capita administrative spend for comparable Ontario townships, cited, on a like-for-like basis"
-      ],
-      "searchTrail": [
-        "Correct instrument identified: Ontario Financial Information Return (FIR), 'General government' line, which is defined consistently across all filers. Municipality-level department names are NOT comparable and must not be used.",
-        "FIR multi-year data is published at efis.fma.csc.gov.on.ca as per-municipality ZIP archives (pattern MULTI-YR-<Municipality>.zip). No aggregated general-government-by-municipality report is published, and the archives were not retrievable with the tooling available on this attempt (2026-07-25).",
-        "Preferred peer set remains the same-region lower-tier townships (Wellesley, Wilmot, Woolwich) because they share the same upper-tier service bundle; widen to Puslinch / Blandford-Blenheim / Perth East only if needed.",
-        "Conclusion: gap stays OPEN. Until a normalised comparator exists, FIND-ADMIN-CORP-SCALE asserts scale without a benchmark and must not be published as a conclusion."
+        "2026 draft budget binder: ACC and NDCC facility operating lines exist for the current year; no projected Twin Pad annual operating cost or ACC-ice savings delta.",
+        "Feb 2 / Apr 27 2026 council agenda and minutes packages already ingested: Twin Pad appears as capital / Net Zero Arena updates only.",
+        "FIN-03-2026 10-year capital forecast narrative (in Feb 2 agenda): design/debt context, not operating delta.",
+        "Ontario FIR Schedule 40 open data (2023/2024): historical actuals only; no forward Twin Pad operating projection.",
+        "Conclusion (2026-07-25): figure is not published in the sources searched. Likely requires a facility business case, 10-year operating forecast detail, or a records request. Do not estimate it."
       ],
       "kind": "GAP"
     }
@@ -1421,6 +1609,28 @@
       "id": "GAP-RURAL-HH-LINE-SUM",
       "status": "closed",
       "resolution": "resolved_source_rounding \u2014 23 printed rural lines sum to $2,619; printed subtotal $2,621; less printed ($78) PIL = printed $2,543. Each line rounded to whole dollars; subtotal from unrounded values. $2,543 remains authoritative."
+    },
+    {
+      "id": "GAP-ND-POP-CURRENT",
+      "status": "closed",
+      "resolution": "StatCan Table 17-10-0155-01 July 1, 2025 estimate for North Dumfries (TP) is 13,051 (FACT ND-POP-STATCAN-2025). Census-based per-capita figures using 10,619 inflate by factor 1.229 (DRV-ND-POP-BIAS-RATIO). 2021 Census figures retained alongside.",
+      "replacedByFactIds": [
+        "ND-POP-STATCAN-2025",
+        "DRV-ND-CORP-PER-CAPITA-2025",
+        "DRV-ND-POP-BIAS-RATIO"
+      ]
+    },
+    {
+      "id": "GAP-PEER-BENCHMARK",
+      "status": "closed",
+      "resolution": "FIR Schedule 40 General government Total Expenses Before Adjustments (2023) for North Dumfries, Wellesley, Wilmot and Woolwich, divided by same-year StatCan July 1 estimates. ND $160.52/capita vs peer mean $159.52 (ratio 1.006) \u2014 not an outlier. Year note: FIR 2023 actuals are not 2026 budget dollars; Corporate Services \u2260 FIR General government. The peer test still rejects the 'large' claim on the normalised basis.",
+      "replacedByFactIds": [
+        "FIR-GG-ND-2023",
+        "FIR-GG-WELLESLEY-2023",
+        "FIR-GG-WILMOT-2023",
+        "FIR-GG-WOOLWICH-2023",
+        "DRV-FIR-GG-ND-VS-PEER-MEAN-2023"
+      ]
     }
   ],
   "findings": [
@@ -1428,20 +1638,27 @@
       "id": "FIND-ADMIN-CORP-SCALE",
       "kind": "JUDGMENT",
       "category": "administrative_scale",
-      "title": "Corporate Services is a large share of the township budget \u2014 unbenchmarked",
-      "opportunitySeverity": "needs_review",
+      "title": "Corporate Services scale tested against FIR peers \u2014 not an outlier",
+      "opportunitySeverity": "watch",
       "citedFactIds": [
         "ND-DEPT-CORPORATE-2026",
         "ND-LEVY-2026",
         "DRV-ND-CORP-PER-CAPITA",
-        "ND-POP-CENSUS-2021"
+        "DRV-ND-CORP-PER-CAPITA-2025",
+        "ND-POP-CENSUS-2021",
+        "ND-POP-STATCAN-2025",
+        "FIR-GG-ND-2023",
+        "FIR-GG-WELLESLEY-2023",
+        "FIR-GG-WILMOT-2023",
+        "FIR-GG-WOOLWICH-2023",
+        "DRV-FIR-GG-PCAP-ND-2023",
+        "DRV-FIR-GG-PEER-MEAN-PCAP-2023",
+        "DRV-FIR-GG-ND-VS-PEER-MEAN-2023"
       ],
-      "evidenceSummary": "Corporate Services $2,091,306 against a municipal levy of $9,002,499; about $197 per 2021-census capita. NOT YET A CONCLUSION: no peer comparator has been obtained (GAP-PEER-BENCHMARK), and the per-capita figure uses 2021 population against a 2026 budget so it is biased upward (GAP-ND-POP-CURRENT). In a township of this size the department also bundles clerk, treasury, IT, HR and communications that larger municipalities report separately.",
+      "evidenceSummary": "Suspicion tested and not supported. On the normalised FIR 2023 General government basis (Total Expenses Before Adjustments \u00f7 StatCan July 1, 2023 population), North Dumfries is $160.52/capita vs a Wellesley/Wilmot/Woolwich mean of $159.52 (ratio 1.006). The earlier ~$197/capita figure used the 2021 Census count (10,619) against a 2026 budget; on the July 1, 2025 estimate (13,051) Corporate Services is ~$160/capita. Caveats: FIR 2023 \u2260 2026 budget year; Corporate Services is not identical to FIR General government. Downgraded \u2014 do not publish as an administrative-scale accusation.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL",
-        "GAP-PEER-BENCHMARK",
-        "GAP-ND-POP-CURRENT"
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
       ],
       "townshipResponse": null,
       "belowMateriality": false
@@ -1463,8 +1680,7 @@
       "evidenceSummary": "Identified legal lines sum to $94,000.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL",
-        "GAP-PEER-BENCHMARK"
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
       ],
       "townshipResponse": null,
       "belowMateriality": false

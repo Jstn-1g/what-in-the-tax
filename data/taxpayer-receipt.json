@@ -380,20 +380,27 @@
       "id": "FIND-ADMIN-CORP-SCALE",
       "kind": "JUDGMENT",
       "category": "administrative_scale",
-      "title": "Corporate Services is a large share of the township budget \u2014 unbenchmarked",
-      "opportunitySeverity": "needs_review",
+      "title": "Corporate Services scale tested against FIR peers \u2014 not an outlier",
+      "opportunitySeverity": "watch",
       "citedFactIds": [
         "ND-DEPT-CORPORATE-2026",
         "ND-LEVY-2026",
         "DRV-ND-CORP-PER-CAPITA",
-        "ND-POP-CENSUS-2021"
+        "DRV-ND-CORP-PER-CAPITA-2025",
+        "ND-POP-CENSUS-2021",
+        "ND-POP-STATCAN-2025",
+        "FIR-GG-ND-2023",
+        "FIR-GG-WELLESLEY-2023",
+        "FIR-GG-WILMOT-2023",
+        "FIR-GG-WOOLWICH-2023",
+        "DRV-FIR-GG-PCAP-ND-2023",
+        "DRV-FIR-GG-PEER-MEAN-PCAP-2023",
+        "DRV-FIR-GG-ND-VS-PEER-MEAN-2023"
       ],
-      "evidenceSummary": "Corporate Services $2,091,306 against a municipal levy of $9,002,499; about $197 per 2021-census capita. NOT YET A CONCLUSION: no peer comparator has been obtained (GAP-PEER-BENCHMARK), and the per-capita figure uses 2021 population against a 2026 budget so it is biased upward (GAP-ND-POP-CURRENT). In a township of this size the department also bundles clerk, treasury, IT, HR and communications that larger municipalities report separately.",
+      "evidenceSummary": "Suspicion tested and not supported. On the normalised FIR 2023 General government basis (Total Expenses Before Adjustments \u00f7 StatCan July 1, 2023 population), North Dumfries is $160.52/capita vs a Wellesley/Wilmot/Woolwich mean of $159.52 (ratio 1.006). The earlier ~$197/capita figure used the 2021 Census count (10,619) against a 2026 budget; on the July 1, 2025 estimate (13,051) Corporate Services is ~$160/capita. Caveats: FIR 2023 \u2260 2026 budget year; Corporate Services is not identical to FIR General government. Downgraded \u2014 do not publish as an administrative-scale accusation.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL",
-        "GAP-PEER-BENCHMARK",
-        "GAP-ND-POP-CURRENT"
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
       ],
       "townshipResponse": null,
       "belowMateriality": false
@@ -415,8 +422,7 @@
       "evidenceSummary": "Identified legal lines sum to $94,000.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL",
-        "GAP-PEER-BENCHMARK"
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
       ],
       "townshipResponse": null,
       "belowMateriality": false
@@ -547,8 +553,8 @@
     ],
     "marqueeFindings": [
       "FIND-CAP-ARENA",
-      "FIND-ADMIN-CORP-SCALE",
-      "FIND-ADMIN-LEGAL-STACK"
+      "FIND-ADMIN-LEGAL-STACK",
+      "FIND-ADMIN-CORP-SCALE"
     ]
   }
 }
