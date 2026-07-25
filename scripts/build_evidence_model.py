@@ -265,7 +265,71 @@ facts = [
         label="Tax levy funding for Capital Reserve Transfers 2026",
         amountCad=1_625_000,
         excerpt="tax levy funding for Capital Reserve Transfers ... in 2026 totals $1,625,000",
+        note="Conflicts with the p.7 summary schedule figure of $1,607,500 (ND-CAPITAL-FUNDED-BY-LEVY-2026). The p.7 figure is used for the allocation base because it is the figure that balances the published budget to Net Budget 0. Both are recorded; neither is discarded.",
         status="draft",
+    ),
+    fact(
+        id="ND-CAPITAL-FUNDED-BY-LEVY-2026",
+        sourceId="nd-2026-draft",
+        page=7,
+        label="Capital Funded by tax levy and building bill 2026 (summary schedule)",
+        amountCad=1_607_500,
+        excerpt="Capital Funded by tax levy and building bill ... 1,607,500",
+        note="From the p.7 levy summary schedule. Used as the capital component of the allocation base. Compare ND-CAPITAL-TAX-RESERVE-XFER-2026 ($1,625,000, p.43 narrative and capital table).",
+    ),
+    fact(
+        id="ND-DEPT-ENVIRONMENTAL-2026",
+        sourceId="nd-2026-draft",
+        page=7,
+        label="TOTAL ENVIRONMENTAL SERVICES 2026 (net credit)",
+        amountCad=-225,
+        excerpt="TOTAL ENVIRONMENTAL SERVICES ... (225)",
+        note="Small net credit. Previously omitted from the allocation base; that omission accounted for $225 of the base discrepancy.",
+    ),
+    fact(
+        id="ND-COUNCIL-2026",
+        sourceId="nd-2026-draft",
+        page=7,
+        label="Total Council 2026",
+        amountCad=201_669,
+        excerpt="Total Council ... 201,669",
+        note="COMPONENT of TOTAL CORPORATE SERVICES, not a sibling of it. Never add to the allocation base separately - that double-counts $238,703 with Elections.",
+    ),
+    fact(
+        id="ND-ELECTIONS-2026",
+        sourceId="nd-2026-draft",
+        page=7,
+        label="Total Elections 2026",
+        amountCad=37_034,
+        excerpt="Total Elections ... 37,034",
+        note="COMPONENT of TOTAL CORPORATE SERVICES. See ND-COUNCIL-2026.",
+    ),
+    fact(
+        id="ND-CORP-SERV-ADMIN-2026",
+        sourceId="nd-2026-draft",
+        page=7,
+        label="Total Corporate Serv Admin 2026",
+        amountCad=1_841_803,
+        excerpt="Total Corporate Serv Admin ... 1,841,803",
+        note="Council 201,669 + Elections 37,034 + this 1,841,803 + Admin Office NDCC 5,300 + Earl Thompson 5,500 = 2,091,306 = TOTAL CORPORATE SERVICES exactly.",
+    ),
+    fact(
+        id="ND-TAXATION-REVENUE-2026",
+        sourceId="nd-2026-draft",
+        page=7,
+        label="Total General Revenue Taxation 2026",
+        amountCad=9_182_824,
+        excerpt="Total General Revenue Taxation ... (9,182,824)",
+        note="Taxation revenue including supplementaries/PILs. NOT the $9,002,499 municipal levy (rate x assessment).",
+    ),
+    fact(
+        id="ND-CORPORATE-REVENUES-2026",
+        sourceId="nd-2026-draft",
+        page=7,
+        label="Total General Corporate Revenues 2026",
+        amountCad=866_800,
+        excerpt="Total General Corporate Revenues ... (866,800)",
+        note="Non-tax revenue. Part of what funds the expenditure base, which is why the base exceeds the levy.",
     ),
     fact(
         id="ND-CAPITAL-PROGRAM-2026",
@@ -567,12 +631,17 @@ dept_ids = [
     "ND-DEPT-CORPORATE-2026",
     "ND-DEPT-PROTECTIVE-2026",
     "ND-DEPT-PW-2026",
+    "ND-DEPT-ENVIRONMENTAL-2026",
     "ND-DEPT-REC-2026",
     "ND-DEPT-PLANNING-2026",
-    "ND-CAPITAL-TAX-RESERVE-XFER-2026",
+    "ND-CAPITAL-FUNDED-BY-LEVY-2026",
 ]
 dept_amounts = {f["id"]: f["amountCad"] for f in facts if f["id"] in dept_ids}
 dept_sum = sum(dept_amounts.values())
+_by_id = {f["id"]: f.get("amountCad") for f in facts}
+REVENUE_TOTAL = _by_id["ND-TAXATION-REVENUE-2026"] + _by_id["ND-CORPORATE-REVENUES-2026"]
+assert dept_sum == REVENUE_TOTAL, "allocation base %d does not tie to published revenues %d" % (dept_sum, REVENUE_TOTAL)
+GOVERNANCE_SUBLINE = round(1434.63 * (_by_id["ND-COUNCIL-2026"] + _by_id["ND-ELECTIONS-2026"]) / dept_sum, 2)
 
 township_avg = 1434.63
 derived_rows = [
@@ -580,8 +649,25 @@ derived_rows = [
         id="DRV-ND-DEPT-SUM",
         label="Sum of township draft dept nets used for allocation base",
         amountCad=dept_sum,
-        formula="CORPORATE + PROTECTIVE + PW + REC + PLANNING + CAPITAL_RESERVE_XFER",
+        formula="CORPORATE + PROTECTIVE + PW + ENVIRONMENTAL + REC + PLANNING + CAPITAL_FUNDED_BY_LEVY",
         inputs=dept_ids,
+        note="Ties to the p.7 summary schedule. NOT the $9,002,499 municipal levy: the base is funded by taxation ($9,182,824) plus non-tax corporate revenues ($866,800).",
+    ),
+    derived(
+        id="DRV-ND-BASE-TIES-TO-REVENUES",
+        label="Expenditure base reconciles to published revenues (Net Budget 0)",
+        amountCad=REVENUE_TOTAL - dept_sum,
+        formula="(ND-TAXATION-REVENUE-2026 + ND-CORPORATE-REVENUES-2026) - DRV-ND-DEPT-SUM",
+        inputs=["ND-TAXATION-REVENUE-2026", "ND-CORPORATE-REVENUES-2026", "DRV-ND-DEPT-SUM"],
+        note="Must be 0. Taxation 9,182,824 + corporate revenues 866,800 = 10,049,624 = the expenditure base.",
+    ),
+    derived(
+        id="DRV-ND-GOVERNANCE-SUBLINE",
+        label="Council + Elections share of the rural average township bill (disclosure only)",
+        amountCad=GOVERNANCE_SUBLINE,
+        formula="1434.63 * ((ND-COUNCIL-2026 + ND-ELECTIONS-2026) / DRV-ND-DEPT-SUM)",
+        inputs=["ND-TOWNSHIP-TAX-RURAL-AVG-2026", "ND-COUNCIL-2026", "ND-ELECTIONS-2026", "DRV-ND-DEPT-SUM"],
+        note="Discloses governance cost already contained inside Corporate Services. Nested sub-line only; NOT a base component and not added to any total.",
     ),
 ]
 
@@ -954,7 +1040,8 @@ label_map = {
     "ND-DEPT-PW-2026": "Public Works",
     "ND-DEPT-REC-2026": "Recreation Services",
     "ND-DEPT-PLANNING-2026": "Planning",
-    "ND-CAPITAL-TAX-RESERVE-XFER-2026": "Capital reserve transfers (tax-funded)",
+    "ND-DEPT-ENVIRONMENTAL-2026": "Environmental Services (net credit)",
+    "ND-CAPITAL-FUNDED-BY-LEVY-2026": "Capital funded by tax levy",
 }
 for row in township_alloc:
     township_lines.append(
@@ -965,9 +1052,23 @@ for row in township_alloc:
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": row["factId"],
-            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)",
+            "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
         }
     )
+
+for _tl in township_lines:
+    if _tl["id"] == "ND-DEPT-CORPORATE-2026":
+        _tl["subLines"] = [
+            {
+                "id": "ND-GOVERNANCE-COUNCIL-ELECTIONS",
+                "label": "of which Council & Elections",
+                "amountCad": GOVERNANCE_SUBLINE,
+                "classification": "disclosure_subline",
+                "evidenceStatus": "DERIVED",
+                "sourceFactId": "DRV-ND-GOVERNANCE-SUBLINE",
+                "note": "Already included in the Corporate Services figure above. Shown for transparency; not added to any total.",
+            }
+        ]
 
 receipt = {
     "schemaVersion": "2.0.0",
@@ -1032,8 +1133,14 @@ receipt = {
     },
 }
 
-(DATA / "evidence-ledger.json").write_text(json.dumps(ledger, indent=2), encoding="utf-8")
-(DATA / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+# Write BOTH the canonical copy and the UI mirror. The mirror used to be copied by
+# hand, so running this script silently left the UI reading stale data.
+WEB_DATA = ROOT / "web" / "src" / "data"
+for _target in (DATA, WEB_DATA):
+    (_target / "evidence-ledger.json").write_text(json.dumps(ledger, indent=2), encoding="utf-8")
+    (_target / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+assert (DATA / "evidence-ledger.json").read_bytes() == (WEB_DATA / "evidence-ledger.json").read_bytes()
+assert (DATA / "taxpayer-receipt.json").read_bytes() == (WEB_DATA / "taxpayer-receipt.json").read_bytes()
 
 print("facts", len(facts))
 print("derived", len(derived_rows))

@@ -74,7 +74,7 @@ difference:                   1,064,850   (11.8% over)
 
 Because the allocation is pro-rata, the **total** still lands on the cited $1,434.63 — so nothing looks wrong on screen. The **distribution** is what's off, and there are two distinct problems:
 
-**(a) Council and Elections are missing entirely.** Binder p.7 shows `Total Council 201,669` and `Total Elections 37,034` for 2026 draft. Neither is in the base, so neither appears on the receipt. For a product whose lead thesis is administrative scale, **the governance line is absent from the taxpayer receipt.** That is the first thing a hostile reader will notice.
+**(a) WITHDRAWN — this claim was WRONG. See section 8 at the end of this document.** ~~Council and Elections are missing entirely.~~ Binder p.7 shows `Total Council 201,669` and `Total Elections 37,034` for 2026 draft. Neither is in the base, so neither appears on the receipt. For a product whose lead thesis is administrative scale, **the governance line is absent from the taxpayer receipt.** That is the first thing a hostile reader will notice.
 
 Adding them (base → 10,306,052) gives a missing **"Council & Elections — $33.23"** line and shows every published line is currently overstated by 2.37%:
 
@@ -209,3 +209,72 @@ Anything failing any gate stays `JUDGMENT` with `billImpactCad: null`. And no fl
 The evidence discipline is genuine and the v1 rollback was the right call — I went looking for invented numbers and there are none. What the build has instead is a foundation problem and a correctness problem: an allocation base that does not tie to the published levy and silently omits governance costs, and a one-key typo that crashes a primary UI path while every gate you have stays green.
 
 The single highest-value insight: **you are gapped out of your own core feature for a reason that does not hold.** The assessment bases are the same, the region figure converts to a rate, and the by-law that finishes the job was published three months ago. Fix the base, pull the by-law, and the combined receipt becomes fully evidence-backed instead of permanently blocked.
+
+---
+
+## 8. Correction issued 2026-07-25 — section 2 P1(a) was wrong
+
+**I claimed:** Council ($201,669) and Elections ($37,034) are missing from the allocation base and therefore absent from the taxpayer receipt; adding them makes the base 10,306,052 and shows every published line overstated by 2.37%, with a missing "Council & Elections — $33.23" row.
+
+**That is false.** Binder p.7 lists Council and Elections as *components* of Corporate Services, not siblings of it:
+
+```
+Total Council                          201,669
+Total Elections                         37,034
+Total Corporate Serv Admin           1,841,803
+Total Admin Office NDCC                  5,300
+Total Admin Office - Earl Thompson       5,500
+TOTAL CORPORATE SERVICES             2,091,306
+```
+
+201,669 + 37,034 + 1,841,803 + 5,300 + 5,500 = **2,091,306 exactly**. Governance cost is already inside the base via Corporate Services. Acting on my recommendation would have **double-counted $238,703** and shifted every published dollar in the wrong direction. I read a summary schedule as a flat list when it was hierarchical.
+
+**What the real defect is.** The base is off by 17,725, not 1,064,850, and it is fully explained by two things:
+
+- capital funded by tax levy recorded as 1,625,000 (p.43 narrative / capital table) instead of **1,607,500** (p.7 summary schedule) → 17,500
+- `TOTAL ENVIRONMENTAL SERVICES` of **-225** omitted from the base entirely → 225
+
+17,500 + 225 = 17,725 = 10,067,349 − 10,049,624. Fully accounted for.
+
+**And the corrected base ties exactly.** With 1,607,500 and Environmental included:
+
+```
+Corporate Services      2,091,306
+Protective Services     1,554,793
+Public Works            2,477,423
+Environmental Services       -225
+Recreation Services     1,867,455
+Planning                  451,372
+dept subtotal           8,442,124
++ capital by levy        1,607,500
+= expenditure base     10,049,624
+revenues: taxation 9,182,824 + corporate 866,800 = 10,049,624   -> Net Budget 0
+```
+
+So the model *can* reconcile perfectly — but **not to 9,002,499**, and my instruction to tie it there was also wrong. There are three distinct figures and they are not interchangeable:
+
+| figure | what it is |
+|---|---|
+| **9,002,499** | municipal levy — tax rate x assessment, the number on a tax bill |
+| **9,182,824** | Total General Revenue Taxation — levy plus supplementaries/PILs/other |
+| **10,049,624** | total expenditure base — funded by taxation *plus* $866,800 of non-tax corporate revenue |
+| *9,002,462* | the by-law's recital of "municipal budget requirement" ($37 off the levy) |
+
+The correct denominator for "where does my township tax dollar go" is the expenditure base 10,049,624.
+
+**Corrected effect on published lines** — tiny, not 2.37%:
+
+| line | shown | corrected | delta |
+|---|---|---|---|
+| Corporate Services | $298.02 | $298.54 | +0.52 |
+| Protective Services | $221.56 | $221.95 | +0.39 |
+| Public Works | $353.04 | $353.66 | +0.62 |
+| Recreation Services | $266.12 | $266.59 | +0.47 |
+| Planning | $64.32 | $64.44 | +0.12 |
+| Environmental Services | absent | -$0.03 | new |
+| Capital reserve transfers | $231.57 | $229.48 | -2.09 |
+| **total** | | **$1,434.63** | ties |
+
+**The part of the original point that survives.** Governance cost is not *absent*, it is *invisible* — buried inside Corporate Services with no disclosure. Surfacing it as a nested sub-line, **Council & Elections $34.08 of the $298.54 Corporate Services figure**, is genuinely worth doing and adds nothing to the base. That is the fix; the one I originally prescribed was not.
+
+**Process note.** This is the second claim in this review that came from reading structure wrongly rather than reading numbers wrongly (the first was the CRLF artifact in section 0). Both were caught by re-deriving from the source before acting, not by being careful the first time. The generator change was never made, so nothing wrong reached the repo.

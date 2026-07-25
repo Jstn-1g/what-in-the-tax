@@ -17,56 +17,76 @@
           {
             "id": "ND-DEPT-CORPORATE-2026",
             "label": "Corporate Services",
-            "amountCad": 298.02,
+            "amountCad": 298.54,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-CORPORATE-2026",
-            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
+            "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
+            "subLines": [
+              {
+                "id": "ND-GOVERNANCE-COUNCIL-ELECTIONS",
+                "label": "of which Council & Elections",
+                "amountCad": 34.08,
+                "classification": "disclosure_subline",
+                "evidenceStatus": "DERIVED",
+                "sourceFactId": "DRV-ND-GOVERNANCE-SUBLINE",
+                "note": "Already included in the Corporate Services figure above. Shown for transparency; not added to any total."
+              }
+            ]
           },
           {
             "id": "ND-DEPT-PROTECTIVE-2026",
             "label": "Protective Services (incl. Fire)",
-            "amountCad": 221.56,
+            "amountCad": 221.95,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-PROTECTIVE-2026",
-            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
+            "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
             "id": "ND-DEPT-PW-2026",
             "label": "Public Works",
-            "amountCad": 353.04,
+            "amountCad": 353.66,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-PW-2026",
-            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
+            "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
             "id": "ND-DEPT-REC-2026",
             "label": "Recreation Services",
-            "amountCad": 266.12,
+            "amountCad": 266.59,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-REC-2026",
-            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
+            "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
             "id": "ND-DEPT-PLANNING-2026",
             "label": "Planning",
-            "amountCad": 64.32,
+            "amountCad": 64.44,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
             "sourceFactId": "ND-DEPT-PLANNING-2026",
-            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
+            "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
-            "id": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
-            "label": "Capital reserve transfers (tax-funded)",
-            "amountCad": 231.57,
+            "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+            "label": "Capital funded by tax levy",
+            "amountCad": 229.48,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
-            "note": "Pro-rata of approved department nets against rural average township tax $1,434.63 (allocation base unchanged this step)"
+            "sourceFactId": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+            "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
+          },
+          {
+            "id": "ND-DEPT-ENVIRONMENTAL-2026",
+            "label": "Environmental Services (net credit)",
+            "amountCad": -0.03,
+            "classification": "township_draft_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "ND-DEPT-ENVIRONMENTAL-2026",
+            "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           }
         ]
       },

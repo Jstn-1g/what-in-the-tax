@@ -303,7 +303,78 @@
       "label": "Tax levy funding for Capital Reserve Transfers 2026",
       "amountCad": 1625000,
       "excerpt": "tax levy funding for Capital Reserve Transfers ... in 2026 totals $1,625,000",
+      "note": "Conflicts with the p.7 summary schedule figure of $1,607,500 (ND-CAPITAL-FUNDED-BY-LEVY-2026). The p.7 figure is used for the allocation base because it is the figure that balances the published budget to Net Budget 0. Both are recorded; neither is discarded.",
       "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 7,
+      "label": "Capital Funded by tax levy and building bill 2026 (summary schedule)",
+      "amountCad": 1607500,
+      "excerpt": "Capital Funded by tax levy and building bill ... 1,607,500",
+      "note": "From the p.7 levy summary schedule. Used as the capital component of the allocation base. Compare ND-CAPITAL-TAX-RESERVE-XFER-2026 ($1,625,000, p.43 narrative and capital table).",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-DEPT-ENVIRONMENTAL-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 7,
+      "label": "TOTAL ENVIRONMENTAL SERVICES 2026 (net credit)",
+      "amountCad": -225,
+      "excerpt": "TOTAL ENVIRONMENTAL SERVICES ... (225)",
+      "note": "Small net credit. Previously omitted from the allocation base; that omission accounted for $225 of the base discrepancy.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-COUNCIL-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 7,
+      "label": "Total Council 2026",
+      "amountCad": 201669,
+      "excerpt": "Total Council ... 201,669",
+      "note": "COMPONENT of TOTAL CORPORATE SERVICES, not a sibling of it. Never add to the allocation base separately - that double-counts $238,703 with Elections.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-ELECTIONS-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 7,
+      "label": "Total Elections 2026",
+      "amountCad": 37034,
+      "excerpt": "Total Elections ... 37,034",
+      "note": "COMPONENT of TOTAL CORPORATE SERVICES. See ND-COUNCIL-2026.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CORP-SERV-ADMIN-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 7,
+      "label": "Total Corporate Serv Admin 2026",
+      "amountCad": 1841803,
+      "excerpt": "Total Corporate Serv Admin ... 1,841,803",
+      "note": "Council 201,669 + Elections 37,034 + this 1,841,803 + Admin Office NDCC 5,300 + Earl Thompson 5,500 = 2,091,306 = TOTAL CORPORATE SERVICES exactly.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TAXATION-REVENUE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 7,
+      "label": "Total General Revenue Taxation 2026",
+      "amountCad": 9182824,
+      "excerpt": "Total General Revenue Taxation ... (9,182,824)",
+      "note": "Taxation revenue including supplementaries/PILs. NOT the $9,002,499 municipal levy (rate x assessment).",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-CORPORATE-REVENUES-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 7,
+      "label": "Total General Corporate Revenues 2026",
+      "amountCad": 866800,
+      "excerpt": "Total General Corporate Revenues ... (866,800)",
+      "note": "Non-tax revenue. Part of what funds the expenditure base, which is why the base exceeds the levy.",
       "kind": "FACT"
     },
     {
@@ -933,94 +1004,136 @@
     {
       "id": "DRV-ND-DEPT-SUM",
       "label": "Sum of township draft dept nets used for allocation base",
-      "amountCad": 10067349,
-      "formula": "CORPORATE + PROTECTIVE + PW + REC + PLANNING + CAPITAL_RESERVE_XFER",
+      "amountCad": 10049624,
+      "formula": "CORPORATE + PROTECTIVE + PW + ENVIRONMENTAL + REC + PLANNING + CAPITAL_FUNDED_BY_LEVY",
       "inputs": [
         "ND-DEPT-CORPORATE-2026",
         "ND-DEPT-PROTECTIVE-2026",
         "ND-DEPT-PW-2026",
+        "ND-DEPT-ENVIRONMENTAL-2026",
         "ND-DEPT-REC-2026",
         "ND-DEPT-PLANNING-2026",
-        "ND-CAPITAL-TAX-RESERVE-XFER-2026"
+        "ND-CAPITAL-FUNDED-BY-LEVY-2026"
       ],
+      "note": "Ties to the p.7 summary schedule. NOT the $9,002,499 municipal levy: the base is funded by taxation ($9,182,824) plus non-tax corporate revenues ($866,800).",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-BASE-TIES-TO-REVENUES",
+      "label": "Expenditure base reconciles to published revenues (Net Budget 0)",
+      "amountCad": 0,
+      "formula": "(ND-TAXATION-REVENUE-2026 + ND-CORPORATE-REVENUES-2026) - DRV-ND-DEPT-SUM",
+      "inputs": [
+        "ND-TAXATION-REVENUE-2026",
+        "ND-CORPORATE-REVENUES-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "note": "Must be 0. Taxation 9,182,824 + corporate revenues 866,800 = 10,049,624 = the expenditure base.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-GOVERNANCE-SUBLINE",
+      "label": "Council + Elections share of the rural average township bill (disclosure only)",
+      "amountCad": 34.08,
+      "formula": "1434.63 * ((ND-COUNCIL-2026 + ND-ELECTIONS-2026) / DRV-ND-DEPT-SUM)",
+      "inputs": [
+        "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "ND-COUNCIL-2026",
+        "ND-ELECTIONS-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "note": "Discloses governance cost already contained inside Corporate Services. Nested sub-line only; NOT a base component and not added to any total.",
       "kind": "DERIVED"
     },
     {
       "id": "DRV-ALLOC-ND-DEPT-CORPORATE-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-CORPORATE-2026",
-      "amountCad": 298.02,
-      "formula": "1434.63 * (2091306 / 10067349)",
+      "amountCad": 298.54,
+      "formula": "1434.63 * (2091306 / 10049624)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-CORPORATE-2026",
         "DRV-ND-DEPT-SUM"
       ],
-      "shareOfTownshipBill": 0.207732,
+      "shareOfTownshipBill": 0.208098,
       "kind": "DERIVED"
     },
     {
       "id": "DRV-ALLOC-ND-DEPT-PROTECTIVE-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-PROTECTIVE-2026",
-      "amountCad": 221.56,
-      "formula": "1434.63 * (1554793 / 10067349)",
+      "amountCad": 221.95,
+      "formula": "1434.63 * (1554793 / 10049624)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-PROTECTIVE-2026",
         "DRV-ND-DEPT-SUM"
       ],
-      "shareOfTownshipBill": 0.154439,
+      "shareOfTownshipBill": 0.154712,
       "kind": "DERIVED"
     },
     {
       "id": "DRV-ALLOC-ND-DEPT-PW-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-PW-2026",
-      "amountCad": 353.04,
-      "formula": "1434.63 * (2477423 / 10067349)",
+      "amountCad": 353.66,
+      "formula": "1434.63 * (2477423 / 10049624)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-PW-2026",
         "DRV-ND-DEPT-SUM"
       ],
-      "shareOfTownshipBill": 0.246085,
+      "shareOfTownshipBill": 0.246519,
       "kind": "DERIVED"
     },
     {
       "id": "DRV-ALLOC-ND-DEPT-REC-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-REC-2026",
-      "amountCad": 266.12,
-      "formula": "1434.63 * (1867455 / 10067349)",
+      "amountCad": 266.59,
+      "formula": "1434.63 * (1867455 / 10049624)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-REC-2026",
         "DRV-ND-DEPT-SUM"
       ],
-      "shareOfTownshipBill": 0.185496,
+      "shareOfTownshipBill": 0.185823,
       "kind": "DERIVED"
     },
     {
       "id": "DRV-ALLOC-ND-DEPT-PLANNING-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-PLANNING-2026",
-      "amountCad": 64.32,
-      "formula": "1434.63 * (451372 / 10067349)",
+      "amountCad": 64.44,
+      "formula": "1434.63 * (451372 / 10049624)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-PLANNING-2026",
         "DRV-ND-DEPT-SUM"
       ],
-      "shareOfTownshipBill": 0.044835,
+      "shareOfTownshipBill": 0.044914,
       "kind": "DERIVED"
     },
     {
-      "id": "DRV-ALLOC-ND-CAPITAL-TAX-RESERVE-XFER-2026",
-      "label": "Rural avg township bill share \u2014 ND-CAPITAL-TAX-RESERVE-XFER-2026",
-      "amountCad": 231.57,
-      "formula": "1434.63 * (1625000 / 10067349)",
+      "id": "DRV-ALLOC-ND-CAPITAL-FUNDED-BY-LEVY-2026",
+      "label": "Rural avg township bill share \u2014 ND-CAPITAL-FUNDED-BY-LEVY-2026",
+      "amountCad": 229.48,
+      "formula": "1434.63 * (1607500 / 10049624)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
-        "ND-CAPITAL-TAX-RESERVE-XFER-2026",
+        "ND-CAPITAL-FUNDED-BY-LEVY-2026",
         "DRV-ND-DEPT-SUM"
       ],
-      "shareOfTownshipBill": 0.161413,
+      "shareOfTownshipBill": 0.159956,
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ALLOC-ND-DEPT-ENVIRONMENTAL-2026",
+      "label": "Rural avg township bill share \u2014 ND-DEPT-ENVIRONMENTAL-2026",
+      "amountCad": -0.03,
+      "formula": "1434.63 * (-225 / 10049624)",
+      "inputs": [
+        "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "ND-DEPT-ENVIRONMENTAL-2026",
+        "DRV-ND-DEPT-SUM"
+      ],
+      "shareOfTownshipBill": -2.2e-05,
       "kind": "DERIVED"
     },
     {
