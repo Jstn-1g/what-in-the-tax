@@ -302,26 +302,77 @@
         "lineItemsSumCheckCad": 2543
       },
       "education": {
-        "basis": "By-law 3637-26 Schedule A \u2014 RT Residential Education Rate 0.00153000",
-        "amountCad": null,
-        "evidenceStatus": "FACT",
-        "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
-        "note": "Rate ingested; household education dollars at one assessment deferred (combined receipt not built this step)."
+        "basis": "By-law 3637-26 Schedule A \u2014 RT Residential Education Rate 0.00153000 at $455,000",
+        "amountCad": 696.15,
+        "assessmentCad": 455000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-ND-BILL-EDUCATION-455K",
+        "note": "Province sets this rate under O. Reg. 400/98; the Township only collects it."
       },
-      "combinedTotalCad": null,
-      "combinedTotalNote": "Final residential rates are in the ledger (By-law 3637-26 Schedule A). Combined receipt at a single assessment is deferred \u2014 do not add township avg $1,434.63 (@$455k) to Region rural HH $2,543 (@$354.5k). Both figures use the same MPAC January 1, 2016 valuation base; they differ only in which average property each government reports.",
+      "combinedTotalCad": 5395.61,
+      "combinedAtAssessment": {
+        "assessmentCad": 455000,
+        "basis": "By-law 3637-26 Schedule A, CODE RT Residential (2026-04-27 council agenda p.103)",
+        "evidenceStatus": "DERIVED",
+        "components": [
+          {
+            "label": "Township of North Dumfries",
+            "amountCad": 1434.63,
+            "rate": 0.00315303,
+            "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"
+          },
+          {
+            "label": "Region of Waterloo",
+            "amountCad": 3264.83,
+            "rate": 0.00717545,
+            "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"
+          },
+          {
+            "label": "Education (Province of Ontario)",
+            "amountCad": 696.15,
+            "rate": 0.00153,
+            "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+          }
+        ],
+        "totalCad": 5395.61,
+        "totalRate": 0.01185848,
+        "ayrUrbanVariant": {
+          "specialAreaRateCad": 70.85,
+          "totalCad": 5466.46,
+          "totalRate": 0.01201419,
+          "note": "Ayr urban service area only. Rural properties pay the rural total."
+        }
+      },
+      "combinedTotalNote": "Built from the adopted By-law 3637-26 Schedule A rates applied to ONE assessment ($455,000), not by adding two governments' differently-based household averages. The three rates sum exactly to the printed Total 2026 Rate, and the township component reproduces the separately cited $1,434.63 to the cent.",
       "warnings": [
-        "Do not add township $1,434.63 + region $2,543 as one bill \u2014 different average properties on the same 2016 MPAC base.",
-        "North Dumfries operating amounts are approved (By-law 3617-26); township allocation base unchanged this step."
+        "The Region figure of $2,543 elsewhere in this model is the Region's own average household at $354,500 \u2014 do not mix it with this $455,000 receipt. Both sit on the same MPAC January 1, 2016 base; they differ only in which average property each government reports.",
+        "Ayr urban properties additionally pay the Special Area Rate; the rural total excludes it.",
+        "North Dumfries operating amounts are approved (By-law 3617-26)."
       ]
     },
     "hypothetical5000": {
       "amountCad": 5000,
-      "evidenceStatus": "DEFERRED",
-      "allocatable": false,
-      "receiptLineItems": [],
-      "receiptTotals": null,
-      "message": "Final township/Region/education rates are ingested. A modelled $5,000 combined composition is not built in this step \u2014 no filler allocation."
+      "evidenceStatus": "DERIVED",
+      "allocatable": true,
+      "impliedAssessmentCad": 421639,
+      "compositionShares": [
+        {
+          "label": "Township of North Dumfries",
+          "share": 0.265888,
+          "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"
+        },
+        {
+          "label": "Region of Waterloo",
+          "share": 0.60509,
+          "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"
+        },
+        {
+          "label": "Education (Province of Ontario)",
+          "share": 0.129022,
+          "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+        }
+      ],
+      "message": "A $5,000 total bill implies an assessment of about $421,639, slightly below the township average of $455,000. Shown as rate shares rather than invented dollars: the split of any bill is fixed by the by-law rates regardless of assessment. For dollar figures see combinedAtAssessment."
     }
   },
   "findings": [

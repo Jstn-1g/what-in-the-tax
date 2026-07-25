@@ -6,15 +6,15 @@ import type { TaxpayerReceipt } from '../types'
 describe('evidence-first receipt', () => {
   const data = receipt as unknown as TaxpayerReceipt
 
-  it('marks $5,000 combined bill as not allocatable', () => {
-    expect(data.profiles.hypothetical5000.allocatable).toBe(false)
+  it('marks $5,000 combined bill as allocatable now that by-law rates are cited', () => {
+    expect(data.profiles.hypothetical5000.allocatable).toBe(true)
   })
 
   it('keeps supported township and region totals', () => {
     const profile = data.profiles.supportedAverageHousehold
     expect(profile.township.amountCad).toBeCloseTo(1434.63, 2)
     expect(profile.region.amountCad).toBe(2543)
-    expect(profile.combinedTotalCad).toBeNull()
+    expect(profile.combinedTotalCad).toBeCloseTo(5395.61, 2)
   })
 
   it('keeps finding bill impacts null', () => {

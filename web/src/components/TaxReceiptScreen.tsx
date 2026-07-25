@@ -123,7 +123,7 @@ export default function TaxReceiptScreen({
           <p className="brand">Taxpayer Receipt</p>
           <h1>Evidence-based household profile</h1>
           <p className="hero-support">
-            North Dumfries approved + Region rural household table · no filler allocations
+            Township + Region + Education at one assessment, every rate cited to By-law 3637-26 Schedule A
           </p>
           <div className="hero-cta-row">
             <a className="cta" href="#gaps">
@@ -134,9 +134,9 @@ export default function TaxReceiptScreen({
             </a>
           </div>
           <p className="hero-amount" aria-live="polite">
-            <span className="hero-amount-label">Supported slices (not one combined bill)</span>
+            <span className="hero-amount-label">Total 2026 residential bill at $455,000 (By-law 3637-26)</span>
             <span className="hero-amount-value">
-              Twp {money(profile.township.amountCad ?? 0)} · Reg {money(profile.region.amountCad ?? 0)}
+              {money(profile.combinedTotalCad ?? 0)}
             </span>
           </p>
         </div>

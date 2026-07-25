@@ -141,6 +141,36 @@ facts = [
         note="Schedule 'A' to By-law 3637-26 — Education Rate column for CODE RT Residential.",
     ),
     fact(
+        id="ND-TAXRATE-RES-AYR-SAR-2026-FINAL",
+        sourceId="nd-2026-tax-rate-bylaw",
+        page=103,
+        label="2026 final Ayr Special Area Rate, residential (RT)",
+        value=0.00015571,
+        excerpt="RT Residential  0.00315303 0.00717545 0.00153000 0.01185848 0.00015571 0.01201419",
+        status="final",
+        note="Ayr S.A.R. column, CODE RT. Applies to the Ayr urban service area only; rural North Dumfries properties do not pay it.",
+    ),
+    fact(
+        id="ND-TAXRATE-RES-TOTAL-2026-FINAL",
+        sourceId="nd-2026-tax-rate-bylaw",
+        page=103,
+        label="2026 final total residential tax rate, rural (RT)",
+        value=0.01185848,
+        excerpt="RT Residential  0.00315303 0.00717545 0.00153000 0.01185848 0.00015571 0.01201419",
+        status="final",
+        note="Printed Total 2026 Rate column. Independent cross-check: township + region + education must equal this exactly.",
+    ),
+    fact(
+        id="ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL",
+        sourceId="nd-2026-tax-rate-bylaw",
+        page=103,
+        label="2026 final total residential tax rate including Ayr S.A.R. (RT)",
+        value=0.01201419,
+        excerpt="RT Residential  0.00315303 0.00717545 0.00153000 0.01185848 0.00015571 0.01201419",
+        status="final",
+        note="Printed Total Ayr Rate column.",
+    ),
+    fact(
         id="ND-TAXRATE-BYLAW-ADOPTION-2026",
         sourceId="nd-2026-tax-rate-minutes",
         page=6,
@@ -644,6 +674,37 @@ assert dept_sum == REVENUE_TOTAL, "allocation base %d does not tie to published 
 GOVERNANCE_SUBLINE = round(1434.63 * (_by_id["ND-COUNCIL-2026"] + _by_id["ND-ELECTIONS-2026"]) / dept_sum, 2)
 
 township_avg = 1434.63
+
+# --- Combined household bill from By-law 3637-26 Schedule A (agenda p.103) ---
+_val = {f["id"]: f.get("value") for f in facts}
+RATE_TWP = _val["ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"]
+RATE_REG = _val["ND-TAXRATE-RES-REGION-2026-FINAL"]
+RATE_EDU = _val["ND-TAXRATE-RES-EDUCATION-2026-FINAL"]
+RATE_SAR = _val["ND-TAXRATE-RES-AYR-SAR-2026-FINAL"]
+RATE_TOTAL = _val["ND-TAXRATE-RES-TOTAL-2026-FINAL"]
+RATE_TOTAL_AYR = _val["ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL"]
+ASSESSMENT = 455_000
+
+# The published rate columns must be internally consistent before we bill anything off them.
+assert abs((RATE_TWP + RATE_REG + RATE_EDU) - RATE_TOTAL) < 1e-12, "rate columns do not sum to printed total"
+assert abs((RATE_TOTAL + RATE_SAR) - RATE_TOTAL_AYR) < 1e-12, "Ayr total is not total + SAR"
+
+BILL_TWP = round(RATE_TWP * ASSESSMENT, 2)
+BILL_REG = round(RATE_REG * ASSESSMENT, 2)
+BILL_EDU = round(RATE_EDU * ASSESSMENT, 2)
+BILL_SAR = round(RATE_SAR * ASSESSMENT, 2)
+BILL_COMBINED = round(BILL_TWP + BILL_REG + BILL_EDU, 2)
+BILL_COMBINED_AYR = round(BILL_COMBINED + BILL_SAR, 2)
+IMPLIED_5000_CVA = round(5000 / RATE_TOTAL)
+SHARE_TWP = round(RATE_TWP / RATE_TOTAL, 6)
+SHARE_REG = round(RATE_REG / RATE_TOTAL, 6)
+SHARE_EDU = round(RATE_EDU / RATE_TOTAL, 6)
+
+# The township component derived from the final rate must reproduce the separately cited
+# $1,434.63 to the cent, or one of the two figures is wrong.
+assert BILL_TWP == township_avg, "township rate x assessment %.2f != cited %.2f" % (BILL_TWP, township_avg)
+assert abs(BILL_COMBINED - round(RATE_TOTAL * ASSESSMENT, 2)) < 0.02, "components do not reconcile to total rate"
+
 derived_rows = [
     derived(
         id="DRV-ND-DEPT-SUM",
@@ -668,6 +729,61 @@ derived_rows = [
         formula="1434.63 * ((ND-COUNCIL-2026 + ND-ELECTIONS-2026) / DRV-ND-DEPT-SUM)",
         inputs=["ND-TOWNSHIP-TAX-RURAL-AVG-2026", "ND-COUNCIL-2026", "ND-ELECTIONS-2026", "DRV-ND-DEPT-SUM"],
         note="Discloses governance cost already contained inside Corporate Services. Nested sub-line only; NOT a base component and not added to any total.",
+    ),
+    derived(
+        id="DRV-ND-BILL-TOWNSHIP-455K",
+        label="Township portion of a $455,000 residential bill",
+        amountCad=BILL_TWP,
+        formula="ND-TAXRATE-RES-TOWNSHIP-2026-FINAL * 455000",
+        inputs=["ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"],
+        note="Reproduces the separately cited ND-TOWNSHIP-TAX-RURAL-AVG-2026 figure of $1,434.63 to the cent.",
+    ),
+    derived(
+        id="DRV-ND-BILL-REGION-455K",
+        label="Region portion of a $455,000 residential bill",
+        amountCad=BILL_REG,
+        formula="ND-TAXRATE-RES-REGION-2026-FINAL * 455000",
+        inputs=["ND-TAXRATE-RES-REGION-2026-FINAL"],
+        note="Supersedes reading the Region household table at its own $354,500 average. Same 2016 MPAC base; this applies the actual by-law rate to the North Dumfries average property.",
+    ),
+    derived(
+        id="DRV-ND-BILL-EDUCATION-455K",
+        label="Education portion of a $455,000 residential bill",
+        amountCad=BILL_EDU,
+        formula="ND-TAXRATE-RES-EDUCATION-2026-FINAL * 455000",
+        inputs=["ND-TAXRATE-RES-EDUCATION-2026-FINAL"],
+        note="Province sets this rate under O. Reg. 400/98; the Township only collects it.",
+    ),
+    derived(
+        id="DRV-ND-BILL-AYR-SAR-455K",
+        label="Ayr Special Area Rate on a $455,000 bill (Ayr urban only)",
+        amountCad=BILL_SAR,
+        formula="ND-TAXRATE-RES-AYR-SAR-2026-FINAL * 455000",
+        inputs=["ND-TAXRATE-RES-AYR-SAR-2026-FINAL"],
+        note="Rural properties do not pay this. Township rate + SAR reproduces the draft binder urban figure of $1,505.47.",
+    ),
+    derived(
+        id="DRV-ND-BILL-COMBINED-455K",
+        label="Total 2026 residential bill at $455,000 (rural)",
+        amountCad=BILL_COMBINED,
+        formula="(township + region + education rates) * 455000",
+        inputs=["DRV-ND-BILL-TOWNSHIP-455K", "DRV-ND-BILL-REGION-455K", "DRV-ND-BILL-EDUCATION-455K", "ND-TAXRATE-RES-TOTAL-2026-FINAL"],
+        note="Cross-checked against the printed Total 2026 Rate column applied to the same assessment.",
+    ),
+    derived(
+        id="DRV-ND-BILL-COMBINED-AYR-455K",
+        label="Total 2026 residential bill at $455,000 including Ayr S.A.R.",
+        amountCad=BILL_COMBINED_AYR,
+        formula="ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL * 455000",
+        inputs=["DRV-ND-BILL-COMBINED-455K", "DRV-ND-BILL-AYR-SAR-455K", "ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL"],
+    ),
+    derived(
+        id="DRV-ND-IMPLIED-CVA-5000",
+        label="Assessment implied by a $5,000 total residential bill",
+        amountCad=IMPLIED_5000_CVA,
+        formula="5000 / ND-TAXRATE-RES-TOTAL-2026-FINAL",
+        inputs=["ND-TAXRATE-RES-TOTAL-2026-FINAL"],
+        note="A $5,000 bill corresponds to a property assessed slightly below the township average of $455,000. The original hypothetical was close to reality, not a fantasy figure.",
     ),
 ]
 
@@ -1097,30 +1213,58 @@ receipt = {
                 "lineItemsSumCheckCad": sum(item["amountCad"] for item in region_lines),
             },
             "education": {
-                "basis": "By-law 3637-26 Schedule A — RT Residential Education Rate 0.00153000",
-                "amountCad": None,
-                "evidenceStatus": "FACT",
-                "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
-                "note": "Rate ingested; household education dollars at one assessment deferred (combined receipt not built this step).",
+                "basis": "By-law 3637-26 Schedule A — RT Residential Education Rate 0.00153000 at $455,000",
+                "amountCad": BILL_EDU,
+                "assessmentCad": ASSESSMENT,
+                "evidenceStatus": "DERIVED",
+                "sourceFactId": "DRV-ND-BILL-EDUCATION-455K",
+                "note": "Province sets this rate under O. Reg. 400/98; the Township only collects it.",
             },
-            "combinedTotalCad": None,
+            "combinedTotalCad": BILL_COMBINED,
+            "combinedAtAssessment": {
+                "assessmentCad": ASSESSMENT,
+                "basis": "By-law 3637-26 Schedule A, CODE RT Residential (2026-04-27 council agenda p.103)",
+                "evidenceStatus": "DERIVED",
+                "components": [
+                    {"label": "Township of North Dumfries", "amountCad": BILL_TWP, "rate": RATE_TWP, "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"},
+                    {"label": "Region of Waterloo", "amountCad": BILL_REG, "rate": RATE_REG, "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"},
+                    {"label": "Education (Province of Ontario)", "amountCad": BILL_EDU, "rate": RATE_EDU, "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"},
+                ],
+                "totalCad": BILL_COMBINED,
+                "totalRate": RATE_TOTAL,
+                "ayrUrbanVariant": {
+                    "specialAreaRateCad": BILL_SAR,
+                    "totalCad": BILL_COMBINED_AYR,
+                    "totalRate": RATE_TOTAL_AYR,
+                    "note": "Ayr urban service area only. Rural properties pay the rural total.",
+                },
+            },
             "combinedTotalNote": (
-                "Final residential rates are in the ledger (By-law 3637-26 Schedule A). "
-                "Combined receipt at a single assessment is deferred — do not add township avg $1,434.63 (@$455k) to Region rural HH $2,543 (@$354.5k). "
-                "Both figures use the same MPAC January 1, 2016 valuation base; they differ only in which average property each government reports."
+                "Built from the adopted By-law 3637-26 Schedule A rates applied to ONE assessment ($455,000), "
+                "not by adding two governments' differently-based household averages. The three rates sum exactly "
+                "to the printed Total 2026 Rate, and the township component reproduces the separately cited $1,434.63 to the cent."
             ),
             "warnings": [
-                "Do not add township $1,434.63 + region $2,543 as one bill — different average properties on the same 2016 MPAC base.",
-                "North Dumfries operating amounts are approved (By-law 3617-26); township allocation base unchanged this step.",
+                "The Region figure of $2,543 elsewhere in this model is the Region's own average household at $354,500 — do not mix it with this $455,000 receipt. Both sit on the same MPAC January 1, 2016 base; they differ only in which average property each government reports.",
+                "Ayr urban properties additionally pay the Special Area Rate; the rural total excludes it.",
+                "North Dumfries operating amounts are approved (By-law 3617-26).",
             ],
         },
         "hypothetical5000": {
             "amountCad": 5000,
-            "evidenceStatus": "DEFERRED",
-            "allocatable": False,
-            "receiptLineItems": [],
-            "receiptTotals": None,
-            "message": "Final township/Region/education rates are ingested. A modelled $5,000 combined composition is not built in this step — no filler allocation.",
+            "evidenceStatus": "DERIVED",
+            "allocatable": True,
+            "impliedAssessmentCad": IMPLIED_5000_CVA,
+            "compositionShares": [
+                {"label": "Township of North Dumfries", "share": SHARE_TWP, "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"},
+                {"label": "Region of Waterloo", "share": SHARE_REG, "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"},
+                {"label": "Education (Province of Ontario)", "share": SHARE_EDU, "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"},
+            ],
+            "message": (
+                "A $5,000 total bill implies an assessment of about $" + format(IMPLIED_5000_CVA, ",") + ", slightly below the "
+                "township average of $455,000. Shown as rate shares rather than invented dollars: the split of any bill is fixed "
+                "by the by-law rates regardless of assessment. For dollar figures see combinedAtAssessment."
+            ),
         },
     },
     "findings": findings,

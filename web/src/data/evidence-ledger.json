@@ -166,6 +166,39 @@
       "kind": "FACT"
     },
     {
+      "id": "ND-TAXRATE-RES-AYR-SAR-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "label": "2026 final Ayr Special Area Rate, residential (RT)",
+      "value": 0.00015571,
+      "excerpt": "RT Residential  0.00315303 0.00717545 0.00153000 0.01185848 0.00015571 0.01201419",
+      "status": "final",
+      "note": "Ayr S.A.R. column, CODE RT. Applies to the Ayr urban service area only; rural North Dumfries properties do not pay it.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TAXRATE-RES-TOTAL-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "label": "2026 final total residential tax rate, rural (RT)",
+      "value": 0.01185848,
+      "excerpt": "RT Residential  0.00315303 0.00717545 0.00153000 0.01185848 0.00015571 0.01201419",
+      "status": "final",
+      "note": "Printed Total 2026 Rate column. Independent cross-check: township + region + education must equal this exactly.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "label": "2026 final total residential tax rate including Ayr S.A.R. (RT)",
+      "value": 0.01201419,
+      "excerpt": "RT Residential  0.00315303 0.00717545 0.00153000 0.01185848 0.00015571 0.01201419",
+      "status": "final",
+      "note": "Printed Total Ayr Rate column.",
+      "kind": "FACT"
+    },
+    {
       "id": "ND-TAXRATE-BYLAW-ADOPTION-2026",
       "sourceId": "nd-2026-tax-rate-minutes",
       "page": 6,
@@ -1043,6 +1076,87 @@
         "DRV-ND-DEPT-SUM"
       ],
       "note": "Discloses governance cost already contained inside Corporate Services. Nested sub-line only; NOT a base component and not added to any total.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-BILL-TOWNSHIP-455K",
+      "label": "Township portion of a $455,000 residential bill",
+      "amountCad": 1434.63,
+      "formula": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL * 455000",
+      "inputs": [
+        "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"
+      ],
+      "note": "Reproduces the separately cited ND-TOWNSHIP-TAX-RURAL-AVG-2026 figure of $1,434.63 to the cent.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-BILL-REGION-455K",
+      "label": "Region portion of a $455,000 residential bill",
+      "amountCad": 3264.83,
+      "formula": "ND-TAXRATE-RES-REGION-2026-FINAL * 455000",
+      "inputs": [
+        "ND-TAXRATE-RES-REGION-2026-FINAL"
+      ],
+      "note": "Supersedes reading the Region household table at its own $354,500 average. Same 2016 MPAC base; this applies the actual by-law rate to the North Dumfries average property.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-BILL-EDUCATION-455K",
+      "label": "Education portion of a $455,000 residential bill",
+      "amountCad": 696.15,
+      "formula": "ND-TAXRATE-RES-EDUCATION-2026-FINAL * 455000",
+      "inputs": [
+        "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+      ],
+      "note": "Province sets this rate under O. Reg. 400/98; the Township only collects it.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-BILL-AYR-SAR-455K",
+      "label": "Ayr Special Area Rate on a $455,000 bill (Ayr urban only)",
+      "amountCad": 70.85,
+      "formula": "ND-TAXRATE-RES-AYR-SAR-2026-FINAL * 455000",
+      "inputs": [
+        "ND-TAXRATE-RES-AYR-SAR-2026-FINAL"
+      ],
+      "note": "Rural properties do not pay this. Township rate + SAR reproduces the draft binder urban figure of $1,505.47.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-BILL-COMBINED-455K",
+      "label": "Total 2026 residential bill at $455,000 (rural)",
+      "amountCad": 5395.61,
+      "formula": "(township + region + education rates) * 455000",
+      "inputs": [
+        "DRV-ND-BILL-TOWNSHIP-455K",
+        "DRV-ND-BILL-REGION-455K",
+        "DRV-ND-BILL-EDUCATION-455K",
+        "ND-TAXRATE-RES-TOTAL-2026-FINAL"
+      ],
+      "note": "Cross-checked against the printed Total 2026 Rate column applied to the same assessment.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-BILL-COMBINED-AYR-455K",
+      "label": "Total 2026 residential bill at $455,000 including Ayr S.A.R.",
+      "amountCad": 5466.46,
+      "formula": "ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL * 455000",
+      "inputs": [
+        "DRV-ND-BILL-COMBINED-455K",
+        "DRV-ND-BILL-AYR-SAR-455K",
+        "ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-ND-IMPLIED-CVA-5000",
+      "label": "Assessment implied by a $5,000 total residential bill",
+      "amountCad": 421639,
+      "formula": "5000 / ND-TAXRATE-RES-TOTAL-2026-FINAL",
+      "inputs": [
+        "ND-TAXRATE-RES-TOTAL-2026-FINAL"
+      ],
+      "note": "A $5,000 bill corresponds to a property assessed slightly below the township average of $455,000. The original hypothetical was close to reality, not a fantasy figure.",
       "kind": "DERIVED"
     },
     {

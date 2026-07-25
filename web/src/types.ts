@@ -57,6 +57,15 @@ export type TaxpayerReceipt = {
       region: ProfileBucket
       education: ProfileBucket
       combinedTotalCad: number | null
+      combinedAtAssessment?: {
+        assessmentCad: number
+        basis: string
+        evidenceStatus: string
+        components: { label: string; amountCad: number; rate: number; sourceFactId: string }[]
+        totalCad: number
+        totalRate: number
+        ayrUrbanVariant: { specialAreaRateCad: number; totalCad: number; totalRate: number; note: string }
+      }
       combinedTotalNote: string
       warnings: string[]
     }
@@ -65,6 +74,8 @@ export type TaxpayerReceipt = {
       evidenceStatus: string
       gapId?: string
       allocatable: boolean
+      impliedAssessmentCad?: number
+      compositionShares?: { label: string; share: number; sourceFactId: string }[]
       message: string
     }
   }
