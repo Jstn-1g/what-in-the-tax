@@ -10,13 +10,33 @@ careful human work; this makes it machine-checkable.
 No model calls. No network. Pure text matching, so its verdicts are reproducible
 by any third party holding the same extracts.
 
+WHY LABEL BINDING IS THE CHECK THAT MATTERS. Measured on this repo: running
+`pdftotext -layout` over binder page 9 — the department summary the whole receipt
+allocates from — shifts every row label down one row, so it reports
+`TOTAL FIRE = 2,091,306` (really Corporate Services) and
+`Total Elections = 201,669` (really Council). The numeric column order is
+preserved, therefore:
+  * every arithmetic tie-out in build_evidence_model.py still passes (they assert
+    over amounts and never bind a label to its amount),
+  * multi-extractor numeric agreement still passes (identical token multiset),
+  * and a presence-only citation check still passes.
+All three are ANTI-DIAGNOSTIC for the one failure that would make every published
+line a false statement about a department. Only label-to-value binding catches it.
+(pypdf, the committed extractor, happens to bind these rows correctly — so the
+current ledger is sound. The hazard is a future "upgrade" to a better-looking
+layout extractor.)
+
 Match tiers, strongest first:
   verbatim         excerpt appears exactly on the cited page
   normalized       matches after whitespace/case collapse (PDF extraction noise)
   alnum            matches after stripping all non-alphanumerics (ligature/spacing loss)
-  numbers-only     the excerpt's numeric tokens are all on the cited page, but the
-                   wording is not — i.e. the FIGURE is verifiable, the QUOTE is a
-                   reconstruction. Honest, but not a verbatim quote.
+  row-bound        the amount and the excerpt's label words co-occur on ONE LINE of
+                   the cited page — so the figure is bound to its row label, not
+                   merely present somewhere on the page.
+  numbers-only     the numeric tokens are on the cited page but NOT on a line with
+                   the label words. The figure is present; its BINDING to this label
+                   is unverified. This is the exposure surface for the single most
+                   dangerous extraction failure (see below).
   wrong-page       found elsewhere in the same document, NOT on the cited page
   not-found        not in the document at all  -> HARD FAIL
 """
@@ -79,6 +99,33 @@ def numbers_present(needles: list[str], haystack: str) -> tuple[bool, list[str]]
     return (not missing), missing
 
 
+def label_words(excerpt: str) -> list[str]:
+    """Substantive alphabetic tokens from an excerpt — its row-label content."""
+    return [w for w in re.findall(r"[A-Za-z]{4,}", excerpt.lower())]
+
+
+def row_bound(excerpt: str, page_text: str) -> bool:
+    """Do the amount(s) and the label words share a single LINE of the page?
+
+    This is the check that survives a label-shift: presence-anywhere does not.
+    """
+    words = label_words(excerpt)
+    needles = number_tokens(excerpt)
+    if not words or not needles:
+        return False
+    need = max(2, int(round(0.6 * len(words))))
+    for line in page_text.splitlines():
+        if not line.strip():
+            continue
+        line_digits = digits_only(line)
+        if not all(digits_only(n) in line_digits for n in needles):
+            continue
+        low = line.lower()
+        if sum(1 for w in words if w in low) >= need:
+            return True
+    return False
+
+
 def classify(excerpt: str, cited_page_text: str, doc_text: str) -> tuple[str, str]:
     if not excerpt:
         return "no-excerpt", "fact carries no excerpt to verify"
@@ -94,7 +141,13 @@ def classify(excerpt: str, cited_page_text: str, doc_text: str) -> tuple[str, st
     if needles:
         ok, missing = numbers_present(needles, cited_page_text)
         if ok:
-            return "numbers-only", f"all {len(needles)} numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+            if row_bound(excerpt, cited_page_text):
+                return "row-bound", "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+            return "numbers-only", (
+                f"all {len(needles)} numeric token(s) present on the cited page, but NOT on a line "
+                "with the label words — the figure's BINDING to this label is unverified "
+                "(exposure surface for label-shift extraction errors)"
+            )
 
     # Is it anywhere else in the document?
     if norm_alnum(excerpt) and norm_alnum(excerpt) in norm_alnum(doc_text):
@@ -107,7 +160,7 @@ def classify(excerpt: str, cited_page_text: str, doc_text: str) -> tuple[str, st
     return "not-found", "neither the wording nor the numeric tokens appear in the cited document"
 
 
-TIER_ORDER = ["verbatim", "normalized", "alnum", "numbers-only", "no-excerpt", "wrong-page", "not-found"]
+TIER_ORDER = ["verbatim", "normalized", "alnum", "row-bound", "numbers-only", "no-excerpt", "wrong-page", "not-found"]
 HARD_FAIL = {"not-found", "wrong-page"}
 
 

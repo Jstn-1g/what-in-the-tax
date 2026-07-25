@@ -1,8 +1,9 @@
 {
  "counts": {
   "verbatim": 10,
-  "numbers-only": 51,
+  "numbers-only": 16,
   "normalized": 8,
+  "row-bound": 35,
   "wrong-page": 13,
   "alnum": 1,
   "unverifiable": 10
@@ -38,7 +39,7 @@
    "page": 8,
    "amountCad": null,
    "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ND-LEVY-2026-ADOPTED",
@@ -126,7 +127,7 @@
    "page": 8,
    "amountCad": 1434.63,
    "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ND-TOWNSHIP-TAX-URBAN-AVG-2026",
@@ -134,79 +135,79 @@
    "page": 8,
    "amountCad": 1505.47,
    "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ND-DEPT-CORPORATE-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 2091306,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-DEPT-FIRE-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 1182646,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-DEPT-PROTECTIVE-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 1554793,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-DEPT-PW-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 2477423,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-DEPT-REC-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 1867455,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-DEPT-REC-OVERHEAD-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 1468430,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-DEPT-PW-OVERHEAD-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 1466225,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-DEPT-PLANNING-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 451372,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
    "sourceId": "nd-2026-draft",
    "page": 43,
    "amountCad": 1625000,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
@@ -286,7 +287,7 @@
    "page": 43,
    "amountCad": 5000000,
    "tier": "numbers-only",
-   "note": "all 3 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote); amountCad 5000000 not literally present on the cited page (may be a subtotal or reformatted)"
+   "note": "all 3 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors); amountCad 5000000 not literally present on the cited page (may be a subtotal or reformatted)"
   },
   {
    "id": "ND-CAP-ACC-EXTERIOR-2026",
@@ -294,7 +295,7 @@
    "page": 52,
    "amountCad": 3500000,
    "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ND-CAP-PUMPTRACK-2026",
@@ -302,7 +303,7 @@
    "page": 54,
    "amountCad": 568756,
    "tier": "numbers-only",
-   "note": "all 3 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 3 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ND-CAP-CLYDE-PARK-2026",
@@ -333,16 +334,16 @@
    "sourceId": "nd-2026-draft",
    "page": 18,
    "amountCad": 27000,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-LEGAL-TAX-SALE-2026",
    "sourceId": "nd-2026-draft",
    "page": 18,
    "amountCad": 22000,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-LEGAL-BUILDING-2026",
@@ -357,16 +358,16 @@
    "sourceId": "nd-2026-draft",
    "page": 26,
    "amountCad": 25000,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-LEGAL-PLANNING-2026",
    "sourceId": "nd-2026-draft",
    "page": 41,
    "amountCad": 8000,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-GRANTS-COMMUNITY-2026",
@@ -406,7 +407,7 @@
    "page": 41,
    "amountCad": 20000,
    "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ND-TOURISM-2026",
@@ -414,31 +415,31 @@
    "page": 41,
    "amountCad": 5000,
    "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ND-SUSTAINABLE-WR-2026",
    "sourceId": "nd-2026-draft",
    "page": 41,
    "amountCad": 1725,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-HERITAGE-SOFTWARE-2026",
    "sourceId": "nd-2026-draft",
    "page": 41,
    "amountCad": 5000,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-ANIMAL-CONTROL-2026",
    "sourceId": "nd-2026-draft",
    "page": 9,
    "amountCad": 10875,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ND-POP-CENSUS-2021",
@@ -526,7 +527,7 @@
    "page": 12,
    "amountCad": 887329000,
    "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote); amountCad 887329000 not literally present on the cited page (may be a subtotal or reformatted)"
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors); amountCad 887329000 not literally present on the cited page (may be a subtotal or reformatted)"
   },
   {
    "id": "ROW-WRPS-LEVY-2026",
@@ -534,7 +535,7 @@
    "page": 12,
    "amountCad": 272610000,
    "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote); amountCad 272610000 not literally present on the cited page (may be a subtotal or reformatted)"
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors); amountCad 272610000 not literally present on the cited page (may be a subtotal or reformatted)"
   },
   {
    "id": "ROW-RURAL-HH-TOTAL-2026",
@@ -542,7 +543,7 @@
    "page": 12,
    "amountCad": 2543,
    "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ROW-SUMMARY-OP-FUNDING-TAX-2026",
@@ -566,15 +567,15 @@
    "page": 4,
    "amountCad": 142,
    "tier": "numbers-only",
-   "note": "all 3 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 3 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ROW-RURAL-HH-01",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 900,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-02",
@@ -582,127 +583,127 @@
    "page": 12,
    "amountCad": 63,
    "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ROW-RURAL-HH-03",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 429,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-04",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 240,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-05",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 213,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-06",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 89,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-07",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 134,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-08",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 53,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-09",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 51,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-10",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 39,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-11",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 49,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-12",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 45,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-13",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 24,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-14",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 33,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-15",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 30,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-16",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 17,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-17",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 19,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-18",
@@ -710,15 +711,15 @@
    "page": 12,
    "amountCad": 31,
    "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ROW-RURAL-HH-19",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 21,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-20",
@@ -726,7 +727,7 @@
    "page": 12,
    "amountCad": 24,
    "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ROW-RURAL-HH-21",
@@ -734,23 +735,23 @@
    "page": 12,
    "amountCad": 79,
    "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
   },
   {
    "id": "ROW-RURAL-HH-22",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 16,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   },
   {
    "id": "ROW-RURAL-HH-23",
    "sourceId": "row-2026-book",
    "page": 12,
    "amountCad": 20,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page; wording differs (excerpt is a reconstruction, not a quote)"
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
   }
  ]
 }
