@@ -28,8 +28,8 @@ function resultSummary(totalMatches: number, capped: boolean): string {
 function placeMetadata(place: PlaceSearchRecord): readonly string[] {
   const region = place.province ?? place.territory
   const releaseStatus = (() => {
-    if (place.availability === 'blocked') return 'Evidence update required'
-    if (place.releaseStatus === 'draft') return 'Draft preview'
+    if (place.availability === 'blocked') return 'Still checking evidence'
+    if (place.releaseStatus === 'draft') return 'Draft'
     if (place.releaseStatus === 'preview') return 'Preview'
     if (place.releaseStatus === 'published') return 'Published'
     return place.releaseStatus
@@ -77,24 +77,48 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
   return (
     <section className="place-finder" aria-labelledby={headingId}>
       <div className="place-finder__intro">
-        <h2 id={headingId}>Find your municipality</h2>
-        <p>
-          Search by place name, community type, province, or territory.
-        </p>
+        <h2 id={headingId}>Find your community</h2>
       </div>
 
       <div className="place-finder__search">
-        <label htmlFor={inputId}>Find your municipality</label>
-        <input
-          id={inputId}
-          type="search"
-          value={query}
-          placeholder="City, town, township, or municipality"
-          autoComplete="off"
-          aria-controls={resultsId}
-          aria-describedby={summaryId}
-          onChange={(event) => setQuery(event.target.value)}
-        />
+        <label className="visually-hidden" htmlFor={inputId}>
+          Find your community
+        </label>
+        <div className="place-finder__input-wrap">
+          <svg
+            className="place-finder__search-icon"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            aria-hidden="true"
+          >
+            <circle
+              cx="10.5"
+              cy="10.5"
+              r="6.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            />
+            <path
+              d="m15.5 15.5 5 5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+          <input
+            id={inputId}
+            type="search"
+            value={query}
+            placeholder="City, town, township, or municipality"
+            autoComplete="off"
+            aria-controls={resultsId}
+            aria-describedby={summaryId}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </div>
       </div>
 
       <p
@@ -126,6 +150,22 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
                         {metadata.join(' · ')}
                       </span>
                     ) : null}
+                    <svg
+                      className="place-finder__arrow"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M5 12h13m-5-5 5 5-5 5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </a>
                 </li>
               )
@@ -134,7 +174,8 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
         </>
       ) : (
         <p id={resultsId} className="place-finder__empty">
-          No matching place is available. No place was substituted.
+          We have not added that community yet. We will not substitute another
+          community&apos;s data.
         </p>
       )}
     </section>

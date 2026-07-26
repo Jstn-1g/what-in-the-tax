@@ -5,9 +5,12 @@ function statusCopy(model: HeroBriefingModel) {
   return [
     {
       id: 'review',
-      value: `${model.reviewNoteCount} review ${
-        model.reviewNoteCount === 1 ? 'note' : 'notes'
-      }`,
+      value:
+        model.reviewNoteCount === 0
+          ? 'No questions flagged'
+          : `${model.reviewNoteCount} ${
+              model.reviewNoteCount === 1 ? 'question' : 'questions'
+            } flagged`,
       detail:
         model.reviewNoteCount === 0
           ? 'No published review notes are attached to this receipt.'
@@ -17,9 +20,12 @@ function statusCopy(model: HeroBriefingModel) {
     },
     {
       id: 'gaps',
-      value: `${model.gapCount} evidence ${
-        model.gapCount === 1 ? 'gap' : 'gaps'
-      }`,
+      value:
+        model.gapCount === 0
+          ? 'No open evidence gaps'
+          : `${model.gapCount} open evidence ${
+              model.gapCount === 1 ? 'gap' : 'gaps'
+            }`,
       detail:
         model.gapCount === 0
           ? 'No open evidence items are listed.'
@@ -110,8 +116,8 @@ export default function HeroBriefing({
 
       <div className="evidence-summary">
         <div className="evidence-summary-heading">
-          <h2>Evidence coverage</h2>
-          <p>These checks describe our evidence, not the municipality or its budget.</p>
+          <h2>How confident are these numbers?</h2>
+          <p>These checks describe our research, not the municipality or its budget.</p>
         </div>
         <ul>
           {statuses.map((status) => {
@@ -145,7 +151,7 @@ export default function HeroBriefing({
             data-help-trigger="receipt-evidence-help"
             onClick={onOpenHelp}
           >
-            How evidence checks work
+            See how we check the data
           </button>
         ) : null}
       </div>

@@ -376,8 +376,8 @@ export default function TaxReceiptScreen({
             </p>
             <h1 id="receipt-unavailable-title">Receipt unavailable</h1>
             <p className="hero-support">
-              AuditBack will not display a receipt when a required identity or
-              amount is missing.
+              We will not display a receipt when a required identity or amount
+              is missing.
             </p>
           </div>
         </section>
@@ -778,8 +778,8 @@ export default function TaxReceiptScreen({
 
         <footer className="footer">
           <p>
-            Independent preview. Not affiliated with any government. Not an official
-            bill, formal audit, or tax advice.
+            Independent public-information project. Not affiliated with any
+            government. Not an official bill, formal audit, or tax advice.
           </p>
           <p className="technical-id">
             {data.status} · {data.evidencePolicyRef}
@@ -792,7 +792,7 @@ export default function TaxReceiptScreen({
                 data-help-trigger="receipt-footer"
                 onClick={onOpenHelp}
               >
-                How AuditBack works
+                How What in the Tax? works
               </button>
             </p>
           ) : null}

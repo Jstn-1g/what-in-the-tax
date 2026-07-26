@@ -1,4 +1,4 @@
-AuditBack preview — privacy notice
+What in the Tax? preview — privacy notice
 
 This is a static, independent research preview. It does not ask for an address,
 owner name, roll number, account, or contact details. It has no accounts,
@@ -17,6 +17,11 @@ records under their own policies.
 Links to municipal documents and other evidence leave this site. Those external
 sites have their own privacy practices. This preview sends no referrer header
 when supported by the browser.
+
+If support links are enabled, they lead to a Stripe-hosted payment page. Stripe
+collects payment and contact details under its own privacy practices; this site
+does not receive or store card numbers. A Stripe payment confirmation is not an
+official charitable donation receipt.
 
 No publisher contact or correction desk has yet been designated. Until both
 exist, this preview must not be represented as a Published taxpayer receipt.

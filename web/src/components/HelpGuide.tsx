@@ -1,5 +1,5 @@
 /**
- * Resident-friendly help for reading an AuditBack receipt.
+ * Resident-friendly help for reading a What in the Tax? receipt.
  */
 
 const SECTIONS = [
@@ -27,12 +27,12 @@ export default function HelpGuide({
       <header className="help-hero">
         <p className="help-kicker">Help</p>
         <h1 id="help-heading" tabIndex={-1}>
-          How to read an AuditBack receipt
+          How to use What in the Tax?
         </h1>
         <p className="help-lede">
-          AuditBack follows property-tax figures back to official public sources. It is an
-          independent reading aid—not a government service, formal financial audit, official tax
-          bill, or tax advice.
+          What in the Tax? turns public budgets, tax-rate schedules, and by-laws
+          into a plain-language example. It is independent—not a government
+          service, formal financial audit, official tax bill, or tax advice.
         </p>
         {simpleLanguage ? (
           <p className="help-eli5-note" role="status">
@@ -93,9 +93,9 @@ export default function HelpGuide({
                 checks.
               </li>
               <li>
-                <strong>Check the sample assessment.</strong> AuditBack does not look up an address
-                or roll number. The amount shown is an example unless you calculate from your own
-                assessed value.
+                <strong>Check the sample assessment.</strong> What in the Tax?
+                does not look up an address or roll number. The amount shown is
+                an example unless you calculate from your own assessed value.
               </li>
               <li>
                 <strong>Read the combined total and its parts.</strong> Each part shows which public
@@ -155,9 +155,10 @@ export default function HelpGuide({
             <h2>How calculations work</h2>
             <p className="help-formula">tax component = assessed value × published tax rate</p>
             <p>
-              AuditBack adds the applicable components to show a combined sample total. Depending
-              on the place, those components may include local, regional, education, or special
-              levies. Rounding is shown rather than hidden when cents need to be reconciled.
+              What in the Tax? adds the applicable components to show a combined
+              sample total. Depending on the place, those components may include
+              local, regional, education, or special levies. Rounding is shown
+              rather than hidden when cents need to be reconciled.
             </p>
             <p>
               A service or department breakdown may be a proportional model over a government&apos;s
@@ -176,8 +177,9 @@ export default function HelpGuide({
             </p>
             <p>
               Some places have one local tier; others have two or more public bodies on the same
-              bill. AuditBack follows the structure in official records. It does not substitute a
-              nearby or similarly named municipality when the correct body or source is missing.
+                bill. What in the Tax? follows the structure in official records.
+                It does not substitute a nearby or similarly named municipality
+                when the correct body or source is missing.
             </p>
           </section>
 
@@ -223,23 +225,26 @@ export default function HelpGuide({
                 <summary>Why does the sample differ from my tax bill?</summary>
                 <p>
                   Your bill uses your property&apos;s assessed value and any area-specific charges.
-                  AuditBack may use a published average, median, or other documented example. Your
-                  official bill remains the source for what you owe.
+                    What in the Tax? may use a published average, median, or other
+                    documented example. Your official bill remains the source for
+                    what you owe.
                 </p>
               </details>
               <details>
                 <summary>Can I enter my address or roll number?</summary>
                 <p>
-                  No. AuditBack does not provide an address or roll-number lookup. Use the assessed
-                  value on your official notice if the receipt offers a calculator.
+                    No. What in the Tax? does not provide an address or roll-number
+                    lookup. Use the assessed value on your official notice if the
+                    receipt offers a calculator.
                 </p>
               </details>
               <details>
                 <summary>Why is a governing body or amount missing?</summary>
                 <p>
-                  The correct official source may not yet be available or verified. AuditBack marks
-                  that as a gap instead of using another municipality&apos;s data or an unsupported
-                  estimate.
+                    The correct official source may not yet be available or
+                    verified. What in the Tax? marks that as a gap instead of
+                    using another municipality&apos;s data or an unsupported
+                    estimate.
                 </p>
               </details>
               <details>
@@ -253,16 +258,17 @@ export default function HelpGuide({
                 <summary>What should I do if a figure is wrong?</summary>
                 <p>
                   Note the place, tax year, line, and official source that supports the correction.
-                  AuditBack can then review the evidence, update the receipt, and preserve a clear
-                  record of the change.
+                    What in the Tax? can then review the evidence, update the
+                    receipt, and preserve a clear record of the change.
                 </p>
               </details>
             </div>
           </section>
 
           <p className="help-footer-note">
-            AuditBack receipts are independent summaries of public information. Always use your
-            official notice for payment, deadlines, exemptions, and account-specific questions.
+            What in the Tax? receipts are independent summaries of public
+            information. Always use your official notice for payment, deadlines,
+            exemptions, and account-specific questions.
           </p>
 
           <button type="button" className="cta help-back-bottom" onClick={onBack}>

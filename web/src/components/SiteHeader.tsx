@@ -1,42 +1,7 @@
-type AuditBackHeaderProps = {
+type SiteHeaderProps = {
   currentPlace?: string
   onChoosePlace: () => void
   onOpenHelp: () => void
-}
-
-function BrandMark() {
-  return (
-    <svg
-      className="brand-mark"
-      viewBox="0 0 40 44"
-      width="32"
-      height="35"
-      aria-hidden="true"
-    >
-      <path
-        d="M8 2.5h16l9.5 9.5v20.5A7.5 7.5 0 0 1 26 40H8a5.5 5.5 0 0 1-5.5-5.5V8A5.5 5.5 0 0 1 8 2.5Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M24 3v9h9"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M20 22H9.5m0 0 4-4m-4 4 4 4M10 31h10.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
 }
 
 function PlaceIcon() {
@@ -69,24 +34,24 @@ function HelpIcon() {
   )
 }
 
-export default function AuditBackHeader({
+export default function SiteHeader({
   currentPlace,
   onChoosePlace,
   onOpenHelp,
-}: AuditBackHeaderProps) {
+}: SiteHeaderProps) {
   return (
     <header className="site-header">
       <div className="site-header-inner">
         <button
           type="button"
           className="wordmark"
-          aria-label="AuditBack home — choose a place"
+          aria-label="What in the Tax? home — choose a community"
           onClick={onChoosePlace}
         >
-          <BrandMark />
-          <span>AuditBack</span>
+          <span className="wordmark-name">What in the Tax?</span>
+          <span className="wordmark-domain">whatinthetax.com</span>
         </button>
-        <nav className="site-actions" aria-label="Product">
+        <nav className="site-actions" aria-label="Main navigation">
           <button
             type="button"
             className="site-action site-action-help"
@@ -102,12 +67,12 @@ export default function AuditBackHeader({
             onClick={onChoosePlace}
             aria-label={
               currentPlace
-                ? `Choose a different place. Current place: ${currentPlace}`
-                : 'Choose a place'
+                ? `Choose a different community. Current community: ${currentPlace}`
+                : 'Choose a community'
             }
           >
             <PlaceIcon />
-            <span>{currentPlace ?? 'Choose a place'}</span>
+            <span>{currentPlace ?? 'Choose a community'}</span>
             {currentPlace ? (
               <svg
                 className="site-action-caret"

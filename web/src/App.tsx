@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import AuditBackHeader from './components/AuditBackHeader'
 import HelpGuide from './components/HelpGuide'
 import PlaceFinder from './components/PlaceFinder'
+import SiteHeader from './components/SiteHeader'
+import SupportCard from './components/SupportCard'
 import TaxReceiptScreen from './components/TaxReceiptScreen'
 import {
   getPackCatalogEntry,
@@ -18,7 +19,7 @@ type LoadedPack = { id: PackId; pack: PackEntry }
 type LoadFailure = { id: PackId }
 
 const HELP_HASH_ROOT = 'help'
-const HELP_HISTORY_KEY = 'auditBackHelpEntry'
+const HELP_HISTORY_KEY = 'whatInTheTaxHelpEntry'
 
 function hashId(): string {
   if (typeof window === 'undefined') return ''
@@ -96,17 +97,17 @@ function setDocumentMeta(route: PackRoute) {
       : null
   const title =
     route.kind === 'blocked'
-      ? `${metadata?.label ?? 'Receipt'} receipt unavailable · AuditBack`
+      ? `${metadata?.label ?? 'Receipt'} receipt unavailable · What in the Tax?`
       : metadata
-        ? `${metadata.label} property-tax receipt · AuditBack`
+        ? `${metadata.label} property-tax receipt · What in the Tax?`
         : route.kind === 'unknown'
-          ? 'Receipt unavailable · AuditBack'
-          : 'AuditBack — See where your property taxes go'
+          ? 'Receipt unavailable · What in the Tax?'
+          : 'What in the Tax? — Where did your property-tax dollars go?'
   document.title = title
 
   const description = metadata
     ? `See how a sample residential property-tax bill in ${metadata.label} is divided, with source links for each supported figure. Independent preview; not tax advice.`
-    : 'AuditBack shows how a sample residential property-tax bill is divided, with links to the public budgets and by-laws behind each supported figure. Independent preview; not tax advice.'
+    : 'What in the Tax? helps residents explore a sample property-tax bill and the public records behind each supported figure. Independent preview; not tax advice.'
   let meta = document.querySelector('meta[name="description"]')
   if (!meta) {
     meta = document.createElement('meta')
@@ -120,11 +121,34 @@ function ProductFooter() {
   return (
     <footer className="product-footer">
       <p>
-        Independent preview. Not affiliated with any government. Not an official bill,
-        formal audit, or tax advice.
+        Independent public-information project. Not affiliated with any government.
+        Not an official bill, formal audit, or tax advice.
       </p>
       <a href={`${import.meta.env.BASE_URL}privacy.txt`}>Privacy</a>
     </footer>
+  )
+}
+
+function ReceiptSketch() {
+  return (
+    <svg
+      className="chooser-sketch"
+      viewBox="0 0 260 240"
+      aria-hidden="true"
+    >
+      <g transform="rotate(5 130 120)">
+        <path
+          className="chooser-sketch__paper"
+          d="M58 18h144v180l-14-11-14 15-17-12-15 15-17-14-17 13-13-16-18 12Z"
+        />
+        <path
+          className="chooser-sketch__leaf"
+          d="m130 52 9 22 15-9-6 24 19-2-9 20 17 9-25 18 5 20-20-9-5 31-5-31-20 9 5-20-25-18 17-9-9-20 19 2-6-24 15 9Z"
+        />
+        <path className="chooser-sketch__line" d="M95 181h70M101 199h58" />
+      </g>
+      <path className="chooser-sketch__spark" d="m222 38 13-15m-2 35 18-2m-31-4 4-19" />
+    </svg>
   )
 }
 
@@ -172,7 +196,7 @@ export default function App() {
 
   useEffect(() => {
     if (view === 'help') {
-      document.title = 'How AuditBack works · AuditBack'
+      document.title = 'How What in the Tax? works · What in the Tax?'
       return
     }
     setDocumentMeta(route)
@@ -395,9 +419,9 @@ export default function App() {
             navigateWithinHelp('help/main')
           }}
         >
-          Skip to how AuditBack works
+          Skip to how What in the Tax? works
         </a>
-        <AuditBackHeader
+        <SiteHeader
           currentPlace={routeMetadata?.label}
           onChoosePlace={showChooser}
           onOpenHelp={openHelp}
@@ -422,12 +446,11 @@ export default function App() {
     const isBlocked = route.kind === 'blocked'
     const isLoading = Boolean(packId && !activeFailure)
     const alertText = activeFailure
-      ? `${routeMetadata?.label ?? 'This'} receipt could not be loaded. We did not substitute another place.`
+      ? `${routeMetadata?.label ?? 'This'} could not be loaded. We did not substitute another community.`
       : isBlocked
-        ? routeMetadata?.availabilityNote ??
-          'This receipt is not ready to display. The evidence package needs an update before it can be shown. We did not substitute another place.'
+        ? `${routeMetadata?.label ?? 'This community'} is temporarily unavailable because required evidence needs an update. We will not show another community’s numbers instead.`
         : isUnknown
-          ? `We do not have a displayable receipt for “${route.requested || '(blank)'}”. We did not substitute another place.`
+          ? `We have not added “${route.requested || '(blank)'}” yet. We will not substitute another community’s data.`
           : null
 
     return (
@@ -435,7 +458,7 @@ export default function App() {
         <a className="skip-link" href="#place-chooser">
           Skip to place finder
         </a>
-        <AuditBackHeader onChoosePlace={showChooser} onOpenHelp={openHelp} />
+        <SiteHeader onChoosePlace={showChooser} onOpenHelp={openHelp} />
         <main
           id="place-chooser"
           className="chooser-page"
@@ -443,26 +466,35 @@ export default function App() {
           aria-busy={isLoading}
         >
           <section className="chooser-hero" aria-live="polite">
-            <h1>
-              {isLoading
-                ? `Loading ${routeMetadata?.label ?? 'receipt'}…`
-                : 'See where your property taxes go'}
-            </h1>
-            <p>
-              {isLoading
-                ? 'Loading only the selected receipt and its public evidence.'
-                : 'Choose a municipality to explore a sample bill and the public sources behind it.'}
-            </p>
+            <div className="chooser-hero__copy">
+              <h1>
+                {isLoading
+                  ? `Loading ${routeMetadata?.label ?? 'receipt'}…`
+                  : (
+                      <>
+                        Where did your <span className="no-break">property-tax</span>{' '}
+                        dollars go?
+                      </>
+                    )}
+              </h1>
+              <span className="chooser-hero__rule" aria-hidden="true" />
+              <p>
+                {isLoading
+                  ? 'Loading only the selected receipt and its public evidence.'
+                  : 'Choose your community to explore a sample bill and the public records behind it. If the evidence is not ready, we will say so.'}
+              </p>
+            </div>
+            {!isLoading ? <ReceiptSketch /> : null}
           </section>
 
           {alertText ? (
             <div className="chooser-alert" role="alert">
               <strong>
                 {activeFailure
-                  ? 'The receipt could not be loaded'
+                  ? 'We could not load this community'
                   : isBlocked
-                    ? 'Evidence update required'
-                    : 'That place is not available yet'}
+                    ? 'We are still checking the evidence'
+                    : 'That community is not available yet'}
               </strong>
               <p>{alertText}</p>
               {activeFailure ? (
@@ -478,11 +510,14 @@ export default function App() {
           ) : null}
 
           {!isLoading ? (
-            <PlaceFinder
-              records={PACK_CATALOG}
-              onSelectPlace={selectPack}
-              activePlaceId={packId ?? undefined}
-            />
+            <>
+              <PlaceFinder
+                records={PACK_CATALOG}
+                onSelectPlace={selectPack}
+                activePlaceId={packId ?? undefined}
+              />
+              <SupportCard />
+            </>
           ) : null}
         </main>
         <ProductFooter />
@@ -518,9 +553,9 @@ export default function App() {
       facts={pack.evidence.facts}
       derived={pack.evidence.derived}
       citationAudit={pack.audit}
-      bannerText={`Draft preview — ${citationSummary}.`}
+      bannerText={`Draft — ${citationSummary}.`}
       appHeader={
-        <AuditBackHeader
+        <SiteHeader
           currentPlace={`${selectedMetadata.label}, ${selectedMetadata.province}`}
           onChoosePlace={showChooser}
           onOpenHelp={openHelp}
