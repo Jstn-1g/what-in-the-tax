@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/evidence-ledger.json",
-  "ledgerSha256": "ce032613202018442db2a75d72f5ae61be63cb47051a355d1c27f532414d360e",
+  "ledgerSha256": "d0e8d96347aa1c2badf81d8cb5cf4b906b83e703953344fe484484d52d2df2bd",
   "sources": [
     {
       "id": "mmah-fir-2023",
@@ -10,8 +10,8 @@
       "asOf": "2023-12-31",
       "license": "unknown",
       "localPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
-      "sha256": "f97ba68504ef5b7cc05df86fe859541d66e97280fe8f0f5c59db9a7e8e79687b",
-      "bytes": 2901,
+      "sha256": "97c1e98e20e905a5e8435adb2b68238d1de7c120969df0379309e5c2ae9fd2eb",
+      "bytes": 2879,
       "extractedText": null,
       "extractedTextSha256": null,
       "lockStatus": "source-only"
@@ -26,7 +26,7 @@
       "sha256": "5665dbc1ca1dd46bc982de21a005b8327da08a384b15eacd8ea7b39fb44e4a02",
       "bytes": 1294321,
       "extractedText": "data/_extracts/2026-02-02-special-budget-agenda.txt",
-      "extractedTextSha256": "a803f9314b7834a99fe15e5c1c5bcbabedd805ed61ef41e2d5cfd405828d52a1",
+      "extractedTextSha256": "d42da6a85238ec413b607cc579512e6c22f6441a652a536539ebe6b1eac7af87",
       "lockStatus": "source-and-extract"
     },
     {
@@ -39,7 +39,7 @@
       "sha256": "b3ec062eccea5c3bcfb1ec25c2ed2814d6915bfb716205fbbef27b366e65a6ac",
       "bytes": 2156962,
       "extractedText": "data/_extracts/2026-02-02-special-budget-minutes.txt",
-      "extractedTextSha256": "56f71434849d2f92f8e817df7cd797f63fe65182355eb4b4d74dbc4687aa430c",
+      "extractedTextSha256": "e24bbfa790a6b562213116ce2e2b1ea0b988383792414601b8ba388487698872",
       "lockStatus": "source-and-extract"
     },
     {
@@ -52,7 +52,7 @@
       "sha256": "a1b815cbf6aa3820b7b0c53f9faeadd93dd9d2f48a6dc0345e7d2c8f838830ab",
       "bytes": 3922996,
       "extractedText": "data/_extracts/2026-draft-budget-binder.txt",
-      "extractedTextSha256": "98c3be5602945fda4ff50fcca750ff0dd9b663a766267ddb7d8962930f2a297a",
+      "extractedTextSha256": "4c68973a132e0e1558788213045bbe00d1949713be1e752ed4f23a3202a8e664",
       "lockStatus": "source-and-extract"
     },
     {
@@ -65,7 +65,7 @@
       "sha256": "0da335ca8390c6941a865d9b267034dce0f050080f9cfe2a574e5b23df89b222",
       "bytes": 35264383,
       "extractedText": "data/_extracts/2026-04-27-council-agenda.txt",
-      "extractedTextSha256": "764e123b159cf76deb1a44adbfda5ce17ce46440133210d76af1f7b2dc104ac1",
+      "extractedTextSha256": "052b03beafa173a9d5ab620e4fffd2085302d8d7701991f5f4735b7d1198de10",
       "lockStatus": "source-and-extract"
     },
     {
@@ -78,7 +78,7 @@
       "sha256": "43fffc624d05fc1aadb9f9aab1affc1fd4c320f0d6a9b8b7154337c49f50cdfd",
       "bytes": 4788808,
       "extractedText": "data/_extracts/2026-04-27-council-minutes.txt",
-      "extractedTextSha256": "f0ac3d42fc56ae64f1189a249f1dd0d44bf9c8dc8b81040900fbeae8c1633526",
+      "extractedTextSha256": "618d58dae350a8c77796318acd2987af7d66a548002400a0f4812c6900ee4bdf",
       "lockStatus": "source-and-extract"
     },
     {
@@ -91,7 +91,7 @@
       "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
       "bytes": 5442331,
       "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
-      "extractedTextSha256": "3a79328613126951dbb7aedf8097b7cd79b5278f6f359d6b5c9ad1f9a429497f",
+      "extractedTextSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423",
       "lockStatus": "source-and-extract"
     },
     {
@@ -104,7 +104,7 @@
       "sha256": "b0525cb619840bf9f5d9b7e3e1bbd11f48d7e09aeb8f3f41eb6df77a86f14c2a",
       "bytes": 9965151,
       "extractedText": "data/_extracts/2026-plan-and-budget-summary-booklet.txt",
-      "extractedTextSha256": "f4db0a6f89090deef71b784690b931e88ea4aca87d2499bbf13933ea81849e32",
+      "extractedTextSha256": "72e39bf3ed08ac670767dcfb42fb5e3c266735d4417e6fe458780ff7a743255b",
       "lockStatus": "source-and-extract"
     },
     {
