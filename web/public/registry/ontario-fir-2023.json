@@ -1,0 +1,3554 @@
+{
+  "schemaVersion": "ontario-fir-public-index-1.0.0",
+  "artifactKind": "historical-financial-return-directory",
+  "jurisdiction": "CA-ON",
+  "fiscalYear": 2023,
+  "isReceipt": false,
+  "source": {
+    "publisher": "Government of Ontario, Ministry of Municipal Affairs and Housing",
+    "title": "Financial Information Return (FIR) — data by year",
+    "officialIndexUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/MYCIndex.html",
+    "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "dataCatalogueUrl": "https://data.ontario.ca/en/dataset/financial-information-return-fir-for-municipalities",
+    "licenceUrl": "https://www.ontario.ca/page/open-government-licence-ontario",
+    "licenceAttribution": "Contains information licensed under the Open Government Licence – Ontario.",
+    "sha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "lastUpdated": "2026-07-24"
+  },
+  "coverage": {
+    "recordsPresent": 436,
+    "expectedOntarioReturns": 444,
+    "recordsNotPresent": 8,
+    "tierCounts": {
+      "lowerTier": 238,
+      "singleTier": 168,
+      "upperTier": 30
+    },
+    "status": "incomplete"
+  },
+  "method": {
+    "primaryKey": "assessmentCode",
+    "runtimeAiRequired": false,
+    "runtimeGovernmentRequestsRequired": false,
+    "containsFinancialMetrics": false,
+    "currentTaxBylaw": false,
+    "findingsSupported": false
+  },
+  "rolloutPlan": {
+    "basis": "First current-year receipt cohort in the project generalization plan",
+    "sharedUpperTierAssessmentCode": "3000",
+    "cohort": [
+      {
+        "order": 1,
+        "assessmentCode": "3001",
+        "label": "North Dumfries"
+      },
+      {
+        "order": 2,
+        "assessmentCode": "3024",
+        "label": "Wellesley"
+      },
+      {
+        "order": 3,
+        "assessmentCode": "3018",
+        "label": "Wilmot"
+      },
+      {
+        "order": 4,
+        "assessmentCode": "3029",
+        "label": "Woolwich"
+      }
+    ]
+  },
+  "caveat": "These are municipality-submitted 2023 Financial Information Return records. Ontario says FIR data can be incomplete and previously posted years can be revised. A directory match is not a current tax bill, tax by-law, receipt, finding, or publication approval.",
+  "records": [
+    {
+      "assessmentCode": "0100",
+      "displayName": "Stormont, Dundas and Glengarry",
+      "sourceName": "Stormont, Dundas and Glengarry UCo",
+      "typeLabel": "United Counties",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "0101",
+      "displayName": "South Glengarry",
+      "sourceName": "South Glengarry Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-19"
+    },
+    {
+      "assessmentCode": "0111",
+      "displayName": "North Glengarry",
+      "sourceName": "North Glengarry Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-18"
+    },
+    {
+      "assessmentCode": "0200",
+      "displayName": "Prescott and Russell",
+      "sourceName": "Prescott and Russell UCo",
+      "typeLabel": "United Counties",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-11-19"
+    },
+    {
+      "assessmentCode": "0201",
+      "displayName": "East Hawkesbury",
+      "sourceName": "East Hawkesbury Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-05-10"
+    },
+    {
+      "assessmentCode": "0208",
+      "displayName": "Hawkesbury",
+      "sourceName": "Hawkesbury T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-26"
+    },
+    {
+      "assessmentCode": "0209",
+      "displayName": "Champlain",
+      "sourceName": "Champlain Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "0212",
+      "displayName": "The Nation",
+      "sourceName": "The Nation M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-05-02"
+    },
+    {
+      "assessmentCode": "0231",
+      "displayName": "Alfred and Plantagenet",
+      "sourceName": "Alfred and Plantagenet Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-09-29"
+    },
+    {
+      "assessmentCode": "0302",
+      "displayName": "Casselman",
+      "sourceName": "Casselman M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-13"
+    },
+    {
+      "assessmentCode": "0306",
+      "displayName": "Russell",
+      "sourceName": "Russell Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-06"
+    },
+    {
+      "assessmentCode": "0316",
+      "displayName": "Clarence-Rockland",
+      "sourceName": "Clarence-Rockland C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-12"
+    },
+    {
+      "assessmentCode": "0402",
+      "displayName": "Cornwall",
+      "sourceName": "Cornwall C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2026-03-19"
+    },
+    {
+      "assessmentCode": "0406",
+      "displayName": "South Stormont",
+      "sourceName": "South Stormont Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-10-24"
+    },
+    {
+      "assessmentCode": "0411",
+      "displayName": "North Stormont",
+      "sourceName": "North Stormont Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-07"
+    },
+    {
+      "assessmentCode": "0506",
+      "displayName": "South Dundas",
+      "sourceName": "South Dundas Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-28"
+    },
+    {
+      "assessmentCode": "0511",
+      "displayName": "North Dundas",
+      "sourceName": "North Dundas Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "0614",
+      "displayName": "Ottawa",
+      "sourceName": "Ottawa C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-21"
+    },
+    {
+      "assessmentCode": "0700",
+      "displayName": "Leeds and Grenville",
+      "sourceName": "Leeds and Grenville UCo",
+      "typeLabel": "United Counties",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-12-02"
+    },
+    {
+      "assessmentCode": "0701",
+      "displayName": "Edwardsburgh-Cardinal",
+      "sourceName": "Edwardsburgh-Cardinal Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-30"
+    },
+    {
+      "assessmentCode": "0706",
+      "displayName": "Augusta",
+      "sourceName": "Augusta Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-25"
+    },
+    {
+      "assessmentCode": "0708",
+      "displayName": "Prescott",
+      "sourceName": "Prescott ST",
+      "typeLabel": "Separated Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-11-24"
+    },
+    {
+      "assessmentCode": "0714",
+      "displayName": "Merrickville-Wolford",
+      "sourceName": "Merrickville-Wolford V",
+      "typeLabel": "Village",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-19"
+    },
+    {
+      "assessmentCode": "0719",
+      "displayName": "North Grenville",
+      "sourceName": "North Grenville M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-04-03"
+    },
+    {
+      "assessmentCode": "0801",
+      "displayName": "Elizabethtown-Kitley",
+      "sourceName": "Elizabethtown-Kitley Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-06"
+    },
+    {
+      "assessmentCode": "0802",
+      "displayName": "Brockville",
+      "sourceName": "Brockville C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2026-07-21"
+    },
+    {
+      "assessmentCode": "0806",
+      "displayName": "Front of Yonge",
+      "sourceName": "Front of Yonge Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-15"
+    },
+    {
+      "assessmentCode": "0812",
+      "displayName": "Leeds and the Thousand Islands",
+      "sourceName": "Leeds and the Thousand Islands Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-27"
+    },
+    {
+      "assessmentCode": "0814",
+      "displayName": "Gananoque",
+      "sourceName": "Gananoque ST",
+      "typeLabel": "Separated Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-17"
+    },
+    {
+      "assessmentCode": "0819",
+      "displayName": "Athens",
+      "sourceName": "Athens Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-12-10"
+    },
+    {
+      "assessmentCode": "0831",
+      "displayName": "Rideau Lakes",
+      "sourceName": "Rideau Lakes Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-10-31"
+    },
+    {
+      "assessmentCode": "0842",
+      "displayName": "Westport",
+      "sourceName": "Westport V",
+      "typeLabel": "Village",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-12-30"
+    },
+    {
+      "assessmentCode": "0900",
+      "displayName": "Lanark",
+      "sourceName": "Lanark Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-07-25"
+    },
+    {
+      "assessmentCode": "0901",
+      "displayName": "Montague",
+      "sourceName": "Montague Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-29"
+    },
+    {
+      "assessmentCode": "0904",
+      "displayName": "Smiths Falls",
+      "sourceName": "Smiths Falls ST",
+      "typeLabel": "Separated Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-16"
+    },
+    {
+      "assessmentCode": "0911",
+      "displayName": "Tay Valley",
+      "sourceName": "Tay Valley Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-30"
+    },
+    {
+      "assessmentCode": "0919",
+      "displayName": "Drummond-North Elmsley",
+      "sourceName": "Drummond-North Elmsley Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-13"
+    },
+    {
+      "assessmentCode": "0921",
+      "displayName": "Perth",
+      "sourceName": "Perth T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-08-09"
+    },
+    {
+      "assessmentCode": "0924",
+      "displayName": "Beckwith",
+      "sourceName": "Beckwith Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-18"
+    },
+    {
+      "assessmentCode": "0928",
+      "displayName": "Carleton Place",
+      "sourceName": "Carleton Place T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-11"
+    },
+    {
+      "assessmentCode": "0931",
+      "displayName": "Mississippi Mills",
+      "sourceName": "Mississippi Mills M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-09-27"
+    },
+    {
+      "assessmentCode": "0940",
+      "displayName": "Lanark Highlands",
+      "sourceName": "Lanark Highlands Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-10-29"
+    },
+    {
+      "assessmentCode": "1000",
+      "displayName": "Frontenac",
+      "sourceName": "Frontenac Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-11-15"
+    },
+    {
+      "assessmentCode": "1001",
+      "displayName": "Frontenac Islands",
+      "sourceName": "Frontenac Islands Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-19"
+    },
+    {
+      "assessmentCode": "1011",
+      "displayName": "Kingston",
+      "sourceName": "Kingston C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-04-02"
+    },
+    {
+      "assessmentCode": "1029",
+      "displayName": "South Frontenac",
+      "sourceName": "South Frontenac Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-19"
+    },
+    {
+      "assessmentCode": "1039",
+      "displayName": "Central Frontenac",
+      "sourceName": "Central Frontenac Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-14"
+    },
+    {
+      "assessmentCode": "1042",
+      "displayName": "North Frontenac",
+      "sourceName": "North Frontenac Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-06-09"
+    },
+    {
+      "assessmentCode": "1100",
+      "displayName": "Lennox and Addington",
+      "sourceName": "Lennox and Addington Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-04-11"
+    },
+    {
+      "assessmentCode": "1104",
+      "displayName": "Loyalist",
+      "sourceName": "Loyalist Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-18"
+    },
+    {
+      "assessmentCode": "1121",
+      "displayName": "Greater Napanee",
+      "sourceName": "Greater Napanee T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-19"
+    },
+    {
+      "assessmentCode": "1124",
+      "displayName": "Stone Mills",
+      "sourceName": "Stone Mills Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-16"
+    },
+    {
+      "assessmentCode": "1134",
+      "displayName": "Addington Highlands",
+      "sourceName": "Addington Highlands Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-06"
+    },
+    {
+      "assessmentCode": "1200",
+      "displayName": "Hastings",
+      "sourceName": "Hastings Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-03-12"
+    },
+    {
+      "assessmentCode": "1201",
+      "displayName": "Tyendinaga",
+      "sourceName": "Tyendinaga Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-27"
+    },
+    {
+      "assessmentCode": "1202",
+      "displayName": "Deseronto",
+      "sourceName": "Deseronto T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-06"
+    },
+    {
+      "assessmentCode": "1204",
+      "displayName": "Quinte West",
+      "sourceName": "Quinte West C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-10"
+    },
+    {
+      "assessmentCode": "1208",
+      "displayName": "Belleville",
+      "sourceName": "Belleville C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-11"
+    },
+    {
+      "assessmentCode": "1220",
+      "displayName": "Stirling-Rawdon",
+      "sourceName": "Stirling-Rawdon Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-24"
+    },
+    {
+      "assessmentCode": "1230",
+      "displayName": "Centre Hastings",
+      "sourceName": "Centre Hastings M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-27"
+    },
+    {
+      "assessmentCode": "1231",
+      "displayName": "Tweed",
+      "sourceName": "Tweed M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-01"
+    },
+    {
+      "assessmentCode": "1241",
+      "displayName": "Marmora and Lake",
+      "sourceName": "Marmora and Lake M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-30"
+    },
+    {
+      "assessmentCode": "1248",
+      "displayName": "Tudor and Cashel",
+      "sourceName": "Tudor and Cashel Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-27"
+    },
+    {
+      "assessmentCode": "1251",
+      "displayName": "Limerick",
+      "sourceName": "Limerick Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-18"
+    },
+    {
+      "assessmentCode": "1254",
+      "displayName": "Wollaston",
+      "sourceName": "Wollaston Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-10"
+    },
+    {
+      "assessmentCode": "1258",
+      "displayName": "Faraday",
+      "sourceName": "Faraday Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-11"
+    },
+    {
+      "assessmentCode": "1262",
+      "displayName": "Bancroft",
+      "sourceName": "Bancroft T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-09-17"
+    },
+    {
+      "assessmentCode": "1270",
+      "displayName": "Carlow-Mayo",
+      "sourceName": "Carlow-Mayo Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-09-17"
+    },
+    {
+      "assessmentCode": "1290",
+      "displayName": "Hastings Highlands",
+      "sourceName": "Hastings Highlands M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-10-22"
+    },
+    {
+      "assessmentCode": "1350",
+      "displayName": "Prince Edward County",
+      "sourceName": "Prince Edward County C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-25"
+    },
+    {
+      "assessmentCode": "1400",
+      "displayName": "Northumberland",
+      "sourceName": "Northumberland Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-03-12"
+    },
+    {
+      "assessmentCode": "1408",
+      "displayName": "Brighton",
+      "sourceName": "Brighton M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-05-01"
+    },
+    {
+      "assessmentCode": "1411",
+      "displayName": "Cramahe",
+      "sourceName": "Cramahe Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-05-08"
+    },
+    {
+      "assessmentCode": "1419",
+      "displayName": "Hamilton",
+      "sourceName": "Hamilton Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "1421",
+      "displayName": "Cobourg",
+      "sourceName": "Cobourg T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-06-30"
+    },
+    {
+      "assessmentCode": "1423",
+      "displayName": "Port Hope",
+      "sourceName": "Port Hope M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-24"
+    },
+    {
+      "assessmentCode": "1435",
+      "displayName": "Trent Hills",
+      "sourceName": "Trent Hills M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-26"
+    },
+    {
+      "assessmentCode": "1450",
+      "displayName": "Alnwick-Haldimand",
+      "sourceName": "Alnwick-Haldimand Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-04"
+    },
+    {
+      "assessmentCode": "1500",
+      "displayName": "Peterborough",
+      "sourceName": "Peterborough Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-02-13"
+    },
+    {
+      "assessmentCode": "1501",
+      "displayName": "Asphodel-Norwood",
+      "sourceName": "Asphodel-Norwood Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-05"
+    },
+    {
+      "assessmentCode": "1506",
+      "displayName": "Otonabee-South Monaghan",
+      "sourceName": "Otonabee-South Monaghan Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-30"
+    },
+    {
+      "assessmentCode": "1509",
+      "displayName": "Cavan Monaghan",
+      "sourceName": "Cavan Monaghan Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-04-11"
+    },
+    {
+      "assessmentCode": "1514",
+      "displayName": "Peterborough",
+      "sourceName": "Peterborough C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-06"
+    },
+    {
+      "assessmentCode": "1516",
+      "displayName": "Selwyn",
+      "sourceName": "Selwyn Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-20"
+    },
+    {
+      "assessmentCode": "1522",
+      "displayName": "Douro-Dummer",
+      "sourceName": "Douro-Dummer Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-06-20"
+    },
+    {
+      "assessmentCode": "1531",
+      "displayName": "Havelock-Belmont-Methuen",
+      "sourceName": "Havelock-Belmont-Methuen Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-04-11"
+    },
+    {
+      "assessmentCode": "1536",
+      "displayName": "North Kawartha",
+      "sourceName": "North Kawartha Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-06-30"
+    },
+    {
+      "assessmentCode": "1542",
+      "displayName": "Trent Lakes",
+      "sourceName": "Trent Lakes M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-08-21"
+    },
+    {
+      "assessmentCode": "1651",
+      "displayName": "Kawartha Lakes",
+      "sourceName": "Kawartha Lakes C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2024-12-02"
+    },
+    {
+      "assessmentCode": "1800",
+      "displayName": "Durham",
+      "sourceName": "Durham R",
+      "typeLabel": "Regional Municipality",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-11-22"
+    },
+    {
+      "assessmentCode": "1801",
+      "displayName": "Pickering",
+      "sourceName": "Pickering C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-18"
+    },
+    {
+      "assessmentCode": "1805",
+      "displayName": "Ajax",
+      "sourceName": "Ajax T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-08-20"
+    },
+    {
+      "assessmentCode": "1809",
+      "displayName": "Whitby",
+      "sourceName": "Whitby T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-20"
+    },
+    {
+      "assessmentCode": "1813",
+      "displayName": "Oshawa",
+      "sourceName": "Oshawa C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-13"
+    },
+    {
+      "assessmentCode": "1817",
+      "displayName": "Clarington",
+      "sourceName": "Clarington M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-21"
+    },
+    {
+      "assessmentCode": "1820",
+      "displayName": "Scugog",
+      "sourceName": "Scugog Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-04-10"
+    },
+    {
+      "assessmentCode": "1829",
+      "displayName": "Uxbridge",
+      "sourceName": "Uxbridge Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-21"
+    },
+    {
+      "assessmentCode": "1839",
+      "displayName": "Brock",
+      "sourceName": "Brock Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-22"
+    },
+    {
+      "assessmentCode": "1928",
+      "displayName": "Vaughan",
+      "sourceName": "Vaughan C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-21"
+    },
+    {
+      "assessmentCode": "1936",
+      "displayName": "Markham",
+      "sourceName": "Markham C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-05"
+    },
+    {
+      "assessmentCode": "1938",
+      "displayName": "Richmond Hill",
+      "sourceName": "Richmond Hill C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-22"
+    },
+    {
+      "assessmentCode": "1944",
+      "displayName": "Whitchurch - Stouffville",
+      "sourceName": "Whitchurch - Stouffville T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-28"
+    },
+    {
+      "assessmentCode": "1946",
+      "displayName": "Aurora",
+      "sourceName": "Aurora T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-10-02"
+    },
+    {
+      "assessmentCode": "1948",
+      "displayName": "Newmarket",
+      "sourceName": "Newmarket T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-29"
+    },
+    {
+      "assessmentCode": "1949",
+      "displayName": "King",
+      "sourceName": "King Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-08-02"
+    },
+    {
+      "assessmentCode": "1954",
+      "displayName": "East Gwillimbury",
+      "sourceName": "East Gwillimbury T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-19"
+    },
+    {
+      "assessmentCode": "1970",
+      "displayName": "Georgina",
+      "sourceName": "Georgina T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-19"
+    },
+    {
+      "assessmentCode": "1999",
+      "displayName": "Toronto",
+      "sourceName": "Toronto C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-26"
+    },
+    {
+      "assessmentCode": "2000",
+      "displayName": "York",
+      "sourceName": "York R",
+      "typeLabel": "Regional Municipality",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-11-21"
+    },
+    {
+      "assessmentCode": "2100",
+      "displayName": "Peel",
+      "sourceName": "Peel R",
+      "typeLabel": "Regional Municipality",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-03-13"
+    },
+    {
+      "assessmentCode": "2105",
+      "displayName": "Mississauga",
+      "sourceName": "Mississauga C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-09"
+    },
+    {
+      "assessmentCode": "2110",
+      "displayName": "Brampton",
+      "sourceName": "Brampton C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-05"
+    },
+    {
+      "assessmentCode": "2124",
+      "displayName": "Caledon",
+      "sourceName": "Caledon T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-11-20"
+    },
+    {
+      "assessmentCode": "2200",
+      "displayName": "Dufferin",
+      "sourceName": "Dufferin Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "2201",
+      "displayName": "East Garafraxa",
+      "sourceName": "East Garafraxa Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-06-18"
+    },
+    {
+      "assessmentCode": "2204",
+      "displayName": "Grand Valley",
+      "sourceName": "Grand Valley T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-05-14"
+    },
+    {
+      "assessmentCode": "2208",
+      "displayName": "Amaranth",
+      "sourceName": "Amaranth Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-04"
+    },
+    {
+      "assessmentCode": "2212",
+      "displayName": "Mono",
+      "sourceName": "Mono T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-16"
+    },
+    {
+      "assessmentCode": "2214",
+      "displayName": "Orangeville",
+      "sourceName": "Orangeville T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-07-17"
+    },
+    {
+      "assessmentCode": "2216",
+      "displayName": "Mulmur",
+      "sourceName": "Mulmur Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-20"
+    },
+    {
+      "assessmentCode": "2219",
+      "displayName": "Melancthon",
+      "sourceName": "Melancthon Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-04"
+    },
+    {
+      "assessmentCode": "2221",
+      "displayName": "Shelburne",
+      "sourceName": "Shelburne T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-04-17"
+    },
+    {
+      "assessmentCode": "2300",
+      "displayName": "Wellington",
+      "sourceName": "Wellington Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-02-27"
+    },
+    {
+      "assessmentCode": "2301",
+      "displayName": "Puslinch",
+      "sourceName": "Puslinch Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-05-27"
+    },
+    {
+      "assessmentCode": "2308",
+      "displayName": "Guelph",
+      "sourceName": "Guelph C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-04-04"
+    },
+    {
+      "assessmentCode": "2311",
+      "displayName": "Guelph-Eramosa",
+      "sourceName": "Guelph-Eramosa Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-07"
+    },
+    {
+      "assessmentCode": "2316",
+      "displayName": "Erin",
+      "sourceName": "Erin T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-13"
+    },
+    {
+      "assessmentCode": "2326",
+      "displayName": "Centre Wellington",
+      "sourceName": "Centre Wellington Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "2332",
+      "displayName": "Mapleton",
+      "sourceName": "Mapleton Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-07"
+    },
+    {
+      "assessmentCode": "2341",
+      "displayName": "Minto",
+      "sourceName": "Minto T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-06-25"
+    },
+    {
+      "assessmentCode": "2349",
+      "displayName": "Wellington North",
+      "sourceName": "Wellington North Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-06"
+    },
+    {
+      "assessmentCode": "2400",
+      "displayName": "Halton",
+      "sourceName": "Halton R",
+      "typeLabel": "Regional Municipality",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-11-19"
+    },
+    {
+      "assessmentCode": "2401",
+      "displayName": "Oakville",
+      "sourceName": "Oakville T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-12"
+    },
+    {
+      "assessmentCode": "2402",
+      "displayName": "Burlington",
+      "sourceName": "Burlington C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-20"
+    },
+    {
+      "assessmentCode": "2409",
+      "displayName": "Milton",
+      "sourceName": "Milton T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-07-19"
+    },
+    {
+      "assessmentCode": "2415",
+      "displayName": "Halton Hills",
+      "sourceName": "Halton Hills T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-10-29"
+    },
+    {
+      "assessmentCode": "2600",
+      "displayName": "Niagara",
+      "sourceName": "Niagara R",
+      "typeLabel": "Regional Municipality",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-08-28"
+    },
+    {
+      "assessmentCode": "2602",
+      "displayName": "West Lincoln",
+      "sourceName": "West Lincoln Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-08-17"
+    },
+    {
+      "assessmentCode": "2615",
+      "displayName": "Grimsby",
+      "sourceName": "Grimsby T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-14"
+    },
+    {
+      "assessmentCode": "2622",
+      "displayName": "Lincoln",
+      "sourceName": "Lincoln T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-14"
+    },
+    {
+      "assessmentCode": "2627",
+      "displayName": "Niagara-on-the-Lake",
+      "sourceName": "Niagara-on-the-Lake T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-13"
+    },
+    {
+      "assessmentCode": "2629",
+      "displayName": "St Catharines",
+      "sourceName": "St Catharines C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-12-10"
+    },
+    {
+      "assessmentCode": "2703",
+      "displayName": "Fort Erie",
+      "sourceName": "Fort Erie T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-24"
+    },
+    {
+      "assessmentCode": "2711",
+      "displayName": "Port Colborne",
+      "sourceName": "Port Colborne C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-12-19"
+    },
+    {
+      "assessmentCode": "2714",
+      "displayName": "Wainfleet",
+      "sourceName": "Wainfleet Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-24"
+    },
+    {
+      "assessmentCode": "2719",
+      "displayName": "Welland",
+      "sourceName": "Welland C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-19"
+    },
+    {
+      "assessmentCode": "2725",
+      "displayName": "Niagara Falls",
+      "sourceName": "Niagara Falls C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-12-09"
+    },
+    {
+      "assessmentCode": "2731",
+      "displayName": "Thorold",
+      "sourceName": "Thorold C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-24"
+    },
+    {
+      "assessmentCode": "2732",
+      "displayName": "Pelham",
+      "sourceName": "Pelham T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-07"
+    },
+    {
+      "assessmentCode": "2810",
+      "displayName": "Haldimand County",
+      "sourceName": "Haldimand County",
+      "typeLabel": "County",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-10"
+    },
+    {
+      "assessmentCode": "2906",
+      "displayName": "Brantford",
+      "sourceName": "Brantford C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-05-30"
+    },
+    {
+      "assessmentCode": "2920",
+      "displayName": "Brant County",
+      "sourceName": "Brant County",
+      "typeLabel": "County",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-10"
+    },
+    {
+      "assessmentCode": "3000",
+      "displayName": "Waterloo",
+      "sourceName": "Waterloo R",
+      "typeLabel": "Regional Municipality",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-03-17"
+    },
+    {
+      "assessmentCode": "3001",
+      "displayName": "North Dumfries",
+      "sourceName": "North Dumfries Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-02-27"
+    },
+    {
+      "assessmentCode": "3006",
+      "displayName": "Cambridge",
+      "sourceName": "Cambridge C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-07-31"
+    },
+    {
+      "assessmentCode": "3012",
+      "displayName": "Kitchener",
+      "sourceName": "Kitchener C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-16"
+    },
+    {
+      "assessmentCode": "3016",
+      "displayName": "Waterloo",
+      "sourceName": "Waterloo C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-17"
+    },
+    {
+      "assessmentCode": "3018",
+      "displayName": "Wilmot",
+      "sourceName": "Wilmot Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-01-08"
+    },
+    {
+      "assessmentCode": "3024",
+      "displayName": "Wellesley",
+      "sourceName": "Wellesley Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-08"
+    },
+    {
+      "assessmentCode": "3029",
+      "displayName": "Woolwich",
+      "sourceName": "Woolwich Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "3100",
+      "displayName": "Perth",
+      "sourceName": "Perth Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2026-04-08"
+    },
+    {
+      "assessmentCode": "3110",
+      "displayName": "Perth East",
+      "sourceName": "Perth East Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-20"
+    },
+    {
+      "assessmentCode": "3111",
+      "displayName": "Stratford",
+      "sourceName": "Stratford C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-10-22"
+    },
+    {
+      "assessmentCode": "3116",
+      "displayName": "St Marys",
+      "sourceName": "St Marys ST",
+      "typeLabel": "Separated Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-27"
+    },
+    {
+      "assessmentCode": "3120",
+      "displayName": "Perth South",
+      "sourceName": "Perth South Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-20"
+    },
+    {
+      "assessmentCode": "3130",
+      "displayName": "West Perth",
+      "sourceName": "West Perth M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-20"
+    },
+    {
+      "assessmentCode": "3140",
+      "displayName": "North Perth",
+      "sourceName": "North Perth M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-01-21"
+    },
+    {
+      "assessmentCode": "3200",
+      "displayName": "Oxford",
+      "sourceName": "Oxford Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-08-13"
+    },
+    {
+      "assessmentCode": "3202",
+      "displayName": "Norwich",
+      "sourceName": "Norwich Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-10-10"
+    },
+    {
+      "assessmentCode": "3204",
+      "displayName": "Tillsonburg",
+      "sourceName": "Tillsonburg T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-21"
+    },
+    {
+      "assessmentCode": "3211",
+      "displayName": "South-West Oxford",
+      "sourceName": "South-West Oxford Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-28"
+    },
+    {
+      "assessmentCode": "3218",
+      "displayName": "Ingersoll",
+      "sourceName": "Ingersoll T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-18"
+    },
+    {
+      "assessmentCode": "3227",
+      "displayName": "Zorra",
+      "sourceName": "Zorra Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-06-04"
+    },
+    {
+      "assessmentCode": "3238",
+      "displayName": "East Zorra - Tavistock",
+      "sourceName": "East Zorra - Tavistock Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-13"
+    },
+    {
+      "assessmentCode": "3242",
+      "displayName": "Woodstock",
+      "sourceName": "Woodstock C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-06-14"
+    },
+    {
+      "assessmentCode": "3245",
+      "displayName": "Blandford - Blenheim",
+      "sourceName": "Blandford - Blenheim Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-13"
+    },
+    {
+      "assessmentCode": "3310",
+      "displayName": "Norfolk County",
+      "sourceName": "Norfolk County",
+      "typeLabel": "County",
+      "tier": "single-tier",
+      "lastUpdated": "2024-08-16"
+    },
+    {
+      "assessmentCode": "3400",
+      "displayName": "Elgin",
+      "sourceName": "Elgin Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "3401",
+      "displayName": "Bayham",
+      "sourceName": "Bayham M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-09"
+    },
+    {
+      "assessmentCode": "3408",
+      "displayName": "Malahide",
+      "sourceName": "Malahide Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-06"
+    },
+    {
+      "assessmentCode": "3411",
+      "displayName": "Aylmer",
+      "sourceName": "Aylmer T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-10-29"
+    },
+    {
+      "assessmentCode": "3418",
+      "displayName": "Central Elgin",
+      "sourceName": "Central Elgin M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-26"
+    },
+    {
+      "assessmentCode": "3421",
+      "displayName": "St Thomas",
+      "sourceName": "St Thomas C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-20"
+    },
+    {
+      "assessmentCode": "3424",
+      "displayName": "Southwold",
+      "sourceName": "Southwold Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-23"
+    },
+    {
+      "assessmentCode": "3429",
+      "displayName": "Dutton-Dunwich",
+      "sourceName": "Dutton-Dunwich M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-28"
+    },
+    {
+      "assessmentCode": "3434",
+      "displayName": "West Elgin",
+      "sourceName": "West Elgin M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-05"
+    },
+    {
+      "assessmentCode": "3650",
+      "displayName": "Chatham-Kent",
+      "sourceName": "Chatham-Kent M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2024-11-04"
+    },
+    {
+      "assessmentCode": "3700",
+      "displayName": "Essex",
+      "sourceName": "Essex Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-02-28"
+    },
+    {
+      "assessmentCode": "3701",
+      "displayName": "Pelee",
+      "sourceName": "Pelee Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-11"
+    },
+    {
+      "assessmentCode": "3706",
+      "displayName": "Leamington",
+      "sourceName": "Leamington M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-09-16"
+    },
+    {
+      "assessmentCode": "3711",
+      "displayName": "Kingsville",
+      "sourceName": "Kingsville T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "3729",
+      "displayName": "Amherstburg",
+      "sourceName": "Amherstburg T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-23"
+    },
+    {
+      "assessmentCode": "3734",
+      "displayName": "LaSalle",
+      "sourceName": "LaSalle T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-17"
+    },
+    {
+      "assessmentCode": "3739",
+      "displayName": "Windsor",
+      "sourceName": "Windsor C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-04"
+    },
+    {
+      "assessmentCode": "3744",
+      "displayName": "Tecumseh",
+      "sourceName": "Tecumseh T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-05-09"
+    },
+    {
+      "assessmentCode": "3751",
+      "displayName": "Lakeshore",
+      "sourceName": "Lakeshore M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-10-22"
+    },
+    {
+      "assessmentCode": "3754",
+      "displayName": "Essex",
+      "sourceName": "Essex T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-30"
+    },
+    {
+      "assessmentCode": "3800",
+      "displayName": "Lambton",
+      "sourceName": "Lambton Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-03-06"
+    },
+    {
+      "assessmentCode": "3805",
+      "displayName": "St Clair",
+      "sourceName": "St Clair Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-05"
+    },
+    {
+      "assessmentCode": "3806",
+      "displayName": "Dawn-Euphemia",
+      "sourceName": "Dawn-Euphemia Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-07-06"
+    },
+    {
+      "assessmentCode": "3815",
+      "displayName": "Brooke-Alvinston",
+      "sourceName": "Brooke-Alvinston M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-09-11"
+    },
+    {
+      "assessmentCode": "3816",
+      "displayName": "Enniskillen",
+      "sourceName": "Enniskillen Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "3818",
+      "displayName": "Oil Springs",
+      "sourceName": "Oil Springs V",
+      "typeLabel": "Village",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-07"
+    },
+    {
+      "assessmentCode": "3819",
+      "displayName": "Petrolia",
+      "sourceName": "Petrolia T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-12-20"
+    },
+    {
+      "assessmentCode": "3829",
+      "displayName": "Sarnia",
+      "sourceName": "Sarnia C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-06-28"
+    },
+    {
+      "assessmentCode": "3831",
+      "displayName": "Point Edward",
+      "sourceName": "Point Edward V",
+      "typeLabel": "Village",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-06"
+    },
+    {
+      "assessmentCode": "3835",
+      "displayName": "Plympton-Wyoming",
+      "sourceName": "Plympton-Wyoming T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-06"
+    },
+    {
+      "assessmentCode": "3841",
+      "displayName": "Warwick",
+      "sourceName": "Warwick Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-04-28"
+    },
+    {
+      "assessmentCode": "3845",
+      "displayName": "Lambton Shores",
+      "sourceName": "Lambton Shores M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-21"
+    },
+    {
+      "assessmentCode": "3900",
+      "displayName": "Middlesex",
+      "sourceName": "Middlesex Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-04-14"
+    },
+    {
+      "assessmentCode": "3902",
+      "displayName": "Newbury",
+      "sourceName": "Newbury V",
+      "typeLabel": "Village",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-05-14"
+    },
+    {
+      "assessmentCode": "3906",
+      "displayName": "Southwest Middlesex",
+      "sourceName": "Southwest Middlesex M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-27"
+    },
+    {
+      "assessmentCode": "3916",
+      "displayName": "Strathroy-Caradoc",
+      "sourceName": "Strathroy-Caradoc M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-10-17"
+    },
+    {
+      "assessmentCode": "3926",
+      "displayName": "Thames Centre",
+      "sourceName": "Thames Centre M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-07"
+    },
+    {
+      "assessmentCode": "3936",
+      "displayName": "London",
+      "sourceName": "London C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-10"
+    },
+    {
+      "assessmentCode": "3939",
+      "displayName": "Middlesex Centre",
+      "sourceName": "Middlesex Centre M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-06"
+    },
+    {
+      "assessmentCode": "3946",
+      "displayName": "Adelaide-Metcalfe",
+      "sourceName": "Adelaide-Metcalfe Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "3954",
+      "displayName": "North Middlesex",
+      "sourceName": "North Middlesex M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-06-17"
+    },
+    {
+      "assessmentCode": "3958",
+      "displayName": "Lucan Biddulph",
+      "sourceName": "Lucan Biddulph Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-13"
+    },
+    {
+      "assessmentCode": "4000",
+      "displayName": "Huron",
+      "sourceName": "Huron Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-10-29"
+    },
+    {
+      "assessmentCode": "4010",
+      "displayName": "South Huron",
+      "sourceName": "South Huron M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-27"
+    },
+    {
+      "assessmentCode": "4020",
+      "displayName": "Bluewater",
+      "sourceName": "Bluewater M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-04-03"
+    },
+    {
+      "assessmentCode": "4028",
+      "displayName": "Goderich",
+      "sourceName": "Goderich T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-09"
+    },
+    {
+      "assessmentCode": "4030",
+      "displayName": "Central Huron",
+      "sourceName": "Central Huron M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-04-14"
+    },
+    {
+      "assessmentCode": "4040",
+      "displayName": "Huron East",
+      "sourceName": "Huron East M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-14"
+    },
+    {
+      "assessmentCode": "4046",
+      "displayName": "Howick",
+      "sourceName": "Howick Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "4050",
+      "displayName": "North Huron",
+      "sourceName": "North Huron Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-08-14"
+    },
+    {
+      "assessmentCode": "4060",
+      "displayName": "Morris-Turnberry",
+      "sourceName": "Morris-Turnberry M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-07-10"
+    },
+    {
+      "assessmentCode": "4070",
+      "displayName": "Ashfield-Colborne-Wawanosh",
+      "sourceName": "Ashfield-Colborne-Wawanosh Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-08-13"
+    },
+    {
+      "assessmentCode": "4100",
+      "displayName": "Bruce",
+      "sourceName": "Bruce Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2024-07-26"
+    },
+    {
+      "assessmentCode": "4102",
+      "displayName": "The South Bruce Peninsula",
+      "sourceName": "The South Bruce Peninsula T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-14"
+    },
+    {
+      "assessmentCode": "4103",
+      "displayName": "Arran-Elderslie",
+      "sourceName": "Arran-Elderslie M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-11-17"
+    },
+    {
+      "assessmentCode": "4104",
+      "displayName": "Brockton",
+      "sourceName": "Brockton M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-03"
+    },
+    {
+      "assessmentCode": "4105",
+      "displayName": "South Bruce",
+      "sourceName": "South Bruce M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-17"
+    },
+    {
+      "assessmentCode": "4107",
+      "displayName": "Huron-Kinloss",
+      "sourceName": "Huron-Kinloss Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-16"
+    },
+    {
+      "assessmentCode": "4108",
+      "displayName": "Kincardine",
+      "sourceName": "Kincardine M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-07-18"
+    },
+    {
+      "assessmentCode": "4109",
+      "displayName": "Northern Bruce Peninsula",
+      "sourceName": "Northern Bruce Peninsula M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-19"
+    },
+    {
+      "assessmentCode": "4110",
+      "displayName": "Saugeen Shores",
+      "sourceName": "Saugeen Shores T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-01-28"
+    },
+    {
+      "assessmentCode": "4200",
+      "displayName": "Grey",
+      "sourceName": "Grey Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-08-07"
+    },
+    {
+      "assessmentCode": "4203",
+      "displayName": "Georgian Bluffs",
+      "sourceName": "Georgian Bluffs Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-09-30"
+    },
+    {
+      "assessmentCode": "4204",
+      "displayName": "Chatsworth",
+      "sourceName": "Chatsworth Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-20"
+    },
+    {
+      "assessmentCode": "4205",
+      "displayName": "West Grey",
+      "sourceName": "West Grey M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-03"
+    },
+    {
+      "assessmentCode": "4207",
+      "displayName": "Southgate",
+      "sourceName": "Southgate Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-06-05"
+    },
+    {
+      "assessmentCode": "4208",
+      "displayName": "Grey Highlands",
+      "sourceName": "Grey Highlands M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-09"
+    },
+    {
+      "assessmentCode": "4210",
+      "displayName": "Meaford",
+      "sourceName": "Meaford M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-31"
+    },
+    {
+      "assessmentCode": "4229",
+      "displayName": "Hanover",
+      "sourceName": "Hanover T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-20"
+    },
+    {
+      "assessmentCode": "4242",
+      "displayName": "The Blue Mountains",
+      "sourceName": "The Blue Mountains T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-05"
+    },
+    {
+      "assessmentCode": "4259",
+      "displayName": "Owen Sound",
+      "sourceName": "Owen Sound C",
+      "typeLabel": "City",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-07-08"
+    },
+    {
+      "assessmentCode": "4300",
+      "displayName": "Simcoe",
+      "sourceName": "Simcoe Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-03-21"
+    },
+    {
+      "assessmentCode": "4301",
+      "displayName": "Adjala-Tosorontio",
+      "sourceName": "Adjala-Tosorontio Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-19"
+    },
+    {
+      "assessmentCode": "4312",
+      "displayName": "Bradford West Gwillimbury",
+      "sourceName": "Bradford West Gwillimbury T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-20"
+    },
+    {
+      "assessmentCode": "4316",
+      "displayName": "Innisfil",
+      "sourceName": "Innisfil T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-20"
+    },
+    {
+      "assessmentCode": "4321",
+      "displayName": "Essa",
+      "sourceName": "Essa Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-10-22"
+    },
+    {
+      "assessmentCode": "4324",
+      "displayName": "New Tecumseth",
+      "sourceName": "New Tecumseth T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-08-29"
+    },
+    {
+      "assessmentCode": "4329",
+      "displayName": "Clearview",
+      "sourceName": "Clearview Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-05-07"
+    },
+    {
+      "assessmentCode": "4331",
+      "displayName": "Collingwood",
+      "sourceName": "Collingwood T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-19"
+    },
+    {
+      "assessmentCode": "4341",
+      "displayName": "Springwater",
+      "sourceName": "Springwater Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-06-03"
+    },
+    {
+      "assessmentCode": "4342",
+      "displayName": "Barrie",
+      "sourceName": "Barrie C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2024-11-22"
+    },
+    {
+      "assessmentCode": "4346",
+      "displayName": "Oro-Medonte",
+      "sourceName": "Oro-Medonte Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-10-20"
+    },
+    {
+      "assessmentCode": "4348",
+      "displayName": "Ramara",
+      "sourceName": "Ramara Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-19"
+    },
+    {
+      "assessmentCode": "4351",
+      "displayName": "Severn",
+      "sourceName": "Severn Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-20"
+    },
+    {
+      "assessmentCode": "4352",
+      "displayName": "Orillia",
+      "sourceName": "Orillia C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2026-04-30"
+    },
+    {
+      "assessmentCode": "4364",
+      "displayName": "Wasaga Beach",
+      "sourceName": "Wasaga Beach T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-21"
+    },
+    {
+      "assessmentCode": "4368",
+      "displayName": "Tiny",
+      "sourceName": "Tiny Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-10-21"
+    },
+    {
+      "assessmentCode": "4372",
+      "displayName": "Penetanguishene",
+      "sourceName": "Penetanguishene T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-06-19"
+    },
+    {
+      "assessmentCode": "4400",
+      "displayName": "Muskoka",
+      "sourceName": "Muskoka D",
+      "typeLabel": "District Municipality",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-03-14"
+    },
+    {
+      "assessmentCode": "4402",
+      "displayName": "Gravenhurst",
+      "sourceName": "Gravenhurst T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-22"
+    },
+    {
+      "assessmentCode": "4418",
+      "displayName": "Bracebridge",
+      "sourceName": "Bracebridge T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-10-23"
+    },
+    {
+      "assessmentCode": "4427",
+      "displayName": "Lake of Bays",
+      "sourceName": "Lake of Bays Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-19"
+    },
+    {
+      "assessmentCode": "4442",
+      "displayName": "Huntsville",
+      "sourceName": "Huntsville T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-14"
+    },
+    {
+      "assessmentCode": "4453",
+      "displayName": "Muskoka Lakes",
+      "sourceName": "Muskoka Lakes Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-20"
+    },
+    {
+      "assessmentCode": "4465",
+      "displayName": "Georgian Bay",
+      "sourceName": "Georgian Bay Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-19"
+    },
+    {
+      "assessmentCode": "4600",
+      "displayName": "Haliburton",
+      "sourceName": "Haliburton Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2025-02-06"
+    },
+    {
+      "assessmentCode": "4601",
+      "displayName": "Highlands East",
+      "sourceName": "Highlands East M",
+      "typeLabel": "Municipality",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-06-20"
+    },
+    {
+      "assessmentCode": "4616",
+      "displayName": "Minden Hills",
+      "sourceName": "Minden Hills Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-27"
+    },
+    {
+      "assessmentCode": "4621",
+      "displayName": "Algonquin Highlands",
+      "sourceName": "Algonquin Highlands Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-09-12"
+    },
+    {
+      "assessmentCode": "4624",
+      "displayName": "Dysart et al",
+      "sourceName": "Dysart et al Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-09-13"
+    },
+    {
+      "assessmentCode": "4700",
+      "displayName": "Renfrew",
+      "sourceName": "Renfrew Co",
+      "typeLabel": "County",
+      "tier": "upper-tier",
+      "lastUpdated": "2026-05-19"
+    },
+    {
+      "assessmentCode": "4701",
+      "displayName": "McNab-Braeside",
+      "sourceName": "McNab-Braeside Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-21"
+    },
+    {
+      "assessmentCode": "4702",
+      "displayName": "Arnprior",
+      "sourceName": "Arnprior T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-09-09"
+    },
+    {
+      "assessmentCode": "4706",
+      "displayName": "Greater Madawaska",
+      "sourceName": "Greater Madawaska Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-11-15"
+    },
+    {
+      "assessmentCode": "4719",
+      "displayName": "Brudenell, Lyndoch and Raglan",
+      "sourceName": "Brudenell, Lyndoch and Raglan Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-05-14"
+    },
+    {
+      "assessmentCode": "4726",
+      "displayName": "Madawaska Valley",
+      "sourceName": "Madawaska Valley Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-12-10"
+    },
+    {
+      "assessmentCode": "4731",
+      "displayName": "Killaloe, Hagarty and Richards",
+      "sourceName": "Killaloe, Hagarty and Richards Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-06-13"
+    },
+    {
+      "assessmentCode": "4738",
+      "displayName": "Bonnechere Valley",
+      "sourceName": "Bonnechere Valley Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-08-28"
+    },
+    {
+      "assessmentCode": "4742",
+      "displayName": "Admaston-Bromley",
+      "sourceName": "Admaston-Bromley Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-09-05"
+    },
+    {
+      "assessmentCode": "4746",
+      "displayName": "Horton",
+      "sourceName": "Horton Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-01-16"
+    },
+    {
+      "assessmentCode": "4748",
+      "displayName": "Renfrew",
+      "sourceName": "Renfrew T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-19"
+    },
+    {
+      "assessmentCode": "4758",
+      "displayName": "Whitewater Region",
+      "sourceName": "Whitewater Region Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-05"
+    },
+    {
+      "assessmentCode": "4764",
+      "displayName": "Pembroke",
+      "sourceName": "Pembroke C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-04-01"
+    },
+    {
+      "assessmentCode": "4766",
+      "displayName": "Laurentian Valley",
+      "sourceName": "Laurentian Valley Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-08-06"
+    },
+    {
+      "assessmentCode": "4769",
+      "displayName": "North Algona-Wilberforce",
+      "sourceName": "North Algona-Wilberforce Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "4779",
+      "displayName": "Petawawa",
+      "sourceName": "Petawawa T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-03-27"
+    },
+    {
+      "assessmentCode": "4792",
+      "displayName": "Laurentian Hills",
+      "sourceName": "Laurentian Hills T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "4796",
+      "displayName": "Deep River",
+      "sourceName": "Deep River T",
+      "typeLabel": "Town",
+      "tier": "lower-tier",
+      "lastUpdated": "2026-03-18"
+    },
+    {
+      "assessmentCode": "4798",
+      "displayName": "Head, Clara and Maria",
+      "sourceName": "Head, Clara and Maria Tp",
+      "typeLabel": "Township",
+      "tier": "lower-tier",
+      "lastUpdated": "2024-08-28"
+    },
+    {
+      "assessmentCode": "4801",
+      "displayName": "South Algonquin",
+      "sourceName": "South Algonquin Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-08-07"
+    },
+    {
+      "assessmentCode": "4816",
+      "displayName": "Papineau-Cameron",
+      "sourceName": "Papineau-Cameron Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-16"
+    },
+    {
+      "assessmentCode": "4819",
+      "displayName": "Mattawan",
+      "sourceName": "Mattawan M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-30"
+    },
+    {
+      "assessmentCode": "4821",
+      "displayName": "Mattawa",
+      "sourceName": "Mattawa T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-12"
+    },
+    {
+      "assessmentCode": "4822",
+      "displayName": "Calvin",
+      "sourceName": "Calvin Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-27"
+    },
+    {
+      "assessmentCode": "4826",
+      "displayName": "Bonfield",
+      "sourceName": "Bonfield Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-04-08"
+    },
+    {
+      "assessmentCode": "4831",
+      "displayName": "Chisholm",
+      "sourceName": "Chisholm Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-08-18"
+    },
+    {
+      "assessmentCode": "4834",
+      "displayName": "East Ferris",
+      "sourceName": "East Ferris M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-06-09"
+    },
+    {
+      "assessmentCode": "4844",
+      "displayName": "North Bay",
+      "sourceName": "North Bay C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-07-30"
+    },
+    {
+      "assessmentCode": "4852",
+      "displayName": "West Nipissing",
+      "sourceName": "West Nipissing M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-13"
+    },
+    {
+      "assessmentCode": "4869",
+      "displayName": "Temagami",
+      "sourceName": "Temagami M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-06-30"
+    },
+    {
+      "assessmentCode": "4903",
+      "displayName": "Seguin",
+      "sourceName": "Seguin Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-12-06"
+    },
+    {
+      "assessmentCode": "4905",
+      "displayName": "The Archipelago",
+      "sourceName": "The Archipelago Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-28"
+    },
+    {
+      "assessmentCode": "4912",
+      "displayName": "McMurrich-Monteith",
+      "sourceName": "McMurrich-Monteith Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-03"
+    },
+    {
+      "assessmentCode": "4914",
+      "displayName": "Perry",
+      "sourceName": "Perry Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-10"
+    },
+    {
+      "assessmentCode": "4918",
+      "displayName": "Kearney",
+      "sourceName": "Kearney T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-30"
+    },
+    {
+      "assessmentCode": "4919",
+      "displayName": "Armour",
+      "sourceName": "Armour Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-04"
+    },
+    {
+      "assessmentCode": "4922",
+      "displayName": "Burk's Falls",
+      "sourceName": "Burk's Falls V",
+      "typeLabel": "Village",
+      "tier": "single-tier",
+      "lastUpdated": "2025-06-20"
+    },
+    {
+      "assessmentCode": "4924",
+      "displayName": "Ryerson",
+      "sourceName": "Ryerson Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-16"
+    },
+    {
+      "assessmentCode": "4928",
+      "displayName": "McKellar",
+      "sourceName": "McKellar Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-02-25"
+    },
+    {
+      "assessmentCode": "4931",
+      "displayName": "McDougall",
+      "sourceName": "McDougall Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-18"
+    },
+    {
+      "assessmentCode": "4932",
+      "displayName": "Parry Sound",
+      "sourceName": "Parry Sound T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-05-30"
+    },
+    {
+      "assessmentCode": "4936",
+      "displayName": "Carling",
+      "sourceName": "Carling Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-08"
+    },
+    {
+      "assessmentCode": "4939",
+      "displayName": "Whitestone",
+      "sourceName": "Whitestone M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2024-12-04"
+    },
+    {
+      "assessmentCode": "4944",
+      "displayName": "Magnetawan",
+      "sourceName": "Magnetawan M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-11"
+    },
+    {
+      "assessmentCode": "4946",
+      "displayName": "Strong",
+      "sourceName": "Strong Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-26"
+    },
+    {
+      "assessmentCode": "4948",
+      "displayName": "Sundridge",
+      "sourceName": "Sundridge V",
+      "typeLabel": "Village",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-17"
+    },
+    {
+      "assessmentCode": "4951",
+      "displayName": "Joly",
+      "sourceName": "Joly Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-18"
+    },
+    {
+      "assessmentCode": "4954",
+      "displayName": "Machar",
+      "sourceName": "Machar Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-07"
+    },
+    {
+      "assessmentCode": "4956",
+      "displayName": "South River",
+      "sourceName": "South River V",
+      "typeLabel": "Village",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-30"
+    },
+    {
+      "assessmentCode": "4959",
+      "displayName": "Powassan",
+      "sourceName": "Powassan M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-11-20"
+    },
+    {
+      "assessmentCode": "4966",
+      "displayName": "Callander",
+      "sourceName": "Callander M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2024-08-08"
+    },
+    {
+      "assessmentCode": "4971",
+      "displayName": "Nipissing",
+      "sourceName": "Nipissing Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-25"
+    },
+    {
+      "assessmentCode": "5104",
+      "displayName": "Central Manitoulin",
+      "sourceName": "Central Manitoulin M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2026-06-17"
+    },
+    {
+      "assessmentCode": "5111",
+      "displayName": "Assiginack",
+      "sourceName": "Assiginack Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-17"
+    },
+    {
+      "assessmentCode": "5119",
+      "displayName": "Northeastern Manitoulin & The Isl",
+      "sourceName": "Northeastern Manitoulin & The Isl T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2026-04-07"
+    },
+    {
+      "assessmentCode": "5121",
+      "displayName": "Billings",
+      "sourceName": "Billings Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-24"
+    },
+    {
+      "assessmentCode": "5125",
+      "displayName": "Gordon-Barrie Island",
+      "sourceName": "Gordon-Barrie Island M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-10-14"
+    },
+    {
+      "assessmentCode": "5126",
+      "displayName": "Gore Bay",
+      "sourceName": "Gore Bay T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-23"
+    },
+    {
+      "assessmentCode": "5128",
+      "displayName": "Burpee and Mills",
+      "sourceName": "Burpee and Mills Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-21"
+    },
+    {
+      "assessmentCode": "5134",
+      "displayName": "Cockburn Island",
+      "sourceName": "Cockburn Island Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-06-18"
+    },
+    {
+      "assessmentCode": "5136",
+      "displayName": "Killarney",
+      "sourceName": "Killarney M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-28"
+    },
+    {
+      "assessmentCode": "5201",
+      "displayName": "French River",
+      "sourceName": "French River M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-27"
+    },
+    {
+      "assessmentCode": "5204",
+      "displayName": "St-Charles",
+      "sourceName": "St-Charles M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-04-03"
+    },
+    {
+      "assessmentCode": "5218",
+      "displayName": "Sables-Spanish Rivers",
+      "sourceName": "Sables-Spanish Rivers Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-11-19"
+    },
+    {
+      "assessmentCode": "5226",
+      "displayName": "Espanola",
+      "sourceName": "Espanola T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-08-12"
+    },
+    {
+      "assessmentCode": "5228",
+      "displayName": "Baldwin",
+      "sourceName": "Baldwin Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-22"
+    },
+    {
+      "assessmentCode": "5231",
+      "displayName": "Nairn and Hyman",
+      "sourceName": "Nairn and Hyman Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-12"
+    },
+    {
+      "assessmentCode": "5292",
+      "displayName": "Chapleau",
+      "sourceName": "Chapleau Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-10-30"
+    },
+    {
+      "assessmentCode": "5307",
+      "displayName": "Greater Sudbury",
+      "sourceName": "Greater Sudbury C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "5401",
+      "displayName": "Coleman",
+      "sourceName": "Coleman Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-17"
+    },
+    {
+      "assessmentCode": "5406",
+      "displayName": "Latchford",
+      "sourceName": "Latchford T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2024-11-06"
+    },
+    {
+      "assessmentCode": "5408",
+      "displayName": "Cobalt",
+      "sourceName": "Cobalt T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2024-12-06"
+    },
+    {
+      "assessmentCode": "5414",
+      "displayName": "Harris",
+      "sourceName": "Harris Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-13"
+    },
+    {
+      "assessmentCode": "5418",
+      "displayName": "Temiskaming Shores",
+      "sourceName": "Temiskaming Shores C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-20"
+    },
+    {
+      "assessmentCode": "5421",
+      "displayName": "Hudson",
+      "sourceName": "Hudson Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-12-10"
+    },
+    {
+      "assessmentCode": "5424",
+      "displayName": "Kerns",
+      "sourceName": "Kerns Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-25"
+    },
+    {
+      "assessmentCode": "5426",
+      "displayName": "Harley",
+      "sourceName": "Harley Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-12-10"
+    },
+    {
+      "assessmentCode": "5429",
+      "displayName": "Casey",
+      "sourceName": "Casey Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-21"
+    },
+    {
+      "assessmentCode": "5432",
+      "displayName": "Brethour",
+      "sourceName": "Brethour Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-12-20"
+    },
+    {
+      "assessmentCode": "5434",
+      "displayName": "Hilliard",
+      "sourceName": "Hilliard Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-17"
+    },
+    {
+      "assessmentCode": "5436",
+      "displayName": "Armstrong",
+      "sourceName": "Armstrong Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-20"
+    },
+    {
+      "assessmentCode": "5438",
+      "displayName": "Thornloe",
+      "sourceName": "Thornloe V",
+      "typeLabel": "Village",
+      "tier": "single-tier",
+      "lastUpdated": "2024-11-27"
+    },
+    {
+      "assessmentCode": "5442",
+      "displayName": "James",
+      "sourceName": "James Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-24"
+    },
+    {
+      "assessmentCode": "5447",
+      "displayName": "Charlton-Dack",
+      "sourceName": "Charlton-Dack M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-17"
+    },
+    {
+      "assessmentCode": "5449",
+      "displayName": "Evanturel",
+      "sourceName": "Evanturel Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-18"
+    },
+    {
+      "assessmentCode": "5452",
+      "displayName": "Englehart",
+      "sourceName": "Englehart T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-17"
+    },
+    {
+      "assessmentCode": "5454",
+      "displayName": "Chamberlain",
+      "sourceName": "Chamberlain Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-25"
+    },
+    {
+      "assessmentCode": "5456",
+      "displayName": "Matachewan",
+      "sourceName": "Matachewan Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-16"
+    },
+    {
+      "assessmentCode": "5458",
+      "displayName": "McGarry",
+      "sourceName": "McGarry Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-13"
+    },
+    {
+      "assessmentCode": "5462",
+      "displayName": "Larder Lake",
+      "sourceName": "Larder Lake Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-24"
+    },
+    {
+      "assessmentCode": "5466",
+      "displayName": "Gauthier",
+      "sourceName": "Gauthier Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-24"
+    },
+    {
+      "assessmentCode": "5468",
+      "displayName": "Kirkland Lake",
+      "sourceName": "Kirkland Lake T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-11-04"
+    },
+    {
+      "assessmentCode": "5614",
+      "displayName": "Black River - Matheson",
+      "sourceName": "Black River - Matheson Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-01-20"
+    },
+    {
+      "assessmentCode": "5627",
+      "displayName": "Timmins",
+      "sourceName": "Timmins C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-10-01"
+    },
+    {
+      "assessmentCode": "5631",
+      "displayName": "Iroquois Falls",
+      "sourceName": "Iroquois Falls T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-05-27"
+    },
+    {
+      "assessmentCode": "5639",
+      "displayName": "Cochrane",
+      "sourceName": "Cochrane T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-24"
+    },
+    {
+      "assessmentCode": "5648",
+      "displayName": "Smooth Rock Falls",
+      "sourceName": "Smooth Rock Falls T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-26"
+    },
+    {
+      "assessmentCode": "5652",
+      "displayName": "Fauquier-Strickland",
+      "sourceName": "Fauquier-Strickland Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-01-13"
+    },
+    {
+      "assessmentCode": "5656",
+      "displayName": "Moonbeam",
+      "sourceName": "Moonbeam Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-11-05"
+    },
+    {
+      "assessmentCode": "5665",
+      "displayName": "Moosonee",
+      "sourceName": "Moosonee T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-08-28"
+    },
+    {
+      "assessmentCode": "5666",
+      "displayName": "Kapuskasing",
+      "sourceName": "Kapuskasing T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-28"
+    },
+    {
+      "assessmentCode": "5670",
+      "displayName": "Val Rita-Harty",
+      "sourceName": "Val Rita-Harty Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-23"
+    },
+    {
+      "assessmentCode": "5673",
+      "displayName": "Opasatika",
+      "sourceName": "Opasatika Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-07-23"
+    },
+    {
+      "assessmentCode": "5676",
+      "displayName": "Hearst",
+      "sourceName": "Hearst T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-19"
+    },
+    {
+      "assessmentCode": "5677",
+      "displayName": "Mattice - Val Cote",
+      "sourceName": "Mattice - Val Cote Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-08-27"
+    },
+    {
+      "assessmentCode": "5701",
+      "displayName": "Jocelyn",
+      "sourceName": "Jocelyn Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-06-03"
+    },
+    {
+      "assessmentCode": "5704",
+      "displayName": "Hilton",
+      "sourceName": "Hilton Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-18"
+    },
+    {
+      "assessmentCode": "5706",
+      "displayName": "Hilton Beach",
+      "sourceName": "Hilton Beach V",
+      "typeLabel": "Village",
+      "tier": "single-tier",
+      "lastUpdated": "2025-07-14"
+    },
+    {
+      "assessmentCode": "5708",
+      "displayName": "St Joseph",
+      "sourceName": "St Joseph Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-11-25"
+    },
+    {
+      "assessmentCode": "5711",
+      "displayName": "Laird",
+      "sourceName": "Laird Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-10"
+    },
+    {
+      "assessmentCode": "5714",
+      "displayName": "Tarbutt",
+      "sourceName": "Tarbutt Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-27"
+    },
+    {
+      "assessmentCode": "5716",
+      "displayName": "Johnson",
+      "sourceName": "Johnson Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-06-05"
+    },
+    {
+      "assessmentCode": "5719",
+      "displayName": "Plummer Additional",
+      "sourceName": "Plummer Additional Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-05"
+    },
+    {
+      "assessmentCode": "5721",
+      "displayName": "Bruce Mines",
+      "sourceName": "Bruce Mines T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-18"
+    },
+    {
+      "assessmentCode": "5724",
+      "displayName": "Huron Shores",
+      "sourceName": "Huron Shores M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-05-12"
+    },
+    {
+      "assessmentCode": "5728",
+      "displayName": "Thessalon",
+      "sourceName": "Thessalon T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2024-11-06"
+    },
+    {
+      "assessmentCode": "5738",
+      "displayName": "Blind River",
+      "sourceName": "Blind River T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-19"
+    },
+    {
+      "assessmentCode": "5739",
+      "displayName": "Spanish",
+      "sourceName": "Spanish T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2024-08-06"
+    },
+    {
+      "assessmentCode": "5740",
+      "displayName": "The North Shore",
+      "sourceName": "The North Shore Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "assessmentCode": "5741",
+      "displayName": "Elliot Lake",
+      "sourceName": "Elliot Lake C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-21"
+    },
+    {
+      "assessmentCode": "5751",
+      "displayName": "Macdonald Meredith et al",
+      "sourceName": "Macdonald Meredith et al Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-20"
+    },
+    {
+      "assessmentCode": "5761",
+      "displayName": "Sault Ste Marie",
+      "sourceName": "Sault Ste Marie C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2026-04-20"
+    },
+    {
+      "assessmentCode": "5766",
+      "displayName": "Prince",
+      "sourceName": "Prince Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-31"
+    },
+    {
+      "assessmentCode": "5776",
+      "displayName": "Wawa",
+      "sourceName": "Wawa M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2024-12-27"
+    },
+    {
+      "assessmentCode": "5779",
+      "displayName": "Dubreuilville",
+      "sourceName": "Dubreuilville Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-14"
+    },
+    {
+      "assessmentCode": "5791",
+      "displayName": "White River",
+      "sourceName": "White River Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-08-08"
+    },
+    {
+      "assessmentCode": "5796",
+      "displayName": "Hornepayne",
+      "sourceName": "Hornepayne Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-17"
+    },
+    {
+      "assessmentCode": "5801",
+      "displayName": "Neebing",
+      "sourceName": "Neebing M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-27"
+    },
+    {
+      "assessmentCode": "5804",
+      "displayName": "Thunder Bay",
+      "sourceName": "Thunder Bay C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-18"
+    },
+    {
+      "assessmentCode": "5808",
+      "displayName": "Oliver Paipoonge",
+      "sourceName": "Oliver Paipoonge M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-27"
+    },
+    {
+      "assessmentCode": "5812",
+      "displayName": "Gillies",
+      "sourceName": "Gillies Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-04-02"
+    },
+    {
+      "assessmentCode": "5816",
+      "displayName": "O'Connor",
+      "sourceName": "O'Connor Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-25"
+    },
+    {
+      "assessmentCode": "5819",
+      "displayName": "Conmee",
+      "sourceName": "Conmee Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-10-21"
+    },
+    {
+      "assessmentCode": "5828",
+      "displayName": "Shuniah",
+      "sourceName": "Shuniah M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-01-08"
+    },
+    {
+      "assessmentCode": "5834",
+      "displayName": "Dorion",
+      "sourceName": "Dorion Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-19"
+    },
+    {
+      "assessmentCode": "5841",
+      "displayName": "Red Rock",
+      "sourceName": "Red Rock Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-04-10"
+    },
+    {
+      "assessmentCode": "5851",
+      "displayName": "Schreiber",
+      "sourceName": "Schreiber Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-03-20"
+    },
+    {
+      "assessmentCode": "5854",
+      "displayName": "Terrace Bay",
+      "sourceName": "Terrace Bay Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-11-25"
+    },
+    {
+      "assessmentCode": "5859",
+      "displayName": "Marathon",
+      "sourceName": "Marathon T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-10-23"
+    },
+    {
+      "assessmentCode": "5866",
+      "displayName": "Manitouwadge",
+      "sourceName": "Manitouwadge Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-06-17"
+    },
+    {
+      "assessmentCode": "5876",
+      "displayName": "Greenstone",
+      "sourceName": "Greenstone M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-24"
+    },
+    {
+      "assessmentCode": "5901",
+      "displayName": "Atikokan",
+      "sourceName": "Atikokan Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-04-23"
+    },
+    {
+      "assessmentCode": "5911",
+      "displayName": "Alberton",
+      "sourceName": "Alberton Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-25"
+    },
+    {
+      "assessmentCode": "5912",
+      "displayName": "Fort Frances",
+      "sourceName": "Fort Frances T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-29"
+    },
+    {
+      "assessmentCode": "5916",
+      "displayName": "La Vallee",
+      "sourceName": "La Vallee Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-25"
+    },
+    {
+      "assessmentCode": "5919",
+      "displayName": "Emo",
+      "sourceName": "Emo Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-03-12"
+    },
+    {
+      "assessmentCode": "5924",
+      "displayName": "Chapple",
+      "sourceName": "Chapple Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-10-10"
+    },
+    {
+      "assessmentCode": "5931",
+      "displayName": "Morley",
+      "sourceName": "Morley Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-08-09"
+    },
+    {
+      "assessmentCode": "5934",
+      "displayName": "Dawson",
+      "sourceName": "Dawson Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-26"
+    },
+    {
+      "assessmentCode": "5942",
+      "displayName": "Rainy River",
+      "sourceName": "Rainy River T",
+      "typeLabel": "Town",
+      "tier": "single-tier",
+      "lastUpdated": "2025-10-21"
+    },
+    {
+      "assessmentCode": "5946",
+      "displayName": "Lake of The Woods",
+      "sourceName": "Lake of The Woods Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2024-09-26"
+    },
+    {
+      "assessmentCode": "6008",
+      "displayName": "Sioux Narrows-Nestor Falls",
+      "sourceName": "Sioux Narrows-Nestor Falls Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-03-12"
+    },
+    {
+      "assessmentCode": "6016",
+      "displayName": "Kenora",
+      "sourceName": "Kenora C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-09-23"
+    },
+    {
+      "assessmentCode": "6021",
+      "displayName": "Machin",
+      "sourceName": "Machin Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2026-05-19"
+    },
+    {
+      "assessmentCode": "6026",
+      "displayName": "Dryden",
+      "sourceName": "Dryden C",
+      "typeLabel": "City",
+      "tier": "single-tier",
+      "lastUpdated": "2025-04-16"
+    },
+    {
+      "assessmentCode": "6034",
+      "displayName": "Sioux Lookout",
+      "sourceName": "Sioux Lookout M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-05-14"
+    },
+    {
+      "assessmentCode": "6041",
+      "displayName": "Red Lake",
+      "sourceName": "Red Lake M",
+      "typeLabel": "Municipality",
+      "tier": "single-tier",
+      "lastUpdated": "2025-02-04"
+    },
+    {
+      "assessmentCode": "6042",
+      "displayName": "Ear Falls",
+      "sourceName": "Ear Falls Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-11-19"
+    },
+    {
+      "assessmentCode": "6049",
+      "displayName": "Pickle Lake",
+      "sourceName": "Pickle Lake Tp",
+      "typeLabel": "Township",
+      "tier": "single-tier",
+      "lastUpdated": "2025-11-24"
+    }
+  ]
+}

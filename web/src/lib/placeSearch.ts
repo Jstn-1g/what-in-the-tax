@@ -2,6 +2,7 @@ export const MAX_PLACE_RESULTS = 20
 
 export type PlaceSearchRecord = {
   id: string
+  kind?: 'receipt' | 'fir-record'
   label: string
   aliases?: readonly string[]
   province?: string

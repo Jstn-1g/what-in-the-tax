@@ -407,13 +407,45 @@ button {
 
 .place-finder__summary {
   min-height: 1.5rem;
-  margin: 0.55rem 0 2rem;
+  margin: 0.35rem 0 2rem;
   color: var(--ink-soft);
+}
+
+.place-finder__registry-status {
+  margin: 0.6rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.place-finder__registry-status::before {
+  content: '';
+  width: 0.52rem;
+  height: 0.52rem;
+  margin-right: 0.45rem;
+  border-radius: 50%;
+  display: inline-block;
+  background: var(--teal);
+  vertical-align: 0.05rem;
+}
+
+.place-finder__registry-status.tone-unavailable::before {
+  border-radius: 0.1rem;
+  background: var(--amber);
+}
+
+.place-finder__group + .place-finder__group {
+  margin-top: 2.25rem;
 }
 
 .place-finder__results-heading {
   margin: 0 0 0.75rem;
   font-size: 1.15rem;
+}
+
+.place-finder__group-note {
+  margin: -0.45rem 0 0.8rem;
+  color: var(--ink-soft);
+  font-size: 0.93rem;
 }
 
 .place-finder__results {
@@ -427,7 +459,8 @@ button {
   border-bottom: 1px solid var(--line);
 }
 
-.place-finder__result a {
+.place-finder__result a,
+.place-finder__result-static {
   min-height: 4.6rem;
   padding: 1rem 1.15rem;
   display: grid;
@@ -455,6 +488,25 @@ button {
   text-align: right;
 }
 
+.place-finder__result-static {
+  background: var(--surface);
+}
+
+.place-finder__result-static .place-finder__name {
+  color: var(--ink);
+}
+
+.place-finder__result-static .place-finder__metadata {
+  color: var(--ink-soft);
+}
+
+.place-finder__not-ready {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-align: right;
+}
+
 .place-finder__arrow {
   color: var(--green);
 }
@@ -466,6 +518,149 @@ button {
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--ink-soft);
+}
+
+/* Ontario registry context */
+
+.registry-brief {
+  max-width: 100%;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  gap: 1.75rem clamp(2rem, 5vw, 5rem);
+}
+
+.registry-brief__eyebrow {
+  margin: 0 0 0.4rem;
+  color: var(--green);
+  font-size: 0.8rem;
+  font-weight: 780;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.registry-brief h2 {
+  max-width: 25ch;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.registry-brief__copy > p:last-child {
+  max-width: 54rem;
+  margin: 0.85rem 0 0;
+  color: var(--ink-soft);
+}
+
+.registry-brief__stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.registry-brief__stats div {
+  min-width: 0;
+  padding: 0 1rem;
+  border-left: 1px solid var(--line);
+}
+
+.registry-brief__stats div:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.registry-brief__stats div:last-child {
+  padding-right: 0;
+}
+
+.registry-brief__stats dt {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 680;
+  line-height: 1.3;
+}
+
+.registry-brief__stats dd {
+  margin: 0.3rem 0 0;
+  color: var(--green-dark);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 780;
+  line-height: 1;
+}
+
+.registry-brief__rollout {
+  grid-column: 1 / -1;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.registry-brief__rollout h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.registry-brief__rollout ol {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  counter-reset: rollout;
+  list-style: none;
+}
+
+.registry-brief__rollout li {
+  min-width: 0;
+  padding: 0 1rem;
+  border-left: 1px solid var(--line);
+  counter-increment: rollout;
+}
+
+.registry-brief__rollout li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.registry-brief__rollout li::before {
+  content: counter(rollout, decimal-leading-zero);
+  margin-right: 0.45rem;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 740;
+}
+
+.registry-brief__rollout li span {
+  font-weight: 720;
+}
+
+.registry-brief__rollout li small {
+  margin-top: 0.3rem;
+  display: block;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.registry-brief__rollout > p {
+  margin: 1rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.registry-brief__source {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.registry-brief__source span {
+  margin-top: 0.25rem;
+  display: block;
 }
 
 /* Voluntary support */
@@ -1761,7 +1956,8 @@ main#main-content {
     display: none;
   }
 
-  .place-finder__result a {
+  .place-finder__result a,
+  .place-finder__result-static {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.25rem;
   }
@@ -1772,10 +1968,42 @@ main#main-content {
     text-align: left;
   }
 
+  .place-finder__not-ready {
+    grid-column: 1;
+    grid-row: 3;
+    text-align: left;
+  }
+
   .place-finder__arrow {
     grid-column: 2;
     grid-row: 1 / 3;
     align-self: center;
+  }
+
+  .registry-brief {
+    grid-template-columns: 1fr;
+  }
+
+  .registry-brief__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .registry-brief__rollout {
+    grid-column: 1;
+  }
+
+  .registry-brief__rollout ol {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 0;
+  }
+
+  .registry-brief__rollout li:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .registry-brief__source {
+    grid-column: 1;
   }
 
   .support-card {

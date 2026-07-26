@@ -46,3 +46,25 @@ python scripts/build_fir_fleet_dry_run.py --year 2023 --codes 2920,3001,3024
 ```
 
 Then open `fleet/dry-run/index.json` and `fleet/dry-run/by-code/2920.json`.
+
+## Public Ontario directory
+
+The resident-facing search index is a separate, identity-only projection of
+the exact 2023 FIR archive. It intentionally contains no tax amounts, findings,
+personal contact fields, or receipt routes:
+
+```powershell
+python scripts/build_ontario_fir_public_index.py
+python scripts/build_ontario_fir_public_index.py --check
+```
+
+The checked-in artifact is
+`web/public/registry/ontario-fir-2023.json`. It indexes 436 posted FIR records
+while preserving the official four-digit assessment code as the primary key.
+It is labelled incomplete because Ontario expected 444 returns for 2023.
+Directory records never enter `PACK_CATALOG`; only evidence-gated receipt
+previews can open a `?pack=` route.
+
+The documented local receipt evidence order remains North Dumfries, Wellesley,
+Wilmot, then Woolwich. Identity indexing can expand cheaply, but receipt
+promotion continues in that order and fails closed when evidence is missing.

@@ -39,7 +39,12 @@ describe('pack catalog routing', () => {
 
   it('has one unique catalog record for every supported pack', () => {
     const ids = PACK_CATALOG.map((pack) => pack.id)
+    const firAssessmentCodes = PACK_CATALOG.map(
+      (pack) => pack.firAssessmentCode,
+    )
     expect(new Set(ids).size).toBe(ids.length)
+    expect(new Set(firAssessmentCodes).size).toBe(firAssessmentCodes.length)
+    expect(firAssessmentCodes.every((code) => /^\d{4}$/.test(code))).toBe(true)
     for (const id of ids) {
       expect(isPackId(id)).toBe(true)
       expect(getPackCatalogEntry(id).id).toBe(id)

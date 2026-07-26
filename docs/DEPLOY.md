@@ -58,9 +58,22 @@ disables persistent Workers Logs. `web/public/_headers` supplies CSP,
 clickjacking, MIME-sniffing, permissions, referrer, transport, and preview
 indexing controls, and Vite copies it to `web/dist` during a build.
 
-Use a narrowly scoped Cloudflare API token stored outside the repository. The
-token should be limited to the intended account and Workers script. Never put it
-in `wrangler.jsonc`, a committed environment file, or command history.
+The connected Workers Builds path is the normal release mechanism and does not
+require a local Cloudflare credential:
+
+- GitHub/default and Cloudflare production branch:
+  `cursor/north-dumfries-taxpayer-receipt`;
+- production command: `npx wrangler deploy`;
+- non-production command: `npx wrangler versions upload`;
+- non-production branch builds stay enabled as preview versions only.
+
+Keep these values aligned. In particular, never use `wrangler deploy` as the
+non-production command: it promotes a feature-branch build to active traffic.
+
+Direct local deployment is an exceptional operator path. If it is used, use a
+narrowly scoped Cloudflare token stored outside the repository and limited to
+the intended account and Workers script. Never put it in `wrangler.jsonc`, a
+committed environment file, or command history.
 
 The current exact audited Wrangler release is `4.114.0`. Until Wrangler is added
 to the project lockfile, use that explicit version instead of an unversioned
@@ -81,6 +94,9 @@ if ($LASTEXITCODE -ne 0) { throw "Regional registry validation failed" }
 
 python scripts/build_public_packs.py --check
 if ($LASTEXITCODE -ne 0) { throw "Public pack projection drifted" }
+
+python scripts/build_ontario_fir_public_index.py --check
+if ($LASTEXITCODE -ne 0) { throw "Ontario FIR public index drifted" }
 
 Get-ChildItem corpus -Directory |
   Where-Object {

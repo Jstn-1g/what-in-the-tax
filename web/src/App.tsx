@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import HelpGuide from './components/HelpGuide'
+import OntarioRolloutNote from './components/OntarioRolloutNote'
 import PlaceFinder from './components/PlaceFinder'
 import SiteHeader from './components/SiteHeader'
 import SupportCard from './components/SupportCard'
 import TaxReceiptScreen from './components/TaxReceiptScreen'
 import {
   getPackCatalogEntry,
+  isPackId,
   loadPack,
   PACK_CATALOG,
   packRouteFromSearch,
@@ -13,6 +15,12 @@ import {
   type PackId,
   type PackRoute,
 } from './packs'
+import {
+  loadOntarioFirRegistry,
+  toFirFinderRecord,
+  type OntarioFirRegistry,
+} from './lib/ontarioFirRegistry'
+import type { PlaceSearchRecord } from './lib/placeSearch'
 
 type ViewId = 'receipt' | 'help'
 type LoadedPack = { id: PackId; pack: PackEntry }
@@ -20,6 +28,13 @@ type LoadFailure = { id: PackId }
 
 const HELP_HASH_ROOT = 'help'
 const HELP_HISTORY_KEY = 'whatInTheTaxHelpEntry'
+const RECEIPT_ASSESSMENT_CODES: ReadonlySet<string> = new Set(
+  PACK_CATALOG.map((pack) => pack.firAssessmentCode),
+)
+const RECEIPT_FINDER_RECORDS = PACK_CATALOG.map((pack) => ({
+  ...pack,
+  kind: 'receipt' as const,
+}))
 
 function hashId(): string {
   if (typeof window === 'undefined') return ''
@@ -165,10 +180,33 @@ export default function App() {
   const [loaded, setLoaded] = useState<LoadedPack | null>(null)
   const [loadFailure, setLoadFailure] = useState<LoadFailure | null>(null)
   const [retrySequence, setRetrySequence] = useState(0)
+  const [firRegistry, setFirRegistry] = useState<OntarioFirRegistry | null>(
+    null,
+  )
+  const [firRegistryUnavailable, setFirRegistryUnavailable] = useState(false)
   const [view, setView] = useState<ViewId>(() =>
     typeof window !== 'undefined' ? viewFromHash() : 'receipt',
   )
   const currentView = useRef(view)
+
+  useEffect(() => {
+    let active = true
+    loadOntarioFirRegistry().then(
+      (registry) => {
+        if (!active) return
+        setFirRegistry(registry)
+        setFirRegistryUnavailable(false)
+      },
+      (_error: unknown) => {
+        if (!active) return
+        setFirRegistry(null)
+        setFirRegistryUnavailable(true)
+      },
+    )
+    return () => {
+      active = false
+    }
+  }, [])
 
   useEffect(() => {
     if (route.kind !== 'pack') {
@@ -408,6 +446,22 @@ export default function App() {
       ? getPackCatalogEntry(route.id)
       : null
 
+  const finderRecords: readonly PlaceSearchRecord[] = useMemo(() => {
+    if (!firRegistry) return RECEIPT_FINDER_RECORDS
+    const rolloutTargets = new Map(
+      firRegistry.rolloutPlan.cohort.map((target) => [
+        target.assessmentCode,
+        target,
+      ]),
+    )
+    const firRecords = firRegistry.records
+      .filter(
+        (record) => !RECEIPT_ASSESSMENT_CODES.has(record.assessmentCode),
+      )
+      .map((record) => toFirFinderRecord(record, rolloutTargets))
+    return [...RECEIPT_FINDER_RECORDS, ...firRecords]
+  }, [firRegistry])
+
   if (view === 'help') {
     return (
       <div className="page">
@@ -481,7 +535,7 @@ export default function App() {
               <p>
                 {isLoading
                   ? 'Loading only the selected receipt and its public evidence.'
-                  : 'Choose your community to explore a sample bill and the public records behind it. If the evidence is not ready, we will say so.'}
+                  : 'Search your community to open a receipt preview where one is ready, or see whether it appears in Ontario’s published 2023 financial-return data.'}
               </p>
             </div>
             {!isLoading ? <ReceiptSketch /> : null}
@@ -512,10 +566,36 @@ export default function App() {
           {!isLoading ? (
             <>
               <PlaceFinder
-                records={PACK_CATALOG}
-                onSelectPlace={selectPack}
+                records={finderRecords}
+                onSelectPlace={(id) => {
+                  if (isPackId(id)) selectPack(id)
+                }}
                 activePlaceId={packId ?? undefined}
+                registryState={
+                  firRegistry
+                    ? 'ready'
+                    : firRegistryUnavailable
+                      ? 'unavailable'
+                      : 'loading'
+                }
+                registryCoverage={
+                  firRegistry
+                    ? {
+                        recordsPresent:
+                          firRegistry.coverage.recordsPresent,
+                        expectedOntarioReturns:
+                          firRegistry.coverage.expectedOntarioReturns,
+                      }
+                    : undefined
+                }
               />
+              {firRegistry ? (
+                <OntarioRolloutNote
+                  registry={firRegistry}
+                  receiptAssessmentCodes={RECEIPT_ASSESSMENT_CODES}
+                  receiptPreviewCount={PACK_CATALOG.length}
+                />
+              ) : null}
               <SupportCard />
             </>
           ) : null}

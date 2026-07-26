@@ -1,6 +1,7 @@
 const PACK_CATALOG_RECORDS = [
   {
     id: 'kitchener-on',
+    firAssessmentCode: '3012',
     label: 'Kitchener',
     province: 'Ontario',
     typeLabel: 'City',
@@ -12,6 +13,7 @@ const PACK_CATALOG_RECORDS = [
   },
   {
     id: 'waterloo-on',
+    firAssessmentCode: '3016',
     label: 'Waterloo',
     province: 'Ontario',
     typeLabel: 'City',
@@ -23,6 +25,7 @@ const PACK_CATALOG_RECORDS = [
   },
   {
     id: 'cambridge-on',
+    firAssessmentCode: '3006',
     label: 'Cambridge',
     province: 'Ontario',
     typeLabel: 'City',
@@ -34,6 +37,7 @@ const PACK_CATALOG_RECORDS = [
   },
   {
     id: 'woolwich-on',
+    firAssessmentCode: '3029',
     label: 'Woolwich',
     province: 'Ontario',
     typeLabel: 'Township',
@@ -46,6 +50,7 @@ const PACK_CATALOG_RECORDS = [
   },
   {
     id: 'north-dumfries-on',
+    firAssessmentCode: '3001',
     label: 'North Dumfries',
     province: 'Ontario',
     typeLabel: 'Township',
@@ -58,6 +63,7 @@ const PACK_CATALOG_RECORDS = [
   },
   {
     id: 'brant-county-on',
+    firAssessmentCode: '2920',
     label: 'Paris / Brant County',
     province: 'Ontario',
     typeLabel: 'Single-tier municipality',
@@ -72,6 +78,7 @@ const PACK_CATALOG_RECORDS = [
 export type PackId = (typeof PACK_CATALOG_RECORDS)[number]['id']
 export type PackCatalogEntry = {
   id: PackId
+  firAssessmentCode: string
   label: string
   province: string
   typeLabel: string
