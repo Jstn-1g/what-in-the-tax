@@ -1,0 +1,273 @@
+{
+ "counts": {
+  "verbatim": 8,
+  "numbers-only": 4,
+  "row-bound": 21
+ },
+ "results": [
+  {
+   "id": "CAM-LEVY-2026",
+   "sourceId": "cam-2026-budget",
+   "page": 1,
+   "amountCad": 3000000,
+   "tier": "verbatim",
+   "note": "amountCad 3000000 not literally present on the cited page (may be a subtotal or reformatted)"
+  },
+  {
+   "id": "CAM-AVG-ASSESSMENT-2026",
+   "sourceId": "cam-2026-budget",
+   "page": 1,
+   "amountCad": 344000,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "CAM-TAXRATE-RES-CITY-2026",
+   "sourceId": "cam-2026-tax-rates",
+   "page": 1,
+   "amountCad": 0.0051735,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "CAM-TAXRATE-RES-REGION-2026",
+   "sourceId": "cam-2026-tax-rates",
+   "page": 1,
+   "amountCad": 0.0084183,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "CAM-TAXRATE-RES-EDUCATION-2026",
+   "sourceId": "cam-2026-tax-rates",
+   "page": 1,
+   "amountCad": 0.00153,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "CAM-TAXRATE-RES-TOTAL-2026",
+   "sourceId": "cam-2026-tax-rates",
+   "page": 1,
+   "amountCad": 0.0151218,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "CAM-TAX-INCREASE-PCT-2026",
+   "sourceId": "cam-2026-budget",
+   "page": 1,
+   "amountCad": 2.44,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "CAM-TAX-INCREASE-CAD-2026",
+   "sourceId": "cam-2026-budget",
+   "page": 1,
+   "amountCad": 42.0,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "ROW-URBAN-HH-TOTAL-2026",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 2984,
+   "tier": "numbers-only",
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
+  },
+  {
+   "id": "ROW-HH-PIL-2026",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": -78,
+   "tier": "numbers-only",
+   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
+  },
+  {
+   "id": "ROW-HH-URBAN-01",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 900,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-02",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 582,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-03",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 429,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-04",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 240,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-05",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 213,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-06",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 89,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-07",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 134,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-08",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 53,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-09",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 51,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-10",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 39,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-11",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 49,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-12",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 45,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-13",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 24,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-14",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 33,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-15",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 30,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-16",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 17,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-17",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 19,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-18",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 31,
+   "tier": "numbers-only",
+   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
+  },
+  {
+   "id": "ROW-HH-URBAN-19",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 21,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-20",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 24,
+   "tier": "numbers-only",
+   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
+  },
+  {
+   "id": "ROW-HH-URBAN-21",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 0,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-22",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 16,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  },
+  {
+   "id": "ROW-HH-URBAN-23",
+   "sourceId": "row-2026-book",
+   "page": 12,
+   "amountCad": 20,
+   "tier": "row-bound",
+   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
+  }
+ ]
+}

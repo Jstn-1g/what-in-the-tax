@@ -1,0 +1,31 @@
+{
+  "slug": "region-of-waterloo-on",
+  "validatedAt": "2026-07-25T22:58:52.715951+00:00",
+  "ok": true,
+  "publicationStatusDeclared": "draft",
+  "errors": [],
+  "warnings": [],
+  "citationAudit": {
+    "exitCode": 0,
+    "counts": {
+      "verbatim": 1,
+      "numbers-only": 7,
+      "row-bound": 42
+    }
+  },
+  "contentHashes": {
+    "ledger": {
+      "path": "data/region-waterloo/evidence-ledger.json",
+      "sha256": "5fe6c32b4254f33cbbc935d850b447db5e0089d4b4304de59e743a8d948f195a"
+    },
+    "receipt": {
+      "path": "data/region-waterloo/taxpayer-receipt.json",
+      "sha256": "c4c97293927a3a2fcb8d115573bae21b37f584725814722eb57285a1894491b6"
+    },
+    "pack": {
+      "path": "corpus/region-of-waterloo-on/pack.yaml",
+      "sha256": "97335922ee0506aaab68682eabd34db710ff4a704e930f6045fbd92eb40c332e"
+    }
+  },
+  "engineNote": "Bridge validator for legacy data/ artifacts. Full corpus YAML + Identity engine arrives with Phase 1 transcription (docs/GENERALIZATION-PLAN.md)."
+}

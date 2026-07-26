@@ -1,0 +1,63 @@
+slug: cambridge-on
+name: City of Cambridge
+aliases:
+  - Cambridge
+  - Cambridge ON
+level: lower-tier
+parentBodies:
+  - region-of-waterloo-on
+regionAreaKey: urban
+assessmentCode: "3010"
+defaultAssessmentCad: 344000
+idPrefix: CAM
+localBucketLabel: City portion
+dataDir: data/cambridge
+
+sources:
+  - id: cam-2026-tax-rates
+    title: City of Cambridge — 2026 Property Tax Rates
+    url: https://www.cambridge.ca/resident-services/taxes/
+    localPath: null
+    extractedText: data/_extracts/cambridge/2026-tax-rates-page.txt
+    asOf: "2026"
+    authority: City of Cambridge
+  - id: cam-2026-budget
+    title: City of Cambridge 2026 Approved Budget
+    url: https://www.cambridge.ca/media/pysixppv/2026approvedbudget_final_web-remedated.pdf
+    localPath: source-pdfs/cambridge/2026approvedbudget_final_web-remedated.pdf
+    extractedText: data/_extracts/cambridge/2026-budget-excerpt.txt
+    asOf: "2025-12"
+    authority: City of Cambridge
+
+rates:
+  sourceId: cam-2026-tax-rates
+  fromExtract: data/_extracts/cambridge/2026-tax-rates-page.txt
+  page: 1
+  preferPercent: false
+  excerpt: "RT Residential 0.0051735 0.0084183 0.0015300 0.0151218"
+
+controlTotal:
+  sourceId: cam-2026-budget
+  levyCad: 3000000
+  levyLabel: City of Cambridge 2026 tax levy increase dollars (published)
+  levyPage: 1
+  levyExcerpt: "tax levy increase of $3 million or 2.44 per cent"
+  assessmentSourceId: cam-2026-budget
+  assessmentPage: 1
+  assessmentExcerpt: "based on a property assessment value of $344,000"
+  taxIncreasePct: 2.44
+  taxIncreaseCad: 42
+  increaseExcerpt: "average household tax levy increase of $42, based on a property assessment value of $344,000"
+  status: approved
+
+departments: []
+
+extraGaps:
+  - id: GAP-CAM-LEVY-ABSOLUTE
+    title: Absolute net tax levy dollar total not yet locked from budget tables
+    detail: >
+      Pack cites the published $3 million / 2.44% levy increase. The absolute
+      tax-supported levy headline from the operating tables is not yet bound as FACT.
+    blocks: []
+    neededEvidence:
+      - "Printed net tax levy absolute dollars from Cambridge 2026 budget"

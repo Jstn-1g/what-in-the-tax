@@ -1,0 +1,259 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifact": "TaxpayerReceipt",
+  "status": "partial_evidence_based",
+  "purpose": "Paris / County of Brant 2026 taxpayer receipt. Single-tier: County municipal + hospital special levy + education. No Region column.",
+  "evidencePolicyRef": "data/brant/evidence-ledger.json",
+  "jurisdiction": {
+    "slug": "brant-county-on",
+    "displayName": "County of Brant (Paris)",
+    "level": "single-tier",
+    "aliases": [
+      "Paris"
+    ]
+  },
+  "profiles": {
+    "supportedAverageHousehold": {
+      "description": "County-published median residential assessment ($391,000).",
+      "township": {
+        "basis": "County of Brant 2026 approved net levy allocated at median assessment \u2014 MUNICIPAL PORTION + hospital special levy (education separate)",
+        "amountCad": 4295.33,
+        "assessmentCad": 391000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-BRANT-BILL-MUNICIPAL-391K",
+        "lineItems": [
+          {
+            "id": "BRANT-DEPT-MAYOR-COUNCIL-2026",
+            "label": "Mayor and Council",
+            "amountCad": 37.94,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-MAYOR-COUNCIL-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-CAO-2026",
+            "label": "Office of the CAO",
+            "amountCad": 16.94,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-CAO-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-CORPORATE-2026",
+            "label": "Corporate Services",
+            "amountCad": 451.03,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-CORPORATE-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29",
+            "subLines": [
+              {
+                "id": "BRANT-LEGAL-SUBLINE",
+                "label": "of which Legal Services",
+                "amountCad": 53.91,
+                "classification": "disclosure_subline",
+                "evidenceStatus": "DERIVED",
+                "sourceFactId": "DRV-BRANT-LEGAL-SUBLINE",
+                "note": "Already included in Corporate Services above; not added to any total."
+              }
+            ]
+          },
+          {
+            "id": "BRANT-DEPT-TAXATION-CORP-FIN-2026",
+            "label": "Taxation & Corporate Finances",
+            "amountCad": -194.09,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-TAXATION-CORP-FIN-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-CAPITAL-FINANCING-2026",
+            "label": "Capital Financing",
+            "amountCad": 850.91,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-CAPITAL-FINANCING-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-DEVELOPMENT-2026",
+            "label": "Development Services",
+            "amountCad": 87.32,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-DEVELOPMENT-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-STRATEGIC-2026",
+            "label": "Strategic Initiatives",
+            "amountCad": 209.54,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-STRATEGIC-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-OPERATIONS-2026",
+            "label": "Operations",
+            "amountCad": 945.05,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-OPERATIONS-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-COMMUNITY-2026",
+            "label": "Community Services",
+            "amountCad": 476.28,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-COMMUNITY-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-EPS-2026",
+            "label": "Emergency & Protective Services",
+            "amountCad": 433.23,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-EPS-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29"
+          },
+          {
+            "id": "BRANT-DEPT-EXTERNAL-2026",
+            "label": "External Agencies",
+            "amountCad": 903.15,
+            "classification": "county_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-DEPT-EXTERNAL-2026-HH",
+            "note": "Pro-rata of approved net levy base ($92,457,575) against median municipal tax $4,217.29",
+            "subLines": [
+              {
+                "id": "BRANT-OPP-SUBLINE",
+                "label": "of which OPP",
+                "amountCad": 315.6,
+                "classification": "disclosure_subline",
+                "evidenceStatus": "DERIVED",
+                "sourceFactId": "DRV-BRANT-OPP-SUBLINE",
+                "note": "Already included in External Agencies above; not added to any total."
+              }
+            ]
+          },
+          {
+            "id": "BRANT-ALLOC-ROUNDING",
+            "label": "Allocation rounding",
+            "amountCad": -0.01,
+            "classification": "reconciling_item",
+            "evidenceStatus": "RECONCILING",
+            "note": "Cent rounding so department shares sum to the municipal portion."
+          },
+          {
+            "id": "BRANT-HOSPITAL-SPECIAL-2026",
+            "label": "Hospital special levy",
+            "amountCad": 78.04,
+            "classification": "special_levy",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-BRANT-BILL-HOSPITAL-391K",
+            "note": "Special Levy Hospital Funding Rate \u00d7 median assessment; not part of the department net-levy base."
+          }
+        ],
+        "uiLabel": "County portion",
+        "note": "Rate-derived municipal+hospital $4,295.33; County illustration prints $4,295.35 (see GAP-BRANT-ILLUSTRATION-2CENTS)."
+      },
+      "region": {
+        "basis": "Not applicable \u2014 County of Brant is single-tier (no upper-tier Region)",
+        "amountCad": null,
+        "evidenceStatus": "GAP",
+        "gapId": "GAP-BRANT-NO-UPPER-TIER",
+        "lineItems": [],
+        "uiLabel": "Upper-tier Region",
+        "note": "Policing (OPP), paramedics, and related costs appear inside the County levy lines above."
+      },
+      "education": {
+        "basis": "2026 Tax Rates \u2014 RT Residential Education Rate 0.0015300 at $391,000",
+        "amountCad": 598.23,
+        "assessmentCad": 391000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-BRANT-BILL-EDUCATION-391K",
+        "note": "Province sets this rate; the County collects it.",
+        "uiLabel": "Education"
+      },
+      "combinedTotalCad": 4893.56,
+      "combinedAtAssessment": {
+        "assessmentCad": 391000,
+        "basis": "County of Brant 2026 Tax Rates \u2014 CODE RT Residential",
+        "evidenceStatus": "DERIVED",
+        "components": [
+          {
+            "label": "County of Brant (municipal)",
+            "amountCad": 4217.29,
+            "rate": 0.0107859,
+            "sourceFactId": "BRANT-TAXRATE-RES-MUNICIPAL-2026"
+          },
+          {
+            "label": "Hospital special levy",
+            "amountCad": 78.04,
+            "rate": 0.0001996,
+            "sourceFactId": "BRANT-TAXRATE-RES-HOSPITAL-2026"
+          },
+          {
+            "label": "Education (Province of Ontario)",
+            "amountCad": 598.23,
+            "rate": 0.00153,
+            "sourceFactId": "BRANT-TAXRATE-RES-EDUCATION-2026"
+          }
+        ],
+        "totalCad": 4893.56,
+        "totalRate": 0.0125155
+      },
+      "combinedTotalNote": "Built from the 2026 Tax Rates RT row applied to the County's published median assessment ($391,000). Municipal + hospital = $4,295.33, matching the approved budget's illustrated residential impact $4,295.35 (which excludes education). Full bill including education is $4,893.56.",
+      "warnings": [
+        "County budget illustrations of $4,295.35 exclude education; this receipt shows the full RT total.",
+        "Rate \u00d7 $391,000 yields $4,295.33 for municipal+hospital; the budget table prints $4,295.35 (2\u00a2).",
+        "Department shares are a pro-rata model over the net levy \u2014 not a published per-household split.",
+        "Paris is billed as County of Brant (single-tier FIR 2920); there is no separate Town of Paris pack."
+      ]
+    },
+    "hypothetical5000": {
+      "amountCad": 5000,
+      "evidenceStatus": "DERIVED",
+      "allocatable": true,
+      "impliedAssessmentCad": 399505,
+      "compositionShares": [
+        {
+          "label": "County of Brant (municipal)",
+          "share": 0.8618033638288521,
+          "sourceFactId": "BRANT-TAXRATE-RES-MUNICIPAL-2026"
+        },
+        {
+          "label": "Hospital special levy",
+          "share": 0.015948224201989533,
+          "sourceFactId": "BRANT-TAXRATE-RES-HOSPITAL-2026"
+        },
+        {
+          "label": "Education (Province of Ontario)",
+          "share": 0.12224841196915823,
+          "sourceFactId": "BRANT-TAXRATE-RES-EDUCATION-2026"
+        }
+      ],
+      "message": "A $5,000 total bill implies an assessment of about $399,505. Shown as rate shares rather than invented department dollars."
+    }
+  },
+  "findings": [],
+  "uiModelHints": {
+    "screen": "TaxReceipt",
+    "defaultProfile": "supportedAverageHousehold",
+    "showGapsAsFirstClassUi": true,
+    "forbidFillerAllocation": true,
+    "flaggedDefinition": "Flagged means this line needs an explanation. It does not mean the money was wasted.",
+    "publishedFindingIds": [],
+    "marqueeFindings": [],
+    "municipalBucketLabel": "County portion",
+    "regionBucketLabel": "Upper-tier (n/a)",
+    "heroLabel": "Total residential bill \u00b7 median \u00b7 2026 tax rates"
+  }
+}

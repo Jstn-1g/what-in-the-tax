@@ -1,0 +1,578 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifact": "EvidenceLedger",
+  "jurisdiction": {
+    "slug": "woolwich-on",
+    "name": "Township of Woolwich",
+    "aliases": [
+      "Woolwich",
+      "Woolwich Township"
+    ],
+    "level": "lower-tier",
+    "upperTier": [
+      "region-of-waterloo-on"
+    ],
+    "assessmentCode": "3024",
+    "note": "Lower-tier in Region of Waterloo. Assessment code pending Schedule 02 lock."
+  },
+  "evidencePolicy": {
+    "rules": [
+      "FACT requires a published source, page, and excerpt or numeric binding.",
+      "DERIVED requires an explicit formula over FACT/DERIVED ids only.",
+      "Never invent bill dollars to fill a GAP.",
+      "JUDGMENT billImpactCad is always null until a formula is approved.",
+      "Do not copy another municipality's Region household table into this pack."
+    ]
+  },
+  "sources": [
+    {
+      "id": "woo-2026-tax-rates",
+      "title": "Township of Woolwich \u2014 2026 Final Tax Rates",
+      "url": "https://www.woolwich.ca/pay-buy/taxes/",
+      "localPath": null,
+      "extractedText": "data/_extracts/woolwich/2026-tax-rates-page.txt",
+      "asOf": "2026",
+      "authority": "Township of Woolwich",
+      "note": "RT Residential township/region/education rates. Region rate differs from urban."
+    },
+    {
+      "id": "woo-2026-budget",
+      "title": "Township of Woolwich 2026 Budget (excerpt) + mayor release",
+      "url": "https://www.woolwich.ca/media/pytjesxk/2026-budget-book-final.pdf",
+      "localPath": "source-pdfs/woolwich/2026-budget-book-final.pdf",
+      "extractedText": "data/_extracts/woolwich/2026-budget-excerpt.txt",
+      "asOf": "2026-01",
+      "authority": "Township of Woolwich"
+    },
+    {
+      "id": "row-2026-book",
+      "title": "Region of Waterloo 2026 Final Budget Book \u2014 Annual Average Cost Per Household",
+      "url": "https://www.regionofwaterloo.ca/",
+      "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
+      "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
+      "asOf": "2026",
+      "authority": "Region of Waterloo",
+      "note": "Shared pack schedule area=woolwich. Dollars at Region average $354,500 \u2014 not local $354,500."
+    }
+  ],
+  "facts": [
+    {
+      "id": "WOO-LEVY-2026",
+      "sourceId": "woo-2026-budget",
+      "page": 1,
+      "label": "Township of Woolwich 2026 average-household tax increase dollars",
+      "amountCad": 99.83,
+      "excerpt": "increase of $99.83 annually for the average household",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WOO-AVG-ASSESSMENT-2026",
+      "sourceId": "woo-2026-budget",
+      "page": 1,
+      "label": "Average assessed value used for residential impact illustrations",
+      "amountCad": 354500,
+      "excerpt": "Region of Waterloo household schedule uses $354,500 \u2014 used as illustration assessment for this Tier 0 pack with GAP disclosure",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WOO-TAXRATE-RES-CITY-2026",
+      "sourceId": "woo-2026-tax-rates",
+      "page": 1,
+      "label": "RT Residential local tax rate 2026",
+      "amountCad": 0.00322187,
+      "unit": "rate",
+      "excerpt": "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "WOO-TAXRATE-RES-REGION-2026",
+      "sourceId": "woo-2026-tax-rates",
+      "page": 1,
+      "label": "RT Residential Region tax rate 2026 (as printed locally)",
+      "amountCad": 0.00738314,
+      "unit": "rate",
+      "excerpt": "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "WOO-TAXRATE-RES-EDUCATION-2026",
+      "sourceId": "woo-2026-tax-rates",
+      "page": 1,
+      "label": "RT Residential Education tax rate 2026",
+      "amountCad": 0.00153,
+      "unit": "rate",
+      "excerpt": "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "WOO-TAXRATE-RES-TOTAL-2026",
+      "sourceId": "woo-2026-tax-rates",
+      "page": 1,
+      "label": "RT Residential total tax rate 2026",
+      "amountCad": 0.01213501,
+      "unit": "rate",
+      "excerpt": "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "WOO-TAX-INCREASE-PCT-2026",
+      "sourceId": "woo-2026-budget",
+      "page": 1,
+      "label": "2026 property tax rate increase (local)",
+      "amountCad": 7.8,
+      "unit": "percent",
+      "excerpt": "7.8% total tax increase ... increase of $99.83 annually for the average household",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WOO-TAX-INCREASE-CAD-2026",
+      "sourceId": "woo-2026-budget",
+      "page": 1,
+      "label": "2026 average-home local tax increase dollars",
+      "amountCad": 99.83,
+      "excerpt": "7.8% total tax increase ... increase of $99.83 annually for the average household",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-WOOLWICH-HH-TOTAL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Tax-supported regional services cost per average woolwich household",
+      "amountCad": 2617,
+      "excerpt": "Woolwich ... Regional Tax Levy ... $2,617 ... Based on an average residential property valued at $354,500",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "note": "Imported from shared region-of-waterloo-on schedule (woolwich). Do not add to local rate\u00d7$354,500 Region portion.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-PIL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Payments in Lieu & Supplementary Taxes (household share)",
+      "amountCad": -78,
+      "excerpt": "Less: Payments in Lieu & Supplementary Taxes(3) ($78)",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-01",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Police Service",
+      "amountCad": 900,
+      "regionalNetExpenditure000s": 298907,
+      "regionalPropertyTaxLevy000s": 272610,
+      "excerpt": "Police Service ... Woolwich $900",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-02",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Public Transit",
+      "amountCad": 136,
+      "regionalNetExpenditure000s": 231203,
+      "regionalPropertyTaxLevy000s": 156402,
+      "excerpt": "Public Transit ... Woolwich $136",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-03",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Housing Services",
+      "amountCad": 429,
+      "regionalNetExpenditure000s": 178544,
+      "regionalPropertyTaxLevy000s": 129992,
+      "excerpt": "Housing Services ... Woolwich $429",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-04",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Roads/Design & Construction/Eng.",
+      "amountCad": 240,
+      "regionalNetExpenditure000s": 78529,
+      "regionalPropertyTaxLevy000s": 72779,
+      "excerpt": "Roads/Design & Construction/Eng. ... Woolwich $240",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-05",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Waste Management",
+      "amountCad": 213,
+      "regionalNetExpenditure000s": 80797,
+      "regionalPropertyTaxLevy000s": 64596,
+      "excerpt": "Waste Management ... Woolwich $213",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-06",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Financial Expenses",
+      "amountCad": 89,
+      "regionalNetExpenditure000s": 29630,
+      "regionalPropertyTaxLevy000s": 26969,
+      "excerpt": "Financial Expenses ... Woolwich $89",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-07",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Paramedic Services",
+      "amountCad": 134,
+      "regionalNetExpenditure000s": 86447,
+      "regionalPropertyTaxLevy000s": 40575,
+      "excerpt": "Paramedic Services ... Woolwich $134",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-08",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Employment/Income Support",
+      "amountCad": 53,
+      "regionalNetExpenditure000s": 144080,
+      "regionalPropertyTaxLevy000s": 16098,
+      "excerpt": "Employment/Income Support ... Woolwich $53",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-09",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Seniors' Services",
+      "amountCad": 51,
+      "regionalNetExpenditure000s": 54042,
+      "regionalPropertyTaxLevy000s": 15597,
+      "excerpt": "Seniors' Services ... Woolwich $51",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-10",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Human Resources",
+      "amountCad": 39,
+      "regionalNetExpenditure000s": 13269,
+      "regionalPropertyTaxLevy000s": 11955,
+      "excerpt": "Human Resources ... Woolwich $39",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-11",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Information Technology Services",
+      "amountCad": 49,
+      "regionalNetExpenditure000s": 14979,
+      "regionalPropertyTaxLevy000s": 14979,
+      "excerpt": "Information Technology Services ... Woolwich $49",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-12",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Public Health",
+      "amountCad": 45,
+      "regionalNetExpenditure000s": 45222,
+      "regionalPropertyTaxLevy000s": 13561,
+      "excerpt": "Public Health ... Woolwich $45",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-13",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Facilities & Fleet Management",
+      "amountCad": 24,
+      "regionalNetExpenditure000s": 10196,
+      "regionalPropertyTaxLevy000s": 7189,
+      "excerpt": "Facilities & Fleet Management ... Woolwich $24",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-14",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Cultural Services",
+      "amountCad": 33,
+      "regionalNetExpenditure000s": 11722,
+      "regionalPropertyTaxLevy000s": 10060,
+      "excerpt": "Cultural Services ... Woolwich $33",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-15",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Children's Services",
+      "amountCad": 30,
+      "regionalNetExpenditure000s": 245740,
+      "regionalPropertyTaxLevy000s": 9143,
+      "excerpt": "Children's Services ... Woolwich $30",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-16",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Elected Offices & Office of the Chief Administrative Officer",
+      "amountCad": 17,
+      "regionalNetExpenditure000s": 5256,
+      "regionalPropertyTaxLevy000s": 5256,
+      "excerpt": "Elected Offices & Office of the Chief Administrative Officer ... Woolwich $17",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-17",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Resident Experience, Strategy and Communications",
+      "amountCad": 19,
+      "regionalNetExpenditure000s": 5869,
+      "regionalPropertyTaxLevy000s": 5855,
+      "excerpt": "Resident Experience, Strategy and Communications ... Woolwich $19",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-18",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Airport",
+      "amountCad": 31,
+      "regionalNetExpenditure000s": 19855,
+      "regionalPropertyTaxLevy000s": 9281,
+      "excerpt": "Airport ... Woolwich $31",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-19",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Planning, Development & Legislative Services",
+      "amountCad": 21,
+      "regionalNetExpenditure000s": 34909,
+      "regionalPropertyTaxLevy000s": 6510,
+      "excerpt": "Planning, Development & Legislative Services ... Woolwich $21",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-20",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Finance",
+      "amountCad": 24,
+      "regionalNetExpenditure000s": 7524,
+      "regionalPropertyTaxLevy000s": 7369,
+      "excerpt": "Finance ... Woolwich $24",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-21",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Regional Library",
+      "amountCad": 79,
+      "regionalNetExpenditure000s": 3809,
+      "regionalPropertyTaxLevy000s": 3314,
+      "excerpt": "Regional Library ... Woolwich $79",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-22",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Build Waterloo Region",
+      "amountCad": 16,
+      "regionalNetExpenditure000s": 6277,
+      "regionalPropertyTaxLevy000s": 4925,
+      "excerpt": "Build Waterloo Region ... Woolwich $16",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-23",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Woolwich household \u2014 Strategy, Performance and Partnerships",
+      "amountCad": 20,
+      "regionalNetExpenditure000s": 5952,
+      "regionalPropertyTaxLevy000s": 5952,
+      "excerpt": "Strategy, Performance and Partnerships ... Woolwich $20",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    }
+  ],
+  "derived": [
+    {
+      "id": "DRV-WOO-BILL-CITY",
+      "label": "Local portion at average assessment",
+      "amountCad": 1142.15,
+      "formula": "WOO-AVG-ASSESSMENT-2026 * WOO-TAXRATE-RES-CITY-2026",
+      "inputs": [
+        "WOO-AVG-ASSESSMENT-2026",
+        "WOO-TAXRATE-RES-CITY-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WOO-BILL-REGION",
+      "label": "Region portion at average assessment",
+      "amountCad": 2617.32,
+      "formula": "WOO-AVG-ASSESSMENT-2026 * WOO-TAXRATE-RES-REGION-2026",
+      "inputs": [
+        "WOO-AVG-ASSESSMENT-2026",
+        "WOO-TAXRATE-RES-REGION-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WOO-BILL-EDUCATION",
+      "label": "Education portion at average assessment",
+      "amountCad": 542.38,
+      "formula": "WOO-AVG-ASSESSMENT-2026 * WOO-TAXRATE-RES-EDUCATION-2026",
+      "inputs": [
+        "WOO-AVG-ASSESSMENT-2026",
+        "WOO-TAXRATE-RES-EDUCATION-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WOO-BILL-COMBINED",
+      "label": "Combined RT bill at average assessment",
+      "amountCad": 4301.85,
+      "formula": "city + region + education",
+      "inputs": [
+        "DRV-WOO-BILL-CITY",
+        "DRV-WOO-BILL-REGION",
+        "DRV-WOO-BILL-EDUCATION",
+        "WOO-TAXRATE-RES-TOTAL-2026"
+      ],
+      "kind": "DERIVED"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "GAP-WOO-DEPT-SCHEDULE",
+      "title": "Local department household allocation not transcribed",
+      "detail": "This Tier 0 pack cites the local rate \u00d7 $354,500 as a single line. A published department / service split for household illustration has not been bound into the allocation base yet.",
+      "blocks": [
+        "township_department_lines"
+      ],
+      "neededEvidence": [
+        "Department net expenditure table suitable for pro-rata"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-WOO-REGION-ASSESSMENT-BRIDGE",
+      "title": "No DERIVED bridge from Region $354,500 woolwich schedule to local $354,500 rate bill",
+      "detail": "Local bill uses REGION rate \u00d7 $354,500 = $2,617.32. Region woolwich household schedule totals $2,617 at $354,500. Informational only until an explicit rate\u00d7assessment DERIVED path is approved.",
+      "blocks": [],
+      "neededEvidence": [
+        "Approved formula mapping Region woolwich HH lines onto the local average assessment bill"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-WOO-FIR-CODE-VERIFY",
+      "title": "FIR / MAH assessment code not yet locked from Schedule 02",
+      "detail": "Pack uses working code 3024 pending a hand-checked FIR Schedule 02 row.",
+      "blocks": [],
+      "neededEvidence": [
+        "FIR Schedule 02 MAH code for Township of Woolwich"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-WOO-PEER-FIR-FAIRNESS",
+      "title": "Peer per-capita fairness check not yet run for Township of Woolwich",
+      "detail": "Tier 0 draft: no peer FIR findings published.",
+      "blocks": [
+        "findings_peer_fairness"
+      ],
+      "neededEvidence": [
+        "Hand-checked FIR Schedule 40 peer cohort"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-WOO-AVG-ASSESSMENT",
+      "title": "Woolwich-published average residential CVA not bound from budget book",
+      "detail": "Bill illustration uses Region-published $354,500 (household schedule basis). Woolwich documents discuss average assessment but the excerpts retained do not print a single township average CVA distinct from the Region table.\n",
+      "blocks": [],
+      "neededEvidence": [
+        "Township-published average residential assessment for 2026 tax illustrations"
+      ],
+      "kind": "GAP"
+    }
+  ],
+  "closedGaps": [
+    {
+      "id": "GAP-WOO-REGION-SCHEDULE",
+      "title": "Region of Waterloo woolwich household schedule imported from shared pack",
+      "resolvedAt": "2026-07-25",
+      "resolution": "woolwich column imported from corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml. Lines appear under regionIllustrationAt354500 at $354,500. Bill-stack Region total remains rate \u00d7 $354,500 ($2,617.32). Narrowed remainder: GAP-WOO-REGION-ASSESSMENT-BRIDGE."
+    }
+  ]
+}

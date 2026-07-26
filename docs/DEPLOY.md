@@ -15,22 +15,32 @@ still requires the human steps in `PUBLISH.md` (publisher, contact, corrections 
 
 ## Cloudflare Workers (static assets) — your current `*.workers.dev` URL
 
+Preview URL for this account: **https://tax-receipt-prototype.jstn0513.workers.dev/**
+
+Local gated deploy (validate → tests → build → wrangler):
+
+```powershell
+# One-time: wrangler login   OR set CLOUDFLARE_API_TOKEN
+.\scripts\deploy_preview.ps1
+```
+
 The blank page happened because Cloudflare was serving `web/` **source**
 (`index.html` → `/src/main.tsx`) instead of the Vite **build** (`web/dist`).
 
-Use these dashboard settings (repo root, not `web` as the only root):
+If the log only shows `Executing user deploy command: npx wrangler deploy` and then
+`web/dist` missing, the separate Build field was never run. Put everything in
+**Deploy command**:
 
 | Field | Value |
 |---|---|
-| **Build command** | `npm --prefix web ci && npm --prefix web run build` |
-| **Deploy command** | `npx wrangler deploy` |
+| **Build command** | leave empty (or same as deploy if required) |
+| **Deploy command** | `npm --prefix web ci && npm --prefix web run build && npx wrangler deploy` |
 | **Root directory** | `/` (repository root — where `wrangler.jsonc` lives) |
-| **Branch** | `claude/citation-audit` (has the fixed config) |
+| **Branch** | `claude/citation-audit` |
 
 `wrangler.jsonc` points assets at `./web/dist`. Do **not** set assets to `web`.
 
-After changing settings, trigger a new deployment (Redeploy / push).
-
+Save → **Retry deployment**. The log must show `vite build` **before** wrangler.
 ### Prefer Cloudflare Pages instead?
 
 Same build, no wrangler:

@@ -1,0 +1,17 @@
+===== PAGE 1 =====
+City of Waterloo — Check property tax rates
+Source: https://www.waterloo.ca/water-and-tax-billing/tax-billing/check-property-tax-rates/
+Retrieved for local extract (HTML table; not a PDF).
+
+2026 residential tax example
+In 2026, the residential tax rate is 1.432260%.
+For a home valued at $405,000 in Waterloo, this works out to $5,800.65.
+Of that total:
+City of Waterloo receives 30%
+Region of Waterloo receives 59%
+your school board receives 11%
+
+Current property tax rates
+Tax class Description City Region Education Total
+RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%
+NTEP New multi-residential taxable 0.437426% 0.841834% 0.153000% 1.432260%

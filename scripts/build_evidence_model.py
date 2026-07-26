@@ -32,33 +32,41 @@ def derived(**kwargs):
     return kwargs
 
 
-# --- Region rural household table (Region Budget Book p.12) ---
+# --- Region rural household table (shared pack YAML; Region Budget Book p.12) ---
 # Rural column = Wellesley + North Dumfries; assessment $354,500 (2016 CVA)
-REGION_RURAL_HH = [
-    ("Police Service", 900, 298_907_000, 272_610_000),
-    ("Public Transit (area-rated; rural)", 63, 231_203_000, 156_402_000),
-    ("Housing Services", 429, 178_544_000, 129_992_000),
-    ("Roads / Design & Construction / Engineering", 240, 78_529_000, 72_779_000),
-    ("Waste Management", 213, 80_797_000, 64_596_000),
-    ("Financial Expenses", 89, 29_630_000, 26_969_000),
-    ("Paramedic Services", 134, 86_447_000, 40_575_000),
-    ("Employment / Income Support", 53, 144_080_000, 16_098_000),
-    ("Seniors' Services", 51, 54_042_000, 15_597_000),
-    ("Human Resources", 39, 13_269_000, 11_955_000),
-    ("Information Technology Services", 49, 14_979_000, 14_979_000),
-    ("Public Health", 45, 45_222_000, 13_561_000),
-    ("Facilities & Fleet Management", 24, 10_196_000, 7_189_000),
-    ("Cultural Services", 33, 11_722_000, 10_060_000),
-    ("Children's Services", 30, 245_740_000, 9_143_000),
-    ("Elected Offices & Office of the CAO", 17, 5_256_000, 5_256_000),
-    ("Resident Experience, Strategy and Communications", 19, 5_869_000, 5_855_000),
-    ("Airport", 31, 19_855_000, 9_281_000),
-    ("Planning, Development & Legislative Services", 21, 34_909_000, 6_510_000),
-    ("Finance", 24, 7_524_000, 7_369_000),
-    ("Regional Library (area-rated; rural)", 79, 3_809_000, 3_314_000),
-    ("Build Waterloo Region", 16, 6_277_000, 4_925_000),
-    ("Strategy, Performance and Partnerships", 20, 5_952_000, 5_952_000),
-]
+REGION_SCHEDULE_PATH = (
+    ROOT / "corpus" / "region-of-waterloo-on" / "schedules" / "household-tax-supported-2026.yaml"
+)
+
+
+def _load_region_rural_hh() -> list[tuple[str, int, int, int]]:
+    """Load rural HH lines from shared YAML. Amounts must stay identical to sealed ND."""
+    try:
+        import yaml
+    except ImportError as exc:  # pragma: no cover
+        raise SystemExit("PyYAML required (pip install pyyaml)") from exc
+    if not REGION_SCHEDULE_PATH.exists():
+        raise SystemExit(
+            f"missing {REGION_SCHEDULE_PATH}\n"
+            "Run: python scripts/parse_row_household_schedule.py\n"
+            "ND rebuild is optional after YAML exists; sealed artifacts stay until rebuild."
+        )
+    doc = yaml.safe_load(REGION_SCHEDULE_PATH.read_text(encoding="utf-8"))
+    rural = doc["areas"]["rural"]
+    rows: list[tuple[str, int, int, int]] = []
+    for line in rural["lines"]:
+        rows.append(
+            (
+                line["label"],
+                int(line["amountCad"]),
+                int(line["netExpenditure000Cad"]) * 1000,
+                int(line["propertyTaxLevy000Cad"]) * 1000,
+            )
+        )
+    return rows
+
+
+REGION_RURAL_HH = _load_region_rural_hh()
 
 rural_service_sum = sum(x[1] for x in REGION_RURAL_HH)
 
@@ -731,7 +739,7 @@ facts = [
     ),
 ]
 
-# Region rural household service lines as facts
+# Region rural household service lines as facts (amounts from shared YAML schedule)
 for i, (label, hh, net_exp, levy) in enumerate(REGION_RURAL_HH, start=1):
     facts.append(
         fact(
@@ -745,6 +753,7 @@ for i, (label, hh, net_exp, levy) in enumerate(REGION_RURAL_HH, start=1):
             excerpt=f"{label} ... Rural ${hh}",
             status="approved",
             assessmentBasisCad=354_500,
+            note="Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
         )
     )
 
@@ -1469,6 +1478,12 @@ receipt = {
     "status": "partial_evidence_based",
     "purpose": "UI data model using only supported allocations. Hypothetical $5,000 combined bill is NOT fully allocatable — see gaps.",
     "evidencePolicyRef": "data/evidence-ledger.json",
+    "jurisdiction": {
+        "slug": "north-dumfries-on",
+        "displayName": "Township of North Dumfries",
+        "level": "lower-tier",
+        "aliases": ["North Dumfries", "Ayr"],
+    },
     "profiles": {
         "supportedAverageHousehold": {
             "description": "Best evidence-based profile without inventing a $5,000 bill.",
@@ -1478,6 +1493,7 @@ receipt = {
                 "assessmentCad": 455_000,
                 "evidenceStatus": "FACT",
                 "sourceFactId": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+                "uiLabel": "Township portion",
                 "lineItems": township_lines,
             },
             "region": {
@@ -1486,6 +1502,7 @@ receipt = {
                 "assessmentCad": 354_500,
                 "evidenceStatus": "FACT",
                 "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+                "uiLabel": "Region portion",
                 "lineItems": region_lines,
                 "lineItemsSumCheckCad": sum(item["amountCad"] for item in region_lines),
             },
@@ -1495,6 +1512,7 @@ receipt = {
                 "assessmentCad": ASSESSMENT,
                 "evidenceStatus": "DERIVED",
                 "sourceFactId": "DRV-ND-BILL-EDUCATION-455K",
+                "uiLabel": "Education",
                 "note": "Province sets this rate under O. Reg. 400/98; the Township only collects it.",
             },
             "combinedTotalCad": BILL_COMBINED,
@@ -1565,6 +1583,9 @@ receipt = {
             for _id in ["FIND-CAP-ARENA", "FIND-ADMIN-LEGAL-STACK", "FIND-ADMIN-CORP-SCALE"]
             if _id in PUBLISHED_FINDING_IDS
         ],
+        "municipalBucketLabel": "Township portion",
+        "regionBucketLabel": "Region portion",
+        "heroLabel": "Total residential bill · rural · By-law 3637-26",
     },
 }
 

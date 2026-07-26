@@ -1,0 +1,40 @@
+slug: cambridge-on
+name: City of Cambridge
+country: CA
+subdivision: ON
+level: lower-tier
+parentBodies:
+  - region-of-waterloo-on
+aliases:
+  - Cambridge
+  - Cambridge ON
+assessmentCode: "3010"
+fiscalYear: 2026
+currency: CAD
+locale: en-CA
+valuationBasis: "MPAC CVA (City average illustration $344,000)"
+defaultAssessmentCad: 344000
+engineTag: engine/0.1.0-bridge
+packVersion: "2026.0-draft"
+
+publication:
+  status: draft
+  lifecycle: draft
+  tier: 0
+  license: MIT
+  publisher: null
+  contact: null
+  refreshDueBy: "2027-04-30"
+  notes: >
+    Dual-tier urban. Department schedule GAP-tolerant. Absolute levy dollar pending.
+
+artifacts:
+  ledger: data/cambridge/evidence-ledger.json
+  receipt: data/cambridge/taxpayer-receipt.json
+  sourcesRoot: source-pdfs/cambridge/
+  extractsRoot: data/_extracts/cambridge/
+
+controlTotal:
+  amountCad: 3000000
+  label: Published 2026 tax levy increase ($3 million / 2.44%)
+  note: Absolute levy headline not yet locked — see GAP-CAM-LEVY-ABSOLUTE.

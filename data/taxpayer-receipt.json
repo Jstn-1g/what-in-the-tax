@@ -4,6 +4,12 @@
   "status": "partial_evidence_based",
   "purpose": "UI data model using only supported allocations. Hypothetical $5,000 combined bill is NOT fully allocatable \u2014 see gaps.",
   "evidencePolicyRef": "data/evidence-ledger.json",
+  "jurisdiction": {
+    "slug": "north-dumfries-on",
+    "displayName": "Township of North Dumfries",
+    "level": "lower-tier",
+    "aliases": ["North Dumfries", "Ayr"]
+  },
   "profiles": {
     "supportedAverageHousehold": {
       "description": "Best evidence-based profile without inventing a $5,000 bill.",
@@ -13,6 +19,7 @@
         "assessmentCad": 455000,
         "evidenceStatus": "FACT",
         "sourceFactId": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "uiLabel": "Township portion",
         "lineItems": [
           {
             "id": "ND-DEPT-CORPORATE-2026",
@@ -96,6 +103,7 @@
         "assessmentCad": 354500,
         "evidenceStatus": "FACT",
         "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+        "uiLabel": "Region portion",
         "lineItems": [
           {
             "id": "ROW-RURAL-HH-01",
@@ -307,6 +315,7 @@
         "assessmentCad": 455000,
         "evidenceStatus": "DERIVED",
         "sourceFactId": "DRV-ND-BILL-EDUCATION-455K",
+        "uiLabel": "Education",
         "note": "Province sets this rate under O. Reg. 400/98; the Township only collects it."
       },
       "combinedTotalCad": 5395.61,
@@ -555,6 +564,9 @@
       "FIND-CAP-ARENA",
       "FIND-ADMIN-LEGAL-STACK",
       "FIND-ADMIN-CORP-SCALE"
-    ]
+    ],
+    "municipalBucketLabel": "Township portion",
+    "regionBucketLabel": "Region portion",
+    "heroLabel": "Total residential bill · rural · By-law 3637-26"
   }
 }

@@ -1,0 +1,570 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifact": "EvidenceLedger",
+  "jurisdiction": {
+    "slug": "waterloo-on",
+    "name": "City of Waterloo",
+    "aliases": [
+      "Waterloo",
+      "Waterloo ON",
+      "City of Waterloo"
+    ],
+    "level": "lower-tier",
+    "upperTier": [
+      "region-of-waterloo-on"
+    ],
+    "assessmentCode": "3016",
+    "note": "Lower-tier in Region of Waterloo. Assessment code pending Schedule 02 lock."
+  },
+  "evidencePolicy": {
+    "rules": [
+      "FACT requires a published source, page, and excerpt or numeric binding.",
+      "DERIVED requires an explicit formula over FACT/DERIVED ids only.",
+      "Never invent bill dollars to fill a GAP.",
+      "JUDGMENT billImpactCad is always null until a formula is approved.",
+      "Do not copy another municipality's Region household table into this pack."
+    ]
+  },
+  "sources": [
+    {
+      "id": "wat-2026-tax-rates",
+      "title": "City of Waterloo \u2014 Check property tax rates (2026 RTEP)",
+      "url": "https://www.waterloo.ca/water-and-tax-billing/tax-billing/check-property-tax-rates/",
+      "localPath": null,
+      "extractedText": "data/_extracts/waterloo/2026-tax-rates-page.txt",
+      "asOf": "2026",
+      "authority": "City of Waterloo",
+      "note": "Official rates HTML table; residential RTEP row."
+    },
+    {
+      "id": "wat-2026-budget",
+      "title": "City of Waterloo 2024\u20132026 Approved Operating Budget",
+      "url": "https://www.waterloo.ca/media/nm2bdamz/2024-2026-approved-operating-budget-book.pdf",
+      "localPath": "source-pdfs/waterloo/2024-2026-approved-operating-budget-book.pdf",
+      "extractedText": "data/_extracts/waterloo/2026-operating-budget-excerpt.txt",
+      "asOf": "2025-12",
+      "authority": "City of Waterloo",
+      "note": "Net tax levy and average assessment illustration."
+    },
+    {
+      "id": "row-2026-book",
+      "title": "Region of Waterloo 2026 Final Budget Book \u2014 Annual Average Cost Per Household",
+      "url": "https://www.regionofwaterloo.ca/",
+      "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
+      "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
+      "asOf": "2026",
+      "authority": "Region of Waterloo",
+      "note": "Shared pack schedule area=urban. Dollars at Region average $354,500 \u2014 not local $405,000."
+    }
+  ],
+  "facts": [
+    {
+      "id": "WAT-LEVY-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 1,
+      "label": "City of Waterloo 2026 published net tax levy",
+      "amountCad": 114990811,
+      "excerpt": "resulting in a net Tax Levy of $114,990,811",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-AVG-ASSESSMENT-2026",
+      "sourceId": "wat-2026-tax-rates",
+      "page": 1,
+      "label": "Average assessed value used for residential impact illustrations",
+      "amountCad": 405000,
+      "excerpt": "For a home valued at $405,000 in Waterloo, this works out to $5,800.65",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-TAXRATE-RES-CITY-2026",
+      "sourceId": "wat-2026-tax-rates",
+      "page": 1,
+      "label": "RT Residential local tax rate 2026",
+      "amountCad": 0.00437426,
+      "unit": "rate",
+      "excerpt": "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-TAXRATE-RES-REGION-2026",
+      "sourceId": "wat-2026-tax-rates",
+      "page": 1,
+      "label": "RT Residential Region tax rate 2026 (as printed locally)",
+      "amountCad": 0.00841834,
+      "unit": "rate",
+      "excerpt": "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-TAXRATE-RES-EDUCATION-2026",
+      "sourceId": "wat-2026-tax-rates",
+      "page": 1,
+      "label": "RT Residential Education tax rate 2026",
+      "amountCad": 0.00153,
+      "unit": "rate",
+      "excerpt": "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-TAXRATE-RES-TOTAL-2026",
+      "sourceId": "wat-2026-tax-rates",
+      "page": 1,
+      "label": "RT Residential total tax rate 2026",
+      "amountCad": 0.0143226,
+      "unit": "rate",
+      "excerpt": "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%",
+      "status": "final",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-TAX-INCREASE-PCT-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 1,
+      "label": "2026 property tax rate increase (local)",
+      "amountCad": 6.41,
+      "unit": "percent",
+      "excerpt": "Property Tax Increase - City of Waterloo $ 106.92 6.41%",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-TAX-INCREASE-CAD-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 1,
+      "label": "2026 average-home local tax increase dollars",
+      "amountCad": 106.92,
+      "excerpt": "Property Tax Increase - City of Waterloo $ 106.92 6.41%",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-URBAN-HH-TOTAL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Tax-supported regional services cost per average urban household",
+      "amountCad": 2984,
+      "excerpt": "Urban (Kitchener / Waterloo / Cambridge) ... Regional Tax Levy ... $2,984 ... Based on an average residential property valued at $354,500",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "note": "Imported from shared region-of-waterloo-on schedule (urban). Do not add to local rate\u00d7$405,000 Region portion.",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-PIL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Payments in Lieu & Supplementary Taxes (household share)",
+      "amountCad": -78,
+      "excerpt": "Less: Payments in Lieu & Supplementary Taxes(3) ($78)",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-01",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Police Service",
+      "amountCad": 900,
+      "regionalNetExpenditure000s": 298907,
+      "regionalPropertyTaxLevy000s": 272610,
+      "excerpt": "Police Service ... Urban $900",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-02",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Public Transit",
+      "amountCad": 582,
+      "regionalNetExpenditure000s": 231203,
+      "regionalPropertyTaxLevy000s": 156402,
+      "excerpt": "Public Transit ... Urban $582",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-03",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Housing Services",
+      "amountCad": 429,
+      "regionalNetExpenditure000s": 178544,
+      "regionalPropertyTaxLevy000s": 129992,
+      "excerpt": "Housing Services ... Urban $429",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-04",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Roads/Design & Construction/Eng.",
+      "amountCad": 240,
+      "regionalNetExpenditure000s": 78529,
+      "regionalPropertyTaxLevy000s": 72779,
+      "excerpt": "Roads/Design & Construction/Eng. ... Urban $240",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-05",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Waste Management",
+      "amountCad": 213,
+      "regionalNetExpenditure000s": 80797,
+      "regionalPropertyTaxLevy000s": 64596,
+      "excerpt": "Waste Management ... Urban $213",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-06",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Financial Expenses",
+      "amountCad": 89,
+      "regionalNetExpenditure000s": 29630,
+      "regionalPropertyTaxLevy000s": 26969,
+      "excerpt": "Financial Expenses ... Urban $89",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-07",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Paramedic Services",
+      "amountCad": 134,
+      "regionalNetExpenditure000s": 86447,
+      "regionalPropertyTaxLevy000s": 40575,
+      "excerpt": "Paramedic Services ... Urban $134",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-08",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Employment/Income Support",
+      "amountCad": 53,
+      "regionalNetExpenditure000s": 144080,
+      "regionalPropertyTaxLevy000s": 16098,
+      "excerpt": "Employment/Income Support ... Urban $53",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-09",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Seniors' Services",
+      "amountCad": 51,
+      "regionalNetExpenditure000s": 54042,
+      "regionalPropertyTaxLevy000s": 15597,
+      "excerpt": "Seniors' Services ... Urban $51",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-10",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Human Resources",
+      "amountCad": 39,
+      "regionalNetExpenditure000s": 13269,
+      "regionalPropertyTaxLevy000s": 11955,
+      "excerpt": "Human Resources ... Urban $39",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-11",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Information Technology Services",
+      "amountCad": 49,
+      "regionalNetExpenditure000s": 14979,
+      "regionalPropertyTaxLevy000s": 14979,
+      "excerpt": "Information Technology Services ... Urban $49",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-12",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Public Health",
+      "amountCad": 45,
+      "regionalNetExpenditure000s": 45222,
+      "regionalPropertyTaxLevy000s": 13561,
+      "excerpt": "Public Health ... Urban $45",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-13",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Facilities & Fleet Management",
+      "amountCad": 24,
+      "regionalNetExpenditure000s": 10196,
+      "regionalPropertyTaxLevy000s": 7189,
+      "excerpt": "Facilities & Fleet Management ... Urban $24",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-14",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Cultural Services",
+      "amountCad": 33,
+      "regionalNetExpenditure000s": 11722,
+      "regionalPropertyTaxLevy000s": 10060,
+      "excerpt": "Cultural Services ... Urban $33",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-15",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Children's Services",
+      "amountCad": 30,
+      "regionalNetExpenditure000s": 245740,
+      "regionalPropertyTaxLevy000s": 9143,
+      "excerpt": "Children's Services ... Urban $30",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-16",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Elected Offices & Office of the Chief Administrative Officer",
+      "amountCad": 17,
+      "regionalNetExpenditure000s": 5256,
+      "regionalPropertyTaxLevy000s": 5256,
+      "excerpt": "Elected Offices & Office of the Chief Administrative Officer ... Urban $17",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-17",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Resident Experience, Strategy and Communications",
+      "amountCad": 19,
+      "regionalNetExpenditure000s": 5869,
+      "regionalPropertyTaxLevy000s": 5855,
+      "excerpt": "Resident Experience, Strategy and Communications ... Urban $19",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-18",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Airport",
+      "amountCad": 31,
+      "regionalNetExpenditure000s": 19855,
+      "regionalPropertyTaxLevy000s": 9281,
+      "excerpt": "Airport ... Urban $31",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-19",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Planning, Development & Legislative Services",
+      "amountCad": 21,
+      "regionalNetExpenditure000s": 34909,
+      "regionalPropertyTaxLevy000s": 6510,
+      "excerpt": "Planning, Development & Legislative Services ... Urban $21",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-20",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Finance",
+      "amountCad": 24,
+      "regionalNetExpenditure000s": 7524,
+      "regionalPropertyTaxLevy000s": 7369,
+      "excerpt": "Finance ... Urban $24",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-21",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Regional Library",
+      "amountCad": 0,
+      "regionalNetExpenditure000s": 3809,
+      "regionalPropertyTaxLevy000s": 3314,
+      "excerpt": "Regional Library ... Urban $0",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-22",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Build Waterloo Region",
+      "amountCad": 16,
+      "regionalNetExpenditure000s": 6277,
+      "regionalPropertyTaxLevy000s": 4925,
+      "excerpt": "Build Waterloo Region ... Urban $16",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    },
+    {
+      "id": "ROW-HH-URBAN-23",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Urban household \u2014 Strategy, Performance and Partnerships",
+      "amountCad": 20,
+      "regionalNetExpenditure000s": 5952,
+      "regionalPropertyTaxLevy000s": 5952,
+      "excerpt": "Strategy, Performance and Partnerships ... Urban $20",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "kind": "FACT"
+    }
+  ],
+  "derived": [
+    {
+      "id": "DRV-WAT-BILL-CITY",
+      "label": "Local portion at average assessment",
+      "amountCad": 1771.58,
+      "formula": "WAT-AVG-ASSESSMENT-2026 * WAT-TAXRATE-RES-CITY-2026",
+      "inputs": [
+        "WAT-AVG-ASSESSMENT-2026",
+        "WAT-TAXRATE-RES-CITY-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-BILL-REGION",
+      "label": "Region portion at average assessment",
+      "amountCad": 3409.43,
+      "formula": "WAT-AVG-ASSESSMENT-2026 * WAT-TAXRATE-RES-REGION-2026",
+      "inputs": [
+        "WAT-AVG-ASSESSMENT-2026",
+        "WAT-TAXRATE-RES-REGION-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-BILL-EDUCATION",
+      "label": "Education portion at average assessment",
+      "amountCad": 619.65,
+      "formula": "WAT-AVG-ASSESSMENT-2026 * WAT-TAXRATE-RES-EDUCATION-2026",
+      "inputs": [
+        "WAT-AVG-ASSESSMENT-2026",
+        "WAT-TAXRATE-RES-EDUCATION-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-BILL-COMBINED",
+      "label": "Combined RT bill at average assessment",
+      "amountCad": 5800.66,
+      "formula": "city + region + education",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "DRV-WAT-BILL-REGION",
+        "DRV-WAT-BILL-EDUCATION",
+        "WAT-TAXRATE-RES-TOTAL-2026"
+      ],
+      "kind": "DERIVED"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "GAP-WAT-DEPT-SCHEDULE",
+      "title": "Local department household allocation not transcribed",
+      "detail": "This Tier 0 pack cites the local rate \u00d7 $405,000 as a single line. A published department / service split for household illustration has not been bound into the allocation base yet.",
+      "blocks": [
+        "township_department_lines"
+      ],
+      "neededEvidence": [
+        "Department net expenditure table suitable for pro-rata"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-WAT-REGION-ASSESSMENT-BRIDGE",
+      "title": "No DERIVED bridge from Region $354,500 urban schedule to local $405,000 rate bill",
+      "detail": "Local bill uses REGION rate \u00d7 $405,000 = $3,409.43. Region urban household schedule totals $2,984 at $354,500. Informational only until an explicit rate\u00d7assessment DERIVED path is approved.",
+      "blocks": [],
+      "neededEvidence": [
+        "Approved formula mapping Region urban HH lines onto the local average assessment bill"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-WAT-FIR-CODE-VERIFY",
+      "title": "FIR / MAH assessment code not yet locked from Schedule 02",
+      "detail": "Pack uses working code 3016 pending a hand-checked FIR Schedule 02 row.",
+      "blocks": [],
+      "neededEvidence": [
+        "FIR Schedule 02 MAH code for City of Waterloo"
+      ],
+      "kind": "GAP"
+    },
+    {
+      "id": "GAP-WAT-PEER-FIR-FAIRNESS",
+      "title": "Peer per-capita fairness check not yet run for City of Waterloo",
+      "detail": "Tier 0 draft: no peer FIR findings published.",
+      "blocks": [
+        "findings_peer_fairness"
+      ],
+      "neededEvidence": [
+        "Hand-checked FIR Schedule 40 peer cohort"
+      ],
+      "kind": "GAP"
+    }
+  ],
+  "closedGaps": [
+    {
+      "id": "GAP-WAT-REGION-SCHEDULE",
+      "title": "Region of Waterloo urban household schedule imported from shared pack",
+      "resolvedAt": "2026-07-25",
+      "resolution": "urban column imported from corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml. Lines appear under regionIllustrationAt354500 at $354,500. Bill-stack Region total remains rate \u00d7 $405,000 ($3,409.43). Narrowed remainder: GAP-WAT-REGION-ASSESSMENT-BRIDGE."
+    }
+  ]
+}

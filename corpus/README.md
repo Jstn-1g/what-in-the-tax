@@ -84,17 +84,40 @@ Not committed: `pdf/` (the local document cache, never served — see `.gitignor
 
 ## Current state
 
-**Bridge packs are in place:** `corpus/north-dumfries-on/pack.yaml` and `corpus/_template/`.
-The living ledger still lives in `data/` (and the web mirror) until Phase 1 item 7 transcribes it to
-`corpus/north-dumfries-on/*.yaml`, with acceptance = key-order-insensitive equality against the
-frozen golden fixture.
+**Bridge packs:**
+
+| slug | status | notes |
+|---|---|---|
+| `north-dumfries-on` | sealed provisional | Living ledger in `data/`; Tier 1 findings |
+| `region-of-waterloo-on` | draft | Shared upper-tier HH schedule; living ledger in `data/region-waterloo/` |
+| `brant-county-on` | draft | Paris alias; living ledger in `data/brant/`; Tier 0 |
+| `kitchener-on` | draft | City of Kitchener; living ledger in `data/kitchener/`; Tier 0 |
+| `waterloo-on` | draft | City of Waterloo (urban); `build_lower_tier_pack.py` |
+| `cambridge-on` | draft | City of Cambridge (urban); GAP-tolerant departments |
+| `woolwich-on` | draft | Township of Woolwich (`woolwich` area key) |
+| `_template/` | scaffold | Copy, never edit in place |
+
+Full YAML transcription (`municipality.yaml` etc.) is Phase 1 item 7.
 
 ```bash
-python scripts/validate_pack.py north-dumfries-on   # must exit 0 before seal
-python scripts/seal_pack.py north-dumfries-on 1     # refuses unless validate is green
+python scripts/validate_pack.py north-dumfries-on
+python scripts/validate_pack.py region-of-waterloo-on
+python scripts/validate_pack.py brant-county-on
+python scripts/validate_pack.py kitchener-on
+python scripts/validate_pack.py waterloo-on
+python scripts/validate_pack.py cambridge-on
+python scripts/validate_pack.py woolwich-on
+python scripts/extract_brant_pdf_text.py && python scripts/build_brant_evidence_model.py
+python scripts/parse_row_household_schedule.py && python scripts/build_region_waterloo_pack.py
+python scripts/build_kitchener_evidence_model.py
+python scripts/build_lower_tier_pack.py waterloo-on
+python scripts/build_lower_tier_pack.py cambridge-on
+python scripts/build_lower_tier_pack.py woolwich-on
+# Preview deploy (after audit/validate/tests):
+#   .\scripts\deploy_preview.ps1
 ```
 
-`north-dumfries-on` is **draft** while citation hard failures remain (see `PUBLISH.md`).
+Paris, Ontario resolves to **`brant-county-on`** (County of Brant, single-tier FIR 2920) — not a separate Town of Paris pack.
 
 ## See also
 

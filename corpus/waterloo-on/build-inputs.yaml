@@ -1,0 +1,65 @@
+slug: waterloo-on
+name: City of Waterloo
+aliases:
+  - Waterloo
+  - Waterloo ON
+  - City of Waterloo
+level: lower-tier
+parentBodies:
+  - region-of-waterloo-on
+regionAreaKey: urban
+assessmentCode: "3016"
+defaultAssessmentCad: 405000
+idPrefix: WAT
+localBucketLabel: City portion
+dataDir: data/waterloo
+fiscalYear: 2026
+
+extract:
+  files:
+    - pdf: data/_extracts/waterloo/2026-tax-rates-page.txt
+      out: data/_extracts/waterloo/2026-tax-rates-page.txt
+      note: HTML capture already committed; PDF optional later
+
+sources:
+  - id: wat-2026-tax-rates
+    title: City of Waterloo — Check property tax rates (2026 RTEP)
+    url: https://www.waterloo.ca/water-and-tax-billing/tax-billing/check-property-tax-rates/
+    localPath: null
+    extractedText: data/_extracts/waterloo/2026-tax-rates-page.txt
+    asOf: "2026"
+    authority: City of Waterloo
+    note: Official rates HTML table; residential RTEP row.
+  - id: wat-2026-budget
+    title: City of Waterloo 2024–2026 Approved Operating Budget
+    url: https://www.waterloo.ca/media/nm2bdamz/2024-2026-approved-operating-budget-book.pdf
+    localPath: source-pdfs/waterloo/2024-2026-approved-operating-budget-book.pdf
+    extractedText: data/_extracts/waterloo/2026-operating-budget-excerpt.txt
+    asOf: "2025-12"
+    authority: City of Waterloo
+    note: Net tax levy and average assessment illustration.
+
+rates:
+  sourceId: wat-2026-tax-rates
+  fromExtract: data/_extracts/waterloo/2026-tax-rates-page.txt
+  page: 1
+  preferPercent: true
+  excerpt: "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%"
+
+controlTotal:
+  sourceId: wat-2026-budget
+  levyCad: 114990811
+  levyPage: 1
+  levyExcerpt: "resulting in a net Tax Levy of $114,990,811"
+  allocationBaseCad: null
+  assessmentSourceId: wat-2026-tax-rates
+  assessmentPage: 1
+  assessmentExcerpt: "For a home valued at $405,000 in Waterloo, this works out to $5,800.65"
+  taxIncreasePct: 6.41
+  taxIncreaseCad: 106.92
+  increasePage: 1
+  increaseExcerpt: "Property Tax Increase - City of Waterloo $ 106.92 6.41%"
+  status: approved
+
+# Figure #2 service-area pie is image-only in the PDF extract — Tier 0 GAP for departments.
+departments: []

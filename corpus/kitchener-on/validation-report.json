@@ -1,0 +1,31 @@
+{
+  "slug": "kitchener-on",
+  "validatedAt": "2026-07-25T22:58:53.208399+00:00",
+  "ok": true,
+  "publicationStatusDeclared": "draft",
+  "errors": [],
+  "warnings": [],
+  "citationAudit": {
+    "exitCode": 0,
+    "counts": {
+      "verbatim": 16,
+      "numbers-only": 4,
+      "row-bound": 21
+    }
+  },
+  "contentHashes": {
+    "ledger": {
+      "path": "data/kitchener/evidence-ledger.json",
+      "sha256": "6cc32ff89711be1262732d4f1022c179320cfb849c1b30e434b77e45c80869b4"
+    },
+    "receipt": {
+      "path": "data/kitchener/taxpayer-receipt.json",
+      "sha256": "658009ff46be41d5efc8b4183d8dc094ab1de881f197a31a7b78291bf230fce2"
+    },
+    "pack": {
+      "path": "corpus/kitchener-on/pack.yaml",
+      "sha256": "2061f8af9e9d89d094cc3984041b1324770b2946ccb9230df770ab7b2a3223d1"
+    }
+  },
+  "engineNote": "Bridge validator for legacy data/ artifacts. Full corpus YAML + Identity engine arrives with Phase 1 transcription (docs/GENERALIZATION-PLAN.md)."
+}

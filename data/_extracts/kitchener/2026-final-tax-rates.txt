@@ -1,0 +1,51 @@
+
+
+===== PAGE 1 =====
+CITY OF KITCHENER
+2026 FINAL TAX RATES
+Category Class Description CITY REGION EDUCATION TOTAL BIA 
+Downtown BIA Belmont
+Residential R T Residential / Farm Taxable: Full 0.00411164 0.00841834 0.00153000 0.01405998
+R H Residential/Farm Taxable: Full, Shared as if P-I-L 0.00411164 0.00841834 0.00153000 0.01405998
+R 1 Residential / Farm Taxable: Farmland Awaiting Develop 1 0.00308373 0.00631375 0.00114750 0.01054498
+R 4 Residential / Farm Taxable: Farmland Awaiting Develop 2 0.00411164 0.00841834 0.00153000 0.01405998
+Multi-Res. M T Multi-Residential Taxable: Full 0.00801770 0.01641576 0.00153000 0.02596346
+M 1 Multi-Residential Taxable: Farmland Awaiting Develop 1 0.00308373 0.00631375 0.00114750 0.01054498
+M 4 Multi-Residential Taxable: Farmland Awaiting Develop 2 0.00801770 0.01641576 0.00153000 0.02596346
+N T New Multi-Residential Taxable: Full 0.00411164 0.00841834 0.00153000 0.01405998
+Commercial C T Commercial Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776 0.00255893
+C H Commercial Taxable: Hydro, Full, Shared as if P-I-L 0.00801770 0.01641576 0.01250000 0.03693346
+C U Commercial Taxable: Vacant Unit / Excess Land 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776
+C X Commercial Taxable: Vacant Land 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776 0.00255893
+C 1 Commercial Taxable: Farmland 1 0.00308373 0.00631375 0.00114750 0.01054498
+C 4 Commercial Taxable: Farmland 2 0.00801770 0.01641576 0.00880000 0.03323346
+C 7 Commercial Taxable: Small Scale On-Farm Business 0.00801770 0.01641576 0.00220000 0.02663346
+D T Office Buildings Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776 0.00255893
+D U Office Buildings Taxable: Vacant Unit / Excess Land 0.00801770 0.01641576 0.00880000 0.03323346
+G T Parking Lots Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776 0.00255893
+H F Landfill Taxable: Full 0.00633193 0.01296423 0.01250000 0.03179616
+S T Shopping Center Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776
+S U Shopping Center Taxable: Vacant Unit / Excess Land 0.00801770 0.01641576 0.00880000 0.03323346
+X T Commercial (New Construction) Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776
+X U Commercial (New Construction) Taxable: Excess Land 0.00801770 0.01641576 0.00880000 0.03323346
+Y T Office Build New Construction 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776
+Z T Shopping Center (New Construction) Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776
+Z U Shopping Center (New Construction) Taxable: Excess Land 0.00801770 0.01641576 0.00880000 0.03323346
+Industrial I T Industrial Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346 0.00530776
+I H Industrial Taxable: Hydro, Full, Shared as if P-I-L 0.00801770 0.01641576 0.01250000 0.03693346
+I J Industrial Taxable: Vacant Land, Shared as P-I-L 0.00801770 0.01641576 0.01250000 0.03693346
+I K Industrial Taxable: Hydro excess land, Shared as if P-I-L 0.00801770 0.01641576 0.01250000 0.03693346
+I U Industrial Taxable: Vacant Unit / Excess Land 0.00801770 0.01641576 0.00880000 0.03323346
+I X Industrial Taxable: Vacant Land 0.00801770 0.01641576 0.00880000 0.03323346
+I 1 Industrial Taxable:  Farmland Awaiting Develop 1 0.00308373 0.00631375 0.00114750 0.01054498
+I 4 Industrial Taxable:  Farmland Awaiting Develop 2 0.00801770 0.01641576 0.00880000 0.03323346
+I 7 Industrial Taxable:  Small Scale On-Farm Business 0.00801770 0.01641576 0.00220000 0.02663346
+J T Industrial (New Construction) Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346
+L T Large Industrial Taxable: Full 0.00801770 0.01641576 0.00880000 0.03323346
+L U Large Industrial Taxable: Vacant Unit / Excess Land 0.00801770 0.01641576 0.00880000 0.03323346
+Others F T Farmlands Taxable: Full 0.00102791 0.00210459 0.00038250 0.00351500
+P T Pipelines Taxable: Full 0.00477485 0.00977622 0.00880000 0.02335107
+T T Managed Forest Taxable: Full 0.00102791 0.00210459 0.00038250 0.00351500
+V T Aggregate Extraction Taxable: Full 0.00652405 0.01335760 0.00511000 0.02499165
+Special Special Charges: King St sdwk snow removal $32.53 /meter
+Charges Special Charges: Side St sdwk snow removal $9.88 /meter

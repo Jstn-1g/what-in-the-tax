@@ -1,0 +1,49 @@
+# Jurisdiction pack descriptor (bridge form).
+# City of Kitchener — lower-tier in Region of Waterloo.
+
+slug: kitchener-on
+name: City of Kitchener
+country: CA
+subdivision: ON
+level: lower-tier
+parentBodies:
+  - region-of-waterloo-on
+aliases:
+  - Kitchener
+  - Kitchener, Ontario
+  - Kitchener ON
+assessmentCode: "3012"  # pending FIR Schedule 02 lock (see GAP)
+fiscalYear: 2026
+currency: CAD
+locale: en-CA
+valuationBasis: "MPAC CVA (City average illustration $326,000)"
+defaultAssessmentCad: 326000
+engineTag: engine/0.1.0-bridge
+packVersion: "2026.0-draft"
+
+publication:
+  status: draft
+  lifecycle: draft
+  tier: 0  # receipt + gaps; no published findings yet
+  license: MIT
+  publisher: null
+  contact: null
+  refreshDueBy: "2027-04-30"
+  notes: >
+    First gold-style draft for City of Kitchener. Dual-tier: City + Region + education.
+    Region urban household schedule imported from region-of-waterloo-on shared pack
+    (informational @ $354,500). Bill-stack Region total remains rate × $326,000.
+    Validate and audit before sealing.
+
+artifacts:
+  ledger: data/kitchener/evidence-ledger.json
+  receipt: data/kitchener/taxpayer-receipt.json
+  sourcesRoot: source-pdfs/kitchener/
+  extractsRoot: data/_extracts/kitchener/
+
+controlTotal:
+  amountCad: 171432000
+  label: Published net tax levy (Budget Summary)
+  note: >
+    Household department shares use Appendix B net departmental expenditures
+    ($170,039,303), not this levy headline — see GAP-KIT-LEVY-VS-DEPTS.

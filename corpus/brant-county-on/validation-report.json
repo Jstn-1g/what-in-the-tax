@@ -1,0 +1,30 @@
+{
+  "slug": "brant-county-on",
+  "validatedAt": "2026-07-25T21:19:47.574725+00:00",
+  "ok": true,
+  "publicationStatusDeclared": "draft",
+  "errors": [],
+  "warnings": [],
+  "citationAudit": {
+    "exitCode": 0,
+    "counts": {
+      "verbatim": 19,
+      "normalized": 2
+    }
+  },
+  "contentHashes": {
+    "ledger": {
+      "path": "data/brant/evidence-ledger.json",
+      "sha256": "1868bae066c786fc8669e62707ab51012f7bde476f43508f28a15d4f8895aca8"
+    },
+    "receipt": {
+      "path": "data/brant/taxpayer-receipt.json",
+      "sha256": "5b9bf4035fb18cf6115f2c87f3d29557210ec04e223b64653bdd5d52425137c5"
+    },
+    "pack": {
+      "path": "corpus/brant-county-on/pack.yaml",
+      "sha256": "247d73770507d86ddc10f38de48150b638be0c36f0e24423f90656520fd75b31"
+    }
+  },
+  "engineNote": "Bridge validator for legacy data/ artifacts. Full corpus YAML + Identity engine arrives with Phase 1 transcription (docs/GENERALIZATION-PLAN.md)."
+}

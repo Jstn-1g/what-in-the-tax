@@ -1,0 +1,41 @@
+slug: waterloo-on
+name: City of Waterloo
+country: CA
+subdivision: ON
+level: lower-tier
+parentBodies:
+  - region-of-waterloo-on
+aliases:
+  - Waterloo
+  - Waterloo ON
+assessmentCode: "3016"
+fiscalYear: 2026
+currency: CAD
+locale: en-CA
+valuationBasis: "MPAC CVA (City average illustration $405,000)"
+defaultAssessmentCad: 405000
+engineTag: engine/0.1.0-bridge
+packVersion: "2026.0-draft"
+
+publication:
+  status: draft
+  lifecycle: draft
+  tier: 0
+  license: MIT
+  publisher: null
+  contact: null
+  refreshDueBy: "2027-04-30"
+  notes: >
+    Dual-tier urban (same Region urban schedule as Kitchener/Cambridge).
+    Department pie is image-only — local share unallocated until table bound.
+
+artifacts:
+  ledger: data/waterloo/evidence-ledger.json
+  receipt: data/waterloo/taxpayer-receipt.json
+  sourcesRoot: source-pdfs/waterloo/
+  extractsRoot: data/_extracts/waterloo/
+
+controlTotal:
+  amountCad: 114990811
+  label: Published net tax levy (2026 Operating Budget Summary)
+  note: Household department split is GAP (image-only Figure #2).

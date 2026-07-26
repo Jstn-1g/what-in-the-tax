@@ -48,7 +48,7 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1] if (Path(__file__).resolve().parents[1] / "data").exists() else Path.cwd()
+ROOT = Path(__file__).resolve().parents[1]
 
 PAGE_MARKER = re.compile(r"=====\s*PAGE\s+(\d+)\s*=====")
 NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
@@ -166,7 +166,8 @@ HARD_FAIL = {"not-found", "wrong-page"}
 
 def main(argv: list[str]) -> int:
     ledger_path = Path(argv[1]) if len(argv) > 1 else ROOT / "data" / "evidence-ledger.json"
-    base = ledger_path.resolve().parents[1]
+    if not ledger_path.is_absolute():
+        ledger_path = (Path.cwd() / ledger_path).resolve()
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
 
     sources = {s["id"]: s for s in ledger.get("sources", [])}
@@ -175,7 +176,11 @@ def main(argv: list[str]) -> int:
         rel = src.get("extractedText")
         if not rel:
             continue
-        p = (base / rel)
+        # Ledger paths are repo-relative (data/_extracts/...). Nested packs under
+        # data/<slug>/ must still resolve from ROOT, not from the ledger folder.
+        p = Path(rel)
+        if not p.is_absolute():
+            p = ROOT / rel
         if not p.exists():
             continue
         text = p.read_text(encoding="utf-8", errors="replace")
