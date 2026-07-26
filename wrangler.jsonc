@@ -2,10 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tax-receipt-prototype",
   "compatibility_date": "2026-07-25",
+  // This static preview has no application logs. Disable automatic request-log
+  // persistence; platform-level aggregate metrics may still exist in Cloudflare.
   "observability": {
-    "enabled": true
+    "enabled": false
   },
-  // Serve the Vite *production* build, not the raw web/ source (that points at /src/main.tsx and shows a blank page).
+  // Serve the Vite production build. web/public/_headers is copied into this
+  // directory and applied by Cloudflare Static Assets.
   "assets": {
     "directory": "./web/dist",
     "not_found_handling": "single-page-application"

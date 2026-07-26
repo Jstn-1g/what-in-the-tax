@@ -1,6 +1,36 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "EvidenceLedger",
+  "fiscalYear": 2026,
+  "currency": "CAD",
+  "buildPolicies": {
+    "fiscalYear": {
+      "value": "2026",
+      "declaration": "config.fiscalYear",
+      "sealedEligible": true
+    },
+    "rateUnit": {
+      "sourceUnit": "decimal",
+      "canonicalUnit": "decimal",
+      "declaration": "config.rateUnit",
+      "sealedEligible": true
+    },
+    "rounding": {
+      "strategy": "component",
+      "method": "half-up",
+      "quantumCad": 0.01,
+      "source": "builder-default (preview only)",
+      "sourceDeclared": false,
+      "sealedEligible": false
+    },
+    "assessment": {
+      "measureType": "reference_scenario",
+      "declaration": "controlTotal.assessmentMeasureType",
+      "sourceId": "row-2026-book",
+      "sourceAuthority": "Region of Waterloo",
+      "sealedEligible": true
+    }
+  },
   "jurisdiction": {
     "slug": "woolwich-on",
     "name": "Township of Woolwich",
@@ -12,7 +42,7 @@
     "upperTier": [
       "region-of-waterloo-on"
     ],
-    "assessmentCode": "3024",
+    "assessmentCode": "3029",
     "note": "Lower-tier in Region of Waterloo. Assessment code pending Schedule 02 lock."
   },
   "evidencePolicy": {
@@ -57,23 +87,15 @@
   ],
   "facts": [
     {
-      "id": "WOO-LEVY-2026",
-      "sourceId": "woo-2026-budget",
-      "page": 1,
-      "label": "Township of Woolwich 2026 average-household tax increase dollars",
-      "amountCad": 99.83,
-      "excerpt": "increase of $99.83 annually for the average household",
-      "status": "approved",
-      "kind": "FACT"
-    },
-    {
-      "id": "WOO-AVG-ASSESSMENT-2026",
-      "sourceId": "woo-2026-budget",
-      "page": 1,
-      "label": "Average assessed value used for residential impact illustrations",
+      "id": "WOO-REFERENCE-ASSESSMENT-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Reference assessment scenario \u2014 not a published Township of Woolwich average",
       "amountCad": 354500,
-      "excerpt": "Region of Waterloo household schedule uses $354,500 \u2014 used as illustration assessment for this Tier 0 pack with GAP disclosure",
-      "status": "approved",
+      "unit": "cad",
+      "measureType": "reference_scenario",
+      "excerpt": "Based on an average residential property valued at $354,500",
+      "status": "reference_scenario",
       "kind": "FACT"
     },
     {
@@ -83,6 +105,9 @@
       "label": "RT Residential local tax rate 2026",
       "amountCad": 0.00322187,
       "unit": "rate",
+      "sourceRateUnit": "decimal",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "config.rateUnit",
       "excerpt": "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501",
       "status": "final",
       "kind": "FACT"
@@ -94,6 +119,9 @@
       "label": "RT Residential Region tax rate 2026 (as printed locally)",
       "amountCad": 0.00738314,
       "unit": "rate",
+      "sourceRateUnit": "decimal",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "config.rateUnit",
       "excerpt": "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501",
       "status": "final",
       "kind": "FACT"
@@ -105,6 +133,9 @@
       "label": "RT Residential Education tax rate 2026",
       "amountCad": 0.00153,
       "unit": "rate",
+      "sourceRateUnit": "decimal",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "config.rateUnit",
       "excerpt": "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501",
       "status": "final",
       "kind": "FACT"
@@ -116,6 +147,9 @@
       "label": "RT Residential total tax rate 2026",
       "amountCad": 0.01213501,
       "unit": "rate",
+      "sourceRateUnit": "decimal",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "config.rateUnit",
       "excerpt": "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501",
       "status": "final",
       "kind": "FACT"
@@ -127,16 +161,19 @@
       "label": "2026 property tax rate increase (local)",
       "amountCad": 7.8,
       "unit": "percent",
+      "measureType": "rate_increase",
       "excerpt": "7.8% total tax increase ... increase of $99.83 annually for the average household",
       "status": "approved",
       "kind": "FACT"
     },
     {
-      "id": "WOO-TAX-INCREASE-CAD-2026",
+      "id": "WOO-AVG-HOUSEHOLD-INCREASE-CAD-2026",
       "sourceId": "woo-2026-budget",
       "page": 1,
-      "label": "2026 average-home local tax increase dollars",
+      "label": "2026 average-household local tax increase dollars",
       "amountCad": 99.83,
+      "unit": "cad",
+      "measureType": "average_household_increase",
       "excerpt": "7.8% total tax increase ... increase of $99.83 annually for the average household",
       "status": "approved",
       "kind": "FACT"
@@ -466,41 +503,41 @@
   "derived": [
     {
       "id": "DRV-WOO-BILL-CITY",
-      "label": "Local portion at average assessment",
+      "label": "Local portion at reference assessment scenario",
       "amountCad": 1142.15,
-      "formula": "WOO-AVG-ASSESSMENT-2026 * WOO-TAXRATE-RES-CITY-2026",
+      "formula": "WOO-REFERENCE-ASSESSMENT-2026 * WOO-TAXRATE-RES-CITY-2026",
       "inputs": [
-        "WOO-AVG-ASSESSMENT-2026",
+        "WOO-REFERENCE-ASSESSMENT-2026",
         "WOO-TAXRATE-RES-CITY-2026"
       ],
       "kind": "DERIVED"
     },
     {
       "id": "DRV-WOO-BILL-REGION",
-      "label": "Region portion at average assessment",
+      "label": "Region portion at reference assessment scenario",
       "amountCad": 2617.32,
-      "formula": "WOO-AVG-ASSESSMENT-2026 * WOO-TAXRATE-RES-REGION-2026",
+      "formula": "WOO-REFERENCE-ASSESSMENT-2026 * WOO-TAXRATE-RES-REGION-2026",
       "inputs": [
-        "WOO-AVG-ASSESSMENT-2026",
+        "WOO-REFERENCE-ASSESSMENT-2026",
         "WOO-TAXRATE-RES-REGION-2026"
       ],
       "kind": "DERIVED"
     },
     {
       "id": "DRV-WOO-BILL-EDUCATION",
-      "label": "Education portion at average assessment",
-      "amountCad": 542.38,
-      "formula": "WOO-AVG-ASSESSMENT-2026 * WOO-TAXRATE-RES-EDUCATION-2026",
+      "label": "Education portion at reference assessment scenario",
+      "amountCad": 542.39,
+      "formula": "WOO-REFERENCE-ASSESSMENT-2026 * WOO-TAXRATE-RES-EDUCATION-2026",
       "inputs": [
-        "WOO-AVG-ASSESSMENT-2026",
+        "WOO-REFERENCE-ASSESSMENT-2026",
         "WOO-TAXRATE-RES-EDUCATION-2026"
       ],
       "kind": "DERIVED"
     },
     {
       "id": "DRV-WOO-BILL-COMBINED",
-      "label": "Combined RT bill at average assessment",
-      "amountCad": 4301.85,
+      "label": "Combined RT bill at reference assessment scenario",
+      "amountCad": 4301.86,
       "formula": "city + region + education",
       "inputs": [
         "DRV-WOO-BILL-CITY",
@@ -508,10 +545,30 @@
         "DRV-WOO-BILL-EDUCATION",
         "WOO-TAXRATE-RES-TOTAL-2026"
       ],
+      "roundingPolicy": {
+        "strategy": "component",
+        "method": "half-up",
+        "quantumCad": 0.01,
+        "source": "builder-default (preview only)",
+        "sourceDeclared": false,
+        "sealedEligible": false
+      },
       "kind": "DERIVED"
     }
   ],
   "gaps": [
+    {
+      "id": "GAP-WOO-LEVY-ABSOLUTE",
+      "title": "Absolute net tax levy is not bound as a typed control total",
+      "detail": "No source-bound controlTotal with measureType absolute_levy is available for 2026.",
+      "blocks": [
+        "absolute_levy_control"
+      ],
+      "neededEvidence": [
+        "Published absolute net tax levy with source page and excerpt"
+      ],
+      "kind": "GAP"
+    },
     {
       "id": "GAP-WOO-DEPT-SCHEDULE",
       "title": "Local department household allocation not transcribed",
@@ -530,14 +587,14 @@
       "detail": "Local bill uses REGION rate \u00d7 $354,500 = $2,617.32. Region woolwich household schedule totals $2,617 at $354,500. Informational only until an explicit rate\u00d7assessment DERIVED path is approved.",
       "blocks": [],
       "neededEvidence": [
-        "Approved formula mapping Region woolwich HH lines onto the local average assessment bill"
+        "Approved formula mapping Region woolwich HH lines onto the local reference assessment scenario bill"
       ],
       "kind": "GAP"
     },
     {
       "id": "GAP-WOO-FIR-CODE-VERIFY",
       "title": "FIR / MAH assessment code not yet locked from Schedule 02",
-      "detail": "Pack uses working code 3024 pending a hand-checked FIR Schedule 02 row.",
+      "detail": "Pack uses working code 3029 pending a hand-checked FIR Schedule 02 row.",
       "blocks": [],
       "neededEvidence": [
         "FIR Schedule 02 MAH code for Township of Woolwich"

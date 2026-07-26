@@ -48,7 +48,7 @@ comparison is unavailable or invalid, the honest output is refusal, not a weaker
 | **Blockchain as source of truth** | The source of truth is the municipality's published document. Integrity is content hashes in `manifest.json`, git tags, and an independent archive snapshot as the citation of record (§9.6, §11.8). A chain answers "this bytestring existed" and never answers "page 103 says this," while moving the reader's trust from the municipality's document to our ledger. |
 | **Address entry / per-parcel lookup** | Licence- and privacy-encumbered in Ontario and legally different in every jurisdiction (§6.8). The reader types the assessed value already printed on their bill; the tool never accepts an address, postal code, roll number or owner name. |
 | **Rankings, scores, leaderboards** | Invalid by our own methodology and most wrong for the small rural municipalities that make up most of the fleet, because their police and transit sit upstream (§6.12). Non-comparability must be machine-readable and refusal is the default (§10.11). |
-| **Non-English packs** | A verbatim French excerpt in an English UI is unverifiable to the reader; a translation is no longer verbatim, so the FACT tier itself degrades (§6.13). v1 is English-only and therefore excludes Quebec, New Brunswick and Ontario FLSA-designated municipalities. A stated boundary is honest; a silent one is a defect. |
+| **Unreviewed-language publication** | The current preview interface is English-only and is not Canada-wide publication-ready. A national release requires reviewed English/French interface catalogs, dynamic document language, locale-aware rates and dates, and source-native evidence. A translated excerpt must be labelled as a reviewed translation rather than verbatim evidence. No finding may be published in a language in which a competent human has not reviewed its claim strength. Runtime machine translation is out of scope. |
 | **US jurisdictions** | Overlapping independently governed districts are a property of the parcel, not the city; none of the Ontario abstractions survive (§7.1, Phase 5). |
 
 ## Operating posture: receipts at scale, findings rare and by hand
@@ -70,7 +70,7 @@ Adopted, as recommended in §13 Q2.
 
 ## Honest current state
 
-No pack is published, and none may be labelled Published today. The North Dumfries pack has
-**13 wrong-page citations out of 93 facts** in `data/citation-audit.json`, which are hard failures
-under `scripts/audit_citations.py`. It is a **draft** until Phase 0 item 3 is done and the audit
-re-runs green. See `PUBLISH.md`.
+No pack is published, and none may be labelled Published today. The current citation audits may
+report zero traditional hard failures, but source locks, identity checks, deterministic
+calculation/rounding, public/internal artifact separation, and deployment-byte attestation are not
+yet complete. North Dumfries and every other pack remain **draft previews**. See `PUBLISH.md`.

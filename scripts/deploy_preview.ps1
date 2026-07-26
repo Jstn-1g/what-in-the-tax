@@ -4,7 +4,8 @@
 #   .\scripts\deploy_preview.ps1
 #   .\scripts\deploy_preview.ps1 -Packs waterloo-on,kitchener-on
 #
-# Gate: validate_pack + audit hard-fails + vitest + vite build, then wrangler deploy.
+# Gate: read-only pack validation + public projection freshness + vitest +
+# a fresh Vite build, then wrangler deploy.
 # Target: https://tax-receipt-prototype.jstn0513.workers.dev/
 
 param(
@@ -33,39 +34,48 @@ foreach ($slug in $Packs) {
     continue
   }
   Write-Host "validate $slug"
-  python scripts/validate_pack.py $slug
+  python scripts/validate_pack.py $slug --no-write
   if ($LASTEXITCODE -ne 0) {
     throw "validate_pack failed for $slug"
   }
 }
 
-if (-not $SkipTests) {
-  Write-Host "== web tests + build ==" -ForegroundColor Cyan
-  Push-Location (Join-Path $Root "web")
-  try {
+Write-Host "== verify public pack projection ==" -ForegroundColor Cyan
+python scripts/build_public_packs.py --check
+if ($LASTEXITCODE -ne 0) {
+  throw "public pack projection is missing, stale, or contains unexpected artifacts"
+}
+
+Write-Host "== web tests + fresh build ==" -ForegroundColor Cyan
+Push-Location (Join-Path $Root "web")
+try {
+  if (-not $SkipTests) {
     npm test -- --run
     if ($LASTEXITCODE -ne 0) { throw "vitest failed" }
-    npm run build
-    if ($LASTEXITCODE -ne 0) { throw "vite build failed" }
-  } finally {
-    Pop-Location
   }
+  # A build is mandatory even with -SkipTests: Wrangler serves web/dist, and
+  # reusing an older dist could reintroduce stale or blocked public artifacts.
+  npm run build
+  if ($LASTEXITCODE -ne 0) { throw "vite build failed" }
+} finally {
+  Pop-Location
 }
 
 if ($SkipDeploy) {
-  Write-Host "SkipDeploy set — build gate passed; not deploying."
+  Write-Host "SkipDeploy set - build gate passed; not deploying."
   exit 0
 }
 
 if (-not $env:CLOUDFLARE_API_TOKEN) {
-  Write-Host @"
+  $credentialHelp = @"
 CLOUDFLARE_API_TOKEN is not set and this shell is non-interactive.
 Run once in your terminal:
   npx wrangler login
 or set CLOUDFLARE_API_TOKEN, then:
   npx wrangler deploy
 Target: https://tax-receipt-prototype.jstn0513.workers.dev/
-"@ -ForegroundColor Yellow
+"@
+  Write-Host $credentialHelp -ForegroundColor Yellow
   exit 2
 }
 

@@ -497,16 +497,6 @@
   ],
   "gaps": [
     {
-      "id": "GAP-BRANT-NO-UPPER-TIER",
-      "title": "No separate upper-tier Region column",
-      "detail": "County of Brant is single-tier. Services that appear under Region of Waterloo for North Dumfries (police contract, paramedics share, etc.) sit inside the County levy (External Agencies / Emergency & Protective Services). There is no Region household table to cite.",
-      "blocks": [
-        "region_bucket"
-      ],
-      "neededEvidence": [],
-      "kind": "GAP"
-    },
-    {
       "id": "GAP-BRANT-PEER-FIR-FAIRNESS",
       "title": "Peer per-capita fairness check not yet run for Brant",
       "detail": "North Dumfries gold pack includes MMAH FIR Schedule 40 peer benchmarks. Brant has a fleet FIR stub (code 2920) but this gold receipt has not yet published a hand-checked peer fairness finding.",
@@ -516,14 +506,6 @@
       "neededEvidence": [
         "Hand-checked FIR Schedule 40 peer cohort + population basis disclosure"
       ],
-      "kind": "GAP"
-    },
-    {
-      "id": "GAP-PARIS-ALIAS",
-      "title": "Paris is an alias for County of Brant billing",
-      "detail": "Searching for 'Paris, Ontario' should resolve to Brant County assessment code 2920. There is no separate Town of Paris lower-tier tax by-law in this model.",
-      "blocks": [],
-      "neededEvidence": [],
       "kind": "GAP"
     },
     {

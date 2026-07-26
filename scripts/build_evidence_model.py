@@ -1476,7 +1476,11 @@ receipt = {
     "schemaVersion": "2.0.0",
     "artifact": "TaxpayerReceipt",
     "status": "partial_evidence_based",
-    "purpose": "UI data model using only supported allocations. Hypothetical $5,000 combined bill is NOT fully allocatable — see gaps.",
+    "purpose": (
+        "UI data model using only supported allocations. A hypothetical $5,000 "
+        "combined bill can be split among taxing bodies from adopted rates; it "
+        "is not a published household bill."
+    ),
     "evidencePolicyRef": "data/evidence-ledger.json",
     "jurisdiction": {
         "slug": "north-dumfries-on",
@@ -1610,6 +1614,13 @@ print("gaps", len(gaps))
 print("closedGaps", len(closed_gaps))
 print("findings", len(findings))
 print("pack", "corpus/north-dumfries-on (status: see pack.yaml — run scripts/validate_pack.py)")
-print("region rural lines sum", region_sum, "after PIL", region_sum - 78)
+print(
+    "region rural service lines",
+    region_sum,
+    "published subtotal",
+    region_sum + 2,
+    "after PIL",
+    region_sum + 2 - 78,
+)
 print("township alloc sum", round(sum(x["amountCad"] for x in township_lines), 2))
 print("wrote evidence-ledger.json and taxpayer-receipt.json")

@@ -1,6 +1,8 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
+  "fiscalYear": 2026,
+  "currency": "CAD",
   "status": "partial_evidence_based",
   "purpose": "City of Waterloo 2026 taxpayer receipt. Lower-tier: local + Region of Waterloo + education.",
   "evidencePolicyRef": "data/waterloo/evidence-ledger.json",
@@ -18,7 +20,7 @@
     "supportedAverageHousehold": {
       "description": "Published average residential assessment ($405,000).",
       "township": {
-        "basis": "City of Waterloo local portion at average assessment \u2014 unallocated pending department schedule",
+        "basis": "City of Waterloo local portion at published average assessment \u2014 unallocated pending department schedule",
         "amountCad": 1771.58,
         "assessmentCad": 405000,
         "evidenceStatus": "DERIVED",
@@ -26,7 +28,7 @@
         "lineItems": [
           {
             "id": "WAT-LOCAL-RATE-PORTION",
-            "label": "City of Waterloo (combined \u2014 rate \u00d7 average assessment)",
+            "label": "City of Waterloo (combined \u2014 rate \u00d7 published average assessment)",
             "amountCad": 1771.58,
             "classification": "city_levy_unallocated",
             "evidenceStatus": "DERIVED",
@@ -48,7 +50,7 @@
         "lineItems": [
           {
             "id": "WAT-REGION-RATE-PORTION",
-            "label": "Region of Waterloo (combined \u2014 rate \u00d7 local average assessment)",
+            "label": "Region of Waterloo (combined \u2014 rate \u00d7 published average assessment)",
             "amountCad": 3409.43,
             "classification": "region_tax_supported",
             "evidenceStatus": "DERIVED",
@@ -305,10 +307,10 @@
         "note": "Province sets this rate; the local municipality collects it.",
         "uiLabel": "Education"
       },
-      "combinedTotalCad": 5800.66,
+      "combinedTotalCad": 5800.65,
       "combinedAtAssessment": {
         "assessmentCad": 405000,
-        "basis": "RT Residential rates applied to published average assessment",
+        "basis": "RT Residential rates applied to published average assessment; assessment evidence: WAT-AVG-ASSESSMENT-2026",
         "evidenceStatus": "DERIVED",
         "components": [
           {
@@ -330,10 +332,42 @@
             "sourceFactId": "WAT-TAXRATE-RES-EDUCATION-2026"
           }
         ],
-        "totalCad": 5800.66,
-        "totalRate": 0.0143226
+        "totalCad": 5800.65,
+        "totalRate": 0.0143226,
+        "calculationPolicy": {
+          "fiscalYear": {
+            "value": "2026",
+            "declaration": "config.fiscalYear",
+            "sealedEligible": true
+          },
+          "rateUnit": {
+            "sourceUnit": "percent",
+            "canonicalUnit": "decimal",
+            "declaration": "printed_suffix+config.rateUnit",
+            "sealedEligible": true
+          },
+          "rounding": {
+            "strategy": "total",
+            "method": "half-up",
+            "quantumCad": 0.01,
+            "source": "Official Waterloo worked example prints $5,800.65 at $405,000",
+            "sourceDeclared": true,
+            "sealedEligible": true
+          },
+          "assessment": {
+            "measureType": "published_average",
+            "declaration": "controlTotal.assessmentMeasureType",
+            "sourceId": "wat-2026-tax-rates",
+            "sourceAuthority": "City of Waterloo",
+            "sealedEligible": true
+          },
+          "componentSumCad": 5800.66,
+          "totalRateAmountCad": 5800.65,
+          "roundingAdjustmentCad": -0.01,
+          "componentVsTotalRateDeltaCad": 0.01
+        }
       },
-      "combinedTotalNote": "Local $1,771.58 + Region $3,409.43 + Education $619.65 = $5,800.66 at $405,000.",
+      "combinedTotalNote": "Local $1,771.58 + Region $3,409.43 + Education $619.65 + source rounding -0.01 = $5,800.65 at $405,000.",
       "warnings": [
         "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",
         "Local department split is GAP until a suitable table is transcribed.",

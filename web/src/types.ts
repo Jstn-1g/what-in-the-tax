@@ -79,6 +79,8 @@ export type Gap = {
   detail: string
   blocks: string[]
   neededEvidence: string[]
+  /** Required in generated public packs; optional in legacy internal ledgers. */
+  disposition?: 'missing_evidence' | 'not_applicable' | 'resolved_context'
 }
 
 export type TaxpayerReceipt = {

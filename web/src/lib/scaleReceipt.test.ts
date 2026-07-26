@@ -8,6 +8,10 @@ describe('evidence-first receipt', () => {
 
   it('marks $5,000 combined bill as allocatable now that by-law rates are cited', () => {
     expect(data.profiles.hypothetical5000.allocatable).toBe(true)
+    expect(data.purpose).toContain(
+      'can be split among taxing bodies from adopted rates',
+    )
+    expect(data.purpose).not.toMatch(/not fully allocatable/i)
   })
 
   it('keeps supported township and region totals', () => {

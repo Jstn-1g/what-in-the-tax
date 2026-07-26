@@ -1,6 +1,8 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
+  "fiscalYear": 2026,
+  "currency": "CAD",
   "status": "partial_evidence_based",
   "purpose": "Township of Woolwich 2026 taxpayer receipt. Lower-tier: local + Region of Waterloo + education.",
   "evidencePolicyRef": "data/woolwich/evidence-ledger.json",
@@ -15,9 +17,9 @@
   },
   "profiles": {
     "supportedAverageHousehold": {
-      "description": "Published average residential assessment ($354,500).",
+      "description": "Reference residential assessment scenario ($354,500); not a published Township of Woolwich average.",
       "township": {
-        "basis": "Township of Woolwich local portion at average assessment \u2014 unallocated pending department schedule",
+        "basis": "Township of Woolwich local portion at reference assessment scenario \u2014 unallocated pending department schedule",
         "amountCad": 1142.15,
         "assessmentCad": 354500,
         "evidenceStatus": "DERIVED",
@@ -25,7 +27,7 @@
         "lineItems": [
           {
             "id": "WOO-LOCAL-RATE-PORTION",
-            "label": "Township of Woolwich (combined \u2014 rate \u00d7 average assessment)",
+            "label": "Township of Woolwich (combined \u2014 rate \u00d7 reference assessment scenario)",
             "amountCad": 1142.15,
             "classification": "city_levy_unallocated",
             "evidenceStatus": "DERIVED",
@@ -47,7 +49,7 @@
         "lineItems": [
           {
             "id": "WOO-REGION-RATE-PORTION",
-            "label": "Region of Waterloo (combined \u2014 rate \u00d7 local average assessment)",
+            "label": "Region of Waterloo (combined \u2014 rate \u00d7 reference assessment scenario)",
             "amountCad": 2617.32,
             "classification": "region_tax_supported",
             "evidenceStatus": "DERIVED",
@@ -297,17 +299,17 @@
       },
       "education": {
         "basis": "RT Residential Education rate at $354,500",
-        "amountCad": 542.38,
+        "amountCad": 542.39,
         "assessmentCad": 354500,
         "evidenceStatus": "DERIVED",
         "sourceFactId": "DRV-WOO-BILL-EDUCATION",
         "note": "Province sets this rate; the local municipality collects it.",
         "uiLabel": "Education"
       },
-      "combinedTotalCad": 4301.85,
+      "combinedTotalCad": 4301.86,
       "combinedAtAssessment": {
         "assessmentCad": 354500,
-        "basis": "RT Residential rates applied to published average assessment",
+        "basis": "RT Residential rates applied to reference assessment scenario; assessment evidence: WOO-REFERENCE-ASSESSMENT-2026",
         "evidenceStatus": "DERIVED",
         "components": [
           {
@@ -324,20 +326,53 @@
           },
           {
             "label": "Education (Province of Ontario)",
-            "amountCad": 542.38,
+            "amountCad": 542.39,
             "rate": 0.00153,
             "sourceFactId": "WOO-TAXRATE-RES-EDUCATION-2026"
           }
         ],
-        "totalCad": 4301.85,
-        "totalRate": 0.01213501
+        "totalCad": 4301.86,
+        "totalRate": 0.01213501,
+        "calculationPolicy": {
+          "fiscalYear": {
+            "value": "2026",
+            "declaration": "config.fiscalYear",
+            "sealedEligible": true
+          },
+          "rateUnit": {
+            "sourceUnit": "decimal",
+            "canonicalUnit": "decimal",
+            "declaration": "config.rateUnit",
+            "sealedEligible": true
+          },
+          "rounding": {
+            "strategy": "component",
+            "method": "half-up",
+            "quantumCad": 0.01,
+            "source": "builder-default (preview only)",
+            "sourceDeclared": false,
+            "sealedEligible": false
+          },
+          "assessment": {
+            "measureType": "reference_scenario",
+            "declaration": "controlTotal.assessmentMeasureType",
+            "sourceId": "row-2026-book",
+            "sourceAuthority": "Region of Waterloo",
+            "sealedEligible": true
+          },
+          "componentSumCad": 4301.86,
+          "totalRateAmountCad": 4301.86,
+          "roundingAdjustmentCad": 0,
+          "componentVsTotalRateDeltaCad": 0
+        }
       },
-      "combinedTotalNote": "Local $1,142.15 + Region $2,617.32 + Education $542.38 = $4,301.85 at $354,500.",
+      "combinedTotalNote": "Local $1,142.15 + Region $2,617.32 + Education $542.39 = $4,301.86 at $354,500.",
       "warnings": [
         "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",
         "Local department split is GAP until a suitable table is transcribed.",
         "Region bill line is rate \u00d7 $354,500; Region woolwich schedule at $354,500 is informational only (GAP-WOO-REGION-ASSESSMENT-BRIDGE).",
-        "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt."
+        "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt.",
+        "Bill rounding uses the preview-only builder default. Bind rates.rounding to a named source before sealing this pack."
       ]
     },
     "hypothetical5000": {

@@ -863,19 +863,21 @@
       "excerpt": "Police Service ... Rural $900",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
       "id": "ROW-RURAL-HH-02",
       "sourceId": "row-2026-book",
       "page": 12,
-      "label": "Rural household \u2014 Public Transit (area-rated; rural)",
+      "label": "Rural household \u2014 Public Transit",
       "amountCad": 63,
       "regionalNetExpenditure000s": 231203,
       "regionalPropertyTaxLevy000s": 156402,
-      "excerpt": "Public Transit (area-rated; rural) ... Rural $63",
+      "excerpt": "Public Transit ... Rural $63",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -889,19 +891,21 @@
       "excerpt": "Housing Services ... Rural $429",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
       "id": "ROW-RURAL-HH-04",
       "sourceId": "row-2026-book",
       "page": 12,
-      "label": "Rural household \u2014 Roads / Design & Construction / Engineering",
+      "label": "Rural household \u2014 Roads/Design & Construction/Eng.",
       "amountCad": 240,
       "regionalNetExpenditure000s": 78529,
       "regionalPropertyTaxLevy000s": 72779,
-      "excerpt": "Roads / Design & Construction / Engineering ... Rural $240",
+      "excerpt": "Roads/Design & Construction/Eng. ... Rural $240",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -915,6 +919,7 @@
       "excerpt": "Waste Management ... Rural $213",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -928,6 +933,7 @@
       "excerpt": "Financial Expenses ... Rural $89",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -941,19 +947,21 @@
       "excerpt": "Paramedic Services ... Rural $134",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
       "id": "ROW-RURAL-HH-08",
       "sourceId": "row-2026-book",
       "page": 12,
-      "label": "Rural household \u2014 Employment / Income Support",
+      "label": "Rural household \u2014 Employment/Income Support",
       "amountCad": 53,
       "regionalNetExpenditure000s": 144080,
       "regionalPropertyTaxLevy000s": 16098,
-      "excerpt": "Employment / Income Support ... Rural $53",
+      "excerpt": "Employment/Income Support ... Rural $53",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -967,6 +975,7 @@
       "excerpt": "Seniors' Services ... Rural $51",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -980,6 +989,7 @@
       "excerpt": "Human Resources ... Rural $39",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -993,6 +1003,7 @@
       "excerpt": "Information Technology Services ... Rural $49",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1006,6 +1017,7 @@
       "excerpt": "Public Health ... Rural $45",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1019,6 +1031,7 @@
       "excerpt": "Facilities & Fleet Management ... Rural $24",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1032,6 +1045,7 @@
       "excerpt": "Cultural Services ... Rural $33",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1045,19 +1059,21 @@
       "excerpt": "Children's Services ... Rural $30",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
       "id": "ROW-RURAL-HH-16",
       "sourceId": "row-2026-book",
       "page": 12,
-      "label": "Rural household \u2014 Elected Offices & Office of the CAO",
+      "label": "Rural household \u2014 Elected Offices & Office of the Chief Administrative Officer",
       "amountCad": 17,
       "regionalNetExpenditure000s": 5256,
       "regionalPropertyTaxLevy000s": 5256,
-      "excerpt": "Elected Offices & Office of the CAO ... Rural $17",
+      "excerpt": "Elected Offices & Office of the Chief Administrative Officer ... Rural $17",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1071,6 +1087,7 @@
       "excerpt": "Resident Experience, Strategy and Communications ... Rural $19",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1084,6 +1101,7 @@
       "excerpt": "Airport ... Rural $31",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1097,6 +1115,7 @@
       "excerpt": "Planning, Development & Legislative Services ... Rural $21",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1110,19 +1129,21 @@
       "excerpt": "Finance ... Rural $24",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
       "id": "ROW-RURAL-HH-21",
       "sourceId": "row-2026-book",
       "page": 12,
-      "label": "Rural household \u2014 Regional Library (area-rated; rural)",
+      "label": "Rural household \u2014 Regional Library",
       "amountCad": 79,
       "regionalNetExpenditure000s": 3809,
       "regionalPropertyTaxLevy000s": 3314,
-      "excerpt": "Regional Library (area-rated; rural) ... Rural $79",
+      "excerpt": "Regional Library ... Rural $79",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1136,6 +1157,7 @@
       "excerpt": "Build Waterloo Region ... Rural $16",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     },
     {
@@ -1149,6 +1171,7 @@
       "excerpt": "Strategy, Performance and Partnerships ... Rural $20",
       "status": "approved",
       "assessmentBasisCad": 354500,
+      "note": "Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
       "kind": "FACT"
     }
   ],

@@ -1,6 +1,6 @@
 /**
  * Resident + municipal-staff help guide.
- * Illustrations intentionally deferred — placeholders mark where screenshots will go.
+ * Resident-facing explanations for the receipt and its evidence states.
  */
 
 const SECTIONS = [
@@ -12,7 +12,7 @@ const SECTIONS = [
   { id: 'pro-rata', title: 'Department line items (pro-rata)' },
   { id: 'at-a-glance', title: 'At a glance & evidence state' },
   { id: 'findings-gaps', title: 'Watch, findings, and gaps' },
-  { id: 'citations', title: 'Citations and “Cite OK”' },
+  { id: 'citations', title: 'Citation states' },
   { id: 'special-levies', title: 'Special levies' },
   { id: 'for-staff', title: 'For clerks and councillors' },
   { id: 'not-this', title: 'What this is not' },
@@ -23,7 +23,7 @@ function IllustrationSlot({ caption }: { caption: string }) {
   return (
     <figure className="help-illustration-slot">
       <div className="help-illustration-frame" aria-hidden="true">
-        <span>Illustration coming</span>
+        <span>Interface landmark</span>
       </div>
       <figcaption>{caption}</figcaption>
     </figure>
@@ -38,13 +38,15 @@ export default function HelpGuide({
   simpleLanguage?: boolean
 }) {
   return (
-    <div className="help-page">
+    <main id="help-main" className="help-page" tabIndex={-1}>
       <header className="help-hero">
         <p className="help-kicker">Help &amp; glossary</p>
-        <h1>How to read a Taxpayer Receipt</h1>
+        <h1 id="help-heading" tabIndex={-1}>
+          How to read a Taxpayer Receipt
+        </h1>
         {simpleLanguage ? (
           <p className="help-eli5-note" role="status">
-            <strong>Simple language</strong> is on for the receipt page — labels and short
+            <strong>Plain language</strong> is on for the receipt page — labels and short
             explanations there use plainer words. This glossary still uses the full terms
             (FACT, DERIVED, GAP) so you can match them to the badges.
           </p>
@@ -52,7 +54,6 @@ export default function HelpGuide({
         <p className="help-lede">
           This page answers the questions residents, clerks, and councillors usually ask —
           what the labels mean, where the dollars come from, and what we refuse to invent.
-          Screenshots will be added once the UI is finalized.
         </p>
         <div className="help-hero-actions">
           <button type="button" className="cta" onClick={onBack}>
@@ -285,16 +286,16 @@ export default function HelpGuide({
                     <strong>Gaps</strong> — missing evidence we refused to invent.
                   </li>
                   <li>
-                    <strong>Cite OK / Cite fails</strong> — result of the automated citation audit
-                    (do cited pages support the claims?).
+                    <strong>Cite OK / Cite weak / Cite fails</strong> — how closely the
+                    cited page matches each published claim.
                   </li>
                 </ul>
               </li>
             </ul>
             <p>
               Evidence state is deliberately <strong>not</strong> a letter grade of the budget. A
-              pack can be Cite OK with several Gaps; that means our math is sourced and our
-              unfinished work is listed.
+              pack can be Cite OK with several Gaps. Citation matching is only one release
+              gate; it does not prove that the pack is complete or publication-ready.
             </p>
             <IllustrationSlot caption="At a glance strip: share bar, top destinations, evidence chips." />
           </section>
@@ -318,7 +319,7 @@ export default function HelpGuide({
           </section>
 
           <section id="citations" className="help-section">
-            <h2>Citations and “Cite OK”</h2>
+            <h2>Citation states</h2>
             <p>
               Where possible, each FACT points at a public PDF with a page number. A separate
               citation audit checks whether the cited page actually contains the claimed excerpt or
@@ -326,17 +327,22 @@ export default function HelpGuide({
             </p>
             <ul>
               <li>
-                <strong>Cite OK</strong> — no hard failures (wrong page / not found / bad page
-                number) in the current audit.
+                <strong>Cite OK</strong> — every displayed fact has a sufficiently strong
+                text-to-source match in the current audit.
+              </li>
+              <li>
+                <strong>Cite weak</strong> — the source contains the digits, but the
+                label-to-value match is not verified, or the fact cannot currently be
+                verified.
               </li>
               <li>
                 <strong>Cite fails</strong> — treat affected figures with caution until fixed.
               </li>
             </ul>
             <p>
-              Weaker match tiers (for example “numbers only”) can still appear in internal audits;
-              they mean the digits are on the page but the wording is not a perfect quote. The UI
-              may withhold deep page links when a match is too weak.
+              A weak citation is visible, not silently treated as success. The UI withholds
+              deep page links when the match is too weak. Even Cite OK does not replace the
+              remaining identity, arithmetic, source-lock, review, and publication gates.
             </p>
           </section>
 
@@ -442,7 +448,8 @@ export default function HelpGuide({
                 <summary>Does “0 Watch” mean everything is fine?</summary>
                 <p>
                   No. It means this pack has no published findings in the Watch list right now. Gaps
-                  may still be open; Cite OK only speaks to citation hard failures.
+                  may still be open; citation status only describes automated source-text
+                  matching.
                 </p>
               </details>
               <details>
@@ -466,7 +473,7 @@ export default function HelpGuide({
 
           <p className="help-footer-note">
             Glossary version for the multi-municipality prototype (North Dumfries + County of Brant).
-            Picture callouts are placeholders until UI/UX is locked.
+            Receipt labels and release gates continue to evolve while every pack remains a preview.
           </p>
 
           <button type="button" className="cta help-back-bottom" onClick={onBack}>
@@ -474,6 +481,6 @@ export default function HelpGuide({
           </button>
         </article>
       </div>
-    </div>
+    </main>
   )
 }

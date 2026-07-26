@@ -2,13 +2,16 @@
   "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
   "status": "partial_evidence_based",
-  "purpose": "UI data model using only supported allocations. Hypothetical $5,000 combined bill is NOT fully allocatable \u2014 see gaps.",
+  "purpose": "UI data model using only supported allocations. A hypothetical $5,000 combined bill can be split among taxing bodies from adopted rates; it is not a published household bill.",
   "evidencePolicyRef": "data/evidence-ledger.json",
   "jurisdiction": {
     "slug": "north-dumfries-on",
     "displayName": "Township of North Dumfries",
     "level": "lower-tier",
-    "aliases": ["North Dumfries", "Ayr"]
+    "aliases": [
+      "North Dumfries",
+      "Ayr"
+    ]
   },
   "profiles": {
     "supportedAverageHousehold": {
@@ -115,7 +118,7 @@
           },
           {
             "id": "ROW-RURAL-HH-02",
-            "label": "Public Transit (area-rated; rural)",
+            "label": "Public Transit",
             "amountCad": 63,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -131,7 +134,7 @@
           },
           {
             "id": "ROW-RURAL-HH-04",
-            "label": "Roads / Design & Construction / Engineering",
+            "label": "Roads/Design & Construction/Eng.",
             "amountCad": 240,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -163,7 +166,7 @@
           },
           {
             "id": "ROW-RURAL-HH-08",
-            "label": "Employment / Income Support",
+            "label": "Employment/Income Support",
             "amountCad": 53,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -227,7 +230,7 @@
           },
           {
             "id": "ROW-RURAL-HH-16",
-            "label": "Elected Offices & Office of the CAO",
+            "label": "Elected Offices & Office of the Chief Administrative Officer",
             "amountCad": 17,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -267,7 +270,7 @@
           },
           {
             "id": "ROW-RURAL-HH-21",
-            "label": "Regional Library (area-rated; rural)",
+            "label": "Regional Library",
             "amountCad": 79,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -567,6 +570,6 @@
     ],
     "municipalBucketLabel": "Township portion",
     "regionBucketLabel": "Region portion",
-    "heroLabel": "Total residential bill · rural · By-law 3637-26"
+    "heroLabel": "Total residential bill \u00b7 rural \u00b7 By-law 3637-26"
   }
 }

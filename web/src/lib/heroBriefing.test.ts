@@ -34,7 +34,7 @@ describe('buildHeroBriefing', () => {
     expect(model!.destinationsBasis.toLowerCase()).toContain('township portion')
     expect(model!.attention.some((c) => c.id === 'watch' && c.tone === 'watch')).toBe(true)
     expect(model!.attention.find((c) => c.id === 'gaps')?.tone).toBe('gap')
-    expect(model!.attention.find((c) => c.id === 'cite')?.tone).toBe('cite-ok')
+    expect(model!.attention.find((c) => c.id === 'cite')?.tone).toBe('cite-weak')
     expect(model!.footnote).toMatch(/Ayr urban|Special Area Rate/i)
   })
 
@@ -55,7 +55,7 @@ describe('buildHeroBriefing', () => {
     expect(model!.destinations.length).toBeLessThanOrEqual(6)
     expect(model!.attention.find((c) => c.id === 'watch')?.label).toBe('0 Watch')
     expect(model!.attention.find((c) => c.id === 'watch')?.href).toBeUndefined()
-    expect(model!.attention.find((c) => c.id === 'gaps')?.label).toBe('4 Gaps')
+    expect(model!.attention.find((c) => c.id === 'gaps')?.label).toBe('2 Gaps')
     expect(model!.attention.find((c) => c.id === 'cite')?.tone).toBe('cite-ok')
   })
 

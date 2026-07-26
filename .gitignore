@@ -10,6 +10,10 @@ marai-ledger/
 .venv/
 venv/
 
+# Mutable validator output is never a release record. Sealing regenerates it
+# and copies the current report into the immutable receipts/ revision.
+corpus/*/validation-report.json
+
 # Local document caches — never served, never redistributed.
 # Cited sources are committed; see source-pdfs/.gitignore.
 corpus/*/pdf/

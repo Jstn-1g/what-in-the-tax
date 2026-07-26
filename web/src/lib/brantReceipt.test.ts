@@ -22,8 +22,8 @@ describe('brant-county-on / Paris receipt', () => {
 
   it('does not invent an upper-tier Region column', () => {
     expect(profile.region.amountCad).toBeNull()
-    expect(profile.region.evidenceStatus).toBe('GAP')
-    expect(profile.region.gapId).toBe('GAP-BRANT-NO-UPPER-TIER')
+    expect(profile.region.evidenceStatus).toBe('NOT_APPLICABLE')
+    expect(profile.region.gapId).toBeUndefined()
   })
 
   it('keeps department shares tied to the municipal portion', () => {
@@ -32,9 +32,12 @@ describe('brant-county-on / Paris receipt', () => {
     expect(sum).toBeCloseTo(profile.township.amountCad ?? 0, 2)
   })
 
-  it('ships Tier 0 with no findings and null bill impacts forever', () => {
+  it('ships Tier 0 with no findings and keeps aliases out of the gap count', () => {
     expect(data.findings).toEqual([])
-    expect(ledger.gaps.some((g) => g.id === 'GAP-PARIS-ALIAS')).toBe(true)
+    expect(ledger.gaps.some((g) => g.id === 'GAP-PARIS-ALIAS')).toBe(false)
+    expect(ledger.gaps.some((g) => g.id === 'GAP-BRANT-NO-UPPER-TIER')).toBe(
+      false,
+    )
   })
 
   it('rate components sum to the printed total rate', () => {

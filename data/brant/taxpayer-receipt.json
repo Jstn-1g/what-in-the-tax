@@ -167,8 +167,7 @@
       "region": {
         "basis": "Not applicable \u2014 County of Brant is single-tier (no upper-tier Region)",
         "amountCad": null,
-        "evidenceStatus": "GAP",
-        "gapId": "GAP-BRANT-NO-UPPER-TIER",
+        "evidenceStatus": "NOT_APPLICABLE",
         "lineItems": [],
         "uiLabel": "Upper-tier Region",
         "note": "Policing (OPP), paramedics, and related costs appear inside the County levy lines above."

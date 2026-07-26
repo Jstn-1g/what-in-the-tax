@@ -1,6 +1,36 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "EvidenceLedger",
+  "fiscalYear": 2026,
+  "currency": "CAD",
+  "buildPolicies": {
+    "fiscalYear": {
+      "value": "2026",
+      "declaration": "config.fiscalYear",
+      "sealedEligible": true
+    },
+    "rateUnit": {
+      "sourceUnit": "percent",
+      "canonicalUnit": "decimal",
+      "declaration": "printed_suffix+config.rateUnit",
+      "sealedEligible": true
+    },
+    "rounding": {
+      "strategy": "total",
+      "method": "half-up",
+      "quantumCad": 0.01,
+      "source": "Official Waterloo worked example prints $5,800.65 at $405,000",
+      "sourceDeclared": true,
+      "sealedEligible": true
+    },
+    "assessment": {
+      "measureType": "published_average",
+      "declaration": "controlTotal.assessmentMeasureType",
+      "sourceId": "wat-2026-tax-rates",
+      "sourceAuthority": "City of Waterloo",
+      "sealedEligible": true
+    }
+  },
   "jurisdiction": {
     "slug": "waterloo-on",
     "name": "City of Waterloo",
@@ -64,6 +94,8 @@
       "page": 1,
       "label": "City of Waterloo 2026 published net tax levy",
       "amountCad": 114990811,
+      "unit": "cad",
+      "measureType": "absolute_levy",
       "excerpt": "resulting in a net Tax Levy of $114,990,811",
       "status": "approved",
       "kind": "FACT"
@@ -72,8 +104,10 @@
       "id": "WAT-AVG-ASSESSMENT-2026",
       "sourceId": "wat-2026-tax-rates",
       "page": 1,
-      "label": "Average assessed value used for residential impact illustrations",
+      "label": "City of Waterloo published average residential assessment",
       "amountCad": 405000,
+      "unit": "cad",
+      "measureType": "published_average",
       "excerpt": "For a home valued at $405,000 in Waterloo, this works out to $5,800.65",
       "status": "approved",
       "kind": "FACT"
@@ -85,6 +119,9 @@
       "label": "RT Residential local tax rate 2026",
       "amountCad": 0.00437426,
       "unit": "rate",
+      "sourceRateUnit": "percent",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "printed_suffix+config.rateUnit",
       "excerpt": "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%",
       "status": "final",
       "kind": "FACT"
@@ -96,6 +133,9 @@
       "label": "RT Residential Region tax rate 2026 (as printed locally)",
       "amountCad": 0.00841834,
       "unit": "rate",
+      "sourceRateUnit": "percent",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "printed_suffix+config.rateUnit",
       "excerpt": "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%",
       "status": "final",
       "kind": "FACT"
@@ -107,6 +147,9 @@
       "label": "RT Residential Education tax rate 2026",
       "amountCad": 0.00153,
       "unit": "rate",
+      "sourceRateUnit": "percent",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "printed_suffix+config.rateUnit",
       "excerpt": "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%",
       "status": "final",
       "kind": "FACT"
@@ -118,6 +161,9 @@
       "label": "RT Residential total tax rate 2026",
       "amountCad": 0.0143226,
       "unit": "rate",
+      "sourceRateUnit": "percent",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "printed_suffix+config.rateUnit",
       "excerpt": "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%",
       "status": "final",
       "kind": "FACT"
@@ -129,16 +175,19 @@
       "label": "2026 property tax rate increase (local)",
       "amountCad": 6.41,
       "unit": "percent",
+      "measureType": "rate_increase",
       "excerpt": "Property Tax Increase - City of Waterloo $ 106.92 6.41%",
       "status": "approved",
       "kind": "FACT"
     },
     {
-      "id": "WAT-TAX-INCREASE-CAD-2026",
+      "id": "WAT-AVG-HOUSEHOLD-INCREASE-CAD-2026",
       "sourceId": "wat-2026-budget",
       "page": 1,
-      "label": "2026 average-home local tax increase dollars",
+      "label": "2026 average-household local tax increase dollars",
       "amountCad": 106.92,
+      "unit": "cad",
+      "measureType": "average_household_increase",
       "excerpt": "Property Tax Increase - City of Waterloo $ 106.92 6.41%",
       "status": "approved",
       "kind": "FACT"
@@ -468,7 +517,7 @@
   "derived": [
     {
       "id": "DRV-WAT-BILL-CITY",
-      "label": "Local portion at average assessment",
+      "label": "Local portion at published average assessment",
       "amountCad": 1771.58,
       "formula": "WAT-AVG-ASSESSMENT-2026 * WAT-TAXRATE-RES-CITY-2026",
       "inputs": [
@@ -479,7 +528,7 @@
     },
     {
       "id": "DRV-WAT-BILL-REGION",
-      "label": "Region portion at average assessment",
+      "label": "Region portion at published average assessment",
       "amountCad": 3409.43,
       "formula": "WAT-AVG-ASSESSMENT-2026 * WAT-TAXRATE-RES-REGION-2026",
       "inputs": [
@@ -490,7 +539,7 @@
     },
     {
       "id": "DRV-WAT-BILL-EDUCATION",
-      "label": "Education portion at average assessment",
+      "label": "Education portion at published average assessment",
       "amountCad": 619.65,
       "formula": "WAT-AVG-ASSESSMENT-2026 * WAT-TAXRATE-RES-EDUCATION-2026",
       "inputs": [
@@ -500,16 +549,47 @@
       "kind": "DERIVED"
     },
     {
-      "id": "DRV-WAT-BILL-COMBINED",
-      "label": "Combined RT bill at average assessment",
-      "amountCad": 5800.66,
-      "formula": "city + region + education",
+      "id": "DRV-WAT-BILL-ROUNDING",
+      "label": "Source-declared bill rounding adjustment",
+      "amountCad": -0.01,
+      "formula": "rounded(assessment * total rate) - sum(rounded component amounts)",
       "inputs": [
         "DRV-WAT-BILL-CITY",
         "DRV-WAT-BILL-REGION",
         "DRV-WAT-BILL-EDUCATION",
+        "WAT-AVG-ASSESSMENT-2026",
         "WAT-TAXRATE-RES-TOTAL-2026"
       ],
+      "roundingPolicy": {
+        "strategy": "total",
+        "method": "half-up",
+        "quantumCad": 0.01,
+        "source": "Official Waterloo worked example prints $5,800.65 at $405,000",
+        "sourceDeclared": true,
+        "sealedEligible": true
+      },
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-BILL-COMBINED",
+      "label": "Combined RT bill at published average assessment",
+      "amountCad": 5800.65,
+      "formula": "city + region + education + rounding adjustment",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "DRV-WAT-BILL-REGION",
+        "DRV-WAT-BILL-EDUCATION",
+        "WAT-TAXRATE-RES-TOTAL-2026",
+        "DRV-WAT-BILL-ROUNDING"
+      ],
+      "roundingPolicy": {
+        "strategy": "total",
+        "method": "half-up",
+        "quantumCad": 0.01,
+        "source": "Official Waterloo worked example prints $5,800.65 at $405,000",
+        "sourceDeclared": true,
+        "sealedEligible": true
+      },
       "kind": "DERIVED"
     }
   ],
@@ -532,7 +612,7 @@
       "detail": "Local bill uses REGION rate \u00d7 $405,000 = $3,409.43. Region urban household schedule totals $2,984 at $354,500. Informational only until an explicit rate\u00d7assessment DERIVED path is approved.",
       "blocks": [],
       "neededEvidence": [
-        "Approved formula mapping Region urban HH lines onto the local average assessment bill"
+        "Approved formula mapping Region urban HH lines onto the local published average assessment bill"
       ],
       "kind": "GAP"
     },

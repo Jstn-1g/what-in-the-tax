@@ -396,17 +396,6 @@ county_lines.append(
 
 gaps = [
     gap(
-        id="GAP-BRANT-NO-UPPER-TIER",
-        title="No separate upper-tier Region column",
-        detail=(
-            "County of Brant is single-tier. Services that appear under Region of Waterloo for "
-            "North Dumfries (police contract, paramedics share, etc.) sit inside the County levy "
-            "(External Agencies / Emergency & Protective Services). There is no Region household table to cite."
-        ),
-        blocks=["region_bucket"],
-        neededEvidence=[],
-    ),
-    gap(
         id="GAP-BRANT-PEER-FIR-FAIRNESS",
         title="Peer per-capita fairness check not yet run for Brant",
         detail=(
@@ -416,16 +405,6 @@ gaps = [
         ),
         blocks=["findings_peer_fairness"],
         neededEvidence=["Hand-checked FIR Schedule 40 peer cohort + population basis disclosure"],
-    ),
-    gap(
-        id="GAP-PARIS-ALIAS",
-        title="Paris is an alias for County of Brant billing",
-        detail=(
-            "Searching for 'Paris, Ontario' should resolve to Brant County assessment code 2920. "
-            "There is no separate Town of Paris lower-tier tax by-law in this model."
-        ),
-        blocks=[],
-        neededEvidence=[],
     ),
     gap(
         id="GAP-BRANT-ILLUSTRATION-2CENTS",
@@ -512,8 +491,7 @@ receipt = {
             "region": {
                 "basis": "Not applicable — County of Brant is single-tier (no upper-tier Region)",
                 "amountCad": None,
-                "evidenceStatus": "GAP",
-                "gapId": "GAP-BRANT-NO-UPPER-TIER",
+                "evidenceStatus": "NOT_APPLICABLE",
                 "lineItems": [],
                 "uiLabel": "Upper-tier Region",
                 "note": "Policing (OPP), paramedics, and related costs appear inside the County levy lines above.",

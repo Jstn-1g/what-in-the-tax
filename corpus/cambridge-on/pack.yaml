@@ -8,7 +8,7 @@ parentBodies:
 aliases:
   - Cambridge
   - Cambridge ON
-assessmentCode: "3010"
+assessmentCode: "3006"
 fiscalYear: 2026
 currency: CAD
 locale: en-CA
@@ -35,6 +35,8 @@ artifacts:
   extractsRoot: data/_extracts/cambridge/
 
 controlTotal:
-  amountCad: 3000000
+  measureType: levy_increase
+  levyIncreaseCad: 3000000
+  assessmentMeasureType: published_average
   label: Published 2026 tax levy increase ($3 million / 2.44%)
   note: Absolute levy headline not yet locked — see GAP-CAM-LEVY-ABSOLUTE.

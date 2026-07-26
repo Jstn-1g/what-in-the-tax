@@ -1,131 +1,188 @@
-# Deploy (static)
+# Deployment and release boundary
 
-## What “ready to deploy” means here
+## Current status: hardened preview, not sealed publication
 
-1. `python scripts/audit_citations.py` exits **0** (no wrong-page / not-found)
-2. `python scripts/validate_pack.py north-dumfries-on` exits **0**
-3. Optional: `python scripts/seal_pack.py north-dumfries-on N` writes `receipts/...`
-4. `cd web && npm test -- --run && npm run build` succeed
-5. A static host serves `web/dist`
+The web application is a static preview. It performs no runtime AI inference and
+does not require a server-side calculation service.
 
-This is a **sealed preview**, not a claim of municipal affiliation. Full “Published”
-still requires the human steps in `PUBLISH.md` (publisher, contact, corrections surface).
+Both supported hosts currently build from mutable files under `web/src`. They do
+**not** deploy an immutable directory from `receipts/<slug>/<year>/<revision>/`.
+Consequently, a successful deployment proves that tests and the current bridge
+validators passed; it does not prove that the deployed bytes are a sealed pack.
 
----
+The existing bridge seal also does not yet bind every source PDF, extract,
+extractor version, dependency manifest, or public-only projection. Do not label a
+site **Sealed** or **Published** until the full requirements in `PUBLISH.md` are
+implemented and the production response bytes are checked against that manifest.
 
-## Cloudflare Workers (static assets) — your current `*.workers.dev` URL
+Every current deployment must therefore display **Preview** and remain
+`noindex`. Publication additionally requires a named publisher, correction
+contact, source/licence review, and an immutable rollback target.
 
-Preview URL for this account: **https://tax-receipt-prototype.jstn0513.workers.dev/**
+## Automated GitHub Pages preview
 
-Local gated deploy (validate → tests → build → wrangler):
+`.github/workflows/deploy-pages.yml` is the only repository-defined automatic
+deployment:
+
+- A push to the repository's current default branch, or a manual run whose
+  selected ref is that default branch, may deploy.
+- Feature branches cannot deploy, including through `workflow_dispatch`.
+- The validation/build job has read-only repository access.
+- Pages and OIDC permissions exist only in the deployment job.
+- Third-party Actions are pinned to verified commit SHAs.
+- Python tests, the locked regional registry, every non-template pack, web tests,
+  the production build, and a production-dependency audit must pass first.
+- The checked public-pack projection must match its source data; internal
+  ledgers and blocked packs are not accepted as browser artifacts.
+- Pack validators run in explicit `--no-write` mode, followed by a clean-tree
+  assertion that catches accidental evidence or timestamp rewrites.
+- Production deployments are serialized rather than cancelled mid-release.
+
+Configure the `github-pages` environment in repository settings so that only
+the current default branch may deploy, with required reviewers, before treating
+the URL as externally managed.
+GitHub Pages does not interpret Cloudflare's `_headers` format, so response-header
+enforcement must be verified separately if GitHub Pages becomes a long-term host.
+On GitHub Pages, only the HTML `noindex` and `no-referrer` metadata from this
+repository apply; CSP, HSTS, frame protection, and Permissions Policy are not
+enforced by `_headers`. Treat Pages as a preview host, not the hardened
+publication host.
+
+## Cloudflare Workers static-assets preview
+
+Current account preview:
+`https://tax-receipt-prototype.jstn0513.workers.dev/`
+
+`wrangler.jsonc` serves `web/dist`, not the Vite source directory. It explicitly
+disables persistent Workers Logs. `web/public/_headers` supplies CSP,
+clickjacking, MIME-sniffing, permissions, referrer, transport, and preview
+indexing controls, and Vite copies it to `web/dist` during a build.
+
+Use a narrowly scoped Cloudflare API token stored outside the repository. The
+token should be limited to the intended account and Workers script. Never put it
+in `wrangler.jsonc`, a committed environment file, or command history.
+
+The current exact audited Wrangler release is `4.114.0`. Until Wrangler is added
+to the project lockfile, use that explicit version instead of an unversioned
+`npx wrangler`:
 
 ```powershell
-# One-time: wrangler login   OR set CLOUDFLARE_API_TOKEN
-.\scripts\deploy_preview.ps1
+$ErrorActionPreference = "Stop"
+$WranglerVersion = "4.114.0"
+
+python -m pip install --disable-pip-version-check --only-binary=:all: -r requirements.txt
+if ($LASTEXITCODE -ne 0) { throw "Python dependency install failed" }
+
+python -m unittest discover -s tests -p "*test*.py"
+if ($LASTEXITCODE -ne 0) { throw "Python tests failed" }
+
+python scripts/validate_regional_registry.py
+if ($LASTEXITCODE -ne 0) { throw "Regional registry validation failed" }
+
+python scripts/build_public_packs.py --check
+if ($LASTEXITCODE -ne 0) { throw "Public pack projection drifted" }
+
+Get-ChildItem corpus -Directory |
+  Where-Object {
+    -not $_.Name.StartsWith("_") -and
+    (Test-Path (Join-Path $_.FullName "pack.yaml"))
+  } |
+  ForEach-Object {
+    python scripts/validate_pack.py $_.Name --no-write
+    if ($LASTEXITCODE -ne 0) { throw "Pack validation failed: $($_.Name)" }
+  }
+
+npm --prefix web ci --ignore-scripts --no-audit --no-fund
+if ($LASTEXITCODE -ne 0) { throw "Web dependency install failed" }
+npm --prefix web test -- --run
+if ($LASTEXITCODE -ne 0) { throw "Web tests failed" }
+npm --prefix web audit --omit=dev --audit-level=high
+if ($LASTEXITCODE -ne 0) { throw "Production dependency audit failed" }
+npm --prefix web run build
+if ($LASTEXITCODE -ne 0) { throw "Web build failed" }
+npx --yes "wrangler@$WranglerVersion" deploy --dry-run
+if ($LASTEXITCODE -ne 0) { throw "Wrangler dry run failed" }
+npx --yes "wrangler@$WranglerVersion" deploy
+if ($LASTEXITCODE -ne 0) { throw "Cloudflare deploy failed" }
 ```
 
-The blank page happened because Cloudflare was serving `web/` **source**
-(`index.html` → `/src/main.tsx`) instead of the Vite **build** (`web/dist`).
+The local `scripts/deploy_preview.ps1` helper remains a preview convenience and
+currently invokes an unpinned Wrangler command. Do not use that helper as an
+unattended production release until it consumes the project-locked Wrangler
+binary.
 
-If the log only shows `Executing user deploy command: npx wrangler deploy` and then
-`web/dist` missing, the separate Build field was never run. Put everything in
-**Deploy command**:
+After deployment, verify the response rather than trusting the command's exit
+code:
 
-| Field | Value |
-|---|---|
-| **Build command** | leave empty (or same as deploy if required) |
-| **Deploy command** | `npm --prefix web ci && npm --prefix web run build && npx wrangler deploy` |
-| **Root directory** | `/` (repository root — where `wrangler.jsonc` lives) |
-| **Branch** | `claude/citation-audit` |
-
-`wrangler.jsonc` points assets at `./web/dist`. Do **not** set assets to `web`.
-
-Save → **Retry deployment**. The log must show `vite build` **before** wrangler.
-### Prefer Cloudflare Pages instead?
-
-Same build, no wrangler:
-
-| Field | Value |
-|---|---|
-| Root directory | `web` |
-| Build command | `npm ci && npm run build` |
-| Output directory | `dist` |
-
----
-
-## Recommended: Cloudflare Pages (private repo OK)
-
-**ToS / policy:** This is a normal, supported use. Cloudflare Pages free tier may deploy
-**private or public** GitHub repos after you authorize the Cloudflare GitHub App for that
-repo only. You are hosting *your* static build of public budget citations — not scraping
-Cloudflare, not reselling their service, not violating GitHub’s terms by granting the App
-access you control. Keep secrets out of the repo (FIR zips stay gitignored).
-
-You do **not** need to make the GitHub repo public, and you do **not** need GitHub Enterprise.
-
-### One-time setup
-
-1. Open [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-2. Authorize **GitHub**; grant access to **only** `tax-receipt-prototype` (recommended)
-3. Select branch: `claude/citation-audit` (or `main` once you merge)
-4. Build settings:
-
-| Field | Value |
-|---|---|
-| Framework preset | Vite (or None) |
-| Root directory | `web` |
-| Build command | `npm ci && npm run build` |
-| Build output directory | `dist` |
-| Environment variables | *(none required)* — do **not** set `GITHUB_PAGES` |
-
-5. Deploy. URL will look like: `https://<project-name>.pages.dev`
-
-**Important:** Leave `GITHUB_PAGES` unset. That flag is only for GitHub project Pages
-(`base = /tax-receipt-prototype/`). Cloudflare serves from `/`.
-
-### Netlify (same idea)
-
-1. [app.netlify.com](https://app.netlify.com) → Add new site → Import from Git → GitHub  
-2. Same root `web`, build `npm ci && npm run build`, publish `dist`  
-3. Private repos are supported on the free tier with GitHub OAuth  
-
----
-
-## Alternative: GitHub Pages (requires public repo on free accounts)
-
-Free personal GitHub accounts cannot enable Pages on **private** repos (“Upgrade or make
-this repository public”).
-
-If you later make the repo public:
-
-1. Repo → **Settings → Pages** → Source: **GitHub Actions**
-2. Workflow: `.github/workflows/deploy-pages.yml` (sets `GITHUB_PAGES=true`)
-3. URL: `https://<user>.github.io/tax-receipt-prototype/`
-
----
-
-## Local preview of the production build
-
-```bash
-cd web
-npm run build          # Cloudflare/Netlify-compatible (base /)
-npm run preview
+```powershell
+$PreviewUrl = "https://tax-receipt-prototype.jstn0513.workers.dev/"
+$Response = Invoke-WebRequest -Uri $PreviewUrl
+$Response.StatusCode
+$Response.Headers["Content-Security-Policy"]
+$Response.Headers["X-Robots-Tag"]
+$Response.Headers["Referrer-Policy"]
 ```
 
-GitHub Pages local check only:
+Expected: HTTP 200, a self-only content policy, `noindex, nofollow`, and
+`no-referrer`.
 
-```bash
-cd web
-$env:GITHUB_PAGES='true'   # PowerShell
-npm run build
-npm run preview
+## Local production-build preview
+
+```powershell
+npm --prefix web ci --ignore-scripts --no-audit --no-fund
+npm --prefix web test -- --run
+npm --prefix web run build
+npm --prefix web run preview
 ```
 
-## Re-seal after data changes
+Set `GITHUB_PAGES=true` only when testing the GitHub project-path build:
 
-```bash
-python scripts/build_evidence_model.py
-python scripts/audit_citations.py
-python scripts/validate_pack.py north-dumfries-on
-python scripts/seal_pack.py north-dumfries-on N   # bump revision; never overwrite
+```powershell
+$env:GITHUB_PAGES = "true"
+npm --prefix web run build
+npm --prefix web run preview
+Remove-Item Env:GITHUB_PAGES
 ```
+
+## Requirements for a future sealed deployment
+
+A publication workflow must be separate from the current preview build and must:
+
+1. Accept one existing sealed public artifact; never rebuild municipal data.
+2. Verify the manifest against disk in both directions.
+3. Verify locked source, extraction, engine, pack, dependency, and Git identities.
+4. Confirm the artifact contains only the public projection and passes the PII
+   denylist.
+5. Upload those exact bytes to an immutable versioned URL.
+6. Fetch the production copy and compare every response body hash with the
+   manifest.
+7. Record the publisher approval, canonical URL, deployed manifest hash, time,
+   and rollback target.
+
+Until all seven steps exist, release records and UI language must say **Preview**.
+
+## Privacy and operational defaults
+
+- No address, owner, roll number, account, or dispute text is collected.
+- Assessment scenarios remain in the browser; only a display preference may be
+  stored locally.
+- There is no runtime AI, advertising, behavioural analytics, or tracking pixel.
+- Cloudflare Workers Logs are disabled. Hosting providers may retain
+  security/abuse records outside application control.
+- External evidence links receive `Referrer-Policy: no-referrer`.
+- The browser-facing notice is served at `<deployment-base>/privacy.txt`.
+- Re-enable request logging only after documenting purpose, fields, retention,
+  access, sampling, and deletion, and after ensuring URLs cannot contain personal
+  data.
+
+## Remaining supply-chain risk
+
+The workflow pins GitHub Actions to immutable SHAs and Python dependencies to
+exact versions. Python distribution hashes are not locked yet. The npm lockfile
+remains authoritative for the web build and install lifecycle scripts are
+disabled in CI.
+
+Wrangler is not yet present in `web/package-lock.json`; the explicit version
+above narrows but does not eliminate registry compromise risk. Add it as a locked
+development dependency in a dedicated dependency-change review before creating
+an automated Cloudflare production workflow.

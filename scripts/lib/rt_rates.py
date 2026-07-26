@@ -1,26 +1,49 @@
-"""Parse RT Residential City / Region / Education rates from a page-marked extract.
+"""Parse residential tax rates from a page-marked extract.
 
-Deterministic — no LLM. Accepts either decimal rates (0.00411164) or
-percent-style rates (0.437426%) as municipalities publish both.
+Deterministic — no LLM. Source rates must have an explicit unit: a printed
+suffix (for example ``%``), ``rate_unit``, or the legacy ``prefer_percent``
+configuration. Magnitude-based unit guessing is intentionally forbidden.
 """
 
 from __future__ import annotations
 
 import re
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 PAGE_MARKER = re.compile(r"=====\s*PAGE\s+(\d+)\s*=====")
+
+NUMBER = r"\d+(?:[.,]\d+)?"
+UNIT_SUFFIX = r"(?:%|percent|per\s+cent|mills?)"
 
 # Row with class token + four rate columns (city, region, education, total).
 # Handles "RT", "R T", "RTEP", "Residential" lead-ins.
 ROW_RE = re.compile(
     r"(?P<label>(?:Residential|R\s*T|RT|RTEP)[^\n]{0,80}?)"
-    r"(?P<city>\d+\.\d+)\s*%?\s+"
-    r"(?P<region>\d+\.\d+)\s*%?\s+"
-    r"(?P<edu>\d+\.\d+)\s*%?\s+"
-    r"(?P<total>\d+\.\d+)\s*%?",
+    rf"(?P<city>{NUMBER})\s*(?P<city_suffix>{UNIT_SUFFIX})?\s+"
+    rf"(?P<region>{NUMBER})\s*(?P<region_suffix>{UNIT_SUFFIX})?\s+"
+    rf"(?P<edu>{NUMBER})\s*(?P<edu_suffix>{UNIT_SUFFIX})?\s+"
+    rf"(?P<total>{NUMBER})\s*(?P<total_suffix>{UNIT_SUFFIX})?",
     re.IGNORECASE,
 )
+
+RATE_UNIT_FACTORS = {
+    "decimal": Decimal("1"),
+    "percent": Decimal("0.01"),
+    "mill": Decimal("0.001"),
+}
+RATE_UNIT_ALIASES = {
+    "decimal": "decimal",
+    "rate": "decimal",
+    "percent": "percent",
+    "percentage": "percent",
+    "%": "percent",
+    "mill": "mill",
+    "mills": "mill",
+    "per-thousand": "mill",
+    "per_1000": "mill",
+}
+RATE_SUM_TOLERANCE = Decimal("0.0000000001")
 
 
 def split_pages(text: str) -> dict[int, str]:
@@ -31,24 +54,111 @@ def split_pages(text: str) -> dict[int, str]:
     return pages
 
 
-def _to_decimal(raw: str, *, as_percent_hint: bool) -> float:
-    val = float(raw)
-    # Percent form used by Waterloo HTML (0.437426%) vs decimal (0.00437426).
-    if as_percent_hint or (0.05 < val < 50):
-        return round(val / 100.0, 8)
-    return val
+def normalize_rate_unit(unit: str) -> str:
+    """Return a canonical rate unit or fail closed for an unknown unit."""
+
+    key = str(unit).strip().lower().replace(" ", "-")
+    try:
+        return RATE_UNIT_ALIASES[key]
+    except KeyError as exc:
+        allowed = ", ".join(RATE_UNIT_FACTORS)
+        raise SystemExit(
+            f"RT rate parse: unsupported rate unit {unit!r}; expected {allowed}"
+        ) from exc
+
+
+def rate_to_decimal(raw: str | int | Decimal, *, unit: str) -> Decimal:
+    """Convert an explicitly-unitized source rate to a canonical decimal rate."""
+
+    canonical_unit = normalize_rate_unit(unit)
+    normalized = str(raw).strip()
+    if "," in normalized and "." not in normalized:
+        normalized = normalized.replace(",", ".")
+    try:
+        value = Decimal(normalized)
+    except InvalidOperation as exc:
+        raise SystemExit(f"RT rate parse: invalid rate value {raw!r}") from exc
+    if not value.is_finite() or value < 0:
+        raise SystemExit(f"RT rate parse: rate must be a finite non-negative value: {raw!r}")
+    return value * RATE_UNIT_FACTORS[canonical_unit]
+
+
+def _suffix_unit(suffix: str | None) -> str | None:
+    if not suffix:
+        return None
+    normalized = re.sub(r"\s+", " ", suffix.strip().lower())
+    if normalized in {"%", "percent", "per cent"}:
+        return "percent"
+    if normalized in {"mill", "mills"}:
+        return "mill"
+    raise SystemExit(f"RT rate parse: unsupported printed rate suffix {suffix!r}")
+
+
+def _resolve_rate_unit(
+    match: re.Match[str],
+    *,
+    rate_unit: str | None,
+    prefer_percent: bool | None,
+) -> tuple[str, str]:
+    configured = normalize_rate_unit(rate_unit) if rate_unit is not None else None
+    legacy = (
+        ("percent" if prefer_percent else "decimal")
+        if prefer_percent is not None
+        else None
+    )
+    if configured is not None and legacy is not None and configured != legacy:
+        raise SystemExit(
+            "RT rate parse: rate_unit conflicts with legacy prefer_percent declaration"
+        )
+
+    suffixes = [
+        _suffix_unit(match.group(f"{field}_suffix"))
+        for field in ("city", "region", "edu", "total")
+    ]
+    printed = [unit for unit in suffixes if unit is not None]
+    if printed and len(printed) != len(suffixes):
+        raise SystemExit(
+            "RT rate parse: mixed marked and unmarked values; declare one unit for the row"
+        )
+    if len(set(printed)) > 1:
+        raise SystemExit("RT rate parse: mixed rate units in residential row")
+    printed_unit = printed[0] if printed else None
+
+    declared = configured or legacy
+    if declared is not None and printed_unit is not None and declared != printed_unit:
+        raise SystemExit(
+            f"RT rate parse: configured {declared} unit conflicts with printed "
+            f"{printed_unit} suffix"
+        )
+    resolved = printed_unit or declared
+    if resolved is None:
+        raise SystemExit(
+            "RT rate parse: ambiguous unmarked rates; set rate_unit to "
+            "'decimal', 'percent', or 'mill'"
+        )
+
+    declarations: list[str] = []
+    if printed_unit is not None:
+        declarations.append("printed_suffix")
+    if configured is not None:
+        declarations.append("config.rateUnit")
+    elif legacy is not None:
+        declarations.append("legacy.preferPercent")
+    return resolved, "+".join(declarations)
 
 
 def parse_rt_rates_from_text(
     text: str,
     *,
     page: int | None = None,
+    rate_unit: str | None = None,
     prefer_percent: bool | None = None,
 ) -> dict:
     """
-    Return {city, region, education, total, page, excerpt, label}.
+    Return canonical Decimal rates plus source-unit metadata.
 
-    If prefer_percent is None, auto-detect from magnitude of matched numbers.
+    ``prefer_percent`` remains as an explicit legacy declaration. It is never
+    used as a magnitude hint.
     """
     bodies: list[tuple[int | None, str]]
     if page is not None:
@@ -74,15 +184,20 @@ def parse_rt_rates_from_text(
             if "forest" in low:
                 continue
             raws = [m.group("city"), m.group("region"), m.group("edu"), m.group("total")]
-            hint = prefer_percent
-            if hint is None:
-                hint = any(float(x) > 0.05 for x in raws)
-            city = _to_decimal(raws[0], as_percent_hint=bool(hint))
-            region = _to_decimal(raws[1], as_percent_hint=bool(hint))
-            edu = _to_decimal(raws[2], as_percent_hint=bool(hint))
-            total = _to_decimal(raws[3], as_percent_hint=bool(hint))
-            if abs((city + region + edu) - total) > 1e-6:
-                continue
+            resolved_unit, declaration = _resolve_rate_unit(
+                m,
+                rate_unit=rate_unit,
+                prefer_percent=prefer_percent,
+            )
+            city = rate_to_decimal(raws[0], unit=resolved_unit)
+            region = rate_to_decimal(raws[1], unit=resolved_unit)
+            edu = rate_to_decimal(raws[2], unit=resolved_unit)
+            total = rate_to_decimal(raws[3], unit=resolved_unit)
+            rate_sum = city + region + edu
+            if abs(rate_sum - total) > RATE_SUM_TOLERANCE:
+                raise SystemExit(
+                    f"RT rate parse: component sum {rate_sum} does not match total {total}"
+                )
             # Prefer true residential / RT / RTEP
             score = 0
             if re.search(r"\bRT\b|RTEP|Residential", label, re.I):
@@ -99,6 +214,8 @@ def parse_rt_rates_from_text(
                     "page": pnum or 1,
                     "excerpt": excerpt[:240],
                     "label": label,
+                    "sourceUnit": resolved_unit,
+                    "unitDeclaration": declaration,
                     "score": score,
                 }
             )
@@ -115,6 +232,7 @@ def parse_rt_rates_from_extract(
     extract_path: Path,
     *,
     page: int | None = None,
+    rate_unit: str | None = None,
     prefer_percent: bool | None = None,
 ) -> dict:
     if not extract_path.exists():
@@ -122,5 +240,6 @@ def parse_rt_rates_from_extract(
     return parse_rt_rates_from_text(
         extract_path.read_text(encoding="utf-8"),
         page=page,
+        rate_unit=rate_unit,
         prefer_percent=prefer_percent,
     )

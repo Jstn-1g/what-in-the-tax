@@ -1,0 +1,992 @@
+{
+  "audit": {
+    "counts": {
+      "numbers-only": 6,
+      "row-bound": 26,
+      "verbatim": 3
+    },
+    "results": [
+      {
+        "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ND-DEPT-CORPORATE-2026",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ND-DEPT-ENVIRONMENTAL-2026",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ND-DEPT-PLANNING-2026",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ND-DEPT-PROTECTIVE-2026",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ND-DEPT-PW-2026",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ND-DEPT-REC-2026",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
+        "tier": "verbatim"
+      },
+      {
+        "id": "ND-TAXRATE-RES-REGION-2026-FINAL",
+        "tier": "verbatim"
+      },
+      {
+        "id": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
+        "tier": "verbatim"
+      },
+      {
+        "id": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-RURAL-HH-01",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-02",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-RURAL-HH-03",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-04",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-05",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-06",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-07",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-08",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-09",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-10",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-11",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-12",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-13",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-14",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-15",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-16",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-17",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-18",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-RURAL-HH-19",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-20",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-RURAL-HH-21",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-RURAL-HH-22",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-23",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-RURAL-HH-TOTAL-2026",
+        "tier": "numbers-only"
+      }
+    ]
+  },
+  "evidence": {
+    "derived": [
+      {
+        "amountCad": 696.15,
+        "formula": "ND-TAXRATE-RES-EDUCATION-2026-FINAL * 455000",
+        "id": "DRV-ND-BILL-EDUCATION-455K",
+        "inputs": [
+          "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+        ],
+        "kind": "DERIVED",
+        "label": "Education portion of a $455,000 residential bill"
+      }
+    ],
+    "evidencePolicy": {
+      "rules": [
+        "FACT: must include sourceId, excerpt, and page when from PDF.",
+        "DERIVED: must include formula and input ids; no new external numbers.",
+        "GAP: record missing evidence; never invent amounts to fill UI.",
+        "JUDGMENT: interpretive only; billImpactCad stays null.",
+        "Draft vs final: North Dumfries 2026 operating figures are approved (By-law 3617-26); final residential rates from By-law 3637-26 Schedule A."
+      ]
+    },
+    "facts": [
+      {
+        "excerpt": "RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+        "id": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
+        "kind": "FACT",
+        "label": "2026 final residential township tax rate (RT)",
+        "page": 103,
+        "sourceId": "nd-2026-tax-rate-bylaw",
+        "status": "final",
+        "value": 0.00315303
+      },
+      {
+        "excerpt": "RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+        "id": "ND-TAXRATE-RES-REGION-2026-FINAL",
+        "kind": "FACT",
+        "label": "2026 final residential Region tax rate (RT)",
+        "page": 103,
+        "sourceId": "nd-2026-tax-rate-bylaw",
+        "status": "final",
+        "value": 0.00717545
+      },
+      {
+        "excerpt": "RT Residential     0.00315303 0.00717545 0.00153000 0.01185848",
+        "id": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
+        "kind": "FACT",
+        "label": "2026 final residential education tax rate (RT)",
+        "page": 103,
+        "sourceId": "nd-2026-tax-rate-bylaw",
+        "status": "final",
+        "value": 0.00153
+      },
+      {
+        "amountCad": 1434.63,
+        "excerpt": "Township Taxes Annually $1,434.63 at $455,000 assessment (Rural; TOWNSHIP PORTION ONLY)",
+        "id": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "kind": "FACT",
+        "label": "2026 draft township taxes — rural average assessment",
+        "page": 8,
+        "sourceId": "nd-2026-draft",
+        "status": "approved"
+      },
+      {
+        "amountCad": 2091306,
+        "excerpt": "TOTAL CORPORATE SERVICES ... 2,091,306",
+        "id": "ND-DEPT-CORPORATE-2026",
+        "kind": "FACT",
+        "label": "TOTAL CORPORATE SERVICES 2026 draft",
+        "page": 9,
+        "sourceId": "nd-2026-draft",
+        "status": "approved"
+      },
+      {
+        "amountCad": 1554793,
+        "excerpt": "TOTAL PROTECTIVE SERVICES ... 1,554,793",
+        "id": "ND-DEPT-PROTECTIVE-2026",
+        "kind": "FACT",
+        "label": "TOTAL PROTECTIVE SERVICES 2026 draft (includes Fire)",
+        "page": 9,
+        "sourceId": "nd-2026-draft",
+        "status": "approved"
+      },
+      {
+        "amountCad": 2477423,
+        "excerpt": "TOTAL PUBLIC WORKS ... 2,477,423",
+        "id": "ND-DEPT-PW-2026",
+        "kind": "FACT",
+        "label": "TOTAL PUBLIC WORKS 2026 draft",
+        "page": 9,
+        "sourceId": "nd-2026-draft",
+        "status": "approved"
+      },
+      {
+        "amountCad": 1867455,
+        "excerpt": "TOTAL RECREATION SERVICES ... 1,867,455",
+        "id": "ND-DEPT-REC-2026",
+        "kind": "FACT",
+        "label": "TOTAL RECREATION SERVICES 2026 draft",
+        "page": 9,
+        "sourceId": "nd-2026-draft",
+        "status": "approved"
+      },
+      {
+        "amountCad": 451372,
+        "excerpt": "TOTAL PLANNING ... 451,372",
+        "id": "ND-DEPT-PLANNING-2026",
+        "kind": "FACT",
+        "label": "TOTAL PLANNING 2026 draft",
+        "page": 9,
+        "sourceId": "nd-2026-draft",
+        "status": "approved"
+      },
+      {
+        "amountCad": 1607500,
+        "excerpt": "Capital Funded by tax levy and building bill ... 1,607,500",
+        "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+        "kind": "FACT",
+        "label": "Capital Funded by tax levy and building bill 2026 (summary schedule)",
+        "page": 9,
+        "sourceId": "nd-2026-draft"
+      },
+      {
+        "amountCad": -225,
+        "excerpt": "TOTAL ENVIRONMENTAL SERVICES ... (225)",
+        "id": "ND-DEPT-ENVIRONMENTAL-2026",
+        "kind": "FACT",
+        "label": "TOTAL ENVIRONMENTAL SERVICES 2026 (net credit)",
+        "page": 9,
+        "sourceId": "nd-2026-draft"
+      },
+      {
+        "amountCad": 2543,
+        "excerpt": "Rural ... Regional Tax Levy ... $2,543 ... Based on an average residential property valued at $354,500",
+        "id": "ROW-RURAL-HH-TOTAL-2026",
+        "kind": "FACT",
+        "label": "Tax-supported regional services cost per average rural household (N. Dumfries / Wellesley)",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 900,
+        "excerpt": "Police Service ... Rural $900",
+        "id": "ROW-RURAL-HH-01",
+        "kind": "FACT",
+        "label": "Rural household — Police Service",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 63,
+        "excerpt": "Public Transit ... Rural $63",
+        "id": "ROW-RURAL-HH-02",
+        "kind": "FACT",
+        "label": "Rural household — Public Transit",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 429,
+        "excerpt": "Housing Services ... Rural $429",
+        "id": "ROW-RURAL-HH-03",
+        "kind": "FACT",
+        "label": "Rural household — Housing Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 240,
+        "excerpt": "Roads/Design & Construction/Eng. ... Rural $240",
+        "id": "ROW-RURAL-HH-04",
+        "kind": "FACT",
+        "label": "Rural household — Roads/Design & Construction/Eng.",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 213,
+        "excerpt": "Waste Management ... Rural $213",
+        "id": "ROW-RURAL-HH-05",
+        "kind": "FACT",
+        "label": "Rural household — Waste Management",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 89,
+        "excerpt": "Financial Expenses ... Rural $89",
+        "id": "ROW-RURAL-HH-06",
+        "kind": "FACT",
+        "label": "Rural household — Financial Expenses",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 134,
+        "excerpt": "Paramedic Services ... Rural $134",
+        "id": "ROW-RURAL-HH-07",
+        "kind": "FACT",
+        "label": "Rural household — Paramedic Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 53,
+        "excerpt": "Employment/Income Support ... Rural $53",
+        "id": "ROW-RURAL-HH-08",
+        "kind": "FACT",
+        "label": "Rural household — Employment/Income Support",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 51,
+        "excerpt": "Seniors' Services ... Rural $51",
+        "id": "ROW-RURAL-HH-09",
+        "kind": "FACT",
+        "label": "Rural household — Seniors' Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 39,
+        "excerpt": "Human Resources ... Rural $39",
+        "id": "ROW-RURAL-HH-10",
+        "kind": "FACT",
+        "label": "Rural household — Human Resources",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 49,
+        "excerpt": "Information Technology Services ... Rural $49",
+        "id": "ROW-RURAL-HH-11",
+        "kind": "FACT",
+        "label": "Rural household — Information Technology Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 45,
+        "excerpt": "Public Health ... Rural $45",
+        "id": "ROW-RURAL-HH-12",
+        "kind": "FACT",
+        "label": "Rural household — Public Health",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 24,
+        "excerpt": "Facilities & Fleet Management ... Rural $24",
+        "id": "ROW-RURAL-HH-13",
+        "kind": "FACT",
+        "label": "Rural household — Facilities & Fleet Management",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 33,
+        "excerpt": "Cultural Services ... Rural $33",
+        "id": "ROW-RURAL-HH-14",
+        "kind": "FACT",
+        "label": "Rural household — Cultural Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 30,
+        "excerpt": "Children's Services ... Rural $30",
+        "id": "ROW-RURAL-HH-15",
+        "kind": "FACT",
+        "label": "Rural household — Children's Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 17,
+        "excerpt": "Elected Offices & Office of the Chief Administrative Officer ... Rural $17",
+        "id": "ROW-RURAL-HH-16",
+        "kind": "FACT",
+        "label": "Rural household — Elected Offices & Office of the Chief Administrative Officer",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 19,
+        "excerpt": "Resident Experience, Strategy and Communications ... Rural $19",
+        "id": "ROW-RURAL-HH-17",
+        "kind": "FACT",
+        "label": "Rural household — Resident Experience, Strategy and Communications",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 31,
+        "excerpt": "Airport ... Rural $31",
+        "id": "ROW-RURAL-HH-18",
+        "kind": "FACT",
+        "label": "Rural household — Airport",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 21,
+        "excerpt": "Planning, Development & Legislative Services ... Rural $21",
+        "id": "ROW-RURAL-HH-19",
+        "kind": "FACT",
+        "label": "Rural household — Planning, Development & Legislative Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 24,
+        "excerpt": "Finance ... Rural $24",
+        "id": "ROW-RURAL-HH-20",
+        "kind": "FACT",
+        "label": "Rural household — Finance",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 79,
+        "excerpt": "Regional Library ... Rural $79",
+        "id": "ROW-RURAL-HH-21",
+        "kind": "FACT",
+        "label": "Rural household — Regional Library",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 16,
+        "excerpt": "Build Waterloo Region ... Rural $16",
+        "id": "ROW-RURAL-HH-22",
+        "kind": "FACT",
+        "label": "Rural household — Build Waterloo Region",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 20,
+        "excerpt": "Strategy, Performance and Partnerships ... Rural $20",
+        "id": "ROW-RURAL-HH-23",
+        "kind": "FACT",
+        "label": "Rural household — Strategy, Performance and Partnerships",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      }
+    ],
+    "gaps": [
+      {
+        "blocks": [
+          "flagged_share_of_5000_bill"
+        ],
+        "detail": "Budget books do not label lines as inefficient. Any necessary-vs-flagged split is interpretive. Do not invent billImpactCad for judgment flags.",
+        "disposition": "missing_evidence",
+        "id": "GAP-FLAGGED-DOLLARS-ON-BILL",
+        "kind": "GAP",
+        "neededEvidence": [
+          "User-approved classification rules (e.g. which object codes count as overhead)",
+          "Optional peer benchmarks with citations"
+        ],
+        "title": "Cannot allocate 'flagged/inefficient' dollars on a household bill without an explicit rule set"
+      },
+      {
+        "blocks": [
+          "arena_dollars_on_2026_tax_bill"
+        ],
+        "detail": "Debt P&I begins 2027. 2026 capital is funded by grant/debt/fundraising/DCs/reserves — not a stated 2026 operating levy line equal to $16.19M.",
+        "disposition": "missing_evidence",
+        "id": "GAP-ARENA-2026-TAX-IMPACT",
+        "kind": "GAP",
+        "neededEvidence": [
+          "Debt amortization schedule / 2027+ levy impact estimate from Township"
+        ],
+        "title": "2026 tax-bill impact of Twin Pad debt service not stated"
+      },
+      {
+        "blocks": [
+          "beaver_extraction_amount"
+        ],
+        "detail": "Narrative mentions external contractors for beaver extraction; no discrete dollar line extracted.",
+        "disposition": "missing_evidence",
+        "id": "GAP-BEAVER-LINE-AMOUNT",
+        "kind": "GAP",
+        "neededEvidence": [
+          "Invoice/contract line or GL detail"
+        ],
+        "title": "Beaver extraction spend not isolated as its own budget line amount"
+      },
+      {
+        "blocks": [
+          "twinpad_recurring_cost_on_bill"
+        ],
+        "detail": "The ledger covers the one-time capital cost but holds no evidence on what the Twin Pad costs to RUN versus the ACC ice it replaces. For a household receipt the recurring operating change matters more than the capital event.",
+        "disposition": "missing_evidence",
+        "id": "GAP-TWINPAD-OPERATING-DELTA",
+        "kind": "GAP",
+        "neededEvidence": [
+          "Projected annual operating cost for the Twin Pad and the offsetting ACC ice savings"
+        ],
+        "title": "Net operating cost change once Twin Pad opens is not established"
+      }
+    ],
+    "sources": [
+      {
+        "asOf": "2025-12-08",
+        "authority": "draft",
+        "id": "nd-2026-draft",
+        "title": "Township of North Dumfries 2026 Municipal Draft Budget Binder",
+        "url": "https://www.northdumfries.ca/media/csjjshvf/2026-draft-budget-binder.pdf"
+      },
+      {
+        "asOf": "2026-04-27",
+        "authority": "final",
+        "id": "nd-2026-tax-rate-bylaw",
+        "title": "Council Agenda Package April 27, 2026 — includes By-law 3637-26 Schedule A (Final Tax Rates)",
+        "url": "https://calendar.northdumfries.ca/council/Detail/2026-04-27-1800-Council-Meeting/e53fc266-10b7-4886-a08f-b43901092c5d"
+      },
+      {
+        "authority": "final",
+        "id": "row-2026-book",
+        "title": "Region of Waterloo 2026 Final Budget Book",
+        "url": "https://www.regionofwaterloo.ca/media/ynro4cd2/2026_final_budget_book.pdf"
+      }
+    ]
+  },
+  "id": "north-dumfries-on",
+  "receipt": {
+    "artifact": "TaxpayerReceipt",
+    "evidencePolicyRef": "Evidence included with this preview",
+    "findings": [],
+    "jurisdiction": {
+      "aliases": [
+        "North Dumfries",
+        "Ayr"
+      ],
+      "displayName": "Township of North Dumfries",
+      "level": "lower-tier",
+      "slug": "north-dumfries-on"
+    },
+    "profiles": {
+      "hypothetical5000": {
+        "allocatable": true,
+        "amountCad": 5000,
+        "compositionShares": [
+          {
+            "label": "Township of North Dumfries",
+            "share": 0.265888,
+            "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"
+          },
+          {
+            "label": "Region of Waterloo",
+            "share": 0.60509,
+            "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"
+          },
+          {
+            "label": "Education (Province of Ontario)",
+            "share": 0.129022,
+            "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+          }
+        ],
+        "evidenceStatus": "DERIVED",
+        "impliedAssessmentCad": 421639,
+        "message": "A $5,000 total bill implies an assessment of about $421,639, slightly below the township average of $455,000. Shown as rate shares rather than invented dollars: the split of any bill is fixed by the by-law rates regardless of assessment. For dollar figures see combinedAtAssessment."
+      },
+      "supportedAverageHousehold": {
+        "combinedAtAssessment": {
+          "assessmentCad": 455000,
+          "ayrUrbanVariant": {
+            "note": "Ayr urban service area only. Rural properties pay the rural total.",
+            "specialAreaRateCad": 70.85,
+            "totalCad": 5466.46,
+            "totalRate": 0.01201419
+          },
+          "basis": "By-law 3637-26 Schedule A, CODE RT Residential (2026-04-27 council agenda p.103)",
+          "components": [
+            {
+              "amountCad": 1434.63,
+              "label": "Township of North Dumfries",
+              "rate": 0.00315303,
+              "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"
+            },
+            {
+              "amountCad": 3264.83,
+              "label": "Region of Waterloo",
+              "rate": 0.00717545,
+              "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"
+            },
+            {
+              "amountCad": 696.15,
+              "label": "Education (Province of Ontario)",
+              "rate": 0.00153,
+              "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+            }
+          ],
+          "evidenceStatus": "DERIVED",
+          "totalCad": 5395.61,
+          "totalRate": 0.01185848
+        },
+        "combinedTotalCad": 5395.61,
+        "combinedTotalNote": "Built from the adopted By-law 3637-26 Schedule A rates applied to ONE assessment ($455,000), not by adding two governments' differently-based household averages. The three rates sum exactly to the printed Total 2026 Rate, and the township component reproduces the separately cited $1,434.63 to the cent.",
+        "description": "Best evidence-based profile without inventing a $5,000 bill.",
+        "education": {
+          "amountCad": 696.15,
+          "assessmentCad": 455000,
+          "basis": "By-law 3637-26 Schedule A — RT Residential Education Rate 0.00153000 at $455,000",
+          "evidenceStatus": "DERIVED",
+          "note": "Province sets this rate under O. Reg. 400/98; the Township only collects it.",
+          "sourceFactId": "DRV-ND-BILL-EDUCATION-455K",
+          "uiLabel": "Education"
+        },
+        "region": {
+          "amountCad": 2543,
+          "assessmentCad": 354500,
+          "basis": "Region 2026 Budget Book p.12 Rural column (North Dumfries + Wellesley) at $354,500 assessment",
+          "evidenceStatus": "FACT",
+          "lineItems": [
+            {
+              "amountCad": 900,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-01",
+              "label": "Police Service",
+              "sourceFactId": "ROW-RURAL-HH-01"
+            },
+            {
+              "amountCad": 63,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-02",
+              "label": "Public Transit",
+              "sourceFactId": "ROW-RURAL-HH-02"
+            },
+            {
+              "amountCad": 429,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-03",
+              "label": "Housing Services",
+              "sourceFactId": "ROW-RURAL-HH-03"
+            },
+            {
+              "amountCad": 240,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-04",
+              "label": "Roads/Design & Construction/Eng.",
+              "sourceFactId": "ROW-RURAL-HH-04"
+            },
+            {
+              "amountCad": 213,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-05",
+              "label": "Waste Management",
+              "sourceFactId": "ROW-RURAL-HH-05"
+            },
+            {
+              "amountCad": 89,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-06",
+              "label": "Financial Expenses",
+              "sourceFactId": "ROW-RURAL-HH-06"
+            },
+            {
+              "amountCad": 134,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-07",
+              "label": "Paramedic Services",
+              "sourceFactId": "ROW-RURAL-HH-07"
+            },
+            {
+              "amountCad": 53,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-08",
+              "label": "Employment/Income Support",
+              "sourceFactId": "ROW-RURAL-HH-08"
+            },
+            {
+              "amountCad": 51,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-09",
+              "label": "Seniors' Services",
+              "sourceFactId": "ROW-RURAL-HH-09"
+            },
+            {
+              "amountCad": 39,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-10",
+              "label": "Human Resources",
+              "sourceFactId": "ROW-RURAL-HH-10"
+            },
+            {
+              "amountCad": 49,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-11",
+              "label": "Information Technology Services",
+              "sourceFactId": "ROW-RURAL-HH-11"
+            },
+            {
+              "amountCad": 45,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-12",
+              "label": "Public Health",
+              "sourceFactId": "ROW-RURAL-HH-12"
+            },
+            {
+              "amountCad": 24,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-13",
+              "label": "Facilities & Fleet Management",
+              "sourceFactId": "ROW-RURAL-HH-13"
+            },
+            {
+              "amountCad": 33,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-14",
+              "label": "Cultural Services",
+              "sourceFactId": "ROW-RURAL-HH-14"
+            },
+            {
+              "amountCad": 30,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-15",
+              "label": "Children's Services",
+              "sourceFactId": "ROW-RURAL-HH-15"
+            },
+            {
+              "amountCad": 17,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-16",
+              "label": "Elected Offices & Office of the Chief Administrative Officer",
+              "sourceFactId": "ROW-RURAL-HH-16"
+            },
+            {
+              "amountCad": 19,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-17",
+              "label": "Resident Experience, Strategy and Communications",
+              "sourceFactId": "ROW-RURAL-HH-17"
+            },
+            {
+              "amountCad": 31,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-18",
+              "label": "Airport",
+              "sourceFactId": "ROW-RURAL-HH-18"
+            },
+            {
+              "amountCad": 21,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-19",
+              "label": "Planning, Development & Legislative Services",
+              "sourceFactId": "ROW-RURAL-HH-19"
+            },
+            {
+              "amountCad": 24,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-20",
+              "label": "Finance",
+              "sourceFactId": "ROW-RURAL-HH-20"
+            },
+            {
+              "amountCad": 79,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-21",
+              "label": "Regional Library",
+              "sourceFactId": "ROW-RURAL-HH-21"
+            },
+            {
+              "amountCad": 16,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-22",
+              "label": "Build Waterloo Region",
+              "sourceFactId": "ROW-RURAL-HH-22"
+            },
+            {
+              "amountCad": 20,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-RURAL-HH-23",
+              "label": "Strategy, Performance and Partnerships",
+              "sourceFactId": "ROW-RURAL-HH-23"
+            },
+            {
+              "amountCad": -78,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "FACT",
+              "id": "ROW-PIL-OFFSET",
+              "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
+              "note": "Source reduces rural household to $2,543 after PIL/supplementary taxes.",
+              "sourceFactId": "ROW-RURAL-HH-TOTAL-2026"
+            },
+            {
+              "amountCad": 2,
+              "classification": "reconciling_item",
+              "evidenceStatus": "RECONCILING",
+              "id": "ROW-TABLE-ROUNDING",
+              "label": "Unallocated table-rounding difference (source total vs summed lines)",
+              "note": "Source rounding (resolved): printed lines sum $2,619; printed subtotal $2,621; less ($78) PIL = $2,543. Do not treat as a service."
+            }
+          ],
+          "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+          "uiLabel": "Region portion"
+        },
+        "township": {
+          "amountCad": 1434.63,
+          "assessmentCad": 455000,
+          "basis": "ND 2026 approved rural average at $455,000 assessment — TOWNSHIP PORTION ONLY (rate confirmed in By-law 3637-26)",
+          "evidenceStatus": "FACT",
+          "lineItems": [
+            {
+              "amountCad": 298.54,
+              "classification": "township_draft_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "ND-DEPT-CORPORATE-2026",
+              "label": "Corporate Services",
+              "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
+              "sourceFactId": "ND-DEPT-CORPORATE-2026"
+            },
+            {
+              "amountCad": 221.95,
+              "classification": "township_draft_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "ND-DEPT-PROTECTIVE-2026",
+              "label": "Protective Services (incl. Fire)",
+              "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
+              "sourceFactId": "ND-DEPT-PROTECTIVE-2026"
+            },
+            {
+              "amountCad": 353.66,
+              "classification": "township_draft_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "ND-DEPT-PW-2026",
+              "label": "Public Works",
+              "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
+              "sourceFactId": "ND-DEPT-PW-2026"
+            },
+            {
+              "amountCad": 266.59,
+              "classification": "township_draft_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "ND-DEPT-REC-2026",
+              "label": "Recreation Services",
+              "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
+              "sourceFactId": "ND-DEPT-REC-2026"
+            },
+            {
+              "amountCad": 64.44,
+              "classification": "township_draft_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "ND-DEPT-PLANNING-2026",
+              "label": "Planning",
+              "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
+              "sourceFactId": "ND-DEPT-PLANNING-2026"
+            },
+            {
+              "amountCad": 229.48,
+              "classification": "township_draft_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+              "label": "Capital funded by tax levy",
+              "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
+              "sourceFactId": "ND-CAPITAL-FUNDED-BY-LEVY-2026"
+            },
+            {
+              "amountCad": -0.03,
+              "classification": "township_draft_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "ND-DEPT-ENVIRONMENTAL-2026",
+              "label": "Environmental Services (net credit)",
+              "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
+              "sourceFactId": "ND-DEPT-ENVIRONMENTAL-2026"
+            }
+          ],
+          "sourceFactId": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+          "uiLabel": "Township portion"
+        },
+        "warnings": [
+          "The Region figure of $2,543 elsewhere in this model is the Region's own average household at $354,500 — do not mix it with this $455,000 receipt. Both sit on the same MPAC January 1, 2016 base; they differ only in which average property each government reports.",
+          "Ayr urban properties additionally pay the Special Area Rate; the rural total excludes it.",
+          "North Dumfries operating amounts are approved (By-law 3617-26)."
+        ]
+      }
+    },
+    "purpose": "UI data model using only supported allocations. A hypothetical $5,000 combined bill can be split among taxing bodies from adopted rates; it is not a published household bill.",
+    "schemaVersion": "2.0.0",
+    "status": "partial_evidence_based",
+    "uiModelHints": {
+      "defaultProfile": "supportedAverageHousehold",
+      "forbidFillerAllocation": true,
+      "heroLabel": "Total residential bill · rural · By-law 3637-26",
+      "marqueeFindings": [],
+      "municipalBucketLabel": "Township portion",
+      "publishedFindingIds": [],
+      "regionBucketLabel": "Region portion",
+      "showGapsAsFirstClassUi": true
+    }
+  },
+  "schemaVersion": "1.0.0"
+}

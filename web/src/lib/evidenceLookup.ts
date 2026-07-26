@@ -41,10 +41,13 @@ export function buildEvidenceIndex(
   derived: Derived[],
   audit?: CitationAudit | null,
 ): EvidenceIndex {
-  const pageVerified = new Map<string, boolean>()
+  // Absence is not evidence. Start every public fact in the fail-closed state
+  // and only promote rows whose audit tier explicitly permits a page link.
+  const pageVerified = new Map<string, boolean>(
+    facts.map((fact) => [fact.id, false]),
+  )
   for (const row of audit?.results ?? []) {
     if (!row.id || !row.tier) continue
-    if (row.tier === 'unverifiable' || row.tier === 'no-excerpt') continue
     pageVerified.set(row.id, PAGE_LINK_TIERS.has(row.tier))
   }
   return {
@@ -63,7 +66,7 @@ export function sourceHref(
 ): string {
   if (!source.url) return ''
   if (page == null || page <= 0) return source.url
-  if (opts && opts.pageVerified === false) return source.url
+  if (opts?.pageVerified !== true) return source.url
   const base = source.url.split('#')[0]
   if (/\.pdf($|\?)/i.test(base) || base.toLowerCase().includes('.pdf')) {
     return `${base}#page=${page}`
@@ -82,10 +85,10 @@ export function resolveCitation(
     const verified = index.pageVerified.get(fact.id)
     const href = source
       ? sourceHref(source, fact.page, {
-          pageVerified: verified === undefined ? undefined : verified,
+          pageVerified: verified === true,
         })
       : fact.url
-    const auditRow = verified === undefined ? undefined : verified
+    const auditRow = verified === true
     return {
       id: fact.id,
       kind: 'FACT',
@@ -119,6 +122,7 @@ export function resolveCitation(
       href: primary?.href,
       page: primary?.page,
       excerpt: primary?.excerpt,
+      matchTier: primary?.matchTier,
       inputs,
     }
   }

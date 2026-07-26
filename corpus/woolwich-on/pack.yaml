@@ -8,7 +8,7 @@ parentBodies:
 aliases:
   - Woolwich
   - Woolwich Township
-assessmentCode: "3024"
+assessmentCode: "3029"
 fiscalYear: 2026
 currency: CAD
 locale: en-CA
@@ -36,6 +36,11 @@ artifacts:
   extractsRoot: data/_extracts/woolwich/
 
 controlTotal:
-  amountCad: 99.83
+  measureType: average_household_increase
+  averageHouseholdIncreaseCad: 99.83
+  assessmentMeasureType: reference_scenario
   label: Published average-household tax increase
-  note: Absolute township levy headline not yet locked; Tier 0.
+  note: >
+    The $354,500 receipt basis is a regional reference scenario, not a
+    published Woolwich average. Absolute township levy headline not yet locked;
+    Tier 0.

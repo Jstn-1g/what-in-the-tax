@@ -1,6 +1,36 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "EvidenceLedger",
+  "fiscalYear": 2026,
+  "currency": "CAD",
+  "buildPolicies": {
+    "fiscalYear": {
+      "value": "2026",
+      "declaration": "config.fiscalYear",
+      "sealedEligible": true
+    },
+    "rateUnit": {
+      "sourceUnit": "decimal",
+      "canonicalUnit": "decimal",
+      "declaration": "config.rateUnit",
+      "sealedEligible": true
+    },
+    "rounding": {
+      "strategy": "component",
+      "method": "half-up",
+      "quantumCad": 0.01,
+      "source": "builder-default (preview only)",
+      "sourceDeclared": false,
+      "sealedEligible": false
+    },
+    "assessment": {
+      "measureType": "published_average",
+      "declaration": "controlTotal.assessmentMeasureType",
+      "sourceId": "cam-2026-budget",
+      "sourceAuthority": "City of Cambridge",
+      "sealedEligible": true
+    }
+  },
   "jurisdiction": {
     "slug": "cambridge-on",
     "name": "City of Cambridge",
@@ -12,7 +42,7 @@
     "upperTier": [
       "region-of-waterloo-on"
     ],
-    "assessmentCode": "3010",
+    "assessmentCode": "3006",
     "note": "Lower-tier in Region of Waterloo. Assessment code pending Schedule 02 lock."
   },
   "evidencePolicy": {
@@ -56,21 +86,13 @@
   ],
   "facts": [
     {
-      "id": "CAM-LEVY-2026",
-      "sourceId": "cam-2026-budget",
-      "page": 1,
-      "label": "City of Cambridge 2026 tax levy increase dollars (published)",
-      "amountCad": 3000000,
-      "excerpt": "tax levy increase of $3 million or 2.44 per cent",
-      "status": "approved",
-      "kind": "FACT"
-    },
-    {
       "id": "CAM-AVG-ASSESSMENT-2026",
       "sourceId": "cam-2026-budget",
       "page": 1,
-      "label": "Average assessed value used for residential impact illustrations",
+      "label": "City of Cambridge published average residential assessment",
       "amountCad": 344000,
+      "unit": "cad",
+      "measureType": "published_average",
       "excerpt": "based on a property assessment value of $344,000",
       "status": "approved",
       "kind": "FACT"
@@ -82,6 +104,9 @@
       "label": "RT Residential local tax rate 2026",
       "amountCad": 0.0051735,
       "unit": "rate",
+      "sourceRateUnit": "decimal",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "config.rateUnit",
       "excerpt": "RT Residential 0.0051735 0.0084183 0.0015300 0.0151218",
       "status": "final",
       "kind": "FACT"
@@ -93,6 +118,9 @@
       "label": "RT Residential Region tax rate 2026 (as printed locally)",
       "amountCad": 0.0084183,
       "unit": "rate",
+      "sourceRateUnit": "decimal",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "config.rateUnit",
       "excerpt": "RT Residential 0.0051735 0.0084183 0.0015300 0.0151218",
       "status": "final",
       "kind": "FACT"
@@ -104,6 +132,9 @@
       "label": "RT Residential Education tax rate 2026",
       "amountCad": 0.00153,
       "unit": "rate",
+      "sourceRateUnit": "decimal",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "config.rateUnit",
       "excerpt": "RT Residential 0.0051735 0.0084183 0.0015300 0.0151218",
       "status": "final",
       "kind": "FACT"
@@ -115,6 +146,9 @@
       "label": "RT Residential total tax rate 2026",
       "amountCad": 0.0151218,
       "unit": "rate",
+      "sourceRateUnit": "decimal",
+      "canonicalRateUnit": "decimal",
+      "rateUnitDeclaration": "config.rateUnit",
       "excerpt": "RT Residential 0.0051735 0.0084183 0.0015300 0.0151218",
       "status": "final",
       "kind": "FACT"
@@ -126,16 +160,31 @@
       "label": "2026 property tax rate increase (local)",
       "amountCad": 2.44,
       "unit": "percent",
-      "excerpt": "average household tax levy increase of $42, based on a property assessment value of $344,000",
+      "measureType": "rate_increase",
+      "excerpt": "tax levy increase of $3 million or 2.44 per cent",
       "status": "approved",
       "kind": "FACT"
     },
     {
-      "id": "CAM-TAX-INCREASE-CAD-2026",
+      "id": "CAM-LEVY-INCREASE-CAD-2026",
       "sourceId": "cam-2026-budget",
       "page": 1,
-      "label": "2026 average-home local tax increase dollars",
-      "amountCad": 42.0,
+      "label": "City of Cambridge 2026 tax levy increase dollars (published)",
+      "amountCad": 3000000,
+      "unit": "cad",
+      "measureType": "levy_increase",
+      "excerpt": "tax levy increase of $3 million or 2.44 per cent",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "CAM-AVG-HOUSEHOLD-INCREASE-CAD-2026",
+      "sourceId": "cam-2026-budget",
+      "page": 1,
+      "label": "2026 average-household local tax increase dollars",
+      "amountCad": 42,
+      "unit": "cad",
+      "measureType": "average_household_increase",
       "excerpt": "average household tax levy increase of $42, based on a property assessment value of $344,000",
       "status": "approved",
       "kind": "FACT"
@@ -465,7 +514,7 @@
   "derived": [
     {
       "id": "DRV-CAM-BILL-CITY",
-      "label": "Local portion at average assessment",
+      "label": "Local portion at published average assessment",
       "amountCad": 1779.68,
       "formula": "CAM-AVG-ASSESSMENT-2026 * CAM-TAXRATE-RES-CITY-2026",
       "inputs": [
@@ -476,7 +525,7 @@
     },
     {
       "id": "DRV-CAM-BILL-REGION",
-      "label": "Region portion at average assessment",
+      "label": "Region portion at published average assessment",
       "amountCad": 2895.9,
       "formula": "CAM-AVG-ASSESSMENT-2026 * CAM-TAXRATE-RES-REGION-2026",
       "inputs": [
@@ -487,7 +536,7 @@
     },
     {
       "id": "DRV-CAM-BILL-EDUCATION",
-      "label": "Education portion at average assessment",
+      "label": "Education portion at published average assessment",
       "amountCad": 526.32,
       "formula": "CAM-AVG-ASSESSMENT-2026 * CAM-TAXRATE-RES-EDUCATION-2026",
       "inputs": [
@@ -498,7 +547,7 @@
     },
     {
       "id": "DRV-CAM-BILL-COMBINED",
-      "label": "Combined RT bill at average assessment",
+      "label": "Combined RT bill at published average assessment",
       "amountCad": 5201.9,
       "formula": "city + region + education",
       "inputs": [
@@ -507,10 +556,28 @@
         "DRV-CAM-BILL-EDUCATION",
         "CAM-TAXRATE-RES-TOTAL-2026"
       ],
+      "roundingPolicy": {
+        "strategy": "component",
+        "method": "half-up",
+        "quantumCad": 0.01,
+        "source": "builder-default (preview only)",
+        "sourceDeclared": false,
+        "sealedEligible": false
+      },
       "kind": "DERIVED"
     }
   ],
   "gaps": [
+    {
+      "id": "GAP-CAM-LEVY-ABSOLUTE",
+      "title": "Absolute net tax levy dollar total not yet locked from budget tables",
+      "detail": "Pack cites the published $3 million / 2.44% levy increase. The absolute tax-supported levy headline from the operating tables is not yet bound as FACT.\n",
+      "blocks": [],
+      "neededEvidence": [
+        "Printed net tax levy absolute dollars from Cambridge 2026 budget"
+      ],
+      "kind": "GAP"
+    },
     {
       "id": "GAP-CAM-DEPT-SCHEDULE",
       "title": "Local department household allocation not transcribed",
@@ -529,14 +596,14 @@
       "detail": "Local bill uses REGION rate \u00d7 $344,000 = $2,895.90. Region urban household schedule totals $2,984 at $354,500. Informational only until an explicit rate\u00d7assessment DERIVED path is approved.",
       "blocks": [],
       "neededEvidence": [
-        "Approved formula mapping Region urban HH lines onto the local average assessment bill"
+        "Approved formula mapping Region urban HH lines onto the local published average assessment bill"
       ],
       "kind": "GAP"
     },
     {
       "id": "GAP-CAM-FIR-CODE-VERIFY",
       "title": "FIR / MAH assessment code not yet locked from Schedule 02",
-      "detail": "Pack uses working code 3010 pending a hand-checked FIR Schedule 02 row.",
+      "detail": "Pack uses working code 3006 pending a hand-checked FIR Schedule 02 row.",
       "blocks": [],
       "neededEvidence": [
         "FIR Schedule 02 MAH code for City of Cambridge"
@@ -556,12 +623,12 @@
       "kind": "GAP"
     },
     {
-      "id": "GAP-CAM-LEVY-ABSOLUTE",
-      "title": "Absolute net tax levy dollar total not yet locked from budget tables",
-      "detail": "Pack cites the published $3 million / 2.44% levy increase. The absolute tax-supported levy headline from the operating tables is not yet bound as FACT.\n",
+      "id": "GAP-CAM-BUDGET-RATE-TIMING",
+      "title": "Final-rate illustration differs from the earlier budget impact table",
+      "detail": "Applying the final published residential rate to the budget's $344,000 reference assessment produces $5,201.90. The earlier budget impact table prints $5,207. The receipt uses the final rate schedule and retains this timing/reconciliation difference as a GAP.\n",
       "blocks": [],
       "neededEvidence": [
-        "Printed net tax levy absolute dollars from Cambridge 2026 budget"
+        "City reconciliation between the approved-budget impact table and final 2026 tax rates"
       ],
       "kind": "GAP"
     }

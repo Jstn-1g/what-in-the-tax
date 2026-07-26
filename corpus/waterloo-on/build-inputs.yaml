@@ -14,6 +14,7 @@ idPrefix: WAT
 localBucketLabel: City portion
 dataDir: data/waterloo
 fiscalYear: 2026
+currency: CAD
 
 extract:
   files:
@@ -43,20 +44,27 @@ rates:
   sourceId: wat-2026-tax-rates
   fromExtract: data/_extracts/waterloo/2026-tax-rates-page.txt
   page: 1
-  preferPercent: true
+  rateUnit: percent
   excerpt: "RTEP Residential 0.437426% 0.841834% 0.153000% 1.432260%"
+  rounding:
+    strategy: total
+    method: half-up
+    quantumCad: "0.01"
+    source: "Official Waterloo worked example prints $5,800.65 at $405,000"
 
 controlTotal:
   sourceId: wat-2026-budget
+  measureType: absolute_levy
   levyCad: 114990811
   levyPage: 1
   levyExcerpt: "resulting in a net Tax Levy of $114,990,811"
   allocationBaseCad: null
+  assessmentMeasureType: published_average
   assessmentSourceId: wat-2026-tax-rates
   assessmentPage: 1
   assessmentExcerpt: "For a home valued at $405,000 in Waterloo, this works out to $5,800.65"
   taxIncreasePct: 6.41
-  taxIncreaseCad: 106.92
+  averageHouseholdIncreaseCad: 106.92
   increasePage: 1
   increaseExcerpt: "Property Tax Increase - City of Waterloo $ 106.92 6.41%"
   status: approved

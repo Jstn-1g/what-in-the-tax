@@ -44,7 +44,9 @@ ROW_RE = re.compile(
     r"(?P<m_pct>[\d.]+)\s+\$?(?P<m_amt>[\d,]+)\s*$"
 )
 MONEY_RE = re.compile(r"\$([\d,]+)")
-PIL_RE = re.compile(r"\(\$?([\d,]+)\)")
+# The footer also contains parenthesized levy totals, percentages, and footnote
+# markers. Only the household PIL amounts carry an explicit dollar sign.
+PIL_RE = re.compile(r"\(\$([\d,]+)\)")
 LEVY_TOTALS_RE = re.compile(
     r"100%\s+\$([\d,]+)\s+100%\s+\$([\d,]+)\s+100%\s+\$([\d,]+)\s+"
     r"100%\s+\$([\d,]+)\s+100%\s+\$([\d,]+)"
@@ -59,7 +61,8 @@ AREA_LABELS = {
     "wilmot": "Wilmot",
 }
 
-# Fallback asserts when extract layout does not yield published figures.
+# Regression fixtures for the locked 2026 source. These values verify parser
+# output; they are never substituted for missing source text.
 EXPECTED_PUBLISHED_SUBTOTALS = {
     "blended": 3007,
     "urban": 3062,
@@ -143,14 +146,15 @@ def parse_published_footer(page_text: str) -> tuple[dict[str, int], int, dict[st
     PDF extraction often splits the Subtotal / Less / Levy rows across lines.
     Prefer the levy line with five ``100% $N`` tokens for after-PIL; collect
     bare ``$N`` amounts between Subtotal and that levy line as published
-    services subtotals. Fall back to EXPECTED_* constants when parsing fails.
+    services subtotals. Missing or ambiguous source text is a hard failure:
+    expected values are regression checks, never runtime substitutes.
     """
     lines = [re.sub(r"\s+", " ", raw).strip() for raw in page_text.splitlines()]
     lines = [ln for ln in lines if ln]
 
     after_pil: dict[str, int] | None = None
     published_subtotals: dict[str, int] | None = None
-    pil = EXPECTED_PIL
+    pil: int | None = None
 
     # After-PIL: Prefer the Regional Tax Levy summary line with five 100% markers.
     for ln in lines:
@@ -192,33 +196,35 @@ def parse_published_footer(page_text: str) -> tuple[dict[str, int], int, dict[st
         unique = set(pil_candidates)
         if len(unique) == 1:
             pil = next(iter(unique))
-        elif EXPECTED_PIL in unique:
-            pil = EXPECTED_PIL
+        else:
+            raise SystemExit(
+                "Ambiguous PIL values in published footer: "
+                + ", ".join(str(value) for value in sorted(unique))
+            )
 
     if published_subtotals is None:
-        published_subtotals = dict(EXPECTED_PUBLISHED_SUBTOTALS)
-        print(
-            "WARN: could not parse published subtotals from extract; using fallback asserts",
-            file=sys.stderr,
+        raise SystemExit(
+            "Could not parse five published household subtotals from the source extract"
         )
     if after_pil is None:
-        after_pil = dict(EXPECTED_AFTER_PIL)
-        print(
-            "WARN: could not parse after-PIL totals from extract; using fallback asserts",
-            file=sys.stderr,
+        raise SystemExit(
+            "Could not parse five Regional Tax Levy totals from the source extract"
         )
+    if pil is None:
+        raise SystemExit("Could not parse the published PIL/supplementary-tax offset")
 
-    # Hard fallback asserts — published after-PIL must match sealed expectations.
+    # Locked-source regression checks. The parser must first obtain every value
+    # from the source text above.
     for key, expected in EXPECTED_AFTER_PIL.items():
         if after_pil[key] != expected:
             raise SystemExit(
-                f"{key}: parsed after-PIL {after_pil[key]} != expected fallback {expected}"
+                f"{key}: parsed after-PIL {after_pil[key]} != locked-source value {expected}"
             )
     for key, expected in EXPECTED_PUBLISHED_SUBTOTALS.items():
         if published_subtotals[key] != expected:
             raise SystemExit(
                 f"{key}: parsed published subtotal {published_subtotals[key]} "
-                f"!= expected fallback {expected}"
+                f"!= locked-source value {expected}"
             )
     if pil != EXPECTED_PIL:
         raise SystemExit(f"PIL {pil} != expected {EXPECTED_PIL}")

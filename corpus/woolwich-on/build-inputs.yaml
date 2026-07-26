@@ -7,11 +7,13 @@ level: lower-tier
 parentBodies:
   - region-of-waterloo-on
 regionAreaKey: woolwich
-assessmentCode: "3024"
+assessmentCode: "3029"
 defaultAssessmentCad: 354500
 idPrefix: WOO
 localBucketLabel: Township portion
 dataDir: data/woolwich
+fiscalYear: 2026
+currency: CAD
 
 sources:
   - id: woo-2026-tax-rates
@@ -34,20 +36,17 @@ rates:
   sourceId: woo-2026-tax-rates
   fromExtract: data/_extracts/woolwich/2026-tax-rates-page.txt
   page: 1
-  preferPercent: false
+  rateUnit: decimal
   excerpt: "RT Residential 0.00322187 0.00738314 0.00153000 0.01213501"
 
 controlTotal:
   sourceId: woo-2026-budget
-  levyCad: 99.83
-  levyLabel: Township of Woolwich 2026 average-household tax increase dollars
-  levyPage: 1
-  levyExcerpt: "increase of $99.83 annually for the average household"
-  assessmentSourceId: woo-2026-budget
-  assessmentPage: 1
-  assessmentExcerpt: "Region of Waterloo household schedule uses $354,500 — used as illustration assessment for this Tier 0 pack with GAP disclosure"
+  assessmentMeasureType: reference_scenario
+  assessmentSourceId: row-2026-book
+  assessmentPage: 12
+  assessmentExcerpt: "Based on an average residential property valued at $354,500"
   taxIncreasePct: 7.8
-  taxIncreaseCad: 99.83
+  averageHouseholdIncreaseCad: 99.83
   increaseExcerpt: "7.8% total tax increase ... increase of $99.83 annually for the average household"
   status: approved
 

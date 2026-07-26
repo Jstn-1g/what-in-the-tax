@@ -29,6 +29,7 @@ import csv
 import hashlib
 import io
 import json
+import os
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -61,6 +62,33 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def resolve_built_at(explicit: str | None = None) -> str | None:
+    """Return optional, reproducible release metadata.
+
+    Content builds deliberately omit wall-clock time by default. Release
+    automation can opt in with ``--built-at`` or ``SOURCE_DATE_EPOCH`` without
+    making ordinary verification runs dirty tracked artifacts.
+    """
+
+    if explicit:
+        try:
+            parsed = datetime.fromisoformat(explicit.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("--built-at must be an ISO-8601 timestamp") from exc
+        if parsed.tzinfo is None:
+            raise ValueError("--built-at must include a timezone")
+        return parsed.astimezone(timezone.utc).isoformat()
+
+    epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    if epoch is None:
+        return None
+    try:
+        epoch_seconds = int(epoch)
+    except ValueError as exc:
+        raise ValueError("SOURCE_DATE_EPOCH must be an integer number of seconds") from exc
+    return datetime.fromtimestamp(epoch_seconds, timezone.utc).isoformat()
 
 
 def slugify(desc: str, code: str) -> str:
@@ -120,7 +148,14 @@ def extract_rows(zip_path: Path, year: str, codes: set[str]) -> dict[str, dict]:
     return by_code
 
 
-def build_stub(year: str, code: str, data: dict, zip_hash: str, zip_name: str) -> dict | None:
+def build_stub(
+    year: str,
+    code: str,
+    data: dict,
+    zip_hash: str,
+    zip_name: str,
+    built_at: str | None = None,
+) -> dict | None:
     rows = data.get("rows") or {}
     pop_row = rows.get(SLC_POP)
     gg_row = rows.get(SLC_GG_BEFORE)
@@ -142,7 +177,7 @@ def build_stub(year: str, code: str, data: dict, zip_hash: str, zip_name: str) -
     tier = data.get("tierCode") or ""
     tier_label = {"LT": "lower-tier", "UT": "upper-tier", "ST": "single-tier"}.get(tier, tier)
 
-    return {
+    stub = {
         "schemaVersion": "fleet-stub-0.1.0",
         "grade": "FIR",
         "badge": "Verified: FIR baseline (not local by-law)",
@@ -192,8 +227,10 @@ def build_stub(year: str, code: str, data: dict, zip_hash: str, zip_name: str) -
             if code == "2920"
             else None
         ),
-        "builtAt": datetime.now(timezone.utc).isoformat(),
     }
+    if built_at is not None:
+        stub["builtAt"] = built_at
+    return stub
 
 
 def main() -> int:
@@ -204,9 +241,20 @@ def main() -> int:
         default=",".join(DEFAULT_CODES),
         help="Comma-separated ASSESSMENT_CODE list",
     )
+    parser.add_argument(
+        "--built-at",
+        help=(
+            "Optional ISO-8601 release timestamp. Omitted by default for "
+            "reproducible content; SOURCE_DATE_EPOCH is also supported."
+        ),
+    )
     args = parser.parse_args()
     year = args.year
     codes = tuple(c.strip() for c in args.codes.split(",") if c.strip())
+    try:
+        built_at = resolve_built_at(args.built_at)
+    except ValueError as exc:
+        parser.error(str(exc))
     zip_path = FIR_DIR / f"fir_data_{year}.zip"
     if not zip_path.exists():
         print(f"MISSING: {zip_path}")
@@ -230,7 +278,6 @@ def main() -> int:
         "schemaVersion": "fleet-index-0.1.0",
         "grade": "FIR",
         "marsYear": year,
-        "builtAt": datetime.now(timezone.utc).isoformat(),
         "sourceZip": zip_path.name,
         "sourceZipSha256": zip_hash,
         "method": "code-only-dry-run",
@@ -238,10 +285,19 @@ def main() -> int:
         "skipped": [],
         "municipalities": [],
     }
+    if built_at is not None:
+        index["builtAt"] = built_at
 
     print("4. Building stub packs (fail closed if a required FIR row is missing)…")
     for code in codes:
-        stub = build_stub(year, code, extracted.get(code, {}), zip_hash, zip_path.name)
+        stub = build_stub(
+            year,
+            code,
+            extracted.get(code, {}),
+            zip_hash,
+            zip_path.name,
+            built_at=built_at,
+        )
         if stub is None:
             index["skipped"].append({"assessmentCode": code, "reason": "missing required SLC rows"})
             print(f"   SKIP {code} — missing required rows")

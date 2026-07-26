@@ -1,132 +1,164 @@
 """
-Deterministic citation audit — does the cited page actually say what the FACT claims?
+Deterministic citation and source-binding audit.
 
-Jurisdiction-agnostic: depends only on the evidence-ledger schema (sources[] with
-extractedText, facts[] with sourceId/page/excerpt/amountCad), never on Ontario
-specifics. This is the portable verification gate the receipt promise needs —
-"every dollar traces to a page in a published document" is currently upheld by
-careful human work; this makes it machine-checkable.
+The audit deliberately separates two questions:
 
-No model calls. No network. Pure text matching, so its verdicts are reproducible
-by any third party holding the same extracts.
+1. Does the cited page support the claim?
+2. Are the official source bytes and the extracted text cryptographically bound?
 
-WHY LABEL BINDING IS THE CHECK THAT MATTERS. Measured on this repo: running
-`pdftotext -layout` over binder page 9 — the department summary the whole receipt
-allocates from — shifts every row label down one row, so it reports
-`TOTAL FIRE = 2,091,306` (really Corporate Services) and
-`Total Elections = 201,669` (really Council). The numeric column order is
-preserved, therefore:
-  * every arithmetic tie-out in build_evidence_model.py still passes (they assert
-    over amounts and never bind a label to its amount),
-  * multi-extractor numeric agreement still passes (identical token multiset),
-  * and a presence-only citation check still passes.
-All three are ANTI-DIAGNOSTIC for the one failure that would make every published
-line a false statement about a department. Only label-to-value binding catches it.
-(pypdf, the committed extractor, happens to bind these rows correctly — so the
-current ledger is sound. The hazard is a future "upgrade" to a better-looking
-layout extractor.)
+Draft packs can use the resulting weaknesses as a work queue.  The publication
+validator promotes the same weaknesses to hard failures when a receipt-driving
+fact belongs to a sealed or published pack.
 
-Match tiers, strongest first:
-  verbatim         excerpt appears exactly on the cited page
-  normalized       matches after whitespace/case collapse (PDF extraction noise)
-  alnum            matches after stripping all non-alphanumerics (ligature/spacing loss)
-  row-bound        the amount and the excerpt's label words co-occur on ONE LINE of
-                   the cited page — so the figure is bound to its row label, not
-                   merely present somewhere on the page.
-  numbers-only     the numeric tokens are on the cited page but NOT on a line with
-                   the label words. The figure is present; its BINDING to this label
-                   is unverified. This is the exposure surface for the single most
-                   dangerous extraction failure (see below).
-  wrong-page       found elsewhere in the same document, NOT on the cited page
-  not-found        not in the document at all  -> HARD FAIL
+No model calls.  No network.  The result is reproducible by any third party
+holding the same source bytes and extracts.
 """
 
 from __future__ import annotations
 
+import argparse
+import hashlib
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 
 PAGE_MARKER = re.compile(r"=====\s*PAGE\s+(\d+)\s*=====")
-NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
+NUMBER = re.compile(
+    r"(?<!\d)(?:\d{1,3}(?:[ ,\u00a0\u202f]\d{3})+|\d+)(?:[.,]\d+)?(?!\d)"
+)
+SHA256 = re.compile(r"^[0-9a-fA-F]{64}$")
+
+STRONG_TIERS = frozenset({"verbatim", "normalized", "alnum", "row-bound"})
+WEAK_TIERS = frozenset(
+    {
+        "numbers-only",
+        "no-excerpt",
+        "unverifiable",
+        "bad-page-number",
+        "wrong-page",
+        "not-found",
+    }
+)
+HARD_CITATION_TIERS = frozenset({"not-found", "wrong-page", "bad-page-number"})
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def split_pages(text: str) -> dict[int, str]:
-    """Split an extract into {page_number: text} using the extractor's markers."""
+    """Split an extract into ``{page_number: text}`` using extractor markers."""
     pages: dict[int, str] = {}
     parts = PAGE_MARKER.split(text)
-    # parts = [pre, "1", body1, "2", body2, ...]
-    for i in range(1, len(parts) - 1, 2):
+    for index in range(1, len(parts) - 1, 2):
         try:
-            pages[int(parts[i])] = parts[i + 1]
+            pages[int(parts[index])] = parts[index + 1]
         except ValueError:
             continue
     return pages
 
 
-def norm_ws(s: str) -> str:
-    return re.sub(r"\s+", " ", s).strip().lower()
+def norm_ws(value: str) -> str:
+    return re.sub(r"\s+", " ", value).strip().casefold()
 
 
-def norm_alnum(s: str) -> str:
-    return re.sub(r"[^a-z0-9]", "", s.lower())
+def norm_alnum(value: str) -> str:
+    return "".join(character for character in value.casefold() if character.isalnum())
 
 
-def number_tokens(s: str) -> list[str]:
-    return [m.group(0).replace(",", "") for m in NUMBER.finditer(s)]
+def number_tokens(value: str) -> list[str]:
+    return [match.group(0) for match in NUMBER.finditer(value)]
 
 
-def digits_only(s: str) -> str:
-    """Collapse a text to digits and decimal points only.
+def digits_only(value: str) -> str:
+    """Collapse one row/token to digits and decimal points.
 
-    PDF extraction routinely corrupts numeric tokens by inserting whitespace
-    inside them ("201, 669", "( 126,300)", "138, 629" — all observed in the
-    North Dumfries binder via pypdf). Any verification that strips only commas
-    reports false failures on figures that are genuinely printed on the page.
-    Stripping every separator is the only sound comparison basis for
-    machine-extracted PDF text.
+    This remains useful for a single extracted line, where whitespace and
+    punctuation can split a printed number without accidentally joining digits
+    from unrelated rows.
     """
-    return re.sub(r"[^0-9.]", "", s)
+
+    return re.sub(r"[^0-9.]", "", value)
+
+
+def canonical_number(value: str) -> str:
+    """Normalize English/French Canadian grouping and decimal separators."""
+
+    compact = re.sub(r"[\s\u00a0\u202f$()\-−]", "", value)
+    if "," in compact and "." in compact:
+        decimal_separator = "," if compact.rfind(",") > compact.rfind(".") else "."
+        grouping_separator = "." if decimal_separator == "," else ","
+        compact = compact.replace(grouping_separator, "")
+        compact = compact.replace(decimal_separator, ".")
+    elif "," in compact:
+        pieces = compact.split(",")
+        # A single 3-digit suffix is the common English grouping form (1,234).
+        if len(pieces) == 2 and len(pieces[1]) != 3:
+            compact = ".".join(pieces)
+        else:
+            compact = "".join(pieces)
+    return compact
+
+
+def _number_pattern(value: str) -> re.Pattern[str]:
+    """Build a conservative PDF-noise-tolerant pattern for one numeric token."""
+
+    canonical = canonical_number(value)
+    integer, dot, fraction = canonical.partition(".")
+    separator = r"[\s,\u00a0\u202f]*"
+    body = separator.join(re.escape(character) for character in integer)
+    if dot:
+        body += r"\s*[.,]\s*" + r"\s*".join(
+            re.escape(character) for character in fraction
+        )
+    return re.compile(rf"(?<!\d){body}(?!\d)")
 
 
 def numbers_present(needles: list[str], haystack: str) -> tuple[bool, list[str]]:
-    """Every numeric token must appear, tolerating separator corruption."""
-    hay = digits_only(haystack)
-    missing = [n for n in needles if digits_only(n) not in hay]
+    """Require every numeric token without concatenating unrelated page digits."""
+
+    missing = [needle for needle in needles if not _number_pattern(needle).search(haystack)]
     return (not missing), missing
 
 
 def label_words(excerpt: str) -> list[str]:
-    """Substantive alphabetic tokens from an excerpt — its row-label content."""
-    return [w for w in re.findall(r"[A-Za-z]{4,}", excerpt.lower())]
+    """Substantive Unicode alphabetic tokens from an excerpt."""
+
+    return [
+        word.casefold()
+        for word in re.findall(r"[^\W\d_]{4,}", excerpt, flags=re.UNICODE)
+    ]
 
 
 def row_bound(excerpt: str, page_text: str) -> bool:
-    """Do the amount(s) and the label words share a single LINE of the page?
+    """Check that the amount(s) and label words share one extracted row."""
 
-    This is the check that survives a label-shift: presence-anywhere does not.
-    """
     words = label_words(excerpt)
     needles = number_tokens(excerpt)
     if not words or not needles:
         return False
-    need = max(2, int(round(0.6 * len(words))))
+    required_word_count = max(2, int(round(0.6 * len(words))))
     for line in page_text.splitlines():
         if not line.strip():
             continue
-        line_digits = digits_only(line)
-        if not all(digits_only(n) in line_digits for n in needles):
+        if not all(_number_pattern(needle).search(line) for needle in needles):
             continue
-        low = line.lower()
-        if sum(1 for w in words if w in low) >= need:
+        lowered = line.casefold()
+        if sum(1 for word in words if word in lowered) >= required_word_count:
             return True
     return False
 
 
-def classify(excerpt: str, cited_page_text: str, doc_text: str) -> tuple[str, str]:
+def classify(excerpt: str, cited_page_text: str, document_text: str) -> tuple[str, str]:
     if not excerpt:
         return "no-excerpt", "fact carries no excerpt to verify"
 
@@ -134,122 +166,395 @@ def classify(excerpt: str, cited_page_text: str, doc_text: str) -> tuple[str, st
         return "verbatim", ""
     if norm_ws(excerpt) in norm_ws(cited_page_text):
         return "normalized", "matched after whitespace/case collapse"
-    if norm_alnum(excerpt) and norm_alnum(excerpt) in norm_alnum(cited_page_text):
-        return "alnum", "matched after stripping non-alphanumerics (PDF spacing/ligature loss)"
+    normalized_excerpt = norm_alnum(excerpt)
+    if normalized_excerpt and normalized_excerpt in norm_alnum(cited_page_text):
+        return (
+            "alnum",
+            "matched after stripping non-alphanumerics (PDF spacing/ligature loss)",
+        )
 
     needles = number_tokens(excerpt)
     if needles:
-        ok, missing = numbers_present(needles, cited_page_text)
-        if ok:
+        present, _ = numbers_present(needles, cited_page_text)
+        if present:
             if row_bound(excerpt, cited_page_text):
-                return "row-bound", "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-            return "numbers-only", (
-                f"all {len(needles)} numeric token(s) present on the cited page, but NOT on a line "
-                "with the label words — the figure's BINDING to this label is unverified "
-                "(exposure surface for label-shift extraction errors)"
+                return (
+                    "row-bound",
+                    "amount and label words co-occur on one line of the cited page",
+                )
+            return (
+                "numbers-only",
+                f"all {len(needles)} numeric token(s) are on the cited page, "
+                "but their binding to the label is unverified",
             )
 
-    # Is it anywhere else in the document?
-    if norm_alnum(excerpt) and norm_alnum(excerpt) in norm_alnum(doc_text):
-        return "wrong-page", "text found in the document but NOT on the cited page"
+    if normalized_excerpt and normalized_excerpt in norm_alnum(document_text):
+        return "wrong-page", "text found in the document but not on the cited page"
     if needles:
-        ok, _ = numbers_present(needles, doc_text)
-        if ok:
-            return "wrong-page", "numeric tokens found in the document but NOT on the cited page"
+        present, _ = numbers_present(needles, document_text)
+        if present:
+            return (
+                "wrong-page",
+                "numeric tokens found in the document but not on the cited page",
+            )
 
-    return "not-found", "neither the wording nor the numeric tokens appear in the cited document"
+    return (
+        "not-found",
+        "neither the wording nor the numeric tokens appear in the cited document",
+    )
 
 
-TIER_ORDER = ["verbatim", "normalized", "alnum", "row-bound", "numbers-only", "no-excerpt", "wrong-page", "not-found"]
-HARD_FAIL = {"not-found", "wrong-page"}
+def _resolve_inside(root: Path, declared_path: str) -> tuple[Path | None, str | None]:
+    try:
+        candidate = Path(declared_path)
+    except (OSError, ValueError) as exc:
+        return None, f"invalid path: {exc}"
+    if candidate.is_absolute():
+        return None, "absolute paths are not allowed"
+    resolved_root = root.resolve()
+    try:
+        resolved = (resolved_root / candidate).resolve()
+    except (OSError, ValueError) as exc:
+        return None, f"invalid path: {exc}"
+    try:
+        resolved.relative_to(resolved_root)
+    except ValueError:
+        return None, "path escapes the evidence root"
+    return resolved, None
 
 
-def main(argv: list[str]) -> int:
-    ledger_path = Path(argv[1]) if len(argv) > 1 else ROOT / "data" / "evidence-ledger.json"
-    if not ledger_path.is_absolute():
-        ledger_path = (Path.cwd() / ledger_path).resolve()
-    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+def _check_bound_file(
+    source: dict[str, Any],
+    *,
+    path_field: str,
+    hash_field: str,
+    root: Path,
+    missing_path_issue: str,
+    missing_file_issue: str,
+    missing_hash_issue: str,
+    bad_hash_issue: str,
+    mismatch_issue: str,
+) -> tuple[Path | None, dict[str, Any], list[str]]:
+    declared_path = source.get(path_field)
+    declared_hash = source.get(hash_field)
+    result: dict[str, Any] = {
+        "declaredPath": declared_path,
+        "declaredSha256": declared_hash,
+        "actualSha256": None,
+    }
+    issues: list[str] = []
 
-    sources = {s["id"]: s for s in ledger.get("sources", [])}
+    if not isinstance(declared_path, str) or not declared_path.strip():
+        issues.append(missing_path_issue)
+        return None, result, issues
+
+    path, path_error = _resolve_inside(root, declared_path)
+    if path_error:
+        issues.append(f"{missing_file_issue}:{path_error}")
+        return None, result, issues
+    if path is None or not path.is_file():
+        issues.append(missing_file_issue)
+        return None, result, issues
+
+    try:
+        actual_hash = sha256_file(path)
+    except OSError as exc:
+        issues.append(f"{missing_file_issue}:unreadable:{exc}")
+        return None, result, issues
+    result["actualSha256"] = actual_hash
+    if not isinstance(declared_hash, str) or not declared_hash.strip():
+        issues.append(missing_hash_issue)
+    elif not SHA256.fullmatch(declared_hash):
+        issues.append(bad_hash_issue)
+    elif declared_hash.casefold() != actual_hash:
+        issues.append(mismatch_issue)
+    return path, result, issues
+
+
+def inspect_source(source: dict[str, Any], root: Path) -> tuple[dict[str, Any], str | None]:
+    """Inspect official bytes and extract bindings for one ledger source."""
+
+    source_path, source_file, source_issues = _check_bound_file(
+        source,
+        path_field="localPath",
+        hash_field="sha256",
+        root=root,
+        missing_path_issue="source-path-missing",
+        missing_file_issue="source-file-missing",
+        missing_hash_issue="source-sha256-missing",
+        bad_hash_issue="source-sha256-invalid",
+        mismatch_issue="source-sha256-mismatch",
+    )
+    extract_path, extract_file, extract_issues = _check_bound_file(
+        source,
+        path_field="extractedText",
+        hash_field="extractedTextSha256",
+        root=root,
+        missing_path_issue="extract-path-missing",
+        missing_file_issue="extract-file-missing",
+        missing_hash_issue="extract-sha256-missing",
+        bad_hash_issue="extract-sha256-invalid",
+        mismatch_issue="extract-sha256-mismatch",
+    )
+    source_file["declaredBytes"] = source.get("bytes")
+    source_file["actualBytes"] = source_path.stat().st_size if source_path else None
+    if source_path is not None:
+        declared_bytes = source.get("bytes")
+        if declared_bytes is None:
+            source_issues.append("source-bytes-missing")
+        elif (
+            isinstance(declared_bytes, bool)
+            or not isinstance(declared_bytes, int)
+            or declared_bytes < 0
+        ):
+            source_issues.append("source-bytes-invalid")
+        elif declared_bytes != source_path.stat().st_size:
+            source_issues.append("source-bytes-mismatch")
+
+    # Retained for diagnostics without exposing absolute workstation paths.
+    binding = {
+        "sourceId": source.get("id"),
+        "sourceFile": source_file,
+        "extractFile": extract_file,
+        "issues": source_issues + extract_issues,
+        "sourceReadable": source_path is not None,
+        "extractReadable": extract_path is not None,
+    }
+    try:
+        extract_text = (
+            extract_path.read_text(encoding="utf-8", errors="replace")
+            if extract_path is not None
+            else None
+        )
+    except OSError as exc:
+        binding["issues"].append(f"extract-file-missing:unreadable:{exc}")
+        binding["extractReadable"] = False
+        extract_text = None
+    return binding, extract_text
+
+
+def _match_is_negative(match: re.Match[str], text: str) -> bool:
+    prefix = text[max(0, match.start() - 16) : match.start()]
+    suffix = text[match.end() : min(len(text), match.end() + 8)]
+    has_minus = re.search(r"[-−]\s*\$?\s*$", prefix) is not None
+    has_parentheses = (
+        re.search(r"\(\s*\$?\s*$", prefix) is not None
+        and re.match(r"\s*\)", suffix) is not None
+    )
+    return has_minus or has_parentheses
+
+
+def _amount_binding_issue(fact: dict[str, Any], page_text: str) -> str | None:
+    amount = fact.get("amountCad")
+    if isinstance(amount, bool) or not isinstance(amount, (int, float)) or amount == 0:
+        return None
+    absolute = abs(amount)
+    variants = {
+        f"{int(absolute):,}",
+        str(int(absolute)),
+        f"{absolute:,.2f}",
+        f"{absolute:.2f}",
+    }
+    matches = [
+        match
+        for variant in variants
+        for match in _number_pattern(variant).finditer(page_text)
+    ]
+    if not matches:
+        return "amount-not-on-cited-page"
+    expected_negative = amount < 0
+    if any(_match_is_negative(match, page_text) == expected_negative for match in matches):
+        return None
+    return "amount-sign-mismatch"
+
+
+def audit_ledger(ledger: dict[str, Any], *, root: Path = ROOT) -> dict[str, Any]:
+    """Return a deterministic citation report without writing to disk."""
+
+    sources: dict[str, dict[str, Any]] = {}
+    duplicate_source_ids: set[str] = set()
+    ledger_sources = ledger.get("sources", []) or []
+    if not isinstance(ledger_sources, list):
+        ledger_sources = []
+    for source in ledger_sources:
+        if not isinstance(source, dict):
+            continue
+        source_id = source.get("id")
+        if not isinstance(source_id, str) or not source_id:
+            continue
+        if source_id in sources:
+            duplicate_source_ids.add(source_id)
+        sources[source_id] = source
+
+    source_bindings: dict[str, dict[str, Any]] = {}
     extracts: dict[str, tuple[dict[int, str], str]] = {}
-    for sid, src in sources.items():
-        rel = src.get("extractedText")
-        if not rel:
-            continue
-        # Ledger paths are repo-relative (data/_extracts/...). Nested packs under
-        # data/<slug>/ must still resolve from ROOT, not from the ledger folder.
-        p = Path(rel)
-        if not p.is_absolute():
-            p = ROOT / rel
-        if not p.exists():
-            continue
-        text = p.read_text(encoding="utf-8", errors="replace")
-        extracts[sid] = (split_pages(text), text)
+    for source_id, source in sources.items():
+        binding, extract_text = inspect_source(source, root)
+        if source_id in duplicate_source_ids:
+            binding["issues"].append("duplicate-source-id")
+        source_bindings[source_id] = binding
+        if extract_text is not None:
+            extracts[source_id] = (split_pages(extract_text), extract_text)
 
-    results = []
-    for f in ledger.get("facts", []):
-        sid = f.get("sourceId")
-        page = f.get("page")
-        excerpt = (f.get("excerpt") or "").strip()
-        entry = {"id": f.get("id"), "sourceId": sid, "page": page, "amountCad": f.get("amountCad")}
+    results: list[dict[str, Any]] = []
+    ledger_facts = ledger.get("facts", []) or []
+    if not isinstance(ledger_facts, list):
+        ledger_facts = []
+    for fact in ledger_facts:
+        if not isinstance(fact, dict):
+            continue
+        source_id = fact.get("sourceId")
+        page = fact.get("page")
+        excerpt = (fact.get("excerpt") or "").strip()
+        entry: dict[str, Any] = {
+            "id": fact.get("id"),
+            "sourceId": source_id,
+            "page": page,
+            "amountCad": fact.get("amountCad"),
+            "bindingIssues": [],
+        }
 
-        if sid not in extracts:
-            entry.update(tier="unverifiable", note=f"no local extract for source '{sid}' (url-only or missing PDF)")
+        if not isinstance(source_id, str) or source_id not in sources:
+            entry.update(
+                tier="unverifiable",
+                note=f"fact references missing source '{source_id}'",
+                bindingIssues=["source-id-missing"],
+            )
             results.append(entry)
             continue
 
-        pages, doc = extracts[sid]
+        entry["bindingIssues"] = list(source_bindings[source_id]["issues"])
+        if source_id not in extracts:
+            entry.update(
+                tier="unverifiable",
+                note=f"no readable local extract for source '{source_id}'",
+            )
+            results.append(entry)
+            continue
+
+        pages, document_text = extracts[source_id]
         if page is None:
-            page_text = doc
-            page_note = "no page cited; searched whole document"
+            page_text = document_text
+            entry["bindingIssues"].append("page-citation-missing")
+            page_note = "no page cited; searched the whole extract"
         elif page not in pages:
-            entry.update(tier="bad-page-number", note=f"cited page {page} does not exist in the extract ({len(pages)} pages)")
+            entry.update(
+                tier="bad-page-number",
+                note=f"cited page {page} does not exist in the extract ({len(pages)} pages)",
+            )
             results.append(entry)
             continue
         else:
             page_text = pages[page]
             page_note = ""
 
-        tier, note = classify(excerpt, page_text, doc)
-
-        # An amount claim should also be findable where it is cited.
-        amount_note = ""
-        amt = f.get("amountCad")
-        if isinstance(amt, (int, float)) and amt:
-            variants = {f"{int(amt):,}", str(int(amt)), f"{amt:,.2f}", f"{amt:.2f}"}
-            hay_digits = digits_only(page_text)
-            if not any(digits_only(v) in hay_digits for v in variants):
-                amount_note = f"amountCad {amt} not literally present on the cited page (may be a subtotal or reformatted)"
-
-        entry.update(tier=tier, note="; ".join(x for x in [note, page_note, amount_note] if x))
+        tier, note = classify(excerpt, page_text, document_text)
+        amount_issue = _amount_binding_issue(fact, page_text)
+        if amount_issue:
+            entry["bindingIssues"].append(amount_issue)
+        entry["bindingIssues"] = sorted(set(entry["bindingIssues"]))
+        entry.update(
+            tier=tier,
+            note="; ".join(part for part in (note, page_note) if part),
+        )
         results.append(entry)
 
-    counts: dict[str, int] = {}
-    for r in results:
-        counts[r["tier"]] = counts.get(r["tier"], 0) + 1
+    counts = dict(Counter(result["tier"] for result in results))
+    binding_issue_counts = dict(
+        Counter(
+            issue
+            for result in results
+            for issue in result.get("bindingIssues", [])
+        )
+    )
+    failures = [
+        result for result in results if result["tier"] in HARD_CITATION_TIERS
+    ]
+    return {
+        "ok": not failures,
+        "counts": counts,
+        "bindingIssueCounts": binding_issue_counts,
+        "results": results,
+        "sourceBindings": list(source_bindings.values()),
+    }
 
-    print(f"citation audit: {len(results)} facts")
-    for tier in TIER_ORDER + [t for t in counts if t not in TIER_ORDER]:
-        if counts.get(tier):
-            print(f"  {tier:>16}: {counts[tier]}")
 
-    failures = [r for r in results if r["tier"] in HARD_FAIL or r["tier"] == "bad-page-number"]
+def write_audit(report: dict[str, Any], output_path: Path) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+
+
+def _parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "ledger",
+        nargs="?",
+        help="repo-relative or absolute evidence-ledger JSON path",
+    )
+    # Keep the documented historical spelling working.
+    parser.add_argument("--ledger", dest="ledger_option", help=argparse.SUPPRESS)
+    parser.add_argument("--output", help="write the JSON report to this path")
+    parser.add_argument(
+        "--no-write",
+        action="store_true",
+        help="run read-only; do not write citation-audit.json",
+    )
+    return parser.parse_args(argv[1:])
+
+
+def main(argv: list[str]) -> int:
+    args = _parse_args(argv)
+    declared_ledger = args.ledger_option or args.ledger
+    ledger_path = Path(declared_ledger) if declared_ledger else ROOT / "data" / "evidence-ledger.json"
+    if not ledger_path.is_absolute():
+        ledger_path = (Path.cwd() / ledger_path).resolve()
+    try:
+        ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"ERROR: cannot load ledger {ledger_path}: {exc}", file=sys.stderr)
+        return 1
+
+    report = audit_ledger(ledger, root=ROOT)
+    print(f"citation audit: {len(report['results'])} facts")
+    for tier, count in sorted(report["counts"].items()):
+        print(f"  {tier:>16}: {count}")
+
+    failures = [
+        result
+        for result in report["results"]
+        if result["tier"] in HARD_CITATION_TIERS
+    ]
     if failures:
-        print("\nHARD FAILURES (a cited page does not support the claim):")
-        for r in failures:
-            print(f"  {r['id']} [{r['sourceId']} p{r['page']}] {r['tier']}: {r['note']}")
+        print("\nHARD CITATION FAILURES:")
+        for result in failures:
+            print(
+                f"  {result['id']} [{result['sourceId']} p{result['page']}] "
+                f"{result['tier']}: {result['note']}"
+            )
 
-    weak = [r for r in results if r["tier"] in {"numbers-only", "unverifiable", "no-excerpt"}]
+    weak = [
+        result
+        for result in report["results"]
+        if result["tier"] in WEAK_TIERS or result.get("bindingIssues")
+    ]
     if weak:
-        print("\nWEAKER-THAN-VERBATIM (honest, but not a quote):")
-        for r in weak:
-            print(f"  {r['id']} [{r['sourceId']} p{r['page']}] {r['tier']}: {r['note']}")
+        print("\nWEAK OR UNBOUND EVIDENCE:")
+        for result in weak:
+            issues = ", ".join(result.get("bindingIssues", []))
+            suffix = f"; binding: {issues}" if issues else ""
+            print(
+                f"  {result['id']} [{result['sourceId']} p{result['page']}] "
+                f"{result['tier']}: {result['note']}{suffix}"
+            )
 
-    out = ledger_path.parent / "citation-audit.json"
-    out.write_text(json.dumps({"counts": counts, "results": results}, indent=1), encoding="utf-8")
-    print(f"\nwrote {out}")
+    if not args.no_write:
+        output = Path(args.output) if args.output else ledger_path.parent / "citation-audit.json"
+        if not output.is_absolute():
+            output = (Path.cwd() / output).resolve()
+        write_audit(report, output)
+        print(f"\nwrote {output}")
 
-    return 1 if failures else 0
+    return 0 if report["ok"] else 1
 
 
 if __name__ == "__main__":

@@ -27,7 +27,7 @@ export type AttentionChip = {
   detail: string
   /** Omit when the chip should not navigate (e.g. 0 Watch with no target). */
   href?: string
-  tone: 'watch' | 'gap' | 'cite-ok' | 'cite-fail' | 'clear'
+  tone: 'watch' | 'gap' | 'cite-ok' | 'cite-weak' | 'cite-fail' | 'clear'
 }
 
 export type HeroBriefingModel = {
@@ -194,6 +194,10 @@ export function buildHeroBriefing(
   const counts = citationAudit?.counts ?? {}
   const hardFails =
     (counts['not-found'] ?? 0) + (counts['wrong-page'] ?? 0) + (counts['bad-page-number'] ?? 0)
+  const weakCitations =
+    (counts['numbers-only'] ?? 0) +
+    (counts['unverifiable'] ?? 0) +
+    (counts['no-excerpt'] ?? 0)
 
   const gapsDetail =
     destinationsStatus === 'gap' && destinationsGapId
@@ -222,13 +226,20 @@ export function buildHeroBriefing(
     },
     {
       id: 'cite',
-      label: hardFails === 0 ? 'Cite OK' : `${hardFails} Cite fails`,
+      label:
+        hardFails > 0
+          ? `${hardFails} Cite fails`
+          : weakCitations > 0
+            ? `${weakCitations} Cite weak`
+            : 'Cite OK',
       detail:
-        hardFails === 0
-          ? 'Citation audit: no wrong-page or not-found hard failures'
-          : 'Some cited pages do not support the claim — treat figures with caution',
+        hardFails > 0
+          ? 'Some cited pages do not support the claim — treat figures with caution'
+          : weakCitations > 0
+            ? 'Some values appear in a source without a verified label-to-value match'
+            : 'Citation audit found no weak or hard-failure matches',
       href: '#sources',
-      tone: hardFails === 0 ? 'cite-ok' : 'cite-fail',
+      tone: hardFails > 0 ? 'cite-fail' : weakCitations > 0 ? 'cite-weak' : 'cite-ok',
     },
   ]
 

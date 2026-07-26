@@ -36,6 +36,8 @@ artifacts:
   extractsRoot: data/_extracts/waterloo/
 
 controlTotal:
-  amountCad: 114990811
+  measureType: absolute_levy
+  levyCad: 114990811
+  assessmentMeasureType: published_average
   label: Published net tax levy (2026 Operating Budget Summary)
   note: Household department split is GAP (image-only Figure #2).

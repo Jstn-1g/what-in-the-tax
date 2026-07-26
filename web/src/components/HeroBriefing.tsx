@@ -161,7 +161,12 @@ export default function HeroBriefing({
             {onOpenHelp ? (
               <>
                 {' · '}
-                <button type="button" className="hero-inline-help" onClick={onOpenHelp}>
+                <button
+                  type="button"
+                  className="hero-inline-help"
+                  data-help-trigger="receipt-evidence-help"
+                  onClick={onOpenHelp}
+                >
                   {copy.whatDoTheseMean}
                 </button>
               </>

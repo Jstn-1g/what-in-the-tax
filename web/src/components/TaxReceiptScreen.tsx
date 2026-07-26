@@ -1,5 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react'
-import { money, pct } from '../lib/format'
+import { money, pct, yearFromText } from '../lib/format'
 import {
   buildEvidenceIndex,
   citationLabel,
@@ -78,16 +78,6 @@ function SourceAnchor({
 }
 
 function shortSourceName(title: string) {
-  if (title.includes('By-law 3637')) return 'By-law 3637-26 Schedule A'
-  if (title.includes('Draft Budget')) return 'ND 2026 budget binder'
-  if (title.includes('Final Budget Book')) return 'Region 2026 budget book'
-  if (title.includes('Summary Booklet')) return 'Region budget summary'
-  if (title.includes('17-10-0155')) return 'StatCan population estimates'
-  if (title.includes('FIR')) return 'Ontario FIR 2023'
-  if (title.includes('Census')) return 'StatCan 2021 Census'
-  if (title.includes('Brant') && title.includes('Tax Rates')) return 'Brant 2026 tax rates'
-  if (title.includes('Brant') && title.includes('Approved Budget')) return 'Brant 2026 approved budget'
-  if (title.includes('Brant') && title.includes('Overview')) return 'Brant 2026 budget overview'
   return title.length > 42 ? `${title.slice(0, 40)}…` : title
 }
 
@@ -251,6 +241,13 @@ export default function TaxReceiptScreen({
   const regionIllustration = profile.regionIllustrationAt354500
   const assessmentCad = combined?.assessmentCad ?? profile.township.assessmentCad ?? 0
   const displayName = data.jurisdiction?.displayName ?? 'North Dumfries'
+  const receiptYear = yearFromText(
+    data.purpose,
+    profile.description,
+    combined?.basis,
+    profile.township.basis,
+    profile.region.basis,
+  )
   const municipalLabel = simplifyBucketLabel(
     data.uiModelHints.municipalBucketLabel ?? profile.township.uiLabel ?? 'Township portion',
     simpleLanguage,
@@ -261,34 +258,42 @@ export default function TaxReceiptScreen({
   )
   const heroLabel =
     data.uiModelHints.heroLabel ??
-    `Total residential bill · ${money(assessmentCad)} assessment`
+    `Illustrative residential total · ${money(assessmentCad)} assessment`
 
-  const primarySources = sources.filter((s) =>
-    [
-      'nd-2026-tax-rate-bylaw',
-      'nd-2026-draft',
-      'nd-2026-budget-minutes',
-      'row-2026-book',
-      'brant-2026-tax-rates',
-      'brant-2026-approved-budget',
-      'brant-2026-budget-overview',
-      'kit-2026-tax-rates',
-      'kit-2026-budget-summary',
-      'kit-2026-appendix-b',
-      'wat-2026-tax-rates',
-      'wat-2026-budget',
-      'cam-2026-tax-rates',
-      'cam-2026-budget',
-      'woo-2026-tax-rates',
-      'woo-2026-budget',
-    ].includes(s.id),
-  )
+  const primarySources = useMemo(() => {
+    const candidateFactIds = [
+      ...(combined?.components ?? []).map((component) => component.sourceFactId),
+      profile.township.sourceFactId,
+      ...townshipLines.slice(0, 3).map((line) => line.sourceFactId),
+      profile.region.sourceFactId,
+      ...regionLines.slice(0, 3).map((line) => line.sourceFactId),
+    ]
+    const sourceIds = new Set(
+      candidateFactIds
+        .filter((id): id is string => Boolean(id))
+        .map((id) => resolveCitation(evidence, id).source?.id)
+        .filter((id): id is string => Boolean(id)),
+    )
+    const cited = sources.filter((source) => sourceIds.has(source.id))
+    return cited.length > 0 ? cited : sources.slice(0, 3)
+  }, [
+    combined?.components,
+    evidence,
+    profile.region.sourceFactId,
+    profile.township.sourceFactId,
+    regionLines,
+    sources,
+    townshipLines,
+  ])
 
   return (
     <div className="page">
+      <a className="skip-link" href="#main-content">
+        Skip to illustrative receipt
+      </a>
       <div className="deploy-banner" role="status">
         {bannerText ??
-          'Sealed · pack/north-dumfries-on/2026.3 · unaffiliated · citation hard-fail count: 0'}
+          'Independent illustrative receipt · unaffiliated · citation status unavailable'}
       </div>
       {packSwitcher}
       <header className="hero" id="receipt-hero" tabIndex={-1}>
@@ -297,10 +302,14 @@ export default function TaxReceiptScreen({
           <div className="hero-masthead">
             <p className="hero-context">
               <span className="hero-place">{displayName}</span>
-              <span className="hero-context-sep" aria-hidden="true">
-                ·
-              </span>
-              <span className="hero-year">2026</span>
+              {receiptYear ? (
+                <>
+                  <span className="hero-context-sep" aria-hidden="true">
+                    ·
+                  </span>
+                  <span className="hero-year">{receiptYear}</span>
+                </>
+              ) : null}
             </p>
             <p className="brand">Taxpayer Receipt</p>
           </div>
@@ -309,9 +318,12 @@ export default function TaxReceiptScreen({
             {copy.heroHeadlineAfterAmount}
           </h1>
           <p className="hero-support">{copy.heroSupport}</p>
+          <p className="hero-scenario-note">
+            <strong>Illustrative scenario.</strong> {profile.description}
+          </p>
           <div className="hero-cta-row">
             <a className="cta" href="#bill">
-              {copy.yourBillCta}
+              Illustrative receipt
             </a>
             <a className="cta cta-ghost" href="#sources">
               {copy.sourcesCta}
@@ -320,7 +332,12 @@ export default function TaxReceiptScreen({
               {copy.gapsCta}
             </a>
             {onOpenHelp ? (
-              <button type="button" className="cta cta-ghost" onClick={onOpenHelp}>
+              <button
+                type="button"
+                className="cta cta-ghost"
+                data-help-trigger="receipt-hero"
+                onClick={onOpenHelp}
+              >
                 {copy.helpCta}
               </button>
             ) : null}
@@ -348,13 +365,18 @@ export default function TaxReceiptScreen({
         <a href="#gaps">{copy.navGaps}</a>
         <a href="#sources">{copy.navSources}</a>
         {onOpenHelp ? (
-          <button type="button" className="page-nav-help" onClick={onOpenHelp}>
+          <button
+            type="button"
+            className="page-nav-help"
+            data-help-trigger="receipt-page-nav"
+            onClick={onOpenHelp}
+          >
             {copy.navHelp}
           </button>
         ) : null}
       </nav>
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="section bill-section" id="bill" aria-labelledby="bill-title">
           <div className="section-head">
             <p className="section-kicker">{copy.combinedKicker}</p>
@@ -503,13 +525,12 @@ export default function TaxReceiptScreen({
                 'Flagged means this line needs an explanation. It does not mean the money was wasted.'}
             </p>
           </div>
-          <div className="filter-row" role="tablist" aria-label="Finding categories">
+          <div className="filter-row" role="group" aria-label="Finding categories">
             {FINDING_TABS.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
-                role="tab"
-                aria-selected={flagTab === tab.id}
+                aria-pressed={flagTab === tab.id}
                 className={flagTab === tab.id ? 'filter active' : 'filter'}
                 onClick={() => setFlagTab(tab.id)}
               >
@@ -557,7 +578,12 @@ export default function TaxReceiptScreen({
           </div>
           <ul className="flag-list">
             {gaps.map((gap) => (
-              <li key={gap.id} id={gap.id} className="flag-item severity-watch">
+              <li
+                key={gap.id}
+                id={gap.id}
+                className="flag-item severity-watch"
+                tabIndex={-1}
+              >
                 <div className="flag-top">
                   <div>
                     <p className="flag-id">{gap.id}</p>
@@ -623,7 +649,12 @@ export default function TaxReceiptScreen({
           <p>{data.evidencePolicyRef}</p>
           {onOpenHelp ? (
             <p>
-              <button type="button" className="footer-help-link" onClick={onOpenHelp}>
+              <button
+                type="button"
+                className="footer-help-link"
+                data-help-trigger="receipt-footer"
+                onClick={onOpenHelp}
+              >
                 {copy.footerHelp}
               </button>
             </p>

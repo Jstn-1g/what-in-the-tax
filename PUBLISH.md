@@ -94,15 +94,18 @@ may contain. Every municipality starts at Tier 0 — receipt only, no findings, 
 promoted only by an explicit logged human act. v1 posture is Tier 0 for the fleet, with Tier 2 rare
 and by hand (`PURPOSE.md`).
 
-## Current state: `north-dumfries-on` is sealed (provisional)
+## Current state: previews only
 
-Citation audit hard failures were cleared (wrong-page cluster fixed to the binder summary
-schedule at PDF p.9 and related narrative pages). `validate_pack` exits 0.
-Sealed artifact: `receipts/north-dumfries-on/2026/3` (`pack/north-dumfries-on/2026.3`).
+No current pack is Sealed or Published. The historical
+`receipts/north-dumfries-on/2026/{1,2,3}` directories are retained as integrity experiments,
+but revision 3 does not satisfy this document: its embedded pack metadata disagrees with its
+manifest, its claimed Git tags do not exist, its source bytes/extracts are not fully locked, and
+the web deployment is built from mutable source copies rather than the sealed directory.
 
-This is **not** yet Published in the sense of `PUBLISH.md` (publisher of record, contact,
-corrections surface). It is deployable as a **sealed preview** via GitHub Pages
-(`docs/DEPLOY.md`).
+`corpus/north-dumfries-on/pack.yaml` is therefore reset to `draft`. Citation matching may be
+green while publication remains blocked; a citation audit is one gate, not a seal. The next
+candidate must use a new revision and must be promoted as the exact CI-built public artifact,
+without a production rebuild.
 
 ## What is not yet built
 
@@ -117,10 +120,14 @@ Honest inventory, so this page is not read as a description of working software:
   `build_evidence_model.py` remain until Phase 0 item 8.
 - Full `corpus/<slug>/*.yaml` transcription (Phase 1 item 7) is not done; the pack is a descriptor
   pointing at `data/`.
+- The preview interface is currently English-only. The `fr-CA` number-formatting primitives are
+  not a French message catalogue, translated pack copy, or a reviewed bilingual release. A
+  Canada-wide publication remains blocked until the interface, accessibility labels, dates/rates,
+  and reader-facing pack narratives have complete human-reviewed French equivalents and the page
+  language switches with the selected locale. Runtime machine translation is not an approval path.
 - `coverage.json` on the page and `#page=` suppression for non-verifying cites (Phase 0 items 1–3)
   are not fully wired in the UI yet.
 - MARAI export to `review.jsonl` does not exist; local `marai-ledger/` is gitignored working state.
 
-**Today:** `north-dumfries-on` remains **draft** because citation audit hard failures are non-zero.
-Seal and Published are correctly blocked until `python scripts/validate_pack.py north-dumfries-on`
-exits 0.
+**Today:** every pack remains **draft**. Seal and Published stay blocked until strict identity,
+source-lock, calculation, public-projection, reproducibility, and deployment-byte checks all pass.

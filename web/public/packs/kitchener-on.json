@@ -1,0 +1,1160 @@
+{
+  "audit": {
+    "counts": {
+      "numbers-only": 4,
+      "row-bound": 21,
+      "verbatim": 11
+    },
+    "results": [
+      {
+        "id": "KIT-AVG-ASSESSMENT-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-DEPT-CAO-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-DEPT-COR-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-DEPT-CSD-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-DEPT-DSD-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-DEPT-FIN-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-DEPT-INS-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-NET-DEPT-EXP-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-TAXRATE-RES-CITY-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-TAXRATE-RES-EDUCATION-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "KIT-TAXRATE-RES-REGION-2026",
+        "tier": "verbatim"
+      },
+      {
+        "id": "ROW-HH-PIL-2026",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-HH-URBAN-01",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-02",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-03",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-04",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-05",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-06",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-07",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-08",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-09",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-10",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-11",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-12",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-13",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-14",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-15",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-16",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-17",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-18",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-HH-URBAN-19",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-20",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-HH-URBAN-21",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-22",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-HH-URBAN-23",
+        "tier": "row-bound"
+      },
+      {
+        "id": "ROW-URBAN-HH-TOTAL-2026",
+        "tier": "numbers-only"
+      }
+    ]
+  },
+  "evidence": {
+    "derived": [
+      {
+        "amountCad": 170039303,
+        "formula": "sum(department totals) == KIT-NET-DEPT-EXP-2026",
+        "id": "DRV-KIT-ALLOCATION-BASE-2026",
+        "inputs": [
+          "KIT-DEPT-CAO-2026",
+          "KIT-DEPT-CSD-2026",
+          "KIT-DEPT-FIN-2026",
+          "KIT-DEPT-COR-2026",
+          "KIT-DEPT-DSD-2026",
+          "KIT-DEPT-INS-2026",
+          "KIT-NET-DEPT-EXP-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Department net-expenditure allocation base"
+      },
+      {
+        "amountCad": 1340.39,
+        "formula": "KIT-AVG-ASSESSMENT-2026 * KIT-TAXRATE-RES-CITY-2026",
+        "id": "DRV-KIT-BILL-CITY-326K",
+        "inputs": [
+          "KIT-AVG-ASSESSMENT-2026",
+          "KIT-TAXRATE-RES-CITY-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "City portion at average assessment"
+      },
+      {
+        "amountCad": 2744.38,
+        "formula": "KIT-AVG-ASSESSMENT-2026 * KIT-TAXRATE-RES-REGION-2026",
+        "id": "DRV-KIT-BILL-REGION-326K",
+        "inputs": [
+          "KIT-AVG-ASSESSMENT-2026",
+          "KIT-TAXRATE-RES-REGION-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Region portion at average assessment"
+      },
+      {
+        "amountCad": 498.78,
+        "formula": "KIT-AVG-ASSESSMENT-2026 * KIT-TAXRATE-RES-EDUCATION-2026",
+        "id": "DRV-KIT-BILL-EDUCATION-326K",
+        "inputs": [
+          "KIT-AVG-ASSESSMENT-2026",
+          "KIT-TAXRATE-RES-EDUCATION-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Education portion at average assessment"
+      },
+      {
+        "amountCad": 11.38,
+        "formula": "DRV-KIT-BILL-CITY-326K * (KIT-DEPT-CAO-2026 / DRV-KIT-ALLOCATION-BASE-2026)",
+        "id": "DRV-KIT-DEPT-CAO-2026-HH",
+        "inputs": [
+          "DRV-KIT-BILL-CITY-326K",
+          "KIT-DEPT-CAO-2026",
+          "DRV-KIT-ALLOCATION-BASE-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Household share — Chief Administrator's Office"
+      },
+      {
+        "amountCad": 528.11,
+        "formula": "DRV-KIT-BILL-CITY-326K * (KIT-DEPT-CSD-2026 / DRV-KIT-ALLOCATION-BASE-2026)",
+        "id": "DRV-KIT-DEPT-CSD-2026-HH",
+        "inputs": [
+          "DRV-KIT-BILL-CITY-326K",
+          "KIT-DEPT-CSD-2026",
+          "DRV-KIT-ALLOCATION-BASE-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Household share — Community Services"
+      },
+      {
+        "amountCad": 42.49,
+        "formula": "DRV-KIT-BILL-CITY-326K * (KIT-DEPT-FIN-2026 / DRV-KIT-ALLOCATION-BASE-2026)",
+        "id": "DRV-KIT-DEPT-FIN-2026-HH",
+        "inputs": [
+          "DRV-KIT-BILL-CITY-326K",
+          "KIT-DEPT-FIN-2026",
+          "DRV-KIT-ALLOCATION-BASE-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Household share — Financial Services"
+      },
+      {
+        "amountCad": 154.56,
+        "formula": "DRV-KIT-BILL-CITY-326K * (KIT-DEPT-COR-2026 / DRV-KIT-ALLOCATION-BASE-2026)",
+        "id": "DRV-KIT-DEPT-COR-2026-HH",
+        "inputs": [
+          "DRV-KIT-BILL-CITY-326K",
+          "KIT-DEPT-COR-2026",
+          "DRV-KIT-ALLOCATION-BASE-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Household share — Corporate Services"
+      },
+      {
+        "amountCad": 134.84,
+        "formula": "DRV-KIT-BILL-CITY-326K * (KIT-DEPT-DSD-2026 / DRV-KIT-ALLOCATION-BASE-2026)",
+        "id": "DRV-KIT-DEPT-DSD-2026-HH",
+        "inputs": [
+          "DRV-KIT-BILL-CITY-326K",
+          "KIT-DEPT-DSD-2026",
+          "DRV-KIT-ALLOCATION-BASE-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Household share — Development Services"
+      },
+      {
+        "amountCad": 469.0,
+        "formula": "DRV-KIT-BILL-CITY-326K * (KIT-DEPT-INS-2026 / DRV-KIT-ALLOCATION-BASE-2026)",
+        "id": "DRV-KIT-DEPT-INS-2026-HH",
+        "inputs": [
+          "DRV-KIT-BILL-CITY-326K",
+          "KIT-DEPT-INS-2026",
+          "DRV-KIT-ALLOCATION-BASE-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Household share — Infrastructure Services"
+      }
+    ],
+    "evidencePolicy": {
+      "rules": [
+        "FACT requires a published source, page, and excerpt or numeric binding.",
+        "DERIVED requires an explicit formula over FACT/DERIVED ids only.",
+        "Never invent bill dollars to fill a GAP.",
+        "JUDGMENT billImpactCad is always null until a formula is approved.",
+        "Do not copy another municipality's Region household table into this pack."
+      ]
+    },
+    "facts": [
+      {
+        "amountCad": 326000,
+        "excerpt": "Property Taxes 2.20% $29 Assessment of $326,000",
+        "id": "KIT-AVG-ASSESSMENT-2026",
+        "kind": "FACT",
+        "label": "Average assessed value used for residential impact illustrations",
+        "page": 4,
+        "sourceId": "kit-2026-budget-summary",
+        "status": "approved"
+      },
+      {
+        "amountCad": 0.00411164,
+        "excerpt": "Residential R T Residential / Farm Taxable: Full 0.00411164 0.00841834 0.00153000 0.01405998",
+        "id": "KIT-TAXRATE-RES-CITY-2026",
+        "kind": "FACT",
+        "label": "RT Residential City tax rate 2026",
+        "page": 1,
+        "sourceId": "kit-2026-tax-rates",
+        "status": "final"
+      },
+      {
+        "amountCad": 0.00841834,
+        "excerpt": "Residential R T Residential / Farm Taxable: Full 0.00411164 0.00841834 0.00153000 0.01405998",
+        "id": "KIT-TAXRATE-RES-REGION-2026",
+        "kind": "FACT",
+        "label": "RT Residential Region tax rate 2026 (as printed on City rates sheet)",
+        "page": 1,
+        "sourceId": "kit-2026-tax-rates",
+        "status": "final"
+      },
+      {
+        "amountCad": 0.00153,
+        "excerpt": "Residential R T Residential / Farm Taxable: Full 0.00411164 0.00841834 0.00153000 0.01405998",
+        "id": "KIT-TAXRATE-RES-EDUCATION-2026",
+        "kind": "FACT",
+        "label": "RT Residential Education tax rate 2026",
+        "page": 1,
+        "sourceId": "kit-2026-tax-rates",
+        "status": "final"
+      },
+      {
+        "amountCad": 170039303,
+        "excerpt": "NET DEPARTMENTAL EXPENDITURES 159,337,333    162,901,333        170,039,303    10,701,970        6.72%",
+        "id": "KIT-NET-DEPT-EXP-2026",
+        "kind": "FACT",
+        "label": "Net departmental expenditures 2026 (allocation base)",
+        "page": 3,
+        "sourceId": "kit-2026-appendix-b",
+        "status": "approved"
+      },
+      {
+        "amountCad": 1443066,
+        "excerpt": "CHIEF ADMINISTRATOR'S OFFICE TOTAL 1,356,709        1,364,709            1,443,066        86,357                6.37%",
+        "id": "KIT-DEPT-CAO-2026",
+        "kind": "FACT",
+        "label": "Chief Administrator's Office — 2026 department total",
+        "page": 2,
+        "sourceId": "kit-2026-appendix-b",
+        "status": "approved"
+      },
+      {
+        "amountCad": 66995305,
+        "excerpt": "COMMUNITY SERVICES DEPT TOTAL 63,211,539      63,660,539          66,995,305      3,783,766          5.99%",
+        "id": "KIT-DEPT-CSD-2026",
+        "kind": "FACT",
+        "label": "Community Services — 2026 department total",
+        "page": 2,
+        "sourceId": "kit-2026-appendix-b",
+        "status": "approved"
+      },
+      {
+        "amountCad": 5390745,
+        "excerpt": "FINANCIAL SERVICES DEPT TOTAL 4,950,985        4,876,985            5,390,745        439,760              8.88%",
+        "id": "KIT-DEPT-FIN-2026",
+        "kind": "FACT",
+        "label": "Financial Services — 2026 department total",
+        "page": 2,
+        "sourceId": "kit-2026-appendix-b",
+        "status": "approved"
+      },
+      {
+        "amountCad": 19607218,
+        "excerpt": "CORPORATE SERVICES DEPT TOTAL 18,732,881      18,874,881          19,607,218      874,337              4.67%",
+        "id": "KIT-DEPT-COR-2026",
+        "kind": "FACT",
+        "label": "Corporate Services — 2026 department total",
+        "page": 2,
+        "sourceId": "kit-2026-appendix-b",
+        "status": "approved"
+      },
+      {
+        "amountCad": 17106029,
+        "excerpt": "DEVELOPMENT SERVICES DEPT TOTAL 16,140,126      17,681,126          17,106,029      965,903              5.98%",
+        "id": "KIT-DEPT-DSD-2026",
+        "kind": "FACT",
+        "label": "Development Services — 2026 department total",
+        "page": 2,
+        "sourceId": "kit-2026-appendix-b",
+        "status": "approved"
+      },
+      {
+        "amountCad": 59496940,
+        "excerpt": "INFRASTRUCTURE SERVICES DEPARTMENT TOTAL 54,945,093      56,443,093          59,496,940      4,551,847          8.28%",
+        "id": "KIT-DEPT-INS-2026",
+        "kind": "FACT",
+        "label": "Infrastructure Services — 2026 department total",
+        "page": 3,
+        "sourceId": "kit-2026-appendix-b",
+        "status": "approved"
+      },
+      {
+        "amountCad": 2984,
+        "excerpt": "Urban ... Regional Tax Levy ... $2,984 ... Based on an average residential property valued at $354,500",
+        "id": "ROW-URBAN-HH-TOTAL-2026",
+        "kind": "FACT",
+        "label": "Tax-supported regional services cost per average urban household",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": -78,
+        "excerpt": "Less: Payments in Lieu & Supplementary Taxes(3) ($78)",
+        "id": "ROW-HH-PIL-2026",
+        "kind": "FACT",
+        "label": "Payments in Lieu & Supplementary Taxes (household share)",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 900,
+        "excerpt": "Police Service ... Urban $900",
+        "id": "ROW-HH-URBAN-01",
+        "kind": "FACT",
+        "label": "Urban household — Police Service",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 582,
+        "excerpt": "Public Transit ... Urban $582",
+        "id": "ROW-HH-URBAN-02",
+        "kind": "FACT",
+        "label": "Urban household — Public Transit",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 429,
+        "excerpt": "Housing Services ... Urban $429",
+        "id": "ROW-HH-URBAN-03",
+        "kind": "FACT",
+        "label": "Urban household — Housing Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 240,
+        "excerpt": "Roads/Design & Construction/Eng. ... Urban $240",
+        "id": "ROW-HH-URBAN-04",
+        "kind": "FACT",
+        "label": "Urban household — Roads/Design & Construction/Eng.",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 213,
+        "excerpt": "Waste Management ... Urban $213",
+        "id": "ROW-HH-URBAN-05",
+        "kind": "FACT",
+        "label": "Urban household — Waste Management",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 89,
+        "excerpt": "Financial Expenses ... Urban $89",
+        "id": "ROW-HH-URBAN-06",
+        "kind": "FACT",
+        "label": "Urban household — Financial Expenses",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 134,
+        "excerpt": "Paramedic Services ... Urban $134",
+        "id": "ROW-HH-URBAN-07",
+        "kind": "FACT",
+        "label": "Urban household — Paramedic Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 53,
+        "excerpt": "Employment/Income Support ... Urban $53",
+        "id": "ROW-HH-URBAN-08",
+        "kind": "FACT",
+        "label": "Urban household — Employment/Income Support",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 51,
+        "excerpt": "Seniors' Services ... Urban $51",
+        "id": "ROW-HH-URBAN-09",
+        "kind": "FACT",
+        "label": "Urban household — Seniors' Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 39,
+        "excerpt": "Human Resources ... Urban $39",
+        "id": "ROW-HH-URBAN-10",
+        "kind": "FACT",
+        "label": "Urban household — Human Resources",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 49,
+        "excerpt": "Information Technology Services ... Urban $49",
+        "id": "ROW-HH-URBAN-11",
+        "kind": "FACT",
+        "label": "Urban household — Information Technology Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 45,
+        "excerpt": "Public Health ... Urban $45",
+        "id": "ROW-HH-URBAN-12",
+        "kind": "FACT",
+        "label": "Urban household — Public Health",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 24,
+        "excerpt": "Facilities & Fleet Management ... Urban $24",
+        "id": "ROW-HH-URBAN-13",
+        "kind": "FACT",
+        "label": "Urban household — Facilities & Fleet Management",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 33,
+        "excerpt": "Cultural Services ... Urban $33",
+        "id": "ROW-HH-URBAN-14",
+        "kind": "FACT",
+        "label": "Urban household — Cultural Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 30,
+        "excerpt": "Children's Services ... Urban $30",
+        "id": "ROW-HH-URBAN-15",
+        "kind": "FACT",
+        "label": "Urban household — Children's Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 17,
+        "excerpt": "Elected Offices & Office of the Chief Administrative Officer ... Urban $17",
+        "id": "ROW-HH-URBAN-16",
+        "kind": "FACT",
+        "label": "Urban household — Elected Offices & Office of the Chief Administrative Officer",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 19,
+        "excerpt": "Resident Experience, Strategy and Communications ... Urban $19",
+        "id": "ROW-HH-URBAN-17",
+        "kind": "FACT",
+        "label": "Urban household — Resident Experience, Strategy and Communications",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 31,
+        "excerpt": "Airport ... Urban $31",
+        "id": "ROW-HH-URBAN-18",
+        "kind": "FACT",
+        "label": "Urban household — Airport",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 21,
+        "excerpt": "Planning, Development & Legislative Services ... Urban $21",
+        "id": "ROW-HH-URBAN-19",
+        "kind": "FACT",
+        "label": "Urban household — Planning, Development & Legislative Services",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 24,
+        "excerpt": "Finance ... Urban $24",
+        "id": "ROW-HH-URBAN-20",
+        "kind": "FACT",
+        "label": "Urban household — Finance",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 0,
+        "excerpt": "Regional Library ... Urban $0",
+        "id": "ROW-HH-URBAN-21",
+        "kind": "FACT",
+        "label": "Urban household — Regional Library",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 16,
+        "excerpt": "Build Waterloo Region ... Urban $16",
+        "id": "ROW-HH-URBAN-22",
+        "kind": "FACT",
+        "label": "Urban household — Build Waterloo Region",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
+        "amountCad": 20,
+        "excerpt": "Strategy, Performance and Partnerships ... Urban $20",
+        "id": "ROW-HH-URBAN-23",
+        "kind": "FACT",
+        "label": "Urban household — Strategy, Performance and Partnerships",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      }
+    ],
+    "gaps": [
+      {
+        "blocks": [],
+        "detail": "Budget Summary prints net tax levy $171,432,000. Appendix B net departmental expenditures sum to $170,039,303 (delta $1,392,697). General expenses and general revenues sit outside the department table. Household department shares use the Appendix B department base, not the levy headline.",
+        "disposition": "missing_evidence",
+        "id": "GAP-KIT-LEVY-VS-DEPTS",
+        "kind": "GAP",
+        "neededEvidence": [
+          "One-page reconciliation from levy headline to department totals"
+        ],
+        "title": "Published net tax levy differs from net departmental expenditures"
+      },
+      {
+        "blocks": [],
+        "detail": "City bill uses REGION rate × $326,000 = $2,744.38 (DRV-KIT-BILL-REGION-326K). Region urban household schedule totals $2,984 at $354,500. These are the same MPAC January 1, 2016 base but different average properties — not algebraically reconciled here. Schedule lines are informational only until an explicit rate×assessment DERIVED path is approved.",
+        "disposition": "missing_evidence",
+        "id": "GAP-KIT-REGION-ASSESSMENT-BRIDGE",
+        "kind": "GAP",
+        "neededEvidence": [
+          "Approved formula mapping Region urban HH lines onto the City average assessment bill"
+        ],
+        "title": "No DERIVED bridge from Region $354,500 urban schedule to City $326,000 rate bill"
+      },
+      {
+        "blocks": [],
+        "detail": "Pack uses working code 3012 pending a hand-checked FIR Schedule 02 row for City of Kitchener. Do not treat as sealed identity.",
+        "disposition": "missing_evidence",
+        "id": "GAP-KIT-FIR-CODE-VERIFY",
+        "kind": "GAP",
+        "neededEvidence": [
+          "FIR Schedule 02 MAH code for City of Kitchener"
+        ],
+        "title": "FIR / MAH assessment code not yet locked from Schedule 02"
+      },
+      {
+        "blocks": [
+          "findings_peer_fairness"
+        ],
+        "detail": "Tier 0 draft: no peer FIR findings published.",
+        "disposition": "missing_evidence",
+        "id": "GAP-KIT-PEER-FIR-FAIRNESS",
+        "kind": "GAP",
+        "neededEvidence": [
+          "Hand-checked FIR Schedule 40 peer cohort"
+        ],
+        "title": "Peer per-capita fairness check not yet run for Kitchener"
+      }
+    ],
+    "sources": [
+      {
+        "asOf": "2025-12",
+        "authority": "City of Kitchener",
+        "id": "kit-2026-budget-summary",
+        "title": "City of Kitchener 2026 Budget Summary — Affordable Today, Ready for Tomorrow",
+        "url": "https://www.kitchener.ca/media/2mxbmlay/cok_fin_budget_2026.pdf"
+      },
+      {
+        "asOf": "2025-12",
+        "authority": "City of Kitchener",
+        "id": "kit-2026-appendix-b",
+        "title": "City of Kitchener 2026 Budget — Appendix B Operating Budget",
+        "url": "https://www.kitchener.ca/media/kzxdj3nt/cok_fin_budget_2026_appendix-b-operating.pdf"
+      },
+      {
+        "asOf": "2026",
+        "authority": "City of Kitchener",
+        "id": "kit-2026-tax-rates",
+        "title": "City of Kitchener 2026 Final Tax Rates",
+        "url": "https://kitchener-ca.govstack.com/media/1itfipd0/2026-rates-remediated.pdf"
+      },
+      {
+        "asOf": "2026",
+        "authority": "Region of Waterloo",
+        "id": "row-2026-book",
+        "title": "Region of Waterloo 2026 Final Budget Book — Annual Average Cost Per Household",
+        "url": "https://www.regionofwaterloo.ca/"
+      }
+    ]
+  },
+  "id": "kitchener-on",
+  "receipt": {
+    "artifact": "TaxpayerReceipt",
+    "evidencePolicyRef": "Evidence included with this preview",
+    "findings": [],
+    "jurisdiction": {
+      "aliases": [
+        "Kitchener"
+      ],
+      "displayName": "City of Kitchener",
+      "level": "lower-tier",
+      "slug": "kitchener-on"
+    },
+    "profiles": {
+      "hypothetical5000": {
+        "allocatable": true,
+        "amountCad": 5000,
+        "compositionShares": [
+          {
+            "label": "City of Kitchener",
+            "share": 0.2924356933651399,
+            "sourceFactId": "KIT-TAXRATE-RES-CITY-2026"
+          },
+          {
+            "label": "Region of Waterloo",
+            "share": 0.5987448061803786,
+            "sourceFactId": "KIT-TAXRATE-RES-REGION-2026"
+          },
+          {
+            "label": "Education (Province of Ontario)",
+            "share": 0.10881950045448144,
+            "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026"
+          }
+        ],
+        "evidenceStatus": "DERIVED",
+        "impliedAssessmentCad": 355619,
+        "message": "A $5,000 total bill implies an assessment of about $355,619. Shown as rate shares rather than invented department dollars."
+      },
+      "supportedAverageHousehold": {
+        "combinedAtAssessment": {
+          "assessmentCad": 326000,
+          "basis": "City of Kitchener 2026 Final Tax Rates — RT Residential / Farm Taxable: Full",
+          "components": [
+            {
+              "amountCad": 1340.39,
+              "label": "City of Kitchener",
+              "rate": 0.00411164,
+              "sourceFactId": "KIT-TAXRATE-RES-CITY-2026"
+            },
+            {
+              "amountCad": 2744.38,
+              "label": "Region of Waterloo",
+              "rate": 0.00841834,
+              "sourceFactId": "KIT-TAXRATE-RES-REGION-2026"
+            },
+            {
+              "amountCad": 498.78,
+              "label": "Education (Province of Ontario)",
+              "rate": 0.00153,
+              "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026"
+            }
+          ],
+          "evidenceStatus": "DERIVED",
+          "totalCad": 4583.55,
+          "totalRate": 0.01405998
+        },
+        "combinedTotalCad": 4583.55,
+        "combinedTotalNote": "Built from the 2026 Final Tax Rates RT row applied to the City's published average assessment ($326,000). City $1,340.39 + Region $2,744.38 + Education $498.78 = $4,583.55. The City's published $29 / 2.2% increase is the City portion only.",
+        "description": "City-published average residential assessment ($326,000).",
+        "education": {
+          "amountCad": 498.78,
+          "assessmentCad": 326000,
+          "basis": "2026 Final Tax Rates — RT Residential Education Rate 0.00153000 at $326,000",
+          "evidenceStatus": "DERIVED",
+          "note": "Province sets this rate; the City collects it.",
+          "sourceFactId": "DRV-KIT-BILL-EDUCATION-326K",
+          "uiLabel": "Education"
+        },
+        "region": {
+          "amountCad": 2744.38,
+          "assessmentCad": 326000,
+          "basis": "City of Kitchener 2026 Final Tax Rates — REGION column on RT Residential at $326,000",
+          "evidenceStatus": "DERIVED",
+          "lineItems": [
+            {
+              "amountCad": 2744.38,
+              "classification": "region_tax_supported",
+              "evidenceStatus": "DERIVED",
+              "id": "KIT-REGION-RATE-PORTION",
+              "label": "Region of Waterloo (combined — rate × City average assessment)",
+              "note": "Printed REGION rate on the City's 2026 Final Tax Rates sheet × $326,000. This is the bill-stack Region total. Region-published urban service lines at $354,500 are under regionIllustrationAt354500 — not added here.",
+              "sourceFactId": "DRV-KIT-BILL-REGION-326K"
+            }
+          ],
+          "note": "Bill total is rate × $326,000 = $2,744.38. Region-published urban service breakdown at $354,500 ($2,984 after PIL) is under regionIllustrationAt354500.",
+          "sourceFactId": "DRV-KIT-BILL-REGION-326K",
+          "uiLabel": "Region portion"
+        },
+        "regionIllustrationAt354500": {
+          "amountCad": 2984,
+          "assessmentCad": 354500,
+          "basis": "Region 2026 Budget Book p.12 Urban column (shared pack schedule) at $354,500",
+          "description": "Region-published urban (Kitchener / Waterloo / Cambridge) tax-supported services at $354,500 — INFORMATIONAL only.",
+          "evidenceStatus": "FACT",
+          "gapId": "GAP-KIT-REGION-ASSESSMENT-BRIDGE",
+          "lineItems": [
+            {
+              "amountCad": 900,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-01",
+              "label": "Police Service",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-01"
+            },
+            {
+              "amountCad": 582,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-02",
+              "label": "Public Transit",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-02"
+            },
+            {
+              "amountCad": 429,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-03",
+              "label": "Housing Services",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-03"
+            },
+            {
+              "amountCad": 240,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-04",
+              "label": "Roads/Design & Construction/Eng.",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-04"
+            },
+            {
+              "amountCad": 213,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-05",
+              "label": "Waste Management",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-05"
+            },
+            {
+              "amountCad": 89,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-06",
+              "label": "Financial Expenses",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-06"
+            },
+            {
+              "amountCad": 134,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-07",
+              "label": "Paramedic Services",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-07"
+            },
+            {
+              "amountCad": 53,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-08",
+              "label": "Employment/Income Support",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-08"
+            },
+            {
+              "amountCad": 51,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-09",
+              "label": "Seniors' Services",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-09"
+            },
+            {
+              "amountCad": 39,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-10",
+              "label": "Human Resources",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-10"
+            },
+            {
+              "amountCad": 49,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-11",
+              "label": "Information Technology Services",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-11"
+            },
+            {
+              "amountCad": 45,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-12",
+              "label": "Public Health",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-12"
+            },
+            {
+              "amountCad": 24,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-13",
+              "label": "Facilities & Fleet Management",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-13"
+            },
+            {
+              "amountCad": 33,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-14",
+              "label": "Cultural Services",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-14"
+            },
+            {
+              "amountCad": 30,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-15",
+              "label": "Children's Services",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-15"
+            },
+            {
+              "amountCad": 17,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-16",
+              "label": "Elected Offices & Office of the Chief Administrative Officer",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-16"
+            },
+            {
+              "amountCad": 19,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-17",
+              "label": "Resident Experience, Strategy and Communications",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-17"
+            },
+            {
+              "amountCad": 31,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-18",
+              "label": "Airport",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-18"
+            },
+            {
+              "amountCad": 21,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-19",
+              "label": "Planning, Development & Legislative Services",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-19"
+            },
+            {
+              "amountCad": 24,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-20",
+              "label": "Finance",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-20"
+            },
+            {
+              "amountCad": 0,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-21",
+              "label": "Regional Library",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-21"
+            },
+            {
+              "amountCad": 16,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-22",
+              "label": "Build Waterloo Region",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-22"
+            },
+            {
+              "amountCad": 20,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-URBAN-23",
+              "label": "Strategy, Performance and Partnerships",
+              "note": "Region-published at $354,500; not part of the $326,000 bill.",
+              "sourceFactId": "ROW-HH-URBAN-23"
+            },
+            {
+              "amountCad": 3,
+              "classification": "reconciling_item",
+              "evidenceStatus": "RECONCILING",
+              "id": "ROW-HH-URBAN-ROUNDING",
+              "label": "Unallocated table-rounding difference (source total vs summed lines)",
+              "note": "Printed lines sum $3,059; printed subtotal $3,062."
+            },
+            {
+              "amountCad": -78,
+              "classification": "region_schedule_illustration",
+              "evidenceStatus": "FACT",
+              "id": "ROW-HH-PIL-OFFSET",
+              "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
+              "sourceFactId": "ROW-HH-PIL-2026"
+            }
+          ],
+          "lineItemsSumCheckCad": 2984,
+          "note": "Do not add these dollars to the City $326,000 bill. Same MPAC January 1, 2016 base; different average property. See GAP-KIT-REGION-ASSESSMENT-BRIDGE.",
+          "sourceFactId": "ROW-URBAN-HH-TOTAL-2026",
+          "uiLabel": "Region illustration @ $354,500"
+        },
+        "township": {
+          "amountCad": 1340.39,
+          "assessmentCad": 326000,
+          "basis": "City of Kitchener 2026 Appendix B department totals allocated at average assessment — CITY portion only (Region and education separate)",
+          "evidenceStatus": "DERIVED",
+          "lineItems": [
+            {
+              "amountCad": 11.38,
+              "classification": "city_levy_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "KIT-DEPT-CAO-2026",
+              "label": "Chief Administrator's Office",
+              "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39",
+              "sourceFactId": "DRV-KIT-DEPT-CAO-2026-HH"
+            },
+            {
+              "amountCad": 528.11,
+              "classification": "city_levy_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "KIT-DEPT-CSD-2026",
+              "label": "Community Services",
+              "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39",
+              "sourceFactId": "DRV-KIT-DEPT-CSD-2026-HH"
+            },
+            {
+              "amountCad": 42.49,
+              "classification": "city_levy_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "KIT-DEPT-FIN-2026",
+              "label": "Financial Services",
+              "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39",
+              "sourceFactId": "DRV-KIT-DEPT-FIN-2026-HH"
+            },
+            {
+              "amountCad": 154.56,
+              "classification": "city_levy_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "KIT-DEPT-COR-2026",
+              "label": "Corporate Services",
+              "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39",
+              "sourceFactId": "DRV-KIT-DEPT-COR-2026-HH"
+            },
+            {
+              "amountCad": 134.84,
+              "classification": "city_levy_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "KIT-DEPT-DSD-2026",
+              "label": "Development Services",
+              "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39",
+              "sourceFactId": "DRV-KIT-DEPT-DSD-2026-HH"
+            },
+            {
+              "amountCad": 469.0,
+              "classification": "city_levy_allocated",
+              "evidenceStatus": "DERIVED",
+              "id": "KIT-DEPT-INS-2026",
+              "label": "Infrastructure Services",
+              "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39",
+              "sourceFactId": "DRV-KIT-DEPT-INS-2026-HH"
+            },
+            {
+              "amountCad": 0.01,
+              "classification": "reconciling_item",
+              "evidenceStatus": "RECONCILING",
+              "id": "KIT-ALLOC-ROUNDING",
+              "label": "Allocation rounding",
+              "note": "Cent rounding so department shares sum to the city portion."
+            }
+          ],
+          "note": "City rate × $326,000 = $1,340.39. Published 2.2% / $29 city increase is city-only (not the combined bill).",
+          "sourceFactId": "DRV-KIT-BILL-CITY-326K",
+          "uiLabel": "City portion"
+        },
+        "warnings": [
+          "City $29 / 2.2% impact is City portion only — not the full combined bill change.",
+          "Department shares are a pro-rata model over Appendix B net departmental expenditures — not a published per-household split.",
+          "Region bill line is rate × $326,000; Region urban schedule at $354,500 is informational only (GAP-KIT-REGION-ASSESSMENT-BRIDGE).",
+          "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt."
+        ]
+      }
+    },
+    "purpose": "City of Kitchener 2026 taxpayer receipt. Lower-tier: City + Region of Waterloo + education.",
+    "schemaVersion": "2.0.0",
+    "status": "partial_evidence_based",
+    "uiModelHints": {
+      "defaultProfile": "supportedAverageHousehold",
+      "forbidFillerAllocation": true,
+      "heroLabel": "Total residential bill · average · 2026 final tax rates",
+      "marqueeFindings": [],
+      "municipalBucketLabel": "City portion",
+      "publishedFindingIds": [],
+      "regionBucketLabel": "Region portion",
+      "showGapsAsFirstClassUi": true
+    }
+  },
+  "schemaVersion": "1.0.0"
+}

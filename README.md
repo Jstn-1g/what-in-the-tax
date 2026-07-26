@@ -2,7 +2,9 @@
 
 Evidence-first forensic budget model and Tax Receipt UI for the **Township of North Dumfries** and the **Region of Waterloo**.
 
-Every dollar on screen traces to a page in a published document, or to a formula over figures that do. Nothing is modelled, estimated, or filled in.
+Every displayed figure is intended to trace to a published document or to a recorded formula
+over cited inputs. Explicit illustration and pro-rata models are labelled as such, and missing
+evidence must remain a GAP rather than being filled.
 
 ## The headline number
 
@@ -59,10 +61,14 @@ Rollout is **static jurisdiction packs** (files + git), not a shared multi-tenan
 python scripts/build_evidence_model.py
 python scripts/audit_citations.py
 python scripts/validate_pack.py north-dumfries-on   # must exit 0 to seal
-python scripts/seal_pack.py north-dumfries-on 1     # writes receipts/.../manifest.json
+python scripts/seal_pack.py north-dumfries-on N     # only after the full gate passes
 ```
 
-**Pack status today:** `north-dumfries-on` is **sealed** at `pack/north-dumfries-on/2026.3` (provisional preview). Citation hard failures are zero. See `docs/DEPLOY.md` to host on GitHub Pages. Full “Published” still needs the human steps in `PUBLISH.md`.
+**Pack status today:** all packs, including `north-dumfries-on`, are **draft previews**.
+The historical `receipts/north-dumfries-on/2026/{1,2,3}` directories are retained as integrity
+experiments, but they are not deployment attestations: their metadata and the deployed bytes do
+not agree, their claimed release tags are absent, and their source evidence is not fully locked.
+The next valid seal must be a new revision produced after every gate in `PUBLISH.md` passes.
 
 ## Reconciliation
 
@@ -109,4 +115,6 @@ Open gaps (each with a search trail in the ledger):
 
 Closed (retained in `closedGaps`): `GAP-PEER-BENCHMARK`, `GAP-ND-POP-CURRENT`, and earlier resolved items. The ledger is authority over this list.
 
-**Before Published:** citation audit hard failures must be zero (`PUBLISH.md`). That bar is currently not met.
+**Before Published:** citation audit hard failures must be zero and every load-bearing source,
+calculation, identity, public projection, and deployed byte must pass the stronger gates in
+`PUBLISH.md`. That bar is currently not met.

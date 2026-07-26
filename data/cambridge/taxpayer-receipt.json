@@ -1,6 +1,8 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
+  "fiscalYear": 2026,
+  "currency": "CAD",
   "status": "partial_evidence_based",
   "purpose": "City of Cambridge 2026 taxpayer receipt. Lower-tier: local + Region of Waterloo + education.",
   "evidencePolicyRef": "data/cambridge/evidence-ledger.json",
@@ -17,7 +19,7 @@
     "supportedAverageHousehold": {
       "description": "Published average residential assessment ($344,000).",
       "township": {
-        "basis": "City of Cambridge local portion at average assessment \u2014 unallocated pending department schedule",
+        "basis": "City of Cambridge local portion at published average assessment \u2014 unallocated pending department schedule",
         "amountCad": 1779.68,
         "assessmentCad": 344000,
         "evidenceStatus": "DERIVED",
@@ -25,7 +27,7 @@
         "lineItems": [
           {
             "id": "CAM-LOCAL-RATE-PORTION",
-            "label": "City of Cambridge (combined \u2014 rate \u00d7 average assessment)",
+            "label": "City of Cambridge (combined \u2014 rate \u00d7 published average assessment)",
             "amountCad": 1779.68,
             "classification": "city_levy_unallocated",
             "evidenceStatus": "DERIVED",
@@ -47,7 +49,7 @@
         "lineItems": [
           {
             "id": "CAM-REGION-RATE-PORTION",
-            "label": "Region of Waterloo (combined \u2014 rate \u00d7 local average assessment)",
+            "label": "Region of Waterloo (combined \u2014 rate \u00d7 published average assessment)",
             "amountCad": 2895.9,
             "classification": "region_tax_supported",
             "evidenceStatus": "DERIVED",
@@ -307,7 +309,7 @@
       "combinedTotalCad": 5201.9,
       "combinedAtAssessment": {
         "assessmentCad": 344000,
-        "basis": "RT Residential rates applied to published average assessment",
+        "basis": "RT Residential rates applied to published average assessment; assessment evidence: CAM-AVG-ASSESSMENT-2026",
         "evidenceStatus": "DERIVED",
         "components": [
           {
@@ -330,14 +332,47 @@
           }
         ],
         "totalCad": 5201.9,
-        "totalRate": 0.0151218
+        "totalRate": 0.0151218,
+        "calculationPolicy": {
+          "fiscalYear": {
+            "value": "2026",
+            "declaration": "config.fiscalYear",
+            "sealedEligible": true
+          },
+          "rateUnit": {
+            "sourceUnit": "decimal",
+            "canonicalUnit": "decimal",
+            "declaration": "config.rateUnit",
+            "sealedEligible": true
+          },
+          "rounding": {
+            "strategy": "component",
+            "method": "half-up",
+            "quantumCad": 0.01,
+            "source": "builder-default (preview only)",
+            "sourceDeclared": false,
+            "sealedEligible": false
+          },
+          "assessment": {
+            "measureType": "published_average",
+            "declaration": "controlTotal.assessmentMeasureType",
+            "sourceId": "cam-2026-budget",
+            "sourceAuthority": "City of Cambridge",
+            "sealedEligible": true
+          },
+          "componentSumCad": 5201.9,
+          "totalRateAmountCad": 5201.9,
+          "roundingAdjustmentCad": 0,
+          "componentVsTotalRateDeltaCad": 0
+        }
       },
       "combinedTotalNote": "Local $1,779.68 + Region $2,895.90 + Education $526.32 = $5,201.90 at $344,000.",
       "warnings": [
         "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",
         "Local department split is GAP until a suitable table is transcribed.",
         "Region bill line is rate \u00d7 $344,000; Region urban schedule at $354,500 is informational only (GAP-CAM-REGION-ASSESSMENT-BRIDGE).",
-        "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt."
+        "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt.",
+        "Bill rounding uses the preview-only builder default. Bind rates.rounding to a named source before sealing this pack."
       ]
     },
     "hypothetical5000": {
@@ -358,7 +393,7 @@
         },
         {
           "label": "Education (Province of Ontario)",
-          "share": 0.1011784311391501,
+          "share": 0.10117843113915011,
           "sourceFactId": "CAM-TAXRATE-RES-EDUCATION-2026"
         }
       ],

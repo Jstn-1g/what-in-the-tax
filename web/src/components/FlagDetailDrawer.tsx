@@ -10,6 +10,38 @@ type Props = {
   onClose: () => void
 }
 
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',')
+
+function focusableElements(container: HTMLElement): HTMLElement[] {
+  return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
+    (element) =>
+      !element.hasAttribute('hidden') &&
+      element.getAttribute('aria-hidden') !== 'true' &&
+      !element.closest('[inert]'),
+  )
+}
+
+export function focusTrapTarget<T>(
+  focusable: readonly T[],
+  active: T | null,
+  backwards: boolean,
+): T | null {
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+  if (first == null || last == null) return null
+  if (active == null || !focusable.includes(active)) return backwards ? last : first
+  if (backwards && active === first) return last
+  if (!backwards && active === last) return first
+  return null
+}
+
 function CitationCard({ citation }: { citation: ResolvedCitation }) {
   return (
     <li className="citation-card">
@@ -42,12 +74,53 @@ function CitationCard({ citation }: { citation: ResolvedCitation }) {
 
 export default function FlagDetailDrawer({ flag, evidence, gapsById, onClose }: Props) {
   const closeRef = useRef<HTMLButtonElement>(null)
+  const panelRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null
+    const dialogRoot = panelRef.current?.closest<HTMLElement>('.drawer-root') ?? null
+    const backgroundSiblings = dialogRoot?.parentElement
+      ? Array.from(dialogRoot.parentElement.children).filter(
+          (element): element is HTMLElement =>
+            element instanceof HTMLElement && element !== dialogRoot,
+        )
+      : []
+    const previousBackgroundState = backgroundSiblings.map((element) => ({
+      element,
+      inert: element.getAttribute('inert'),
+      ariaHidden: element.getAttribute('aria-hidden'),
+    }))
+
+    for (const element of backgroundSiblings) {
+      element.setAttribute('inert', '')
+      element.setAttribute('aria-hidden', 'true')
+    }
+
     closeRef.current?.focus()
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose()
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        onClose()
+        return
+      }
+      if (event.key !== 'Tab' || !panelRef.current) return
+
+      const focusable = focusableElements(panelRef.current)
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (!first || !last) {
+        event.preventDefault()
+        panelRef.current.focus()
+        return
+      }
+
+      const active =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null
+      const target = focusTrapTarget(focusable, active, event.shiftKey)
+      if (target) {
+        event.preventDefault()
+        target.focus()
+      }
     }
     document.addEventListener('keydown', onKey)
     const prev = document.body.style.overflow
@@ -55,19 +128,39 @@ export default function FlagDetailDrawer({ flag, evidence, gapsById, onClose }: 
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prev
-      previouslyFocused?.focus()
+      for (const { element, inert, ariaHidden } of previousBackgroundState) {
+        if (inert == null) element.removeAttribute('inert')
+        else element.setAttribute('inert', inert)
+        if (ariaHidden == null) element.removeAttribute('aria-hidden')
+        else element.setAttribute('aria-hidden', ariaHidden)
+      }
+      if (previouslyFocused?.isConnected) previouslyFocused.focus()
     }
   }, [onClose])
 
   const citations = flag.citedFactIds.map((id) => resolveCitation(evidence, id))
 
+  function closeAndNavigateToGap(id: string) {
+    onClose()
+    window.location.hash = id
+    requestAnimationFrame(() => {
+      const target = document.getElementById(id)
+      if (!(target instanceof HTMLElement)) return
+      target.focus({ preventScroll: true })
+      target.scrollIntoView({ block: 'start' })
+    })
+  }
+
   return (
     <div className="drawer-root" role="presentation" onClick={onClose}>
       <aside
+        ref={panelRef}
         className="drawer-panel"
         role="dialog"
         aria-modal="true"
         aria-labelledby="drawer-title"
+        aria-describedby="drawer-summary"
+        tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
       >
         <header className="drawer-head">
@@ -80,7 +173,7 @@ export default function FlagDetailDrawer({ flag, evidence, gapsById, onClose }: 
           </button>
         </header>
         <p className="drawer-severity">{(flag.opportunitySeverity ?? 'unrated').replace(/_/g, ' ')}</p>
-        <p>{flag.evidenceSummary}</p>
+        <p id="drawer-summary">{flag.evidenceSummary}</p>
         <p className="drawer-note">
           Bill impact: not allocatable from sources (see gaps). Judgment only.
         </p>
@@ -104,7 +197,15 @@ export default function FlagDetailDrawer({ flag, evidence, gapsById, onClose }: 
                 const gap = gapsById.get(id)
                 return (
                   <li key={id}>
-                    <a href={`#${id}`}>{gap?.title ?? id}</a>
+                    <a
+                      href={`#${id}`}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        closeAndNavigateToGap(id)
+                      }}
+                    >
+                      {gap?.title ?? id}
+                    </a>
                     {gap ? <p className="line-meta">{gap.detail}</p> : null}
                   </li>
                 )
