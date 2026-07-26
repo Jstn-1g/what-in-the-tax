@@ -53,6 +53,11 @@ See [`national/ARCHITECTURE.md`](national/ARCHITECTURE.md) for the data model,
 coverage rules, official-source plan, and adapter contract. A national baseline
 build consumes pre-downloaded, approved official bytes:
 
+Optional exception review can use a trusted operator's existing ChatGPT/Codex
+subscription without an API key or pay-as-you-go API calls. The local-only
+boundary and mandatory review controls are documented in
+[`docs/SUBSCRIPTION-AI-REVIEW.md`](docs/SUBSCRIPTION-AI-REVIEW.md).
+
 ```powershell
 python scripts/build_national_registry.py `
   --sgc-csv <official-local-csv> `
@@ -111,6 +116,7 @@ workflow runs the offline checks on pull requests but never deploys.
 | `DIRECTOR-REVIEW.md` | independent review, including corrections to its own findings |
 | `docs/WHATINTHETAX-DOMAIN.md` | safe `whatinthetax.com` registration and cutover checklist |
 | `docs/PROVINCIAL-ROLLOUT.md` | GitHub playbook for all 13 province/territory rollouts |
+| `docs/SUBSCRIPTION-AI-REVIEW.md` | local subscription-only exception review; no API key or API billing |
 | `docs/` | deployment and working briefs |
 
 ## Evidence rules

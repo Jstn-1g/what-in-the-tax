@@ -230,9 +230,10 @@ Each stage runs only when earlier deterministic stages cannot supply a field.
 
 ## AI gap queue and token controls
 
-AI is disabled in `ai_gap_policy.json` and no model client exists in this
-package. Creating a packet requires both an enabled policy and explicit per-run
-opt-in. A packet also requires:
+AI is disabled in `ai_gap_policy.json`, and the registry build imports no model
+client. The optional local subscription wrapper is isolated from that build.
+Creating a packet requires both an enabled policy and explicit per-run opt-in.
+A packet also requires:
 
 - the exact unresolved entity and requested fields;
 - a locked source hash;
@@ -241,8 +242,8 @@ opt-in. A packet also requires:
 - no excerpt over 1,600 characters;
 - no more than 4,800 excerpt characters total;
 - normalized-text SHA-256 plus exact character offsets and excerpt hashes;
-- a strict tokenizer-independent UTF-8-byte input ceiling and 500-token output
-  cap;
+- a strict tokenizer-independent UTF-8-byte excerpt ceiling and a 500-token
+  advisory output limit;
 - aggregate per-run input, output, and configured price-ceiling cost limits;
 - a deterministic packet hash for result caching;
 - human review, with automatic publication forbidden.
@@ -262,6 +263,17 @@ normalized text object before checking offsets and excerpt content. Mutating
 the packet source ID/hash and recomputing the packet hash therefore cannot bind
 fabricated evidence. The verified full text never enters the model packet; a
 model sees only bounded excerpts.
+
+The optional execution boundary is a trusted local Codex CLI session using the
+operator's existing ChatGPT subscription, never an API key, hosted worker, or
+GitHub Action. It processes one packet per fresh invocation, produces only a
+human-review candidate, and cannot publish. Because Codex CLI 0.144.4 exposes
+no verified provider-side output-token cap for this command, the worker records
+completion usage and checks the 500-token advisory after the turn; small
+prompts, low reasoning, serialization, and an atomic attempt ledger are the
+preventive controls. See
+[`../docs/SUBSCRIPTION-AI-REVIEW.md`](../docs/SUBSCRIPTION-AI-REVIEW.md) for the
+operator boundary and limitations.
 
 ## Build and rollout
 
