@@ -24,6 +24,12 @@ describe('buildHeroBriefing', () => {
     const shareSum = model!.shares.reduce((a, s) => a + s.share, 0)
     expect(shareSum).toBeCloseTo(1, 5)
     expect(model!.shares.map((s) => s.shortLabel)).toEqual(['Township', 'Region', 'Education'])
+    expect(model!.shares.map((s) => s.role)).toEqual([
+      'municipal',
+      'upper-tier',
+      'education',
+    ])
+    expect(model!.shares[1].tone).toBe('upper')
     const largest = [...model!.shares].sort((a, b) => b.share - a.share)[0]
     expect(largest.shortLabel).toBe('Region')
     expect(model!.destinationsStatus).toBe('allocated')

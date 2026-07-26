@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import AuditBackHeader from './components/AuditBackHeader'
 import HelpGuide from './components/HelpGuide'
+import PlaceFinder from './components/PlaceFinder'
 import TaxReceiptScreen from './components/TaxReceiptScreen'
-import {
-  readSimpleLanguagePreference,
-  writeSimpleLanguagePreference,
-} from './lib/eli5'
 import {
   getPackCatalogEntry,
   loadPack,
@@ -19,10 +17,57 @@ type ViewId = 'receipt' | 'help'
 type LoadedPack = { id: PackId; pack: PackEntry }
 type LoadFailure = { id: PackId }
 
+const HELP_HASH_ROOT = 'help'
+const HELP_HISTORY_KEY = 'auditBackHelpEntry'
+
+function hashId(): string {
+  if (typeof window === 'undefined') return ''
+  const value = window.location.hash.replace(/^#/, '')
+  try {
+    return decodeURIComponent(value)
+  } catch {
+    return value
+  }
+}
+
 function viewFromHash(): ViewId {
-  return window.location.hash.replace(/^#/, '').split('/')[0] === 'help'
+  const id = hashId()
+  return id === HELP_HASH_ROOT || id.startsWith(`${HELP_HASH_ROOT}/`)
     ? 'help'
     : 'receipt'
+}
+
+function focusTargetFromLocation(route: PackRoute, view: ViewId): string {
+  const id = hashId()
+  if (view === 'help') {
+    return id.startsWith(`${HELP_HASH_ROOT}/`) ? id : 'help-heading'
+  }
+  if (id && !id.startsWith(`${HELP_HASH_ROOT}/`)) return id
+  return route.kind === 'pack' ? 'receipt-hero' : 'place-chooser'
+}
+
+function focusElementById(id: string): boolean {
+  const target = document.getElementById(id)
+  if (!(target instanceof HTMLElement)) return false
+  if (
+    !target.matches(
+      'a[href], button, input, select, textarea, summary, [tabindex]',
+    )
+  ) {
+    target.tabIndex = -1
+  }
+  target.focus({ preventScroll: true })
+  return document.activeElement === target
+}
+
+function isHelpHistoryEntry(): boolean {
+  const state: unknown = history.state
+  return Boolean(
+    state &&
+      typeof state === 'object' &&
+      HELP_HISTORY_KEY in state &&
+      (state as Record<string, unknown>)[HELP_HISTORY_KEY] === true,
+  )
 }
 
 function currentPackRoute(): PackRoute {
@@ -30,11 +75,18 @@ function currentPackRoute(): PackRoute {
   return packRouteFromSearch(window.location.search)
 }
 
-function writePackToUrl(id: PackId, keepHash = true) {
+function writePackToUrl(id: PackId) {
   const url = new URL(window.location.href)
   url.searchParams.set('pack', id)
-  if (!keepHash) url.hash = ''
-  history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
+  url.hash = ''
+  history.pushState(null, '', `${url.pathname}${url.search}`)
+}
+
+function writeChooserToUrl() {
+  const url = new URL(window.location.href)
+  url.searchParams.delete('pack')
+  url.hash = ''
+  history.pushState(null, '', `${url.pathname}${url.search}`)
 }
 
 function setDocumentMeta(route: PackRoute) {
@@ -44,15 +96,17 @@ function setDocumentMeta(route: PackRoute) {
       : null
   const title =
     route.kind === 'blocked'
-      ? `${metadata?.label ?? 'Receipt'} unavailable`
-      : metadata?.label ??
-        (route.kind === 'unknown'
-          ? 'Receipt unavailable'
-          : 'Choose a municipality')
-  document.title = `${title} · Taxpayer Receipt`
+      ? `${metadata?.label ?? 'Receipt'} receipt unavailable · AuditBack`
+      : metadata
+        ? `${metadata.label} property-tax receipt · AuditBack`
+        : route.kind === 'unknown'
+          ? 'Receipt unavailable · AuditBack'
+          : 'AuditBack — See where your property taxes go'
+  document.title = title
+
   const description = metadata
-    ? `Independent taxpayer receipt for ${metadata.label} — how residential property tax is allocated. Not tax advice.`
-    : 'Choose an available municipality to view an independent taxpayer receipt. Not tax advice.'
+    ? `See how a sample residential property-tax bill in ${metadata.label} is divided, with source links for each supported figure. Independent preview; not tax advice.`
+    : 'AuditBack shows how a sample residential property-tax bill is divided, with links to the public budgets and by-laws behind each supported figure. Independent preview; not tax advice.'
   let meta = document.querySelector('meta[name="description"]')
   if (!meta) {
     meta = document.createElement('meta')
@@ -62,8 +116,26 @@ function setDocumentMeta(route: PackRoute) {
   meta.setAttribute('content', description)
 }
 
+function ProductFooter() {
+  return (
+    <footer className="product-footer">
+      <p>
+        Independent preview. Not affiliated with any government. Not an official bill,
+        formal audit, or tax advice.
+      </p>
+      <a href={`${import.meta.env.BASE_URL}privacy.txt`}>Privacy</a>
+    </footer>
+  )
+}
+
 export default function App() {
   const pendingFocusPack = useRef<PackId | null>(null)
+  const pendingLocationFocus = useRef<string | null>(
+    typeof window !== 'undefined' && viewFromHash() === 'help'
+      ? focusTargetFromLocation(currentPackRoute(), 'help')
+      : null,
+  )
+  const pendingHelpTriggerFocus = useRef<string | null>(null)
   const helpReturnFocusKey = useRef<string | null>(null)
   const [route, setRoute] = useState<PackRoute>(currentPackRoute)
   const [loaded, setLoaded] = useState<LoadedPack | null>(null)
@@ -72,9 +144,7 @@ export default function App() {
   const [view, setView] = useState<ViewId>(() =>
     typeof window !== 'undefined' ? viewFromHash() : 'receipt',
   )
-  const [simpleLanguage, setSimpleLanguage] = useState(() =>
-    typeof window !== 'undefined' ? readSimpleLanguagePreference() : false,
-  )
+  const currentView = useRef(view)
 
   useEffect(() => {
     if (route.kind !== 'pack') {
@@ -102,10 +172,7 @@ export default function App() {
 
   useEffect(() => {
     if (view === 'help') {
-      document.title = 'Help & glossary · Taxpayer Receipt'
-      window.requestAnimationFrame(() => {
-        document.getElementById('help-heading')?.focus({ preventScroll: true })
-      })
+      document.title = 'How AuditBack works · AuditBack'
       return
     }
     setDocumentMeta(route)
@@ -113,72 +180,170 @@ export default function App() {
 
   useEffect(() => {
     if (route.kind !== 'pack' || loadFailure?.id !== route.id) return
-    window.requestAnimationFrame(() => {
-      document.getElementById('place-chooser')?.focus({ preventScroll: true })
-    })
+    pendingLocationFocus.current = 'place-chooser'
   }, [loadFailure, route])
 
   useEffect(() => {
     if (!loaded || pendingFocusPack.current !== loaded.id) return
     pendingFocusPack.current = null
-    const target =
-      document.getElementById('receipt-hero') ?? document.querySelector('main')
-    if (target instanceof HTMLElement) {
-      target.focus({ preventScroll: true })
-    }
+    pendingLocationFocus.current = 'receipt-hero'
   }, [loaded])
 
   useEffect(() => {
-    const onHash = () => setView(viewFromHash())
-    const onPop = () => {
+    const syncFromLocation = () => {
+      const nextRoute = currentPackRoute()
+      const nextView = viewFromHash()
+      currentView.current = nextView
+      if (nextView === 'receipt' && helpReturnFocusKey.current) {
+        pendingHelpTriggerFocus.current = helpReturnFocusKey.current
+        helpReturnFocusKey.current = null
+      }
+      if (!pendingHelpTriggerFocus.current) {
+        pendingLocationFocus.current = focusTargetFromLocation(
+          nextRoute,
+          nextView,
+        )
+      }
       pendingFocusPack.current = null
-      setRoute(currentPackRoute())
-      setView(viewFromHash())
+      setRoute(nextRoute)
+      setView(nextView)
+      window.requestAnimationFrame(() => {
+        const returnKey = pendingHelpTriggerFocus.current
+        const returnTarget = returnKey
+          ? document.querySelector<HTMLElement>(
+              `[data-help-trigger="${returnKey}"]`,
+            )
+          : null
+        if (returnTarget) {
+          returnTarget.focus({ preventScroll: true })
+          pendingHelpTriggerFocus.current = null
+          pendingLocationFocus.current = null
+          return
+        }
+        const targetId = pendingLocationFocus.current
+        if (targetId && focusElementById(targetId)) {
+          pendingLocationFocus.current = null
+        }
+      })
     }
-    window.addEventListener('hashchange', onHash)
-    window.addEventListener('popstate', onPop)
+    const onHashChange = () => {
+      if (viewFromHash() === currentView.current) return
+      syncFromLocation()
+    }
+    window.addEventListener('hashchange', onHashChange)
+    window.addEventListener('popstate', syncFromLocation)
     return () => {
-      window.removeEventListener('hashchange', onHash)
-      window.removeEventListener('popstate', onPop)
+      window.removeEventListener('hashchange', onHashChange)
+      window.removeEventListener('popstate', syncFromLocation)
     }
   }, [])
 
-  function setSimpleLanguageAndPersist(on: boolean) {
-    setSimpleLanguage(on)
-    writeSimpleLanguagePreference(on)
-  }
+  useEffect(() => {
+    const returnKey = pendingHelpTriggerFocus.current
+    const returnTarget = returnKey
+      ? document.querySelector<HTMLElement>(
+          `[data-help-trigger="${returnKey}"]`,
+        )
+      : null
+    if (returnTarget) {
+      returnTarget.focus({ preventScroll: true })
+      pendingHelpTriggerFocus.current = null
+      pendingLocationFocus.current = null
+      return
+    }
+
+    const targetId = pendingLocationFocus.current
+    if (!targetId) return
+    if (
+      view === 'receipt' &&
+      route.kind === 'pack' &&
+      loaded?.id !== route.id &&
+      loadFailure?.id !== route.id
+    ) {
+      return
+    }
+    const frame = window.requestAnimationFrame(() => {
+      if (focusElementById(targetId)) pendingLocationFocus.current = null
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [loadFailure, loaded, route, view])
 
   function selectPack(id: PackId) {
-    if (route.kind === 'pack' && route.id === id) return
+    if (route.kind === 'pack' && route.id === id && view === 'receipt') return
     const metadata = getPackCatalogEntry(id)
-    writePackToUrl(id, false)
-    if (metadata.availability !== 'available') {
+    writePackToUrl(id)
+    if (!metadata.canDisplay) {
       pendingFocusPack.current = null
+      pendingLocationFocus.current = 'place-chooser'
+      currentView.current = 'receipt'
       setRoute({ kind: 'blocked', id })
+      setView('receipt')
       return
     }
     pendingFocusPack.current = id
+    currentView.current = 'receipt'
     setRoute({ kind: 'pack', id })
     setView('receipt')
     window.scrollTo(0, 0)
   }
 
+  function showChooser() {
+    pendingFocusPack.current = null
+    pendingLocationFocus.current = 'place-chooser'
+    currentView.current = 'receipt'
+    if (route.kind !== 'chooser' || view !== 'receipt') {
+      writeChooserToUrl()
+    }
+    setRoute({ kind: 'chooser' })
+    setView('receipt')
+    setLoaded(null)
+    window.scrollTo(0, 0)
+  }
+
   function openHelp() {
     const active = document.activeElement
-    helpReturnFocusKey.current =
+    const returnFocusKey =
       active instanceof HTMLElement ? active.dataset.helpTrigger ?? null : null
-    setView('help')
-    if (window.location.hash !== '#help') {
-      window.location.hash = 'help'
+    if (returnFocusKey) helpReturnFocusKey.current = returnFocusKey
+    pendingLocationFocus.current = 'help-heading'
+    const url = new URL(window.location.href)
+    url.hash = HELP_HASH_ROOT
+    const nextUrl = `${url.pathname}${url.search}${url.hash}`
+    if (view === 'help') {
+      history.replaceState(history.state, '', nextUrl)
+    } else {
+      const currentState =
+        history.state && typeof history.state === 'object' ? history.state : {}
+      history.pushState(
+        { ...currentState, [HELP_HISTORY_KEY]: true },
+        '',
+        nextUrl,
+      )
     }
+    currentView.current = 'help'
+    setView('help')
     window.scrollTo(0, 0)
+    window.requestAnimationFrame(() => {
+      if (focusElementById('help-heading')) {
+        pendingLocationFocus.current = null
+      }
+    })
   }
 
   function openReceipt() {
     const returnKey = helpReturnFocusKey.current
     helpReturnFocusKey.current = null
+    pendingHelpTriggerFocus.current = returnKey
+    if (isHelpHistoryEntry()) {
+      history.back()
+      return
+    }
+
+    pendingLocationFocus.current =
+      route.kind === 'pack' ? 'receipt-hero' : 'place-chooser'
+    currentView.current = 'receipt'
     setView('receipt')
-    if (window.location.hash === '#help' || window.location.hash.startsWith('#help')) {
+    if (viewFromHash() === 'help') {
       history.replaceState(
         null,
         '',
@@ -187,57 +352,62 @@ export default function App() {
     }
     window.scrollTo(0, 0)
     window.requestAnimationFrame(() => {
-      const target = returnKey
+      const returnTarget = returnKey
         ? document.querySelector<HTMLElement>(
             `[data-help-trigger="${returnKey}"]`,
           )
         : null
-      const focusTarget =
-        target ??
-        document.getElementById('receipt-hero') ??
-        document.getElementById('place-chooser')
-      focusTarget?.focus({ preventScroll: true })
+      if (returnTarget) {
+        returnTarget.focus({ preventScroll: true })
+        pendingHelpTriggerFocus.current = null
+        pendingLocationFocus.current = null
+        return
+      }
+      const targetId = pendingLocationFocus.current
+      if (targetId && focusElementById(targetId)) {
+        pendingLocationFocus.current = null
+      }
     })
   }
 
-  const simpleLanguageToggle = (
-    <label className={`simple-lang-toggle${simpleLanguage ? ' on' : ''}`}>
-      <input
-        type="checkbox"
-        checked={simpleLanguage}
-        onChange={(event) => setSimpleLanguageAndPersist(event.target.checked)}
-      />
-      <span className="simple-lang-copy">
-        <span className="simple-lang-label">Plain language</span>
-        <span className="simple-lang-hint">Use simpler receipt labels</span>
-      </span>
-    </label>
-  )
+  function navigateWithinHelp(targetId: string) {
+    const url = new URL(window.location.href)
+    url.hash = targetId
+    history.replaceState(history.state, '', `${url.pathname}${url.search}${url.hash}`)
+    const target = document.getElementById(targetId)
+    target?.scrollIntoView({ block: 'start' })
+    if (target instanceof HTMLElement) target.focus({ preventScroll: true })
+  }
+
+  const routeMetadata =
+    route.kind === 'pack' || route.kind === 'blocked'
+      ? getPackCatalogEntry(route.id)
+      : null
 
   if (view === 'help') {
     return (
       <div className="page">
-        <a className="skip-link" href="#help-main">
-          Skip to help
-        </a>
-        <div className="deploy-banner" role="status">
-          Help &amp; glossary · independent reading aid · not tax advice
-        </div>
-        <div
-          className="pack-switcher pack-switcher-help"
-          role="group"
-          aria-label="Reading options"
+        <a
+          className="skip-link"
+          href="#help/main"
+          onClick={(event) => {
+            event.preventDefault()
+            navigateWithinHelp('help/main')
+          }}
         >
-          {simpleLanguageToggle}
-          <button
-            type="button"
-            className="pack-tab pack-tab-help"
-            onClick={openReceipt}
-          >
-            ← Receipt
-          </button>
-        </div>
-        <HelpGuide onBack={openReceipt} simpleLanguage={simpleLanguage} />
+          Skip to how AuditBack works
+        </a>
+        <AuditBackHeader
+          currentPlace={routeMetadata?.label}
+          onChoosePlace={showChooser}
+          onOpenHelp={openHelp}
+        />
+        <HelpGuide
+          onBack={openReceipt}
+          onNavigate={navigateWithinHelp}
+          backLabel={route.kind === 'pack' ? 'Back to receipt' : 'Back to places'}
+        />
+        <ProductFooter />
       </div>
     )
   }
@@ -248,117 +418,74 @@ export default function App() {
     packId && loadFailure?.id === packId ? loadFailure : null
 
   if (!pack) {
-    const metadata =
-      route.kind === 'pack' || route.kind === 'blocked'
-        ? getPackCatalogEntry(route.id)
-        : null
     const isUnknown = route.kind === 'unknown'
     const isBlocked = route.kind === 'blocked'
     const isLoading = Boolean(packId && !activeFailure)
+    const alertText = activeFailure
+      ? `${routeMetadata?.label ?? 'This'} receipt could not be loaded. We did not substitute another place.`
+      : isBlocked
+        ? routeMetadata?.availabilityNote ??
+          'This receipt is not ready to display. The evidence package needs an update before it can be shown. We did not substitute another place.'
+        : isUnknown
+          ? `We do not have a displayable receipt for “${route.requested || '(blank)'}”. We did not substitute another place.`
+          : null
+
     return (
       <div className="page">
-        <div
-          className="deploy-banner"
-          role={activeFailure ? 'alert' : 'status'}
-        >
-          {activeFailure
-            ? `${metadata?.label ?? 'Municipality'} receipt could not be loaded · no municipality was substituted`
-            : isUnknown || isBlocked
-            ? 'Receipt unavailable · no municipality was substituted'
-            : isLoading
-              ? `Loading ${metadata?.label ?? 'municipality'} receipt`
-              : 'Choose a municipality · independent reading aid · not tax advice'}
-        </div>
         <a className="skip-link" href="#place-chooser">
-          Skip to municipality chooser
+          Skip to place finder
         </a>
-        <div className="pack-switcher" role="group" aria-label="Reading options">
-          {simpleLanguageToggle}
-          <button
-            type="button"
-            className="pack-tab pack-tab-help"
-            data-help-trigger="chooser-toolbar"
-            onClick={openHelp}
-          >
-            Help
-          </button>
-        </div>
-        <main id="place-chooser" className="help-page" tabIndex={-1}>
-          <section
-            className="help-hero"
-            aria-live="polite"
-            aria-busy={isLoading}
-          >
-            <p className="help-kicker">Taxpayer Receipt</p>
+        <AuditBackHeader onChoosePlace={showChooser} onOpenHelp={openHelp} />
+        <main
+          id="place-chooser"
+          className="chooser-page"
+          tabIndex={-1}
+          aria-busy={isLoading}
+        >
+          <section className="chooser-hero" aria-live="polite">
             <h1>
-              {isBlocked
-                ? `${metadata?.label ?? 'This'} receipt is temporarily unavailable`
-                : isUnknown
-                  ? 'That municipality is not available'
-                  : activeFailure
-                    ? `${metadata?.label ?? 'This'} receipt could not be loaded`
-                    : isLoading
-                      ? `Loading ${metadata?.label ?? 'receipt'}…`
-                      : 'Choose a municipality'}
+              {isLoading
+                ? `Loading ${routeMetadata?.label ?? 'receipt'}…`
+                : 'See where your property taxes go'}
             </h1>
-            <p className="help-lede">
-              {isBlocked ? (
-                metadata?.availability === 'blocked' ? (
-                  metadata.availabilityNote
-                ) : (
-                  'This receipt is unavailable.'
-                )
-              ) : isUnknown ? (
-                <>
-                  No receipt exists for <code>{route.requested || '(blank)'}</code>.
-                  Choose an available place below.
-                </>
-              ) : activeFailure ? (
-                <>
-                  The requested receipt was not replaced with another municipality.
-                  You can try loading it again or choose another place.
-                </>
-              ) : isLoading ? (
-                'Loading only the selected receipt and its public evidence.'
-              ) : (
-                'Select a place to load its receipt and public evidence. No municipality is selected by default.'
-              )}
+            <p>
+              {isLoading
+                ? 'Loading only the selected receipt and its public evidence.'
+                : 'Choose a municipality to explore a sample bill and the public sources behind it.'}
             </p>
-            {activeFailure ? (
-              <button
-                type="button"
-                className="pack-tab active"
-                onClick={() => setRetrySequence((value) => value + 1)}
-              >
-                Try again
-              </button>
-            ) : null}
-            {!isLoading ? (
-              <nav className="pack-switcher" aria-label="Municipalities">
-                {PACK_CATALOG.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`pack-tab${
-                      item.availability === 'blocked' ? ' blocked' : ''
-                    }`}
-                    aria-label={
-                      item.availability === 'blocked'
-                        ? `${item.label} unavailable: ${item.availabilityNote}`
-                        : item.label
-                    }
-                    onClick={() => selectPack(item.id)}
-                  >
-                    {item.label}
-                    {item.availability === 'blocked'
-                      ? ' — evidence update required'
-                      : ''}
-                  </button>
-                ))}
-              </nav>
-            ) : null}
           </section>
+
+          {alertText ? (
+            <div className="chooser-alert" role="alert">
+              <strong>
+                {activeFailure
+                  ? 'The receipt could not be loaded'
+                  : isBlocked
+                    ? 'Evidence update required'
+                    : 'That place is not available yet'}
+              </strong>
+              <p>{alertText}</p>
+              {activeFailure ? (
+                <button
+                  type="button"
+                  className="button button-secondary"
+                  onClick={() => setRetrySequence((value) => value + 1)}
+                >
+                  Try again
+                </button>
+              ) : null}
+            </div>
+          ) : null}
+
+          {!isLoading ? (
+            <PlaceFinder
+              records={PACK_CATALOG}
+              onSelectPlace={selectPack}
+              activePlaceId={packId ?? undefined}
+            />
+          ) : null}
         </main>
+        <ProductFooter />
       </div>
     )
   }
@@ -372,6 +499,15 @@ export default function App() {
     (counts['numbers-only'] ?? 0) +
     (counts['unverifiable'] ?? 0) +
     (counts['no-excerpt'] ?? 0)
+  const citationSummary =
+    hardFails > 0
+      ? `${hardFails} source ${hardFails === 1 ? 'check has' : 'checks have'} failed`
+      : weakCitations > 0
+        ? `${weakCitations} source ${
+            weakCitations === 1 ? 'check is' : 'checks are'
+          } incomplete`
+        : 'source checks complete'
+  const selectedMetadata = getPackCatalogEntry(packId!)
 
   return (
     <TaxReceiptScreen
@@ -382,43 +518,15 @@ export default function App() {
       facts={pack.evidence.facts}
       derived={pack.evidence.derived}
       citationAudit={pack.audit}
-      bannerText={`${pack.metadata.banner} · citations: ${weakCitations} weak · ${hardFails} hard failures`}
-      onOpenHelp={openHelp}
-      simpleLanguage={simpleLanguage}
-      packSwitcher={
-        <div className="pack-switcher" role="group" aria-label="Municipality">
-          {PACK_CATALOG.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              aria-current={packId === item.id ? 'page' : undefined}
-              aria-label={
-                item.availability === 'blocked'
-                  ? `${item.label} unavailable: ${item.availabilityNote}`
-                  : item.label
-              }
-              className={`${packId === item.id ? 'pack-tab active' : 'pack-tab'}${
-                item.availability === 'blocked' ? ' blocked' : ''
-              }`}
-              onClick={() => selectPack(item.id)}
-            >
-              {item.label}
-              {item.availability === 'blocked'
-                ? ' — evidence update required'
-                : ''}
-            </button>
-          ))}
-          {simpleLanguageToggle}
-          <button
-            type="button"
-            className="pack-tab pack-tab-help"
-            data-help-trigger="receipt-toolbar"
-            onClick={openHelp}
-          >
-            Help
-          </button>
-        </div>
+      bannerText={`Draft preview — ${citationSummary}.`}
+      appHeader={
+        <AuditBackHeader
+          currentPlace={`${selectedMetadata.label}, ${selectedMetadata.province}`}
+          onChoosePlace={showChooser}
+          onOpenHelp={openHelp}
+        />
       }
+      onOpenHelp={openHelp}
     />
   )
 }

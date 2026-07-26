@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "auditback-ai-gap-policy-1.0.0",
+  "enabled": false,
+  "allowFullDocuments": false,
+  "maxExcerpts": 3,
+  "maxExcerptChars": 1600,
+  "maxTotalExcerptChars": 4800,
+  "maxEstimatedInputTokens": 2000,
+  "maxOutputTokens": 500,
+  "maxPacketsPerRun": 25,
+  "maxRunEstimatedInputTokens": 10000,
+  "maxRunOutputTokens": 2500,
+  "inputRateCeilingMicrousdPerMillionTokens": 5000000,
+  "outputRateCeilingMicrousdPerMillionTokens": 20000000,
+  "maxRunCostMicrousd": 100000,
+  "humanReviewRequired": true,
+  "mayAutoPublish": false,
+  "notes": "AI is a last-stage gap aid only. Deterministic attempts and bounded, locatable excerpts are mandatory."
+}

@@ -2,40 +2,70 @@ const PACK_CATALOG_RECORDS = [
   {
     id: 'kitchener-on',
     label: 'Kitchener',
+    province: 'Ontario',
+    typeLabel: 'City',
+    aliases: ['City of Kitchener'],
     banner: 'Preview · pack/kitchener-on · City of Kitchener + Region of Waterloo',
     availability: 'available',
+    canDisplay: true,
+    releaseStatus: 'draft',
   },
   {
     id: 'waterloo-on',
     label: 'Waterloo',
+    province: 'Ontario',
+    typeLabel: 'City',
+    aliases: ['City of Waterloo'],
     banner: 'Preview · pack/waterloo-on · City of Waterloo + Region of Waterloo',
     availability: 'available',
+    canDisplay: true,
+    releaseStatus: 'draft',
   },
   {
     id: 'cambridge-on',
     label: 'Cambridge',
+    province: 'Ontario',
+    typeLabel: 'City',
+    aliases: ['City of Cambridge'],
     banner: 'Preview · pack/cambridge-on · City of Cambridge + Region of Waterloo',
     availability: 'available',
+    canDisplay: true,
+    releaseStatus: 'draft',
   },
   {
     id: 'woolwich-on',
     label: 'Woolwich',
+    province: 'Ontario',
+    typeLabel: 'Township',
+    aliases: ['Township of Woolwich', 'Elmira', 'St. Jacobs'],
     banner:
       'Draft preview · pack/woolwich-on · $354,500 reference scenario, not a Woolwich average',
     availability: 'available',
+    canDisplay: true,
+    releaseStatus: 'draft',
   },
   {
     id: 'north-dumfries-on',
     label: 'North Dumfries',
+    province: 'Ontario',
+    typeLabel: 'Township',
+    aliases: ['Township of North Dumfries', 'Ayr'],
     banner:
       'Preview · north-dumfries-on · evidence hardening in progress',
     availability: 'available',
+    canDisplay: true,
+    releaseStatus: 'draft',
   },
   {
     id: 'brant-county-on',
     label: 'Paris / Brant County',
+    province: 'Ontario',
+    typeLabel: 'Single-tier municipality',
+    aliases: ['Paris', 'County of Brant', 'Brant County'],
     banner: 'Preview · pack/brant-county-on · Paris via County of Brant (single-tier)',
     availability: 'available',
+    canDisplay: true,
+    releaseStatus: 'draft',
   },
 ] as const
 
@@ -43,7 +73,12 @@ export type PackId = (typeof PACK_CATALOG_RECORDS)[number]['id']
 export type PackCatalogEntry = {
   id: PackId
   label: string
+  province: string
+  typeLabel: string
+  aliases: readonly string[]
   banner: string
+  canDisplay: boolean
+  releaseStatus: 'draft' | 'preview' | 'published' | 'blocked'
 } & (
   | { availability: 'available'; availabilityNote?: never }
   | { availability: 'blocked'; availabilityNote: string }
@@ -81,7 +116,7 @@ export function packRouteFromSearch(search: string): PackRoute {
 
   const requested = params.get('pack') ?? ''
   if (!isPackId(requested)) return { kind: 'unknown', requested }
-  return getPackCatalogEntry(requested).availability === 'available'
+  return getPackCatalogEntry(requested).canDisplay
     ? { kind: 'pack', id: requested }
     : { kind: 'blocked', id: requested }
 }

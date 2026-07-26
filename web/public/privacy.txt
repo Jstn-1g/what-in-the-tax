@@ -1,12 +1,12 @@
-Taxpayer Receipt preview — privacy notice
+AuditBack preview — privacy notice
 
 This is a static, independent research preview. It does not ask for an address,
 owner name, roll number, account, or contact details. It has no accounts,
 advertising, behavioural analytics, runtime AI, or tracking pixels.
 
-Any assessment scenario you enter is calculated in your browser and is not sent
-to this project. A plain-language display preference may be stored in your
-browser. You can remove it by clearing this site's browser storage.
+The displayed assessment scenarios are fixed examples. This preview does not
+accept an address, roll number, or personal assessment value, and it does not
+use browser storage for accounts, profiles, or tracking.
 
 The hosting provider necessarily receives technical request information such as
 an IP address, browser details, requested path, and time. Persistent Cloudflare

@@ -1,0 +1,503 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/national-registry-1.0.0.json",
+  "title": "AuditBack national governing-body registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "country",
+    "buildScope",
+    "classification",
+    "method",
+    "sourceSnapshots",
+    "geographies",
+    "governingBodies",
+    "coverage",
+    "counts",
+    "registryCanonicalSha256"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "auditback-national-registry-1.0.0"
+    },
+    "country": {
+      "const": "CA"
+    },
+    "buildScope": {
+      "enum": ["production", "test"]
+    },
+    "classification": {
+      "type": "object",
+      "required": ["system", "version"],
+      "properties": {
+        "system": {
+          "const": "Statistics Canada Standard Geographical Classification"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "method": {
+      "type": "object",
+      "required": [
+        "runtimeNetworkRequired",
+        "runtimeAiRequired",
+        "identityMerge",
+        "statisticalAreasAreGovernments"
+      ],
+      "properties": {
+        "runtimeNetworkRequired": {"const": false},
+        "runtimeAiRequired": {"const": false},
+        "identityMerge": {"const": "exact-official-identifiers-only"},
+        "statisticalAreasAreGovernments": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "sourceSnapshots": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/sourceSnapshot"}
+    },
+    "geographies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/geography"}
+    },
+    "governingBodies": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/governingBody"}
+    },
+    "coverage": {
+      "$ref": "#/$defs/coverage"
+    },
+    "counts": {
+      "$ref": "#/$defs/counts"
+    },
+    "registryCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "buildScope": {"const": "production"}
+        },
+        "required": ["buildScope"]
+      },
+      "then": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "requiredLayers": {
+                "$ref": "#/$defs/productionRequiredLayers"
+              },
+              "jurisdictions": {
+                "minItems": 13,
+                "maxItems": 13,
+                "allOf": [
+                  {"contains": {"properties": {"provinceTerritory": {"const": "AB"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "BC"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "MB"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "NB"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "NL"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "NS"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "NT"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "NU"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "ON"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "PE"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "QC"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "SK"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1},
+                  {"contains": {"properties": {"provinceTerritory": {"const": "YT"}}, "required": ["provinceTerritory"]}, "minContains": 1, "maxContains": 1}
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sourceId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "canonicalId": {
+      "type": "string",
+      "pattern": "^ca:[a-z0-9][a-z0-9:._-]+$"
+    },
+    "provinceTerritory": {
+      "enum": [
+        "AB",
+        "BC",
+        "MB",
+        "NB",
+        "NL",
+        "NS",
+        "NT",
+        "NU",
+        "ON",
+        "PE",
+        "QC",
+        "SK",
+        "YT"
+      ]
+    },
+    "officialNames": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^(?:und|[a-z]{2,3}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}|[0-9]{3}))?(?:-(?:[a-z0-9]{5,8}|[0-9][a-z0-9]{3}))*)$": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceSnapshot": {
+      "type": "object",
+      "required": [
+        "sourceId",
+        "sha256",
+        "byteLength",
+        "mediaType",
+        "requestUrl"
+      ],
+      "properties": {
+        "sourceId": {"$ref": "#/$defs/sourceId"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "byteLength": {"type": "integer", "minimum": 0},
+        "mediaType": {"type": "string", "minLength": 1},
+        "requestUrl": {"type": "string", "pattern": "^https://"},
+        "retrievedAt": {"type": "string", "minLength": 1},
+        "effectiveDate": {"type": "string", "minLength": 1},
+        "etag": {"type": "string", "minLength": 1},
+        "lastModified": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "sourceId",
+        "snapshotSha256",
+        "recordKey",
+        "sourceFields",
+        "transform",
+        "adapterId",
+        "adapterVersion"
+      ],
+      "properties": {
+        "sourceId": {"$ref": "#/$defs/sourceId"},
+        "snapshotSha256": {"$ref": "#/$defs/sha256"},
+        "recordKey": {"type": "string", "minLength": 1},
+        "sourceFields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "transform": {"type": "string", "minLength": 1},
+        "adapterId": {"type": "string", "minLength": 1},
+        "adapterVersion": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "geography": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "level",
+        "codes",
+        "officialNames",
+        "parentId",
+        "governingBodyVerification",
+        "provenance"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ca:sgc:[0-9]{4}:(?:region:[0-9]|province-territory:[0-9]{2}|census-division:[0-9]{4}|census-subdivision:[0-9]{7})$"
+        },
+        "kind": {"const": "official-geography"},
+        "level": {
+          "enum": [
+            "region",
+            "province-territory",
+            "census-division",
+            "census-subdivision"
+          ]
+        },
+        "codes": {
+          "type": "object",
+          "required": ["sgc", "provinceTerritory", "isoSubdivision"],
+          "properties": {
+            "sgc": {
+              "type": "string",
+              "pattern": "^(?:[0-9]|[0-9]{2}|[0-9]{4}|[0-9]{7})$"
+            },
+            "provinceTerritory": {
+              "type": ["string", "null"],
+              "pattern": "^[0-9]{2}$"
+            },
+            "isoSubdivision": {
+              "anyOf": [
+                {"$ref": "#/$defs/provinceTerritory"},
+                {"type": "null"}
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "officialNames": {"$ref": "#/$defs/officialNames"},
+        "parentId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^ca:sgc:[0-9]{4}:(?:region:[0-9]|province-territory:[0-9]{2}|census-division:[0-9]{4})$"
+            },
+            {"type": "null"}
+          ]
+        },
+        "governingBodyVerification": {
+          "enum": ["requires-official-directory-match", "not-applicable"]
+        },
+        "provenance": {"$ref": "#/$defs/provenance"}
+      },
+      "additionalProperties": false
+    },
+    "governingBody": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "bodyType",
+        "status",
+        "officialNames",
+        "provinceTerritory",
+        "officialUrl",
+        "externalIds",
+        "governsGeographyIds",
+        "provenance"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/canonicalId"},
+        "kind": {"const": "governing-body"},
+        "bodyType": {
+          "enum": [
+            "federal-government",
+            "province-territory-government",
+            "municipal-government",
+            "regional-government",
+            "indigenous-government",
+            "school-authority",
+            "special-purpose-authority"
+          ]
+        },
+        "status": {"enum": ["active", "inactive", "transitional"]},
+        "officialNames": {"$ref": "#/$defs/officialNames"},
+        "provinceTerritory": {
+          "anyOf": [
+            {"$ref": "#/$defs/provinceTerritory"},
+            {"type": "null"}
+          ]
+        },
+        "officialUrl": {"type": "string", "pattern": "^https://"},
+        "externalIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["namespace", "value"],
+            "properties": {
+              "namespace": {"$ref": "#/$defs/sourceId"},
+              "value": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          }
+        },
+        "governsGeographyIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/canonicalId"}
+        },
+        "provenance": {"$ref": "#/$defs/provenance"}
+      },
+      "additionalProperties": false
+    },
+    "coverageLayer": {
+      "type": "object",
+      "required": ["layer", "status", "sourceIds"],
+      "properties": {
+        "layer": {
+          "enum": [
+            "national-geography-baseline",
+            "current-csd-geography",
+            "federal-province-territory-governments",
+            "municipal-regional-governments",
+            "indigenous-governments",
+            "education-tax-authorities",
+            "special-purpose-tax-authorities"
+          ]
+        },
+        "status": {
+          "enum": [
+            "not-started",
+            "source-discovery",
+            "adapter-needed",
+            "partial",
+            "complete",
+            "not-applicable"
+          ]
+        },
+        "sourceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/sourceId"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "coverageJurisdiction": {
+      "type": "object",
+      "required": [
+        "provinceTerritory",
+        "name",
+        "status",
+        "censusSubdivisionBaselineCount",
+        "expectedCensusSubdivisionBaselineCount",
+        "verifiedGoverningBodyCount",
+        "layers"
+      ],
+      "properties": {
+        "provinceTerritory": {"$ref": "#/$defs/provinceTerritory"},
+        "name": {"type": "string", "minLength": 1},
+        "status": {"enum": ["complete", "partial", "planned"]},
+        "censusSubdivisionBaselineCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "expectedCensusSubdivisionBaselineCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "verifiedGoverningBodyCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/coverageLayer"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["claim", "requiredLayers", "jurisdictions"],
+      "properties": {
+        "claim": {"type": "string", "minLength": 1},
+        "requiredLayers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "national-geography-baseline",
+              "current-csd-geography",
+              "federal-province-territory-governments",
+              "municipal-regional-governments",
+              "indigenous-governments",
+              "education-tax-authorities",
+              "special-purpose-tax-authorities"
+            ]
+          }
+        },
+        "jurisdictions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/coverageJurisdiction"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "productionRequiredLayers": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "prefixItems": [
+        {"const": "national-geography-baseline"},
+        {"const": "current-csd-geography"},
+        {"const": "federal-province-territory-governments"},
+        {"const": "municipal-regional-governments"},
+        {"const": "indigenous-governments"},
+        {"const": "education-tax-authorities"},
+        {"const": "special-purpose-tax-authorities"}
+      ],
+      "items": false
+    },
+    "counts": {
+      "type": "object",
+      "required": [
+        "geographies",
+        "governingBodies",
+        "sourceSnapshots",
+        "geographyLevels",
+        "governingBodyTypes"
+      ],
+      "properties": {
+        "geographies": {"type": "integer", "minimum": 1},
+        "governingBodies": {"type": "integer", "minimum": 0},
+        "sourceSnapshots": {"type": "integer", "minimum": 1},
+        "geographyLevels": {
+          "type": "object",
+          "required": [
+            "region",
+            "province-territory",
+            "census-division",
+            "census-subdivision"
+          ],
+          "properties": {
+            "region": {"type": "integer", "minimum": 0},
+            "province-territory": {"type": "integer", "minimum": 0},
+            "census-division": {"type": "integer", "minimum": 0},
+            "census-subdivision": {"type": "integer", "minimum": 0}
+          },
+          "additionalProperties": false
+        },
+        "governingBodyTypes": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "federal-government",
+              "province-territory-government",
+              "municipal-government",
+              "regional-government",
+              "indigenous-government",
+              "school-authority",
+              "special-purpose-authority"
+            ]
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

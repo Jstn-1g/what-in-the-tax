@@ -1,27 +1,62 @@
-# Taxpayer Receipt
+# AuditBack
 
-Evidence-first forensic budget model and Tax Receipt UI for the **Township of North Dumfries** and the **Region of Waterloo**.
+AuditBack is an evidence-first public-finance model and property-tax receipt UI.
+It currently provides draft previews for six Ontario municipalities while the
+Canada-wide registry and source-ingestion system are being built.
 
 Every displayed figure is intended to trace to a published document or to a recorded formula
 over cited inputs. Explicit illustration and pro-rata models are labelled as such, and missing
 evidence must remain a GAP rather than being filled.
 
-## The headline number
+AuditBack is independent. It is not affiliated with any government and is not an
+official bill, formal financial audit, or source of tax advice.
 
-A residential property assessed at **$455,000** (the Township's own average, on the MPAC January 1 2016 valuation base) pays for 2026:
+## Status and national boundary
 
-| | rate | amount |
-|---|---|---|
-| Township of North Dumfries | 0.00315303 | $1,434.63 |
-| Region of Waterloo | 0.00717545 | $3,264.83 |
-| Education (Province of Ontario) | 0.00153000 | $696.15 |
-| **Total** | **0.01185848** | **$5,395.61** |
+- The browser is a static reader: it makes no runtime AI or government-site
+  requests and collects no address, roll number, or account data.
+- Six Ontario receipts are available as **draft previews**. They are not sealed
+  publications.
+- The national builder reproducibly loads the approved Statistics Canada SGC
+  2021 baseline: 5,473 geographies, including 5,161 census subdivisions across
+  all 13 provinces and territories.
+- A census subdivision is a geography, not proof of a governing body. AuditBack
+  never converts all CSDs into municipalities or governments.
+- The source catalog and seven-layer coverage matrix include every province and
+  territory, Statistics Canada's 2025 CSD layer, and Indigenous Services
+  Canada's First Nations Location dataset. Most jurisdiction directory adapters
+  and the separate transport job are still to be implemented.
 
-Ayr urban properties additionally pay the Special Area Rate of 0.00015571 ($70.85), for $5,466.46.
+The current milestone is therefore a hardened, zero-token national ingestion
+foundation—not a claim that every Canadian governing body is already loaded.
 
-Source: **By-law No. 3637-26**, Schedule A, CODE RT Residential — Report FIN-07-2026 Attachment 1, in the 2026-04-27 council agenda at PDF page 103. Adopted by resolution C-153-26.
+## Deterministic national ingestion
 
-The three rate columns sum exactly to the printed Total 2026 Rate, and the township component reproduces the separately published $1,434.63 to the cent. Both identities are asserted in the generator, which refuses to emit if either fails.
+The production path is official structured data first: API/open-data download,
+content-addressed cache, immutable source lock, versioned adapter, exact-ID
+crosswalk, reconciliation gates, then static browser artifacts. PDF extraction,
+OCR, human review, and finally bounded AI excerpts are fallbacks in that order.
+AI is disabled by default, requires explicit per-run opt-in, cannot
+auto-publish, and is subject to recomputed per-packet and aggregate token/cost
+ceilings.
+
+See [`national/ARCHITECTURE.md`](national/ARCHITECTURE.md) for the data model,
+coverage rules, official-source plan, and adapter contract. A national baseline
+build consumes pre-downloaded, approved official bytes:
+
+```powershell
+python scripts/build_national_registry.py `
+  --sgc-csv <official-local-csv> `
+  --sgc-sha256 <catalog-approved-sha256> `
+  --cache-dir <durable-cache> `
+  --output <registry.json> `
+  --source-lock-output <sources.lock.json>
+```
+
+The builder deliberately has no network or model client. The next expansion
+milestone is an allowlisted, rate-limited transport job plus the 2025 CSD and
+13 provincial/territorial directory adapters, followed by education,
+Indigenous, and special-purpose taxing authorities.
 
 ## What's included
 
@@ -33,9 +68,12 @@ The three rate columns sum exactly to the printed Total 2026 Rate, and the towns
 | `scripts/build_evidence_model.py` | single source of truth — regenerates both copies |
 | `scripts/extract_pdf_text.py` | PDF to text |
 | `source-pdfs/` | cited source documents only |
-| `web/` | Vite + React Tax Receipt screen |
+| `national/` | national registry, source catalog, coverage gates, schemas, and AI gap policy |
+| `scripts/build_national_registry.py` | offline, locked national registry builder |
+| `web/` | Vite + React AuditBack receipt screen |
 | `DIRECTOR-REVIEW.md` | independent review, including corrections to its own findings |
-| `docs/` | per-step working briefs |
+| `docs/AUDITBACK-DOMAIN.md` | safe `auditback.ca` registration and cutover checklist |
+| `docs/` | deployment and working briefs |
 
 ## Evidence rules
 

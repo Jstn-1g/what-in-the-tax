@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/ai-gap-queue-1.0.0.json",
+  "title": "AuditBack bounded AI gap queue",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "enabled",
+    "invokesModel",
+    "packetCount",
+    "budget",
+    "packets",
+    "queueCanonicalSha256"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "auditback-ai-gap-queue-1.0.0"},
+    "enabled": {"type": "boolean"},
+    "invokesModel": {"const": false},
+    "packetCount": {"type": "integer", "minimum": 0},
+    "budget": {
+      "type": "object",
+      "required": [
+        "estimatedInputTokensCeiling",
+        "maxOutputTokens",
+        "maximumCostMicrousd",
+        "runInputTokenLimit",
+        "runOutputTokenLimit",
+        "runCostLimitMicrousd"
+      ],
+      "properties": {
+        "estimatedInputTokensCeiling": {"type": "integer", "minimum": 0},
+        "maxOutputTokens": {"type": "integer", "minimum": 0},
+        "maximumCostMicrousd": {"type": "integer", "minimum": 0},
+        "runInputTokenLimit": {"type": "integer", "minimum": 1},
+        "runOutputTokenLimit": {"type": "integer", "minimum": 1},
+        "runCostLimitMicrousd": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "packets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schemaVersion",
+          "gapId",
+          "entityId",
+          "gapCode",
+          "requestedFields",
+          "source",
+          "deterministicAttempts",
+          "excerpts",
+          "budget",
+          "publication",
+          "packetCanonicalSha256"
+        ],
+        "properties": {
+          "schemaVersion": {"const": "auditback-ai-gap-packet-1.0.0"},
+          "gapId": {"type": "string"},
+          "entityId": {"pattern": "^ca:"},
+          "gapCode": {"type": "string"},
+          "requestedFields": {"type": "array", "items": {"type": "string"}},
+          "source": {
+            "type": "object",
+            "required": [
+              "sourceId",
+              "snapshotSha256",
+              "normalizedTextSha256"
+            ],
+            "properties": {
+              "sourceId": {"type": "string"},
+              "snapshotSha256": {"pattern": "^[0-9a-f]{64}$"},
+              "normalizedTextSha256": {"pattern": "^[0-9a-f]{64}$"}
+            },
+            "additionalProperties": false
+          },
+          "deterministicAttempts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string"}
+          },
+          "excerpts": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "required": [
+                "locator",
+                "text",
+                "excerptChars",
+                "documentChars",
+                "startChar",
+                "endChar",
+                "documentTextSha256",
+                "excerptTextSha256",
+                "isFullDocument"
+              ],
+              "properties": {
+                "locator": {"type": "string"},
+                "text": {"type": "string", "maxLength": 1600},
+                "excerptChars": {"type": "integer"},
+                "documentChars": {"type": "integer"},
+                "startChar": {"type": "integer", "minimum": 0},
+                "endChar": {"type": "integer", "minimum": 1},
+                "documentTextSha256": {"pattern": "^[0-9a-f]{64}$"},
+                "excerptTextSha256": {"pattern": "^[0-9a-f]{64}$"},
+                "isFullDocument": {"const": false}
+              },
+              "additionalProperties": false
+            }
+          },
+          "budget": {
+            "type": "object",
+            "required": [
+              "estimatedInputTokensCeiling",
+              "maxOutputTokens",
+              "maximumCostMicrousd"
+            ],
+            "properties": {
+              "estimatedInputTokensCeiling": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "maxOutputTokens": {"type": "integer", "minimum": 1},
+              "maximumCostMicrousd": {"type": "integer", "minimum": 1}
+            },
+            "additionalProperties": false
+          },
+          "publication": {
+            "type": "object",
+            "required": ["mayAutoPublish", "humanReviewRequired"],
+            "properties": {
+              "mayAutoPublish": {"const": false},
+              "humanReviewRequired": {"const": true}
+            },
+            "additionalProperties": false
+          },
+          "packetCanonicalSha256": {"pattern": "^[0-9a-f]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "queueCanonicalSha256": {"pattern": "^[0-9a-f]{64}$"}
+  }
+}

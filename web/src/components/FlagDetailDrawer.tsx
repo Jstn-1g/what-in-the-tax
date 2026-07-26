@@ -146,7 +146,19 @@ export default function FlagDetailDrawer({ flag, evidence, gapsById, onClose }: 
     requestAnimationFrame(() => {
       const target = document.getElementById(id)
       if (!(target instanceof HTMLElement)) return
-      target.focus({ preventScroll: true })
+      const focusTarget =
+        target instanceof HTMLDetailsElement
+          ? target.querySelector<HTMLElement>('summary')
+          : target.matches(FOCUSABLE_SELECTOR)
+            ? target
+            : null
+      if (target instanceof HTMLDetailsElement) target.open = true
+      if (focusTarget) {
+        focusTarget.focus({ preventScroll: true })
+      } else {
+        target.tabIndex = -1
+        target.focus({ preventScroll: true })
+      }
       target.scrollIntoView({ block: 'start' })
     })
   }

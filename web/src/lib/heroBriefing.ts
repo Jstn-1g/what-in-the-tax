@@ -9,8 +9,24 @@ export type BillShare = {
   shortLabel: string
   amountCad: number
   share: number
-  tone: 'municipal' | 'upper' | 'special' | 'education'
+  role: BillComponentRole
+  roleBasis: BillComponentRoleBasis
+  quantitative: boolean
+  tone: 'municipal' | 'upper' | 'special' | 'education' | 'unclassified'
 }
+
+export type BillComponentRole =
+  | 'municipal'
+  | 'upper-tier'
+  | 'special-levy'
+  | 'education'
+  | 'unclassified'
+
+export type BillComponentRoleBasis =
+  | 'explicit'
+  | 'bucket-amount'
+  | 'component-order'
+  | 'unclassified'
 
 export type Destination = {
   id: string
@@ -40,37 +56,131 @@ export type HeroBriefingModel = {
   destinationsBasis: string
   destinationsGapId?: string
   destinationsGapTitle?: string
+  reviewNoteCount: number
+  gapCount: number
+  weakCitationCount: number
+  hardCitationFailureCount: number
   attention: AttentionChip[]
   footnote: string
 }
 
 function shortShareLabel(label: string): string {
-  const lower = label.toLowerCase()
-  if (lower.includes('education')) return 'Education'
-  if (lower.includes('hospital')) return 'Hospital'
-  if (lower.includes('region')) return 'Region'
-  if (lower.includes('township') || lower.includes('north dumfries')) return 'Township'
-  if (lower.includes('kitchener') || (lower.includes('city') && !lower.includes('education')))
-    return 'City'
-  if (lower.includes('county') || lower.includes('brant') || lower.includes('municipal'))
-    return 'County'
-  const first = label.split(/[(/]/)[0]?.trim() ?? label
-  return first.length > 14 ? `${first.slice(0, 12)}…` : first
+  const firstWord = label.trim().split(/\s+/u)[0]
+  if (!firstWord) return 'Identity unavailable'
+  return firstWord.length > 14 ? `${firstWord.slice(0, 12)}…` : firstWord
 }
 
-function shareTone(label: string): BillShare['tone'] {
-  const lower = label.toLowerCase()
-  if (lower.includes('education')) return 'education'
-  if (lower.includes('hospital')) return 'special'
-  if (lower.includes('region')) return 'upper'
-  return 'municipal'
+function normalizeExplicitRole(value: unknown): BillComponentRole | null {
+  if (typeof value !== 'string') return null
+  switch (value.trim().toLowerCase()) {
+    case 'municipal':
+    case 'local':
+    case 'lower-tier':
+    case 'single-tier':
+      return 'municipal'
+    case 'regional':
+    case 'region':
+    case 'upper-tier':
+      return 'upper-tier'
+    case 'special':
+    case 'special-levy':
+      return 'special-levy'
+    case 'education':
+    case 'school':
+    case 'school-board':
+      return 'education'
+    case 'unclassified':
+      return 'unclassified'
+    default:
+      return null
+  }
+}
+
+function amountsMatch(left: unknown, right: unknown): boolean {
+  return (
+    typeof left === 'number' &&
+    Number.isFinite(left) &&
+    typeof right === 'number' &&
+    Number.isFinite(right) &&
+    Math.abs(left - right) < 0.005
+  )
+}
+
+/**
+ * Component labels are presentation text, not a national classification system.
+ * Prefer a structured role when a newer pack provides one. Legacy packs are
+ * classified deterministically from their bucket amounts and documented component
+ * order so French or other localized labels are never interpreted as English.
+ */
+export function deriveBillComponentRole(
+  component: TaxpayerReceipt['profiles']['supportedAverageHousehold']['combinedAtAssessment'] extends
+    | { components: (infer T)[] }
+    | undefined
+    ? T
+    : never,
+  index: number,
+  componentCount: number,
+  profile: TaxpayerReceipt['profiles']['supportedAverageHousehold'],
+  jurisdictionLevel?: string,
+): { role: BillComponentRole; basis: BillComponentRoleBasis } {
+  const extended = component as typeof component & {
+    role?: unknown
+    componentRole?: unknown
+    governingBodyRole?: unknown
+  }
+  const explicit = normalizeExplicitRole(
+    extended.governingBodyRole ?? extended.componentRole ?? extended.role,
+  )
+  if (explicit) return { role: explicit, basis: 'explicit' }
+
+  if (amountsMatch(component.amountCad, profile.education.amountCad)) {
+    return { role: 'education', basis: 'bucket-amount' }
+  }
+  if (amountsMatch(component.amountCad, profile.region.amountCad)) {
+    return { role: 'upper-tier', basis: 'bucket-amount' }
+  }
+
+  // Legacy pack contract: the base local levy is first. Lower-tier receipts
+  // place their upper-tier levy second. This uses structured jurisdiction
+  // metadata plus reviewed component order, never a display-label guess.
+  if (componentCount > 0 && index === 0) {
+    return { role: 'municipal', basis: 'component-order' }
+  }
+  if (jurisdictionLevel === 'lower-tier' && componentCount > 2 && index === 1) {
+    return { role: 'upper-tier', basis: 'component-order' }
+  }
+  if (
+    componentCount > 1 &&
+    index === componentCount - 1 &&
+    (typeof profile.education.amountCad !== 'number' ||
+      !Number.isFinite(profile.education.amountCad))
+  ) {
+    return { role: 'education', basis: 'component-order' }
+  }
+  if (componentCount > 1) {
+    return { role: 'special-levy', basis: 'component-order' }
+  }
+  return { role: 'unclassified', basis: 'unclassified' }
+}
+
+function shareTone(role: BillComponentRole): BillShare['tone'] {
+  if (role === 'education') return 'education'
+  if (role === 'special-levy') return 'special'
+  if (role === 'upper-tier') return 'upper'
+  if (role === 'municipal') return 'municipal'
+  return 'unclassified'
 }
 
 function isDestinationLine(line: ReceiptLineItem): boolean {
   if (line.classification === 'reconciling_item') return false
   if (line.classification === 'disclosure_subline') return false
   if (line.classification === 'special_levy') return false
-  if (line.amountCad <= 0) return false
+  if (
+    typeof line.amountCad !== 'number' ||
+    !Number.isFinite(line.amountCad) ||
+    line.amountCad <= 0
+  )
+    return false
   return true
 }
 
@@ -104,23 +214,56 @@ export function buildHeroBriefing(
   const profile = data.profiles.supportedAverageHousehold
   const combined = profile.combinedAtAssessment
   const totalCad = combined?.totalCad ?? profile.combinedTotalCad
-  if (totalCad == null || totalCad <= 0 || !combined?.components?.length) return null
+  const assessmentCad = combined?.assessmentCad
+  const municipalTotal = profile.township.amountCad
+  if (
+    typeof totalCad !== 'number' ||
+    !Number.isFinite(totalCad) ||
+    totalCad <= 0 ||
+    typeof assessmentCad !== 'number' ||
+    !Number.isFinite(assessmentCad) ||
+    assessmentCad <= 0 ||
+    typeof municipalTotal !== 'number' ||
+    !Number.isFinite(municipalTotal) ||
+    municipalTotal < 0 ||
+    !combined?.components?.length ||
+    combined.components.some(
+      (component) =>
+        typeof component.amountCad !== 'number' || !Number.isFinite(component.amountCad),
+    )
+  )
+    return null
 
-  const assessmentCad = combined.assessmentCad
-  const shares: BillShare[] = combined.components.map((c) => ({
-    label: c.label,
-    shortLabel: shortShareLabel(c.label),
-    amountCad: c.amountCad,
-    share: c.amountCad / totalCad,
-    tone: shareTone(c.label),
-  }))
+  const shares: BillShare[] = combined.components.map((component, index) => {
+    const { role, basis } = deriveBillComponentRole(
+      component,
+      index,
+      combined.components.length,
+      profile,
+      data.jurisdiction?.level,
+    )
+    const quantitative = component.amountCad >= 0
+    const componentLabel =
+      typeof component.label === 'string' && component.label.trim()
+        ? component.label
+        : 'Component identity unavailable'
+    return {
+      label: componentLabel,
+      shortLabel: shortShareLabel(componentLabel),
+      amountCad: component.amountCad,
+      share: quantitative ? component.amountCad / totalCad : 0,
+      role,
+      roleBasis: basis,
+      quantitative,
+      tone: shareTone(role),
+    }
+  })
 
   const municipalLabel =
-    options?.municipalBucketLabel ??
-    data.uiModelHints.municipalBucketLabel ??
-    profile.township.uiLabel ??
-    'Municipal portion'
-  const municipalTotal = profile.township.amountCad
+    options?.municipalBucketLabel?.trim() ||
+    data.uiModelHints.municipalBucketLabel?.trim() ||
+    profile.township.uiLabel?.trim() ||
+    'Municipal identity unavailable'
   const lines = (profile.township.lineItems ?? []).filter(isDestinationLine)
   const onlyCombinedBlob =
     lines.length === 1 && lines[0] != null && isUnallocatedCombinedLine(lines[0])
@@ -256,6 +399,11 @@ export function buildHeroBriefing(
       `Rural combined total shown; Ayr urban properties also pay a Special Area Rate${sar}.`,
     )
   }
+  if (shares.some((share) => share.roleBasis === 'component-order')) {
+    footnoteParts.push(
+      'Component categories follow the reviewed receipt order until each pack includes explicit role fields. Display names are never used to guess a role.',
+    )
+  }
 
   return {
     totalCad,
@@ -266,6 +414,10 @@ export function buildHeroBriefing(
     destinationsBasis,
     ...(destinationsGapId ? { destinationsGapId } : {}),
     ...(destinationsGapTitle ? { destinationsGapTitle } : {}),
+    reviewNoteCount: watchCount,
+    gapCount: gaps.length,
+    weakCitationCount: weakCitations,
+    hardCitationFailureCount: hardFails,
     attention,
     footnote: footnoteParts.join(' '),
   }
