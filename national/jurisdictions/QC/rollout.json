@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "QC",
+    "name": "Quebec",
+    "sgcCode": "24",
+    "isoSubdivision": "CA-QC"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "adapter-needed",
+  "primarySourceIds": [
+    "qc-mamh-municipal-directory",
+    "qc-administrative-boundaries",
+    "qc-isq-geographic-code-history"
+  ],
+  "sourceRoles": {
+    "qc-mamh-municipal-directory": ["governing-body-roster"],
+    "qc-administrative-boundaries": ["boundary-crosswalk"],
+    "qc-isq-geographic-code-history": ["code-history"]
+  },
+  "canonicalBodyTypes": ["municipal-government", "regional-government"],
+  "stages": [
+    {"id": "official-source-identified", "status": "complete"},
+    {"id": "reuse-approved", "status": "complete"},
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Preserve official French names, five-digit geographic codes, MRCs, boroughs, metropolitan communities, and source history.",
+    "Territories outside MRCs and other statistical or administrative areas require body-versus-geography review."
+  ]
+}

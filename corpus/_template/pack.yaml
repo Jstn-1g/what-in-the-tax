@@ -1,0 +1,40 @@
+# Copy this directory to corpus/<slug>/ and fill every TODO.
+# Do not edit _template in place. See corpus/README.md and PUBLISH.md.
+
+slug: REPLACE-slug-on  # e.g. wellesley-on
+name: "TODO: legal name of municipality"
+country: CA
+subdivision: ON
+level: lower-tier  # or single-tier | upper-tier
+parentBodies: []  # e.g. [region-of-waterloo-on]
+fiscalYear: 2026
+currency: CAD
+locale: en-CA
+valuationBasis: "TODO: assessment base / valuation date"
+defaultAssessmentCad: null
+engineTag: engine/0.1.0-bridge
+packVersion: "2026.0-draft"
+
+publication:
+  status: draft
+  lifecycle: draft
+  tier: 0  # receipt only for new packs; findings rare and by hand (PURPOSE.md)
+  license: MIT
+  publisher: null
+  contact: null
+  refreshDueBy: null  # refuse to publish without a maintenance date
+  notes: "New pack — Tier 0 until explicitly promoted."
+
+artifacts:
+  ledger: data/evidence-ledger.json  # replace after transcription
+  receipt: data/taxpayer-receipt.json
+  sourcesRoot: source-pdfs/
+  extractsRoot: data/_extracts/
+
+controlTotal:
+  municipalLevyCad: null
+  allocationBaseCad: null
+  note: "TODO: declare control total with rationale and rejected alternatives"
+
+disclaimer: >
+  Not affiliated with the municipality named above. Illustration only; not tax advice.

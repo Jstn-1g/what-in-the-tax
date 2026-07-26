@@ -8,3 +8,10 @@
 2026-04-13-council-minutes.pdf
 2026-04-13-council-addendum.pdf
 2026-04-27-council-addendum.pdf
+
+# Full MMAH FIR year dumps and StatCan table zip (large). Cited peer rows live in
+# fir/fir-general-government-peers-2023-2024.csv; StatCan figures are cited by table URL.
+fir/fir_data_*.zip
+fir/VIEWFIR*.zip
+fir/statcan_*.bin
+fir/*.html

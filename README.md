@@ -1,25 +1,106 @@
-# Taxpayer Receipt
+# What in the Tax?
 
-Evidence-first forensic budget model and Tax Receipt UI for the **Township of North Dumfries** and the **Region of Waterloo**.
+What in the Tax? is an evidence-first public-finance model and resident-facing
+property-tax receipt guide.
+It currently provides draft previews for six Ontario municipalities while the
+Canada-wide registry and source-ingestion system are being built.
 
-Every dollar on screen traces to a page in a published document, or to a formula over figures that do. Nothing is modelled, estimated, or filled in.
+Every displayed figure is intended to trace to a published document or to a recorded formula
+over cited inputs. Explicit illustration and pro-rata models are labelled as such, and missing
+evidence must remain a GAP rather than being filled.
 
-## The headline number
+What in the Tax? is independent. It is not affiliated with any government and
+is not an official bill, formal financial audit, or source of tax advice.
 
-A residential property assessed at **$455,000** (the Township's own average, on the MPAC January 1 2016 valuation base) pays for 2026:
+Some internal schemas, historical receipts, and release documents retain the
+legacy AuditBack name during migration. Those identifiers are evidence
+contracts, not the resident-facing brand, and are not being renamed casually.
 
-| | rate | amount |
-|---|---|---|
-| Township of North Dumfries | 0.00315303 | $1,434.63 |
-| Region of Waterloo | 0.00717545 | $3,264.83 |
-| Education (Province of Ontario) | 0.00153000 | $696.15 |
-| **Total** | **0.01185848** | **$5,395.61** |
+## Status and national boundary
 
-Ayr urban properties additionally pay the Special Area Rate of 0.00015571 ($70.85), for $5,466.46.
+- The browser is a static reader: it makes no runtime AI or government-site
+  requests and collects no address, roll number, or account data.
+- Six Ontario receipts are available as **draft previews**. They are not sealed
+  publications.
+- The resident search now indexes all 436 municipality-submitted records in the
+  hash-pinned 2023 Ontario FIR snapshot (238 lower-tier, 168 single-tier, and
+  30 upper-tier). Ontario expected 444 returns for that year, so the directory
+  is explicitly incomplete. These records are historical directory matches,
+  not receipts or current tax by-laws.
+- The national builder reproducibly loads the approved Statistics Canada SGC
+  2021 baseline: 5,473 geographies, including 5,161 census subdivisions across
+  all 13 provinces and territories. A checked-in, schema-validated index pins
+  every allowed geography ID to the catalog-approved official release hash.
+- A census subdivision is a geography, not proof of a governing body. The project
+  never converts all CSDs into municipalities or governments.
+- The source catalog and seven-layer coverage matrix include every province and
+  territory, Statistics Canada's 2025 CSD layer, and Indigenous Services
+  Canada's First Nations Location dataset. All 13 jurisdiction directory
+  providers and the separate transport job are still to be implemented.
+- All 13 municipal/regional onboarding packets are tracked: 11 are
+  `adapter-needed`, 2 remain in `source-discovery`, and 0 are currently
+  publication-ready.
 
-Source: **By-law No. 3637-26**, Schedule A, CODE RT Residential — Report FIN-07-2026 Attachment 1, in the 2026-04-27 council agenda at PDF page 103. Adopted by resolution C-153-26.
+The current milestone is therefore a hardened, zero-token national ingestion
+foundation—not a claim that every Canadian governing body is already loaded.
 
-The three rate columns sum exactly to the printed Total 2026 Rate, and the township component reproduces the separately published $1,434.63 to the cent. Both identities are asserted in the generator, which refuses to emit if either fails.
+## Deterministic national ingestion
+
+The production path is official structured data first: API/open-data download,
+content-addressed cache, immutable source lock, versioned adapter, exact-ID
+crosswalk, reconciliation gates, then static browser artifacts. PDF extraction,
+OCR, human review, and finally bounded AI excerpts are fallbacks in that order.
+AI is disabled by default, requires explicit per-run opt-in, cannot
+auto-publish, and is subject to recomputed per-packet and aggregate token/cost
+ceilings.
+
+See [`national/ARCHITECTURE.md`](national/ARCHITECTURE.md) for the data model,
+coverage rules, official-source plan, and adapter contract. A national baseline
+build consumes pre-downloaded, approved official bytes:
+
+Optional exception review can use a trusted operator's existing ChatGPT/Codex
+subscription without an API key or pay-as-you-go API calls. The local-only
+boundary and mandatory review controls are documented in
+[`docs/SUBSCRIPTION-AI-REVIEW.md`](docs/SUBSCRIPTION-AI-REVIEW.md).
+
+```powershell
+python scripts/build_national_registry.py `
+  --sgc-csv <official-local-csv> `
+  --sgc-sha256 <catalog-approved-sha256> `
+  --cache-dir <durable-cache> `
+  --output <registry.json> `
+  --source-lock-output <sources.lock.json>
+```
+
+The builder deliberately has no network or model client. The next expansion
+milestone is an allowlisted, rate-limited transport job plus the 2025 CSD and
+13 provincial/territorial directory adapters, followed by education,
+Indigenous, and special-purpose taxing authorities.
+
+## Help roll out a province or territory
+
+The GitHub rollout path is documented in
+[`docs/PROVINCIAL-ROLLOUT.md`](docs/PROVINCIAL-ROLLOUT.md). It covers every
+province and territory, official source approval, adapter fixtures, exact
+crosswalk review, municipality/region exceptions, count reconciliation, and
+separate publication approval. Contributor setup and evidence rules are in
+[`CONTRIBUTING.md`](CONTRIBUTING.md).
+The status checker refuses `partial` without verified positive directory
+output, and refuses publication unless actual locked source bytes, output
+records freshly reproduced by the provider, pinned SGC membership, crosswalk
+provenance, derived counts, and a human approval artifact all agree.
+
+Check the machine-readable rollout manifests without downloading government
+data or calling AI:
+
+```bash
+python scripts/manage_national_rollout.py check
+python scripts/manage_national_rollout.py status --format json
+```
+
+Use the GitHub Province/territory rollout issue form for one jurisdiction's
+municipal/regional layer at a time. A dedicated `National rollout readiness`
+workflow runs the offline checks on pull requests but never deploys.
 
 ## What's included
 
@@ -31,17 +112,51 @@ The three rate columns sum exactly to the printed Total 2026 Rate, and the towns
 | `scripts/build_evidence_model.py` | single source of truth — regenerates both copies |
 | `scripts/extract_pdf_text.py` | PDF to text |
 | `source-pdfs/` | cited source documents only |
-| `web/` | Vite + React Tax Receipt screen |
+| `national/` | national registry, source catalog, coverage gates, schemas, and AI gap policy |
+| `national/sgc_2021_geography_index.json` | release-pinned allowlist of all 5,473 official SGC 2021 geography IDs |
+| `scripts/build_national_registry.py` | offline, locked national registry builder |
+| `scripts/build_sgc_geography_index.py` | deterministic offline builder for the pinned SGC allowlist |
+| `scripts/build_ontario_fir_public_index.py` | deterministic, zero-AI builder for the public 2023 Ontario filing directory |
+| `scripts/manage_national_rollout.py` | offline jurisdiction-manifest readiness and status CLI |
+| `web/` | Vite + React What in the Tax? resident guide |
 | `DIRECTOR-REVIEW.md` | independent review, including corrections to its own findings |
-| `docs/` | per-step working briefs |
+| `docs/WHATINTHETAX-DOMAIN.md` | safe `whatinthetax.com` registration and cutover checklist |
+| `docs/PROVINCIAL-ROLLOUT.md` | GitHub playbook for all 13 province/territory rollouts |
+| `docs/SUBSCRIPTION-AI-REVIEW.md` | local subscription-only exception review; no API key or API billing |
+| `docs/` | deployment and working briefs |
 
 ## Evidence rules
 
-- **FACT** — quoted from a source with a page or URL and a verbatim excerpt.
+- **FACT** — cited to a source with a page or URL and an excerpt. Excerpts are reconstructions unless `data/citation-audit.json` reports a verbatim (or stronger) match for that fact.
 - **DERIVED** — computed only from fact IDs, with the formula recorded.
 - **GAP** — missing evidence. Never invent a number to fill one. Resolved gaps move to `closedGaps` rather than being deleted, so the audit trail survives.
-- **JUDGMENT** — interpretive. `billImpactCad` stays `null`, always.
+- **JUDGMENT** — interpretive only. `billImpactCad` stays `null`, always.
 - A documented dead end is a correct outcome. Gaps carry a `searchTrail` recording where we looked.
+
+## Static packs, validation, and versioning
+
+Rollout is **static jurisdiction packs** (files + git), not a shared multi-tenant database. Integrity is content hashes and citation audit — not a blockchain as source of truth.
+
+| doc | role |
+|---|---|
+| `PURPOSE.md` | Who it's for; what v1 refuses |
+| `PUBLISH.md` | draft → sealed → Published (only path) |
+| `docs/VERSIONING.md` | `engine/x.y.z` vs `pack/<slug>/YYYY.N` |
+| `corpus/` | Pack descriptors + `_template` |
+| `LICENSE` | MIT |
+
+```bash
+python scripts/build_evidence_model.py
+python scripts/audit_citations.py
+python scripts/validate_pack.py north-dumfries-on   # must exit 0 to seal
+python scripts/seal_pack.py north-dumfries-on N     # only after the full gate passes
+```
+
+**Pack status today:** all packs, including `north-dumfries-on`, are **draft previews**.
+The historical `receipts/north-dumfries-on/2026/{1,2,3}` directories are retained as integrity
+experiments, but they are not deployment attestations: their metadata and the deployed bytes do
+not agree, their claimed release tags are absent, and their source evidence is not fully locked.
+The next valid seal must be a new revision produced after every gate in `PUBLISH.md` passes.
 
 ## Reconciliation
 
@@ -73,16 +188,21 @@ python scripts/build_evidence_model.py   # regenerate both data copies
 cd web
 npm install
 npm run dev        # http://127.0.0.1:5173
-npm test           # 31 tests
+npm test           # vitest suite in web/
 npm run build      # tsc + vite
 ```
 
 ## Known open gaps
 
-Three remain open, each with a search trail in the ledger:
+Open gaps (each with a search trail in the ledger):
 
-- `GAP-PEER-BENCHMARK` — no normalised peer comparator obtained, so the administrative-scale finding is not a conclusion.
-- `GAP-ND-POP-CURRENT` — per-capita metrics still divide 2026 dollars by 2021 census population, biasing them upward.
-- `GAP-TWINPAD-OPERATING-DELTA` — no evidence on the recurring operating cost change once the new arena opens.
+- `GAP-TWINPAD-OPERATING-DELTA` — no published Twin Pad vs ACC ice operating delta
+- `GAP-FLAGGED-DOLLARS-ON-BILL` — no approved rule for “flagged” dollars on a household bill
+- `GAP-ARENA-2026-TAX-IMPACT` — Twin Pad debt service tax impact not stated for 2026
+- `GAP-BEAVER-LINE-AMOUNT` — beaver extraction spend not isolated as a line amount
 
-Also open: `GAP-FLAGGED-DOLLARS-ON-BILL`, `GAP-ARENA-2026-TAX-IMPACT`, `GAP-BEAVER-LINE-AMOUNT`.
+Closed (retained in `closedGaps`): `GAP-PEER-BENCHMARK`, `GAP-ND-POP-CURRENT`, and earlier resolved items. The ledger is authority over this list.
+
+**Before Published:** citation audit hard failures must be zero and every load-bearing source,
+calculation, identity, public projection, and deployed byte must pass the stronger gates in
+`PUBLISH.md`. That bar is currently not met.

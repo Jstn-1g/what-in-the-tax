@@ -1,0 +1,437 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifact": "TaxpayerReceipt",
+  "status": "partial_evidence_based",
+  "purpose": "City of Kitchener 2026 taxpayer receipt. Lower-tier: City + Region of Waterloo + education.",
+  "evidencePolicyRef": "data/kitchener/evidence-ledger.json",
+  "jurisdiction": {
+    "slug": "kitchener-on",
+    "displayName": "City of Kitchener",
+    "level": "lower-tier",
+    "aliases": [
+      "Kitchener"
+    ]
+  },
+  "profiles": {
+    "supportedAverageHousehold": {
+      "description": "City-published average residential assessment ($326,000).",
+      "township": {
+        "basis": "City of Kitchener 2026 Appendix B department totals allocated at average assessment \u2014 CITY portion only (Region and education separate)",
+        "amountCad": 1340.39,
+        "assessmentCad": 326000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-KIT-BILL-CITY-326K",
+        "lineItems": [
+          {
+            "id": "KIT-DEPT-CAO-2026",
+            "label": "Chief Administrator's Office",
+            "amountCad": 11.38,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-KIT-DEPT-CAO-2026-HH",
+            "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39"
+          },
+          {
+            "id": "KIT-DEPT-CSD-2026",
+            "label": "Community Services",
+            "amountCad": 528.11,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-KIT-DEPT-CSD-2026-HH",
+            "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39",
+            "subLines": [
+              {
+                "id": "KIT-FIRE-SUBLINE",
+                "label": "of which Fire",
+                "amountCad": 350.06,
+                "classification": "disclosure_subline",
+                "evidenceStatus": "DERIVED",
+                "sourceFactId": "DRV-KIT-FIRE-SUBLINE",
+                "note": "Already included in Community Services above; not added to any total."
+              }
+            ]
+          },
+          {
+            "id": "KIT-DEPT-FIN-2026",
+            "label": "Financial Services",
+            "amountCad": 42.49,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-KIT-DEPT-FIN-2026-HH",
+            "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39"
+          },
+          {
+            "id": "KIT-DEPT-COR-2026",
+            "label": "Corporate Services",
+            "amountCad": 154.56,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-KIT-DEPT-COR-2026-HH",
+            "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39"
+          },
+          {
+            "id": "KIT-DEPT-DSD-2026",
+            "label": "Development Services",
+            "amountCad": 134.84,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-KIT-DEPT-DSD-2026-HH",
+            "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39"
+          },
+          {
+            "id": "KIT-DEPT-INS-2026",
+            "label": "Infrastructure Services",
+            "amountCad": 469.0,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-KIT-DEPT-INS-2026-HH",
+            "note": "Pro-rata of Appendix B net departmental expenditures ($170,039,303) against city tax $1,340.39"
+          },
+          {
+            "id": "KIT-ALLOC-ROUNDING",
+            "label": "Allocation rounding",
+            "amountCad": 0.01,
+            "classification": "reconciling_item",
+            "evidenceStatus": "RECONCILING",
+            "note": "Cent rounding so department shares sum to the city portion."
+          }
+        ],
+        "uiLabel": "City portion",
+        "note": "City rate \u00d7 $326,000 = $1,340.39. Published 2.2% / $29 city increase is city-only (not the combined bill)."
+      },
+      "region": {
+        "basis": "City of Kitchener 2026 Final Tax Rates \u2014 REGION column on RT Residential at $326,000",
+        "amountCad": 2744.38,
+        "assessmentCad": 326000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-KIT-BILL-REGION-326K",
+        "lineItems": [
+          {
+            "id": "KIT-REGION-RATE-PORTION",
+            "label": "Region of Waterloo (combined \u2014 rate \u00d7 City average assessment)",
+            "amountCad": 2744.38,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-KIT-BILL-REGION-326K",
+            "note": "Printed REGION rate on the City's 2026 Final Tax Rates sheet \u00d7 $326,000. This is the bill-stack Region total. Region-published urban service lines at $354,500 are under regionIllustrationAt354500 \u2014 not added here."
+          }
+        ],
+        "uiLabel": "Region portion",
+        "note": "Bill total is rate \u00d7 $326,000 = $2,744.38. Region-published urban service breakdown at $354,500 ($2,984 after PIL) is under regionIllustrationAt354500."
+      },
+      "regionIllustrationAt354500": {
+        "description": "Region-published urban (Kitchener / Waterloo / Cambridge) tax-supported services at $354,500 \u2014 INFORMATIONAL only.",
+        "basis": "Region 2026 Budget Book p.12 Urban column (shared pack schedule) at $354,500",
+        "amountCad": 2984,
+        "assessmentCad": 354500,
+        "evidenceStatus": "FACT",
+        "sourceFactId": "ROW-URBAN-HH-TOTAL-2026",
+        "uiLabel": "Region illustration @ $354,500",
+        "lineItems": [
+          {
+            "id": "ROW-HH-URBAN-01",
+            "label": "Police Service",
+            "amountCad": 900,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-01",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-02",
+            "label": "Public Transit",
+            "amountCad": 582,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-02",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-03",
+            "label": "Housing Services",
+            "amountCad": 429,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-03",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-04",
+            "label": "Roads/Design & Construction/Eng.",
+            "amountCad": 240,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-04",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-05",
+            "label": "Waste Management",
+            "amountCad": 213,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-05",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-06",
+            "label": "Financial Expenses",
+            "amountCad": 89,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-06",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-07",
+            "label": "Paramedic Services",
+            "amountCad": 134,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-07",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-08",
+            "label": "Employment/Income Support",
+            "amountCad": 53,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-08",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-09",
+            "label": "Seniors' Services",
+            "amountCad": 51,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-09",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-10",
+            "label": "Human Resources",
+            "amountCad": 39,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-10",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-11",
+            "label": "Information Technology Services",
+            "amountCad": 49,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-11",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-12",
+            "label": "Public Health",
+            "amountCad": 45,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-12",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-13",
+            "label": "Facilities & Fleet Management",
+            "amountCad": 24,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-13",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-14",
+            "label": "Cultural Services",
+            "amountCad": 33,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-14",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-15",
+            "label": "Children's Services",
+            "amountCad": 30,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-15",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-16",
+            "label": "Elected Offices & Office of the Chief Administrative Officer",
+            "amountCad": 17,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-16",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-17",
+            "label": "Resident Experience, Strategy and Communications",
+            "amountCad": 19,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-17",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-18",
+            "label": "Airport",
+            "amountCad": 31,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-18",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-19",
+            "label": "Planning, Development & Legislative Services",
+            "amountCad": 21,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-19",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-20",
+            "label": "Finance",
+            "amountCad": 24,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-20",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-21",
+            "label": "Regional Library",
+            "amountCad": 0,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-21",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-22",
+            "label": "Build Waterloo Region",
+            "amountCad": 16,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-22",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-23",
+            "label": "Strategy, Performance and Partnerships",
+            "amountCad": 20,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-23",
+            "note": "Region-published at $354,500; not part of the $326,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-ROUNDING",
+            "label": "Unallocated table-rounding difference (source total vs summed lines)",
+            "amountCad": 3,
+            "classification": "reconciling_item",
+            "evidenceStatus": "RECONCILING",
+            "note": "Printed lines sum $3,059; printed subtotal $3,062."
+          },
+          {
+            "id": "ROW-HH-PIL-OFFSET",
+            "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
+            "amountCad": -78,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-PIL-2026"
+          }
+        ],
+        "lineItemsSumCheckCad": 2984,
+        "note": "Do not add these dollars to the City $326,000 bill. Same MPAC January 1, 2016 base; different average property. See GAP-KIT-REGION-ASSESSMENT-BRIDGE.",
+        "gapId": "GAP-KIT-REGION-ASSESSMENT-BRIDGE"
+      },
+      "education": {
+        "basis": "2026 Final Tax Rates \u2014 RT Residential Education Rate 0.00153000 at $326,000",
+        "amountCad": 498.78,
+        "assessmentCad": 326000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-KIT-BILL-EDUCATION-326K",
+        "note": "Province sets this rate; the City collects it.",
+        "uiLabel": "Education"
+      },
+      "combinedTotalCad": 4583.55,
+      "combinedAtAssessment": {
+        "assessmentCad": 326000,
+        "basis": "City of Kitchener 2026 Final Tax Rates \u2014 RT Residential / Farm Taxable: Full",
+        "evidenceStatus": "DERIVED",
+        "components": [
+          {
+            "label": "City of Kitchener",
+            "amountCad": 1340.39,
+            "rate": 0.00411164,
+            "sourceFactId": "KIT-TAXRATE-RES-CITY-2026"
+          },
+          {
+            "label": "Region of Waterloo",
+            "amountCad": 2744.38,
+            "rate": 0.00841834,
+            "sourceFactId": "KIT-TAXRATE-RES-REGION-2026"
+          },
+          {
+            "label": "Education (Province of Ontario)",
+            "amountCad": 498.78,
+            "rate": 0.00153,
+            "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026"
+          }
+        ],
+        "totalCad": 4583.55,
+        "totalRate": 0.01405998
+      },
+      "combinedTotalNote": "Built from the 2026 Final Tax Rates RT row applied to the City's published average assessment ($326,000). City $1,340.39 + Region $2,744.38 + Education $498.78 = $4,583.55. The City's published $29 / 2.2% increase is the City portion only.",
+      "warnings": [
+        "City $29 / 2.2% impact is City portion only \u2014 not the full combined bill change.",
+        "Department shares are a pro-rata model over Appendix B net departmental expenditures \u2014 not a published per-household split.",
+        "Region bill line is rate \u00d7 $326,000; Region urban schedule at $354,500 is informational only (GAP-KIT-REGION-ASSESSMENT-BRIDGE).",
+        "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt."
+      ]
+    },
+    "hypothetical5000": {
+      "amountCad": 5000,
+      "evidenceStatus": "DERIVED",
+      "allocatable": true,
+      "impliedAssessmentCad": 355619,
+      "compositionShares": [
+        {
+          "label": "City of Kitchener",
+          "share": 0.2924356933651399,
+          "sourceFactId": "KIT-TAXRATE-RES-CITY-2026"
+        },
+        {
+          "label": "Region of Waterloo",
+          "share": 0.5987448061803786,
+          "sourceFactId": "KIT-TAXRATE-RES-REGION-2026"
+        },
+        {
+          "label": "Education (Province of Ontario)",
+          "share": 0.10881950045448144,
+          "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026"
+        }
+      ],
+      "message": "A $5,000 total bill implies an assessment of about $355,619. Shown as rate shares rather than invented department dollars."
+    }
+  },
+  "findings": [],
+  "uiModelHints": {
+    "municipalBucketLabel": "City portion",
+    "regionBucketLabel": "Region portion",
+    "heroLabel": "Total residential bill \u00b7 average \u00b7 2026 final tax rates",
+    "publishedFindingIds": [],
+    "marqueeFindings": []
+  }
+}

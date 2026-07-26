@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "YT",
+    "name": "Yukon",
+    "sgcCode": "60",
+    "isoSubdivision": "CA-YT"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "adapter-needed",
+  "primarySourceIds": [
+    "yt-local-government-directory",
+    "yt-municipal-boundaries"
+  ],
+  "sourceRoles": {
+    "yt-local-government-directory": ["governing-body-roster"],
+    "yt-municipal-boundaries": ["boundary-crosswalk"]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {"id": "official-source-identified", "status": "complete"},
+    {
+      "id": "reuse-approved",
+      "status": "blocked",
+      "notes": "The local-government directory requires source-specific reuse review; the boundary dataset is already reuse-cleared."
+    },
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Municipal governments and local advisory councils must remain distinct.",
+    "First Nation governments use the separate Indigenous-government layer and cannot be inferred from municipal boundaries."
+  ]
+}

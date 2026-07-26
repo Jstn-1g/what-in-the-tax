@@ -1,0 +1,46 @@
+slug: woolwich-on
+name: Township of Woolwich
+country: CA
+subdivision: ON
+level: lower-tier
+parentBodies:
+  - region-of-waterloo-on
+aliases:
+  - Woolwich
+  - Woolwich Township
+assessmentCode: "3029"
+fiscalYear: 2026
+currency: CAD
+locale: en-CA
+valuationBasis: "Region HH schedule basis $354,500 (township average CVA GAP)"
+defaultAssessmentCad: 354500
+engineTag: engine/0.1.0-bridge
+packVersion: "2026.0-draft"
+
+publication:
+  status: draft
+  lifecycle: draft
+  tier: 0
+  license: MIT
+  publisher: null
+  contact: null
+  refreshDueBy: "2027-04-30"
+  notes: >
+    Dual-tier woolwich area key — Region RT rate 0.00738314 ≠ urban 0.00841834.
+    Assessment illustration uses Region $354,500 pending township CVA bind.
+
+artifacts:
+  ledger: data/woolwich/evidence-ledger.json
+  receipt: data/woolwich/taxpayer-receipt.json
+  sourcesRoot: source-pdfs/woolwich/
+  extractsRoot: data/_extracts/woolwich/
+
+controlTotal:
+  measureType: average_household_increase
+  averageHouseholdIncreaseCad: 99.83
+  assessmentMeasureType: reference_scenario
+  label: Published average-household tax increase
+  note: >
+    The $354,500 receipt basis is a regional reference scenario, not a
+    published Woolwich average. Absolute township levy headline not yet locked;
+    Tier 0.

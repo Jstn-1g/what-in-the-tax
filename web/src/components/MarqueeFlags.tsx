@@ -11,6 +11,7 @@ export default function MarqueeFlags({ flags, onOpen }: Props) {
   return (
     <section className="section marquee-flags" aria-labelledby="marquee-title">
       <div className="section-head">
+        <p className="section-kicker">Checked against the record</p>
         <h2 id="marquee-title">Watch these first</h2>
         <p>Highest-signal findings — judgment only; no invented bill dollars.</p>
       </div>

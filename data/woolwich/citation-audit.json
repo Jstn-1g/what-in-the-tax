@@ -1,0 +1,493 @@
+{
+  "ok": true,
+  "counts": {
+    "verbatim": 5,
+    "row-bound": 23,
+    "numbers-only": 4
+  },
+  "bindingIssueCounts": {
+    "extract-sha256-missing": 32,
+    "source-bytes-missing": 26,
+    "source-sha256-missing": 26,
+    "source-path-missing": 4,
+    "source-file-missing": 2
+  },
+  "results": [
+    {
+      "id": "WOO-REFERENCE-ASSESSMENT-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 354500,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WOO-TAXRATE-RES-CITY-2026",
+      "sourceId": "woo-2026-tax-rates",
+      "page": 1,
+      "amountCad": 0.00322187,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-path-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WOO-TAXRATE-RES-REGION-2026",
+      "sourceId": "woo-2026-tax-rates",
+      "page": 1,
+      "amountCad": 0.00738314,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-path-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WOO-TAXRATE-RES-EDUCATION-2026",
+      "sourceId": "woo-2026-tax-rates",
+      "page": 1,
+      "amountCad": 0.00153,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-path-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WOO-TAXRATE-RES-TOTAL-2026",
+      "sourceId": "woo-2026-tax-rates",
+      "page": 1,
+      "amountCad": 0.01213501,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-path-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WOO-TAX-INCREASE-PCT-2026",
+      "sourceId": "woo-2026-budget",
+      "page": 1,
+      "amountCad": 7.8,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-file-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "WOO-AVG-HOUSEHOLD-INCREASE-CAD-2026",
+      "sourceId": "woo-2026-budget",
+      "page": 1,
+      "amountCad": 99.83,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-file-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-WOOLWICH-HH-TOTAL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 2617,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-HH-PIL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": -78,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-01",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 900,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-02",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 136,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-03",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 429,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-04",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 240,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-05",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 213,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-06",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 89,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-07",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 134,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-08",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 53,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-09",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 51,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-10",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 39,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-11",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 49,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-12",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 45,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-13",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 24,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-14",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 33,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-15",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 30,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-16",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 17,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-17",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 19,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-18",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 31,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-19",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 21,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-20",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 24,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-21",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 79,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-22",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 16,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-WOOLWICH-23",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 20,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    }
+  ],
+  "sourceBindings": [
+    {
+      "sourceId": "woo-2026-tax-rates",
+      "sourceFile": {
+        "declaredPath": null,
+        "declaredSha256": null,
+        "actualSha256": null,
+        "declaredBytes": null,
+        "actualBytes": null
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/woolwich/2026-tax-rates-page.txt",
+        "declaredSha256": null,
+        "actualSha256": "b7dfa41896269c248fca35633a64a7ea8fab0268b7f6223d9165e839b7704740"
+      },
+      "issues": [
+        "source-path-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": false,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "woo-2026-budget",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/woolwich/2026-budget-book-final.pdf",
+        "declaredSha256": null,
+        "actualSha256": null,
+        "declaredBytes": null,
+        "actualBytes": null
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/woolwich/2026-budget-excerpt.txt",
+        "declaredSha256": null,
+        "actualSha256": "a9d2370078839a61207b0d9a4190011b7ead133ffeef26286f90bdd1d8541229"
+      },
+      "issues": [
+        "source-file-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": false,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "row-2026-book",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026_final_budget_book_region.pdf",
+        "declaredSha256": null,
+        "actualSha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
+        "declaredBytes": null,
+        "actualBytes": 5442331
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026_final_budget_book_region.txt",
+        "declaredSha256": null,
+        "actualSha256": "3a79328613126951dbb7aedf8097b7cd79b5278f6f359d6b5c9ad1f9a429497f"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    }
+  ]
+}

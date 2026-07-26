@@ -1,0 +1,632 @@
+schemaVersion: 1.0.0
+artifact: RegionHouseholdSchedule
+jurisdictionSlug: region-of-waterloo-on
+fiscalYear: 2026
+source:
+  title: Region of Waterloo 2026 Final Budget Book — Annual Average Cost Per Household
+  extractPath: data/_extracts/2026_final_budget_book_region.txt
+  pdfPage: 12
+  assessmentCad: 354500
+  assessmentBasis: MPAC CVA valuation date January 1, 2016 (Region-published average)
+  note: Amounts are Region-published dollars per average household at $354,500. Do
+    not add them to a lower-tier bill computed at a different assessment without an
+    explicit rate×assessment DERIVED path. servicesSubtotalCad is the sum of rounded
+    line items; publishedServicesSubtotalCad and taxSupportedTotalCad (after PIL)
+    are authoritative published figures. roundingAdjustmentCad absorbs PDF table rounding
+    (typically $2–$3).
+areas:
+  blended:
+    label: Blended Regional
+    lines:
+    - id: ROW-HH-BLENDED-01
+      label: Police Service
+      amountCad: 900
+      netExpenditure000Cad: 298907
+      propertyTaxLevy000Cad: 272610
+    - id: ROW-HH-BLENDED-02
+      label: Public Transit
+      amountCad: 516
+      netExpenditure000Cad: 231203
+      propertyTaxLevy000Cad: 156402
+    - id: ROW-HH-BLENDED-03
+      label: Housing Services
+      amountCad: 429
+      netExpenditure000Cad: 178544
+      propertyTaxLevy000Cad: 129992
+    - id: ROW-HH-BLENDED-04
+      label: Roads/Design & Construction/Eng.
+      amountCad: 240
+      netExpenditure000Cad: 78529
+      propertyTaxLevy000Cad: 72779
+    - id: ROW-HH-BLENDED-05
+      label: Waste Management
+      amountCad: 213
+      netExpenditure000Cad: 80797
+      propertyTaxLevy000Cad: 64596
+    - id: ROW-HH-BLENDED-06
+      label: Financial Expenses
+      amountCad: 89
+      netExpenditure000Cad: 29630
+      propertyTaxLevy000Cad: 26969
+    - id: ROW-HH-BLENDED-07
+      label: Paramedic Services
+      amountCad: 134
+      netExpenditure000Cad: 86447
+      propertyTaxLevy000Cad: 40575
+    - id: ROW-HH-BLENDED-08
+      label: Employment/Income Support
+      amountCad: 53
+      netExpenditure000Cad: 144080
+      propertyTaxLevy000Cad: 16098
+    - id: ROW-HH-BLENDED-09
+      label: Seniors' Services
+      amountCad: 51
+      netExpenditure000Cad: 54042
+      propertyTaxLevy000Cad: 15597
+    - id: ROW-HH-BLENDED-10
+      label: Human Resources
+      amountCad: 39
+      netExpenditure000Cad: 13269
+      propertyTaxLevy000Cad: 11955
+    - id: ROW-HH-BLENDED-11
+      label: Information Technology Services
+      amountCad: 49
+      netExpenditure000Cad: 14979
+      propertyTaxLevy000Cad: 14979
+    - id: ROW-HH-BLENDED-12
+      label: Public Health
+      amountCad: 45
+      netExpenditure000Cad: 45222
+      propertyTaxLevy000Cad: 13561
+    - id: ROW-HH-BLENDED-13
+      label: Facilities & Fleet Management
+      amountCad: 24
+      netExpenditure000Cad: 10196
+      propertyTaxLevy000Cad: 7189
+    - id: ROW-HH-BLENDED-14
+      label: Cultural Services
+      amountCad: 33
+      netExpenditure000Cad: 11722
+      propertyTaxLevy000Cad: 10060
+    - id: ROW-HH-BLENDED-15
+      label: Children's Services
+      amountCad: 30
+      netExpenditure000Cad: 245740
+      propertyTaxLevy000Cad: 9143
+    - id: ROW-HH-BLENDED-16
+      label: Elected Offices & Office of the Chief Administrative Officer
+      amountCad: 17
+      netExpenditure000Cad: 5256
+      propertyTaxLevy000Cad: 5256
+    - id: ROW-HH-BLENDED-17
+      label: Resident Experience, Strategy and Communications
+      amountCad: 19
+      netExpenditure000Cad: 5869
+      propertyTaxLevy000Cad: 5855
+    - id: ROW-HH-BLENDED-18
+      label: Airport
+      amountCad: 31
+      netExpenditure000Cad: 19855
+      propertyTaxLevy000Cad: 9281
+    - id: ROW-HH-BLENDED-19
+      label: Planning, Development & Legislative Services
+      amountCad: 21
+      netExpenditure000Cad: 34909
+      propertyTaxLevy000Cad: 6510
+    - id: ROW-HH-BLENDED-20
+      label: Finance
+      amountCad: 24
+      netExpenditure000Cad: 7524
+      propertyTaxLevy000Cad: 7369
+    - id: ROW-HH-BLENDED-21
+      label: Regional Library
+      amountCad: 11
+      netExpenditure000Cad: 3809
+      propertyTaxLevy000Cad: 3314
+    - id: ROW-HH-BLENDED-22
+      label: Build Waterloo Region
+      amountCad: 16
+      netExpenditure000Cad: 6277
+      propertyTaxLevy000Cad: 4925
+    - id: ROW-HH-BLENDED-23
+      label: Strategy, Performance and Partnerships
+      amountCad: 20
+      netExpenditure000Cad: 5952
+      propertyTaxLevy000Cad: 5952
+    servicesSubtotalCad: 3004
+    publishedServicesSubtotalCad: 3007
+    roundingAdjustmentCad: 3
+    pilAndSupplementaryCad: -78
+    taxSupportedTotalCad: 2929
+  urban:
+    label: Urban (Kitchener / Waterloo / Cambridge)
+    lines:
+    - id: ROW-HH-URBAN-01
+      label: Police Service
+      amountCad: 900
+      netExpenditure000Cad: 298907
+      propertyTaxLevy000Cad: 272610
+    - id: ROW-HH-URBAN-02
+      label: Public Transit
+      amountCad: 582
+      netExpenditure000Cad: 231203
+      propertyTaxLevy000Cad: 156402
+    - id: ROW-HH-URBAN-03
+      label: Housing Services
+      amountCad: 429
+      netExpenditure000Cad: 178544
+      propertyTaxLevy000Cad: 129992
+    - id: ROW-HH-URBAN-04
+      label: Roads/Design & Construction/Eng.
+      amountCad: 240
+      netExpenditure000Cad: 78529
+      propertyTaxLevy000Cad: 72779
+    - id: ROW-HH-URBAN-05
+      label: Waste Management
+      amountCad: 213
+      netExpenditure000Cad: 80797
+      propertyTaxLevy000Cad: 64596
+    - id: ROW-HH-URBAN-06
+      label: Financial Expenses
+      amountCad: 89
+      netExpenditure000Cad: 29630
+      propertyTaxLevy000Cad: 26969
+    - id: ROW-HH-URBAN-07
+      label: Paramedic Services
+      amountCad: 134
+      netExpenditure000Cad: 86447
+      propertyTaxLevy000Cad: 40575
+    - id: ROW-HH-URBAN-08
+      label: Employment/Income Support
+      amountCad: 53
+      netExpenditure000Cad: 144080
+      propertyTaxLevy000Cad: 16098
+    - id: ROW-HH-URBAN-09
+      label: Seniors' Services
+      amountCad: 51
+      netExpenditure000Cad: 54042
+      propertyTaxLevy000Cad: 15597
+    - id: ROW-HH-URBAN-10
+      label: Human Resources
+      amountCad: 39
+      netExpenditure000Cad: 13269
+      propertyTaxLevy000Cad: 11955
+    - id: ROW-HH-URBAN-11
+      label: Information Technology Services
+      amountCad: 49
+      netExpenditure000Cad: 14979
+      propertyTaxLevy000Cad: 14979
+    - id: ROW-HH-URBAN-12
+      label: Public Health
+      amountCad: 45
+      netExpenditure000Cad: 45222
+      propertyTaxLevy000Cad: 13561
+    - id: ROW-HH-URBAN-13
+      label: Facilities & Fleet Management
+      amountCad: 24
+      netExpenditure000Cad: 10196
+      propertyTaxLevy000Cad: 7189
+    - id: ROW-HH-URBAN-14
+      label: Cultural Services
+      amountCad: 33
+      netExpenditure000Cad: 11722
+      propertyTaxLevy000Cad: 10060
+    - id: ROW-HH-URBAN-15
+      label: Children's Services
+      amountCad: 30
+      netExpenditure000Cad: 245740
+      propertyTaxLevy000Cad: 9143
+    - id: ROW-HH-URBAN-16
+      label: Elected Offices & Office of the Chief Administrative Officer
+      amountCad: 17
+      netExpenditure000Cad: 5256
+      propertyTaxLevy000Cad: 5256
+    - id: ROW-HH-URBAN-17
+      label: Resident Experience, Strategy and Communications
+      amountCad: 19
+      netExpenditure000Cad: 5869
+      propertyTaxLevy000Cad: 5855
+    - id: ROW-HH-URBAN-18
+      label: Airport
+      amountCad: 31
+      netExpenditure000Cad: 19855
+      propertyTaxLevy000Cad: 9281
+    - id: ROW-HH-URBAN-19
+      label: Planning, Development & Legislative Services
+      amountCad: 21
+      netExpenditure000Cad: 34909
+      propertyTaxLevy000Cad: 6510
+    - id: ROW-HH-URBAN-20
+      label: Finance
+      amountCad: 24
+      netExpenditure000Cad: 7524
+      propertyTaxLevy000Cad: 7369
+    - id: ROW-HH-URBAN-21
+      label: Regional Library
+      amountCad: 0
+      netExpenditure000Cad: 3809
+      propertyTaxLevy000Cad: 3314
+    - id: ROW-HH-URBAN-22
+      label: Build Waterloo Region
+      amountCad: 16
+      netExpenditure000Cad: 6277
+      propertyTaxLevy000Cad: 4925
+    - id: ROW-HH-URBAN-23
+      label: Strategy, Performance and Partnerships
+      amountCad: 20
+      netExpenditure000Cad: 5952
+      propertyTaxLevy000Cad: 5952
+    servicesSubtotalCad: 3059
+    publishedServicesSubtotalCad: 3062
+    roundingAdjustmentCad: 3
+    pilAndSupplementaryCad: -78
+    taxSupportedTotalCad: 2984
+  rural:
+    label: Rural (North Dumfries / Wellesley)
+    lines:
+    - id: ROW-HH-RURAL-01
+      label: Police Service
+      amountCad: 900
+      netExpenditure000Cad: 298907
+      propertyTaxLevy000Cad: 272610
+    - id: ROW-HH-RURAL-02
+      label: Public Transit
+      amountCad: 63
+      netExpenditure000Cad: 231203
+      propertyTaxLevy000Cad: 156402
+    - id: ROW-HH-RURAL-03
+      label: Housing Services
+      amountCad: 429
+      netExpenditure000Cad: 178544
+      propertyTaxLevy000Cad: 129992
+    - id: ROW-HH-RURAL-04
+      label: Roads/Design & Construction/Eng.
+      amountCad: 240
+      netExpenditure000Cad: 78529
+      propertyTaxLevy000Cad: 72779
+    - id: ROW-HH-RURAL-05
+      label: Waste Management
+      amountCad: 213
+      netExpenditure000Cad: 80797
+      propertyTaxLevy000Cad: 64596
+    - id: ROW-HH-RURAL-06
+      label: Financial Expenses
+      amountCad: 89
+      netExpenditure000Cad: 29630
+      propertyTaxLevy000Cad: 26969
+    - id: ROW-HH-RURAL-07
+      label: Paramedic Services
+      amountCad: 134
+      netExpenditure000Cad: 86447
+      propertyTaxLevy000Cad: 40575
+    - id: ROW-HH-RURAL-08
+      label: Employment/Income Support
+      amountCad: 53
+      netExpenditure000Cad: 144080
+      propertyTaxLevy000Cad: 16098
+    - id: ROW-HH-RURAL-09
+      label: Seniors' Services
+      amountCad: 51
+      netExpenditure000Cad: 54042
+      propertyTaxLevy000Cad: 15597
+    - id: ROW-HH-RURAL-10
+      label: Human Resources
+      amountCad: 39
+      netExpenditure000Cad: 13269
+      propertyTaxLevy000Cad: 11955
+    - id: ROW-HH-RURAL-11
+      label: Information Technology Services
+      amountCad: 49
+      netExpenditure000Cad: 14979
+      propertyTaxLevy000Cad: 14979
+    - id: ROW-HH-RURAL-12
+      label: Public Health
+      amountCad: 45
+      netExpenditure000Cad: 45222
+      propertyTaxLevy000Cad: 13561
+    - id: ROW-HH-RURAL-13
+      label: Facilities & Fleet Management
+      amountCad: 24
+      netExpenditure000Cad: 10196
+      propertyTaxLevy000Cad: 7189
+    - id: ROW-HH-RURAL-14
+      label: Cultural Services
+      amountCad: 33
+      netExpenditure000Cad: 11722
+      propertyTaxLevy000Cad: 10060
+    - id: ROW-HH-RURAL-15
+      label: Children's Services
+      amountCad: 30
+      netExpenditure000Cad: 245740
+      propertyTaxLevy000Cad: 9143
+    - id: ROW-HH-RURAL-16
+      label: Elected Offices & Office of the Chief Administrative Officer
+      amountCad: 17
+      netExpenditure000Cad: 5256
+      propertyTaxLevy000Cad: 5256
+    - id: ROW-HH-RURAL-17
+      label: Resident Experience, Strategy and Communications
+      amountCad: 19
+      netExpenditure000Cad: 5869
+      propertyTaxLevy000Cad: 5855
+    - id: ROW-HH-RURAL-18
+      label: Airport
+      amountCad: 31
+      netExpenditure000Cad: 19855
+      propertyTaxLevy000Cad: 9281
+    - id: ROW-HH-RURAL-19
+      label: Planning, Development & Legislative Services
+      amountCad: 21
+      netExpenditure000Cad: 34909
+      propertyTaxLevy000Cad: 6510
+    - id: ROW-HH-RURAL-20
+      label: Finance
+      amountCad: 24
+      netExpenditure000Cad: 7524
+      propertyTaxLevy000Cad: 7369
+    - id: ROW-HH-RURAL-21
+      label: Regional Library
+      amountCad: 79
+      netExpenditure000Cad: 3809
+      propertyTaxLevy000Cad: 3314
+    - id: ROW-HH-RURAL-22
+      label: Build Waterloo Region
+      amountCad: 16
+      netExpenditure000Cad: 6277
+      propertyTaxLevy000Cad: 4925
+    - id: ROW-HH-RURAL-23
+      label: Strategy, Performance and Partnerships
+      amountCad: 20
+      netExpenditure000Cad: 5952
+      propertyTaxLevy000Cad: 5952
+    servicesSubtotalCad: 2619
+    publishedServicesSubtotalCad: 2621
+    roundingAdjustmentCad: 2
+    pilAndSupplementaryCad: -78
+    taxSupportedTotalCad: 2543
+  woolwich:
+    label: Woolwich
+    lines:
+    - id: ROW-HH-WOOLWICH-01
+      label: Police Service
+      amountCad: 900
+      netExpenditure000Cad: 298907
+      propertyTaxLevy000Cad: 272610
+    - id: ROW-HH-WOOLWICH-02
+      label: Public Transit
+      amountCad: 136
+      netExpenditure000Cad: 231203
+      propertyTaxLevy000Cad: 156402
+    - id: ROW-HH-WOOLWICH-03
+      label: Housing Services
+      amountCad: 429
+      netExpenditure000Cad: 178544
+      propertyTaxLevy000Cad: 129992
+    - id: ROW-HH-WOOLWICH-04
+      label: Roads/Design & Construction/Eng.
+      amountCad: 240
+      netExpenditure000Cad: 78529
+      propertyTaxLevy000Cad: 72779
+    - id: ROW-HH-WOOLWICH-05
+      label: Waste Management
+      amountCad: 213
+      netExpenditure000Cad: 80797
+      propertyTaxLevy000Cad: 64596
+    - id: ROW-HH-WOOLWICH-06
+      label: Financial Expenses
+      amountCad: 89
+      netExpenditure000Cad: 29630
+      propertyTaxLevy000Cad: 26969
+    - id: ROW-HH-WOOLWICH-07
+      label: Paramedic Services
+      amountCad: 134
+      netExpenditure000Cad: 86447
+      propertyTaxLevy000Cad: 40575
+    - id: ROW-HH-WOOLWICH-08
+      label: Employment/Income Support
+      amountCad: 53
+      netExpenditure000Cad: 144080
+      propertyTaxLevy000Cad: 16098
+    - id: ROW-HH-WOOLWICH-09
+      label: Seniors' Services
+      amountCad: 51
+      netExpenditure000Cad: 54042
+      propertyTaxLevy000Cad: 15597
+    - id: ROW-HH-WOOLWICH-10
+      label: Human Resources
+      amountCad: 39
+      netExpenditure000Cad: 13269
+      propertyTaxLevy000Cad: 11955
+    - id: ROW-HH-WOOLWICH-11
+      label: Information Technology Services
+      amountCad: 49
+      netExpenditure000Cad: 14979
+      propertyTaxLevy000Cad: 14979
+    - id: ROW-HH-WOOLWICH-12
+      label: Public Health
+      amountCad: 45
+      netExpenditure000Cad: 45222
+      propertyTaxLevy000Cad: 13561
+    - id: ROW-HH-WOOLWICH-13
+      label: Facilities & Fleet Management
+      amountCad: 24
+      netExpenditure000Cad: 10196
+      propertyTaxLevy000Cad: 7189
+    - id: ROW-HH-WOOLWICH-14
+      label: Cultural Services
+      amountCad: 33
+      netExpenditure000Cad: 11722
+      propertyTaxLevy000Cad: 10060
+    - id: ROW-HH-WOOLWICH-15
+      label: Children's Services
+      amountCad: 30
+      netExpenditure000Cad: 245740
+      propertyTaxLevy000Cad: 9143
+    - id: ROW-HH-WOOLWICH-16
+      label: Elected Offices & Office of the Chief Administrative Officer
+      amountCad: 17
+      netExpenditure000Cad: 5256
+      propertyTaxLevy000Cad: 5256
+    - id: ROW-HH-WOOLWICH-17
+      label: Resident Experience, Strategy and Communications
+      amountCad: 19
+      netExpenditure000Cad: 5869
+      propertyTaxLevy000Cad: 5855
+    - id: ROW-HH-WOOLWICH-18
+      label: Airport
+      amountCad: 31
+      netExpenditure000Cad: 19855
+      propertyTaxLevy000Cad: 9281
+    - id: ROW-HH-WOOLWICH-19
+      label: Planning, Development & Legislative Services
+      amountCad: 21
+      netExpenditure000Cad: 34909
+      propertyTaxLevy000Cad: 6510
+    - id: ROW-HH-WOOLWICH-20
+      label: Finance
+      amountCad: 24
+      netExpenditure000Cad: 7524
+      propertyTaxLevy000Cad: 7369
+    - id: ROW-HH-WOOLWICH-21
+      label: Regional Library
+      amountCad: 79
+      netExpenditure000Cad: 3809
+      propertyTaxLevy000Cad: 3314
+    - id: ROW-HH-WOOLWICH-22
+      label: Build Waterloo Region
+      amountCad: 16
+      netExpenditure000Cad: 6277
+      propertyTaxLevy000Cad: 4925
+    - id: ROW-HH-WOOLWICH-23
+      label: Strategy, Performance and Partnerships
+      amountCad: 20
+      netExpenditure000Cad: 5952
+      propertyTaxLevy000Cad: 5952
+    servicesSubtotalCad: 2692
+    publishedServicesSubtotalCad: 2695
+    roundingAdjustmentCad: 3
+    pilAndSupplementaryCad: -78
+    taxSupportedTotalCad: 2617
+  wilmot:
+    label: Wilmot
+    lines:
+    - id: ROW-HH-WILMOT-01
+      label: Police Service
+      amountCad: 900
+      netExpenditure000Cad: 298907
+      propertyTaxLevy000Cad: 272610
+    - id: ROW-HH-WILMOT-02
+      label: Public Transit
+      amountCad: 95
+      netExpenditure000Cad: 231203
+      propertyTaxLevy000Cad: 156402
+    - id: ROW-HH-WILMOT-03
+      label: Housing Services
+      amountCad: 429
+      netExpenditure000Cad: 178544
+      propertyTaxLevy000Cad: 129992
+    - id: ROW-HH-WILMOT-04
+      label: Roads/Design & Construction/Eng.
+      amountCad: 240
+      netExpenditure000Cad: 78529
+      propertyTaxLevy000Cad: 72779
+    - id: ROW-HH-WILMOT-05
+      label: Waste Management
+      amountCad: 213
+      netExpenditure000Cad: 80797
+      propertyTaxLevy000Cad: 64596
+    - id: ROW-HH-WILMOT-06
+      label: Financial Expenses
+      amountCad: 89
+      netExpenditure000Cad: 29630
+      propertyTaxLevy000Cad: 26969
+    - id: ROW-HH-WILMOT-07
+      label: Paramedic Services
+      amountCad: 134
+      netExpenditure000Cad: 86447
+      propertyTaxLevy000Cad: 40575
+    - id: ROW-HH-WILMOT-08
+      label: Employment/Income Support
+      amountCad: 53
+      netExpenditure000Cad: 144080
+      propertyTaxLevy000Cad: 16098
+    - id: ROW-HH-WILMOT-09
+      label: Seniors' Services
+      amountCad: 51
+      netExpenditure000Cad: 54042
+      propertyTaxLevy000Cad: 15597
+    - id: ROW-HH-WILMOT-10
+      label: Human Resources
+      amountCad: 39
+      netExpenditure000Cad: 13269
+      propertyTaxLevy000Cad: 11955
+    - id: ROW-HH-WILMOT-11
+      label: Information Technology Services
+      amountCad: 49
+      netExpenditure000Cad: 14979
+      propertyTaxLevy000Cad: 14979
+    - id: ROW-HH-WILMOT-12
+      label: Public Health
+      amountCad: 45
+      netExpenditure000Cad: 45222
+      propertyTaxLevy000Cad: 13561
+    - id: ROW-HH-WILMOT-13
+      label: Facilities & Fleet Management
+      amountCad: 24
+      netExpenditure000Cad: 10196
+      propertyTaxLevy000Cad: 7189
+    - id: ROW-HH-WILMOT-14
+      label: Cultural Services
+      amountCad: 33
+      netExpenditure000Cad: 11722
+      propertyTaxLevy000Cad: 10060
+    - id: ROW-HH-WILMOT-15
+      label: Children's Services
+      amountCad: 30
+      netExpenditure000Cad: 245740
+      propertyTaxLevy000Cad: 9143
+    - id: ROW-HH-WILMOT-16
+      label: Elected Offices & Office of the Chief Administrative Officer
+      amountCad: 17
+      netExpenditure000Cad: 5256
+      propertyTaxLevy000Cad: 5256
+    - id: ROW-HH-WILMOT-17
+      label: Resident Experience, Strategy and Communications
+      amountCad: 19
+      netExpenditure000Cad: 5869
+      propertyTaxLevy000Cad: 5855
+    - id: ROW-HH-WILMOT-18
+      label: Airport
+      amountCad: 31
+      netExpenditure000Cad: 19855
+      propertyTaxLevy000Cad: 9281
+    - id: ROW-HH-WILMOT-19
+      label: Planning, Development & Legislative Services
+      amountCad: 21
+      netExpenditure000Cad: 34909
+      propertyTaxLevy000Cad: 6510
+    - id: ROW-HH-WILMOT-20
+      label: Finance
+      amountCad: 24
+      netExpenditure000Cad: 7524
+      propertyTaxLevy000Cad: 7369
+    - id: ROW-HH-WILMOT-21
+      label: Regional Library
+      amountCad: 79
+      netExpenditure000Cad: 3809
+      propertyTaxLevy000Cad: 3314
+    - id: ROW-HH-WILMOT-22
+      label: Build Waterloo Region
+      amountCad: 16
+      netExpenditure000Cad: 6277
+      propertyTaxLevy000Cad: 4925
+    - id: ROW-HH-WILMOT-23
+      label: Strategy, Performance and Partnerships
+      amountCad: 20
+      netExpenditure000Cad: 5952
+      propertyTaxLevy000Cad: 5952
+    servicesSubtotalCad: 2651
+    publishedServicesSubtotalCad: 2654
+    roundingAdjustmentCad: 3
+    pilAndSupplementaryCad: -78
+    taxSupportedTotalCad: 2576

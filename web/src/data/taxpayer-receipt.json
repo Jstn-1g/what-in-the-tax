@@ -2,8 +2,17 @@
   "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
   "status": "partial_evidence_based",
-  "purpose": "UI data model using only supported allocations. Hypothetical $5,000 combined bill is NOT fully allocatable \u2014 see gaps.",
+  "purpose": "UI data model using only supported allocations. A hypothetical $5,000 combined bill can be split among taxing bodies from adopted rates; it is not a published household bill.",
   "evidencePolicyRef": "data/evidence-ledger.json",
+  "jurisdiction": {
+    "slug": "north-dumfries-on",
+    "displayName": "Township of North Dumfries",
+    "level": "lower-tier",
+    "aliases": [
+      "North Dumfries",
+      "Ayr"
+    ]
+  },
   "profiles": {
     "supportedAverageHousehold": {
       "description": "Best evidence-based profile without inventing a $5,000 bill.",
@@ -13,6 +22,7 @@
         "assessmentCad": 455000,
         "evidenceStatus": "FACT",
         "sourceFactId": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "uiLabel": "Township portion",
         "lineItems": [
           {
             "id": "ND-DEPT-CORPORATE-2026",
@@ -96,6 +106,7 @@
         "assessmentCad": 354500,
         "evidenceStatus": "FACT",
         "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+        "uiLabel": "Region portion",
         "lineItems": [
           {
             "id": "ROW-RURAL-HH-01",
@@ -107,7 +118,7 @@
           },
           {
             "id": "ROW-RURAL-HH-02",
-            "label": "Public Transit (area-rated; rural)",
+            "label": "Public Transit",
             "amountCad": 63,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -123,7 +134,7 @@
           },
           {
             "id": "ROW-RURAL-HH-04",
-            "label": "Roads / Design & Construction / Engineering",
+            "label": "Roads/Design & Construction/Eng.",
             "amountCad": 240,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -155,7 +166,7 @@
           },
           {
             "id": "ROW-RURAL-HH-08",
-            "label": "Employment / Income Support",
+            "label": "Employment/Income Support",
             "amountCad": 53,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -219,7 +230,7 @@
           },
           {
             "id": "ROW-RURAL-HH-16",
-            "label": "Elected Offices & Office of the CAO",
+            "label": "Elected Offices & Office of the Chief Administrative Officer",
             "amountCad": 17,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -259,7 +270,7 @@
           },
           {
             "id": "ROW-RURAL-HH-21",
-            "label": "Regional Library (area-rated; rural)",
+            "label": "Regional Library",
             "amountCad": 79,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
@@ -307,6 +318,7 @@
         "assessmentCad": 455000,
         "evidenceStatus": "DERIVED",
         "sourceFactId": "DRV-ND-BILL-EDUCATION-455K",
+        "uiLabel": "Education",
         "note": "Province sets this rate under O. Reg. 400/98; the Township only collects it."
       },
       "combinedTotalCad": 5395.61,
@@ -380,20 +392,27 @@
       "id": "FIND-ADMIN-CORP-SCALE",
       "kind": "JUDGMENT",
       "category": "administrative_scale",
-      "title": "Corporate Services is a large share of the township budget \u2014 unbenchmarked",
-      "opportunitySeverity": "needs_review",
+      "title": "Corporate Services scale tested against FIR peers \u2014 not an outlier",
+      "opportunitySeverity": "watch",
       "citedFactIds": [
         "ND-DEPT-CORPORATE-2026",
         "ND-LEVY-2026",
         "DRV-ND-CORP-PER-CAPITA",
-        "ND-POP-CENSUS-2021"
+        "DRV-ND-CORP-PER-CAPITA-2025",
+        "ND-POP-CENSUS-2021",
+        "ND-POP-STATCAN-2025",
+        "FIR-GG-ND-2023",
+        "FIR-GG-WELLESLEY-2023",
+        "FIR-GG-WILMOT-2023",
+        "FIR-GG-WOOLWICH-2023",
+        "DRV-FIR-GG-PCAP-ND-2023",
+        "DRV-FIR-GG-PEER-MEAN-PCAP-2023",
+        "DRV-FIR-GG-ND-VS-PEER-MEAN-2023"
       ],
-      "evidenceSummary": "Corporate Services $2,091,306 against a municipal levy of $9,002,499; about $197 per 2021-census capita. NOT YET A CONCLUSION: no peer comparator has been obtained (GAP-PEER-BENCHMARK), and the per-capita figure uses 2021 population against a 2026 budget so it is biased upward (GAP-ND-POP-CURRENT). In a township of this size the department also bundles clerk, treasury, IT, HR and communications that larger municipalities report separately.",
+      "evidenceSummary": "Suspicion tested and not supported. On the normalised FIR 2023 General government basis (Total Expenses Before Adjustments \u00f7 StatCan July 1, 2023 population), North Dumfries is $160.52/capita vs a Wellesley/Wilmot/Woolwich mean of $159.52 (ratio 1.006). The earlier ~$197/capita figure used the 2021 Census count (10,619) against a 2026 budget; on the July 1, 2025 estimate (13,051) Corporate Services is ~$160/capita. Caveats: FIR 2023 \u2260 2026 budget year; Corporate Services is not identical to FIR General government. Downgraded \u2014 do not publish as an administrative-scale accusation.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL",
-        "GAP-PEER-BENCHMARK",
-        "GAP-ND-POP-CURRENT"
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
       ],
       "townshipResponse": null,
       "belowMateriality": false
@@ -415,8 +434,7 @@
       "evidenceSummary": "Identified legal lines sum to $94,000.",
       "billImpactCad": null,
       "gapIds": [
-        "GAP-FLAGGED-DOLLARS-ON-BILL",
-        "GAP-PEER-BENCHMARK"
+        "GAP-FLAGGED-DOLLARS-ON-BILL"
       ],
       "townshipResponse": null,
       "belowMateriality": false
@@ -547,8 +565,11 @@
     ],
     "marqueeFindings": [
       "FIND-CAP-ARENA",
-      "FIND-ADMIN-CORP-SCALE",
-      "FIND-ADMIN-LEGAL-STACK"
-    ]
+      "FIND-ADMIN-LEGAL-STACK",
+      "FIND-ADMIN-CORP-SCALE"
+    ],
+    "municipalBucketLabel": "Township portion",
+    "regionBucketLabel": "Region portion",
+    "heroLabel": "Total residential bill \u00b7 rural \u00b7 By-law 3637-26"
   }
 }

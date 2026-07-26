@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "AB",
+    "name": "Alberta",
+    "sgcCode": "48",
+    "isoSubdivision": "CA-AB"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "adapter-needed",
+  "primarySourceIds": [
+    "ab-municipal-locations-codes",
+    "ab-municipal-officials-directory",
+    "ab-municipal-boundaries",
+    "ab-regional-service-commissions"
+  ],
+  "sourceRoles": {
+    "ab-municipal-locations-codes": ["governing-body-roster", "code-history"],
+    "ab-municipal-officials-directory": ["governing-body-roster"],
+    "ab-municipal-boundaries": ["boundary-crosswalk"],
+    "ab-regional-service-commissions": ["relationship-reference"]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {"id": "official-source-identified", "status": "complete"},
+    {"id": "reuse-approved", "status": "complete"},
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Keep cities, towns, villages, summer villages, specialized and rural municipalities distinct at the source-label level.",
+    "Hamlets, improvement districts, special areas, Métis Settlements, and regional service commissions require explicit layer disposition; a service commission is not automatically a regional government."
+  ]
+}

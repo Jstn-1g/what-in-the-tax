@@ -1,0 +1,8 @@
+===== PAGE 1 =====
+City of Cambridge — Taxes (2026 Property Tax Rates)
+Source: https://www.cambridge.ca/resident-services/taxes/
+
+2026 Property Tax Rates
+Tax Class Description City Region Education Total
+RT Residential 0.0051735 0.0084183 0.0015300 0.0151218
+NT New Multi-Residential Taxable 0.0051735 0.0084183 0.0015300 0.0151218

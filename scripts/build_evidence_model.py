@@ -32,33 +32,41 @@ def derived(**kwargs):
     return kwargs
 
 
-# --- Region rural household table (Region Budget Book p.12) ---
+# --- Region rural household table (shared pack YAML; Region Budget Book p.12) ---
 # Rural column = Wellesley + North Dumfries; assessment $354,500 (2016 CVA)
-REGION_RURAL_HH = [
-    ("Police Service", 900, 298_907_000, 272_610_000),
-    ("Public Transit (area-rated; rural)", 63, 231_203_000, 156_402_000),
-    ("Housing Services", 429, 178_544_000, 129_992_000),
-    ("Roads / Design & Construction / Engineering", 240, 78_529_000, 72_779_000),
-    ("Waste Management", 213, 80_797_000, 64_596_000),
-    ("Financial Expenses", 89, 29_630_000, 26_969_000),
-    ("Paramedic Services", 134, 86_447_000, 40_575_000),
-    ("Employment / Income Support", 53, 144_080_000, 16_098_000),
-    ("Seniors' Services", 51, 54_042_000, 15_597_000),
-    ("Human Resources", 39, 13_269_000, 11_955_000),
-    ("Information Technology Services", 49, 14_979_000, 14_979_000),
-    ("Public Health", 45, 45_222_000, 13_561_000),
-    ("Facilities & Fleet Management", 24, 10_196_000, 7_189_000),
-    ("Cultural Services", 33, 11_722_000, 10_060_000),
-    ("Children's Services", 30, 245_740_000, 9_143_000),
-    ("Elected Offices & Office of the CAO", 17, 5_256_000, 5_256_000),
-    ("Resident Experience, Strategy and Communications", 19, 5_869_000, 5_855_000),
-    ("Airport", 31, 19_855_000, 9_281_000),
-    ("Planning, Development & Legislative Services", 21, 34_909_000, 6_510_000),
-    ("Finance", 24, 7_524_000, 7_369_000),
-    ("Regional Library (area-rated; rural)", 79, 3_809_000, 3_314_000),
-    ("Build Waterloo Region", 16, 6_277_000, 4_925_000),
-    ("Strategy, Performance and Partnerships", 20, 5_952_000, 5_952_000),
-]
+REGION_SCHEDULE_PATH = (
+    ROOT / "corpus" / "region-of-waterloo-on" / "schedules" / "household-tax-supported-2026.yaml"
+)
+
+
+def _load_region_rural_hh() -> list[tuple[str, int, int, int]]:
+    """Load rural HH lines from shared YAML. Amounts must stay identical to sealed ND."""
+    try:
+        import yaml
+    except ImportError as exc:  # pragma: no cover
+        raise SystemExit("PyYAML required (pip install pyyaml)") from exc
+    if not REGION_SCHEDULE_PATH.exists():
+        raise SystemExit(
+            f"missing {REGION_SCHEDULE_PATH}\n"
+            "Run: python scripts/parse_row_household_schedule.py\n"
+            "ND rebuild is optional after YAML exists; sealed artifacts stay until rebuild."
+        )
+    doc = yaml.safe_load(REGION_SCHEDULE_PATH.read_text(encoding="utf-8"))
+    rural = doc["areas"]["rural"]
+    rows: list[tuple[str, int, int, int]] = []
+    for line in rural["lines"]:
+        rows.append(
+            (
+                line["label"],
+                int(line["amountCad"]),
+                int(line["netExpenditure000Cad"]) * 1000,
+                int(line["propertyTaxLevy000Cad"]) * 1000,
+            )
+        )
+    return rows
+
+
+REGION_RURAL_HH = _load_region_rural_hh()
 
 rural_service_sum = sum(x[1] for x in REGION_RURAL_HH)
 
@@ -295,22 +303,22 @@ facts = [
         label="Tax levy funding for Capital Reserve Transfers 2026",
         amountCad=1_625_000,
         excerpt="tax levy funding for Capital Reserve Transfers ... in 2026 totals $1,625,000",
-        note="Conflicts with the p.7 summary schedule figure of $1,607,500 (ND-CAPITAL-FUNDED-BY-LEVY-2026). The p.7 figure is used for the allocation base because it is the figure that balances the published budget to Net Budget 0. Both are recorded; neither is discarded.",
+        note="Conflicts with the p.9 summary schedule figure of $1,607,500 (ND-CAPITAL-FUNDED-BY-LEVY-2026). The p.9 figure is used for the allocation base because it is the figure that balances the published budget to Net Budget 0. Both are recorded; neither is discarded.",
         status="draft",
     ),
     fact(
         id="ND-CAPITAL-FUNDED-BY-LEVY-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Capital Funded by tax levy and building bill 2026 (summary schedule)",
         amountCad=1_607_500,
         excerpt="Capital Funded by tax levy and building bill ... 1,607,500",
-        note="From the p.7 levy summary schedule. Used as the capital component of the allocation base. Compare ND-CAPITAL-TAX-RESERVE-XFER-2026 ($1,625,000, p.43 narrative and capital table).",
+        note="From the p.9 levy summary schedule (PDF index). Used as the capital component of the allocation base. Compare ND-CAPITAL-TAX-RESERVE-XFER-2026 ($1,625,000, p.43 narrative and capital table).",
     ),
     fact(
         id="ND-DEPT-ENVIRONMENTAL-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="TOTAL ENVIRONMENTAL SERVICES 2026 (net credit)",
         amountCad=-225,
         excerpt="TOTAL ENVIRONMENTAL SERVICES ... (225)",
@@ -319,34 +327,34 @@ facts = [
     fact(
         id="ND-COUNCIL-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total Council 2026",
         amountCad=201_669,
         excerpt="Total Council ... 201,669",
-        note="COMPONENT of TOTAL CORPORATE SERVICES, not a sibling of it. Never add to the allocation base separately - that double-counts $238,703 with Elections.",
+        note="COMPONENT of TOTAL CORPORATE SERVICES, not a sibling of it. Never add to the allocation base separately - that double-counts $238,703 with Elections. Detail schedule also on p.15.",
     ),
     fact(
         id="ND-ELECTIONS-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total Elections 2026",
         amountCad=37_034,
         excerpt="Total Elections ... 37,034",
-        note="COMPONENT of TOTAL CORPORATE SERVICES. See ND-COUNCIL-2026.",
+        note="COMPONENT of TOTAL CORPORATE SERVICES. See ND-COUNCIL-2026. Detail schedule also on p.15.",
     ),
     fact(
         id="ND-CORP-SERV-ADMIN-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total Corporate Serv Admin 2026",
         amountCad=1_841_803,
         excerpt="Total Corporate Serv Admin ... 1,841,803",
-        note="Council 201,669 + Elections 37,034 + this 1,841,803 + Admin Office NDCC 5,300 + Earl Thompson 5,500 = 2,091,306 = TOTAL CORPORATE SERVICES exactly.",
+        note="Council 201,669 + Elections 37,034 + this 1,841,803 + Admin Office NDCC 5,300 + Earl Thompson 5,500 = 2,091,306 = TOTAL CORPORATE SERVICES exactly. Detail also on p.18.",
     ),
     fact(
         id="ND-TAXATION-REVENUE-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total General Revenue Taxation 2026",
         amountCad=9_182_824,
         excerpt="Total General Revenue Taxation ... (9,182,824)",
@@ -355,7 +363,7 @@ facts = [
     fact(
         id="ND-CORPORATE-REVENUES-2026",
         sourceId="nd-2026-draft",
-        page=7,
+        page=9,
         label="Total General Corporate Revenues 2026",
         amountCad=866_800,
         excerpt="Total General Corporate Revenues ... (866,800)",
@@ -429,7 +437,7 @@ facts = [
     fact(
         id="ND-CAP-BROADBAND-2026",
         sourceId="nd-2026-draft",
-        page=45,
+        page=46,
         label="Broadband Enhancement Strategy Phase 1",
         amountCad=150_000,
         excerpt="project is estimated at $150,000 with funding through the Broadband Reserve Account",
@@ -438,7 +446,7 @@ facts = [
     fact(
         id="ND-CAP-OFFICIAL-PLAN-2026",
         sourceId="nd-2026-draft",
-        page=46,
+        page=47,
         label="Official Plan comprehensive update / conformity exercise",
         amountCad=405_000,
         excerpt="project has an estimated cost of $405,000 and is funded through the Planning Studies Reserve Account, Development Charges Reserve Account and funding from Waterloo Economic Development Corporation",
@@ -492,7 +500,7 @@ facts = [
     fact(
         id="ND-GRANTS-COMMUNITY-2026",
         sourceId="nd-2026-draft",
-        page=14,
+        page=16,
         label="Tax-funded community grants 2026",
         amountCad=40_000,
         excerpt="The 2026 tax funded community grants are $40,000",
@@ -501,7 +509,7 @@ facts = [
     fact(
         id="ND-GRANT-AYR-CEMETERY-2026",
         sourceId="nd-2026-draft",
-        page=14,
+        page=16,
         label="Ayr Cemetery grant",
         amountCad=10_000,
         excerpt="allocations to the Ayr Cemetery, in the amount of $10,000",
@@ -510,7 +518,7 @@ facts = [
     fact(
         id="ND-GRANT-SHEFFIELD-LIONS-2026",
         sourceId="nd-2026-draft",
-        page=14,
+        page=16,
         label="Sheffield Lions / Scott Women’s Institute Building",
         amountCad=3_500,
         excerpt="$3,500 to the Sheffield Lions Club for the maintenance of the Scott Women’s Institute Building",
@@ -519,7 +527,7 @@ facts = [
     fact(
         id="ND-RECORDS-MGMT-2026",
         sourceId="nd-2026-draft",
-        page=16,
+        page=18,
         label="Records Management Services",
         amountCad=8_500,
         excerpt="Administration - Records Management Services ... 8,500",
@@ -582,6 +590,98 @@ facts = [
         url="https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
     ),
     fact(
+        id="ND-POP-STATCAN-2025",
+        sourceId="statcan-csd-estimates",
+        page=None,
+        label="North Dumfries population estimate (StatCan, July 1, 2025)",
+        value=13_051,
+        excerpt="2025,North Dumfries (TP), Ontario,2021A00053530004,...,13051",
+        status="external",
+        url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+        note="Table 17-10-0155-01. Postcensal estimate adjusted for net undercoverage; not the unadjusted Census count.",
+    ),
+    fact(
+        id="ND-POP-STATCAN-2023",
+        sourceId="statcan-csd-estimates",
+        page=None,
+        label="North Dumfries population estimate (StatCan, July 1, 2023)",
+        value=12_047,
+        excerpt="2023,North Dumfries (TP), Ontario,2021A00053530004,...,12047",
+        status="external",
+        url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+    ),
+    fact(
+        id="FIR-GG-ND-2023",
+        sourceId="mmah-fir-2023",
+        page=None,
+        label="FIR 2023 General government — Total Expenses Before Adjustments (North Dumfries)",
+        amountCad=1_933_805,
+        excerpt="2023,3001,North Dumfries Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,1933805",
+        status="external",
+        url="https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+        note="Schedule 40 Consolidated Statement of Operations: Expenses. Before Adjustments avoids peer differences in program-support allocation.",
+    ),
+    fact(
+        id="FIR-GG-WELLESLEY-2023",
+        sourceId="mmah-fir-2023",
+        page=None,
+        label="FIR 2023 General government — Total Expenses Before Adjustments (Wellesley)",
+        amountCad=2_104_106,
+        excerpt="2023,3024,Wellesley Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,2104106",
+        status="external",
+        url="https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    ),
+    fact(
+        id="FIR-GG-WILMOT-2023",
+        sourceId="mmah-fir-2023",
+        page=None,
+        label="FIR 2023 General government — Total Expenses Before Adjustments (Wilmot)",
+        amountCad=4_008_877,
+        excerpt="2023,3018,Wilmot Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,4008877",
+        status="external",
+        url="https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    ),
+    fact(
+        id="FIR-GG-WOOLWICH-2023",
+        sourceId="mmah-fir-2023",
+        page=None,
+        label="FIR 2023 General government — Total Expenses Before Adjustments (Woolwich)",
+        amountCad=4_153_213,
+        excerpt="2023,3029,Woolwich Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,4153213",
+        status="external",
+        url="https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    ),
+    fact(
+        id="STATCAN-POP-WELLESLEY-2023",
+        sourceId="statcan-csd-estimates",
+        page=None,
+        label="Wellesley population estimate (StatCan, July 1, 2023)",
+        value=12_253,
+        excerpt="2023,Wellesley (TP), Ontario,...,12253",
+        status="external",
+        url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+    ),
+    fact(
+        id="STATCAN-POP-WILMOT-2023",
+        sourceId="statcan-csd-estimates",
+        page=None,
+        label="Wilmot population estimate (StatCan, July 1, 2023)",
+        value=23_244,
+        excerpt="2023,Wilmot (TP), Ontario,...,23244",
+        status="external",
+        url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+    ),
+    fact(
+        id="STATCAN-POP-WOOLWICH-2023",
+        sourceId="statcan-csd-estimates",
+        page=None,
+        label="Woolwich population estimate (StatCan, July 1, 2023)",
+        value=30_909,
+        excerpt="2023,Woolwich (TP), Ontario,...,30909",
+        status="external",
+        url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+    ),
+    fact(
         id="ROW-LEVY-2026",
         sourceId="row-2026-book",
         page=12,
@@ -639,7 +739,7 @@ facts = [
     ),
 ]
 
-# Region rural household service lines as facts
+# Region rural household service lines as facts (amounts from shared YAML schedule)
 for i, (label, hh, net_exp, levy) in enumerate(REGION_RURAL_HH, start=1):
     facts.append(
         fact(
@@ -653,6 +753,7 @@ for i, (label, hh, net_exp, levy) in enumerate(REGION_RURAL_HH, start=1):
             excerpt=f"{label} ... Rural ${hh}",
             status="approved",
             assessmentBasisCad=354_500,
+            note="Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",
         )
     )
 
@@ -823,6 +924,7 @@ derived_rows.append(
 
 corp = 2_091_306
 pop = 10_619
+pop_2025 = 13_051
 derived_rows.append(
     derived(
         id="DRV-ND-CORP-PER-CAPITA",
@@ -830,6 +932,26 @@ derived_rows.append(
         amountCad=round(corp / pop, 2),
         formula="ND-DEPT-CORPORATE-2026 / ND-POP-CENSUS-2021",
         inputs=["ND-DEPT-CORPORATE-2026", "ND-POP-CENSUS-2021"],
+        note="Biased upward vs current population; see DRV-ND-CORP-PER-CAPITA-2025.",
+    )
+)
+derived_rows.append(
+    derived(
+        id="DRV-ND-CORP-PER-CAPITA-2025",
+        label="Corporate Services $ per StatCan July 1, 2025 capita",
+        amountCad=round(corp / pop_2025, 2),
+        formula="ND-DEPT-CORPORATE-2026 / ND-POP-STATCAN-2025",
+        inputs=["ND-DEPT-CORPORATE-2026", "ND-POP-STATCAN-2025"],
+    )
+)
+derived_rows.append(
+    derived(
+        id="DRV-ND-POP-BIAS-RATIO",
+        label="Inflation of per-capita metrics from using 2021 Census vs 2025 estimate",
+        value=round(pop_2025 / pop, 4),
+        formula="ND-POP-STATCAN-2025 / ND-POP-CENSUS-2021",
+        inputs=["ND-POP-STATCAN-2025", "ND-POP-CENSUS-2021"],
+        note="2025 estimate is 22.9% above the 2021 Census count; census-based per-capita figures are inflated by that factor.",
     )
 )
 derived_rows.append(
@@ -843,11 +965,64 @@ derived_rows.append(
 )
 derived_rows.append(
     derived(
+        id="DRV-ND-ARENA-PER-CAPITA-2025",
+        label="Arena project $ per StatCan July 1, 2025 capita",
+        amountCad=round(16_190_160 / pop_2025, 2),
+        formula="ND-CAP-ARENA-2026 / ND-POP-STATCAN-2025",
+        inputs=["ND-CAP-ARENA-2026", "ND-POP-STATCAN-2025"],
+    )
+)
+derived_rows.append(
+    derived(
         id="DRV-ND-ARENA-SHARE-OF-CAPITAL",
         label="Arena share of 2026 capital program",
         value=round(16_190_160 / 31_192_121, 4),
         formula="ND-CAP-ARENA-2026 / ND-CAPITAL-PROGRAM-2026",
         inputs=["ND-CAP-ARENA-2026", "ND-CAPITAL-PROGRAM-2026"],
+    )
+)
+
+# FIR 2023 General government per-capita (same-year StatCan estimates)
+_fir_pc = [
+    ("DRV-FIR-GG-PCAP-ND-2023", 1_933_805, 12_047, ["FIR-GG-ND-2023", "ND-POP-STATCAN-2023"], "North Dumfries"),
+    ("DRV-FIR-GG-PCAP-WELLESLEY-2023", 2_104_106, 12_253, ["FIR-GG-WELLESLEY-2023", "STATCAN-POP-WELLESLEY-2023"], "Wellesley"),
+    ("DRV-FIR-GG-PCAP-WILMOT-2023", 4_008_877, 23_244, ["FIR-GG-WILMOT-2023", "STATCAN-POP-WILMOT-2023"], "Wilmot"),
+    ("DRV-FIR-GG-PCAP-WOOLWICH-2023", 4_153_213, 30_909, ["FIR-GG-WOOLWICH-2023", "STATCAN-POP-WOOLWICH-2023"], "Woolwich"),
+]
+for did, spend, pop_n, inputs, label in _fir_pc:
+    derived_rows.append(
+        derived(
+            id=did,
+            label=f"FIR 2023 General government $ per capita — {label}",
+            amountCad=round(spend / pop_n, 2),
+            formula=f"{inputs[0]} / {inputs[1]}",
+            inputs=inputs,
+        )
+    )
+_peer_pc = [round(s / p, 2) for _, s, p, _, _ in _fir_pc[1:]]
+_nd_pc = round(1_933_805 / 12_047, 2)
+_peer_mean = round(sum(_peer_pc) / len(_peer_pc), 2)
+derived_rows.append(
+    derived(
+        id="DRV-FIR-GG-PEER-MEAN-PCAP-2023",
+        label="Mean FIR 2023 General government $/capita — Wellesley/Wilmot/Woolwich",
+        amountCad=_peer_mean,
+        formula="mean(DRV-FIR-GG-PCAP-WELLESLEY-2023, WILMOT, WOOLWICH)",
+        inputs=[
+            "DRV-FIR-GG-PCAP-WELLESLEY-2023",
+            "DRV-FIR-GG-PCAP-WILMOT-2023",
+            "DRV-FIR-GG-PCAP-WOOLWICH-2023",
+        ],
+    )
+)
+derived_rows.append(
+    derived(
+        id="DRV-FIR-GG-ND-VS-PEER-MEAN-2023",
+        label="North Dumfries FIR GG $/capita as ratio of peer-township mean",
+        value=round(_nd_pc / _peer_mean, 4),
+        formula="DRV-FIR-GG-PCAP-ND-2023 / DRV-FIR-GG-PEER-MEAN-PCAP-2023",
+        inputs=["DRV-FIR-GG-PCAP-ND-2023", "DRV-FIR-GG-PEER-MEAN-PCAP-2023"],
+        note=f"ND ${_nd_pc}/capita vs peer mean ${_peer_mean}/capita. Ratio ≈1.0 — not an outlier.",
     )
 )
 
@@ -890,6 +1065,34 @@ closed_gaps = [
         "status": "closed",
         "resolution": "resolved_source_rounding — 23 printed rural lines sum to $2,619; printed subtotal $2,621; less printed ($78) PIL = printed $2,543. Each line rounded to whole dollars; subtotal from unrounded values. $2,543 remains authoritative.",
     },
+    {
+        "id": "GAP-ND-POP-CURRENT",
+        "status": "closed",
+        "resolution": (
+            "StatCan Table 17-10-0155-01 July 1, 2025 estimate for North Dumfries (TP) is 13,051 "
+            "(FACT ND-POP-STATCAN-2025). Census-based per-capita figures using 10,619 inflate by "
+            "factor 1.229 (DRV-ND-POP-BIAS-RATIO). 2021 Census figures retained alongside."
+        ),
+        "replacedByFactIds": ["ND-POP-STATCAN-2025", "DRV-ND-CORP-PER-CAPITA-2025", "DRV-ND-POP-BIAS-RATIO"],
+    },
+    {
+        "id": "GAP-PEER-BENCHMARK",
+        "status": "closed",
+        "resolution": (
+            "FIR Schedule 40 General government Total Expenses Before Adjustments (2023) for "
+            "North Dumfries, Wellesley, Wilmot and Woolwich, divided by same-year StatCan July 1 "
+            "estimates. ND $160.52/capita vs peer mean $159.52 (ratio 1.006) — not an outlier. "
+            "Year note: FIR 2023 actuals are not 2026 budget dollars; Corporate Services ≠ FIR "
+            "General government. The peer test still rejects the 'large' claim on the normalised basis."
+        ),
+        "replacedByFactIds": [
+            "FIR-GG-ND-2023",
+            "FIR-GG-WELLESLEY-2023",
+            "FIR-GG-WILMOT-2023",
+            "FIR-GG-WOOLWICH-2023",
+            "DRV-FIR-GG-ND-VS-PEER-MEAN-2023",
+        ],
+    },
 ]
 
 gaps = [
@@ -922,41 +1125,17 @@ gaps = [
 gaps.extend(
     [
         gap(
-            id="GAP-ND-POP-CURRENT",
-            title="Per-capita metrics use 2021 census population against a 2026 budget",
-            detail="Every per-capita figure in this ledger divides 2026 dollars by the 2021 Census population of 10,619. North Dumfries has grown since, so all per-capita metrics are biased upward by an unknown amount. This weakens any 'large per capita' reading.",
-            blocks=["per_capita_comparisons"],
-            neededEvidence=["Current North Dumfries population estimate for 2026 with a citation"],
-            searchTrail=[
-                "Region of Waterloo year-end population and household estimate bulletins: the 2024 and 2022 bulletin PDFs are indexed by search engines but both returned HTTP 404 on retrieval (2026-07-25).",
-                "regionofwaterloo.ca census page lists bulletins only up to the 2016 Census with no township-level estimate links exposed.",
-                "Waterloo Region Community Profile ArcGIS hub publishes region-wide figures only (587,165 Census 2021 / 617,000 provincial / 632,880 Region estimate) with no area-municipality breakdown.",
-                "northdumfries.ca demographics page returned HTTP 404.",
-                "Conclusion: a citable current township population was not obtainable from public web sources on this attempt. Likely available in the Region's Year-End Population and Household Estimates bulletin if the current PDF can be located, or in the Township's Development Charges Background Study.",
-            ],
-        ),
-        gap(
             id="GAP-TWINPAD-OPERATING-DELTA",
             title="Net operating cost change once Twin Pad opens is not established",
             detail="The ledger covers the one-time capital cost but holds no evidence on what the Twin Pad costs to RUN versus the ACC ice it replaces. For a household receipt the recurring operating change matters more than the capital event.",
             blocks=["twinpad_recurring_cost_on_bill"],
             neededEvidence=["Projected annual operating cost for the Twin Pad and the offsetting ACC ice savings"],
             searchTrail=[
-                "Not present in any of the four budget documents or the four council packages already ingested.",
-                "Likely requires a facility business case, the 10-year operating forecast, or a records request. Do not estimate it.",
-            ],
-        ),
-        gap(
-            id="GAP-PEER-BENCHMARK",
-            title="Administrative-scale findings have no cited peer comparator",
-            detail="Findings that call a figure 'large' name no peer set. Without a cited comparator, $197/capita for Corporate Services is a number, not a finding. In a township of ~10,600 that department also bundles clerk, treasury, IT, HR and communications that a city reports separately, so naive comparison is invalid.",
-            blocks=["administrative_scale_conclusions"],
-            neededEvidence=["Per-capita administrative spend for comparable Ontario townships, cited, on a like-for-like basis"],
-            searchTrail=[
-                "Correct instrument identified: Ontario Financial Information Return (FIR), 'General government' line, which is defined consistently across all filers. Municipality-level department names are NOT comparable and must not be used.",
-                "FIR multi-year data is published at efis.fma.csc.gov.on.ca as per-municipality ZIP archives (pattern MULTI-YR-<Municipality>.zip). No aggregated general-government-by-municipality report is published, and the archives were not retrievable with the tooling available on this attempt (2026-07-25).",
-                "Preferred peer set remains the same-region lower-tier townships (Wellesley, Wilmot, Woolwich) because they share the same upper-tier service bundle; widen to Puslinch / Blandford-Blenheim / Perth East only if needed.",
-                "Conclusion: gap stays OPEN. Until a normalised comparator exists, FIND-ADMIN-CORP-SCALE asserts scale without a benchmark and must not be published as a conclusion.",
+                "2026 draft budget binder: ACC and NDCC facility operating lines exist for the current year; no projected Twin Pad annual operating cost or ACC-ice savings delta.",
+                "Feb 2 / Apr 27 2026 council agenda and minutes packages already ingested: Twin Pad appears as capital / Net Zero Arena updates only.",
+                "FIN-03-2026 10-year capital forecast narrative (in Feb 2 agenda): design/debt context, not operating delta.",
+                "Ontario FIR Schedule 40 open data (2023/2024): historical actuals only; no forward Twin Pad operating projection.",
+                "Conclusion (2026-07-25): figure is not published in the sources searched. Likely requires a facility business case, 10-year operating forecast detail, or a records request. Do not estimate it.",
             ],
         ),
     ]
@@ -967,12 +1146,35 @@ findings = [
         "id": "FIND-ADMIN-CORP-SCALE",
         "kind": "JUDGMENT",
         "category": "administrative_scale",
-        "title": "Corporate Services is a large share of the township budget — unbenchmarked",
-        "opportunitySeverity": "needs_review",
-        "citedFactIds": ["ND-DEPT-CORPORATE-2026", "ND-LEVY-2026", "DRV-ND-CORP-PER-CAPITA", "ND-POP-CENSUS-2021"],
-        "evidenceSummary": "Corporate Services $2,091,306 against a municipal levy of $9,002,499; about $197 per 2021-census capita. NOT YET A CONCLUSION: no peer comparator has been obtained (GAP-PEER-BENCHMARK), and the per-capita figure uses 2021 population against a 2026 budget so it is biased upward (GAP-ND-POP-CURRENT). In a township of this size the department also bundles clerk, treasury, IT, HR and communications that larger municipalities report separately.",
+        "title": "Corporate Services scale tested against FIR peers — not an outlier",
+        "opportunitySeverity": "watch",
+        "citedFactIds": [
+            "ND-DEPT-CORPORATE-2026",
+            "ND-LEVY-2026",
+            "DRV-ND-CORP-PER-CAPITA",
+            "DRV-ND-CORP-PER-CAPITA-2025",
+            "ND-POP-CENSUS-2021",
+            "ND-POP-STATCAN-2025",
+            "FIR-GG-ND-2023",
+            "FIR-GG-WELLESLEY-2023",
+            "FIR-GG-WILMOT-2023",
+            "FIR-GG-WOOLWICH-2023",
+            "DRV-FIR-GG-PCAP-ND-2023",
+            "DRV-FIR-GG-PEER-MEAN-PCAP-2023",
+            "DRV-FIR-GG-ND-VS-PEER-MEAN-2023",
+        ],
+        "evidenceSummary": (
+            "Suspicion tested and not supported. On the normalised FIR 2023 General government basis "
+            "(Total Expenses Before Adjustments ÷ StatCan July 1, 2023 population), North Dumfries is "
+            "$160.52/capita vs a Wellesley/Wilmot/Woolwich mean of $159.52 (ratio 1.006). "
+            "The earlier ~$197/capita figure used the 2021 Census count (10,619) against a 2026 budget; "
+            "on the July 1, 2025 estimate (13,051) Corporate Services is ~$160/capita. "
+            "Caveats: FIR 2023 ≠ 2026 budget year; Corporate Services is not identical to FIR General government. "
+            "Downgraded — do not publish as an administrative-scale accusation."
+        ),
         "billImpactCad": None,
         "gapIds": ["GAP-FLAGGED-DOLLARS-ON-BILL"],
+        "townshipResponse": None,
     },
     {
         "id": "FIND-ADMIN-LEGAL-STACK",
@@ -1068,8 +1270,6 @@ for _f in findings:
     _f.setdefault("townshipResponse", None)
 
 _extra_gaps = {
-    "FIND-ADMIN-CORP-SCALE": ["GAP-PEER-BENCHMARK", "GAP-ND-POP-CURRENT"],
-    "FIND-ADMIN-LEGAL-STACK": ["GAP-PEER-BENCHMARK"],
     "FIND-CAP-ARENA": ["GAP-TWINPAD-OPERATING-DELTA"],
 }
 for _f in findings:
@@ -1157,6 +1357,24 @@ sources = [
         "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
         "authority": "external",
     },
+    {
+        "id": "statcan-csd-estimates",
+        "title": "Statistics Canada Table 17-10-0155-01 — Population estimates, July 1, by census subdivision",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
+        "localPath": None,
+        "authority": "external",
+        "asOf": "2025-07-01",
+        "note": "Downloaded CSV extract 17100155-eng.zip used to cite township estimates; full table not committed.",
+    },
+    {
+        "id": "mmah-fir-2023",
+        "title": "Ontario MMAH Financial Information Return — fir_data_2023 (Schedule 40 General government)",
+        "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+        "localPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
+        "authority": "external",
+        "asOf": "2023-12-31",
+        "note": "Peer extract only is committed. Full provincial ZIP kept locally / gitignored.",
+    },
 ]
 
 ledger = {
@@ -1167,7 +1385,7 @@ ledger = {
             "FACT: must include sourceId, excerpt, and page when from PDF.",
             "DERIVED: must include formula and input ids; no new external numbers.",
             "GAP: record missing evidence; never invent amounts to fill UI.",
-            "JUDGMENT: interpretive only; billImpactCad null unless a cited formula exists.",
+            "JUDGMENT: interpretive only; billImpactCad stays null.",
             "Draft vs final: North Dumfries 2026 operating figures are approved (By-law 3617-26); final residential rates from By-law 3637-26 Schedule A.",
         ]
     },
@@ -1258,8 +1476,18 @@ receipt = {
     "schemaVersion": "2.0.0",
     "artifact": "TaxpayerReceipt",
     "status": "partial_evidence_based",
-    "purpose": "UI data model using only supported allocations. Hypothetical $5,000 combined bill is NOT fully allocatable — see gaps.",
+    "purpose": (
+        "UI data model using only supported allocations. A hypothetical $5,000 "
+        "combined bill can be split among taxing bodies from adopted rates; it "
+        "is not a published household bill."
+    ),
     "evidencePolicyRef": "data/evidence-ledger.json",
+    "jurisdiction": {
+        "slug": "north-dumfries-on",
+        "displayName": "Township of North Dumfries",
+        "level": "lower-tier",
+        "aliases": ["North Dumfries", "Ayr"],
+    },
     "profiles": {
         "supportedAverageHousehold": {
             "description": "Best evidence-based profile without inventing a $5,000 bill.",
@@ -1269,6 +1497,7 @@ receipt = {
                 "assessmentCad": 455_000,
                 "evidenceStatus": "FACT",
                 "sourceFactId": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+                "uiLabel": "Township portion",
                 "lineItems": township_lines,
             },
             "region": {
@@ -1277,6 +1506,7 @@ receipt = {
                 "assessmentCad": 354_500,
                 "evidenceStatus": "FACT",
                 "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+                "uiLabel": "Region portion",
                 "lineItems": region_lines,
                 "lineItemsSumCheckCad": sum(item["amountCad"] for item in region_lines),
             },
@@ -1286,6 +1516,7 @@ receipt = {
                 "assessmentCad": ASSESSMENT,
                 "evidenceStatus": "DERIVED",
                 "sourceFactId": "DRV-ND-BILL-EDUCATION-455K",
+                "uiLabel": "Education",
                 "note": "Province sets this rate under O. Reg. 400/98; the Township only collects it.",
             },
             "combinedTotalCad": BILL_COMBINED,
@@ -1353,26 +1584,43 @@ receipt = {
         "publishedFindingIds": PUBLISHED_FINDING_IDS,
         "marqueeFindings": [
             _id
-            for _id in ["FIND-CAP-ARENA", "FIND-ADMIN-CORP-SCALE", "FIND-ADMIN-LEGAL-STACK"]
+            for _id in ["FIND-CAP-ARENA", "FIND-ADMIN-LEGAL-STACK", "FIND-ADMIN-CORP-SCALE"]
             if _id in PUBLISHED_FINDING_IDS
         ],
+        "municipalBucketLabel": "Township portion",
+        "regionBucketLabel": "Region portion",
+        "heroLabel": "Total residential bill · rural · By-law 3637-26",
     },
 }
 
 # Write BOTH the canonical copy and the UI mirror. The mirror used to be copied by
 # hand, so running this script silently left the UI reading stale data.
+# Pack metadata lives in corpus/north-dumfries-on/pack.yaml (bridge until YAML corpus).
 WEB_DATA = ROOT / "web" / "src" / "data"
 for _target in (DATA, WEB_DATA):
-    (_target / "evidence-ledger.json").write_text(json.dumps(ledger, indent=2), encoding="utf-8")
-    (_target / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+    (_target / "evidence-ledger.json").write_text(json.dumps(ledger, indent=2) + "\n", encoding="utf-8")
+    (_target / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
 assert (DATA / "evidence-ledger.json").read_bytes() == (WEB_DATA / "evidence-ledger.json").read_bytes()
 assert (DATA / "taxpayer-receipt.json").read_bytes() == (WEB_DATA / "taxpayer-receipt.json").read_bytes()
+
+# Mirror citation audit when present so the UI can refuse bad #page= deep links.
+_audit = DATA / "citation-audit.json"
+if _audit.exists():
+    (WEB_DATA / "citation-audit.json").write_text(_audit.read_text(encoding="utf-8"), encoding="utf-8")
 
 print("facts", len(facts))
 print("derived", len(derived_rows))
 print("gaps", len(gaps))
 print("closedGaps", len(closed_gaps))
 print("findings", len(findings))
-print("region rural lines sum", region_sum, "after PIL", region_sum - 78)
+print("pack", "corpus/north-dumfries-on (status: see pack.yaml — run scripts/validate_pack.py)")
+print(
+    "region rural service lines",
+    region_sum,
+    "published subtotal",
+    region_sum + 2,
+    "after PIL",
+    region_sum + 2 - 78,
+)
 print("township alloc sum", round(sum(x["amountCad"] for x in township_lines), 2))
 print("wrote evidence-ledger.json and taxpayer-receipt.json")

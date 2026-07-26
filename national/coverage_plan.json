@@ -1,0 +1,203 @@
+{
+  "schemaVersion": "auditback-national-coverage-plan-1.0.0",
+  "classificationVersion": "2021",
+  "expectedGeographyCounts": {
+    "region": 6,
+    "province-territory": 13,
+    "census-division": 293,
+    "census-subdivision": 5161
+  },
+  "requiredLayers": [
+    "national-geography-baseline",
+    "current-csd-geography",
+    "federal-province-territory-governments",
+    "municipal-regional-governments",
+    "indigenous-governments",
+    "education-tax-authorities",
+    "special-purpose-tax-authorities"
+  ],
+  "jurisdictions": [
+    {
+      "code": "AB",
+      "name": "Alberta",
+      "expectedCensusSubdivisionCount": 423,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "BC",
+      "name": "British Columbia",
+      "expectedCensusSubdivisionCount": 751,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "MB",
+      "name": "Manitoba",
+      "expectedCensusSubdivisionCount": 239,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "NB",
+      "name": "New Brunswick",
+      "expectedCensusSubdivisionCount": 266,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "NL",
+      "name": "Newfoundland and Labrador",
+      "expectedCensusSubdivisionCount": 372,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "source-discovery", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "NS",
+      "name": "Nova Scotia",
+      "expectedCensusSubdivisionCount": 95,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "source-discovery", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "NT",
+      "name": "Northwest Territories",
+      "expectedCensusSubdivisionCount": 41,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "NU",
+      "name": "Nunavut",
+      "expectedCensusSubdivisionCount": 31,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "ON",
+      "name": "Ontario",
+      "expectedCensusSubdivisionCount": 577,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "PE",
+      "name": "Prince Edward Island",
+      "expectedCensusSubdivisionCount": 98,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "QC",
+      "name": "Quebec",
+      "expectedCensusSubdivisionCount": 1282,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "SK",
+      "name": "Saskatchewan",
+      "expectedCensusSubdivisionCount": 951,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    },
+    {
+      "code": "YT",
+      "name": "Yukon",
+      "expectedCensusSubdivisionCount": 35,
+      "layers": {
+        "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
+        "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
+        "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
+        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
+        "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
+        "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
+      }
+    }
+  ]
+}

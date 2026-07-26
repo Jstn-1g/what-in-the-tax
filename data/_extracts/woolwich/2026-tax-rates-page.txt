@@ -1,0 +1,8 @@
+===== PAGE 1 =====
+Township of Woolwich — Taxes (2026 Final Tax Rates)
+Source: https://www.woolwich.ca/pay-buy/taxes/
+
+2026 Final Tax Rates
+Tax Class Description Township Regional Education Total Rate
+RT Residential 0.00322187 0.00738314 0.00153000 0.01213501
+NT New Multi-residential 0.00322187 0.00738314 0.00153000 0.01213501

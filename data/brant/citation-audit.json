@@ -1,0 +1,176 @@
+{
+ "counts": {
+  "verbatim": 19,
+  "normalized": 2
+ },
+ "results": [
+  {
+   "id": "BRANT-LEVY-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 1,
+   "amountCad": 92457575,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-LEVY-2025",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 1,
+   "amountCad": 85371329,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-MEDIAN-ASSESSMENT-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 1,
+   "amountCad": 391000,
+   "tier": "normalized",
+   "note": "matched after whitespace/case collapse"
+  },
+  {
+   "id": "BRANT-ILLUSTRATED-COUNTY-BILL-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 1,
+   "amountCad": 4295.35,
+   "tier": "normalized",
+   "note": "matched after whitespace/case collapse"
+  },
+  {
+   "id": "BRANT-TAXRATE-RES-MUNICIPAL-2026",
+   "sourceId": "brant-2026-tax-rates",
+   "page": 1,
+   "amountCad": null,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-TAXRATE-RES-HOSPITAL-2026",
+   "sourceId": "brant-2026-tax-rates",
+   "page": 1,
+   "amountCad": null,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-TAXRATE-RES-EDUCATION-2026",
+   "sourceId": "brant-2026-tax-rates",
+   "page": 1,
+   "amountCad": null,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-TAXRATE-RES-TOTAL-2026",
+   "sourceId": "brant-2026-tax-rates",
+   "page": 1,
+   "amountCad": null,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-LEGAL-SERVICES-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 2,
+   "amountCad": 1181990,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-OPP-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 5,
+   "amountCad": 6918936,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-MAYOR-COUNCIL-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 2,
+   "amountCad": 831756,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-CAO-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 2,
+   "amountCad": 371386,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-CORPORATE-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 2,
+   "amountCad": 9888051,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-TAXATION-CORP-FIN-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 3,
+   "amountCad": -4255210,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-CAPITAL-FINANCING-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 3,
+   "amountCad": 18654825,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-DEVELOPMENT-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 3,
+   "amountCad": 1914300,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-STRATEGIC-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 3,
+   "amountCad": 4593918,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-OPERATIONS-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 4,
+   "amountCad": 20718721,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-COMMUNITY-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 4,
+   "amountCad": 10441749,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-EPS-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 5,
+   "amountCad": 9497822,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "BRANT-DEPT-EXTERNAL-2026",
+   "sourceId": "brant-2026-approved-budget",
+   "page": 5,
+   "amountCad": 19800257,
+   "tier": "verbatim",
+   "note": ""
+  }
+ ]
+}

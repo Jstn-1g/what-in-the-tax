@@ -1,0 +1,54 @@
+# Jurisdiction pack descriptor (bridge form).
+# Region of Waterloo — shared upper-tier household schedule.
+
+slug: region-of-waterloo-on
+name: Region of Waterloo
+country: CA
+subdivision: ON
+level: upper-tier
+parentBodies: []
+aliases:
+  - Waterloo Region
+  - Regional Municipality of Waterloo
+  - Region of Waterloo ON
+assessmentCode: null  # upper-tier; lower tiers carry FIR codes
+fiscalYear: 2026
+currency: CAD
+locale: en-CA
+valuationBasis: "MPAC CVA (Region-published average household $354,500)"
+defaultAssessmentCad: 354500
+engineTag: engine/0.1.0-bridge
+packVersion: "2026.0-draft"
+
+publication:
+  status: draft
+  lifecycle: draft
+  tier: 0  # schedule + ledger; no municipal bill findings
+  license: MIT
+  publisher: null
+  contact: null
+  refreshDueBy: "2027-04-30"
+  notes: >
+    Shared upper-tier pack. Household tax-supported schedule (urban / rural /
+    woolwich / wilmot) is the source of truth for lower-tier Region illustration
+    lines. Do not mix $354,500 schedule dollars into a differently assessed
+    municipal bill without an explicit rate×assessment DERIVED path.
+
+artifacts:
+  ledger: data/region-waterloo/evidence-ledger.json
+  receipt: data/region-waterloo/taxpayer-receipt.json
+  schedule: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml
+  sourcesRoot: source-pdfs/
+  extractsRoot: data/_extracts/
+
+controlTotal:
+  amountCad: 2984
+  label: Urban tax-supported total after PIL (Region-published)
+  note: >
+    Authoritative published after-PIL urban household total at $354,500.
+    Line-item sum may differ by a few dollars (roundingAdjustmentCad).
+
+disclaimer: >
+  Not affiliated with the Region of Waterloo. Figures illustrate the published
+  household schedule; not tax advice. Lower-tier packs (Kitchener, North Dumfries,
+  etc.) own the combined municipal bill.

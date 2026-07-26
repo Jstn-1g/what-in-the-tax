@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "fleet-stub-0.1.0",
+  "grade": "FIR",
+  "badge": "Verified: FIR baseline (not local by-law)",
+  "slug": "north-dumfries-on",
+  "assessmentCode": "3001",
+  "name": "North Dumfries Tp",
+  "tier": "lower-tier",
+  "fiscalYear": 2023,
+  "currency": "CAD",
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "note": "Amounts are PSAB accrual FIR actuals for the stated year \u2014 not the current tax by-law.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "localZip": "source-pdfs/fir/fir_data_2023.zip",
+    "localZipSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "marsYear": "2023"
+  },
+  "metrics": {
+    "populationFir": {
+      "amount": 10619.0,
+      "slc": "slc.02X.L0041.C01.01",
+      "label": "FIR population (Schedule 02)"
+    },
+    "generalGovernmentExpensesBeforeAdjustments": {
+      "amountCad": 1933805.0,
+      "slc": "slc.40X.L0299.C01.07",
+      "label": "General government \u2014 Total Expenses Before Adjustments (Schedule 40)"
+    },
+    "generalGovernmentPerCapita": {
+      "amountCad": 182.11,
+      "formula": "generalGovernmentExpensesBeforeAdjustments / populationFir",
+      "label": "General government $ per FIR capita"
+    }
+  },
+  "gates": {
+    "hasPopulation": true,
+    "hasGeneralGovernment": true,
+    "passed": true
+  },
+  "disclaimer": "This is a machine-built FIR baseline stub. It is not a property-tax bill, not a by-law citation, and not a finding. For by-law-grade receipts see gold packs (e.g. north-dumfries-on).",
+  "parisNote": null,
+  "builtAt": "2026-07-25T19:56:32.479256+00:00"
+}

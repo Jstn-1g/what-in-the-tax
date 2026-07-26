@@ -1,0 +1,52 @@
+# Jurisdiction pack descriptor (bridge form).
+# Paris, Ontario resolves here — County of Brant is single-tier (FIR 2920).
+
+slug: brant-county-on
+name: County of Brant
+country: CA
+subdivision: ON
+level: single-tier
+parentBodies: []
+aliases:
+  - Paris
+  - Paris, Ontario
+  - Paris ON
+assessmentCode: "2920"
+fiscalYear: 2026
+currency: CAD
+locale: en-CA
+valuationBasis: "MPAC CVA (County median illustration $391,000)"
+defaultAssessmentCad: 391000
+engineTag: engine/0.1.0-bridge
+packVersion: "2026.0-draft"
+
+publication:
+  status: draft
+  lifecycle: draft
+  tier: 0  # receipt + gaps; no published findings yet
+  license: MIT
+  publisher: null
+  contact: null
+  refreshDueBy: "2027-04-30"
+  notes: >
+    First gold-style draft for Paris / Brant County. Single-tier: no Region column.
+    Validate and audit before sealing. Not Published.
+
+artifacts:
+  ledger: data/brant/evidence-ledger.json
+  receipt: data/brant/taxpayer-receipt.json
+  sourcesRoot: source-pdfs/brant/
+  extractsRoot: data/_extracts/brant/
+
+controlTotal:
+  municipalLevyCad: 92457575
+  allocationBaseCad: 92457575
+  note: >
+    Approved net levy equals the sum of department net requirements in the
+    2026 Approved Budget Operating Forecast department summary.
+
+disclaimer: >
+  Not affiliated with the County of Brant. Figures illustrate published rates
+  at the County's stated median assessment; not tax advice. Paris residents
+  are billed by the County (single-tier). Findings are judgment only;
+  billImpactCad is always null.

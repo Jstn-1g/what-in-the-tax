@@ -1,0 +1,413 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifact": "TaxpayerReceipt",
+  "fiscalYear": 2026,
+  "currency": "CAD",
+  "status": "partial_evidence_based",
+  "purpose": "Township of Woolwich 2026 taxpayer receipt. Lower-tier: local + Region of Waterloo + education.",
+  "evidencePolicyRef": "data/woolwich/evidence-ledger.json",
+  "jurisdiction": {
+    "slug": "woolwich-on",
+    "displayName": "Township of Woolwich",
+    "level": "lower-tier",
+    "aliases": [
+      "Woolwich",
+      "Woolwich Township"
+    ]
+  },
+  "profiles": {
+    "supportedAverageHousehold": {
+      "description": "Reference residential assessment scenario ($354,500); not a published Township of Woolwich average.",
+      "township": {
+        "basis": "Township of Woolwich local portion at reference assessment scenario \u2014 unallocated pending department schedule",
+        "amountCad": 1142.15,
+        "assessmentCad": 354500,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-WOO-BILL-CITY",
+        "lineItems": [
+          {
+            "id": "WOO-LOCAL-RATE-PORTION",
+            "label": "Township of Woolwich (combined \u2014 rate \u00d7 reference assessment scenario)",
+            "amountCad": 1142.15,
+            "classification": "city_levy_unallocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-WOO-BILL-CITY",
+            "note": "Department allocation base not transcribed for this Tier 0 pack (see GAP-WOO-DEPT-SCHEDULE).",
+            "gapId": "GAP-WOO-DEPT-SCHEDULE"
+          }
+        ],
+        "uiLabel": "Township portion",
+        "note": "Local rate \u00d7 $354,500 = $1,142.15. Published local increase $99.83 / 7.8% is local-portion only.",
+        "gapId": "GAP-WOO-DEPT-SCHEDULE"
+      },
+      "region": {
+        "basis": "Printed REGION rate on local 2026 rates sheet at $354,500",
+        "amountCad": 2617.32,
+        "assessmentCad": 354500,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-WOO-BILL-REGION",
+        "lineItems": [
+          {
+            "id": "WOO-REGION-RATE-PORTION",
+            "label": "Region of Waterloo (combined \u2014 rate \u00d7 reference assessment scenario)",
+            "amountCad": 2617.32,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-WOO-BILL-REGION",
+            "note": "Printed REGION rate \u00d7 $354,500. Region-published woolwich service lines at $354,500 are under regionIllustrationAt354500."
+          }
+        ],
+        "uiLabel": "Region portion",
+        "note": "Bill total is rate \u00d7 $354,500 = $2,617.32. Region-published woolwich breakdown at $354,500 ($2,617 after PIL) is under regionIllustrationAt354500."
+      },
+      "regionIllustrationAt354500": {
+        "description": "Region-published Woolwich tax-supported services at $354,500 \u2014 INFORMATIONAL only.",
+        "basis": "Region 2026 Budget Book p.12 woolwich column (shared pack schedule) at $354,500",
+        "amountCad": 2617,
+        "assessmentCad": 354500,
+        "evidenceStatus": "FACT",
+        "sourceFactId": "ROW-WOOLWICH-HH-TOTAL-2026",
+        "uiLabel": "Region illustration @ $354,500",
+        "lineItems": [
+          {
+            "id": "ROW-HH-WOOLWICH-01",
+            "label": "Police Service",
+            "amountCad": 900,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-01",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-02",
+            "label": "Public Transit",
+            "amountCad": 136,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-02",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-03",
+            "label": "Housing Services",
+            "amountCad": 429,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-03",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-04",
+            "label": "Roads/Design & Construction/Eng.",
+            "amountCad": 240,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-04",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-05",
+            "label": "Waste Management",
+            "amountCad": 213,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-05",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-06",
+            "label": "Financial Expenses",
+            "amountCad": 89,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-06",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-07",
+            "label": "Paramedic Services",
+            "amountCad": 134,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-07",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-08",
+            "label": "Employment/Income Support",
+            "amountCad": 53,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-08",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-09",
+            "label": "Seniors' Services",
+            "amountCad": 51,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-09",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-10",
+            "label": "Human Resources",
+            "amountCad": 39,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-10",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-11",
+            "label": "Information Technology Services",
+            "amountCad": 49,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-11",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-12",
+            "label": "Public Health",
+            "amountCad": 45,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-12",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-13",
+            "label": "Facilities & Fleet Management",
+            "amountCad": 24,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-13",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-14",
+            "label": "Cultural Services",
+            "amountCad": 33,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-14",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-15",
+            "label": "Children's Services",
+            "amountCad": 30,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-15",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-16",
+            "label": "Elected Offices & Office of the Chief Administrative Officer",
+            "amountCad": 17,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-16",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-17",
+            "label": "Resident Experience, Strategy and Communications",
+            "amountCad": 19,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-17",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-18",
+            "label": "Airport",
+            "amountCad": 31,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-18",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-19",
+            "label": "Planning, Development & Legislative Services",
+            "amountCad": 21,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-19",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-20",
+            "label": "Finance",
+            "amountCad": 24,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-20",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-21",
+            "label": "Regional Library",
+            "amountCad": 79,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-21",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-22",
+            "label": "Build Waterloo Region",
+            "amountCad": 16,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-22",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-23",
+            "label": "Strategy, Performance and Partnerships",
+            "amountCad": 20,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-WOOLWICH-23",
+            "note": "Region-published at $354,500; not part of the $354,500 bill."
+          },
+          {
+            "id": "ROW-HH-WOOLWICH-ROUNDING",
+            "label": "Unallocated table-rounding difference (source total vs summed lines)",
+            "amountCad": 3,
+            "classification": "reconciling_item",
+            "evidenceStatus": "RECONCILING",
+            "note": "Printed lines sum $2,692; printed subtotal $2,695."
+          },
+          {
+            "id": "ROW-HH-PIL-OFFSET",
+            "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
+            "amountCad": -78,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-PIL-2026"
+          }
+        ],
+        "lineItemsSumCheckCad": 2617,
+        "note": "Do not add these dollars to the local $354,500 bill. See GAP-WOO-REGION-ASSESSMENT-BRIDGE.",
+        "gapId": "GAP-WOO-REGION-ASSESSMENT-BRIDGE"
+      },
+      "education": {
+        "basis": "RT Residential Education rate at $354,500",
+        "amountCad": 542.39,
+        "assessmentCad": 354500,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-WOO-BILL-EDUCATION",
+        "note": "Province sets this rate; the local municipality collects it.",
+        "uiLabel": "Education"
+      },
+      "combinedTotalCad": 4301.86,
+      "combinedAtAssessment": {
+        "assessmentCad": 354500,
+        "basis": "RT Residential rates applied to reference assessment scenario; assessment evidence: WOO-REFERENCE-ASSESSMENT-2026",
+        "evidenceStatus": "DERIVED",
+        "components": [
+          {
+            "label": "Township of Woolwich",
+            "amountCad": 1142.15,
+            "rate": 0.00322187,
+            "sourceFactId": "WOO-TAXRATE-RES-CITY-2026"
+          },
+          {
+            "label": "Region of Waterloo",
+            "amountCad": 2617.32,
+            "rate": 0.00738314,
+            "sourceFactId": "WOO-TAXRATE-RES-REGION-2026"
+          },
+          {
+            "label": "Education (Province of Ontario)",
+            "amountCad": 542.39,
+            "rate": 0.00153,
+            "sourceFactId": "WOO-TAXRATE-RES-EDUCATION-2026"
+          }
+        ],
+        "totalCad": 4301.86,
+        "totalRate": 0.01213501,
+        "calculationPolicy": {
+          "fiscalYear": {
+            "value": "2026",
+            "declaration": "config.fiscalYear",
+            "sealedEligible": true
+          },
+          "rateUnit": {
+            "sourceUnit": "decimal",
+            "canonicalUnit": "decimal",
+            "declaration": "config.rateUnit",
+            "sealedEligible": true
+          },
+          "rounding": {
+            "strategy": "component",
+            "method": "half-up",
+            "quantumCad": 0.01,
+            "source": "builder-default (preview only)",
+            "sourceDeclared": false,
+            "sealedEligible": false
+          },
+          "assessment": {
+            "measureType": "reference_scenario",
+            "declaration": "controlTotal.assessmentMeasureType",
+            "sourceId": "row-2026-book",
+            "sourceAuthority": "Region of Waterloo",
+            "sealedEligible": true
+          },
+          "componentSumCad": 4301.86,
+          "totalRateAmountCad": 4301.86,
+          "roundingAdjustmentCad": 0,
+          "componentVsTotalRateDeltaCad": 0
+        }
+      },
+      "combinedTotalNote": "Local $1,142.15 + Region $2,617.32 + Education $542.39 = $4,301.86 at $354,500.",
+      "warnings": [
+        "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",
+        "Local department split is GAP until a suitable table is transcribed.",
+        "Region bill line is rate \u00d7 $354,500; Region woolwich schedule at $354,500 is informational only (GAP-WOO-REGION-ASSESSMENT-BRIDGE).",
+        "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt.",
+        "Bill rounding uses the preview-only builder default. Bind rates.rounding to a named source before sealing this pack."
+      ]
+    },
+    "hypothetical5000": {
+      "amountCad": 5000,
+      "evidenceStatus": "DERIVED",
+      "allocatable": true,
+      "impliedAssessmentCad": 412031,
+      "compositionShares": [
+        {
+          "label": "Township of Woolwich",
+          "share": 0.26550204738191396,
+          "sourceFactId": "WOO-TAXRATE-RES-CITY-2026"
+        },
+        {
+          "label": "Region of Waterloo",
+          "share": 0.6084164743168733,
+          "sourceFactId": "WOO-TAXRATE-RES-REGION-2026"
+        },
+        {
+          "label": "Education (Province of Ontario)",
+          "share": 0.12608147830121277,
+          "sourceFactId": "WOO-TAXRATE-RES-EDUCATION-2026"
+        }
+      ],
+      "message": "A $5,000 total bill implies an assessment of about $412,031. Shown as rate shares rather than invented department dollars."
+    }
+  },
+  "findings": [],
+  "uiModelHints": {
+    "municipalBucketLabel": "Township portion",
+    "regionBucketLabel": "Region portion",
+    "defaultProfile": "supportedAverageHousehold",
+    "showGapsAsFirstClassUi": true,
+    "forbidFillerAllocation": true,
+    "marqueeFindings": [],
+    "publishedFindingIds": []
+  }
+}

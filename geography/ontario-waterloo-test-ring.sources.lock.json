@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "regional-geography-source-lock-1.0.0",
+  "registryPath": "geography/ontario-waterloo-test-ring.json",
+  "registryCanonicalSha256": "86571c4393dff669f26e5d1ce6036692ea5f1a1de4660fec0f39e7f0605f45ad",
+  "lockedAt": "2026-07-26T03:33:15Z",
+  "sources": [
+    {
+      "id": "ontario-municlow-layer-14",
+      "publisher": "Government of Ontario",
+      "datasetTitle": "Municipal Boundary - Lower and Single Tier",
+      "datasetUrl": "https://data.ontario.ca/en/dataset/municipal-boundaries",
+      "serviceUrl": "https://ws.lioservices.lrc.gov.on.ca/arcgis2/rest/services/LIO_OPEN_DATA/LIO_Open03/MapServer/14",
+      "layer": 14,
+      "layerName": "Municipal Bnd Lower And Single",
+      "serviceVersion": "10.91",
+      "retrievedAt": "2026-07-26T03:33:15Z",
+      "effectiveDatetime": "2024-02-15T10:26:33Z",
+      "licenseUrl": "https://www.ontario.ca/page/open-government-licence-ontario",
+      "identityFields": [
+        "ASSESSMENT_CODE",
+        "MUNID",
+        "MAH_CODE",
+        "MUNICIPAL_NAME",
+        "MUNICIPAL_NAME_FR",
+        "MUNICIPAL_NAME_SHORTFORM",
+        "MUNICIPAL_NAME_SHORTFORM_FR",
+        "MUNICIPAL_TYPE",
+        "MUNICIPAL_TYPE_FR",
+        "UPPER_TIER_MUNICIPALITY",
+        "UPPER_TIER_MUNICIPALITY_FR",
+        "EFFECTIVE_DATETIME"
+      ],
+      "queryFormat": "ArcGIS REST JSON"
+    },
+    {
+      "id": "ontario-municupper-layer-13",
+      "publisher": "Government of Ontario",
+      "datasetTitle": "Municipal Boundary - Upper Tier and District",
+      "datasetUrl": "https://data.ontario.ca/en/dataset/municipal-boundaries",
+      "serviceUrl": "https://ws.lioservices.lrc.gov.on.ca/arcgis2/rest/services/LIO_OPEN_DATA/LIO_Open03/MapServer/13",
+      "layer": 13,
+      "layerName": "Municipal Bnd Upper And Dist",
+      "serviceVersion": "10.91",
+      "retrievedAt": "2026-07-26T03:33:15Z",
+      "effectiveDatetime": "2024-02-15T10:28:18Z",
+      "licenseUrl": "https://www.ontario.ca/page/open-government-licence-ontario",
+      "identityFields": [
+        "ASSESSMENT_CODE",
+        "MUNID",
+        "MAH_CODE",
+        "MUNICIPAL_NAME",
+        "MUNICIPAL_NAME_FR",
+        "MUNICIPAL_NAME_SHORTFORM",
+        "MUNICIPAL_NAME_SHORTFORM_FR",
+        "MUNICIPAL_TYPE",
+        "MUNICIPAL_TYPE_FR",
+        "EFFECTIVE_DATETIME"
+      ],
+      "queryFormat": "ArcGIS REST JSON"
+    }
+  ],
+  "derivation": {
+    "anchorAssessmentCodes": [
+      "3001",
+      "3006",
+      "3012",
+      "3016",
+      "3018",
+      "3024",
+      "3029"
+    ],
+    "identitySelection": "The seven anchor records, every distinct lower/single-tier touch result, and each required upper-tier parent were normalized by assessmentCode.",
+    "spatialRelation": "esriSpatialRelTouches",
+    "geometrySource": "ontario-municlow-layer-14",
+    "topologyQuery": "For each anchor assessmentCode, query its polygon in EPSG:3857 and submit that geometry back to layer 14 with spatialRel=esriSpatialRelTouches and returnGeometry=false.",
+    "duplicatePolicy": "Normalize duplicate multipart source rows by assessmentCode only when all retained identity fields agree.",
+    "ordering": "Jurisdictions by assessmentCode; anchor members, touch-map keys, and neighbour lists lexicographically by slug.",
+    "touchesByAssessmentCode": {
+      "3001": [
+        "2301",
+        "2518",
+        "2920",
+        "3006",
+        "3012",
+        "3018",
+        "3245"
+      ],
+      "3006": [
+        "2301",
+        "2311",
+        "3001",
+        "3012",
+        "3029"
+      ],
+      "3012": [
+        "3001",
+        "3006",
+        "3016",
+        "3018",
+        "3029"
+      ],
+      "3016": [
+        "3012",
+        "3018",
+        "3029"
+      ],
+      "3018": [
+        "3001",
+        "3012",
+        "3016",
+        "3024",
+        "3029",
+        "3110",
+        "3238",
+        "3245"
+      ],
+      "3024": [
+        "2332",
+        "3018",
+        "3029",
+        "3110"
+      ],
+      "3029": [
+        "2311",
+        "2326",
+        "2332",
+        "3006",
+        "3012",
+        "3016",
+        "3018",
+        "3024"
+      ]
+    },
+    "touchesByAssessmentCodeCanonicalSha256": "432f77663ce61912f42091a2a6b6ce8d2183c7c41df5b4b26fad7a79374a34d9",
+    "normalizedTouchEdgesCanonicalSha256": "654dc04ebec2b08c43117edd90f30ae14f3ba156dfffc8be735c7bb12e0d132b",
+    "normalizedJurisdictionCount": 20,
+    "firstRingMunicipalityCount": 9,
+    "normalizedTouchEdgeCount": 27,
+    "runtimeNetworkRequired": false
+  }
+}

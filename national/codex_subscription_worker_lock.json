@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "whatinthetax-codex-subscription-lock-1.0.0",
+  "platform": "windows",
+  "codexCliVersion": "codex-cli 0.144.4",
+  "executableSha256": "51398051c2332b6afe08dc3b9dbb4056085c197f35ca57a307ee303d450cada5",
+  "authenticodePublisher": "CN=\"OpenAI OpCo, LLC\", O=\"OpenAI OpCo, LLC\", L=San Francisco, S=California, C=US",
+  "notes": "Live review fails closed after a Codex update until this signed executable lock is deliberately reviewed and refreshed."
+}

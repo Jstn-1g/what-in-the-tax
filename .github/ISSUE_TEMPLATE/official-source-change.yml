@@ -1,0 +1,73 @@
+name: Official source change
+description: Record a moved endpoint, schema/licence change, or government-structure change.
+title: "[Source change]: "
+body:
+  - type: input
+    id: source-id
+    attributes:
+      label: AuditBack source ID
+      description: Use the sourceId from national/source_catalog.json when one exists.
+      placeholder: on-mmah-municipalities
+    validations:
+      required: true
+
+  - type: input
+    id: observed
+    attributes:
+      label: Date observed
+      description: Use YYYY-MM-DD.
+      placeholder: "2026-07-26"
+    validations:
+      required: true
+
+  - type: textarea
+    id: official-evidence
+    attributes:
+      label: Official evidence
+      description: Link the publisher's current landing page, release notice, schema, licence, or legislation and identify the changed fields.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change-type
+    attributes:
+      label: Change type
+      multiple: true
+      options:
+        - Endpoint or download URL
+        - File format or schema
+        - Identifier or crosswalk
+        - Licence or reuse terms
+        - Release/effective date
+        - Body added, dissolved, amalgamated, or renamed
+        - Parent, region, county, or overlap relationship
+        - Official control total
+        - Other upstream change
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: AuditBack impact
+      description: Identify affected jurisdictions, layers, locked snapshots, adapters, counts, receipts, and rollout stages.
+    validations:
+      required: true
+
+  - type: textarea
+    id: response
+    attributes:
+      label: Proposed deterministic response
+      description: Describe the new snapshot, fixture, adapter/schema update, reconciliation, and whether a completeness claim must be blocked or withdrawn. For an SGC source change, include regeneration and review of the pinned geography index.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: source-safeguards
+    attributes:
+      label: Submission safeguards
+      options:
+        - label: This report contains only official public evidence and no personal information, credentials, or unpublished material.
+          required: true
+        - label: I have not overwritten or presented changed upstream bytes as the previously locked release.
+          required: true

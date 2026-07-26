@@ -1,0 +1,27 @@
+What in the Tax? preview — privacy notice
+
+This is a static, independent research preview. It does not ask for an address,
+owner name, roll number, account, or contact details. It has no accounts,
+advertising, behavioural analytics, runtime AI, or tracking pixels.
+
+The displayed assessment scenarios are fixed examples. This preview does not
+accept an address, roll number, or personal assessment value, and it does not
+use browser storage for accounts, profiles, or tracking.
+
+The hosting provider necessarily receives technical request information such as
+an IP address, browser details, requested path, and time. Persistent Cloudflare
+Workers Logs are disabled in this project's deployment configuration. Hosting
+providers may still maintain security, abuse-prevention, or aggregate operational
+records under their own policies.
+
+Links to municipal documents and other evidence leave this site. Those external
+sites have their own privacy practices. This preview sends no referrer header
+when supported by the browser.
+
+If support links are enabled, they lead to a Stripe-hosted payment page. Stripe
+collects payment and contact details under its own privacy practices; this site
+does not receive or store card numbers. A Stripe payment confirmation is not an
+official charitable donation receipt.
+
+No publisher contact or correction desk has yet been designated. Until both
+exist, this preview must not be represented as a Published taxpayer receipt.

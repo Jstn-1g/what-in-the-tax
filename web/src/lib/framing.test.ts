@@ -8,6 +8,7 @@ type FindingRow = {
   title: string
   opportunitySeverity: string
   gapIds: string[]
+  citedFactIds?: string[]
   billImpactCad: number | null
   townshipResponse?: string | null
   belowMateriality?: boolean
@@ -66,10 +67,13 @@ describe('framing and language guardrails', () => {
     }
   })
 
-  it('the three new evidence gaps exist', () => {
-    for (const id of ['GAP-ND-POP-CURRENT', 'GAP-TWINPAD-OPERATING-DELTA', 'GAP-PEER-BENCHMARK']) {
-      expect(gapIds.has(id)).toBe(true)
-    }
+  it('Step 5 population and peer gaps are archived; Twin Pad operating delta stays open', () => {
+    const closed = new Set((ledger.closedGaps as { id: string }[]).map((g) => g.id))
+    expect(closed.has('GAP-ND-POP-CURRENT')).toBe(true)
+    expect(closed.has('GAP-PEER-BENCHMARK')).toBe(true)
+    expect(gapIds.has('GAP-TWINPAD-OPERATING-DELTA')).toBe(true)
+    expect(gapIds.has('GAP-ND-POP-CURRENT')).toBe(false)
+    expect(gapIds.has('GAP-PEER-BENCHMARK')).toBe(false)
   })
 
   it('no finding claims a bill impact', () => {
@@ -87,11 +91,14 @@ describe('gap discipline', () => {
   })
 
   it('gaps we have actively searched for record where we looked', () => {
-    const searched = ['GAP-PEER-BENCHMARK', 'GAP-ND-POP-CURRENT', 'GAP-TWINPAD-OPERATING-DELTA']
-    for (const id of searched) {
-      const g = gaps.find((x) => x.id === id)
-      expect(g, id).toBeDefined()
-      expect(g?.searchTrail?.length ?? 0, id + ' searchTrail').toBeGreaterThan(0)
+    const twin = gaps.find((x) => x.id === 'GAP-TWINPAD-OPERATING-DELTA')
+    expect(twin?.searchTrail?.length ?? 0).toBeGreaterThan(0)
+
+    const closed = ledger.closedGaps as { id: string; resolution: string }[]
+    for (const id of ['GAP-PEER-BENCHMARK', 'GAP-ND-POP-CURRENT']) {
+      const c = closed.find((x) => x.id === id)
+      expect(c, id).toBeDefined()
+      expect(c?.resolution.length ?? 0).toBeGreaterThan(40)
     }
   })
 
@@ -102,9 +109,12 @@ describe('gap discipline', () => {
     }
   })
 
-  it('the unbenchmarked admin finding does not read as a settled conclusion', () => {
+  it('the admin Corporate Services finding records the peer test result, not an unbenchmarked conclusion', () => {
     const f = findings.find((x) => x.id === 'FIND-ADMIN-CORP-SCALE')
-    expect(f?.gapIds).toContain('GAP-PEER-BENCHMARK')
-    expect(f?.gapIds).toContain('GAP-ND-POP-CURRENT')
+    expect(f?.opportunitySeverity).toBe('watch')
+    expect(f?.title.toLowerCase()).toContain('not an outlier')
+    expect(f?.gapIds).not.toContain('GAP-PEER-BENCHMARK')
+    expect(f?.gapIds).not.toContain('GAP-ND-POP-CURRENT')
+    expect(f?.citedFactIds).toContain('DRV-FIR-GG-ND-VS-PEER-MEAN-2023')
   })
 })

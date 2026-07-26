@@ -1,0 +1,53 @@
+# Jurisdiction pack descriptor (bridge form).
+# Full municipality.yaml / facts.yaml transcription is Phase 1 item 7
+# (docs/GENERALIZATION-PLAN.md). Until then artifacts.point at the living ledger.
+
+slug: north-dumfries-on
+name: Township of North Dumfries
+country: CA
+subdivision: ON
+level: lower-tier
+parentBodies:
+  - region-of-waterloo-on  # own pack when transcribed; currently embedded facts
+fiscalYear: 2026
+currency: CAD
+locale: en-CA
+valuationBasis: "MPAC CVA January 1, 2016"
+defaultAssessmentCad: 455000
+engineTag: engine/0.1.0-bridge
+packVersion: "2026.0-draft"
+
+publication:
+  # draft | provisional | final | superseded | archived  (lifecycle)
+  # Sealing is separate — see PUBLISH.md. Do not set status to published by hand.
+  status: sealed
+  lifecycle: provisional
+  tier: 1  # receipt + gaps + hand findings; Tier 0 for fleet scale later
+  license: MIT
+  publisher: null  # required before Published
+  contact: null
+  refreshDueBy: "2027-04-30"
+  sealedPath: receipts/north-dumfries-on/2026/2
+  packTag: pack/north-dumfries-on/2026.2
+  notes: >
+    Citation audit hard failures cleared 2026-07-25. Sealed provisional preview at 2026.2.
+    Not Published until publisher/contact/corrections surface are set (PUBLISH.md).
+
+artifacts:
+  ledger: data/evidence-ledger.json
+  receipt: data/taxpayer-receipt.json
+  sourcesRoot: source-pdfs/
+  extractsRoot: data/_extracts/
+
+controlTotal:
+  # Declared, not inferred — rationale belongs in municipality.yaml at transcription.
+  municipalLevyCad: 9002499
+  allocationBaseCad: 10049624
+  note: >
+    Levy 9,002,499 vs expenditure base 10,049,624 (taxation + corporate revenues).
+    See README reconciliation table.
+
+disclaimer: >
+  Not affiliated with the Township of North Dumfries or the Region of Waterloo.
+  Figures illustrate published rates at a stated assessment; not tax advice.
+  Findings are judgment only; billImpactCad is always null.

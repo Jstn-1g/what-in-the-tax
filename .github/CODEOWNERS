@@ -1,0 +1,14 @@
+# National source, identity, coverage, and release-policy changes require review
+# from the repository owner. Branch protection must enable CODEOWNERS review for
+# these rules to become a merge requirement.
+/national/ @Jstn-1g
+/scripts/build_national_registry.py @Jstn-1g
+/scripts/build_sgc_geography_index.py @Jstn-1g
+/scripts/manage_national_rollout.py @Jstn-1g
+/tests/test_national_*.py @Jstn-1g
+/docs/PROVINCIAL-ROLLOUT.md @Jstn-1g
+/CONTRIBUTING.md @Jstn-1g
+/.github/CODEOWNERS @Jstn-1g
+/.github/ISSUE_TEMPLATE/ @Jstn-1g
+/.github/PULL_REQUEST_TEMPLATE.md @Jstn-1g
+/.github/workflows/ @Jstn-1g

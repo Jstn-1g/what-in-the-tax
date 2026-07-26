@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "fleet-index-0.1.0",
+  "grade": "FIR",
+  "marsYear": "2023",
+  "builtAt": "2026-07-25T19:56:32.478263+00:00",
+  "sourceZip": "fir_data_2023.zip",
+  "sourceZipSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+  "method": "code-only-dry-run",
+  "municipalityCount": 3,
+  "skipped": [],
+  "municipalities": [
+    {
+      "assessmentCode": "2920",
+      "slug": "brant-county-on",
+      "name": "Brant County",
+      "tier": "single-tier",
+      "generalGovernmentPerCapitaCad": 373.5,
+      "path": "fleet/dry-run/by-code/2920.json"
+    },
+    {
+      "assessmentCode": "3001",
+      "slug": "north-dumfries-on",
+      "name": "North Dumfries Tp",
+      "tier": "lower-tier",
+      "generalGovernmentPerCapitaCad": 182.11,
+      "path": "fleet/dry-run/by-code/3001.json"
+    },
+    {
+      "assessmentCode": "3024",
+      "slug": "wellesley-on",
+      "name": "Wellesley Tp",
+      "tier": "lower-tier",
+      "generalGovernmentPerCapitaCad": 186.87,
+      "path": "fleet/dry-run/by-code/3024.json"
+    }
+  ]
+}

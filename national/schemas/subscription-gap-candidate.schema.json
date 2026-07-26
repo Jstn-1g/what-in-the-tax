@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/subscription-gap-candidate-1.0.0.json",
+  "title": "AuditBack ChatGPT subscription gap candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "authMode",
+    "apiKeyUsed",
+    "apiBillingUsed",
+    "queueCanonicalSha256",
+    "packetCanonicalSha256",
+    "promptCanonicalSha256",
+    "outputSchemaCanonicalSha256",
+    "modelIdentifier",
+    "modelIdentifierSha256",
+    "codexCliVersion",
+    "codexCliVersionSha256",
+    "codexCliBinarySha256",
+    "modelResponseCanonicalSha256",
+    "promptUtf8Bytes",
+    "modelOutputCanonicalUtf8Bytes",
+    "subscriptionUsage",
+    "verificationStatus",
+    "fieldDecisions",
+    "humanReviewRequired",
+    "mayAutoPublish",
+    "publicationStatus",
+    "resultCanonicalSha256"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "auditback-subscription-gap-candidate-1.0.0"
+    },
+    "authMode": {
+      "const": "chatgpt-subscription"
+    },
+    "apiKeyUsed": {
+      "const": false
+    },
+    "apiBillingUsed": {
+      "const": false
+    },
+    "queueCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "packetCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "promptCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "outputSchemaCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "modelIdentifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "modelIdentifierSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "codexCliVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._ -]*$"
+    },
+    "codexCliVersionSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "codexCliBinarySha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "modelResponseCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "promptUtf8Bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12000
+    },
+    "modelOutputCanonicalUtf8Bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 24000
+    },
+    "subscriptionUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inputTokens",
+        "cachedInputTokens",
+        "outputTokens",
+        "totalTokens",
+        "observedAfterRun",
+        "preventiveOutputTokenCapAvailable",
+        "outputWithinPacketAdvisoryLimit"
+      ],
+      "properties": {
+        "inputTokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cachedInputTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outputTokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "totalTokens": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "observedAfterRun": {
+          "const": true
+        },
+        "preventiveOutputTokenCapAvailable": {
+          "const": false
+        },
+        "outputWithinPacketAdvisoryLimit": {
+          "const": true
+        }
+      }
+    },
+    "verificationStatus": {
+      "const": "verified"
+    },
+    "fieldDecisions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requestedField",
+          "status",
+          "valueText",
+          "evidenceSpans",
+          "secondCheckRequired"
+        ],
+        "properties": {
+          "requestedField": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["candidate", "unresolved", "conflict"]
+          },
+          "valueText": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 1600
+          },
+          "evidenceSpans": {
+            "type": "array",
+            "maxItems": 3,
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "excerptIndex",
+                "quoteStart",
+                "quoteEnd",
+                "exactQuote",
+                "excerptTextSha256"
+              ],
+              "properties": {
+                "excerptIndex": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "quoteStart": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1599
+                },
+                "quoteEnd": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1600
+                },
+                "exactQuote": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1600
+                },
+                "excerptTextSha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            }
+          },
+          "secondCheckRequired": {
+            "const": true
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {"const": "candidate"}
+              },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "valueText": {"type": "string"},
+                "evidenceSpans": {"minItems": 1}
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {"const": "unresolved"}
+              },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "valueText": {"const": null},
+                "evidenceSpans": {"maxItems": 0}
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {"const": "conflict"}
+              },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "valueText": {"const": null},
+                "evidenceSpans": {"minItems": 2}
+              }
+            }
+          }
+        ]
+      }
+    },
+    "humanReviewRequired": {
+      "const": true
+    },
+    "mayAutoPublish": {
+      "const": false
+    },
+    "publicationStatus": {
+      "const": "pending-human-review"
+    },
+    "resultCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
