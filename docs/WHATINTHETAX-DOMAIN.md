@@ -1,15 +1,17 @@
-# auditback.ca rollout
+# whatinthetax.com rollout
 
-`auditback.ca` is the intended public brand domain. The existing Worker name and
-`workers.dev` address remain the rollback path until the custom domain is stable.
+`whatinthetax.com` is the proposed public brand domain. It must not be presented
+as owned until registration succeeds. The existing Worker name and `workers.dev`
+address remain the rollback path until the custom domain is stable.
 
 ## Before registration
 
-- Confirm current availability with [CIRA WHOIS](https://www.cira.ca/en/ca-domains/whois/).
+- Confirm current availability through an ICANN-accredited registrar. A prior
+  RDAP or DNS result is not a guarantee that checkout will succeed.
 - Complete an appropriate name and trademark clearance. A domain-registration
   result is not a trademark clearance.
 - Register with auto-renew, registrar lock, account MFA, recovery codes, and the
-  correct Canadian Presence Requirement category.
+  correct registrant contact details and privacy/proxy setting.
 
 ## Cloudflare cutover
 
@@ -26,13 +28,13 @@
    ```json
    "routes": [
      {
-       "pattern": "auditback.ca",
+       "pattern": "whatinthetax.com",
        "custom_domain": true
      }
    ]
    ```
 
-5. Redirect `www.auditback.ca` to the apex rather than serving two canonical
+5. Redirect `www.whatinthetax.com` to the apex rather than serving two canonical
    copies.
 
 ## Release checks

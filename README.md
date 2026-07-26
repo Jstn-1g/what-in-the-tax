@@ -1,6 +1,7 @@
-# AuditBack
+# What in the Tax?
 
-AuditBack is an evidence-first public-finance model and property-tax receipt UI.
+What in the Tax? is an evidence-first public-finance model and resident-facing
+property-tax receipt guide.
 It currently provides draft previews for six Ontario municipalities while the
 Canada-wide registry and source-ingestion system are being built.
 
@@ -8,8 +9,12 @@ Every displayed figure is intended to trace to a published document or to a reco
 over cited inputs. Explicit illustration and pro-rata models are labelled as such, and missing
 evidence must remain a GAP rather than being filled.
 
-AuditBack is independent. It is not affiliated with any government and is not an
-official bill, formal financial audit, or source of tax advice.
+What in the Tax? is independent. It is not affiliated with any government and
+is not an official bill, formal financial audit, or source of tax advice.
+
+Some internal schemas, historical receipts, and release documents retain the
+legacy AuditBack name during migration. Those identifiers are evidence
+contracts, not the resident-facing brand, and are not being renamed casually.
 
 ## Status and national boundary
 
@@ -21,7 +26,7 @@ official bill, formal financial audit, or source of tax advice.
   2021 baseline: 5,473 geographies, including 5,161 census subdivisions across
   all 13 provinces and territories. A checked-in, schema-validated index pins
   every allowed geography ID to the catalog-approved official release hash.
-- A census subdivision is a geography, not proof of a governing body. AuditBack
+- A census subdivision is a geography, not proof of a governing body. The project
   never converts all CSDs into municipalities or governments.
 - The source catalog and seven-layer coverage matrix include every province and
   territory, Statistics Canada's 2025 CSD layer, and Indigenous Services
@@ -102,9 +107,9 @@ workflow runs the offline checks on pull requests but never deploys.
 | `scripts/build_national_registry.py` | offline, locked national registry builder |
 | `scripts/build_sgc_geography_index.py` | deterministic offline builder for the pinned SGC allowlist |
 | `scripts/manage_national_rollout.py` | offline jurisdiction-manifest readiness and status CLI |
-| `web/` | Vite + React AuditBack receipt screen |
+| `web/` | Vite + React What in the Tax? resident guide |
 | `DIRECTOR-REVIEW.md` | independent review, including corrections to its own findings |
-| `docs/AUDITBACK-DOMAIN.md` | safe `auditback.ca` registration and cutover checklist |
+| `docs/WHATINTHETAX-DOMAIN.md` | safe `whatinthetax.com` registration and cutover checklist |
 | `docs/PROVINCIAL-ROLLOUT.md` | GitHub playbook for all 13 province/territory rollouts |
 | `docs/` | deployment and working briefs |
 

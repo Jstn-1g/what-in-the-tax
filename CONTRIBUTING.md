@@ -1,6 +1,6 @@
-# Contributing to AuditBack
+# Contributing to What in the Tax?
 
-AuditBack accepts contributions that make Canadian public-finance data more
+What in the Tax? accepts contributions that make Canadian public-finance data more
 accurate, reproducible, and understandable. The project is evidence-first:
 missing evidence stays missing, statistical geography is not treated as proof
 of a government, and a pull request must not claim more coverage than its

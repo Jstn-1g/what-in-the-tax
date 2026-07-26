@@ -1,6 +1,6 @@
 # Canada-wide province and territory rollout playbook
 
-This is the operating guide for expanding AuditBack from a national geography
+This is the operating guide for expanding What in the Tax? from a national geography
 baseline to verified governing bodies in every province and territory. It
 covers municipalities, cities, towns, villages, counties, regional and district
 bodies, and other official local-government forms without flattening them into
@@ -20,7 +20,7 @@ python scripts/manage_national_rollout.py status --format json
 
 ## What “Canada-wide” means
 
-AuditBack tracks seven separate coverage layers for every province and
+The project tracks seven separate coverage layers for every province and
 territory:
 
 1. national geography baseline;
@@ -230,7 +230,7 @@ corresponding evidence hashes.
 Map official fields into each verified-directory record's `body` and
 `provenance` objects:
 
-- namespaced AuditBack body ID;
+- namespaced project body ID;
 - official body type and active/inactive/transitional status;
 - one or more official names with canonical BCP-47 language tags, or `und`;
 - province/territory code;
