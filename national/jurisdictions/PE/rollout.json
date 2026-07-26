@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "PE",
+    "name": "Prince Edward Island",
+    "sgcCode": "11",
+    "isoSubdivision": "CA-PE"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "adapter-needed",
+  "primarySourceIds": [
+    "pe-municipalities",
+    "pe-municipal-zones"
+  ],
+  "sourceRoles": {
+    "pe-municipalities": ["governing-body-roster"],
+    "pe-municipal-zones": ["boundary-crosswalk"]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {"id": "official-source-identified", "status": "complete"},
+    {
+      "id": "reuse-approved",
+      "status": "blocked",
+      "notes": "The selected boundary service needs asset-specific licence confirmation."
+    },
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Preserve city, town, rural municipality, and resort municipality source labels.",
+    "Prince Edward Island has no upper-tier regional municipal layer; regional-government records may therefore remain absent after reviewed reconciliation."
+  ]
+}

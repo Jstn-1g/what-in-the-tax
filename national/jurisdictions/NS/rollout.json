@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "NS",
+    "name": "Nova Scotia",
+    "sgcCode": "12",
+    "isoSubdivision": "CA-NS"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "source-discovery",
+  "primarySourceIds": [
+    "ns-municipality-boundaries",
+    "ns-village-boundaries"
+  ],
+  "sourceRoles": {
+    "ns-municipality-boundaries": ["boundary-crosswalk"],
+    "ns-village-boundaries": ["boundary-crosswalk"]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {
+      "id": "official-source-identified",
+      "status": "blocked",
+      "notes": "The catalogued boundary datasets are cartographic; a complete official legal roster or authority bundle is still required."
+    },
+    {"id": "reuse-approved", "status": "not-started"},
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Municipalities and incorporated villages require legal roster/authority evidence beyond the catalogued cartographic boundary layers.",
+    "Civic communities are address geographies and must not be promoted into governing bodies."
+  ]
+}

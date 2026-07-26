@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "MB",
+    "name": "Manitoba",
+    "sgcCode": "46",
+    "isoSubdivision": "CA-MB"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "adapter-needed",
+  "primarySourceIds": [
+    "mb-municipal-officials-directory",
+    "mb-incorporated-municipal-boundaries",
+    "mb-northern-communities"
+  ],
+  "sourceRoles": {
+    "mb-municipal-officials-directory": ["governing-body-roster"],
+    "mb-incorporated-municipal-boundaries": ["boundary-crosswalk"],
+    "mb-northern-communities": ["governing-body-roster"]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {"id": "official-source-identified", "status": "complete"},
+    {
+      "id": "reuse-approved",
+      "status": "blocked",
+      "notes": "The catalog requires source-specific reuse review and exclusion of personal contact fields."
+    },
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Model incorporated municipalities separately from planning, watershed, assessment, and regional service bodies.",
+    "Northern communities and local government districts need explicit legal-status and crosswalk review."
+  ]
+}

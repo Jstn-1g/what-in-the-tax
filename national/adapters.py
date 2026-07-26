@@ -180,7 +180,8 @@ class CanonicalDirectoryJsonAdapter:
     """
 
     adapter_id = "canonical-government-directory-json"
-    adapter_version = "2.0.0"
+    adapter_version = "3.0.0"
+    schema_version = "auditback-canonical-government-directory-3.0.0"
 
     def parse(self, payload: bytes, snapshot: SourceSnapshot) -> AdapterResult:
         try:
@@ -189,6 +190,23 @@ class CanonicalDirectoryJsonAdapter:
             raise AdapterError(f"directory JSON is invalid: {exc.msg}") from exc
         if not isinstance(document, dict) or not isinstance(document.get("records"), list):
             raise AdapterError("directory JSON must contain a records array")
+        if document.get("candidateOnly") is True:
+            raise AdapterError(
+                "candidate-only directory JSON must be reviewed and promoted "
+                "before adapter ingestion"
+            )
+        if document.get("schemaVersion") != self.schema_version:
+            raise AdapterError(
+                f"directory JSON schemaVersion must be {self.schema_version!r}"
+            )
+        extra_document_fields = sorted(
+            set(document) - {"schemaVersion", "jurisdiction", "candidateOnly", "records"}
+        )
+        if extra_document_fields:
+            raise AdapterError(
+                "directory JSON contains unsupported fields: "
+                + ", ".join(extra_document_fields)
+            )
 
         records: list[GoverningBodyRecord] = []
         seen: set[str] = set()
@@ -201,13 +219,28 @@ class CanonicalDirectoryJsonAdapter:
                 "bodyType",
                 "status",
                 "officialNames",
+                "provinceTerritory",
                 "officialUrl",
                 "externalIds",
                 "governsGeographyIds",
+                "officialLegalType",
+                "governmentTier",
+                "parentBodyIds",
+                "effectiveFrom",
+                "effectiveTo",
             }
             missing = sorted(required - raw.keys())
             if missing:
                 raise AdapterError(f"{label} missing fields: {', '.join(missing)}")
+            extra = sorted(
+                set(raw)
+                - required
+                - {"sourceRecordKey", "sourceFields", "transform"}
+            )
+            if extra:
+                raise AdapterError(
+                    f"{label} contains unsupported fields: {', '.join(extra)}"
+                )
             body_id = raw["id"]
             if not isinstance(body_id, str):
                 raise AdapterError(f"{label}.id must be a string")
@@ -231,6 +264,7 @@ class CanonicalDirectoryJsonAdapter:
                 )
             external = raw["externalIds"]
             geography_ids = raw["governsGeographyIds"]
+            parent_body_ids = raw["parentBodyIds"]
             official_names = raw["officialNames"]
             if not isinstance(external, dict) or not all(
                 isinstance(key, str) and isinstance(value, str)
@@ -248,6 +282,10 @@ class CanonicalDirectoryJsonAdapter:
                 isinstance(value, str) for value in geography_ids
             ):
                 raise AdapterError(f"{label}.governsGeographyIds must be a string array")
+            if not isinstance(parent_body_ids, list) or not all(
+                isinstance(value, str) for value in parent_body_ids
+            ):
+                raise AdapterError(f"{label}.parentBodyIds must be a string array")
             if body_type != "federal-government" and not geography_ids:
                 raise AdapterError(
                     f"{label}.governsGeographyIds must contain at least one exact "
@@ -263,6 +301,11 @@ class CanonicalDirectoryJsonAdapter:
                     "officialUrl",
                     "externalIds",
                     "governsGeographyIds",
+                    "officialLegalType",
+                    "governmentTier",
+                    "parentBodyIds",
+                    "effectiveFrom",
+                    "effectiveTo",
                 ],
             )
             if not isinstance(source_fields, list) or not all(
@@ -289,6 +332,11 @@ class CanonicalDirectoryJsonAdapter:
                     official_url=raw["officialUrl"],
                     external_ids=tuple(sorted(external.items())),
                     geography_ids=tuple(sorted(geography_ids)),
+                    official_legal_type=raw["officialLegalType"],
+                    government_tier=raw["governmentTier"],
+                    parent_body_ids=tuple(sorted(parent_body_ids)),
+                    effective_from=raw["effectiveFrom"],
+                    effective_to=raw["effectiveTo"],
                     provenance=provenance,
                 )
             except (ModelValidationError, TypeError, AttributeError) as exc:

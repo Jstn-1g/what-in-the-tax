@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/jurisdiction-rollout.schema.json",
+  "title": "AuditBack province or territory municipal rollout packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "jurisdiction",
+    "coverageLayer",
+    "status",
+    "primarySourceIds",
+    "sourceRoles",
+    "canonicalBodyTypes",
+    "stages",
+    "transport",
+    "adapter",
+    "output",
+    "reconciliation",
+    "publicationApproval",
+    "scopeNotes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "auditback-jurisdiction-rollout-1.0.0"
+    },
+    "jurisdiction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "name", "sgcCode", "isoSubdivision"],
+      "properties": {
+        "code": {
+          "enum": ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"]
+        },
+        "name": {"type": "string", "minLength": 1},
+        "sgcCode": {"type": "string", "pattern": "^[0-9]{2}$"},
+        "isoSubdivision": {"type": "string", "pattern": "^CA-[A-Z]{2}$"}
+      }
+    },
+    "coverageLayer": {
+      "const": "municipal-regional-governments"
+    },
+    "status": {
+      "enum": ["not-started", "source-discovery", "adapter-needed", "partial", "complete", "not-applicable"]
+    },
+    "primarySourceIds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "sourceRoles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "enum": [
+            "governing-body-roster",
+            "legal-authority",
+            "boundary-crosswalk",
+            "code-history",
+            "relationship-reference",
+            "control-total"
+          ]
+        }
+      }
+    },
+    "canonicalBodyTypes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["municipal-government", "regional-government"]
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status"],
+        "properties": {
+          "id": {
+            "enum": [
+              "official-source-identified",
+              "reuse-approved",
+              "transport-pinned",
+              "adapter-tested",
+              "exact-crosswalk-reviewed",
+              "exceptions-reviewed",
+              "count-reconciled",
+              "publication-approved"
+            ]
+          },
+          "status": {
+            "enum": ["not-started", "in-progress", "blocked", "complete"]
+          },
+          "notes": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "transport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceLockPath"],
+      "properties": {
+        "sourceLockPath": {"type": ["string", "null"], "minLength": 1}
+      }
+    },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapterId", "adapterVersion", "modulePath", "testPath", "fixturePaths"],
+      "properties": {
+        "adapterId": {"type": ["string", "null"]},
+        "adapterVersion": {"type": ["string", "null"]},
+        "modulePath": {"type": ["string", "null"]},
+        "testPath": {"type": ["string", "null"]},
+        "fixturePaths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directoryPath",
+        "directorySha256",
+        "directoryCanonicalSha256"
+      ],
+      "properties": {
+        "directoryPath": {"type": ["string", "null"], "minLength": 1},
+        "directorySha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "directoryCanonicalSha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "reconciliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedVerifiedBodyCount",
+        "classificationDecisionPath",
+        "crosswalkReviewPath",
+        "exceptionsPath",
+        "reconciliationPath"
+      ],
+      "properties": {
+        "expectedVerifiedBodyCount": {
+          "type": ["integer", "null"],
+          "minimum": 1
+        },
+        "classificationDecisionPath": {"type": ["string", "null"], "minLength": 1},
+        "crosswalkReviewPath": {"type": ["string", "null"]},
+        "exceptionsPath": {"type": ["string", "null"]},
+        "reconciliationPath": {"type": ["string", "null"]}
+      }
+    },
+    "publicationApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewer",
+        "approvedAt",
+        "releaseReference",
+        "artifactPath",
+        "artifactSha256"
+      ],
+      "properties": {
+        "reviewer": {"type": ["string", "null"], "minLength": 1},
+        "approvedAt": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "releaseReference": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "pattern": "^https://github\\.com/Jstn-1g/tax-receipt-prototype/(?:commit/[0-9a-f]{40}|releases/tag/[^\\s]+|pull/[1-9][0-9]*)$"
+        },
+        "artifactPath": {"type": ["string", "null"], "minLength": 1},
+        "artifactSha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "scopeNotes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

@@ -28,6 +28,12 @@ Official baseline references:
 - Classification CSV: <https://www.statcan.gc.ca/en/statistical-programs/document/sgc-cgt-2021-structure-eng.csv>
 - Current Census Subdivision Boundary File series: <https://www150.statcan.gc.ca/n1/en/catalogue/92-162-X>
 
+`national/sgc_2021_geography_index.json` is deterministically generated from
+the catalog-approved SGC 2021 CSV. The rollout validator binds it to the active
+catalog source/hash, coverage classification version, reviewed canonical
+digest, counts, hierarchy, and exact ID membership. A correctly shaped or
+province-prefixed code is insufficient when it is absent from this index.
+
 ## Data flow
 
 ```text
@@ -115,8 +121,39 @@ ArcGIS REST, Socrata, CKAN, or open-data downloads. Pagination, rate limiting,
 and HTTP retries happen before parsing. PDF/HTML scraping is a fallback provider,
 not the default.
 
-The included canonical directory adapter is an interchange boundary for those
-province-specific adapters. It requires:
+For a municipal rollout, the provider module additionally exposes:
+
+```python
+def build_verified_directory(
+    *,
+    payloads: dict[str, bytes],
+    snapshots: dict[str, dict],
+    jurisdiction: str,
+    source_lock_canonical_sha256: str,
+) -> dict: ...
+```
+
+The checker executes the manifest-declared `unittest` in a child process with
+guarded Python socket and process APIs. It then starts two fresh isolated
+provider processes over newly decoded copies of the locked bytes, rejects
+non-plain JSON or differing results, and requires the result to equal the
+reviewed directory artifact. This guard detects accidental I/O and premature
+process exits; it is not presented as an OS-level sandbox for hostile code.
+
+Evidence is independently reselected from locked structured bytes:
+the catalog pins `recordKeyField`, `recordCollectionPath`, and, for roster
+sources, `officialLegalTypeField`, `identityFieldMap`, and
+`externalIdNamespace`; `sourceFields[0]` must repeat that key field.
+The key must select exactly one CSV row or JSON object. That record must contain
+the official body ID and claimed SGC value for geography edges, or both official
+body IDs for a parent edge. The provider's `identityFieldMap` must exactly match
+the catalog contract and binds the sole emitted external-ID namespace/value,
+all official-name values, legal type, and URL to exact source fields. Opaque
+source formats require a separately locked normalized CSV/JSON evidence source
+before they can support a coverage claim.
+
+The included version 3 canonical directory adapter is an interchange boundary
+for those province-specific adapters. It requires:
 
 - a namespaced AuditBack body ID;
 - body type and active/inactive/transitional status;
@@ -124,7 +161,13 @@ province-specific adapters. It requires:
   `und` when the source does not identify a language;
 - official HTTPS site;
 - at least one official external ID;
-- zero or more exact SGC geography IDs;
+- at least one exact SGC geography ID for every non-federal body; a federal
+  body is Canada-scoped and cannot claim a province or territory;
+- the source-published legal type and reviewed government tier;
+- exact parent governing-body IDs only for lower-tier municipalities; every
+  parent must resolve to a same-province/territory upper-tier regional
+  government, with unknown parents and cycles rejected;
+- nullable ISO effective-from/effective-to dates;
 - source record locator and transform metadata.
 
 No English translation is required or invented. A Québec or Indigenous
@@ -157,7 +200,12 @@ strict production scope. `complete` is rejected unless every named official
 source is locked, licence-approved for reuse, the SGC
 classification/version and release-specific national/provincial counts
 reconcile exactly, and administrative layers match a positive expected
-verified-body count. The starting plan truthfully marks only the SGC 2021
+verified-body count. `partial` is also an evidence claim: its sources must be
+locked and licence-approved, and an administrative layer must contain at least
+one verified governing body. A completed census-geography baseline alone
+does not advance municipal/regional coverage; source approval remains planned
+while the rollout stays `source-discovery` or `adapter-needed`. The starting
+plan truthfully marks only the SGC 2021
 classification layer complete; the current 2025 CSD and every
 government/authority overlay remain non-complete.
 
@@ -232,6 +280,53 @@ python scripts/build_national_registry.py
 for reduced offline fixtures and must not be used for a published national
 registry.
 
+The GitHub operating procedure, stage evidence, source work order, adapter
+acceptance matrix, and definition of ready are maintained in
+[`../docs/PROVINCIAL-ROLLOUT.md`](../docs/PROVINCIAL-ROLLOUT.md). Each
+jurisdiction records its reviewed state in
+`jurisdictions/<CODE>/rollout.json`, validated against
+`schemas/jurisdiction-rollout.schema.json`. These offline commands are the
+authoritative readiness interface:
+
+```text
+python scripts/manage_national_rollout.py check
+python scripts/manage_national_rollout.py status --format json
+```
+
+The GitHub readiness workflow validates manifests, national tests, and the
+regional mapping pilot. It does not fetch official sources, publish a registry,
+or deploy the public site.
+
+The pinned SGC index contains 5,473 sorted IDs from the catalog-approved
+official release. Rollout validation checks its schema, source hash,
+classification version, counts, parent chain, self-digest, reviewed release
+digest, and exact membership for every governing-body geography edge.
+
+Municipal rollout manifests separate a reviewed candidate source bundle from
+locked coverage evidence. Per-source roles distinguish identity rosters and
+legal authority from boundary, code-history, relationship, and control-total
+references. All eight rollout gates are mandatory. Completed gates are bound
+to existing repository artifacts. The jurisdiction source lock is tied to its
+exact current source bundle and coverage-layer row, avoiding cross-country lock
+churn, and verifies the actual repository payload bytes. Provider ID/version
+must match every active bundle source; its Python
+module, importing `unittest`, and fixtures must exist. The test is executed
+under the cooperative I/O guard, and two fresh provider processes must return
+the same plain JSON as the separately hashed verified directory. That directory
+carries canonical bodies plus identity, geography, relationship,
+source/snapshot, and adapter provenance.
+Classification and exact-crosswalk reviews must cover that directory, count
+reconciliation is derived from its active records, and every locked roster row
+must be emitted, routed, or explicitly excluded with its official legal type
+preserved. Status must match disposition and every non-emitted row must carry a
+reason. The final human approval
+artifact is bound to the same lock and output hashes. The corresponding
+contracts are `schemas/jurisdiction-source-lock.schema.json`,
+`schemas/verified-jurisdiction-directory.schema.json`, and
+`schemas/publication-approval.schema.json`; the national allowlist uses
+`schemas/sgc-geography-index.schema.json`. Candidate scaffolds carry
+`candidateOnly: true` and cannot support a coverage claim.
+
 Then add the current 2025 CSD adapter and one official jurisdiction directory at
 a time. A province is not
 called complete until its municipal/regional source, exceptions, dissolved
@@ -263,7 +358,8 @@ Every provider adapter must have checked-in, minimal fixtures and tests for:
 - source-lock path/content identity and approved-release hashes;
 - normalized-text locks bound to verified source snapshots and cache objects;
 - classification, catalog, adapter, and provenance version agreement;
-- SGC ID/version and exact parent-prefix agreement;
+- SGC classification/version, exact parent hierarchy, and membership in the
+  pinned reviewed index;
 - official-name language tags without mandatory English translations;
 - source/body province or territory agreement and documented CA-wide rules;
 - licence/reuse gates for complete coverage;
@@ -273,7 +369,10 @@ Every provider adapter must have checked-in, minimal fixtures and tests for:
 - province-safe governing-body/geography crosswalks;
 - release-specific national and provincial count reconciliation;
 - deterministic output from identical inputs;
-- no network calls in unit or CI tests.
+- execution of the manifest-declared adapter test and exact equality between
+  two fresh provider builds and the reviewed directory artifact;
+- no intended network calls in unit or CI tests; the local runner guards common
+  Python I/O APIs but is not an OS-level network sandbox.
 
 The shared suite additionally tests immutable cache behavior, locked provenance,
 coverage-claim gates, AI opt-in, normalized-text/offset/hash binding, recomputed

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "NT",
+    "name": "Northwest Territories",
+    "sgcCode": "61",
+    "isoSubdivision": "CA-NT"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "adapter-needed",
+  "primarySourceIds": ["nt-maca-communities"],
+  "sourceRoles": {
+    "nt-maca-communities": ["governing-body-roster"]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {"id": "official-source-identified", "status": "complete"},
+    {
+      "id": "reuse-approved",
+      "status": "blocked",
+      "notes": "The official community directory requires asset-specific reuse and privacy review."
+    },
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Preserve charter communities, hamlets, designated authorities, self-governments, cities, towns, and villages as published.",
+    "A community entry is not automatically a municipal government; legal designation controls."
+  ]
+}

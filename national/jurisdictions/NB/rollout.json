@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "NB",
+    "name": "New Brunswick",
+    "sgcCode": "13",
+    "isoSubdivision": "CA-NB"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "adapter-needed",
+  "primarySourceIds": ["nb-local-governance"],
+  "sourceRoles": {
+    "nb-local-governance": [
+      "governing-body-roster",
+      "boundary-crosswalk",
+      "relationship-reference"
+    ]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {"id": "official-source-identified", "status": "complete"},
+    {"id": "reuse-approved", "status": "complete"},
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Keep local governments and rural districts distinct; the province states that regional service commissions are shared-service organizations, not a level of government.",
+    "Preserve official English and French names and stable provincial identifiers."
+  ]
+}

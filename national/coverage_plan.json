@@ -81,7 +81,7 @@
         "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
         "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
         "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
-        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "municipal-regional-governments": {"status": "source-discovery", "sourceIds": []},
         "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
         "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
         "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}
@@ -95,7 +95,7 @@
         "national-geography-baseline": {"status": "complete", "sourceIds": ["statcan-sgc-2021-structure-en"]},
         "current-csd-geography": {"status": "adapter-needed", "sourceIds": []},
         "federal-province-territory-governments": {"status": "source-discovery", "sourceIds": []},
-        "municipal-regional-governments": {"status": "adapter-needed", "sourceIds": []},
+        "municipal-regional-governments": {"status": "source-discovery", "sourceIds": []},
         "indigenous-governments": {"status": "adapter-needed", "sourceIds": []},
         "education-tax-authorities": {"status": "source-discovery", "sourceIds": []},
         "special-purpose-tax-authorities": {"status": "source-discovery", "sourceIds": []}

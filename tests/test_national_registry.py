@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import unittest
+from copy import copy
 from dataclasses import replace
 
 from national.adapters import (
@@ -25,6 +26,7 @@ SGC_SAMPLE = b"""Level,Hierarchical structure,Code,Class title
 4,Census subdivision,3518013,Oshawa
 """
 DIRECTORY_DOCUMENT = {
+    "schemaVersion": "auditback-canonical-government-directory-3.0.0",
     "records": [
         {
             "id": "ca:gov:on:municipal:3518013",
@@ -37,6 +39,11 @@ DIRECTORY_DOCUMENT = {
             "governsGeographyIds": [
                 "ca:sgc:2021:census-subdivision:3518013"
             ],
+            "officialLegalType": "City",
+            "governmentTier": "single-tier",
+            "parentBodyIds": [],
+            "effectiveFrom": None,
+            "effectiveTo": None,
         }
     ]
 }
@@ -128,7 +135,7 @@ def source_catalog() -> dict:
                 ),
                 "mediaType": "application/json",
                 "adapterId": "canonical-government-directory-json",
-                "adapterVersion": "2.0.0",
+                "adapterVersion": "3.0.0",
                 "runtimeNetworkRequired": False,
                 "approvedSha256": hashlib.sha256(DIRECTORY_PAYLOAD).hexdigest(),
                 "licenseStatus": "open-government-licence-confirmed",
@@ -252,6 +259,108 @@ class NationalRegistryTests(unittest.TestCase):
         self.assertFalse(registry["method"]["statisticalAreasAreGovernments"])
         self.assertEqual(64, len(registry["registryCanonicalSha256"]))
 
+    def test_geography_baseline_alone_is_planned_not_partial(self) -> None:
+        registry = NationalRegistryBuilder(
+            classification_version="2021",
+            source_catalog=source_catalog(),
+            coverage_plan=coverage(),
+            scope="test",
+        ).build(
+            geographies=self.geographies,
+            governing_bodies=[],
+            snapshots=[self.sgc_snapshot],
+        )
+
+        self.assertEqual("planned", registry["coverage"]["jurisdictions"][0]["status"])
+        self.assertEqual(
+            0,
+            registry["coverage"]["jurisdictions"][0]["verifiedGoverningBodyCount"],
+        )
+
+    def test_partial_administrative_layer_requires_a_locked_source(self) -> None:
+        changed_coverage = coverage()
+        changed_coverage["jurisdictions"][0]["layers"][
+            "municipal-regional-governments"
+        ] = {
+            "status": "partial",
+            "sourceIds": ["ontario-municipal-directory"],
+        }
+
+        with self.assertRaisesRegex(RegistryError, "partial coverage references unlocked"):
+            NationalRegistryBuilder(
+                classification_version="2021",
+                source_catalog=source_catalog(),
+                coverage_plan=changed_coverage,
+                scope="test",
+            ).build(
+                geographies=self.geographies,
+                governing_bodies=[],
+                snapshots=[self.sgc_snapshot],
+            )
+
+    def test_partial_administrative_layer_requires_a_named_source(self) -> None:
+        changed_coverage = coverage()
+        changed_coverage["jurisdictions"][0]["layers"][
+            "municipal-regional-governments"
+        ] = {
+            "status": "partial",
+            "sourceIds": [],
+        }
+
+        with self.assertRaisesRegex(RegistryError, "partial coverage requires a locked"):
+            NationalRegistryBuilder(
+                classification_version="2021",
+                source_catalog=source_catalog(),
+                coverage_plan=changed_coverage,
+                scope="test",
+            ).build(
+                geographies=self.geographies,
+                governing_bodies=[],
+                snapshots=[self.sgc_snapshot],
+            )
+
+    def test_partial_administrative_layer_requires_a_verified_body(self) -> None:
+        changed_coverage = coverage()
+        changed_coverage["jurisdictions"][0]["layers"][
+            "municipal-regional-governments"
+        ] = {
+            "status": "partial",
+            "sourceIds": ["ontario-municipal-directory"],
+        }
+
+        with self.assertRaisesRegex(RegistryError, "at least one verified governing body"):
+            NationalRegistryBuilder(
+                classification_version="2021",
+                source_catalog=source_catalog(),
+                coverage_plan=changed_coverage,
+                scope="test",
+            ).build(
+                geographies=self.geographies,
+                governing_bodies=[],
+                snapshots=[self.sgc_snapshot, self.directory_snapshot],
+            )
+
+    def test_partial_administrative_layer_reports_partial_with_evidence(self) -> None:
+        changed_coverage = coverage()
+        changed_coverage["jurisdictions"][0]["layers"][
+            "municipal-regional-governments"
+        ] = {
+            "status": "partial",
+            "sourceIds": ["ontario-municipal-directory"],
+        }
+        registry = NationalRegistryBuilder(
+            classification_version="2021",
+            source_catalog=source_catalog(),
+            coverage_plan=changed_coverage,
+            scope="test",
+        ).build(
+            geographies=self.geographies,
+            governing_bodies=self.bodies,
+            snapshots=[self.sgc_snapshot, self.directory_snapshot],
+        )
+
+        self.assertEqual("partial", registry["coverage"]["jurisdictions"][0]["status"])
+
     def test_identical_inputs_produce_identical_registry(self) -> None:
         builder = NationalRegistryBuilder(
             classification_version="2021",
@@ -284,24 +393,15 @@ class NationalRegistryTests(unittest.TestCase):
                 snapshots=[self.sgc_snapshot, self.directory_snapshot],
             )
 
-    def test_complete_administrative_layer_rejects_an_empty_body_crosswalk(
-        self,
-    ) -> None:
-        changed_coverage = coverage()
-        changed_coverage["jurisdictions"][0]["layers"][
-            "municipal-regional-governments"
-        ] = {
-            "status": "complete",
-            "sourceIds": ["ontario-municipal-directory"],
-            "expectedVerifiedBodyCount": 1,
-        }
-        body_without_crosswalk = replace(self.bodies[0], geography_ids=())
+    def test_registry_always_rejects_an_empty_non_federal_crosswalk(self) -> None:
+        body_without_crosswalk = copy(self.bodies[0])
+        object.__setattr__(body_without_crosswalk, "geography_ids", ())
 
         with self.assertRaisesRegex(RegistryError, "at least one exact geography"):
             NationalRegistryBuilder(
                 classification_version="2021",
                 source_catalog=source_catalog(),
-                coverage_plan=changed_coverage,
+                coverage_plan=coverage(),
                 scope="test",
             ).build(
                 geographies=self.geographies,
@@ -310,12 +410,31 @@ class NationalRegistryTests(unittest.TestCase):
             )
 
     def test_federal_body_cannot_claim_a_province_scope(self) -> None:
-        contradictory_body = replace(
-            self.bodies[0],
-            body_type="federal-government",
-            geography_ids=(),
+        contradictory_body = copy(self.bodies[0])
+        object.__setattr__(
+            contradictory_body,
+            "body_type",
+            "federal-government",
         )
+        object.__setattr__(contradictory_body, "government_tier", "national")
+        object.__setattr__(contradictory_body, "geography_ids", ())
         with self.assertRaisesRegex(RegistryError, "Canada-scoped"):
+            NationalRegistryBuilder(
+                classification_version="2021",
+                source_catalog=source_catalog(),
+                coverage_plan=coverage(),
+                scope="test",
+            ).build(
+                geographies=self.geographies,
+                governing_bodies=[contradictory_body],
+                snapshots=[self.sgc_snapshot, self.directory_snapshot],
+            )
+
+    def test_registry_rechecks_body_type_tier_compatibility(self) -> None:
+        contradictory_body = copy(self.bodies[0])
+        object.__setattr__(contradictory_body, "government_tier", "upper-tier")
+
+        with self.assertRaisesRegex(RegistryError, "incompatible with body type"):
             NationalRegistryBuilder(
                 classification_version="2021",
                 source_catalog=source_catalog(),
@@ -441,6 +560,132 @@ class NationalRegistryTests(unittest.TestCase):
             ).build(
                 geographies=self.geographies,
                 governing_bodies=[changed],
+                snapshots=[self.sgc_snapshot, self.directory_snapshot],
+            )
+
+    def test_parent_government_must_be_an_exact_known_body(self) -> None:
+        changed = replace(
+            self.bodies[0],
+            government_tier="lower-tier",
+            parent_body_ids=("ca:gov:on:regional:missing",),
+        )
+        with self.assertRaisesRegex(RegistryError, "unknown parent governing body"):
+            NationalRegistryBuilder(
+                classification_version="2021",
+                source_catalog=source_catalog(),
+                coverage_plan=coverage(),
+                scope="test",
+            ).build(
+                geographies=self.geographies,
+                governing_bodies=[changed],
+                snapshots=[self.sgc_snapshot, self.directory_snapshot],
+            )
+
+    def test_lower_tier_parent_must_be_an_upper_tier_regional_body(self) -> None:
+        parent = replace(
+            self.bodies[0],
+            body_id="ca:gov:on:municipal:parent",
+            external_ids=(("ontario-mah", "parent"),),
+        )
+        child = replace(
+            self.bodies[0],
+            body_id="ca:gov:on:municipal:child",
+            external_ids=(("ontario-mah", "child"),),
+            government_tier="lower-tier",
+            parent_body_ids=(parent.body_id,),
+        )
+
+        with self.assertRaisesRegex(RegistryError, "upper-tier regional government"):
+            NationalRegistryBuilder(
+                classification_version="2021",
+                source_catalog=source_catalog(),
+                coverage_plan=coverage(),
+                scope="test",
+            ).build(
+                geographies=self.geographies,
+                governing_bodies=[parent, child],
+                snapshots=[self.sgc_snapshot, self.directory_snapshot],
+            )
+
+    def test_lower_tier_accepts_a_same_province_upper_tier_parent(self) -> None:
+        parent = replace(
+            self.bodies[0],
+            body_id="ca:gov:on:regional:parent",
+            body_type="regional-government",
+            government_tier="upper-tier",
+            external_ids=(("ontario-mah", "parent"),),
+        )
+        child = replace(
+            self.bodies[0],
+            body_id="ca:gov:on:municipal:child",
+            external_ids=(("ontario-mah", "child"),),
+            government_tier="lower-tier",
+            parent_body_ids=(parent.body_id,),
+        )
+
+        registry = NationalRegistryBuilder(
+            classification_version="2021",
+            source_catalog=source_catalog(),
+            coverage_plan=coverage(),
+            scope="test",
+        ).build(
+            geographies=self.geographies,
+            governing_bodies=[parent, child],
+            snapshots=[self.sgc_snapshot, self.directory_snapshot],
+        )
+
+        bodies = {
+            body["id"]: body
+            for body in registry["governingBodies"]
+        }
+        self.assertEqual(
+            [parent.body_id],
+            bodies[child.body_id]["parentBodyIds"],
+        )
+
+    def test_lower_tier_parent_must_be_in_the_same_province(self) -> None:
+        parent = replace(
+            self.bodies[0],
+            body_id="ca:gov:qc:regional:parent",
+            body_type="regional-government",
+            government_tier="upper-tier",
+            province_territory_iso="QC",
+            external_ids=(("quebec-directory", "parent"),),
+        )
+        child = replace(
+            self.bodies[0],
+            body_id="ca:gov:on:municipal:child",
+            external_ids=(("ontario-mah", "child"),),
+            government_tier="lower-tier",
+            parent_body_ids=(parent.body_id,),
+        )
+
+        with self.assertRaisesRegex(RegistryError, "another province or territory"):
+            NationalRegistryBuilder._validate_body_relationships(
+                [parent, child],
+                {
+                    parent.body_id: parent,
+                    child.body_id: child,
+                },
+            )
+
+    def test_registry_rejects_parents_on_non_lower_tier_bodies(self) -> None:
+        contradictory_body = copy(self.bodies[0])
+        object.__setattr__(
+            contradictory_body,
+            "parent_body_ids",
+            ("ca:gov:on:regional:parent",),
+        )
+
+        with self.assertRaisesRegex(RegistryError, "reserved for lower-tier"):
+            NationalRegistryBuilder(
+                classification_version="2021",
+                source_catalog=source_catalog(),
+                coverage_plan=coverage(),
+                scope="test",
+            ).build(
+                geographies=self.geographies,
+                governing_bodies=[contradictory_body],
                 snapshots=[self.sgc_snapshot, self.directory_snapshot],
             )
 
@@ -571,6 +816,35 @@ class NationalRegistryTests(unittest.TestCase):
             "status": "complete",
             "sourceIds": ["ontario-municipal-directory"],
             "expectedVerifiedBodyCount": 1,
+        }
+        with self.assertRaisesRegex(RegistryError, "reuseReviewRequired=false"):
+            NationalRegistryBuilder(
+                classification_version="2021",
+                source_catalog=changed_catalog,
+                coverage_plan=changed_coverage,
+                scope="test",
+            ).build(
+                geographies=self.geographies,
+                governing_bodies=self.bodies,
+                snapshots=[self.sgc_snapshot, self.directory_snapshot],
+            )
+
+    def test_pending_permission_cannot_support_partial_coverage_in_test_scope(
+        self,
+    ) -> None:
+        changed_catalog = source_catalog()
+        changed_catalog["sources"][1].update(
+            {
+                "licenseStatus": "permission-review-required",
+                "reuseReviewRequired": True,
+            }
+        )
+        changed_coverage = coverage()
+        changed_coverage["jurisdictions"][0]["layers"][
+            "municipal-regional-governments"
+        ] = {
+            "status": "partial",
+            "sourceIds": ["ontario-municipal-directory"],
         }
         with self.assertRaisesRegex(RegistryError, "reuseReviewRequired=false"):
             NationalRegistryBuilder(

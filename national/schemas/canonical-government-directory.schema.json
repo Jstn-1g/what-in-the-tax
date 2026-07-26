@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/canonical-government-directory.schema.json",
+  "title": "AuditBack canonical government directory v3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "records"],
+  "properties": {
+    "schemaVersion": {
+      "const": "auditback-canonical-government-directory-3.0.0"
+    },
+    "jurisdiction": {
+      "enum": ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"]
+    },
+    "candidateOnly": {"type": "boolean"},
+    "records": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/governingBody"}
+    }
+  },
+  "$defs": {
+    "canonicalId": {
+      "type": "string",
+      "pattern": "^ca:[a-z0-9][a-z0-9:._-]+$"
+    },
+    "sourceId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "provinceTerritory": {
+      "enum": ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"]
+    },
+    "officialNames": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^(?:und|[a-z]{2,3}(?:-[A-Z][a-z]{3})?(?:-[A-Z]{2}|-[0-9]{3})?(?:-(?:[a-z0-9]{5,8}|[0-9][a-z0-9]{3}))*)$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "governingBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "bodyType",
+        "status",
+        "officialNames",
+        "provinceTerritory",
+        "officialUrl",
+        "externalIds",
+        "governsGeographyIds",
+        "officialLegalType",
+        "governmentTier",
+        "parentBodyIds",
+        "effectiveFrom",
+        "effectiveTo"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/canonicalId"},
+        "bodyType": {
+          "enum": [
+            "federal-government",
+            "province-territory-government",
+            "municipal-government",
+            "regional-government",
+            "indigenous-government",
+            "school-authority",
+            "special-purpose-authority"
+          ]
+        },
+        "status": {"enum": ["active", "inactive", "transitional"]},
+        "officialNames": {"$ref": "#/$defs/officialNames"},
+        "provinceTerritory": {
+          "anyOf": [
+            {"$ref": "#/$defs/provinceTerritory"},
+            {"type": "null"}
+          ]
+        },
+        "officialUrl": {"type": "string", "pattern": "^https://"},
+        "externalIds": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {"$ref": "#/$defs/sourceId"},
+          "additionalProperties": {"type": "string", "minLength": 1}
+        },
+        "governsGeographyIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/canonicalId"}
+        },
+        "officialLegalType": {"type": "string", "minLength": 1},
+        "governmentTier": {
+          "enum": [
+            "national",
+            "province-territory",
+            "single-tier",
+            "lower-tier",
+            "upper-tier",
+            "overlapping",
+            "indigenous",
+            "special-purpose"
+          ]
+        },
+        "parentBodyIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/canonicalId"}
+        },
+        "effectiveFrom": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "effectiveTo": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "sourceRecordKey": {"type": "string", "minLength": 1},
+        "sourceFields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "transform": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "bodyType": {"const": "federal-government"}
+            },
+            "required": ["bodyType"]
+          },
+          "then": {
+            "properties": {
+              "provinceTerritory": {"type": "null"},
+              "governmentTier": {"const": "national"}
+            }
+          },
+          "else": {
+            "properties": {
+              "provinceTerritory": {"$ref": "#/$defs/provinceTerritory"},
+              "governsGeographyIds": {"minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "bodyType": {"const": "municipal-government"}
+            },
+            "required": ["bodyType"]
+          },
+          "then": {
+            "properties": {
+              "governmentTier": {"enum": ["single-tier", "lower-tier"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "bodyType": {"const": "province-territory-government"}
+            },
+            "required": ["bodyType"]
+          },
+          "then": {
+            "properties": {
+              "governmentTier": {"const": "province-territory"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "bodyType": {"const": "regional-government"}
+            },
+            "required": ["bodyType"]
+          },
+          "then": {
+            "properties": {
+              "governmentTier": {"enum": ["upper-tier", "overlapping"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "bodyType": {"const": "indigenous-government"}
+            },
+            "required": ["bodyType"]
+          },
+          "then": {
+            "properties": {
+              "governmentTier": {"const": "indigenous"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "bodyType": {"const": "school-authority"}
+            },
+            "required": ["bodyType"]
+          },
+          "then": {
+            "properties": {
+              "governmentTier": {"enum": ["special-purpose", "overlapping"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "bodyType": {"const": "special-purpose-authority"}
+            },
+            "required": ["bodyType"]
+          },
+          "then": {
+            "properties": {
+              "governmentTier": {"enum": ["special-purpose", "overlapping"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "governmentTier": {"const": "lower-tier"}
+            },
+            "required": ["governmentTier"]
+          },
+          "then": {
+            "properties": {
+              "parentBodyIds": {"minItems": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "parentBodyIds": {"maxItems": 0}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

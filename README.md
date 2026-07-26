@@ -19,13 +19,17 @@ official bill, formal financial audit, or source of tax advice.
   publications.
 - The national builder reproducibly loads the approved Statistics Canada SGC
   2021 baseline: 5,473 geographies, including 5,161 census subdivisions across
-  all 13 provinces and territories.
+  all 13 provinces and territories. A checked-in, schema-validated index pins
+  every allowed geography ID to the catalog-approved official release hash.
 - A census subdivision is a geography, not proof of a governing body. AuditBack
   never converts all CSDs into municipalities or governments.
 - The source catalog and seven-layer coverage matrix include every province and
   territory, Statistics Canada's 2025 CSD layer, and Indigenous Services
-  Canada's First Nations Location dataset. Most jurisdiction directory adapters
-  and the separate transport job are still to be implemented.
+  Canada's First Nations Location dataset. All 13 jurisdiction directory
+  providers and the separate transport job are still to be implemented.
+- All 13 municipal/regional onboarding packets are tracked: 11 are
+  `adapter-needed`, 2 remain in `source-discovery`, and 0 are currently
+  publication-ready.
 
 The current milestone is therefore a hardened, zero-token national ingestion
 foundation—not a claim that every Canadian governing body is already loaded.
@@ -58,6 +62,31 @@ milestone is an allowlisted, rate-limited transport job plus the 2025 CSD and
 13 provincial/territorial directory adapters, followed by education,
 Indigenous, and special-purpose taxing authorities.
 
+## Help roll out a province or territory
+
+The GitHub rollout path is documented in
+[`docs/PROVINCIAL-ROLLOUT.md`](docs/PROVINCIAL-ROLLOUT.md). It covers every
+province and territory, official source approval, adapter fixtures, exact
+crosswalk review, municipality/region exceptions, count reconciliation, and
+separate publication approval. Contributor setup and evidence rules are in
+[`CONTRIBUTING.md`](CONTRIBUTING.md).
+The status checker refuses `partial` without verified positive directory
+output, and refuses publication unless actual locked source bytes, output
+records freshly reproduced by the provider, pinned SGC membership, crosswalk
+provenance, derived counts, and a human approval artifact all agree.
+
+Check the machine-readable rollout manifests without downloading government
+data or calling AI:
+
+```bash
+python scripts/manage_national_rollout.py check
+python scripts/manage_national_rollout.py status --format json
+```
+
+Use the GitHub Province/territory rollout issue form for one jurisdiction's
+municipal/regional layer at a time. A dedicated `National rollout readiness`
+workflow runs the offline checks on pull requests but never deploys.
+
 ## What's included
 
 | path | role |
@@ -69,10 +98,14 @@ Indigenous, and special-purpose taxing authorities.
 | `scripts/extract_pdf_text.py` | PDF to text |
 | `source-pdfs/` | cited source documents only |
 | `national/` | national registry, source catalog, coverage gates, schemas, and AI gap policy |
+| `national/sgc_2021_geography_index.json` | release-pinned allowlist of all 5,473 official SGC 2021 geography IDs |
 | `scripts/build_national_registry.py` | offline, locked national registry builder |
+| `scripts/build_sgc_geography_index.py` | deterministic offline builder for the pinned SGC allowlist |
+| `scripts/manage_national_rollout.py` | offline jurisdiction-manifest readiness and status CLI |
 | `web/` | Vite + React AuditBack receipt screen |
 | `DIRECTOR-REVIEW.md` | independent review, including corrections to its own findings |
 | `docs/AUDITBACK-DOMAIN.md` | safe `auditback.ca` registration and cutover checklist |
+| `docs/PROVINCIAL-ROLLOUT.md` | GitHub playbook for all 13 province/territory rollouts |
 | `docs/` | deployment and working briefs |
 
 ## Evidence rules

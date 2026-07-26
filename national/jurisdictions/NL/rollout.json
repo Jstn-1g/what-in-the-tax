@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "NL",
+    "name": "Newfoundland and Labrador",
+    "sgcCode": "10",
+    "isoSubdivision": "CA-NL"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "source-discovery",
+  "primarySourceIds": [
+    "nl-municipal-directory",
+    "nl-municipal-boundaries-current",
+    "nl-regional-service-boards"
+  ],
+  "sourceRoles": {
+    "nl-municipal-directory": ["governing-body-roster"],
+    "nl-municipal-boundaries-current": ["boundary-crosswalk"],
+    "nl-regional-service-boards": ["relationship-reference"]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {
+      "id": "official-source-identified",
+      "status": "blocked",
+      "notes": "A complete official regional-service-board roster and dated control total are not yet catalogued."
+    },
+    {"id": "reuse-approved", "status": "not-started"},
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Cities, towns, Inuit Community Governments, local service districts, and regional service boards require distinct treatment; service boards are not automatically regional governments.",
+    "Gazetted legal descriptions remain authoritative when mapped boundaries or directory rosters disagree."
+  ]
+}

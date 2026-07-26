@@ -6,6 +6,7 @@ import hashlib
 import json
 import re
 from dataclasses import dataclass
+from datetime import date
 from typing import Any
 
 
@@ -28,6 +29,25 @@ BODY_TYPES = {
     "special-purpose-authority",
 }
 BODY_STATUSES = {"active", "inactive", "transitional"}
+GOVERNMENT_TIERS = {
+    "national",
+    "province-territory",
+    "single-tier",
+    "lower-tier",
+    "upper-tier",
+    "overlapping",
+    "indigenous",
+    "special-purpose",
+}
+ALLOWED_GOVERNMENT_TIERS_BY_BODY_TYPE = {
+    "federal-government": frozenset({"national"}),
+    "province-territory-government": frozenset({"province-territory"}),
+    "municipal-government": frozenset({"single-tier", "lower-tier"}),
+    "regional-government": frozenset({"upper-tier", "overlapping"}),
+    "indigenous-government": frozenset({"indigenous"}),
+    "school-authority": frozenset({"special-purpose", "overlapping"}),
+    "special-purpose-authority": frozenset({"special-purpose", "overlapping"}),
+}
 PROVINCE_TERRITORY_ISO_CODES = {
     "AB",
     "BC",
@@ -306,6 +326,11 @@ class GoverningBodyRecord:
     official_url: str
     external_ids: tuple[tuple[str, str], ...]
     geography_ids: tuple[str, ...]
+    official_legal_type: str
+    government_tier: str
+    parent_body_ids: tuple[str, ...]
+    effective_from: str | None
+    effective_to: str | None
     provenance: ProvenanceRef
 
     def __post_init__(self) -> None:
@@ -314,6 +339,23 @@ class GoverningBodyRecord:
             raise ModelValidationError(f"unsupported body_type {self.body_type!r}")
         if self.status not in BODY_STATUSES:
             raise ModelValidationError(f"unsupported body status {self.status!r}")
+        if (
+            not isinstance(self.official_legal_type, str)
+            or not self.official_legal_type.strip()
+        ):
+            raise ModelValidationError("official_legal_type is required")
+        if self.government_tier not in GOVERNMENT_TIERS:
+            raise ModelValidationError(
+                f"unsupported government_tier {self.government_tier!r}"
+            )
+        if (
+            self.government_tier
+            not in ALLOWED_GOVERNMENT_TIERS_BY_BODY_TYPE[self.body_type]
+        ):
+            raise ModelValidationError(
+                f"government_tier {self.government_tier!r} is incompatible "
+                f"with body_type {self.body_type!r}"
+            )
         if not self.official_names:
             raise ModelValidationError("at least one official name is required")
         language_tags: set[str] = set()
@@ -331,6 +373,16 @@ class GoverningBodyRecord:
             and self.province_territory_iso not in PROVINCE_TERRITORY_ISO_CODES
         ):
             raise ModelValidationError("province_territory_iso is not a Canadian code")
+        if self.body_type == "federal-government":
+            if self.province_territory_iso is not None:
+                raise ModelValidationError(
+                    "federal-government must be Canada-scoped with no "
+                    "province_territory_iso"
+                )
+        elif self.province_territory_iso is None:
+            raise ModelValidationError(
+                "a non-federal governing body must declare province_territory_iso"
+            )
         if not self.official_url.startswith("https://"):
             raise ModelValidationError("official_url must use HTTPS")
         if not self.external_ids:
@@ -347,6 +399,50 @@ class GoverningBodyRecord:
             require_canonical_id(geography_id, label="geography_id")
         if len(self.geography_ids) != len(set(self.geography_ids)):
             raise ModelValidationError("governing body geography_ids must not contain duplicates")
+        if self.body_type != "federal-government" and not self.geography_ids:
+            raise ModelValidationError(
+                "a non-federal governing body requires at least one exact "
+                "geography crosswalk"
+            )
+        if len(self.parent_body_ids) != len(set(self.parent_body_ids)):
+            raise ModelValidationError(
+                "governing body parent_body_ids must not contain duplicates"
+            )
+        for parent_body_id in self.parent_body_ids:
+            require_canonical_id(parent_body_id, label="parent_body_id")
+            if parent_body_id == self.body_id:
+                raise ModelValidationError("governing body cannot be its own parent")
+        if self.government_tier == "lower-tier" and not self.parent_body_ids:
+            raise ModelValidationError(
+                "lower-tier governing body requires at least one exact parent body"
+            )
+        if self.government_tier != "lower-tier" and self.parent_body_ids:
+            raise ModelValidationError(
+                "parent_body_ids are reserved for lower-tier municipal bodies"
+            )
+        parsed_dates: dict[str, date] = {}
+        for label, value in (
+            ("effective_from", self.effective_from),
+            ("effective_to", self.effective_to),
+        ):
+            if value is None:
+                continue
+            if not isinstance(value, str):
+                raise ModelValidationError(f"{label} must be an ISO date or null")
+            try:
+                parsed_dates[label] = date.fromisoformat(value)
+            except ValueError as exc:
+                raise ModelValidationError(
+                    f"{label} must be an ISO date in YYYY-MM-DD form"
+                ) from exc
+        if (
+            "effective_from" in parsed_dates
+            and "effective_to" in parsed_dates
+            and parsed_dates["effective_to"] < parsed_dates["effective_from"]
+        ):
+            raise ModelValidationError(
+                "effective_to cannot be earlier than effective_from"
+            )
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -362,5 +458,10 @@ class GoverningBodyRecord:
                 for namespace, value in sorted(self.external_ids)
             ],
             "governsGeographyIds": sorted(self.geography_ids),
+            "officialLegalType": self.official_legal_type,
+            "governmentTier": self.government_tier,
+            "parentBodyIds": sorted(self.parent_body_ids),
+            "effectiveFrom": self.effective_from,
+            "effectiveTo": self.effective_to,
             "provenance": self.provenance.to_dict(),
         }

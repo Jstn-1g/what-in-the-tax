@@ -1,0 +1,120 @@
+name: Province/territory rollout
+description: Start or advance one official governing-body coverage layer.
+title: "[Rollout]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use one issue for one province or territory's municipal/regional layer.
+        Do not include personal information, credentials, private correspondence, or unpublished material.
+
+  - type: dropdown
+    id: jurisdiction
+    attributes:
+      label: Province or territory
+      description: Select the jurisdiction whose official coverage is changing.
+      options:
+        - AB — Alberta
+        - BC — British Columbia
+        - MB — Manitoba
+        - NB — New Brunswick
+        - NL — Newfoundland and Labrador
+        - NS — Nova Scotia
+        - NT — Northwest Territories
+        - NU — Nunavut
+        - ON — Ontario
+        - PE — Prince Edward Island
+        - QC — Quebec
+        - SK — Saskatchewan
+        - YT — Yukon
+    validations:
+      required: true
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Coverage layer
+      options:
+        - municipal-regional-governments
+    validations:
+      required: true
+
+  - type: textarea
+    id: official-sources
+    attributes:
+      label: Official sources
+      description: List official publisher, dataset title, HTTPS landing page/request URL, format, release or effective date, and update cadence.
+      placeholder: |
+        Publisher:
+        Dataset:
+        Landing page:
+        Request URL:
+        Format:
+        Release/effective date:
+        Update cadence:
+    validations:
+      required: true
+
+  - type: textarea
+    id: body-types
+    attributes:
+      label: Legal body types and relationships
+      description: List cities, towns, villages, counties, regions, districts, hamlets, designated authorities, or other official forms and their parent/overlap relationships.
+    validations:
+      required: true
+
+  - type: textarea
+    id: identifiers
+    attributes:
+      label: Official identifiers and exact crosswalk
+      description: Identify the catalogued record key/collection/legal-type fields, four-field identity map and external-ID namespace, published SGC join fields, pinned-index membership, geographyEvidence source/snapshot/record key, and any rows that cannot be crosswalked exactly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reuse
+    attributes:
+      label: Licence and reuse review
+      description: Provide the licence URL, intended redistributed fields, reviewer/status, attribution requirements, and any unresolved terms.
+    validations:
+      required: true
+
+  - type: textarea
+    id: control-totals
+    attributes:
+      label: Counts and exceptions
+      description: Provide a dated positive control total by body type and exact emitted/routed/excluded accounting for every locked roster row, including inactive, dissolved, transitional, overlapping, unincorporated, or otherwise exceptional records. Status must match disposition and every non-emitted row needs a reason.
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Deterministic implementation plan
+      description: Describe locked payload-object paths, actual unittest execution, two fresh provider builds and exact artifact equality, fixtures, verified-directory hashes, reconciliation, and the rollout stages this issue can advance.
+    validations:
+      required: true
+
+  - type: textarea
+    id: gaps
+    attributes:
+      label: Known gaps and blockers
+      description: Record missing evidence, permission questions, ambiguous relationships, schema risks, and work deliberately left out.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: safeguards
+    attributes:
+      label: Submission safeguards
+      options:
+        - label: I used official public sources and did not rely on name similarity as an identity join.
+          required: true
+        - label: I did not include personal information, credentials, private correspondence, or unpublished material.
+          required: true
+        - label: I am not claiming this jurisdiction or layer is complete merely because rows or boundaries exist.
+          required: true
+        - label: Any partial claim will be backed by positive verified-directory output whose classifications and exact crosswalks match locked source bytes.
+          required: true
+        - label: The proposed ordinary path is deterministic and does not require AI or runtime government-site requests.
+          required: true

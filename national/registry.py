@@ -6,6 +6,7 @@ from collections import Counter
 from typing import Any, Iterable
 
 from .models import (
+    ALLOWED_GOVERNMENT_TIERS_BY_BODY_TYPE,
     GoverningBodyRecord,
     GeographyRecord,
     PROVINCE_TERRITORY_ISO_BY_SGC,
@@ -59,7 +60,7 @@ APPROVED_LICENCE_STATUSES = {
 class NationalRegistryBuilder:
     """Combine official layers by exact identifiers, never names."""
 
-    schema_version = "auditback-national-registry-1.0.0"
+    schema_version = "auditback-national-registry-2.0.0"
 
     def __init__(
         self,
@@ -114,6 +115,7 @@ class NationalRegistryBuilder:
         self._validate_geography_identities(geography_rows)
         self._validate_hierarchy(geography_rows, geography_by_id)
         self._validate_body_crosswalks(body_rows, geography_by_id)
+        self._validate_body_relationships(body_rows, body_by_id)
         self._validate_external_ids(body_rows)
         self._validate_provenance(
             [*geography_rows, *body_rows],
@@ -423,6 +425,20 @@ class NationalRegistryBuilder:
         geography_by_id: dict[str, GeographyRecord],
     ) -> None:
         for body in rows:
+            allowed_tiers = (
+                ALLOWED_GOVERNMENT_TIERS_BY_BODY_TYPE.get(body.body_type)
+                if isinstance(body.body_type, str)
+                else None
+            )
+            if (
+                allowed_tiers is None
+                or not isinstance(body.government_tier, str)
+                or body.government_tier not in allowed_tiers
+            ):
+                raise RegistryError(
+                    f"{body.body_id}: government tier {body.government_tier!r} "
+                    f"is incompatible with body type {body.body_type!r}"
+                )
             if (
                 body.body_type == "federal-government"
                 and body.province_territory_iso is not None
@@ -472,6 +488,65 @@ class NationalRegistryBuilder:
                         f"{other!r} and {body.body_id!r}"
                     )
                 seen[identifier] = body.body_id
+
+    @staticmethod
+    def _validate_body_relationships(
+        rows: list[GoverningBodyRecord],
+        body_by_id: dict[str, GoverningBodyRecord],
+    ) -> None:
+        for body in rows:
+            if body.government_tier == "lower-tier" and not body.parent_body_ids:
+                raise RegistryError(
+                    f"{body.body_id}: lower-tier municipal body requires an "
+                    "exact upper-tier regional parent"
+                )
+            if body.government_tier != "lower-tier" and body.parent_body_ids:
+                raise RegistryError(
+                    f"{body.body_id}: parent governing bodies are reserved for "
+                    "lower-tier municipal bodies"
+                )
+            for parent_id in body.parent_body_ids:
+                parent = body_by_id.get(parent_id)
+                if parent is None:
+                    raise RegistryError(
+                        f"{body.body_id}: unknown parent governing body {parent_id!r}"
+                    )
+                if (
+                    body.province_territory_iso is not None
+                    and parent.province_territory_iso
+                    != body.province_territory_iso
+                ):
+                    raise RegistryError(
+                        f"{body.body_id}: parent {parent_id!r} belongs to another "
+                        "province or territory"
+                    )
+                if (
+                    parent.body_type != "regional-government"
+                    or parent.government_tier != "upper-tier"
+                ):
+                    raise RegistryError(
+                        f"{body.body_id}: lower-tier parent {parent_id!r} must be "
+                        "an upper-tier regional government"
+                    )
+
+        visiting: set[str] = set()
+        visited: set[str] = set()
+
+        def visit(body_id: str) -> None:
+            if body_id in visited:
+                return
+            if body_id in visiting:
+                raise RegistryError(
+                    f"governing-body parent relationship cycle includes {body_id!r}"
+                )
+            visiting.add(body_id)
+            for parent_id in body_by_id[body_id].parent_body_ids:
+                visit(parent_id)
+            visiting.remove(body_id)
+            visited.add(body_id)
+
+        for body_id in sorted(body_by_id):
+            visit(body_id)
 
     def _validate_provenance(
         self,
@@ -665,15 +740,16 @@ class NationalRegistryBuilder:
                     raise RegistryError(
                         f"{code}/{layer_id}: sourceIds must not contain duplicates"
                     )
+                evidence_claimed = status in {"partial", "complete"}
                 missing_sources = sorted(set(layer_source_ids) - source_ids)
-                if status == "complete" and missing_sources:
+                if evidence_claimed and missing_sources:
                     raise RegistryError(
-                        f"{code}/{layer_id}: complete coverage references unlocked sources "
+                        f"{code}/{layer_id}: {status} coverage references unlocked sources "
                         f"{', '.join(missing_sources)}"
                     )
-                if status == "complete" and not layer_source_ids:
+                if evidence_claimed and not layer_source_ids:
                     raise RegistryError(
-                        f"{code}/{layer_id}: complete coverage requires a locked source"
+                        f"{code}/{layer_id}: {status} coverage requires a locked source"
                     )
                 for source_id in layer_source_ids:
                     catalog_row = catalog_by_source.get(source_id)
@@ -692,7 +768,7 @@ class NationalRegistryBuilder:
                             f"{code}/{layer_id}: source {source_id!r} belongs to "
                             f"jurisdiction {catalog_row['jurisdiction']!r}"
                         )
-                    if status == "complete":
+                    if evidence_claimed:
                         self._validate_source_reuse_approval(source_id, catalog_row)
                 if (
                     status == "complete"
@@ -704,6 +780,19 @@ class NationalRegistryBuilder:
                         f"subdivisions, observed {csd_counts[code]}"
                     )
                 body_types = BODY_TYPES_BY_COVERAGE_LAYER.get(layer_id)
+                if body_types is not None:
+                    observed_bodies = sum(
+                        1
+                        for body in bodies
+                        if body.body_type in body_types
+                        and body.province_territory_iso == code
+                        and body.provenance.source_id in layer_source_ids
+                    )
+                    if status == "partial" and observed_bodies < 1:
+                        raise RegistryError(
+                            f"{code}/{layer_id}: partial administrative coverage "
+                            "requires at least one verified governing body"
+                        )
                 if status == "complete" and body_types is not None:
                     expected_bodies = value.get("expectedVerifiedBodyCount")
                     if (
@@ -715,13 +804,6 @@ class NationalRegistryBuilder:
                             f"{code}/{layer_id}: complete administrative coverage "
                             "requires a positive expectedVerifiedBodyCount"
                         )
-                    observed_bodies = sum(
-                        1
-                        for body in bodies
-                        if body.body_type in body_types
-                        and body.province_territory_iso == code
-                        and body.provenance.source_id in layer_source_ids
-                    )
                     if observed_bodies != expected_bodies:
                         raise RegistryError(
                             f"{code}/{layer_id}: expected {expected_bodies} verified "
@@ -734,6 +816,11 @@ class NationalRegistryBuilder:
                         "sourceIds": sorted(layer_source_ids),
                     }
                 )
+            administrative_layers = [
+                item
+                for item in layers
+                if item["layer"] in BODY_TYPES_BY_COVERAGE_LAYER
+            ]
             coverage_status = (
                 "complete"
                 if layers
@@ -741,7 +828,10 @@ class NationalRegistryBuilder:
                     item["status"] in {"complete", "not-applicable"} for item in layers
                 )
                 else "partial"
-                if any(item["status"] in {"partial", "complete"} for item in layers)
+                if any(
+                    item["status"] in {"partial", "complete"}
+                    for item in administrative_layers
+                )
                 else "planned"
             )
             results.append(
@@ -772,7 +862,8 @@ class NationalRegistryBuilder:
         return {
             "claim": (
                 "Coverage is complete only when every required administrative layer "
-                "is backed by a locked official source. Census geography alone is a baseline."
+                "is backed by a locked official source. Partial means at least one "
+                "verified governing body; census geography alone is only a baseline."
             ),
             "requiredLayers": required_layers,
             "jurisdictions": sorted(

@@ -18,6 +18,9 @@ from national.registry import NationalRegistryBuilder
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "national" / "schemas" / "registry.schema.json"
+DIRECTORY_SCHEMA_PATH = (
+    ROOT / "national" / "schemas" / "canonical-government-directory.schema.json"
+)
 SGC_SAMPLE = b"""Level,Hierarchical structure,Code,Class title
 1,Geographical region of Canada,3,Ontario
 2,Province and territory,35,Ontario
@@ -25,6 +28,7 @@ SGC_SAMPLE = b"""Level,Hierarchical structure,Code,Class title
 4,Census subdivision,3518013,Oshawa
 """
 DIRECTORY_DOCUMENT = {
+    "schemaVersion": "auditback-canonical-government-directory-3.0.0",
     "records": [
         {
             "id": "ca:gov:on:municipal:3518013",
@@ -37,6 +41,11 @@ DIRECTORY_DOCUMENT = {
             "governsGeographyIds": [
                 "ca:sgc:2021:census-subdivision:3518013"
             ],
+            "officialLegalType": "City",
+            "governmentTier": "single-tier",
+            "parentBodyIds": [],
+            "effectiveFrom": None,
+            "effectiveTo": None,
         }
     ]
 }
@@ -59,6 +68,11 @@ class NationalRegistrySchemaTests(unittest.TestCase):
         cls.schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
         Draft202012Validator.check_schema(cls.schema)
         cls.validator = Draft202012Validator(cls.schema)
+        cls.directory_schema = json.loads(
+            DIRECTORY_SCHEMA_PATH.read_text(encoding="utf-8")
+        )
+        Draft202012Validator.check_schema(cls.directory_schema)
+        cls.directory_validator = Draft202012Validator(cls.directory_schema)
 
         sgc_snapshot = snapshot(
             SGC_SAMPLE,
@@ -104,7 +118,7 @@ class NationalRegistrySchemaTests(unittest.TestCase):
                     "requestUrl": directory_snapshot.request_url,
                     "mediaType": directory_snapshot.media_type,
                     "adapterId": "canonical-government-directory-json",
-                    "adapterVersion": "2.0.0",
+                    "adapterVersion": "3.0.0",
                     "runtimeNetworkRequired": False,
                     "approvedSha256": directory_snapshot.sha256,
                     "licenseStatus": "open-government-licence-confirmed",
@@ -163,9 +177,54 @@ class NationalRegistrySchemaTests(unittest.TestCase):
     def test_builder_output_matches_hardened_schema(self) -> None:
         self.validator.validate(self.registry)
 
+    def test_canonical_directory_matches_its_published_schema(self) -> None:
+        self.directory_validator.validate(DIRECTORY_DOCUMENT)
+
+    def test_canonical_directory_schema_rejects_false_identity_claims(self) -> None:
+        empty_crosswalk = copy.deepcopy(DIRECTORY_DOCUMENT)
+        empty_crosswalk["records"][0]["governsGeographyIds"] = []
+
+        federal_province_scope = copy.deepcopy(DIRECTORY_DOCUMENT)
+        federal_province_scope["records"][0]["bodyType"] = "federal-government"
+        federal_province_scope["records"][0]["governmentTier"] = "national"
+
+        lower_without_parent = copy.deepcopy(DIRECTORY_DOCUMENT)
+        lower_without_parent["records"][0]["governmentTier"] = "lower-tier"
+
+        single_tier_with_parent = copy.deepcopy(DIRECTORY_DOCUMENT)
+        single_tier_with_parent["records"][0]["parentBodyIds"] = [
+            "ca:gov:on:regional:parent"
+        ]
+
+        mutations = [
+            ("empty-crosswalk", empty_crosswalk),
+            ("federal-province-scope", federal_province_scope),
+            ("lower-without-parent", lower_without_parent),
+            ("single-tier-with-parent", single_tier_with_parent),
+        ]
+        for body_type, invalid_tier in (
+            ("province-territory-government", "national"),
+            ("municipal-government", "upper-tier"),
+            ("regional-government", "single-tier"),
+            ("indigenous-government", "special-purpose"),
+            ("school-authority", "indigenous"),
+            ("special-purpose-authority", "province-territory"),
+        ):
+            incompatible_tier = copy.deepcopy(DIRECTORY_DOCUMENT)
+            incompatible_tier["records"][0]["bodyType"] = body_type
+            incompatible_tier["records"][0]["governmentTier"] = invalid_tier
+            mutations.append((f"{body_type}/{invalid_tier}", incompatible_tier))
+
+        for label, mutation in mutations:
+            with self.subTest(mutation=label):
+                self.assertTrue(
+                    list(self.directory_validator.iter_errors(mutation)),
+                    "expected canonical directory schema validation to fail",
+                )
+
     def test_zero_row_empty_coverage_and_counts_document_is_rejected(self) -> None:
         empty = {
-            "schemaVersion": "auditback-national-registry-1.0.0",
+            "schemaVersion": "auditback-national-registry-2.0.0",
             "country": "CA",
             "buildScope": "test",
             "classification": {
@@ -209,6 +268,65 @@ class NationalRegistrySchemaTests(unittest.TestCase):
         no_external_ids = copy.deepcopy(self.registry)
         no_external_ids["governingBodies"][0]["externalIds"] = []
         mutations.append(no_external_ids)
+        no_legal_type = copy.deepcopy(self.registry)
+        del no_legal_type["governingBodies"][0]["officialLegalType"]
+        mutations.append(no_legal_type)
+        empty_non_federal_crosswalk = copy.deepcopy(self.registry)
+        empty_non_federal_crosswalk["governingBodies"][0][
+            "governsGeographyIds"
+        ] = []
+        mutations.append(empty_non_federal_crosswalk)
+        province_scoped_federal = copy.deepcopy(self.registry)
+        province_scoped_federal["governingBodies"][0][
+            "bodyType"
+        ] = "federal-government"
+        province_scoped_federal["governingBodies"][0][
+            "governmentTier"
+        ] = "national"
+        mutations.append(province_scoped_federal)
+        incompatible_government_tier = copy.deepcopy(self.registry)
+        incompatible_government_tier["governingBodies"][0][
+            "governmentTier"
+        ] = "upper-tier"
+        mutations.append(incompatible_government_tier)
+        federal_wrong_tier = copy.deepcopy(self.registry)
+        federal_wrong_tier["governingBodies"][0]["bodyType"] = "federal-government"
+        federal_wrong_tier["governingBodies"][0]["provinceTerritory"] = None
+        federal_wrong_tier["governingBodies"][0]["governmentTier"] = "single-tier"
+        mutations.append(federal_wrong_tier)
+        for body_type, invalid_tier in (
+            ("province-territory-government", "national"),
+            ("regional-government", "single-tier"),
+            ("indigenous-government", "special-purpose"),
+            ("school-authority", "indigenous"),
+            ("special-purpose-authority", "province-territory"),
+        ):
+            incompatible_pair = copy.deepcopy(self.registry)
+            incompatible_pair["governingBodies"][0]["bodyType"] = body_type
+            incompatible_pair["governingBodies"][0][
+                "governmentTier"
+            ] = invalid_tier
+            mutations.append(incompatible_pair)
+        lower_tier_without_parent = copy.deepcopy(self.registry)
+        lower_tier_without_parent["governingBodies"][0][
+            "governmentTier"
+        ] = "lower-tier"
+        mutations.append(lower_tier_without_parent)
+        non_lower_tier_with_parent = copy.deepcopy(self.registry)
+        non_lower_tier_with_parent["governingBodies"][0]["parentBodyIds"] = [
+            "ca:gov:on:regional:parent"
+        ]
+        mutations.append(non_lower_tier_with_parent)
+        empty_partial_sources = copy.deepcopy(self.registry)
+        empty_partial_sources["coverage"]["jurisdictions"][0]["layers"][1][
+            "sourceIds"
+        ] = []
+        mutations.append(empty_partial_sources)
+        zero_body_partial = copy.deepcopy(self.registry)
+        zero_body_partial["coverage"]["jurisdictions"][0][
+            "verifiedGoverningBodyCount"
+        ] = 0
+        mutations.append(zero_body_partial)
 
         for index, mutation in enumerate(mutations):
             with self.subTest(mutation=index):

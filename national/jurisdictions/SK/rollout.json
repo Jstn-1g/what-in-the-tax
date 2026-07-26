@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "auditback-jurisdiction-rollout-1.0.0",
+  "jurisdiction": {
+    "code": "SK",
+    "name": "Saskatchewan",
+    "sgcCode": "47",
+    "isoSubdivision": "CA-SK"
+  },
+  "coverageLayer": "municipal-regional-governments",
+  "status": "adapter-needed",
+  "primarySourceIds": [
+    "sk-municipal-directory",
+    "sk-municipal-boundaries-restricted"
+  ],
+  "sourceRoles": {
+    "sk-municipal-directory": ["governing-body-roster"],
+    "sk-municipal-boundaries-restricted": ["boundary-crosswalk"]
+  },
+  "canonicalBodyTypes": ["municipal-government"],
+  "stages": [
+    {"id": "official-source-identified", "status": "complete"},
+    {
+      "id": "reuse-approved",
+      "status": "blocked",
+      "notes": "Bulk directory reuse requires permission review before redistribution."
+    },
+    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "adapter-tested", "status": "not-started"},
+    {"id": "exact-crosswalk-reviewed", "status": "not-started"},
+    {"id": "exceptions-reviewed", "status": "not-started"},
+    {"id": "count-reconciled", "status": "not-started"},
+    {"id": "publication-approved", "status": "not-started"}
+  ],
+  "transport": {"sourceLockPath": null},
+  "adapter": {
+    "adapterId": null,
+    "adapterVersion": null,
+    "modulePath": null,
+    "testPath": null,
+    "fixturePaths": []
+  },
+  "output": {
+    "directoryPath": null,
+    "directorySha256": null,
+    "directoryCanonicalSha256": null
+  },
+  "reconciliation": {
+    "expectedVerifiedBodyCount": null,
+    "classificationDecisionPath": null,
+    "crosswalkReviewPath": null,
+    "exceptionsPath": null,
+    "reconciliationPath": null
+  },
+  "publicationApproval": {
+    "reviewer": null,
+    "approvedAt": null,
+    "releaseReference": null,
+    "artifactPath": null,
+    "artifactSha256": null
+  },
+  "scopeNotes": [
+    "Preserve cities, towns, villages, resort villages, rural municipalities, and northern municipality designations.",
+    "Use redistributable Statistics Canada geography only as a baseline until provincial bulk-directory permission is confirmed."
+  ]
+}

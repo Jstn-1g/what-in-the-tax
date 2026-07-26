@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/publication-approval.schema.json",
+  "title": "AuditBack jurisdiction publication approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "jurisdiction",
+    "candidateOnly",
+    "decision",
+    "reviewer",
+    "approvedAt",
+    "releaseReference",
+    "sourceLockCanonicalSha256",
+    "directorySha256",
+    "directoryCanonicalSha256",
+    "expectedVerifiedBodyCount"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "auditback-jurisdiction-publication-approval-1.0.0"
+    },
+    "jurisdiction": {
+      "enum": ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"]
+    },
+    "candidateOnly": {"type": "boolean"},
+    "decision": {"type": ["string", "null"], "enum": ["approved", null]},
+    "reviewer": {"type": ["string", "null"], "minLength": 1},
+    "approvedAt": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "releaseReference": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "pattern": "^https://github\\.com/Jstn-1g/tax-receipt-prototype/(?:commit/[0-9a-f]{40}|releases/tag/[^\\s]+|pull/[1-9][0-9]*)$"
+    },
+    "sourceLockCanonicalSha256": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "directorySha256": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "directoryCanonicalSha256": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "expectedVerifiedBodyCount": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"candidateOnly": {"const": false}},
+        "required": ["candidateOnly"]
+      },
+      "then": {
+        "properties": {
+          "decision": {"const": "approved"},
+          "reviewer": {"type": "string"},
+          "approvedAt": {"type": "string"},
+          "releaseReference": {"type": "string"},
+          "sourceLockCanonicalSha256": {"type": "string"},
+          "directorySha256": {"type": "string"},
+          "directoryCanonicalSha256": {"type": "string"},
+          "expectedVerifiedBodyCount": {"type": "integer"}
+        }
+      }
+    }
+  ]
+}
