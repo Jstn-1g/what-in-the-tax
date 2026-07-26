@@ -58,6 +58,7 @@ DRY_RUN_SCHEMA_VERSION = "auditback-subscription-gap-dry-run-1.0.0"
 MAX_PROMPT_UTF8_BYTES = 12_000
 MAX_MODEL_OUTPUT_UTF8_BYTES = 24_000
 MAX_EVENT_LOG_UTF8_BYTES = 1_000_000
+MAX_STRICT_JSON_DEPTH = 100
 DEFAULT_TIMEOUT_SECONDS = 180
 SHA256_PATTERN = r"^[0-9a-f]{64}$"
 FIELD_PATTERN = r"^[A-Za-z][A-Za-z0-9_.-]*$"
@@ -211,15 +212,32 @@ def _strict_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     return result
 
 
+def _reject_excessive_json_depth(value: Any) -> None:
+    """Apply a deterministic nesting limit independent of Python's JSON parser."""
+
+    pending: list[tuple[Any, int]] = [(value, 0)]
+    while pending:
+        current, depth = pending.pop()
+        if not isinstance(current, (dict, list)):
+            continue
+        next_depth = depth + 1
+        if next_depth > MAX_STRICT_JSON_DEPTH:
+            raise SubscriptionWorkerError("strict JSON nesting limit exceeded")
+        children = current.values() if isinstance(current, dict) else current
+        pending.extend((child, next_depth) for child in children)
+
+
 def parse_strict_json(value: str | bytes) -> Any:
-    """Parse JSON while rejecting duplicate keys and non-finite numbers."""
+    """Parse JSON with deterministic duplicate, number, and nesting checks."""
 
     try:
-        return json.loads(
+        parsed = json.loads(
             value,
             object_pairs_hook=_strict_object,
             parse_constant=_reject_json_constant,
         )
+        _reject_excessive_json_depth(parsed)
+        return parsed
     except SubscriptionWorkerError:
         raise
     except (

@@ -22,6 +22,7 @@ from national.ai_gaps import (
 from national.cache import ContentAddressedSourceCache
 from national.models import canonical_sha256
 from national.subscription_worker import (
+    MAX_STRICT_JSON_DEPTH,
     SubscriptionRunFailure,
     SubscriptionWorkerError,
     assert_local_operator_environment,
@@ -394,6 +395,22 @@ class SubscriptionCodexWorkerTests(unittest.TestCase):
             with self.subTest(payload=payload):
                 with self.assertRaises(SubscriptionWorkerError):
                     parse_strict_json(payload)
+
+    def test_strict_json_enforces_a_runtime_independent_nesting_limit(self) -> None:
+        within_limit = (
+            ("[" * MAX_STRICT_JSON_DEPTH)
+            + "0"
+            + ("]" * MAX_STRICT_JSON_DEPTH)
+        )
+        beyond_limit = (
+            ("[" * (MAX_STRICT_JSON_DEPTH + 1))
+            + "0"
+            + ("]" * (MAX_STRICT_JSON_DEPTH + 1))
+        )
+
+        self.assertIsInstance(parse_strict_json(within_limit), list)
+        with self.assertRaises(SubscriptionWorkerError):
+            parse_strict_json(beyond_limit)
 
     def test_codex_command_is_locked_to_safe_subscription_execution(self) -> None:
         job_directory = self.root / "empty-job"
