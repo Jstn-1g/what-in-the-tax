@@ -19,6 +19,8 @@ export type Destination = {
   shareOfMunicipal: number
 }
 
+export type DestinationsStatus = 'allocated' | 'gap'
+
 export type AttentionChip = {
   id: string
   label: string
@@ -33,7 +35,11 @@ export type HeroBriefingModel = {
   assessmentCad: number
   shares: BillShare[]
   destinations: Destination[]
+  /** Real department split vs open evidence hole — never silently omit. */
+  destinationsStatus: DestinationsStatus
   destinationsBasis: string
+  destinationsGapId?: string
+  destinationsGapTitle?: string
   attention: AttentionChip[]
   footnote: string
 }
@@ -68,6 +74,27 @@ function isDestinationLine(line: ReceiptLineItem): boolean {
   return true
 }
 
+/** Single combined rate×assessment blob — not a real department split. */
+export function isUnallocatedCombinedLine(line: ReceiptLineItem): boolean {
+  if (/unallocated/i.test(line.classification)) return true
+  if (line.gapId && /DEPT-SCHEDULE/i.test(line.gapId)) return true
+  const lower = line.label.toLowerCase()
+  if (lower.includes('combined') && (lower.includes('rate') || lower.includes('assessment'))) {
+    return true
+  }
+  return false
+}
+
+export function findDeptScheduleGap(gaps: Gap[]): Gap | undefined {
+  return gaps.find(
+    (g) =>
+      /DEPT-SCHEDULE/i.test(g.id) ||
+      /department.*(allocat|schedule|split)/i.test(g.title) ||
+      /service.*(allocat|split)/i.test(g.title) ||
+      /household allocation/i.test(g.title),
+  )
+}
+
 export function buildHeroBriefing(
   data: TaxpayerReceipt,
   gaps: Gap[],
@@ -95,31 +122,62 @@ export function buildHeroBriefing(
     'Municipal portion'
   const municipalTotal = profile.township.amountCad
   const lines = (profile.township.lineItems ?? []).filter(isDestinationLine)
-  const ranked = [...lines].sort((a, b) => b.amountCad - a.amountCad)
-  const topDestinations = ranked.slice(0, 5)
-  const destinations: Destination[] = topDestinations.map((line) => ({
-    id: line.id,
-    label: line.label,
-    amountCad: line.amountCad,
-    shareOfMunicipal:
-      municipalTotal && municipalTotal > 0 ? line.amountCad / municipalTotal : 0,
-  }))
-  const shownSum = topDestinations.reduce((sum, line) => sum + line.amountCad, 0)
-  const remainderCad =
-    municipalTotal && municipalTotal > 0 ? municipalTotal - shownSum : 0
-  // Surface the rest as one bar when leftover is material (>2% of municipal).
-  if (
-    remainderCad > 0 &&
-    municipalTotal &&
-    remainderCad / municipalTotal > 0.02 &&
-    ranked.length > topDestinations.length
-  ) {
-    destinations.push({
-      id: 'dest-remainder',
-      label: 'Everything else',
-      amountCad: remainderCad,
-      shareOfMunicipal: remainderCad / municipalTotal,
-    })
+  const onlyCombinedBlob =
+    lines.length === 1 && lines[0] != null && isUnallocatedCombinedLine(lines[0])
+  const townshipDeptGap =
+    profile.township.gapId && /DEPT-SCHEDULE/i.test(profile.township.gapId)
+      ? profile.township.gapId
+      : lines.find((l) => l.gapId && /DEPT-SCHEDULE/i.test(l.gapId))?.gapId
+  const deptGapFromLedger = findDeptScheduleGap(gaps)
+  const hasNoRealSplit = lines.length === 0 || onlyCombinedBlob || Boolean(townshipDeptGap)
+
+  let destinations: Destination[] = []
+  let destinationsStatus: DestinationsStatus = 'allocated'
+  let destinationsGapId: string | undefined
+  let destinationsGapTitle: string | undefined
+  let destinationsBasis = `Largest lines inside the ${municipalLabel.toLowerCase()} (pro-rata of published levy)`
+
+  if (hasNoRealSplit) {
+    destinationsStatus = 'gap'
+    destinations = []
+    destinationsGapId =
+      deptGapFromLedger?.id ??
+      townshipDeptGap ??
+      (onlyCombinedBlob ? lines[0]?.gapId : undefined)
+    destinationsGapTitle =
+      deptGapFromLedger?.title ??
+      (destinationsGapId
+        ? 'Local department / service allocation not yet bound'
+        : 'Published department allocation not yet bound for this pack')
+    destinationsBasis =
+      'No published department / service allocation is bound yet — listed as a gap, not invented'
+  } else {
+    const ranked = [...lines].sort((a, b) => b.amountCad - a.amountCad)
+    const topDestinations = ranked.slice(0, 5)
+    destinations = topDestinations.map((line) => ({
+      id: line.id,
+      label: line.label,
+      amountCad: line.amountCad,
+      shareOfMunicipal:
+        municipalTotal && municipalTotal > 0 ? line.amountCad / municipalTotal : 0,
+    }))
+    const shownSum = topDestinations.reduce((sum, line) => sum + line.amountCad, 0)
+    const remainderCad =
+      municipalTotal && municipalTotal > 0 ? municipalTotal - shownSum : 0
+    // Surface the rest as one bar when leftover is material (>2% of municipal).
+    if (
+      remainderCad > 0 &&
+      municipalTotal &&
+      remainderCad / municipalTotal > 0.02 &&
+      ranked.length > topDestinations.length
+    ) {
+      destinations.push({
+        id: 'dest-remainder',
+        label: 'Everything else',
+        amountCad: remainderCad,
+        shareOfMunicipal: remainderCad / municipalTotal,
+      })
+    }
   }
 
   const publishedIds = new Set(data.uiModelHints.publishedFindingIds ?? [])
@@ -137,6 +195,13 @@ export function buildHeroBriefing(
   const hardFails =
     (counts['not-found'] ?? 0) + (counts['wrong-page'] ?? 0) + (counts['bad-page-number'] ?? 0)
 
+  const gapsDetail =
+    destinationsStatus === 'gap' && destinationsGapId
+      ? `Department allocation still open (${destinationsGapId}) — listed under Gaps, not invented`
+      : gaps.length === 0
+        ? 'No open evidence gaps listed'
+        : 'Missing proof is listed, not filled with invented dollars'
+
   const attention: AttentionChip[] = [
     {
       id: 'watch',
@@ -151,10 +216,7 @@ export function buildHeroBriefing(
     {
       id: 'gaps',
       label: gaps.length === 0 ? '0 Gaps' : `${gaps.length} Gaps`,
-      detail:
-        gaps.length === 0
-          ? 'No open evidence gaps listed'
-          : 'Missing proof is listed, not filled with invented dollars',
+      detail: gapsDetail,
       href: '#gaps',
       tone: gaps.length > 0 ? 'gap' : 'clear',
     },
@@ -172,7 +234,9 @@ export function buildHeroBriefing(
 
   const ayr = combined.ayrUrbanVariant
   const footnoteParts = [
-    'Shares follow published rates. Destinations are a model over the levy — not a per-household schedule the municipality prints.',
+    destinationsStatus === 'gap'
+      ? 'Shares follow published rates. Local department destinations stay blank until a published schedule is bound.'
+      : 'Shares follow published rates. Destinations are a model over the levy — not a per-household schedule the municipality prints.',
   ]
   if (ayr) {
     const sar =
@@ -187,7 +251,10 @@ export function buildHeroBriefing(
     assessmentCad,
     shares,
     destinations,
-    destinationsBasis: `Largest lines inside the ${municipalLabel.toLowerCase()} (pro-rata of published levy)`,
+    destinationsStatus,
+    destinationsBasis,
+    ...(destinationsGapId ? { destinationsGapId } : {}),
+    ...(destinationsGapTitle ? { destinationsGapTitle } : {}),
     attention,
     footnote: footnoteParts.join(' '),
   }

@@ -6,7 +6,11 @@ import brantReceipt from '../data/brant/taxpayer-receipt.json'
 import brantAudit from '../data/brant/citation-audit.json'
 import brantLedger from '../data/brant/evidence-ledger.json'
 import ndLedger from '../data/evidence-ledger.json'
-import type { TaxpayerReceipt } from '../types'
+import kitReceipt from '../data/kitchener/taxpayer-receipt.json'
+import kitLedger from '../data/kitchener/evidence-ledger.json'
+import watReceipt from '../data/waterloo/taxpayer-receipt.json'
+import watLedger from '../data/waterloo/evidence-ledger.json'
+import type { Gap, TaxpayerReceipt } from '../types'
 
 describe('buildHeroBriefing', () => {
   it('builds ND bill shares that sum to ~100% and flag Region as largest', () => {
@@ -22,6 +26,7 @@ describe('buildHeroBriefing', () => {
     expect(model!.shares.map((s) => s.shortLabel)).toEqual(['Township', 'Region', 'Education'])
     const largest = [...model!.shares].sort((a, b) => b.share - a.share)[0]
     expect(largest.shortLabel).toBe('Region')
+    expect(model!.destinationsStatus).toBe('allocated')
     expect(model!.destinations.length).toBeGreaterThanOrEqual(3)
     expect(model!.destinations.length).toBeLessThanOrEqual(6)
     expect(model!.destinations[0].shareOfMunicipal).toBeGreaterThan(0)
@@ -43,6 +48,7 @@ describe('buildHeroBriefing', () => {
     expect(model).not.toBeNull()
     expect(model!.totalCad).toBeCloseTo(4893.56, 2)
     expect(model!.shares.map((s) => s.shortLabel)).toEqual(['County', 'Hospital', 'Education'])
+    expect(model!.destinationsStatus).toBe('allocated')
     expect(model!.destinations[0].label).toBe('Operations')
     expect(model!.destinations[0].shareOfMunicipal).toBeGreaterThan(0.2)
     expect(model!.destinations.length).toBeGreaterThanOrEqual(3)
@@ -51,6 +57,62 @@ describe('buildHeroBriefing', () => {
     expect(model!.attention.find((c) => c.id === 'watch')?.href).toBeUndefined()
     expect(model!.attention.find((c) => c.id === 'gaps')?.label).toBe('4 Gaps')
     expect(model!.attention.find((c) => c.id === 'cite')?.tone).toBe('cite-ok')
+  })
+
+  it('builds Kitchener destinations as allocated department lines', () => {
+    const model = buildHeroBriefing(
+      kitReceipt as unknown as TaxpayerReceipt,
+      kitLedger.gaps,
+      null,
+      { municipalBucketLabel: 'City portion' },
+    )
+    expect(model).not.toBeNull()
+    expect(model!.destinationsStatus).toBe('allocated')
+    expect(model!.destinationsGapId).toBeUndefined()
+    expect(model!.destinations[0].label).toBe('Community Services')
+    expect(model!.destinations.length).toBeGreaterThanOrEqual(3)
+  })
+
+  it('marks Waterloo destinations as gap with DEPT-SCHEDULE id (no invented split)', () => {
+    const model = buildHeroBriefing(
+      watReceipt as unknown as TaxpayerReceipt,
+      watLedger.gaps as Gap[],
+      null,
+      { municipalBucketLabel: 'City portion' },
+    )
+    expect(model).not.toBeNull()
+    expect(model!.shares.length).toBe(3)
+    expect(model!.destinationsStatus).toBe('gap')
+    expect(model!.destinations).toEqual([])
+    expect(model!.destinationsGapId).toBe('GAP-WAT-DEPT-SCHEDULE')
+    expect(model!.destinationsGapTitle).toMatch(/department|allocation/i)
+    expect(model!.destinationsBasis).toMatch(/gap|not invented/i)
+    expect(model!.attention.find((c) => c.id === 'gaps')?.detail).toMatch(/GAP-WAT-DEPT-SCHEDULE/)
+    expect(model!.footnote).toMatch(/department destinations stay blank/i)
+  })
+
+  it('still builds the hero when township destinations are empty', () => {
+    const base = watReceipt as unknown as TaxpayerReceipt
+    const stripped: TaxpayerReceipt = {
+      ...base,
+      profiles: {
+        ...base.profiles,
+        supportedAverageHousehold: {
+          ...base.profiles.supportedAverageHousehold,
+          township: {
+            ...base.profiles.supportedAverageHousehold.township,
+            lineItems: [],
+            gapId: undefined,
+          },
+        },
+      },
+    }
+    const model = buildHeroBriefing(stripped, watLedger.gaps as Gap[], null)
+    expect(model).not.toBeNull()
+    expect(model!.destinationsStatus).toBe('gap')
+    expect(model!.destinations).toEqual([])
+    expect(model!.destinationsGapId).toBe('GAP-WAT-DEPT-SCHEDULE')
+    expect(model!.shares.length).toBeGreaterThan(0)
   })
 
   it('excludes hospital special levy and credits from destination ranking', () => {

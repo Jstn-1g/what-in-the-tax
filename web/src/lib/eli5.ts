@@ -85,6 +85,8 @@ export type UiCopy = {
   ofThisBill: string
   ofThisBillSub: string
   localDollar: string
+  localDollarGapLead: string
+  localDollarGapJump: string
   evidenceState: string
   evidenceStateSub: string
   whatDoTheseMean: string
@@ -125,6 +127,9 @@ const STANDARD: UiCopy = {
   ofThisBill: 'Of this bill',
   ofThisBillSub: 'Who levies what · same assessment',
   localDollar: 'Where the local dollar goes',
+  localDollarGapLead:
+    'No published department / service allocation is bound for this pack yet — we list the gap instead of inventing a split.',
+  localDollarGapJump: 'See open gaps ↓',
   evidenceState: 'Evidence state',
   evidenceStateSub: 'Not a grade of the budget — a grade of our proof',
   whatDoTheseMean: 'What do these mean?',
@@ -165,6 +170,9 @@ const SIMPLE: UiCopy = {
   ofThisBill: 'Who gets your tax money',
   ofThisBillSub: 'Same house value · different pockets',
   localDollar: 'Biggest pieces of your local share',
+  localDollarGapLead:
+    "We don't yet have an official breakdown of your local share by department — that hole is listed under What's missing, not filled with a guess.",
+  localDollarGapJump: "See what's missing ↓",
   evidenceState: 'How sure are we?',
   evidenceStateSub: 'This grades our proof — not the budget itself',
   whatDoTheseMean: 'What do these labels mean?',

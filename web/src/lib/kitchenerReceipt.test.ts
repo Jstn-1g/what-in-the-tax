@@ -41,6 +41,7 @@ describe('kitchener receipt', () => {
     )
     expect(model).not.toBeNull()
     expect(model!.shares.map((s) => s.shortLabel)).toEqual(['City', 'Region', 'Education'])
+    expect(model!.destinationsStatus).toBe('allocated')
     expect(model!.destinations[0].label).toBe('Community Services')
     expect(model!.attention.find((c) => c.id === 'gaps')?.tone).toBe('gap')
   })

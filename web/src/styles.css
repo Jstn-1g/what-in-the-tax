@@ -496,6 +496,58 @@ a {
   color: rgba(244, 248, 250, 0.7);
 }
 
+.hero-dest-gap {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid rgba(185, 202, 214, 0.4);
+  background: rgba(12, 24, 32, 0.32);
+  max-width: 42rem;
+}
+
+.hero-dest-gap-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.85rem;
+}
+
+.hero-dest-gap .badge {
+  max-width: none;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.hero-dest-gap .badge-flagged {
+  background: rgba(196, 90, 72, 0.28);
+  color: #f0c4bc;
+}
+
+.hero-dest-gap-id {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: rgba(244, 248, 250, 0.62);
+}
+
+.hero-dest-gap-title {
+  margin: 0;
+  font-family: var(--body);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #f4f8fa;
+  line-height: 1.35;
+}
+
+.hero-dest-gap-body {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: rgba(244, 248, 250, 0.72);
+  max-width: 48ch;
+}
+
 @keyframes pie-rise {
   from {
     opacity: 0;
