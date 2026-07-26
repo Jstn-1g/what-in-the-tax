@@ -8,6 +8,7 @@ parentBodies:
   - region-of-waterloo-on
 regionAreaKey: woolwich
 assessmentCode: "3029"
+assessmentCodeRegistry: geography/ontario-waterloo-test-ring.json
 defaultAssessmentCad: 354500
 idPrefix: WOO
 localBucketLabel: Township portion

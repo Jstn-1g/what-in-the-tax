@@ -30,9 +30,9 @@ describe('pack catalog routing', () => {
     })
   })
 
-  it('keeps a known blocked pack unavailable without substituting another pack', () => {
+  it('preserves the Woolwich draft-preview deep link', () => {
     expect(packRouteFromSearch('?pack=woolwich-on')).toEqual({
-      kind: 'blocked',
+      kind: 'pack',
       id: 'woolwich-on',
     })
   })

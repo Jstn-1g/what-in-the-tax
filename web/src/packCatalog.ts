@@ -1,4 +1,4 @@
-export const PACK_CATALOG = [
+const PACK_CATALOG_RECORDS = [
   {
     id: 'kitchener-on',
     label: 'Kitchener',
@@ -20,10 +20,9 @@ export const PACK_CATALOG = [
   {
     id: 'woolwich-on',
     label: 'Woolwich',
-    banner: 'Preview blocked · pack/woolwich-on · evidence update required',
-    availability: 'blocked',
-    availabilityNote:
-      'Evidence update required before this receipt can be displayed.',
+    banner:
+      'Draft preview · pack/woolwich-on · $354,500 reference scenario, not a Woolwich average',
+    availability: 'available',
   },
   {
     id: 'north-dumfries-on',
@@ -40,10 +39,20 @@ export const PACK_CATALOG = [
   },
 ] as const
 
-export type PackCatalogEntry = (typeof PACK_CATALOG)[number]
-export type PackId = PackCatalogEntry['id']
+export type PackId = (typeof PACK_CATALOG_RECORDS)[number]['id']
+export type PackCatalogEntry = {
+  id: PackId
+  label: string
+  banner: string
+} & (
+  | { availability: 'available'; availabilityNote?: never }
+  | { availability: 'blocked'; availabilityNote: string }
+)
 
-export const PACK_IDS = PACK_CATALOG.map((pack) => pack.id)
+// Widen availability to retain fail-closed support even when every currently
+// listed preview has a browser-safe public artifact.
+export const PACK_CATALOG: readonly PackCatalogEntry[] = PACK_CATALOG_RECORDS
+export const PACK_IDS: readonly PackId[] = PACK_CATALOG.map((pack) => pack.id)
 
 const PACK_IDS_SET: ReadonlySet<string> = new Set(PACK_IDS)
 const PACK_CATALOG_BY_ID = new Map(PACK_CATALOG.map((pack) => [pack.id, pack]))

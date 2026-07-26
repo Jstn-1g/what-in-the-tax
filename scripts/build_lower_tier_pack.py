@@ -268,6 +268,84 @@ def resolve_artifact_directories(cfg: dict) -> tuple[Path, Path]:
     return data, web
 
 
+def resolve_assessment_code_evidence(
+    cfg: dict, *, slug: str, assessment_code: str
+) -> dict | None:
+    """Bind an assessment code to the locked regional identity registry."""
+
+    registry_ref = cfg.get("assessmentCodeRegistry")
+    if registry_ref is None:
+        return None
+
+    try:
+        registry_path = resolve_under_root(
+            registry_ref,
+            project_root=ROOT,
+            approved_root=ROOT / "geography",
+            base=ROOT,
+            label="assessmentCodeRegistry",
+        )
+    except PathSafetyError as exc:
+        raise SystemExit(str(exc)) from exc
+    if not registry_path.is_file():
+        raise SystemExit(f"missing assessment-code registry {registry_path}")
+
+    try:
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(
+            f"invalid assessment-code registry {registry_path}: {exc}"
+        ) from exc
+
+    rows = registry.get("jurisdictions")
+    if not isinstance(rows, list):
+        raise SystemExit(
+            f"assessment-code registry {registry_path} has no jurisdictions list"
+        )
+    matches = [
+        row
+        for row in rows
+        if isinstance(row, dict) and row.get("slug") == slug
+    ]
+    if len(matches) != 1:
+        raise SystemExit(
+            f"assessment-code registry must contain exactly one {slug} row"
+        )
+    locked_code = str(matches[0].get("assessmentCode") or "")
+    if locked_code != assessment_code:
+        raise SystemExit(
+            f"assessment code {assessment_code} for {slug} does not match "
+            f"locked registry code {locked_code}"
+        )
+
+    source_lock_ref = registry.get("sourceLock")
+    if not isinstance(source_lock_ref, str) or not source_lock_ref:
+        raise SystemExit(
+            f"assessment-code registry {registry_path} has no sourceLock"
+        )
+    try:
+        source_lock_path = resolve_under_root(
+            source_lock_ref,
+            project_root=ROOT,
+            approved_root=ROOT / "geography",
+            base=ROOT,
+            label="assessment-code registry sourceLock",
+        )
+    except PathSafetyError as exc:
+        raise SystemExit(str(exc)) from exc
+    if not source_lock_path.is_file():
+        raise SystemExit(
+            f"missing assessment-code registry source lock {source_lock_path}"
+        )
+
+    return {
+        "registryId": registry.get("registryId"),
+        "effectiveDate": registry.get("effectiveDate"),
+        "registryPath": registry_path.relative_to(ROOT.resolve()).as_posix(),
+        "sourceLockPath": source_lock_path.relative_to(ROOT.resolve()).as_posix(),
+    }
+
+
 def _prefix(slug: str) -> str:
     """KIT from kitchener-on, WAT from waterloo-on, etc."""
     stem = slug.replace("-on", "").replace("-county", "")
@@ -309,6 +387,9 @@ def build_pack(cfg: dict) -> tuple[dict, dict]:
     area_key = cfg["regionAreaKey"]
     assessment = int(cfg["defaultAssessmentCad"])
     assessment_code = str(cfg.get("assessmentCode") or "pending")
+    assessment_code_evidence = resolve_assessment_code_evidence(
+        cfg, slug=slug, assessment_code=assessment_code
+    )
     prefix = cfg.get("idPrefix") or _prefix(slug)
     local_label = cfg.get("localBucketLabel") or "City portion"
     data_dir = _data_relative_path(cfg)
@@ -1092,17 +1173,18 @@ def build_pack(cfg: dict) -> tuple[dict, dict]:
             ],
         )
     )
-    gaps.append(
-        gap(
-            id=f"GAP-{prefix}-FIR-CODE-VERIFY",
-            title="FIR / MAH assessment code not yet locked from Schedule 02",
-            detail=(
-                f"Pack uses working code {assessment_code} pending a hand-checked FIR Schedule 02 row."
-            ),
-            blocks=[],
-            neededEvidence=[f"FIR Schedule 02 MAH code for {name}"],
+    if assessment_code_evidence is None:
+        gaps.append(
+            gap(
+                id=f"GAP-{prefix}-FIR-CODE-VERIFY",
+                title="FIR / MAH assessment code not yet locked from Schedule 02",
+                detail=(
+                    f"Pack uses working code {assessment_code} pending a hand-checked FIR Schedule 02 row."
+                ),
+                blocks=[],
+                neededEvidence=[f"FIR Schedule 02 MAH code for {name}"],
+            )
         )
-    )
     gaps.append(
         gap(
             id=f"GAP-{prefix}-PEER-FIR-FAIRNESS",
@@ -1168,7 +1250,20 @@ def build_pack(cfg: dict) -> tuple[dict, dict]:
             "level": level,
             "upperTier": upper,
             "assessmentCode": assessment_code,
-            "note": f"Lower-tier in Region of Waterloo. Assessment code pending Schedule 02 lock.",
+            "note": (
+                "Lower-tier in Region of Waterloo. "
+                + (
+                    f"Assessment code matched locked registry "
+                    f"{assessment_code_evidence['registryPath']}."
+                    if assessment_code_evidence
+                    else "Assessment code pending Schedule 02 lock."
+                )
+            ),
+            **(
+                {"assessmentCodeEvidence": assessment_code_evidence}
+                if assessment_code_evidence
+                else {}
+            ),
         },
         "evidencePolicy": {
             "rules": [

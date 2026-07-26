@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import kitchenerPublicPack from '../public/packs/kitchener-on.json'
+import woolwichPublicPack from '../public/packs/woolwich-on.json'
 import {
   loadPackWithFetcher,
   type PackFetchResponse,
@@ -72,12 +73,16 @@ describe('on-demand public pack loading', () => {
     ).rejects.toThrow('exactly one row per public fact')
   })
 
-  it('rejects blocked packs without making a network request', async () => {
-    const fetcher = vi.fn<PackFetcher>()
-    await expect(
-      loadPackWithFetcher('woolwich-on', fetcher, '/'),
-    ).rejects.toThrow(/evidence update required/i)
-    expect(fetcher).not.toHaveBeenCalled()
+  it('loads the sanitized Woolwich draft preview without hiding its limits', async () => {
+    const fetcher = vi.fn<PackFetcher>(async () => response(woolwichPublicPack))
+    const pack = await loadPackWithFetcher('woolwich-on', fetcher, '/')
+
+    expect(fetcher).toHaveBeenCalledWith('/packs/woolwich-on.json')
+    expect(pack.receipt.status).toBe('partial_evidence_based')
+    expect(
+      pack.receipt.profiles.supportedAverageHousehold.description,
+    ).toMatch(/not a published Township of Woolwich average/i)
+    expect(pack.evidence.gaps.length).toBeGreaterThan(0)
   })
 
   it('rejects a failed public artifact request', async () => {

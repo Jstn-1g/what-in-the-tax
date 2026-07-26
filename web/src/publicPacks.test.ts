@@ -4,6 +4,7 @@ import cambridgePack from '../public/packs/cambridge-on.json'
 import kitchenerPack from '../public/packs/kitchener-on.json'
 import northDumfriesPack from '../public/packs/north-dumfries-on.json'
 import waterlooPack from '../public/packs/waterloo-on.json'
+import woolwichPack from '../public/packs/woolwich-on.json'
 import { PACK_CATALOG } from './packCatalog'
 
 const PUBLIC_PACKS = [
@@ -12,6 +13,7 @@ const PUBLIC_PACKS = [
   kitchenerPack,
   northDumfriesPack,
   waterlooPack,
+  woolwichPack,
 ]
 
 const BANNED_KEYS = new Set([

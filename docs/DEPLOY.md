@@ -33,7 +33,7 @@ deployment:
 - Python tests, the locked regional registry, every non-template pack, web tests,
   the production build, and a production-dependency audit must pass first.
 - The checked public-pack projection must match its source data; internal
-  ledgers and blocked packs are not accepted as browser artifacts.
+  ledgers and unsupported packs are not accepted as browser artifacts.
 - Pack validators run in explicit `--no-write` mode, followed by a clean-tree
   assertion that catches accidental evidence or timestamp rewrites.
 - Production deployments are serialized rather than cancelled mid-release.

@@ -16,13 +16,13 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_ROOT = ROOT / "data"
 OUTPUT_ROOT = ROOT / "web" / "public" / "packs"
 
-# Woolwich is intentionally absent until its assessment evidence is regenerated.
 PACK_INPUTS = {
     "north-dumfries-on": DATA_ROOT,
     "brant-county-on": DATA_ROOT / "brant",
     "kitchener-on": DATA_ROOT / "kitchener",
     "waterloo-on": DATA_ROOT / "waterloo",
     "cambridge-on": DATA_ROOT / "cambridge",
+    "woolwich-on": DATA_ROOT / "woolwich",
 }
 
 RECEIPT_SCALAR_FIELDS = ("schemaVersion", "artifact", "status", "purpose")

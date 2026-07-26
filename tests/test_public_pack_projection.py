@@ -98,12 +98,12 @@ class PublicPackProjectionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             output_root = Path(temp_dir)
             expected = output_root / "kitchener-on.json"
-            blocked = output_root / "woolwich-on.json"
+            retired = output_root / "retired-on.json"
             nested_dir = output_root / "old"
             nested_dir.mkdir()
             nested = nested_dir / "retired.json"
             unrelated = output_root / "README.txt"
-            for path in (expected, blocked, nested):
+            for path in (expected, retired, nested):
                 path.write_text("{}", encoding="utf-8")
             unrelated.write_text("keep", encoding="utf-8")
 
@@ -111,7 +111,7 @@ class PublicPackProjectionTests(unittest.TestCase):
             try:
                 PUBLIC_PACKS.PACK_INPUTS = {"kitchener-on": Path(".")}
                 unexpected = PUBLIC_PACKS.unexpected_json_artifacts(output_root)
-                self.assertEqual(set(unexpected), {blocked, nested})
+                self.assertEqual(set(unexpected), {retired, nested})
                 PUBLIC_PACKS.remove_unexpected_json_artifacts(
                     unexpected, output_root
                 )
@@ -120,7 +120,7 @@ class PublicPackProjectionTests(unittest.TestCase):
 
             self.assertTrue(expected.exists())
             self.assertTrue(unrelated.exists())
-            self.assertFalse(blocked.exists())
+            self.assertFalse(retired.exists())
             self.assertFalse(nested.exists())
 
 

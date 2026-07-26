@@ -202,6 +202,25 @@ class ControlTotalSemanticsTests(unittest.TestCase):
             facts["CAM-AVG-HOUSEHOLD-INCREASE-CAD-2026"]["excerpt"],
         )
 
+    def test_locked_registry_code_removes_obsolete_identity_gap(self):
+        cfg = load_inputs(resolve_inputs_path("woolwich-on"))
+        ledger, _ = build_pack(cfg)
+
+        gap_ids = {item["id"] for item in ledger["gaps"]}
+        self.assertNotIn("GAP-WOO-FIR-CODE-VERIFY", gap_ids)
+        self.assertEqual(
+            ledger["jurisdiction"]["assessmentCodeEvidence"]["registryPath"],
+            "geography/ontario-waterloo-test-ring.json",
+        )
+        self.assertIn("matched locked registry", ledger["jurisdiction"]["note"])
+
+    def test_locked_registry_code_mismatch_fails_closed(self):
+        cfg = load_inputs(resolve_inputs_path("woolwich-on"))
+        cfg["assessmentCode"] = "3024"
+
+        with self.assertRaisesRegex(SystemExit, "does not match locked registry code"):
+            build_pack(cfg)
+
 
 class OutputPathSafetyTests(unittest.TestCase):
     def test_valid_data_directory_resolves_under_both_roots(self):
