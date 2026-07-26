@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { money } from '../lib/format'
+import { useMemo, useState, type ReactNode } from 'react'
+import { money, pct } from '../lib/format'
 import {
   buildEvidenceIndex,
   citationLabel,
@@ -7,6 +7,12 @@ import {
   type CitationAudit,
   type EvidenceIndex,
 } from '../lib/evidenceLookup'
+import {
+  badgeLabel,
+  simplifyBucketLabel,
+  simplifyComponentLabel,
+  uiCopy,
+} from '../lib/eli5'
 import type {
   Derived,
   Fact,
@@ -17,7 +23,9 @@ import type {
   TaxpayerReceipt,
 } from '../types'
 import FlagDetailDrawer from './FlagDetailDrawer'
+import HeroBriefing from './HeroBriefing'
 import MarqueeFlags from './MarqueeFlags'
+import { buildHeroBriefing } from '../lib/heroBriefing'
 
 const FINDING_TABS = [
   { id: 'administrative_scale', label: 'Admin' },
@@ -33,6 +41,12 @@ function lineTone(line: ReceiptLineItem) {
   }
   if (line.evidenceStatus === 'GAP') {
     return { row: 'flagged', badge: 'badge-flagged', label: line.evidenceStatus }
+  }
+  if (line.evidenceStatus === 'FACT') {
+    return { row: 'necessary', badge: 'badge-fact', label: line.evidenceStatus }
+  }
+  if (line.evidenceStatus === 'DERIVED') {
+    return { row: 'necessary', badge: 'badge-derived', label: line.evidenceStatus }
   }
   return { row: 'necessary', badge: 'badge-necessary', label: line.evidenceStatus }
 }
@@ -71,6 +85,9 @@ function shortSourceName(title: string) {
   if (title.includes('17-10-0155')) return 'StatCan population estimates'
   if (title.includes('FIR')) return 'Ontario FIR 2023'
   if (title.includes('Census')) return 'StatCan 2021 Census'
+  if (title.includes('Brant') && title.includes('Tax Rates')) return 'Brant 2026 tax rates'
+  if (title.includes('Brant') && title.includes('Approved Budget')) return 'Brant 2026 approved budget'
+  if (title.includes('Brant') && title.includes('Overview')) return 'Brant 2026 budget overview'
   return title.length > 42 ? `${title.slice(0, 40)}…` : title
 }
 
@@ -81,6 +98,8 @@ function LineList({
   totalCad,
   lines,
   evidence,
+  simpleLanguage = false,
+  kicker,
 }: {
   id: string
   title: string
@@ -88,43 +107,73 @@ function LineList({
   totalCad: number
   lines: ReceiptLineItem[]
   evidence: EvidenceIndex
+  simpleLanguage?: boolean
+  kicker?: string
 }) {
   const sorted = [...lines].sort((a, b) => Math.abs(b.amountCad) - Math.abs(a.amountCad))
+  const copy = uiCopy(simpleLanguage)
+  const positiveTotal = sorted
+    .filter((line) => line.amountCad > 0 && line.classification !== 'reconciling_item')
+    .reduce((sum, line) => sum + line.amountCad, 0)
+  const barBase = totalCad > 0 ? totalCad : positiveTotal
   return (
     <section className="section receipt-section" id={id} aria-labelledby={`${id}-title`}>
       <div className="section-head">
-        <p className="section-kicker">On the bill</p>
+        <p className="section-kicker">{kicker ?? copy.onTheBill}</p>
         <h2 id={`${id}-title`}>{title}</h2>
         <p>{subtitle}</p>
       </div>
       <div className="receipt-sheet">
         <div className="perforation" aria-hidden="true" />
         <ol className="receipt-lines">
-          {sorted.map((line, index) => (
-            <li
-              key={line.id}
-              className={['receipt-line', lineTone(line).row].join(' ')}
-              style={{ animationDelay: `${index * 25}ms` }}
-            >
-              <div className="line-main">
-                <div>
-                  <p className="line-service">{line.label}</p>
-                  <p className="line-meta">
-                    {lineTone(line).label}
-                    {line.note ? ` · ${line.note}` : ''}
-                  </p>
-                  <SourceAnchor evidence={evidence} factId={line.sourceFactId} />
+          {sorted.map((line, index) => {
+            const tone = lineTone(line)
+            const status = badgeLabel(tone.label, simpleLanguage)
+            const share =
+              barBase > 0 && line.amountCad > 0 ? line.amountCad / barBase : 0
+            const showBar =
+              share > 0 &&
+              line.classification !== 'reconciling_item' &&
+              line.classification !== 'disclosure_subline'
+            return (
+              <li
+                key={line.id}
+                className={['receipt-line', tone.row].join(' ')}
+                style={{ animationDelay: `${index * 25}ms` }}
+              >
+                <div className="line-main">
+                  <div>
+                    <p className="line-service">{line.label}</p>
+                    <p className="line-meta">
+                      {status}
+                      {showBar ? ` · ${pct(share * 100)} of this share` : ''}
+                      {line.note ? ` · ${line.note}` : ''}
+                    </p>
+                    <SourceAnchor evidence={evidence} factId={line.sourceFactId} />
+                  </div>
+                  <div className="line-right">
+                    <span className={'badge ' + tone.badge}>{status}</span>
+                    <strong>{money(line.amountCad)}</strong>
+                  </div>
                 </div>
-                <div className="line-right">
-                  <span className={'badge ' + lineTone(line).badge}>{lineTone(line).label}</span>
-                  <strong>{money(line.amountCad)}</strong>
-                </div>
-              </div>
-            </li>
-          ))}
+                {showBar ? (
+                  <div
+                    className="line-share-track"
+                    role="img"
+                    aria-label={`${line.label}: ${pct(share * 100)} of ${title}`}
+                  >
+                    <span
+                      className="line-share-fill"
+                      style={{ width: `${Math.min(Math.max(share * 100, 1.2), 100)}%` }}
+                    />
+                  </div>
+                ) : null}
+              </li>
+            )
+          })}
         </ol>
         <div className="receipt-total">
-          <span>Published / allocated total</span>
+          <span>{copy.publishedTotal}</span>
           <strong>{money(totalCad)}</strong>
         </div>
       </div>
@@ -140,6 +189,10 @@ export default function TaxReceiptScreen({
   facts,
   derived,
   citationAudit,
+  bannerText,
+  packSwitcher,
+  onOpenHelp,
+  simpleLanguage = false,
 }: {
   data: TaxpayerReceipt
   gaps: Gap[]
@@ -148,11 +201,16 @@ export default function TaxReceiptScreen({
   facts: Fact[]
   derived: Derived[]
   citationAudit?: CitationAudit | null
+  bannerText?: string
+  packSwitcher?: ReactNode
+  onOpenHelp?: () => void
+  simpleLanguage?: boolean
 }) {
   const profile = data.profiles.supportedAverageHousehold
   const combined = profile.combinedAtAssessment
   const [flagTab, setFlagTab] = useState<FindingTab>('questionable_capital')
   const [selectedFlagId, setSelectedFlagId] = useState<string | null>(null)
+  const copy = uiCopy(simpleLanguage)
 
   const evidence = useMemo(
     () => buildEvidenceIndex(sources, facts, derived, citationAudit),
@@ -171,6 +229,15 @@ export default function TaxReceiptScreen({
       .filter((flag): flag is Finding => Boolean(flag))
   }, [data.uiModelHints.marqueeFindings, findingsById])
 
+  const heroBriefing = useMemo(
+    () =>
+      buildHeroBriefing(data, gaps, citationAudit, {
+        municipalBucketLabel:
+          data.uiModelHints.municipalBucketLabel ?? profile.township.uiLabel,
+      }),
+    [data, gaps, citationAudit, profile.township.uiLabel],
+  )
+
   const tabFindings = useMemo(
     () => data.findings.filter((finding) => finding.category === flagTab && !finding.belowMateriality),
     [data.findings, flagTab],
@@ -179,84 +246,170 @@ export default function TaxReceiptScreen({
   const selectedFlag = selectedFlagId ? findingsById.get(selectedFlagId) ?? null : null
   const townshipLines = profile.township.lineItems ?? []
   const regionLines = profile.region.lineItems ?? []
+  const hasRegionBucket =
+    profile.region.amountCad != null && (regionLines.length > 0 || profile.region.evidenceStatus !== 'GAP')
+  const regionIllustration = profile.regionIllustrationAt354500
+  const assessmentCad = combined?.assessmentCad ?? profile.township.assessmentCad ?? 0
+  const displayName = data.jurisdiction?.displayName ?? 'North Dumfries'
+  const municipalLabel = simplifyBucketLabel(
+    data.uiModelHints.municipalBucketLabel ?? profile.township.uiLabel ?? 'Township portion',
+    simpleLanguage,
+  )
+  const regionLabel = simplifyBucketLabel(
+    data.uiModelHints.regionBucketLabel ?? profile.region.uiLabel ?? 'Region portion',
+    simpleLanguage,
+  )
+  const heroLabel =
+    data.uiModelHints.heroLabel ??
+    `Total residential bill · ${money(assessmentCad)} assessment`
 
   const primarySources = sources.filter((s) =>
-    ['nd-2026-tax-rate-bylaw', 'nd-2026-draft', 'row-2026-book', 'nd-2026-budget-minutes'].includes(
-      s.id,
-    ),
+    [
+      'nd-2026-tax-rate-bylaw',
+      'nd-2026-draft',
+      'nd-2026-budget-minutes',
+      'row-2026-book',
+      'brant-2026-tax-rates',
+      'brant-2026-approved-budget',
+      'brant-2026-budget-overview',
+      'kit-2026-tax-rates',
+      'kit-2026-budget-summary',
+      'kit-2026-appendix-b',
+      'wat-2026-tax-rates',
+      'wat-2026-budget',
+      'cam-2026-tax-rates',
+      'cam-2026-budget',
+      'woo-2026-tax-rates',
+      'woo-2026-budget',
+    ].includes(s.id),
   )
 
   return (
     <div className="page">
       <div className="deploy-banner" role="status">
-        Sealed preview · pack/north-dumfries-on/2026.3 · not affiliated with the Township or Region ·
-        not tax advice · citation hard-fail count: 0
+        {bannerText ??
+          'Sealed · pack/north-dumfries-on/2026.3 · unaffiliated · citation hard-fail count: 0'}
       </div>
-      <header className="hero">
+      {packSwitcher}
+      <header className="hero" id="receipt-hero" tabIndex={-1}>
         <div className="hero-atmosphere" aria-hidden="true" />
         <div className="hero-inner">
-          <p className="brand">Taxpayer Receipt</p>
-          <h1>What a $455,000 rural bill pays in 2026</h1>
-          <p className="hero-support">
-            One assessment. Three rates from By-law 3637-26 Schedule A. Every dollar traces to a
-            published source.
-          </p>
+          <div className="hero-masthead">
+            <p className="hero-context">
+              <span className="hero-place">{displayName}</span>
+              <span className="hero-context-sep" aria-hidden="true">
+                ·
+              </span>
+              <span className="hero-year">2026</span>
+            </p>
+            <p className="brand">Taxpayer Receipt</p>
+          </div>
+          <h1>
+            <span className="hero-assessment">{money(assessmentCad)}</span>{' '}
+            {copy.heroHeadlineAfterAmount}
+          </h1>
+          <p className="hero-support">{copy.heroSupport}</p>
           <div className="hero-cta-row">
             <a className="cta" href="#bill">
-              Your bill
+              {copy.yourBillCta}
             </a>
             <a className="cta cta-ghost" href="#sources">
-              Sources
+              {copy.sourcesCta}
             </a>
             <a className="cta cta-ghost" href="#gaps">
-              Gaps
+              {copy.gapsCta}
             </a>
+            {onOpenHelp ? (
+              <button type="button" className="cta cta-ghost" onClick={onOpenHelp}>
+                {copy.helpCta}
+              </button>
+            ) : null}
           </div>
           <p className="hero-amount" aria-live="polite">
-            <span className="hero-amount-label">Total residential bill · rural · By-law 3637-26</span>
+            <span className="hero-amount-label">{heroLabel}</span>
             <span className="hero-amount-value">{money(profile.combinedTotalCad ?? 0)}</span>
           </p>
+          {heroBriefing ? (
+            <HeroBriefing
+              model={heroBriefing}
+              onOpenHelp={onOpenHelp}
+              simpleLanguage={simpleLanguage}
+            />
+          ) : null}
         </div>
       </header>
 
       <nav className="page-nav" aria-label="On this page">
         <a href="#bill">Bill</a>
-        <a href="#township">Township</a>
-        <a href="#region">Region</a>
-        <a href="#watch">Watch</a>
-        <a href="#findings">Findings</a>
-        <a href="#gaps">Gaps</a>
-        <a href="#sources">Sources</a>
+        <a href="#township">{municipalLabel.replace(/ portion$/i, '').replace(/'s share$/i, '')}</a>
+        {hasRegionBucket ? <a href="#region">Region</a> : null}
+        {marqueeFlags.length > 0 ? <a href="#watch">{copy.navWatch}</a> : null}
+        {data.findings.length > 0 ? <a href="#findings">{copy.navFindings}</a> : null}
+        <a href="#gaps">{copy.navGaps}</a>
+        <a href="#sources">{copy.navSources}</a>
+        {onOpenHelp ? (
+          <button type="button" className="page-nav-help" onClick={onOpenHelp}>
+            {copy.navHelp}
+          </button>
+        ) : null}
       </nav>
 
       <main>
         <section className="section bill-section" id="bill" aria-labelledby="bill-title">
           <div className="section-head">
-            <p className="section-kicker">1 · Combined receipt</p>
-            <h2 id="bill-title">How the total is built</h2>
+            <p className="section-kicker">{copy.combinedKicker}</p>
+            <h2 id="bill-title">{copy.combinedTitle}</h2>
             <p>
               {combined?.basis ??
-                'Township + Region + Education at one $455,000 assessment.'}
+                (hasRegionBucket
+                  ? `${municipalLabel} + ${regionLabel} + education at one assessment.`
+                  : `${municipalLabel} + education at one assessment.`)}
             </p>
           </div>
 
           <ol className="bill-stack">
-            {(combined?.components ?? []).map((component) => (
-              <li key={component.label} className="bill-stack-row">
-                <div>
-                  <h3>{component.label}</h3>
-                  <p className="line-meta">
-                    Rate {component.rate.toFixed(8)} × {money(combined?.assessmentCad ?? 455000)}
-                  </p>
-                  <SourceAnchor evidence={evidence} factId={component.sourceFactId} />
-                </div>
-                <strong className="bill-stack-amount">{money(component.amountCad)}</strong>
-              </li>
-            ))}
+            {(combined?.components ?? []).map((component) => {
+              const billTotal = combined?.totalCad ?? profile.combinedTotalCad ?? 0
+              const shareOfBill =
+                billTotal > 0 ? Math.max(component.amountCad / billTotal, 0) : 0
+              const tone = (() => {
+                const lower = component.label.toLowerCase()
+                if (lower.includes('education')) return 'education'
+                if (lower.includes('hospital')) return 'special'
+                if (lower.includes('region')) return 'upper'
+                return 'municipal'
+              })()
+              return (
+                <li key={component.label} className="bill-stack-row">
+                  <div className="bill-stack-body">
+                    <div className="bill-stack-copy">
+                      <h3>{simplifyComponentLabel(component.label, simpleLanguage)}</h3>
+                      <p className="line-meta">
+                        Rate {component.rate.toFixed(8)} × {money(assessmentCad)}
+                        {' · '}
+                        {pct(shareOfBill * 100)} of bill
+                      </p>
+                      <SourceAnchor evidence={evidence} factId={component.sourceFactId} />
+                    </div>
+                    <strong className="bill-stack-amount">{money(component.amountCad)}</strong>
+                  </div>
+                  <div
+                    className="bill-stack-track"
+                    role="img"
+                    aria-label={`${component.label}: ${pct(shareOfBill * 100)} of combined bill`}
+                  >
+                    <span
+                      className={`bill-stack-fill tone-${tone}`}
+                      style={{ width: `${Math.min(Math.max(shareOfBill * 100, 1.5), 100)}%` }}
+                    />
+                  </div>
+                </li>
+              )
+            })}
           </ol>
 
           <div className="bill-stack-total">
-            <span>Combined total</span>
+            <span>{copy.combinedTotalLabel}</span>
             <strong>{money(combined?.totalCad ?? profile.combinedTotalCad ?? 0)}</strong>
           </div>
 
@@ -269,13 +422,25 @@ export default function TaxReceiptScreen({
                 <li key={warning}>{warning}</li>
               ))}
               <li>
-                Township rural avg @ $455k: {money(profile.township.amountCad ?? 0)} (approved
-                operating allocation below)
+                {municipalLabel} @ {money(assessmentCad)}: {money(profile.township.amountCad ?? 0)}
               </li>
-              <li>
-                Region rural HH table @ $354.5k: {money(profile.region.amountCad ?? 0)} — different
-                assessment base; do not add to the combined total above
-              </li>
+              {hasRegionBucket ? (
+                <li>
+                  {regionLabel} @ {money(profile.region.assessmentCad ?? assessmentCad)}:{' '}
+                  {money(profile.region.amountCad ?? 0)} — already included in the combined total
+                  above at this household assessment
+                </li>
+              ) : (
+                <li>{profile.region.note ?? profile.region.basis}</li>
+              )}
+              {regionIllustration ? (
+                <li>
+                  Region illustration @{' '}
+                  {money(regionIllustration.assessmentCad ?? 354500)}:{' '}
+                  {money(regionIllustration.amountCad ?? 0)} — different assessment base; do not
+                  add to the combined total above
+                </li>
+              ) : null}
               <li>{data.profiles.hypothetical5000.message}</li>
             </ul>
           </details>
@@ -283,31 +448,56 @@ export default function TaxReceiptScreen({
 
         <LineList
           id="township"
-          title="Township portion"
+          title={municipalLabel}
           subtitle={profile.township.basis}
           totalCad={profile.township.amountCad ?? 0}
           lines={townshipLines}
           evidence={evidence}
+          simpleLanguage={simpleLanguage}
         />
 
-        <LineList
-          id="region"
-          title="Region portion (rural household table)"
-          subtitle={profile.region.basis}
-          totalCad={profile.region.amountCad ?? 0}
-          lines={regionLines}
-          evidence={evidence}
-        />
+        {hasRegionBucket ? (
+          <LineList
+            id="region"
+            title={regionLabel}
+            subtitle={profile.region.basis}
+            totalCad={profile.region.amountCad ?? 0}
+            lines={regionLines}
+            evidence={evidence}
+            simpleLanguage={simpleLanguage}
+          />
+        ) : null}
 
-        <div id="watch">
-          <MarqueeFlags flags={marqueeFlags} onOpen={setSelectedFlagId} />
-        </div>
+        {regionIllustration && (regionIllustration.lineItems?.length ?? 0) > 0 ? (
+          <LineList
+            id="region-illustration"
+            title={
+              regionIllustration.uiLabel ??
+              `Region schedule @ ${money(regionIllustration.assessmentCad ?? 354500)}`
+            }
+            subtitle={`${
+              regionIllustration.description ?? regionIllustration.basis
+            } Different assessment — informational only; do not add to the combined bill total.`}
+            totalCad={regionIllustration.amountCad ?? 0}
+            lines={regionIllustration.lineItems ?? []}
+            evidence={evidence}
+            simpleLanguage={simpleLanguage}
+            kicker="Informational"
+          />
+        ) : null}
 
+        {marqueeFlags.length > 0 ? (
+          <div id="watch">
+            <MarqueeFlags flags={marqueeFlags} onOpen={setSelectedFlagId} />
+          </div>
+        ) : null}
+
+        {data.findings.length > 0 ? (
         <section className="section" id="findings" aria-labelledby="findings-title">
           <div className="section-head">
-            <p className="section-kicker">2 · Needs explanation</p>
-            <h2 id="findings-title">Findings</h2>
-            <p>Cited to facts; bill dollars stay null until a formula is approved.</p>
+            <p className="section-kicker">{copy.findingsKicker}</p>
+            <h2 id="findings-title">{copy.findingsTitle}</h2>
+            <p>{copy.findingsLead}</p>
             <p className="line-meta">
               {data.uiModelHints.flaggedDefinition ??
                 'Flagged means this line needs an explanation. It does not mean the money was wasted.'}
@@ -357,12 +547,13 @@ export default function TaxReceiptScreen({
             })}
           </ul>
         </section>
+        ) : null}
 
         <section className="section" id="gaps" aria-labelledby="gaps-title">
           <div className="section-head">
-            <p className="section-kicker">3 · Still missing</p>
-            <h2 id="gaps-title">Evidence gaps</h2>
-            <p>Missing proof is listed — not filled with invented numbers.</p>
+            <p className="section-kicker">{copy.gapsKicker}</p>
+            <h2 id="gaps-title">{copy.gapsTitle}</h2>
+            <p>{copy.gapsLead}</p>
           </div>
           <ul className="flag-list">
             {gaps.map((gap) => (
@@ -393,13 +584,13 @@ export default function TaxReceiptScreen({
 
         <section className="section sources-section" id="sources" aria-labelledby="sources-title">
           <div className="section-head">
-            <p className="section-kicker">References</p>
-            <h2 id="sources-title">Direct sources</h2>
-            <p>Open the published documents behind this receipt.</p>
+            <p className="section-kicker">{copy.sourcesKicker}</p>
+            <h2 id="sources-title">{copy.sourcesTitle}</h2>
+            <p>{copy.sourcesLead}</p>
           </div>
 
           <div className="source-priority">
-            <h3>Start here</h3>
+            <h3>{copy.startHere}</h3>
             <ul className="source-list">
               {primarySources.map((source) => (
                 <li key={source.id}>
@@ -413,7 +604,7 @@ export default function TaxReceiptScreen({
             </ul>
           </div>
 
-          <h3 className="source-all-heading">Full bibliography</h3>
+          <h3 className="source-all-heading">{copy.fullBibliography}</h3>
           <ul className="source-list source-list-compact">
             {sources.map((source) => (
               <li key={source.id}>
@@ -430,6 +621,13 @@ export default function TaxReceiptScreen({
         <footer className="footer">
           <p>{data.status}</p>
           <p>{data.evidencePolicyRef}</p>
+          {onOpenHelp ? (
+            <p>
+              <button type="button" className="footer-help-link" onClick={onOpenHelp}>
+                {copy.footerHelp}
+              </button>
+            </p>
+          ) : null}
         </footer>
       </main>
 

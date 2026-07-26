@@ -55,6 +55,7 @@ export type ProfileBucket = {
   lineItems?: ReceiptLineItem[]
   warnings?: string[]
   note?: string
+  uiLabel?: string
 }
 
 export type Finding = {
@@ -86,11 +87,22 @@ export type TaxpayerReceipt = {
   status: string
   purpose: string
   evidencePolicyRef: string
+  jurisdiction?: {
+    slug: string
+    displayName: string
+    level?: string
+    aliases?: string[]
+  }
   profiles: {
     supportedAverageHousehold: {
       description: string
       township: ProfileBucket
       region: ProfileBucket
+      /** Informational Region schedule at a different assessment; not part of the bill stack. */
+      regionIllustrationAt354500?: ProfileBucket & {
+        description?: string
+        lineItemsSumCheckCad?: number
+      }
       education: ProfileBucket
       combinedTotalCad: number | null
       combinedAtAssessment?: {
@@ -100,7 +112,12 @@ export type TaxpayerReceipt = {
         components: { label: string; amountCad: number; rate: number; sourceFactId: string }[]
         totalCad: number
         totalRate: number
-        ayrUrbanVariant: { specialAreaRateCad: number; totalCad: number; totalRate: number; note: string }
+        ayrUrbanVariant?: {
+          specialAreaRateCad: number
+          totalCad: number
+          totalRate: number
+          note: string
+        }
       }
       combinedTotalNote: string
       warnings: string[]
@@ -125,6 +142,9 @@ export type TaxpayerReceipt = {
     flaggedDefinition?: string
     publishedFindingIds?: string[]
     marqueeFindings: string[]
+    municipalBucketLabel?: string
+    regionBucketLabel?: string
+    heroLabel?: string
   }
 }
 

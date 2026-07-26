@@ -1,0 +1,456 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifact": "TaxpayerReceipt",
+  "status": "partial_evidence_based",
+  "purpose": "Region of Waterloo 2026 shared upper-tier household schedule. Illustrates published urban and rural tax-supported costs at $354,500 \u2014 not a combined municipal bill.",
+  "evidencePolicyRef": "data/region-waterloo/evidence-ledger.json",
+  "jurisdiction": {
+    "slug": "region-of-waterloo-on",
+    "displayName": "Region of Waterloo",
+    "level": "upper-tier",
+    "aliases": [
+      "Waterloo Region"
+    ]
+  },
+  "profiles": {
+    "urbanAverageHousehold": {
+      "description": "Region-published urban (Kitchener / Waterloo / Cambridge) average at $354,500.",
+      "region": {
+        "basis": "Region 2026 Budget Book p.12 Urban column at $354,500",
+        "amountCad": 2984,
+        "assessmentCad": 354500,
+        "evidenceStatus": "FACT",
+        "sourceFactId": "ROW-URBAN-HH-TOTAL-2026",
+        "uiLabel": "Region tax-supported (urban)",
+        "lineItems": [
+          {
+            "id": "ROW-HH-URBAN-01",
+            "label": "Police Service",
+            "amountCad": 900,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-01"
+          },
+          {
+            "id": "ROW-HH-URBAN-02",
+            "label": "Public Transit",
+            "amountCad": 582,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-02"
+          },
+          {
+            "id": "ROW-HH-URBAN-03",
+            "label": "Housing Services",
+            "amountCad": 429,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-03"
+          },
+          {
+            "id": "ROW-HH-URBAN-04",
+            "label": "Roads/Design & Construction/Eng.",
+            "amountCad": 240,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-04"
+          },
+          {
+            "id": "ROW-HH-URBAN-05",
+            "label": "Waste Management",
+            "amountCad": 213,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-05"
+          },
+          {
+            "id": "ROW-HH-URBAN-06",
+            "label": "Financial Expenses",
+            "amountCad": 89,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-06"
+          },
+          {
+            "id": "ROW-HH-URBAN-07",
+            "label": "Paramedic Services",
+            "amountCad": 134,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-07"
+          },
+          {
+            "id": "ROW-HH-URBAN-08",
+            "label": "Employment/Income Support",
+            "amountCad": 53,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-08"
+          },
+          {
+            "id": "ROW-HH-URBAN-09",
+            "label": "Seniors' Services",
+            "amountCad": 51,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-09"
+          },
+          {
+            "id": "ROW-HH-URBAN-10",
+            "label": "Human Resources",
+            "amountCad": 39,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-10"
+          },
+          {
+            "id": "ROW-HH-URBAN-11",
+            "label": "Information Technology Services",
+            "amountCad": 49,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-11"
+          },
+          {
+            "id": "ROW-HH-URBAN-12",
+            "label": "Public Health",
+            "amountCad": 45,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-12"
+          },
+          {
+            "id": "ROW-HH-URBAN-13",
+            "label": "Facilities & Fleet Management",
+            "amountCad": 24,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-13"
+          },
+          {
+            "id": "ROW-HH-URBAN-14",
+            "label": "Cultural Services",
+            "amountCad": 33,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-14"
+          },
+          {
+            "id": "ROW-HH-URBAN-15",
+            "label": "Children's Services",
+            "amountCad": 30,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-15"
+          },
+          {
+            "id": "ROW-HH-URBAN-16",
+            "label": "Elected Offices & Office of the Chief Administrative Officer",
+            "amountCad": 17,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-16"
+          },
+          {
+            "id": "ROW-HH-URBAN-17",
+            "label": "Resident Experience, Strategy and Communications",
+            "amountCad": 19,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-17"
+          },
+          {
+            "id": "ROW-HH-URBAN-18",
+            "label": "Airport",
+            "amountCad": 31,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-18"
+          },
+          {
+            "id": "ROW-HH-URBAN-19",
+            "label": "Planning, Development & Legislative Services",
+            "amountCad": 21,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-19"
+          },
+          {
+            "id": "ROW-HH-URBAN-20",
+            "label": "Finance",
+            "amountCad": 24,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-20"
+          },
+          {
+            "id": "ROW-HH-URBAN-21",
+            "label": "Regional Library",
+            "amountCad": 0,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-21"
+          },
+          {
+            "id": "ROW-HH-URBAN-22",
+            "label": "Build Waterloo Region",
+            "amountCad": 16,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-22"
+          },
+          {
+            "id": "ROW-HH-URBAN-23",
+            "label": "Strategy, Performance and Partnerships",
+            "amountCad": 20,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-23"
+          },
+          {
+            "id": "ROW-HH-URBAN-ROUNDING",
+            "label": "Unallocated table-rounding difference (source total vs summed lines)",
+            "amountCad": 3,
+            "classification": "reconciling_item",
+            "evidenceStatus": "RECONCILING",
+            "note": "Printed lines sum $3,059; printed subtotal $3,062."
+          },
+          {
+            "id": "ROW-HH-PIL-2026",
+            "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
+            "amountCad": -78,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-PIL-2026"
+          }
+        ],
+        "lineItemsSumCheckCad": 2984
+      }
+    },
+    "ruralAverageHousehold": {
+      "description": "Region-published rural (North Dumfries / Wellesley) average at $354,500.",
+      "region": {
+        "basis": "Region 2026 Budget Book p.12 Rural column at $354,500",
+        "amountCad": 2543,
+        "assessmentCad": 354500,
+        "evidenceStatus": "FACT",
+        "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+        "uiLabel": "Region tax-supported (rural)",
+        "lineItems": [
+          {
+            "id": "ROW-HH-RURAL-01",
+            "label": "Police Service",
+            "amountCad": 900,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-01"
+          },
+          {
+            "id": "ROW-HH-RURAL-02",
+            "label": "Public Transit",
+            "amountCad": 63,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-02"
+          },
+          {
+            "id": "ROW-HH-RURAL-03",
+            "label": "Housing Services",
+            "amountCad": 429,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-03"
+          },
+          {
+            "id": "ROW-HH-RURAL-04",
+            "label": "Roads/Design & Construction/Eng.",
+            "amountCad": 240,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-04"
+          },
+          {
+            "id": "ROW-HH-RURAL-05",
+            "label": "Waste Management",
+            "amountCad": 213,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-05"
+          },
+          {
+            "id": "ROW-HH-RURAL-06",
+            "label": "Financial Expenses",
+            "amountCad": 89,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-06"
+          },
+          {
+            "id": "ROW-HH-RURAL-07",
+            "label": "Paramedic Services",
+            "amountCad": 134,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-07"
+          },
+          {
+            "id": "ROW-HH-RURAL-08",
+            "label": "Employment/Income Support",
+            "amountCad": 53,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-08"
+          },
+          {
+            "id": "ROW-HH-RURAL-09",
+            "label": "Seniors' Services",
+            "amountCad": 51,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-09"
+          },
+          {
+            "id": "ROW-HH-RURAL-10",
+            "label": "Human Resources",
+            "amountCad": 39,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-10"
+          },
+          {
+            "id": "ROW-HH-RURAL-11",
+            "label": "Information Technology Services",
+            "amountCad": 49,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-11"
+          },
+          {
+            "id": "ROW-HH-RURAL-12",
+            "label": "Public Health",
+            "amountCad": 45,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-12"
+          },
+          {
+            "id": "ROW-HH-RURAL-13",
+            "label": "Facilities & Fleet Management",
+            "amountCad": 24,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-13"
+          },
+          {
+            "id": "ROW-HH-RURAL-14",
+            "label": "Cultural Services",
+            "amountCad": 33,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-14"
+          },
+          {
+            "id": "ROW-HH-RURAL-15",
+            "label": "Children's Services",
+            "amountCad": 30,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-15"
+          },
+          {
+            "id": "ROW-HH-RURAL-16",
+            "label": "Elected Offices & Office of the Chief Administrative Officer",
+            "amountCad": 17,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-16"
+          },
+          {
+            "id": "ROW-HH-RURAL-17",
+            "label": "Resident Experience, Strategy and Communications",
+            "amountCad": 19,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-17"
+          },
+          {
+            "id": "ROW-HH-RURAL-18",
+            "label": "Airport",
+            "amountCad": 31,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-18"
+          },
+          {
+            "id": "ROW-HH-RURAL-19",
+            "label": "Planning, Development & Legislative Services",
+            "amountCad": 21,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-19"
+          },
+          {
+            "id": "ROW-HH-RURAL-20",
+            "label": "Finance",
+            "amountCad": 24,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-20"
+          },
+          {
+            "id": "ROW-HH-RURAL-21",
+            "label": "Regional Library",
+            "amountCad": 79,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-21"
+          },
+          {
+            "id": "ROW-HH-RURAL-22",
+            "label": "Build Waterloo Region",
+            "amountCad": 16,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-22"
+          },
+          {
+            "id": "ROW-HH-RURAL-23",
+            "label": "Strategy, Performance and Partnerships",
+            "amountCad": 20,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-RURAL-23"
+          },
+          {
+            "id": "ROW-HH-RURAL-ROUNDING",
+            "label": "Unallocated table-rounding difference (source total vs summed lines)",
+            "amountCad": 2,
+            "classification": "reconciling_item",
+            "evidenceStatus": "RECONCILING",
+            "note": "Printed lines sum $2,619; printed subtotal $2,621."
+          },
+          {
+            "id": "ROW-HH-PIL-2026",
+            "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
+            "amountCad": -78,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-PIL-2026"
+          }
+        ],
+        "lineItemsSumCheckCad": 2543
+      }
+    }
+  },
+  "findings": [],
+  "uiModelHints": {
+    "regionBucketLabel": "Region tax-supported",
+    "heroLabel": "Region household schedule \u00b7 $354,500 average \u00b7 2026",
+    "publishedFindingIds": [],
+    "marqueeFindings": []
+  },
+  "warnings": [
+    "This pack is the shared upper-tier schedule only \u2014 not a City/Township bill.",
+    "Do not add these $354,500 household dollars into a lower-tier rate\u00d7assessment bill without an explicit DERIVED path."
+  ]
+}

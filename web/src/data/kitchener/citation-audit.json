@@ -1,0 +1,135 @@
+{
+ "counts": {
+  "verbatim": 16
+ },
+ "results": [
+  {
+   "id": "KIT-LEVY-2026",
+   "sourceId": "kit-2026-budget-summary",
+   "page": 4,
+   "amountCad": 171432000,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-AVG-ASSESSMENT-2026",
+   "sourceId": "kit-2026-budget-summary",
+   "page": 4,
+   "amountCad": 326000,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-TAX-INCREASE-PCT-2026",
+   "sourceId": "kit-2026-budget-summary",
+   "page": 4,
+   "amountCad": 2.2,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-TAX-INCREASE-CAD-2026",
+   "sourceId": "kit-2026-budget-summary",
+   "page": 4,
+   "amountCad": 29,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-TAXRATE-RES-CITY-2026",
+   "sourceId": "kit-2026-tax-rates",
+   "page": 1,
+   "amountCad": 0.00411164,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-TAXRATE-RES-REGION-2026",
+   "sourceId": "kit-2026-tax-rates",
+   "page": 1,
+   "amountCad": 0.00841834,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-TAXRATE-RES-EDUCATION-2026",
+   "sourceId": "kit-2026-tax-rates",
+   "page": 1,
+   "amountCad": 0.00153,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-TAXRATE-RES-TOTAL-2026",
+   "sourceId": "kit-2026-tax-rates",
+   "page": 1,
+   "amountCad": 0.01405998,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-NET-DEPT-EXP-2026",
+   "sourceId": "kit-2026-appendix-b",
+   "page": 3,
+   "amountCad": 170039303,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-FIRE-2026",
+   "sourceId": "kit-2026-appendix-b",
+   "page": 2,
+   "amountCad": 44407986,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-DEPT-CAO-2026",
+   "sourceId": "kit-2026-appendix-b",
+   "page": 2,
+   "amountCad": 1443066,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-DEPT-CSD-2026",
+   "sourceId": "kit-2026-appendix-b",
+   "page": 2,
+   "amountCad": 66995305,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-DEPT-FIN-2026",
+   "sourceId": "kit-2026-appendix-b",
+   "page": 2,
+   "amountCad": 5390745,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-DEPT-COR-2026",
+   "sourceId": "kit-2026-appendix-b",
+   "page": 2,
+   "amountCad": 19607218,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-DEPT-DSD-2026",
+   "sourceId": "kit-2026-appendix-b",
+   "page": 2,
+   "amountCad": 17106029,
+   "tier": "verbatim",
+   "note": ""
+  },
+  {
+   "id": "KIT-DEPT-INS-2026",
+   "sourceId": "kit-2026-appendix-b",
+   "page": 3,
+   "amountCad": 59496940,
+   "tier": "verbatim",
+   "note": ""
+  }
+ ]
+}

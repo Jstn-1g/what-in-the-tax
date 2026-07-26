@@ -1,0 +1,378 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifact": "TaxpayerReceipt",
+  "status": "partial_evidence_based",
+  "purpose": "City of Cambridge 2026 taxpayer receipt. Lower-tier: local + Region of Waterloo + education.",
+  "evidencePolicyRef": "data/cambridge/evidence-ledger.json",
+  "jurisdiction": {
+    "slug": "cambridge-on",
+    "displayName": "City of Cambridge",
+    "level": "lower-tier",
+    "aliases": [
+      "Cambridge",
+      "Cambridge ON"
+    ]
+  },
+  "profiles": {
+    "supportedAverageHousehold": {
+      "description": "Published average residential assessment ($344,000).",
+      "township": {
+        "basis": "City of Cambridge local portion at average assessment \u2014 unallocated pending department schedule",
+        "amountCad": 1779.68,
+        "assessmentCad": 344000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-CAM-BILL-CITY",
+        "lineItems": [
+          {
+            "id": "CAM-LOCAL-RATE-PORTION",
+            "label": "City of Cambridge (combined \u2014 rate \u00d7 average assessment)",
+            "amountCad": 1779.68,
+            "classification": "city_levy_unallocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-CAM-BILL-CITY",
+            "note": "Department allocation base not transcribed for this Tier 0 pack (see GAP-CAM-DEPT-SCHEDULE).",
+            "gapId": "GAP-CAM-DEPT-SCHEDULE"
+          }
+        ],
+        "uiLabel": "City portion",
+        "note": "Local rate \u00d7 $344,000 = $1,779.68. Published local increase $42 / 2.44% is local-portion only.",
+        "gapId": "GAP-CAM-DEPT-SCHEDULE"
+      },
+      "region": {
+        "basis": "Printed REGION rate on local 2026 rates sheet at $344,000",
+        "amountCad": 2895.9,
+        "assessmentCad": 344000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-CAM-BILL-REGION",
+        "lineItems": [
+          {
+            "id": "CAM-REGION-RATE-PORTION",
+            "label": "Region of Waterloo (combined \u2014 rate \u00d7 local average assessment)",
+            "amountCad": 2895.9,
+            "classification": "region_tax_supported",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-CAM-BILL-REGION",
+            "note": "Printed REGION rate \u00d7 $344,000. Region-published urban service lines at $354,500 are under regionIllustrationAt354500."
+          }
+        ],
+        "uiLabel": "Region portion",
+        "note": "Bill total is rate \u00d7 $344,000 = $2,895.90. Region-published urban breakdown at $354,500 ($2,984 after PIL) is under regionIllustrationAt354500."
+      },
+      "regionIllustrationAt354500": {
+        "description": "Region-published Urban (Kitchener / Waterloo / Cambridge) tax-supported services at $354,500 \u2014 INFORMATIONAL only.",
+        "basis": "Region 2026 Budget Book p.12 urban column (shared pack schedule) at $354,500",
+        "amountCad": 2984,
+        "assessmentCad": 354500,
+        "evidenceStatus": "FACT",
+        "sourceFactId": "ROW-URBAN-HH-TOTAL-2026",
+        "uiLabel": "Region illustration @ $354,500",
+        "lineItems": [
+          {
+            "id": "ROW-HH-URBAN-01",
+            "label": "Police Service",
+            "amountCad": 900,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-01",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-02",
+            "label": "Public Transit",
+            "amountCad": 582,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-02",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-03",
+            "label": "Housing Services",
+            "amountCad": 429,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-03",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-04",
+            "label": "Roads/Design & Construction/Eng.",
+            "amountCad": 240,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-04",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-05",
+            "label": "Waste Management",
+            "amountCad": 213,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-05",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-06",
+            "label": "Financial Expenses",
+            "amountCad": 89,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-06",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-07",
+            "label": "Paramedic Services",
+            "amountCad": 134,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-07",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-08",
+            "label": "Employment/Income Support",
+            "amountCad": 53,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-08",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-09",
+            "label": "Seniors' Services",
+            "amountCad": 51,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-09",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-10",
+            "label": "Human Resources",
+            "amountCad": 39,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-10",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-11",
+            "label": "Information Technology Services",
+            "amountCad": 49,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-11",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-12",
+            "label": "Public Health",
+            "amountCad": 45,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-12",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-13",
+            "label": "Facilities & Fleet Management",
+            "amountCad": 24,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-13",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-14",
+            "label": "Cultural Services",
+            "amountCad": 33,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-14",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-15",
+            "label": "Children's Services",
+            "amountCad": 30,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-15",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-16",
+            "label": "Elected Offices & Office of the Chief Administrative Officer",
+            "amountCad": 17,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-16",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-17",
+            "label": "Resident Experience, Strategy and Communications",
+            "amountCad": 19,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-17",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-18",
+            "label": "Airport",
+            "amountCad": 31,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-18",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-19",
+            "label": "Planning, Development & Legislative Services",
+            "amountCad": 21,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-19",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-20",
+            "label": "Finance",
+            "amountCad": 24,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-20",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-21",
+            "label": "Regional Library",
+            "amountCad": 0,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-21",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-22",
+            "label": "Build Waterloo Region",
+            "amountCad": 16,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-22",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-23",
+            "label": "Strategy, Performance and Partnerships",
+            "amountCad": 20,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-URBAN-23",
+            "note": "Region-published at $354,500; not part of the $344,000 bill."
+          },
+          {
+            "id": "ROW-HH-URBAN-ROUNDING",
+            "label": "Unallocated table-rounding difference (source total vs summed lines)",
+            "amountCad": 3,
+            "classification": "reconciling_item",
+            "evidenceStatus": "RECONCILING",
+            "note": "Printed lines sum $3,059; printed subtotal $3,062."
+          },
+          {
+            "id": "ROW-HH-PIL-OFFSET",
+            "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
+            "amountCad": -78,
+            "classification": "region_schedule_illustration",
+            "evidenceStatus": "FACT",
+            "sourceFactId": "ROW-HH-PIL-2026"
+          }
+        ],
+        "lineItemsSumCheckCad": 2984,
+        "note": "Do not add these dollars to the local $344,000 bill. See GAP-CAM-REGION-ASSESSMENT-BRIDGE.",
+        "gapId": "GAP-CAM-REGION-ASSESSMENT-BRIDGE"
+      },
+      "education": {
+        "basis": "RT Residential Education rate at $344,000",
+        "amountCad": 526.32,
+        "assessmentCad": 344000,
+        "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-CAM-BILL-EDUCATION",
+        "note": "Province sets this rate; the local municipality collects it.",
+        "uiLabel": "Education"
+      },
+      "combinedTotalCad": 5201.9,
+      "combinedAtAssessment": {
+        "assessmentCad": 344000,
+        "basis": "RT Residential rates applied to published average assessment",
+        "evidenceStatus": "DERIVED",
+        "components": [
+          {
+            "label": "City of Cambridge",
+            "amountCad": 1779.68,
+            "rate": 0.0051735,
+            "sourceFactId": "CAM-TAXRATE-RES-CITY-2026"
+          },
+          {
+            "label": "Region of Waterloo",
+            "amountCad": 2895.9,
+            "rate": 0.0084183,
+            "sourceFactId": "CAM-TAXRATE-RES-REGION-2026"
+          },
+          {
+            "label": "Education (Province of Ontario)",
+            "amountCad": 526.32,
+            "rate": 0.00153,
+            "sourceFactId": "CAM-TAXRATE-RES-EDUCATION-2026"
+          }
+        ],
+        "totalCad": 5201.9,
+        "totalRate": 0.0151218
+      },
+      "combinedTotalNote": "Local $1,779.68 + Region $2,895.90 + Education $526.32 = $5,201.90 at $344,000.",
+      "warnings": [
+        "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",
+        "Local department split is GAP until a suitable table is transcribed.",
+        "Region bill line is rate \u00d7 $344,000; Region urban schedule at $354,500 is informational only (GAP-CAM-REGION-ASSESSMENT-BRIDGE).",
+        "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt."
+      ]
+    },
+    "hypothetical5000": {
+      "amountCad": 5000,
+      "evidenceStatus": "DERIVED",
+      "allocatable": true,
+      "impliedAssessmentCad": 330648,
+      "compositionShares": [
+        {
+          "label": "City of Cambridge",
+          "share": 0.34212196960679286,
+          "sourceFactId": "CAM-TAXRATE-RES-CITY-2026"
+        },
+        {
+          "label": "Region of Waterloo",
+          "share": 0.5566995992540571,
+          "sourceFactId": "CAM-TAXRATE-RES-REGION-2026"
+        },
+        {
+          "label": "Education (Province of Ontario)",
+          "share": 0.1011784311391501,
+          "sourceFactId": "CAM-TAXRATE-RES-EDUCATION-2026"
+        }
+      ],
+      "message": "A $5,000 total bill implies an assessment of about $330,648. Shown as rate shares rather than invented department dollars."
+    }
+  },
+  "findings": [],
+  "uiModelHints": {
+    "municipalBucketLabel": "City portion",
+    "regionBucketLabel": "Region portion",
+    "defaultProfile": "supportedAverageHousehold",
+    "showGapsAsFirstClassUi": true,
+    "forbidFillerAllocation": true,
+    "marqueeFindings": [],
+    "publishedFindingIds": []
+  }
+}

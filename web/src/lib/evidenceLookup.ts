@@ -105,7 +105,10 @@ export function resolveCitation(
       depth < 2
         ? (derived.inputs ?? []).map((inputId) => resolveCitation(index, inputId, depth + 1))
         : []
-    const primary = inputs.find((c) => c.href)
+    // Prefer a leaf FACT page (e.g. department row in Appendix B) over a nested
+    // DERIVED that happens to be listed first (e.g. household bill total).
+    const primary =
+      inputs.find((c) => c.kind === 'FACT' && c.href) ?? inputs.find((c) => c.href)
     return {
       id: derived.id,
       kind: 'DERIVED',
