@@ -5,7 +5,7 @@
 The web application is a static preview. It performs no runtime AI inference and
 does not require a server-side calculation service.
 
-Both supported hosts currently build from mutable files under `web/src`. They do
+The Cloudflare host currently builds from mutable files under `web/src`. It does
 **not** deploy an immutable directory from `receipts/<slug>/<year>/<revision>/`.
 Consequently, a successful deployment proves that tests and the current bridge
 validators passed; it does not prove that the deployed bytes are a sealed pack.
@@ -19,34 +19,32 @@ Every current deployment must therefore display **Preview** and remain
 `noindex`. Publication additionally requires a named publisher, correction
 contact, source/licence review, and an immutable rollback target.
 
-## Automated GitHub Pages preview
+## GitHub release validation
 
-`.github/workflows/deploy-pages.yml` is the only repository-defined automatic
-deployment:
+`.github/workflows/release-validation.yml` validates the current default branch
+but does not publish to GitHub Pages. Cloudflare Workers Builds is the only
+automatic hosting path:
 
 - A push to the repository's current default branch, or a manual run whose
-  selected ref is that default branch, may deploy.
-- Feature branches cannot deploy, including through `workflow_dispatch`.
-- The validation/build job has read-only repository access.
-- Pages and OIDC permissions exist only in the deployment job.
+  selected ref is that default branch, may validate.
+- Feature branches cannot publish, including through `workflow_dispatch`.
+- The validation/build job has read-only repository access and no deployment,
+  Pages, or OIDC permissions.
 - Third-party Actions are pinned to verified commit SHAs.
 - Python tests, the locked regional registry, every non-template pack, web tests,
   the production build, and a production-dependency audit must pass first.
+- Web tests validate the checked-in Ontario FIR directory's schema, counts,
+  safety fields, and receipt-route separation. Exact source reproduction remains
+  an acquisition-stage gate because the 11 MB official archive is intentionally
+  not stored in Git.
 - The checked public-pack projection must match its source data; internal
   ledgers and unsupported packs are not accepted as browser artifacts.
 - Pack validators run in explicit `--no-write` mode, followed by a clean-tree
   assertion that catches accidental evidence or timestamp rewrites.
-- Production deployments are serialized rather than cancelled mid-release.
 
-Configure the `github-pages` environment in repository settings so that only
-the current default branch may deploy, with required reviewers, before treating
-the URL as externally managed.
-GitHub Pages does not interpret Cloudflare's `_headers` format, so response-header
-enforcement must be verified separately if GitHub Pages becomes a long-term host.
-On GitHub Pages, only the HTML `noindex` and `no-referrer` metadata from this
-repository apply; CSP, HSTS, frame protection, and Permissions Policy are not
-enforced by `_headers`. Treat Pages as a preview host, not the hardened
-publication host.
+The former GitHub Pages deployment was removed because this project is hosted on
+Cloudflare and Pages was not enabled. This avoids a misleading second deployment
+status and keeps one clear production path.
 
 ## Cloudflare Workers static-assets preview
 
@@ -149,15 +147,6 @@ npm --prefix web ci --ignore-scripts --no-audit --no-fund
 npm --prefix web test -- --run
 npm --prefix web run build
 npm --prefix web run preview
-```
-
-Set `GITHUB_PAGES=true` only when testing the GitHub project-path build:
-
-```powershell
-$env:GITHUB_PAGES = "true"
-npm --prefix web run build
-npm --prefix web run preview
-Remove-Item Env:GITHUB_PAGES
 ```
 
 ## Requirements for a future sealed deployment
