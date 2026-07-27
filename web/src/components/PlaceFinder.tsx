@@ -21,16 +21,18 @@ export type PlaceFinderProps<T extends PlaceSearchRecord> = {
   activePlaceId?: string
   registryState?: RegistryLoadState
   registryCoverage?: {
-    recordsPresent: number
-    expectedOntarioReturns: number
+    currentMunicipalities: number
+    withFirHistory: number
+    withoutFirHistory: number
+    latest2025: number
   }
 }
 
 export type PlaceFinderResults<T extends PlaceSearchRecord> = {
   receiptMatches: readonly T[]
-  firMatches: readonly T[]
+  directoryMatches: readonly T[]
   receiptTotal: number
-  firTotal: number
+  directoryTotal: number
   displayedMatches: number
   capped: boolean
   hasQuery: boolean
@@ -41,34 +43,38 @@ export function buildPlaceFinderResults<T extends PlaceSearchRecord>(
   query: string,
 ): PlaceFinderResults<T> {
   const hasQuery = normalizePlaceSearchValue(query).length > 0
-  const receipts = records.filter((record) => record.kind !== 'fir-record')
-  const firRecords = hasQuery
-    ? records.filter((record) => record.kind === 'fir-record')
+  const receipts = records.filter(
+    (record) => record.kind !== 'directory-record',
+  )
+  const directoryRecords = hasQuery
+    ? records.filter((record) => record.kind === 'directory-record')
     : []
   const receiptResult = searchPlaces(receipts, query)
-  const firResult = searchPlaces(firRecords, query)
+  const directoryResult = searchPlaces(directoryRecords, query)
   const remaining = Math.max(
     0,
     MAX_PLACE_RESULTS - receiptResult.matches.length,
   )
   const receiptMatches = receiptResult.matches
-  const firMatches = firResult.matches.slice(0, remaining)
-  const totalMatches = receiptResult.totalMatches + firResult.totalMatches
+  const directoryMatches = directoryResult.matches.slice(0, remaining)
+  const totalMatches =
+    receiptResult.totalMatches + directoryResult.totalMatches
 
   return {
     receiptMatches,
-    firMatches,
+    directoryMatches,
     receiptTotal: receiptResult.totalMatches,
-    firTotal: firResult.totalMatches,
-    displayedMatches: receiptMatches.length + firMatches.length,
-    capped: totalMatches > receiptMatches.length + firMatches.length,
+    directoryTotal: directoryResult.totalMatches,
+    displayedMatches: receiptMatches.length + directoryMatches.length,
+    capped:
+      totalMatches > receiptMatches.length + directoryMatches.length,
     hasQuery,
   }
 }
 
 function resultSummary(
   receiptMatches: number,
-  firMatches: number,
+  directoryMatches: number,
   displayedMatches: number,
   capped: boolean,
   hasQuery: boolean,
@@ -78,7 +84,7 @@ function resultSummary(
       receiptMatches === 1 ? 'preview' : 'previews'
     }`
   }
-  const totalMatches = receiptMatches + firMatches
+  const totalMatches = receiptMatches + directoryMatches
   if (totalMatches === 0) return 'No matching communities'
 
   const parts = []
@@ -89,10 +95,10 @@ function resultSummary(
       }`,
     )
   }
-  if (firMatches > 0) {
+  if (directoryMatches > 0) {
     parts.push(
-      `${firMatches} Ontario financial-return ${
-        firMatches === 1 ? 'record' : 'records'
+      `${directoryMatches} Ontario directory ${
+        directoryMatches === 1 ? 'record' : 'records'
       }`,
     )
   }
@@ -106,14 +112,18 @@ function resultSummary(
 function placeMetadata(place: PlaceSearchRecord): readonly string[] {
   const region = place.province ?? place.territory
   const releaseStatus = (() => {
-    if (place.kind === 'fir-record') return place.releaseStatus
+    if (place.kind === 'directory-record') return place.releaseStatus
     if (place.availability === 'blocked') return 'Still checking evidence'
     if (place.releaseStatus === 'draft') return 'Draft preview'
     if (place.releaseStatus === 'preview') return 'Preview'
     if (place.releaseStatus === 'published') return 'Published'
     return place.releaseStatus
   })()
-  return [place.typeLabel, region, releaseStatus].filter(
+  const currentEvidence =
+    place.kind === 'receipt' && place.currentEvidenceYear
+      ? `${place.currentEvidenceYear} current evidence`
+      : null
+  return [place.typeLabel, region, currentEvidence, releaseStatus].filter(
     (value): value is string => Boolean(value),
   )
 }
@@ -164,20 +174,36 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
     ) : null
   }
 
+  function renderYearContext(place: PlaceSearchRecord) {
+    const firYears = place.firYears ?? []
+    if (firYears.length === 0) {
+      return place.kind === 'directory-record' ? (
+        <span className="place-finder__years">
+          No 2023–2025 FIR in the locked bulk files
+        </span>
+      ) : null
+    }
+    return (
+      <span className="place-finder__years">
+        FIR history: {firYears.join(', ')}
+      </span>
+    )
+  }
+
   const registryStatus =
     registryState === 'unavailable'
       ? 'The Ontario directory could not be loaded right now. Receipt previews are still available.'
       : registryState === 'ready' && registryCoverage
-        ? `Ontario 2023 coverage: ${registryCoverage.recordsPresent} records indexed; ${registryCoverage.expectedOntarioReturns} returns expected.`
-        : 'Loading Ontario’s published 2023 financial-return directory…'
+        ? `Current Ontario directory: ${registryCoverage.currentMunicipalities} municipalities. ${registryCoverage.latest2025} use 2025 as their latest FIR; the rest fall back to 2024 or 2023 where available.`
+        : 'Loading Ontario’s current municipality directory and 2025–2023 FIR history…'
 
   return (
     <section className="place-finder" aria-labelledby={headingId}>
       <div className="place-finder__intro">
         <h2 id={headingId}>Find your community</h2>
         <p>
-          Open a receipt preview where one is ready, or check Ontario&apos;s
-          published 2023 financial-return directory.
+          Start with a 2026 receipt preview where one is ready. Earlier FIR
+          years remain visible for historical context.
         </p>
       </div>
 
@@ -238,7 +264,7 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
       >
         {resultSummary(
           result.receiptTotal,
-          result.firTotal,
+          result.directoryTotal,
           result.displayedMatches,
           result.capped,
           result.hasQuery,
@@ -268,7 +294,10 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
                     onClick={(event) => handlePlaceClick(event, place.id)}
                   >
                     <span className="place-finder__name">{place.label}</span>
-                    {renderMetadata(place)}
+                    <span className="place-finder__result-context">
+                      {renderMetadata(place)}
+                      {renderYearContext(place)}
+                    </span>
                     <svg
                       className="place-finder__arrow"
                       viewBox="0 0 24 24"
@@ -292,26 +321,30 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
           </section>
         ) : null}
 
-        {result.firMatches.length > 0 ? (
+        {result.directoryMatches.length > 0 ? (
           <section
             className="place-finder__group"
-            aria-labelledby={`${headingId}-fir`}
+            aria-labelledby={`${headingId}-directory`}
           >
             <h3
-              id={`${headingId}-fir`}
+              id={`${headingId}-directory`}
               className="place-finder__results-heading"
             >
-              2023 Ontario financial-return records
+              Ontario municipality directory
             </h3>
             <p className="place-finder__group-note">
-              Historical registry data only—not a current tax bill or receipt.
+              Current municipality identity with the newest available FIR year
+              shown first. FIR history is not a current tax bill or receipt.
             </p>
             <ul className="place-finder__results">
-              {result.firMatches.map((place) => (
+              {result.directoryMatches.map((place) => (
                 <li key={place.id} className="place-finder__result">
                   <div className="place-finder__result-static">
                     <span className="place-finder__name">{place.label}</span>
-                    {renderMetadata(place)}
+                    <span className="place-finder__result-context">
+                      {renderMetadata(place)}
+                      {renderYearContext(place)}
+                    </span>
                     <span className="place-finder__not-ready">
                       No receipt preview yet
                     </span>

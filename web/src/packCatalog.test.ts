@@ -45,6 +45,9 @@ describe('pack catalog routing', () => {
     expect(new Set(ids).size).toBe(ids.length)
     expect(new Set(firAssessmentCodes).size).toBe(firAssessmentCodes.length)
     expect(firAssessmentCodes.every((code) => /^\d{4}$/.test(code))).toBe(true)
+    expect(
+      PACK_CATALOG.every((pack) => pack.currentEvidenceYear === 2026),
+    ).toBe(true)
     for (const id of ids) {
       expect(isPackId(id)).toBe(true)
       expect(getPackCatalogEntry(id).id).toBe(id)

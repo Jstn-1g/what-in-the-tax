@@ -22,11 +22,12 @@ contracts, not the resident-facing brand, and are not being renamed casually.
   requests and collects no address, roll number, or account data.
 - Six Ontario receipts are available as **draft previews**. They are not sealed
   publications.
-- The resident search now indexes all 436 municipality-submitted records in the
-  hash-pinned 2023 Ontario FIR snapshot (238 lower-tier, 168 single-tier, and
-  30 upper-tier). Ontario expected 444 returns for that year, so the directory
-  is explicitly incomplete. These records are historical directory matches,
-  not receipts or current tax by-laws.
+- The resident search now starts from Ontario's current 444-municipality list.
+  Each municipality then selects its newest record from hash-pinned 2025, 2024,
+  and 2023 FIR bulk files: 129 currently select 2025, 273 fall back to 2024,
+  34 fall back to 2023, and 8 have no record in that window. All available
+  years are retained for context. FIR records are historical filings, not
+  receipts, current tax by-laws, or formal audits.
 - The national builder reproducibly loads the approved Statistics Canada SGC
   2021 baseline: 5,473 geographies, including 5,161 census subdivisions across
   all 13 provinces and territories. A checked-in, schema-validated index pins
@@ -116,7 +117,8 @@ workflow runs the offline checks on pull requests but never deploys.
 | `national/sgc_2021_geography_index.json` | release-pinned allowlist of all 5,473 official SGC 2021 geography IDs |
 | `scripts/build_national_registry.py` | offline, locked national registry builder |
 | `scripts/build_sgc_geography_index.py` | deterministic offline builder for the pinned SGC allowlist |
-| `scripts/build_ontario_fir_public_index.py` | deterministic, zero-AI builder for the public 2023 Ontario filing directory |
+| `scripts/build_ontario_municipal_history.py` | deterministic, zero-AI builder for the current 444-municipality directory with 2025 → 2024 → 2023 FIR history |
+| `scripts/build_ontario_fir_public_index.py` | retained deterministic builder for the immutable 2023 FIR baseline |
 | `scripts/manage_national_rollout.py` | offline jurisdiction-manifest readiness and status CLI |
 | `web/` | Vite + React What in the Tax? resident guide |
 | `DIRECTOR-REVIEW.md` | independent review, including corrections to its own findings |

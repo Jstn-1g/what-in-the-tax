@@ -6,6 +6,7 @@ const PACK_CATALOG_RECORDS = [
     province: 'Ontario',
     typeLabel: 'City',
     aliases: ['City of Kitchener'],
+    currentEvidenceYear: 2026,
     banner: 'Preview · pack/kitchener-on · City of Kitchener + Region of Waterloo',
     availability: 'available',
     canDisplay: true,
@@ -18,6 +19,7 @@ const PACK_CATALOG_RECORDS = [
     province: 'Ontario',
     typeLabel: 'City',
     aliases: ['City of Waterloo'],
+    currentEvidenceYear: 2026,
     banner: 'Preview · pack/waterloo-on · City of Waterloo + Region of Waterloo',
     availability: 'available',
     canDisplay: true,
@@ -30,6 +32,7 @@ const PACK_CATALOG_RECORDS = [
     province: 'Ontario',
     typeLabel: 'City',
     aliases: ['City of Cambridge'],
+    currentEvidenceYear: 2026,
     banner: 'Preview · pack/cambridge-on · City of Cambridge + Region of Waterloo',
     availability: 'available',
     canDisplay: true,
@@ -42,6 +45,7 @@ const PACK_CATALOG_RECORDS = [
     province: 'Ontario',
     typeLabel: 'Township',
     aliases: ['Township of Woolwich', 'Elmira', 'St. Jacobs'],
+    currentEvidenceYear: 2026,
     banner:
       'Draft preview · pack/woolwich-on · $354,500 reference scenario, not a Woolwich average',
     availability: 'available',
@@ -55,6 +59,7 @@ const PACK_CATALOG_RECORDS = [
     province: 'Ontario',
     typeLabel: 'Township',
     aliases: ['Township of North Dumfries', 'Ayr'],
+    currentEvidenceYear: 2026,
     banner:
       'Preview · north-dumfries-on · evidence hardening in progress',
     availability: 'available',
@@ -68,6 +73,7 @@ const PACK_CATALOG_RECORDS = [
     province: 'Ontario',
     typeLabel: 'Single-tier municipality',
     aliases: ['Paris', 'County of Brant', 'Brant County'],
+    currentEvidenceYear: 2026,
     banner: 'Preview · pack/brant-county-on · Paris via County of Brant (single-tier)',
     availability: 'available',
     canDisplay: true,
@@ -83,6 +89,7 @@ export type PackCatalogEntry = {
   province: string
   typeLabel: string
   aliases: readonly string[]
+  currentEvidenceYear: number
   banner: string
   canDisplay: boolean
   releaseStatus: 'draft' | 'preview' | 'published' | 'blocked'

@@ -1,7 +1,7 @@
-import type { OntarioFirRegistry } from '../lib/ontarioFirRegistry'
+import type { OntarioMunicipalHistoryRegistry } from '../lib/ontarioMunicipalHistory'
 
 export type OntarioRolloutNoteProps = {
-  registry: OntarioFirRegistry
+  registry: OntarioMunicipalHistoryRegistry
   receiptAssessmentCodes: ReadonlySet<string>
   receiptPreviewCount: number
 }
@@ -25,31 +25,31 @@ export default function OntarioRolloutNote({
   return (
     <section className="registry-brief" aria-labelledby="registry-brief-heading">
       <div className="registry-brief__copy">
-        <p className="registry-brief__eyebrow">Ontario rollout</p>
+        <p className="registry-brief__eyebrow">Ontario data</p>
         <h2 id="registry-brief-heading">
-          The directory is broader than the receipt library
+          Current first. Previous years kept for context.
         </h2>
         <p>
-          Ontario currently posts {registry.coverage.recordsPresent} of{' '}
-          {registry.coverage.expectedOntarioReturns} expected 2023 Financial
-          Information Returns; we indexed those records so residents can find
-          their community. A directory match only confirms a historical
-          provincial filing; it does not unlock a receipt.
+          The directory contains all {registry.coverage.currentMunicipalities}{' '}
+          municipalities in Ontario&apos;s current list. For each community, the
+          newest locked FIR is selected in 2025 → 2024 → 2023 order, while every
+          available year is retained. Current receipt previews stay separate and
+          use 2026 tax evidence.
         </p>
       </div>
 
       <dl className="registry-brief__stats">
         <div>
-          <dt>Directory records</dt>
-          <dd>{registry.coverage.recordsPresent}</dd>
+          <dt>Current municipalities</dt>
+          <dd>{registry.coverage.currentMunicipalities}</dd>
         </div>
         <div>
-          <dt>Receipt previews</dt>
+          <dt>Latest FIR is 2025</dt>
+          <dd>{registry.coverage.latestFirYearCounts['2025']}</dd>
+        </div>
+        <div>
+          <dt>2026 receipt previews</dt>
           <dd>{receiptPreviewCount}</dd>
-        </div>
-        <div>
-          <dt>Runtime AI calls</dt>
-          <dd>0</dd>
         </div>
       </dl>
 
@@ -71,18 +71,26 @@ export default function OntarioRolloutNote({
         </ol>
         <p>
           Wellesley is the next local evidence target, followed by Wilmot.
-          Missing evidence stays visible instead of being estimated.
+          Missing evidence stays visible instead of being estimated. Historical
+          comparisons will use one common year and basis rather than mixing each
+          community&apos;s newest filing.
         </p>
       </div>
 
       <p className="registry-brief__source">
-        2023 filing data last updated {registry.source.lastUpdated}. Ontario
-        advises that FIR data may be incomplete and previously posted years may
-        be revised.{' '}
-        <a href={registry.source.officialIndexUrl}>Official FIR index</a>
+        Current municipality list updated{' '}
+        {registry.sources.currentMunicipalities.lastUpdated}; FIR source
+        snapshot {registry.sourceSnapshotDate}. The 2023 baseline remains
+        available for broader same-year contrast. Ontario advises that FIR data
+        may be incomplete or revised. Runtime AI calls: 0.{' '}
+        <a href={registry.sources.currentMunicipalities.dataCatalogueUrl}>
+          Current municipality dataset
+        </a>
         {' · '}
-        <a href={registry.source.licenceUrl}>Open Government Licence</a>
-        <span>{registry.source.licenceAttribution}</span>
+        <a href={registry.sources.fir.officialIndexUrl}>Official FIR index</a>
+        {' · '}
+        <a href={registry.sources.licenceUrl}>Open Government Licence</a>
+        <span>{registry.sources.licenceAttribution}</span>
       </p>
     </section>
   )

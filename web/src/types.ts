@@ -86,6 +86,8 @@ export type Gap = {
 export type TaxpayerReceipt = {
   schemaVersion: string
   artifact: string
+  fiscalYear: number
+  currency: 'CAD'
   status: string
   purpose: string
   evidencePolicyRef: string

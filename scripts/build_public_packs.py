@@ -24,8 +24,16 @@ PACK_INPUTS = {
     "cambridge-on": DATA_ROOT / "cambridge",
     "woolwich-on": DATA_ROOT / "woolwich",
 }
+PACK_FISCAL_YEARS = {pack_id: 2026 for pack_id in PACK_INPUTS}
 
-RECEIPT_SCALAR_FIELDS = ("schemaVersion", "artifact", "status", "purpose")
+RECEIPT_SCALAR_FIELDS = (
+    "schemaVersion",
+    "artifact",
+    "fiscalYear",
+    "currency",
+    "status",
+    "purpose",
+)
 JURISDICTION_FIELDS = ("slug", "displayName", "level", "aliases")
 PROFILE_BUCKET_FIELDS = (
     "basis",
@@ -428,11 +436,26 @@ def build_pack(pack_id: str, input_dir: Path) -> dict[str, Any]:
         raise ValueError(
             f"{pack_id}: receipt jurisdiction slug is {jurisdiction.get('slug')!r}"
         )
+    fiscal_year = receipt.get("fiscalYear")
+    if (
+        not isinstance(fiscal_year, int)
+        or isinstance(fiscal_year, bool)
+        or not 2000 <= fiscal_year <= 2100
+    ):
+        raise ValueError(f"{pack_id}: receipt fiscalYear must be explicit")
+    expected_fiscal_year = PACK_FISCAL_YEARS.get(pack_id)
+    if fiscal_year != expected_fiscal_year:
+        raise ValueError(
+            f"{pack_id}: receipt fiscalYear must equal the configured "
+            f"current evidence year {expected_fiscal_year}"
+        )
+    if receipt.get("currency") != "CAD":
+        raise ValueError(f"{pack_id}: receipt currency must be CAD")
 
     public_receipt = project_receipt(receipt)
     public_evidence, included_fact_ids = project_evidence(ledger, public_receipt)
     public_pack = {
-        "schemaVersion": "1.0.0",
+        "schemaVersion": "1.1.0",
         "id": pack_id,
         "receipt": public_receipt,
         "evidence": public_evidence,

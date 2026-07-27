@@ -1,6 +1,8 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
+  "fiscalYear": 2026,
+  "currency": "CAD",
   "status": "partial_evidence_based",
   "purpose": "Paris / County of Brant 2026 taxpayer receipt. Single-tier: County municipal + hospital special levy + education. No Region column.",
   "evidencePolicyRef": "data/brant/evidence-ledger.json",

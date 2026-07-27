@@ -729,8 +729,10 @@
   "id": "kitchener-on",
   "receipt": {
     "artifact": "TaxpayerReceipt",
+    "currency": "CAD",
     "evidencePolicyRef": "Evidence included with this preview",
     "findings": [],
+    "fiscalYear": 2026,
     "jurisdiction": {
       "aliases": [
         "Kitchener"
@@ -1156,5 +1158,5 @@
       "showGapsAsFirstClassUi": true
     }
   },
-  "schemaVersion": "1.0.0"
+  "schemaVersion": "1.1.0"
 }

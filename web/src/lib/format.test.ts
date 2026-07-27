@@ -4,7 +4,6 @@ import {
   money,
   normalizeLocale,
   pct,
-  yearFromText,
 } from './format'
 
 function normalizeSpacing(value: string): string {
@@ -29,11 +28,5 @@ describe('Canadian presentation formatting', () => {
   it('formats percentage punctuation and spacing by locale', () => {
     expect(normalizeSpacing(pct(12.34, 'en-CA'))).toBe('12.3%')
     expect(normalizeSpacing(pct(12.34, 'fr-CA'))).toBe('12,3 %')
-  })
-
-  it('uses a year supplied by reviewed pack copy and never invents a fallback', () => {
-    expect(yearFromText('City of Kitchener 2026 taxpayer receipt.')).toBe('2026')
-    expect(yearFromText(undefined, 'Assessment basis for 2027', '2026 archive')).toBe('2027')
-    expect(yearFromText('Current illustrative receipt')).toBeNull()
   })
 })

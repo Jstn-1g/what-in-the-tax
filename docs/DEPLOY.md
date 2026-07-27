@@ -33,9 +33,10 @@ automatic hosting path:
 - Third-party Actions are pinned to verified commit SHAs.
 - Python tests, the locked regional registry, every non-template pack, web tests,
   the production build, and a production-dependency audit must pass first.
-- Web tests validate the checked-in Ontario FIR directory's schema, counts,
-  safety fields, and receipt-route separation. Exact source reproduction remains
-  an acquisition-stage gate because the 11 MB official archive is intentionally
+- Web tests validate the checked-in current Ontario municipality directory,
+  per-municipality FIR year history, count reconciliation, safety fields, and
+  receipt-route separation. Exact FIR source reproduction remains an
+  acquisition-stage gate because the official bulk archives are intentionally
   not stored in Git.
 - The checked public-pack projection must match its source data; internal
   ledgers and unsupported packs are not accepted as browser artifacts.
@@ -94,7 +95,10 @@ python scripts/build_public_packs.py --check
 if ($LASTEXITCODE -ne 0) { throw "Public pack projection drifted" }
 
 python scripts/build_ontario_fir_public_index.py --check
-if ($LASTEXITCODE -ne 0) { throw "Ontario FIR public index drifted" }
+if ($LASTEXITCODE -ne 0) { throw "Ontario 2023 FIR baseline drifted" }
+
+python scripts/build_ontario_municipal_history.py --check
+if ($LASTEXITCODE -ne 0) { throw "Ontario municipal history index drifted" }
 
 Get-ChildItem corpus -Directory |
   Where-Object {

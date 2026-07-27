@@ -29,6 +29,8 @@ describe('on-demand public pack loading', () => {
       '/tax-receipt-prototype/packs/kitchener-on.json',
     )
     expect(pack.id).toBe('kitchener-on')
+    expect(pack.receipt.fiscalYear).toBe(2026)
+    expect(pack.receipt.currency).toBe('CAD')
     expect(pack.receipt.jurisdiction?.slug).toBe('kitchener-on')
     expect(pack.evidence.sources.length).toBeGreaterThan(0)
   })
@@ -61,6 +63,28 @@ describe('on-demand public pack loading', () => {
     await expect(
       loadPackWithFetcher('kitchener-on', fetcher, '/'),
     ).rejects.toThrow('receipt.profiles')
+  })
+
+  it('rejects a receipt that relies on prose instead of an explicit year', async () => {
+    const payload = structuredClone(kitchenerPublicPack) as unknown as {
+      receipt: Record<string, unknown>
+    }
+    delete payload.receipt.fiscalYear
+    const fetcher: PackFetcher = async () => response(payload)
+
+    await expect(
+      loadPackWithFetcher('kitchener-on', fetcher, '/'),
+    ).rejects.toThrow('receipt.fiscalYear')
+  })
+
+  it('rejects a receipt year that disagrees with the catalog', async () => {
+    const payload = structuredClone(kitchenerPublicPack)
+    payload.receipt.fiscalYear = 2025
+    const fetcher: PackFetcher = async () => response(payload)
+
+    await expect(
+      loadPackWithFetcher('kitchener-on', fetcher, '/'),
+    ).rejects.toThrow('must equal catalog currentEvidenceYear 2026')
   })
 
   it('rejects incomplete citation-audit coverage', async () => {
