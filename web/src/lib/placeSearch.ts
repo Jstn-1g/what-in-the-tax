@@ -2,15 +2,19 @@ export const MAX_PLACE_RESULTS = 20
 
 export type PlaceSearchRecord = {
   id: string
-  kind?: 'receipt' | 'fir-record'
+  kind?: 'receipt' | 'directory-record'
   label: string
   aliases?: readonly string[]
   province?: string
   territory?: string
   typeLabel?: string
+  geographicArea?: string
   releaseStatus?: string
   availability?: string
   availabilityNote?: string
+  currentEvidenceYear?: number
+  latestFirYear?: number | null
+  firYears?: readonly number[]
 }
 
 export type PlaceSearchResults<T extends PlaceSearchRecord> = {
@@ -38,7 +42,11 @@ function recordSearchText(record: PlaceSearchRecord): string {
     record.province,
     record.territory,
     record.typeLabel,
+    record.geographicArea,
     record.releaseStatus,
+    record.currentEvidenceYear?.toString(),
+    record.latestFirYear?.toString(),
+    ...(record.firYears?.map(String) ?? []),
   ]
     .filter((value): value is string => Boolean(value))
     .map(normalizePlaceSearchValue)

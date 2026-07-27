@@ -488,6 +488,20 @@ button {
   text-align: right;
 }
 
+.place-finder__result-context {
+  min-width: 0;
+  display: grid;
+  justify-items: end;
+  gap: 0.2rem;
+}
+
+.place-finder__years {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  text-align: right;
+}
+
 .place-finder__result-static {
   background: var(--surface);
 }
@@ -843,6 +857,18 @@ button {
 }
 
 .hero-scenario-note strong {
+  color: var(--ink);
+}
+
+.hero-year-context {
+  max-width: 47rem;
+  margin: 0.6rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.hero-year-context strong {
   color: var(--ink);
 }
 
@@ -1254,7 +1280,7 @@ main#main-content {
 .bill-stack-amount,
 .receipt-total strong,
 .bill-stack-total strong,
-.line-right strong {
+.line-amount {
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
 }
@@ -1344,20 +1370,34 @@ main#main-content {
 .line-main {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'service amount'
+    'details status';
   align-items: start;
-  gap: 1.5rem;
+  gap: 0.35rem 1.5rem;
 }
 
-.line-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.line-service {
+  grid-area: service;
 }
 
-.line-right strong {
+.line-details {
+  grid-area: details;
+  min-width: 0;
+}
+
+.line-amount {
+  grid-area: amount;
   min-width: 7.5rem;
   font-size: 1.08rem;
   text-align: right;
+  white-space: nowrap;
+}
+
+.line-status {
+  grid-area: status;
+  max-width: 22rem;
+  justify-self: end;
 }
 
 .badge {
@@ -1370,6 +1410,7 @@ main#main-content {
   font-weight: 720;
   line-height: 1.2;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .badge-flagged {
@@ -1963,8 +2004,21 @@ main#main-content {
   }
 
   .place-finder__metadata {
+    text-align: left;
+  }
+
+  .place-finder__result-context {
     grid-column: 1;
     grid-row: 2;
+    justify-items: start;
+  }
+
+  .place-finder__result-context .place-finder__metadata {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .place-finder__years {
     text-align: left;
   }
 
@@ -2122,8 +2176,7 @@ main#main-content {
     font-size: clamp(2rem, 10vw, 2.65rem);
   }
 
-  .bill-stack-body,
-  .line-main {
+  .bill-stack-body {
     grid-template-columns: 1fr auto;
     gap: 1rem;
   }
@@ -2132,14 +2185,32 @@ main#main-content {
     font-size: 1.05rem;
   }
 
-  .line-right {
-    flex-direction: column-reverse;
-    align-items: flex-end;
-    gap: 0.5rem;
+  .line-main {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'service amount'
+      'details details'
+      'status status';
+    gap: 0.6rem 1rem;
   }
 
-  .line-right strong {
+  .line-amount {
     min-width: 0;
+    font-size: 1.05rem;
+  }
+
+  .line-status {
+    max-width: 100%;
+    justify-self: start;
+    text-align: left;
+  }
+
+  .receipt-total {
+    padding: 1.05rem;
+  }
+
+  .receipt-total strong {
+    font-size: clamp(1.3rem, 7vw, 1.55rem);
   }
 
   .source-card {

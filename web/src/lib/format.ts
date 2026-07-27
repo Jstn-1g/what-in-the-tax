@@ -52,12 +52,3 @@ export function money(amount: number, locale = currentLocale()): string {
 export function pct(value: number, locale = currentLocale()): string {
   return percentFormatter(normalizeLocale(locale)).format(value / 100)
 }
-
-/** Read a presentation year from reviewed pack copy without inventing a default. */
-export function yearFromText(...values: Array<string | null | undefined>): string | null {
-  for (const value of values) {
-    const match = value?.match(/\b(?:19|20)\d{2}\b/)
-    if (match) return match[0]
-  }
-  return null
-}

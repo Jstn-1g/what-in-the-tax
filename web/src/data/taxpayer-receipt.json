@@ -1,6 +1,8 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
+  "fiscalYear": 2026,
+  "currency": "CAD",
   "status": "partial_evidence_based",
   "purpose": "UI data model using only supported allocations. A hypothetical $5,000 combined bill can be split among taxing bodies from adopted rates; it is not a published household bill.",
   "evidencePolicyRef": "data/evidence-ledger.json",

@@ -1,6 +1,8 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "TaxpayerReceipt",
+  "fiscalYear": 2026,
+  "currency": "CAD",
   "status": "partial_evidence_based",
   "purpose": "City of Kitchener 2026 taxpayer receipt. Lower-tier: City + Region of Waterloo + education.",
   "evidencePolicyRef": "data/kitchener/evidence-ledger.json",

@@ -3,6 +3,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -93,6 +94,23 @@ class PublicPackProjectionTests(unittest.TestCase):
             [gap["disposition"] for gap in projected["gaps"]],
             ["missing_evidence", "not_applicable"],
         )
+
+    def test_rejects_receipt_year_outside_configured_current_year(self):
+        def fake_load(path):
+            if path.name == "taxpayer-receipt.json":
+                return {
+                    "jurisdiction": {"slug": "kitchener-on"},
+                    "fiscalYear": 2025,
+                    "currency": "CAD",
+                }
+            return {}
+
+        with patch.object(PUBLIC_PACKS, "load_json", side_effect=fake_load):
+            with self.assertRaisesRegex(
+                ValueError,
+                "must equal the configured current evidence year 2026",
+            ):
+                PUBLIC_PACKS.build_pack("kitchener-on", Path("."))
 
     def test_unexpected_json_artifacts_are_found_and_safely_removed(self):
         with tempfile.TemporaryDirectory() as temp_dir:

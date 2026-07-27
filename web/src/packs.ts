@@ -54,10 +54,16 @@ function publicPackUrl(id: PackId, baseUrl: string): string {
 
 function parsePublicPack(id: PackId, value: unknown): PackEntry {
   const validated = validatePublicPack(id, value)
+  const metadata = getPackCatalogEntry(id)
+  if (validated.receipt.fiscalYear !== metadata.currentEvidenceYear) {
+    throw new Error(
+      `${id}: receipt fiscalYear must equal catalog currentEvidenceYear ${metadata.currentEvidenceYear}.`,
+    )
+  }
 
   return {
     id,
-    metadata: getPackCatalogEntry(id),
+    metadata,
     receipt: validated.receipt,
     evidence: validated.evidence,
     audit: validated.audit,

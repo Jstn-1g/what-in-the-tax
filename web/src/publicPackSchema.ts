@@ -7,7 +7,7 @@ import type {
   TaxpayerReceipt,
 } from './types'
 
-export const PUBLIC_PACK_SCHEMA_VERSION = '1.0.0'
+export const PUBLIC_PACK_SCHEMA_VERSION = '1.1.0'
 const RECEIPT_SCHEMA_VERSION = '2.0.0'
 const PUBLIC_EVIDENCE_POLICY_REF = 'Evidence included with this preview'
 
@@ -66,6 +66,13 @@ function assertFiniteNumber(
 ): asserts value is number {
   if (typeof value !== 'number' || !Number.isFinite(value)) {
     fail(path, 'must be a finite number')
+  }
+}
+
+function assertFiscalYear(value: unknown, path: string): asserts value is number {
+  assertFiniteNumber(value, path)
+  if (!Number.isInteger(value) || value < 2000 || value > 2100) {
+    fail(path, 'must be an integer from 2000 through 2100')
   }
 }
 
@@ -227,6 +234,8 @@ function validateReceipt(expectedId: string, value: unknown) {
   assertOnlyKeys(value, path, [
     'schemaVersion',
     'artifact',
+    'fiscalYear',
+    'currency',
     'status',
     'purpose',
     'evidencePolicyRef',
@@ -240,6 +249,10 @@ function validateReceipt(expectedId: string, value: unknown) {
   }
   if (value.artifact !== 'TaxpayerReceipt') {
     fail(`${path}.artifact`, 'must equal TaxpayerReceipt')
+  }
+  assertFiscalYear(value.fiscalYear, `${path}.fiscalYear`)
+  if (value.currency !== 'CAD') {
+    fail(`${path}.currency`, 'must equal CAD')
   }
   assertString(value.status, `${path}.status`)
   assertString(value.purpose, `${path}.purpose`)

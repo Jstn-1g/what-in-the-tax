@@ -1,5 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react'
-import { money, pct, yearFromText } from '../lib/format'
+import { money, pct } from '../lib/format'
 import {
   buildEvidenceIndex,
   citationLabel,
@@ -173,6 +173,15 @@ function LineList({
               isFiniteAmount(line.amountCad) &&
               line.amountCad <= 0 &&
               line.classification !== 'reconciling_item'
+            const detailParts = [
+              showBar && share != null
+                ? `${pct(share * 100)} of this share`
+                : null,
+              nonQuantitative
+                ? 'Not represented in the proportional bar'
+                : null,
+              line.note ?? null,
+            ].filter((part): part is string => Boolean(part))
             return (
               <li
                 key={line.id}
@@ -180,20 +189,19 @@ function LineList({
                 style={{ animationDelay: `${index * 25}ms` }}
               >
                 <div className="line-main">
-                  <div>
-                    <p className="line-service">{line.label}</p>
-                    <p className="line-meta">
-                      {status}
-                      {showBar && share != null ? ` · ${pct(share * 100)} of this share` : ''}
-                      {nonQuantitative ? ' · Not represented in the proportional bar' : ''}
-                      {line.note ? ` · ${line.note}` : ''}
-                    </p>
+                  <p className="line-service">{line.label}</p>
+                  <strong className="line-amount">
+                    {availableMoney(line.amountCad)}
+                  </strong>
+                  <div className="line-details">
+                    {detailParts.length > 0 ? (
+                      <p className="line-meta">{detailParts.join(' · ')}</p>
+                    ) : null}
                     <SourceAnchor evidence={evidence} factId={line.sourceFactId} />
                   </div>
-                  <div className="line-right">
-                    <span className={'badge ' + tone.badge}>{status}</span>
-                    <strong>{availableMoney(line.amountCad)}</strong>
-                  </div>
+                  <span className={`badge line-status ${tone.badge}`}>
+                    {status}
+                  </span>
                 </div>
                 {showBar && share != null ? (
                   <div
@@ -223,8 +231,30 @@ function LineList({
   )
 }
 
+export type FirHistoryState = 'loading' | 'ready' | 'unavailable'
+
+export function receiptYearContext(
+  receiptYear: number,
+  firYears: readonly number[] | undefined,
+  firHistoryState: FirHistoryState,
+): string {
+  const current = `current tax evidence ${receiptYear}`
+  if (firHistoryState === 'loading') {
+    return `${current} · loading earlier FIR context.`
+  }
+  if (firHistoryState === 'unavailable' || firYears === undefined) {
+    return `${current} · earlier FIR context is temporarily unavailable.`
+  }
+  if (firYears.length === 0) {
+    return `${current} · no 2023–2025 FIR history available. FIR years stay separate from this receipt calculation.`
+  }
+  return `${current} · FIR history ${firYears.join(', ')}. FIR years stay separate from this receipt calculation.`
+}
+
 export default function TaxReceiptScreen({
   data,
+  firYears,
+  firHistoryState = 'loading',
   gaps,
   evidenceRules,
   sources,
@@ -237,6 +267,8 @@ export default function TaxReceiptScreen({
   simpleLanguage = false,
 }: {
   data: TaxpayerReceipt
+  firYears?: readonly number[]
+  firHistoryState?: FirHistoryState
   gaps: Gap[]
   evidenceRules: string[]
   sources: Source[]
@@ -289,13 +321,7 @@ export default function TaxReceiptScreen({
   const receiptTotalCad = combined?.totalCad ?? profile.combinedTotalCad
   const municipalAmountCad = profile.township.amountCad
   const displayName = data.jurisdiction?.displayName?.trim() || null
-  const receiptYear = yearFromText(
-    data.purpose,
-    profile.description,
-    combined?.basis,
-    profile.township.basis,
-    profile.region.basis,
-  )
+  const receiptYear = data.fiscalYear.toString()
   const rawMunicipalLabel =
     data.uiModelHints.municipalBucketLabel?.trim() ||
     profile.township.uiLabel?.trim() ||
@@ -429,7 +455,9 @@ export default function TaxReceiptScreen({
                     <span className="hero-context-sep" aria-hidden="true">
                       ·
                     </span>
-                    <span className="hero-year">{receiptYear}</span>
+                    <span className="hero-year">
+                      {receiptYear} current evidence
+                    </span>
                   </>
                 ) : null}
               </p>
@@ -442,6 +470,14 @@ export default function TaxReceiptScreen({
               </p>
               <p className="hero-scenario-note">
                 <strong>Reference used:</strong> {profile.description}
+              </p>
+              <p className="hero-year-context">
+                <strong>Year context:</strong>{' '}
+                {receiptYearContext(
+                  data.fiscalYear,
+                  firYears,
+                  firHistoryState,
+                )}
               </p>
             </div>
             <p className="hero-amount" aria-live="polite">

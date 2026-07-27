@@ -16,10 +16,10 @@ import {
   type PackRoute,
 } from './packs'
 import {
-  loadOntarioFirRegistry,
-  toFirFinderRecord,
-  type OntarioFirRegistry,
-} from './lib/ontarioFirRegistry'
+  loadOntarioMunicipalHistory,
+  toDirectoryFinderRecord,
+  type OntarioMunicipalHistoryRegistry,
+} from './lib/ontarioMunicipalHistory'
 import type { PlaceSearchRecord } from './lib/placeSearch'
 
 type ViewId = 'receipt' | 'help'
@@ -180,10 +180,10 @@ export default function App() {
   const [loaded, setLoaded] = useState<LoadedPack | null>(null)
   const [loadFailure, setLoadFailure] = useState<LoadFailure | null>(null)
   const [retrySequence, setRetrySequence] = useState(0)
-  const [firRegistry, setFirRegistry] = useState<OntarioFirRegistry | null>(
-    null,
-  )
-  const [firRegistryUnavailable, setFirRegistryUnavailable] = useState(false)
+  const [municipalHistory, setMunicipalHistory] =
+    useState<OntarioMunicipalHistoryRegistry | null>(null)
+  const [municipalHistoryUnavailable, setMunicipalHistoryUnavailable] =
+    useState(false)
   const [view, setView] = useState<ViewId>(() =>
     typeof window !== 'undefined' ? viewFromHash() : 'receipt',
   )
@@ -191,16 +191,16 @@ export default function App() {
 
   useEffect(() => {
     let active = true
-    loadOntarioFirRegistry().then(
+    loadOntarioMunicipalHistory().then(
       (registry) => {
         if (!active) return
-        setFirRegistry(registry)
-        setFirRegistryUnavailable(false)
+        setMunicipalHistory(registry)
+        setMunicipalHistoryUnavailable(false)
       },
       (_error: unknown) => {
         if (!active) return
-        setFirRegistry(null)
-        setFirRegistryUnavailable(true)
+        setMunicipalHistory(null)
+        setMunicipalHistoryUnavailable(true)
       },
     )
     return () => {
@@ -447,20 +447,35 @@ export default function App() {
       : null
 
   const finderRecords: readonly PlaceSearchRecord[] = useMemo(() => {
-    if (!firRegistry) return RECEIPT_FINDER_RECORDS
+    if (!municipalHistory) return RECEIPT_FINDER_RECORDS
     const rolloutTargets = new Map(
-      firRegistry.rolloutPlan.cohort.map((target) => [
+      municipalHistory.rolloutPlan.cohort.map((target) => [
         target.assessmentCode,
         target,
       ]),
     )
-    const firRecords = firRegistry.records
+    const directoryByCode = new Map(
+      municipalHistory.records.flatMap((record) =>
+        record.assessmentCode ? [[record.assessmentCode, record] as const] : [],
+      ),
+    )
+    const receiptRecords = RECEIPT_FINDER_RECORDS.map((record) => {
+      const history = directoryByCode.get(record.firAssessmentCode)
+      return {
+        ...record,
+        latestFirYear: history?.latestFirYear ?? null,
+        firYears: history?.firYears.map((item) => item.fiscalYear) ?? [],
+      }
+    })
+    const directoryRecords = municipalHistory.records
       .filter(
-        (record) => !RECEIPT_ASSESSMENT_CODES.has(record.assessmentCode),
+        (record) =>
+          record.assessmentCode === null ||
+          !RECEIPT_ASSESSMENT_CODES.has(record.assessmentCode),
       )
-      .map((record) => toFirFinderRecord(record, rolloutTargets))
-    return [...RECEIPT_FINDER_RECORDS, ...firRecords]
-  }, [firRegistry])
+      .map((record) => toDirectoryFinderRecord(record, rolloutTargets))
+    return [...receiptRecords, ...directoryRecords]
+  }, [municipalHistory])
 
   if (view === 'help') {
     return (
@@ -535,7 +550,7 @@ export default function App() {
               <p>
                 {isLoading
                   ? 'Loading only the selected receipt and its public evidence.'
-                  : 'Search your community to open a receipt preview where one is ready, or see whether it appears in Ontario’s published 2023 financial-return data.'}
+                  : 'Search your community to start with current 2026 tax evidence where a receipt is ready, then see which 2025, 2024, and 2023 FIR years are available for context.'}
               </p>
             </div>
             {!isLoading ? <ReceiptSketch /> : null}
@@ -572,26 +587,30 @@ export default function App() {
                 }}
                 activePlaceId={packId ?? undefined}
                 registryState={
-                  firRegistry
+                  municipalHistory
                     ? 'ready'
-                    : firRegistryUnavailable
+                    : municipalHistoryUnavailable
                       ? 'unavailable'
                       : 'loading'
                 }
                 registryCoverage={
-                  firRegistry
+                  municipalHistory
                     ? {
-                        recordsPresent:
-                          firRegistry.coverage.recordsPresent,
-                        expectedOntarioReturns:
-                          firRegistry.coverage.expectedOntarioReturns,
+                        currentMunicipalities:
+                          municipalHistory.coverage.currentMunicipalities,
+                        withFirHistory:
+                          municipalHistory.coverage.withFirHistory,
+                        withoutFirHistory:
+                          municipalHistory.coverage.withoutFirHistory,
+                        latest2025:
+                          municipalHistory.coverage.latestFirYearCounts['2025'],
                       }
                     : undefined
                 }
               />
-              {firRegistry ? (
+              {municipalHistory ? (
                 <OntarioRolloutNote
-                  registry={firRegistry}
+                  registry={municipalHistory}
                   receiptAssessmentCodes={RECEIPT_ASSESSMENT_CODES}
                   receiptPreviewCount={PACK_CATALOG.length}
                 />
@@ -623,10 +642,26 @@ export default function App() {
           } incomplete`
         : 'source checks complete'
   const selectedMetadata = getPackCatalogEntry(packId!)
+  const selectedHistoryRecord = municipalHistory?.records.find(
+    (record) =>
+      record.assessmentCode === selectedMetadata.firAssessmentCode,
+  )
+  const selectedHistoryYears = selectedHistoryRecord?.firYears.map(
+    (item) => item.fiscalYear,
+  )
+  const selectedHistoryState = municipalHistory
+    ? selectedHistoryRecord
+      ? 'ready'
+      : 'unavailable'
+    : municipalHistoryUnavailable
+      ? 'unavailable'
+      : 'loading'
 
   return (
     <TaxReceiptScreen
       data={pack.receipt}
+      firYears={selectedHistoryYears}
+      firHistoryState={selectedHistoryState}
       gaps={pack.evidence.gaps}
       evidenceRules={pack.evidence.evidencePolicy.rules}
       sources={pack.evidence.sources}

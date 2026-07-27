@@ -15,6 +15,9 @@ const RECORDS = [
     typeLabel: 'Township',
     availability: 'available',
     releaseStatus: 'draft',
+    currentEvidenceYear: 2026,
+    latestFirYear: 2024,
+    firYears: [2024, 2023],
   },
   {
     kind: 'receipt',
@@ -25,33 +28,40 @@ const RECORDS = [
     typeLabel: 'County',
     availability: 'available',
     releaseStatus: 'draft',
+    currentEvidenceYear: 2026,
+    latestFirYear: 2024,
+    firYears: [2024, 2023],
   },
   {
-    kind: 'fir-record',
-    id: 'fir-on-1906',
+    kind: 'directory-record',
+    id: 'directory-on-1906',
     label: 'Toronto',
     aliases: ['Toronto C', '1906'],
     province: 'Ontario',
     typeLabel: 'City',
-    availability: 'fir-record',
-    releaseStatus: '2023 provincial filing',
+    availability: 'directory-record',
+    releaseStatus: 'Latest FIR 2025',
+    latestFirYear: 2025,
+    firYears: [2025, 2024, 2023],
   },
   {
-    kind: 'fir-record',
-    id: 'fir-on-3024',
+    kind: 'directory-record',
+    id: 'directory-on-3024',
     label: 'Wellesley',
     aliases: ['Wellesley Tp', '3024'],
     province: 'Ontario',
     typeLabel: 'Township',
-    availability: 'fir-record',
+    availability: 'directory-record',
     releaseStatus: 'Next receipt target',
+    latestFirYear: 2025,
+    firYears: [2025, 2024, 2023],
   },
 ] satisfies readonly PlaceSearchRecord[]
 
 function ids(result: PlaceFinderResults<PlaceSearchRecord>) {
   return {
     receipts: result.receiptMatches.map((record) => record.id),
-    fir: result.firMatches.map((record) => record.id),
+    directory: result.directoryMatches.map((record) => record.id),
   }
 }
 
@@ -61,50 +71,55 @@ describe('place finder result separation', () => {
 
     expect(ids(result)).toEqual({
       receipts: ['north-dumfries-on', 'brant-county-on'],
-      fir: [],
+      directory: [],
     })
-    expect(result.firTotal).toBe(0)
+    expect(result.directoryTotal).toBe(0)
   })
 
-  it('returns an informational FIR record without turning it into a receipt', () => {
+  it('returns an informational directory record without turning it into a receipt', () => {
     const result = buildPlaceFinderResults(RECORDS, 'Toronto')
 
-    expect(ids(result)).toEqual({ receipts: [], fir: ['fir-on-1906'] })
-    expect(result.firMatches[0]).toMatchObject({
-      kind: 'fir-record',
-      availability: 'fir-record',
+    expect(ids(result)).toEqual({
+      receipts: [],
+      directory: ['directory-on-1906'],
+    })
+    expect(result.directoryMatches[0]).toMatchObject({
+      kind: 'directory-record',
+      availability: 'directory-record',
+      latestFirYear: 2025,
+      firYears: [2025, 2024, 2023],
     })
   })
 
   it('preserves receipt aliases and the documented next target', () => {
     expect(ids(buildPlaceFinderResults(RECORDS, 'Paris'))).toEqual({
       receipts: ['brant-county-on'],
-      fir: [],
+      directory: [],
     })
     expect(ids(buildPlaceFinderResults(RECORDS, 'Wellesley'))).toEqual({
       receipts: [],
-      fir: ['fir-on-3024'],
+      directory: ['directory-on-3024'],
     })
   })
 
   it('keeps receipt matches first and caps the combined display at 20', () => {
-    const manyFir = Array.from({ length: 25 }, (_, index) => ({
-      kind: 'fir-record' as const,
-      id: `fir-on-${String(index).padStart(4, '0')}`,
+    const manyDirectory = Array.from({ length: 25 }, (_, index) => ({
+      kind: 'directory-record' as const,
+      id: `directory-on-${String(index).padStart(4, '0')}`,
       label: `Ontario Place ${index}`,
       province: 'Ontario',
     }))
     const result = buildPlaceFinderResults(
-      [RECORDS[0], ...manyFir],
+      [RECORDS[0], ...manyDirectory],
       'Ontario',
     )
 
     expect(result.receiptMatches.map((record) => record.id)).toEqual([
       'north-dumfries-on',
     ])
-    expect(result.firMatches).toHaveLength(19)
+    expect(result.directoryMatches).toHaveLength(19)
     expect(result.displayedMatches).toBe(20)
-    expect(result.receiptTotal + result.firTotal).toBe(26)
+    expect(result.receiptTotal + result.directoryTotal).toBe(26)
     expect(result.capped).toBe(true)
   })
 })

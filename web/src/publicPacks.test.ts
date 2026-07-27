@@ -56,6 +56,9 @@ describe('committed public pack artifacts', () => {
       expect(pack.receipt.evidencePolicyRef, pack.id).toBe(
         'Evidence included with this preview',
       )
+      expect(pack.schemaVersion, pack.id).toBe('1.1.0')
+      expect(pack.receipt.fiscalYear, pack.id).toBe(2026)
+      expect(pack.receipt.currency, pack.id).toBe('CAD')
       expect(pack.receipt.uiModelHints.marqueeFindings, pack.id).toEqual([])
       expect(pack.receipt.uiModelHints.publishedFindingIds, pack.id).toEqual([])
       expect(pack.receipt.uiModelHints, pack.id).not.toHaveProperty(

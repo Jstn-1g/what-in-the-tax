@@ -560,8 +560,10 @@
   "id": "cambridge-on",
   "receipt": {
     "artifact": "TaxpayerReceipt",
+    "currency": "CAD",
     "evidencePolicyRef": "Evidence included with this preview",
     "findings": [],
+    "fiscalYear": 2026,
     "jurisdiction": {
       "aliases": [
         "Cambridge",
@@ -937,5 +939,5 @@
       "showGapsAsFirstClassUi": true
     }
   },
-  "schemaVersion": "1.0.0"
+  "schemaVersion": "1.1.0"
 }
