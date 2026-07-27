@@ -116,7 +116,6 @@ function placeMetadata(place: PlaceSearchRecord): readonly string[] {
     if (place.availability === 'blocked') return 'Still checking evidence'
     if (place.releaseStatus === 'draft') return 'Draft preview'
     if (place.releaseStatus === 'preview') return 'Preview'
-    if (place.releaseStatus === 'published') return 'Published'
     return place.releaseStatus
   })()
   const currentEvidence =

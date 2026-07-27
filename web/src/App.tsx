@@ -17,6 +17,7 @@ import {
 } from './packs'
 import {
   loadOntarioMunicipalHistory,
+  ontarioMunicipalHistoryUrl,
   toDirectoryFinderRecord,
   type OntarioMunicipalHistoryRegistry,
 } from './lib/ontarioMunicipalHistory'
@@ -613,6 +614,9 @@ export default function App() {
                   registry={municipalHistory}
                   receiptAssessmentCodes={RECEIPT_ASSESSMENT_CODES}
                   receiptPreviewCount={PACK_CATALOG.length}
+                  verificationHref={ontarioMunicipalHistoryUrl(
+                    import.meta.env.BASE_URL,
+                  )}
                 />
               ) : null}
               <SupportCard />

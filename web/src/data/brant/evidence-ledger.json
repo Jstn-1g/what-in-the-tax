@@ -1,6 +1,62 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "EvidenceLedger",
+  "fiscalYear": 2026,
+  "currency": "CAD",
+  "publisher": {
+    "name": "What in the Tax? project",
+    "role": "Independent project publisher; not the County of Brant",
+    "repositoryUrl": "https://github.com/Jstn-1g/tax-receipt-prototype"
+  },
+  "license": {
+    "spdx": "MIT",
+    "scope": "Project-authored receipt and evidence metadata only",
+    "sourceDocuments": "Official source documents are not relicensed; see each source's licence metadata"
+  },
+  "correctionsRoute": {
+    "type": "required-before-publication",
+    "url": null,
+    "status": "pending-public-contact-channel"
+  },
+  "publicationApproval": {
+    "status": "pending-named-human-approval",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "coverage": {
+    "status": "complete-for-declared-tier-0-scope",
+    "tier": 0,
+    "fiscalYear": 2026,
+    "currency": "CAD",
+    "geography": "County of Brant, including Paris",
+    "assessmentClass": "RT Residential",
+    "included": [
+      "County municipal rate",
+      "hospital special levy",
+      "education rate",
+      "eleven-department pro-rata municipal allocation"
+    ],
+    "excluded": [
+      "parcel-specific adjustments and rebates",
+      "non-RT classes and special-area charges",
+      "water/wastewater and other user fees",
+      "peer comparisons, findings, and judgments"
+    ],
+    "sourceCoverage": {
+      "receiptDrivingSources": 2,
+      "reviewedSourceAndExtractPairs": 2,
+      "citedFacts": 20,
+      "citationAuditExpected": {
+        "verbatim": 18,
+        "normalized": 2,
+        "hardFailures": 0,
+        "bindingIssues": 0
+      },
+      "loadBearingFacts": 20
+    },
+    "findingsCount": 0,
+    "openGapsCount": 0
+  },
   "jurisdiction": {
     "slug": "brant-county-on",
     "name": "County of Brant",
@@ -18,7 +74,8 @@
       "DERIVED requires an explicit formula over FACT/DERIVED ids only.",
       "Never invent bill dollars to fill a GAP.",
       "JUDGMENT billImpactCad is always null until a formula is approved.",
-      "Single-tier packs must not fabricate a Region column."
+      "Single-tier packs must not fabricate a Region column.",
+      "Tier 0 carries no findings, judgments, or open evidence gaps."
     ]
   },
   "sources": [
@@ -26,31 +83,63 @@
       "id": "brant-2026-approved-budget",
       "title": "County of Brant 2026 Approved Budget \u2014 Operating Forecast (Accessible)",
       "url": "https://www.brant.ca/media/0dpbiteo/2026-approved-budget-accessible.pdf",
+      "landingPage": "https://www.brant.ca/council-and-county-administration/budget-and-finances/budget-and-capital-forecast/",
+      "asOf": "2026-02",
+      "retrievedAt": "2026-07-26",
+      "publisher": "County of Brant",
+      "authority": "official-municipal",
+      "fiscalYear": 2026,
+      "currency": "CAD",
+      "documentKind": "approved-operating-budget",
+      "adoptionStatus": "approved",
+      "license": "unspecified",
+      "licenseNote": "No explicit reuse licence was identified for this PDF. The source site displays \u00a9 2026 County of Brant; the project's MIT licence does not relicense the official source document.",
+      "coverage": {
+        "role": "receipt-driving",
+        "citedPages": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "scope": "2026 net levy, median-home illustration, eleven department control rows, Legal Services, and OPP"
+      },
+      "note": "Adopted operating forecast; net levy and department summary.",
       "localPath": "source-pdfs/brant/2026-approved-budget-accessible.pdf",
+      "sha256": "b8c622e920e82ae9c00160b730e970c39968f1a7cf6fcb522886214bfed8f5d9",
+      "bytes": 1438059,
       "extractedText": "data/_extracts/brant/2026-approved-budget-accessible.txt",
-      "asOf": "2026-02",
-      "authority": "County of Brant",
-      "note": "Adopted operating forecast; net levy and department summary."
-    },
-    {
-      "id": "brant-2026-budget-overview",
-      "title": "County of Brant 2026 Budget Overview (Accessible)",
-      "url": "https://www.brant.ca/media/njpawe0j/1-budget-overview-accessible.pdf",
-      "localPath": "source-pdfs/brant/1-budget-overview-accessible.pdf",
-      "extractedText": "data/_extracts/brant/1-budget-overview-accessible.txt",
-      "asOf": "2026-02",
-      "authority": "County of Brant",
-      "note": "Proposed/overview narrative; levy drivers and median home illustration."
+      "extractedTextSha256": "2878a735c4d2420329a4710150905b0ac108c9330b76439cb9c5a49097c2705d"
     },
     {
       "id": "brant-2026-tax-rates",
       "title": "County of Brant 2026 Tax Rates",
       "url": "https://www.brant.ca/media/wgootdma/2026-tax-rates.pdf",
-      "localPath": "source-pdfs/brant/2026-tax-rates.pdf",
-      "extractedText": "data/_extracts/brant/2026-tax-rates.txt",
+      "landingPage": "https://www.brant.ca/property-taxes/tax-rates/",
       "asOf": "2026",
-      "authority": "County of Brant",
-      "note": "Municipal, hospital special levy, and education rates by tax class."
+      "retrievedAt": "2026-07-26",
+      "publisher": "County of Brant",
+      "authority": "official-municipal",
+      "fiscalYear": 2026,
+      "currency": "CAD",
+      "documentKind": "tax-rate-schedule",
+      "adoptionStatus": "final",
+      "license": "unspecified",
+      "licenseNote": "No explicit reuse licence was identified for this PDF. The source site displays \u00a9 2026 County of Brant; the project's MIT licence does not relicense the official source document.",
+      "coverage": {
+        "role": "receipt-driving",
+        "citedPages": [
+          1
+        ],
+        "scope": "RT Residential municipal, hospital, education, and total 2026 tax rates"
+      },
+      "note": "Municipal, hospital special levy, and education rates by tax class.",
+      "localPath": "source-pdfs/brant/2026-tax-rates.pdf",
+      "sha256": "27d1266f0f10b52c7179806a577cd0ef45199448b9b127ee54793cf871bf3652",
+      "bytes": 199564,
+      "extractedText": "data/_extracts/brant/2026-tax-rates.txt",
+      "extractedTextSha256": "b4470259d7cecab15440f8f4c95b9f4747291f6d5b2512c8e9ad8b70be420af9"
     }
   ],
   "facts": [
@@ -62,16 +151,6 @@
       "amountCad": 92457575,
       "excerpt": "NET LEVY $85,371,329 $92,457,575 $101,524,129 $110,139,523 $115,787,940",
       "status": "approved",
-      "kind": "FACT"
-    },
-    {
-      "id": "BRANT-LEVY-2025",
-      "sourceId": "brant-2026-approved-budget",
-      "page": 1,
-      "label": "County of Brant 2025 reorganized net levy (comparator)",
-      "amountCad": 85371329,
-      "excerpt": "NET LEVY $85,371,329 $92,457,575 $101,524,129 $110,139,523 $115,787,940",
-      "status": "approved_prior_year",
       "kind": "FACT"
     },
     {
@@ -314,6 +393,17 @@
       "kind": "DERIVED"
     },
     {
+      "id": "DRV-BRANT-BILL-COUNTY-391K",
+      "label": "County municipal plus hospital special levy at median assessment",
+      "amountCad": 4295.33,
+      "formula": "DRV-BRANT-BILL-MUNICIPAL-391K + DRV-BRANT-BILL-HOSPITAL-391K",
+      "inputs": [
+        "DRV-BRANT-BILL-MUNICIPAL-391K",
+        "DRV-BRANT-BILL-HOSPITAL-391K"
+      ],
+      "kind": "DERIVED"
+    },
+    {
       "id": "DRV-BRANT-BILL-EDUCATION-391K",
       "label": "Education portion at median assessment",
       "amountCad": 598.23,
@@ -328,14 +418,37 @@
       "id": "DRV-BRANT-BILL-COMBINED-391K",
       "label": "Combined RT bill at median assessment",
       "amountCad": 4893.56,
-      "formula": "municipal + hospital special + education",
+      "formula": "DRV-BRANT-BILL-COUNTY-391K + DRV-BRANT-BILL-EDUCATION-391K",
       "inputs": [
-        "DRV-BRANT-BILL-MUNICIPAL-391K",
-        "DRV-BRANT-BILL-HOSPITAL-391K",
-        "DRV-BRANT-BILL-EDUCATION-391K",
+        "DRV-BRANT-BILL-COUNTY-391K",
+        "DRV-BRANT-BILL-EDUCATION-391K"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-BRANT-RATE-TOTAL-CHECK-2026",
+      "label": "RT component rates sum to the published RT total rate",
+      "value": 0.0125155,
+      "formula": "sum(RT component rates) == BRANT-TAXRATE-RES-TOTAL-2026",
+      "inputs": [
+        "BRANT-TAXRATE-RES-MUNICIPAL-2026",
+        "BRANT-TAXRATE-RES-HOSPITAL-2026",
+        "BRANT-TAXRATE-RES-EDUCATION-2026",
         "BRANT-TAXRATE-RES-TOTAL-2026"
       ],
-      "note": "Cross-check: rates sum to printed Total 0.0125155.",
+      "note": "The three published RT component rates sum exactly to 0.0125155.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-BRANT-ILLUSTRATION-DELTA-391K",
+      "label": "Published illustration minus rate-derived County amount",
+      "amountCad": 0.02,
+      "formula": "BRANT-ILLUSTRATED-COUNTY-BILL-2026 - DRV-BRANT-BILL-COUNTY-391K",
+      "inputs": [
+        "BRANT-ILLUSTRATED-COUNTY-BILL-2026",
+        "DRV-BRANT-BILL-COUNTY-391K"
+      ],
+      "note": "The final tax-rate schedule is authoritative for this receipt. The approved-budget illustration is retained and reconciled as a $0.02 presentation difference; no cause is inferred.",
       "kind": "DERIVED"
     },
     {
@@ -471,6 +584,28 @@
       "kind": "DERIVED"
     },
     {
+      "id": "DRV-BRANT-ALLOCATION-ROUNDING-391K",
+      "label": "Department allocation cent-rounding residual",
+      "amountCad": -0.01,
+      "formula": "DRV-BRANT-BILL-MUNICIPAL-391K - sum(DRV-BRANT-DEPT-MAYOR-COUNCIL-2026-HH, DRV-BRANT-DEPT-CAO-2026-HH, DRV-BRANT-DEPT-CORPORATE-2026-HH, DRV-BRANT-DEPT-TAXATION-CORP-FIN-2026-HH, DRV-BRANT-DEPT-CAPITAL-FINANCING-2026-HH, DRV-BRANT-DEPT-DEVELOPMENT-2026-HH, DRV-BRANT-DEPT-STRATEGIC-2026-HH, DRV-BRANT-DEPT-OPERATIONS-2026-HH, DRV-BRANT-DEPT-COMMUNITY-2026-HH, DRV-BRANT-DEPT-EPS-2026-HH, DRV-BRANT-DEPT-EXTERNAL-2026-HH)",
+      "inputs": [
+        "DRV-BRANT-BILL-MUNICIPAL-391K",
+        "DRV-BRANT-DEPT-MAYOR-COUNCIL-2026-HH",
+        "DRV-BRANT-DEPT-CAO-2026-HH",
+        "DRV-BRANT-DEPT-CORPORATE-2026-HH",
+        "DRV-BRANT-DEPT-TAXATION-CORP-FIN-2026-HH",
+        "DRV-BRANT-DEPT-CAPITAL-FINANCING-2026-HH",
+        "DRV-BRANT-DEPT-DEVELOPMENT-2026-HH",
+        "DRV-BRANT-DEPT-STRATEGIC-2026-HH",
+        "DRV-BRANT-DEPT-OPERATIONS-2026-HH",
+        "DRV-BRANT-DEPT-COMMUNITY-2026-HH",
+        "DRV-BRANT-DEPT-EPS-2026-HH",
+        "DRV-BRANT-DEPT-EXTERNAL-2026-HH"
+      ],
+      "note": "Explicit cent residual after independently rounding the eleven department household shares.",
+      "kind": "DERIVED"
+    },
+    {
       "id": "DRV-BRANT-LEGAL-SUBLINE",
       "label": "of which Legal Services (inside Corporate)",
       "amountCad": 53.91,
@@ -493,31 +628,82 @@
         "BRANT-LEVY-2026"
       ],
       "kind": "DERIVED"
-    }
-  ],
-  "gaps": [
-    {
-      "id": "GAP-BRANT-PEER-FIR-FAIRNESS",
-      "title": "Peer per-capita fairness check not yet run for Brant",
-      "detail": "North Dumfries gold pack includes MMAH FIR Schedule 40 peer benchmarks. Brant has a fleet FIR stub (code 2920) but this gold receipt has not yet published a hand-checked peer fairness finding.",
-      "blocks": [
-        "findings_peer_fairness"
-      ],
-      "neededEvidence": [
-        "Hand-checked FIR Schedule 40 peer cohort + population basis disclosure"
-      ],
-      "kind": "GAP"
     },
     {
-      "id": "GAP-BRANT-ILLUSTRATION-2CENTS",
-      "title": "County illustration is 2\u00a2 above rate \u00d7 assessment",
-      "detail": "Approved budget prints residential impact $4,295.35 at $391,000. Municipal rate 0.0107859 + hospital 0.0001996 \u00d7 $391,000 rounds to $4,295.33 (delta $0.02). This receipt uses the tax-rate arithmetic; the printed illustration remains cited as FACT.",
-      "blocks": [],
-      "neededEvidence": [
-        "County clarification of rounding on the Property Tax Impact table"
+      "id": "DRV-BRANT-IMPLIED-ASSESSMENT-5000",
+      "label": "Assessment implied by the $5,000 RT scenario",
+      "amountCad": 399505,
+      "formula": "5000 / BRANT-TAXRATE-RES-TOTAL-2026",
+      "inputs": [
+        "BRANT-TAXRATE-RES-TOTAL-2026"
       ],
-      "kind": "GAP"
+      "parameters": {
+        "scenarioBillCad": 5000
+      },
+      "note": "Scenario parameter divided by the final published RT total rate.",
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-BRANT-SHARE-MUNICIPAL-2026",
+      "label": "Municipal share of the RT total rate",
+      "value": 0.861803363829,
+      "formula": "BRANT-TAXRATE-RES-MUNICIPAL-2026 / BRANT-TAXRATE-RES-TOTAL-2026",
+      "inputs": [
+        "BRANT-TAXRATE-RES-MUNICIPAL-2026",
+        "BRANT-TAXRATE-RES-TOTAL-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-BRANT-SHARE-HOSPITAL-2026",
+      "label": "Hospital special levy share of the RT total rate",
+      "value": 0.015948224202,
+      "formula": "BRANT-TAXRATE-RES-HOSPITAL-2026 / BRANT-TAXRATE-RES-TOTAL-2026",
+      "inputs": [
+        "BRANT-TAXRATE-RES-HOSPITAL-2026",
+        "BRANT-TAXRATE-RES-TOTAL-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-BRANT-SHARE-EDUCATION-2026",
+      "label": "Education share of the RT total rate",
+      "value": 0.122248411969,
+      "formula": "BRANT-TAXRATE-RES-EDUCATION-2026 / BRANT-TAXRATE-RES-TOTAL-2026",
+      "inputs": [
+        "BRANT-TAXRATE-RES-EDUCATION-2026",
+        "BRANT-TAXRATE-RES-TOTAL-2026"
+      ],
+      "kind": "DERIVED"
     }
   ],
-  "closedGaps": []
+  "gaps": [],
+  "closedGaps": [],
+  "reconciliations": [
+    {
+      "id": "REC-BRANT-DEPARTMENT-CONTROL-2026",
+      "status": "exact",
+      "derivedId": "DRV-BRANT-ALLOCATION-BASE-2026",
+      "controlFactId": "BRANT-LEVY-2026",
+      "amountCad": 92457575,
+      "note": "The eleven department net requirements sum exactly to the approved $92,457,575 net levy."
+    },
+    {
+      "id": "REC-BRANT-RT-RATE-CONTROL-2026",
+      "status": "exact",
+      "derivedId": "DRV-BRANT-RATE-TOTAL-CHECK-2026",
+      "controlFactId": "BRANT-TAXRATE-RES-TOTAL-2026",
+      "value": 0.0125155,
+      "note": "Municipal, hospital, and education rates sum exactly to the published RT total rate."
+    },
+    {
+      "id": "REC-BRANT-BUDGET-ILLUSTRATION-2026",
+      "status": "explained-difference",
+      "derivedId": "DRV-BRANT-ILLUSTRATION-DELTA-391K",
+      "controlFactId": "BRANT-ILLUSTRATED-COUNTY-BILL-2026",
+      "amountCad": 0.02,
+      "selectedBasis": "final-2026-tax-rate-schedule",
+      "note": "The approved-budget illustration is $0.02 above the final rate-derived County amount. Both values remain cited; this receipt uses the final rate schedule and does not infer a cause."
+    }
+  ]
 }

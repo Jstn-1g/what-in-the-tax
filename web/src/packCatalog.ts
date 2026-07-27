@@ -92,7 +92,7 @@ export type PackCatalogEntry = {
   currentEvidenceYear: number
   banner: string
   canDisplay: boolean
-  releaseStatus: 'draft' | 'preview' | 'published' | 'blocked'
+  releaseStatus: 'draft' | 'preview' | 'blocked'
 } & (
   | { availability: 'available'; availabilityNote?: never }
   | { availability: 'blocked'; availabilityNote: string }

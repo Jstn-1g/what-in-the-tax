@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import receipt from '../data/brant/taxpayer-receipt.json'
 import ledger from '../data/brant/evidence-ledger.json'
-import type { TaxpayerReceipt } from '../types'
+import type { EvidenceLedger, TaxpayerReceipt } from '../types'
 
 describe('brant-county-on / Paris receipt', () => {
   const data = receipt as unknown as TaxpayerReceipt
+  const evidence = ledger as unknown as EvidenceLedger
   const profile = data.profiles.supportedAverageHousehold
 
   it('resolves Paris as County of Brant single-tier', () => {
@@ -34,8 +35,8 @@ describe('brant-county-on / Paris receipt', () => {
 
   it('ships Tier 0 with no findings and keeps aliases out of the gap count', () => {
     expect(data.findings).toEqual([])
-    expect(ledger.gaps.some((g) => g.id === 'GAP-PARIS-ALIAS')).toBe(false)
-    expect(ledger.gaps.some((g) => g.id === 'GAP-BRANT-NO-UPPER-TIER')).toBe(
+    expect(evidence.gaps.some((g) => g.id === 'GAP-PARIS-ALIAS')).toBe(false)
+    expect(evidence.gaps.some((g) => g.id === 'GAP-BRANT-NO-UPPER-TIER')).toBe(
       false,
     )
   })

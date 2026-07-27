@@ -56,7 +56,7 @@ describe('committed public pack artifacts', () => {
       expect(pack.receipt.evidencePolicyRef, pack.id).toBe(
         'Evidence included with this preview',
       )
-      expect(pack.schemaVersion, pack.id).toBe('1.1.0')
+      expect(pack.schemaVersion, pack.id).toBe('1.2.0')
       expect(pack.receipt.fiscalYear, pack.id).toBe(2026)
       expect(pack.receipt.currency, pack.id).toBe('CAD')
       expect(pack.receipt.uiModelHints.marqueeFindings, pack.id).toEqual([])
@@ -101,6 +101,34 @@ describe('committed public pack artifacts', () => {
     )
     expect(JSON.stringify(northDumfriesPack)).not.toContain('ND-CAP-ARENA-2026')
     expect(northDumfriesPack.evidence.gaps.length).toBeGreaterThan(0)
+  })
+
+  it('publishes Brant scope metadata without pretending approval exists', () => {
+    expect(brantPack.receipt.publisher).toEqual({
+      name: 'What in the Tax? project',
+      role: 'Independent project publisher; not the County of Brant',
+    })
+    expect(brantPack.receipt).not.toHaveProperty(
+      'publisher.repositoryUrl',
+    )
+    expect(brantPack.receipt.correctionsRoute).toEqual({
+      type: 'required-before-publication',
+      url: null,
+      status: 'pending-public-contact-channel',
+    })
+    expect(brantPack.receipt.publicationApproval).toEqual({
+      status: 'pending-named-human-approval',
+      approvedBy: null,
+      approvedAt: null,
+    })
+    expect(brantPack.receipt.coverage).toMatchObject({
+      status: 'complete-for-declared-tier-0-scope',
+      tier: 0,
+      fiscalYear: 2026,
+      currency: 'CAD',
+      findingsCount: 0,
+      openGapsCount: 0,
+    })
   })
 
 })

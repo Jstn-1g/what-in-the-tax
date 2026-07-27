@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "source-lock-2.0.0",
+  "artifact": "SourceLock",
+  "jurisdictionSlug": "region-of-waterloo-on",
+  "fiscalYear": 2026,
+  "currency": "CAD",
+  "ledgerPath": "data/region-waterloo/evidence-ledger.json",
+  "ledgerSha256": "8848f1cdb6311f994492039f7173148d7f514c6256cdfe1ff2c4ed0053c35fe8",
+  "sources": [
+    {
+      "id": "row-2026-book",
+      "title": "Region of Waterloo 2026 Final Budget Book — Annual Average Cost Per Household",
+      "url": "https://www.regionofwaterloo.ca/media/ynro4cd2/2026_final_budget_book.pdf",
+      "publisher": "Regional Municipality of Waterloo",
+      "documentKind": "final-budget-book",
+      "adoptionStatus": "final",
+      "fiscalYear": 2026,
+      "currency": "CAD",
+      "publicationDate": null,
+      "retrievedAt": null,
+      "retrievalStatus": "not-recorded",
+      "license": "not-determined",
+      "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
+      "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
+      "bytes": 5442331,
+      "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
+      "extractedTextSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423",
+      "extractedTextBytes": 357160,
+      "pageCount": 191,
+      "citedPages": [
+        12
+      ],
+      "lockStatus": "source-extract-pages-and-generated-artifacts"
+    }
+  ],
+  "artifacts": {
+    "pack": {
+      "path": "corpus/region-of-waterloo-on/pack.yaml",
+      "sha256": "10f5499c895ea33a1a340eb40495e97d43a592ffc7dbf71dd8dcfcf0f5be9dd3",
+      "bytes": 3074,
+      "lineEndings": "LF"
+    },
+    "schedule": {
+      "path": "corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml",
+      "sha256": "2ac8305c7dd9b00a672ee9f8dfc2f3e8c066edf760dd62af96b63dcd0510b1e5",
+      "bytes": 22846,
+      "lineEndings": "LF"
+    },
+    "ledger": {
+      "path": "data/region-waterloo/evidence-ledger.json",
+      "sha256": "8848f1cdb6311f994492039f7173148d7f514c6256cdfe1ff2c4ed0053c35fe8",
+      "bytes": 195497,
+      "lineEndings": "LF"
+    },
+    "receipt": {
+      "path": "data/region-waterloo/taxpayer-receipt.json",
+      "sha256": "05e5e2270f11318725082216d092db986171760862d2622a29ef6451234ea041",
+      "bytes": 46966,
+      "lineEndings": "LF"
+    }
+  },
+  "hashScope": {
+    "algorithm": "SHA-256",
+    "bytePolicy": "Raw bytes; all locked text artifacts are UTF-8 with LF line endings.",
+    "includes": [
+      "official source PDF",
+      "page-marked source extract",
+      "pack descriptor",
+      "household schedule",
+      "evidence ledger",
+      "taxpayer receipt"
+    ],
+    "excludes": [
+      "this self-referential lock file",
+      "timestamped validation reports",
+      "citation audit regenerated deterministically from the locked ledger and extract"
+    ]
+  },
+  "coverage": {
+    "sourceCount": 1,
+    "citedPages": [
+      12
+    ],
+    "areaKeys": [
+      "blended",
+      "urban",
+      "rural",
+      "woolwich",
+      "wilmot"
+    ],
+    "serviceRows": 23,
+    "householdAllocations": 115
+  },
+  "generatedBy": "scripts/build_region_waterloo_pack.py"
+}

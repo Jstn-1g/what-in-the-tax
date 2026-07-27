@@ -1,0 +1,3 @@
+# Changed upstream bytes are quarantined here for human review. They can be
+# uploaded as CI artifacts, but must never be mistaken for active source locks.
+candidates/

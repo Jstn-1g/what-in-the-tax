@@ -7,7 +7,7 @@ import type {
   TaxpayerReceipt,
 } from './types'
 
-export const PUBLIC_PACK_SCHEMA_VERSION = '1.1.0'
+export const PUBLIC_PACK_SCHEMA_VERSION = '1.2.0'
 const RECEIPT_SCHEMA_VERSION = '2.0.0'
 const PUBLIC_EVIDENCE_POLICY_REF = 'Evidence included with this preview'
 
@@ -91,6 +91,23 @@ function assertOptionalString(value: unknown, path: string) {
 
 function assertOptionalNumber(value: unknown, path: string) {
   if (value !== undefined) assertFiniteNumber(value, path)
+}
+
+function assertStringOrNull(
+  value: unknown,
+  path: string,
+): asserts value is string | null {
+  if (value !== null) assertString(value, path)
+}
+
+function assertNonNegativeInteger(
+  value: unknown,
+  path: string,
+): asserts value is number {
+  assertFiniteNumber(value, path)
+  if (!Number.isInteger(value) || value < 0) {
+    fail(path, 'must be a non-negative integer')
+  }
 }
 
 function assertStringArray(value: unknown, path: string): asserts value is string[] {
@@ -228,6 +245,160 @@ function validateCombinedAssessment(value: unknown, path: string) {
   }
 }
 
+function validateReceiptPublicationMetadata(value: JsonObject, path: string) {
+  if (value.publisher !== undefined) {
+    const publisherPath = `${path}.publisher`
+    assertObject(value.publisher, publisherPath)
+    assertOnlyKeys(value.publisher, publisherPath, ['name', 'role'])
+    assertString(value.publisher.name, `${publisherPath}.name`)
+    assertString(value.publisher.role, `${publisherPath}.role`)
+  }
+
+  if (value.license !== undefined) {
+    const licensePath = `${path}.license`
+    assertObject(value.license, licensePath)
+    assertOnlyKeys(value.license, licensePath, [
+      'spdx',
+      'scope',
+      'sourceDocuments',
+    ])
+    assertString(value.license.spdx, `${licensePath}.spdx`)
+    assertString(value.license.scope, `${licensePath}.scope`)
+    assertString(
+      value.license.sourceDocuments,
+      `${licensePath}.sourceDocuments`,
+    )
+  }
+
+  if (value.correctionsRoute !== undefined) {
+    const correctionsPath = `${path}.correctionsRoute`
+    assertObject(value.correctionsRoute, correctionsPath)
+    assertOnlyKeys(value.correctionsRoute, correctionsPath, [
+      'type',
+      'url',
+      'status',
+    ])
+    assertString(value.correctionsRoute.type, `${correctionsPath}.type`)
+    assertStringOrNull(value.correctionsRoute.url, `${correctionsPath}.url`)
+    assertString(value.correctionsRoute.status, `${correctionsPath}.status`)
+    if (
+      value.correctionsRoute.type === 'required-before-publication' &&
+      value.correctionsRoute.url !== null
+    ) {
+      fail(`${correctionsPath}.url`, 'must be null while publication is blocked')
+    }
+  }
+
+  if (value.publicationApproval !== undefined) {
+    const approvalPath = `${path}.publicationApproval`
+    assertObject(value.publicationApproval, approvalPath)
+    assertOnlyKeys(value.publicationApproval, approvalPath, [
+      'status',
+      'approvedBy',
+      'approvedAt',
+    ])
+    assertString(value.publicationApproval.status, `${approvalPath}.status`)
+    assertStringOrNull(
+      value.publicationApproval.approvedBy,
+      `${approvalPath}.approvedBy`,
+    )
+    assertStringOrNull(
+      value.publicationApproval.approvedAt,
+      `${approvalPath}.approvedAt`,
+    )
+    if (
+      value.publicationApproval.status === 'pending-named-human-approval' &&
+      (value.publicationApproval.approvedBy !== null ||
+        value.publicationApproval.approvedAt !== null)
+    ) {
+      fail(approvalPath, 'cannot name an approver while approval is pending')
+    }
+  }
+
+  if (value.coverage === undefined) return
+  const coveragePath = `${path}.coverage`
+  assertObject(value.coverage, coveragePath)
+  assertOnlyKeys(value.coverage, coveragePath, [
+    'status',
+    'tier',
+    'fiscalYear',
+    'currency',
+    'geography',
+    'assessmentClass',
+    'included',
+    'excluded',
+    'sourceCoverage',
+    'findingsCount',
+    'openGapsCount',
+  ])
+  assertString(value.coverage.status, `${coveragePath}.status`)
+  assertNonNegativeInteger(value.coverage.tier, `${coveragePath}.tier`)
+  assertFiscalYear(value.coverage.fiscalYear, `${coveragePath}.fiscalYear`)
+  if (value.coverage.fiscalYear !== value.fiscalYear) {
+    fail(`${coveragePath}.fiscalYear`, 'must match receipt.fiscalYear')
+  }
+  if (value.coverage.currency !== 'CAD') {
+    fail(`${coveragePath}.currency`, 'must equal CAD')
+  }
+  assertString(value.coverage.geography, `${coveragePath}.geography`)
+  assertString(
+    value.coverage.assessmentClass,
+    `${coveragePath}.assessmentClass`,
+  )
+  assertStringArray(value.coverage.included, `${coveragePath}.included`)
+  assertStringArray(value.coverage.excluded, `${coveragePath}.excluded`)
+  assertNonNegativeInteger(
+    value.coverage.findingsCount,
+    `${coveragePath}.findingsCount`,
+  )
+  assertNonNegativeInteger(
+    value.coverage.openGapsCount,
+    `${coveragePath}.openGapsCount`,
+  )
+
+  if (value.coverage.sourceCoverage === undefined) return
+  const sourceCoveragePath = `${coveragePath}.sourceCoverage`
+  assertObject(value.coverage.sourceCoverage, sourceCoveragePath)
+  assertOnlyKeys(value.coverage.sourceCoverage, sourceCoveragePath, [
+    'receiptDrivingSources',
+    'reviewedSourceAndExtractPairs',
+    'citedFacts',
+    'citationAuditExpected',
+    'loadBearingFacts',
+  ])
+  for (const field of [
+    'receiptDrivingSources',
+    'reviewedSourceAndExtractPairs',
+    'citedFacts',
+    'loadBearingFacts',
+  ] as const) {
+    assertNonNegativeInteger(
+      value.coverage.sourceCoverage[field],
+      `${sourceCoveragePath}.${field}`,
+    )
+  }
+
+  if (value.coverage.sourceCoverage.citationAuditExpected === undefined) return
+  const auditPath = `${sourceCoveragePath}.citationAuditExpected`
+  assertObject(value.coverage.sourceCoverage.citationAuditExpected, auditPath)
+  assertOnlyKeys(
+    value.coverage.sourceCoverage.citationAuditExpected,
+    auditPath,
+    ['verbatim', 'normalized', 'hardFailures', 'bindingIssues'],
+  )
+  for (const field of [
+    'verbatim',
+    'normalized',
+    'hardFailures',
+    'bindingIssues',
+  ] as const) {
+    assertNonNegativeInteger(
+      value.coverage.sourceCoverage.citationAuditExpected[field],
+      `${auditPath}.${field}`,
+    )
+  }
+}
+
 function validateReceipt(expectedId: string, value: unknown) {
   const path = '$.receipt'
   assertObject(value, path)
@@ -237,6 +408,11 @@ function validateReceipt(expectedId: string, value: unknown) {
     'fiscalYear',
     'currency',
     'status',
+    'publisher',
+    'license',
+    'correctionsRoute',
+    'publicationApproval',
+    'coverage',
     'purpose',
     'evidencePolicyRef',
     'jurisdiction',
@@ -255,6 +431,7 @@ function validateReceipt(expectedId: string, value: unknown) {
     fail(`${path}.currency`, 'must equal CAD')
   }
   assertString(value.status, `${path}.status`)
+  validateReceiptPublicationMetadata(value, path)
   assertString(value.purpose, `${path}.purpose`)
   if (value.evidencePolicyRef !== PUBLIC_EVIDENCE_POLICY_REF) {
     fail(`${path}.evidencePolicyRef`, 'must be the public evidence label')

@@ -1,0 +1,519 @@
+name: Publish approved sealed release
+
+'on':
+  workflow_dispatch:
+    inputs:
+      validation_run_id:
+        description: Successful Validate sealed release candidate run ID
+        required: true
+        type: string
+      commit_sha:
+        description: Exact commit SHA validated by that run
+        required: true
+        type: string
+
+# This workflow does not need repository write, OIDC, package, or pull-request
+# permissions. Cloudflare authentication is supplied only as an environment
+# secret after the production approval gate.
+permissions: {}
+
+concurrency:
+  group: publish-approved-sealed-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    # Configure this as a protected GitHub Environment with required reviewers.
+    environment:
+      name: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      actions: read
+      contents: read
+      deployments: write
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      WORKER_NAME: tax-receipt-prototype
+      PRODUCTION_URL: https://tax-receipt-prototype.jstn0513.workers.dev/
+    steps:
+      - name: Require an independently protected production environment
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          status="$(
+            curl --silent --show-error \
+              --output "$RUNNER_TEMP/production-environment.json" \
+              --write-out '%{http_code}' \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/environments/production"
+          )"
+          test "$status" = 200 || {
+            echo "The production environment cannot be verified (HTTP $status)." >&2
+            exit 1
+          }
+          python - <<'PY'
+          import json
+          import os
+
+          path = os.path.join(os.environ["RUNNER_TEMP"], "production-environment.json")
+          environment = json.load(open(path, encoding="utf-8"))
+          reviewer_rules = [
+              rule for rule in environment.get("protection_rules", [])
+              if rule.get("type") == "required_reviewers"
+          ]
+          reviewers = [
+              reviewer
+              for rule in reviewer_rules
+              for reviewer in rule.get("reviewers", [])
+          ]
+          if not reviewers:
+              raise SystemExit(
+                  "Production publication is disabled until the GitHub environment "
+                  "has at least one required reviewer."
+              )
+          PY
+
+      - name: Confirm the supplied successful validation provenance
+        id: validation
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VALIDATION_RUN_ID: ${{ inputs.validation_run_id }}
+          EXPECTED_SHA: ${{ inputs.commit_sha }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$VALIDATION_RUN_ID" \
+            > "$RUNNER_TEMP/validation-run.json"
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          run = json.load(open(os.environ["RUNNER_TEMP"] + "/validation-run.json", encoding="utf-8"))
+          failures = []
+          if run.get("conclusion") != "success":
+              failures.append(f"conclusion is {run.get('conclusion')!r}, not 'success'")
+          if run.get("head_sha") != os.environ["EXPECTED_SHA"]:
+              failures.append("run head SHA does not match the requested commit SHA")
+          if run.get("head_branch") != os.environ["DEFAULT_BRANCH"]:
+              failures.append("validation was not run from the repository default branch")
+          if run.get("event") not in {"push", "workflow_dispatch"}:
+              failures.append(f"validation event {run.get('event')!r} cannot authorize production")
+          if run.get("path", "").split("@", 1)[0] != ".github/workflows/release-validation.yml":
+              failures.append("run is not the release-validation workflow")
+          head_repository = (run.get("head_repository") or {}).get("full_name")
+          if head_repository and head_repository != os.environ.get("GITHUB_REPOSITORY"):
+              failures.append("validation run originated from another repository")
+          if failures:
+              print("Invalid validation provenance:", file=sys.stderr)
+              for failure in failures:
+                  print(f"  - {failure}", file=sys.stderr)
+              raise SystemExit(1)
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"head_sha={run['head_sha']}\n")
+          PY
+
+      - name: Check out the exact validated commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.commit_sha }}
+          persist-credentials: false
+
+      - name: Resolve the release identity from the validated commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          import re
+
+          plan = json.load(open("release/release-plan.json", encoding="utf-8"))
+          release_id = plan.get("releaseId")
+          if not isinstance(release_id, str) or not re.fullmatch(
+              r"[a-z0-9]+(?:-[a-z0-9]+)*", release_id
+          ):
+              raise SystemExit("release plan has an invalid releaseId")
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as output:
+              output.write(f"RELEASE_ID={release_id}\n")
+          PY
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install pinned release-verification dependencies
+        run: >-
+          python -m pip install --disable-pip-version-check
+          --only-binary=:all: -r requirements.txt
+
+      - name: Download the exact validated sealed bundle
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.validation_run_id }}
+          name: sealed-${{ env.RELEASE_ID }}-${{ inputs.commit_sha }}
+          # The manifest verifier intentionally only accepts a release beneath
+          # the checked-out repository's release root.
+          path: release
+
+      - name: Hash-check and verify the downloaded release manifest
+        id: bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          artifact_root="release"
+          release_dir="$artifact_root/$RELEASE_ID"
+          hash_list="$artifact_root/$RELEASE_ID.bundle.sha256"
+          test -d "$release_dir"
+          test -d "$release_dir/site"
+          test -f "$hash_list"
+          test -z "$(find "$release_dir" -type l -print -quit)"
+          (
+            cd "$artifact_root"
+            sha256sum --strict --check "$RELEASE_ID.bundle.sha256"
+          )
+          python scripts/verify_release_manifest.py \
+            --release-dir "$release_dir" \
+            --require-publication-approval
+          RELEASE_DIR="$release_dir" EXPECTED_SHA="${{ inputs.commit_sha }}" python - <<'PY'
+          import json
+          import os
+
+          manifest = json.load(
+              open(os.path.join(os.environ["RELEASE_DIR"], "manifest.json"), encoding="utf-8")
+          )
+          if manifest["git"]["commit"] != os.environ["EXPECTED_SHA"]:
+              raise SystemExit("sealed manifest commit differs from validated commit")
+          if manifest["git"]["trackedTreeState"] != "clean":
+              raise SystemExit("sealed release was not built from a clean tracked tree")
+          PY
+          manifest_digest="$(sha256sum "$release_dir/manifest.json" | awk '{print $1}')"
+          printf 'release_dir=%s\nmanifest_digest=%s\n' "$release_dir" "$manifest_digest" >> "$GITHUB_OUTPUT"
+
+      - name: Set up pinned Wrangler runtime
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install the repository-locked Wrangler
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund
+          test "$(node -p 'require("./node_modules/wrangler/package.json").version')" = '4.114.0'
+
+      - name: Record the single active version for rollback
+        id: previous
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_API_TOKEN"
+          npx --no-install wrangler deployments status \
+            --name "$WORKER_NAME" \
+            --json > "$RUNNER_TEMP/active-deployment.json"
+          python - <<'PY'
+          import json
+          import os
+
+          document = json.load(
+              open(
+                  os.path.join(os.environ["RUNNER_TEMP"], "active-deployment.json"),
+                  encoding="utf-8",
+              )
+          )
+          candidates = []
+
+          def is_full_traffic(value):
+              if value is None:
+                  return True
+              if isinstance(value, str):
+                  value = value.strip().removesuffix("%")
+              try:
+                  return float(value) == 100.0
+              except (TypeError, ValueError):
+                  return False
+
+          def walk(value):
+              if isinstance(value, dict):
+                  version = value.get("version_id") or value.get("versionId")
+                  percentage = value.get("percentage")
+                  if isinstance(version, str) and is_full_traffic(percentage):
+                      candidates.append(version)
+                  for child in value.values():
+                      walk(child)
+              elif isinstance(value, list):
+                  for child in value:
+                      walk(child)
+
+          walk(document)
+          versions = sorted(set(candidates))
+          if len(versions) != 1:
+              raise SystemExit(
+                  "Expected one active 100% Cloudflare version; "
+                  f"observed {len(versions)}."
+              )
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"version_id={versions[0]}\n")
+          PY
+
+      - name: Upload the verified site as an inactive Cloudflare version
+        id: upload
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-upload.jsonl
+          RELEASE_DIR: ${{ steps.bundle.outputs.release_dir }}
+          MANIFEST_DIGEST: ${{ steps.bundle.outputs.manifest_digest }}
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_API_TOKEN"
+          npx --no-install wrangler versions upload \
+            "$RELEASE_DIR/site" \
+            --name "$WORKER_NAME" \
+            --strict \
+            --tag "$MANIFEST_DIGEST" \
+            --message "sealed release $RELEASE_ID at ${{ inputs.commit_sha }}"
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          records = []
+          with open(os.environ["WRANGLER_OUTPUT_FILE_PATH"], encoding="utf-8") as output:
+              for line in output:
+                  line = line.strip()
+                  if line:
+                      records.append(json.loads(line))
+          upload = next((item for item in reversed(records) if item.get("type") == "version-upload"), None)
+          if not upload or not upload.get("version_id"):
+              raise SystemExit("Wrangler did not report an uploaded version ID")
+          preview_urls = (
+              upload.get("preview_url")
+              or upload.get("preview_urls")
+              or upload.get("previewUrls")
+              or upload.get("targets")
+          )
+          if isinstance(preview_urls, str):
+              preview_urls = [preview_urls]
+          if isinstance(preview_urls, dict):
+              preview_urls = list(preview_urls.values())
+          if not isinstance(preview_urls, list):
+              preview_urls = []
+          preview_url = next((url for url in preview_urls if isinstance(url, str) and url.startswith("https://")), None)
+          if not preview_url:
+              raise SystemExit("Wrangler did not report an HTTPS preview URL for the inactive version")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as result:
+              result.write(f"version_id={upload['version_id']}\n")
+              result.write(f"preview_url={preview_url.rstrip('/')}\n")
+          PY
+
+      - name: Verify the inactive Cloudflare version serves the sealed release
+        shell: bash
+        env:
+          RELEASE_DIR: ${{ steps.bundle.outputs.release_dir }}
+          PREVIEW_URL: ${{ steps.upload.outputs.preview_url }}
+        run: |
+          set -euo pipefail
+          python scripts/verify_deployed_release.py \
+            --release-dir "$RELEASE_DIR" \
+            --base-url "$PREVIEW_URL" \
+            --allow-candidate-deployment \
+            --output release/preview-release-verification.json
+
+      - name: Route production traffic to the verified exact version
+        id: promote
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          VERSION_ID: ${{ steps.upload.outputs.version_id }}
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_API_TOKEN"
+          npx --no-install wrangler versions deploy \
+            "$VERSION_ID@100%" \
+            --name "$WORKER_NAME" \
+            -y
+
+      - name: Confirm Cloudflare reports the exact version at 100 percent
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          EXPECTED_VERSION_ID: ${{ steps.upload.outputs.version_id }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6; do
+            npx --no-install wrangler deployments status \
+              --name "$WORKER_NAME" \
+              --json > "$RUNNER_TEMP/promoted-deployment.json"
+            if python - <<'PY'
+          import json
+          import os
+
+          document = json.load(
+              open(
+                  os.path.join(os.environ["RUNNER_TEMP"], "promoted-deployment.json"),
+                  encoding="utf-8",
+              )
+          )
+          versions = []
+
+          def walk(value):
+              if isinstance(value, dict):
+                  version = value.get("version_id") or value.get("versionId")
+                  if isinstance(version, str):
+                      versions.append(version)
+                  for child in value.values():
+                      walk(child)
+              elif isinstance(value, list):
+                  for child in value:
+                      walk(child)
+
+          walk(document)
+          observed = set(versions)
+          expected = os.environ["EXPECTED_VERSION_ID"]
+          raise SystemExit(0 if observed == {expected} else 1)
+          PY
+            then
+              exit 0
+            fi
+            if [[ "$attempt" -lt 6 ]]; then
+              sleep 5
+            fi
+          done
+          echo "Cloudflare did not report the promoted version as the sole active version." >&2
+          exit 1
+
+      - name: Verify production serves the exact promoted release
+        shell: bash
+        env:
+          RELEASE_DIR: ${{ steps.bundle.outputs.release_dir }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6; do
+            if python scripts/verify_deployed_release.py \
+              --release-dir "$RELEASE_DIR" \
+              --base-url "$PRODUCTION_URL" \
+              --allow-candidate-deployment \
+              --output release/production-release-verification.json; then
+              exit 0
+            fi
+            if [[ "$attempt" -lt 6 ]]; then
+              sleep 5
+            fi
+          done
+          echo "Production did not converge to the sealed release." >&2
+          exit 1
+
+      - name: Create the external post-deployment attestation
+        shell: bash
+        env:
+          RELEASE_DIR: ${{ steps.bundle.outputs.release_dir }}
+          PREVIEW_URL: ${{ steps.upload.outputs.preview_url }}
+          NEW_VERSION_ID: ${{ steps.upload.outputs.version_id }}
+          PREVIOUS_VERSION_ID: ${{ steps.previous.outputs.version_id }}
+        run: |
+          set -euo pipefail
+          deployed_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          python scripts/create_deployment_attestation.py \
+            --release-dir "$RELEASE_DIR" \
+            --preview-verification release/preview-release-verification.json \
+            --production-verification release/production-release-verification.json \
+            --commit-sha "${{ inputs.commit_sha }}" \
+            --new-version-id "$NEW_VERSION_ID" \
+            --previous-version-id "$PREVIOUS_VERSION_ID" \
+            --preview-url "$PREVIEW_URL" \
+            --production-url "$PRODUCTION_URL" \
+            --validation-run-id "${{ inputs.validation_run_id }}" \
+            --deployed-at "$deployed_at" \
+            --output release/deployment-attestation.json
+
+      - name: Roll back if any post-promotion check fails
+        if: failure() && steps.promote.outcome == 'success'
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          PREVIOUS_VERSION_ID: ${{ steps.previous.outputs.version_id }}
+        run: |
+          set -euo pipefail
+          test -n "$PREVIOUS_VERSION_ID"
+          npx --no-install wrangler rollback "$PREVIOUS_VERSION_ID" \
+            --name "$WORKER_NAME" \
+            --message "automatic rollback after failed verification for $RELEASE_ID" \
+            -y
+          for attempt in 1 2 3 4 5 6; do
+            if npx --no-install wrangler deployments status \
+              --name "$WORKER_NAME" \
+              --json > "$RUNNER_TEMP/rollback-deployment.json"; then
+              if python - <<'PY'
+          import json
+          import os
+
+          with open(
+              os.path.join(os.environ["RUNNER_TEMP"], "rollback-deployment.json"),
+              encoding="utf-8",
+          ) as source:
+              document = json.load(source)
+
+          versions = document.get("versions")
+          expected = os.environ["PREVIOUS_VERSION_ID"]
+          valid = (
+              isinstance(versions, list)
+              and len(versions) == 1
+              and isinstance(versions[0], dict)
+              and (
+                  versions[0].get("version_id")
+                  or versions[0].get("versionId")
+              ) == expected
+          )
+          if valid:
+              try:
+                  valid = float(versions[0].get("percentage")) == 100.0
+              except (TypeError, ValueError):
+                  valid = False
+
+          raise SystemExit(0 if valid else 1)
+          PY
+              then
+                echo "Rollback confirmed: prior version is solely active at 100 percent."
+                exit 0
+              fi
+            fi
+            if [[ "$attempt" -lt 6 ]]; then
+              sleep 5
+            fi
+          done
+          echo "Cloudflare did not confirm the rollback version as solely active." >&2
+          exit 1
+
+      - name: Upload release verification and attestation records
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: deployed-release-verification-${{ inputs.commit_sha }}
+          path: |
+            release/preview-release-verification.json
+            release/production-release-verification.json
+            release/deployment-attestation.json
+          if-no-files-found: warn
+          retention-days: 30

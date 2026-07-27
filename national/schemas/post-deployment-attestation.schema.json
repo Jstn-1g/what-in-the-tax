@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/post-deployment-attestation.schema.json",
+  "title": "AuditBack external post-deployment attestation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "result",
+    "releaseId",
+    "manifestSha256",
+    "commitSha",
+    "newVersionId",
+    "previousVersionId",
+    "previewUrl",
+    "productionUrl",
+    "validationRunId",
+    "previewVerificationSha256",
+    "productionVerificationSha256",
+    "deployedAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "auditback-post-deployment-attestation-1.0.0"
+    },
+    "result": {
+      "const": "attested"
+    },
+    "releaseId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "manifestSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "commitSha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "newVersionId": {
+      "$ref": "#/$defs/cloudflareVersionId"
+    },
+    "previousVersionId": {
+      "$ref": "#/$defs/cloudflareVersionId"
+    },
+    "previewUrl": {
+      "$ref": "#/$defs/httpsUrl"
+    },
+    "productionUrl": {
+      "$ref": "#/$defs/httpsUrl"
+    },
+    "validationRunId": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*$"
+    },
+    "previewVerificationSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "productionVerificationSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "deployedAt": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cloudflareVersionId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "httpsUrl": {
+      "type": "string",
+      "pattern": "^https://[^/?#]+(?:/[^?#]*)?/$"
+    }
+  }
+}

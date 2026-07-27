@@ -34,6 +34,34 @@ RECEIPT_SCALAR_FIELDS = (
     "status",
     "purpose",
 )
+PUBLISHER_FIELDS = ("name", "role")
+LICENSE_FIELDS = ("spdx", "scope", "sourceDocuments")
+CORRECTIONS_ROUTE_FIELDS = ("type", "url", "status")
+PUBLICATION_APPROVAL_FIELDS = ("status", "approvedBy", "approvedAt")
+COVERAGE_FIELDS = (
+    "status",
+    "tier",
+    "fiscalYear",
+    "currency",
+    "geography",
+    "assessmentClass",
+    "included",
+    "excluded",
+    "findingsCount",
+    "openGapsCount",
+)
+SOURCE_COVERAGE_FIELDS = (
+    "receiptDrivingSources",
+    "reviewedSourceAndExtractPairs",
+    "citedFacts",
+    "loadBearingFacts",
+)
+CITATION_EXPECTED_FIELDS = (
+    "verbatim",
+    "normalized",
+    "hardFailures",
+    "bindingIssues",
+)
 JURISDICTION_FIELDS = ("slug", "displayName", "level", "aliases")
 PROFILE_BUCKET_FIELDS = (
     "basis",
@@ -244,6 +272,40 @@ def project_hypothetical_profile(value: Any) -> dict[str, Any]:
 
 def project_receipt(receipt: dict[str, Any]) -> dict[str, Any]:
     projected = pick_fields(receipt, RECEIPT_SCALAR_FIELDS)
+    if isinstance(receipt.get("publisher"), dict):
+        projected["publisher"] = pick_fields(
+            receipt["publisher"], PUBLISHER_FIELDS
+        )
+    if isinstance(receipt.get("license"), dict):
+        projected["license"] = pick_fields(receipt["license"], LICENSE_FIELDS)
+    if isinstance(receipt.get("correctionsRoute"), dict):
+        projected["correctionsRoute"] = pick_fields(
+            receipt["correctionsRoute"], CORRECTIONS_ROUTE_FIELDS
+        )
+    if isinstance(receipt.get("publicationApproval"), dict):
+        projected["publicationApproval"] = pick_fields(
+            receipt["publicationApproval"], PUBLICATION_APPROVAL_FIELDS
+        )
+    if isinstance(receipt.get("coverage"), dict):
+        source_coverage = as_object(receipt["coverage"].get("sourceCoverage"))
+        citation_expected = as_object(
+            source_coverage.get("citationAuditExpected")
+        )
+        projected_source_coverage = pick_fields(
+            source_coverage, SOURCE_COVERAGE_FIELDS
+        )
+        if citation_expected:
+            projected_source_coverage["citationAuditExpected"] = pick_fields(
+                citation_expected, CITATION_EXPECTED_FIELDS
+            )
+        projected["coverage"] = {
+            **pick_fields(receipt["coverage"], COVERAGE_FIELDS),
+            **(
+                {"sourceCoverage": projected_source_coverage}
+                if projected_source_coverage
+                else {}
+            ),
+        }
     projected["evidencePolicyRef"] = "Evidence included with this preview"
     projected["jurisdiction"] = pick_fields(
         as_object(receipt.get("jurisdiction")), JURISDICTION_FIELDS
@@ -455,7 +517,7 @@ def build_pack(pack_id: str, input_dir: Path) -> dict[str, Any]:
     public_receipt = project_receipt(receipt)
     public_evidence, included_fact_ids = project_evidence(ledger, public_receipt)
     public_pack = {
-        "schemaVersion": "1.1.0",
+        "schemaVersion": "1.2.0",
         "id": pack_id,
         "receipt": public_receipt,
         "evidence": public_evidence,

@@ -12,6 +12,7 @@
 # Full MMAH FIR year dumps and StatCan table zip (large). Cited peer rows live in
 # fir/fir-general-government-peers-2023-2024.csv; StatCan figures are cited by table URL.
 fir/fir_data_*.zip
+fir/municipalities_-_en_*.csv
 fir/VIEWFIR*.zip
 fir/statcan_*.bin
 fir/*.html

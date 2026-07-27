@@ -1,11 +1,31 @@
-schemaVersion: 1.0.0
+schemaVersion: 2.0.0
 artifact: RegionHouseholdSchedule
 jurisdictionSlug: region-of-waterloo-on
 fiscalYear: 2026
+currency: CAD
 source:
+  id: row-2026-book
   title: Region of Waterloo 2026 Final Budget Book — Annual Average Cost Per Household
+  publisher: Regional Municipality of Waterloo
+  url: https://www.regionofwaterloo.ca/media/ynro4cd2/2026_final_budget_book.pdf
+  documentKind: final-budget-book
+  adoptionStatus: final
+  fiscalYear: 2026
+  currency: CAD
+  publicationDate: null
+  retrievedAt: null
+  retrievalStatus: not-recorded
+  license: not-determined
+  localPath: source-pdfs/2026_final_budget_book_region.pdf
+  sha256: 769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce
+  bytes: 5442331
   extractPath: data/_extracts/2026_final_budget_book_region.txt
+  extractedTextSha256: 7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423
+  extractedTextBytes: 357160
   pdfPage: 12
+  pdfPageCount: 191
+  citedPages:
+  - 12
   assessmentCad: 354500
   assessmentBasis: MPAC CVA valuation date January 1, 2016 (Region-published average)
   note: Amounts are Region-published dollars per average household at $354,500. Do
@@ -14,6 +34,69 @@ source:
     line items; publishedServicesSubtotalCad and taxSupportedTotalCad (after PIL)
     are authoritative published figures. roundingAdjustmentCad absorbs PDF table rounding
     (typically $2–$3).
+allocationBasis:
+  householdUnit: CAD per average household
+  programUnit: CAD thousands
+  assessmentCad: 354500
+  valuationDate: '2016-01-01'
+  assessmentAuthority: MPAC
+  serviceLineBasis: Property-tax levy before the common general-revenue offset
+  controlTotalBasis: Published Regional Tax Levy after the common general-revenue
+    offset
+  warning: Household amounts are whole-dollar illustrations at the Region-published
+    average assessment, not property-specific rates or a combined municipal bill.
+programBasisReconciliation:
+  unit: CAD thousands
+  serviceLineNetExpenditureSum000Cad: 1612758
+  publishedNetExpenditureSubtotal000Cad: 1612760
+  netExpenditureRoundingAdjustment000Cad: 2
+  serviceLinePropertyTaxLevySum000Cad: 910967
+  publishedPropertyTaxLevySubtotal000Cad: 910967
+  generalRevenueOffset000Cad: -23639
+  regionalTaxLevyRoundingAdjustment000Cad: 1
+  publishedRegionalTaxLevy000Cad: 887329
+  basisNote: Net expenditure is already net of user fees, grants, subsidies and
+    recoveries. The property-tax-levy subtotal is before general revenues; Payments
+    in Lieu and Supplementary Taxes reduce it to the published Regional Tax Levy.
+    All program values are printed in $000, so the source controls contain small
+    rounding differences.
+coverage:
+  status: complete-for-declared-tax-supported-household-scope
+  areaKeys:
+  - blended
+  - urban
+  - rural
+  - woolwich
+  - wilmot
+  municipalityAreaKeys:
+    cambridge-on: urban
+    kitchener-on: urban
+    waterloo-on: urban
+    north-dumfries-on: rural
+    wellesley-on: rural
+    woolwich-on: woolwich
+    wilmot-on: wilmot
+  serviceRows: 23
+  householdAllocations: 115
+  included:
+  - All 23 tax-supported service rows on Final Budget Book page 12
+  - Blended, Urban, Rural, Woolwich and Wilmot household columns
+  - Published service subtotals, household general-revenue offsets and after-offset
+    Regional Tax Levy controls
+  - Program net-expenditure, property-tax-levy and general-revenue controls in
+    CAD thousands
+  excluded:
+  - User-rate water and wastewater rows shown below the tax-supported table
+  - Lower-tier municipal and education taxes
+  - Property-specific tax rates, classifications, rebates, capping and special
+    area charges
+  limitations:
+  - Household values are rounded to whole dollars and apply only to the published
+    $354,500 average assessment.
+  - Program controls are rounded to CAD thousands and differ from service-row sums
+    by disclosed rounding adjustments.
+  - The exact PDF and extract bytes are locked, but the original source retrieval
+    timestamp was not independently recorded.
 areas:
   blended:
     label: Blended Regional

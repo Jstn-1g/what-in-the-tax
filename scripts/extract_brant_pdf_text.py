@@ -27,5 +27,5 @@ for name in FILES:
         parts.append(f"\n\n===== PAGE {i + 1} =====\n")
         parts.append(page.extract_text() or "")
     out = OUT / f"{path.stem}.txt"
-    out.write_text("".join(parts), encoding="utf-8")
+    out.write_text("".join(parts), encoding="utf-8", newline="\n")
     print(f"wrote {out.name}: {len(reader.pages)} pages, {out.stat().st_size} bytes")

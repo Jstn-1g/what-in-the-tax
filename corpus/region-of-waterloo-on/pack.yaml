@@ -18,7 +18,7 @@ locale: en-CA
 valuationBasis: "MPAC CVA (Region-published average household $354,500)"
 defaultAssessmentCad: 354500
 engineTag: engine/0.1.0-bridge
-packVersion: "2026.0-draft"
+packVersion: "2026.1-draft"
 
 publication:
   status: draft
@@ -38,15 +38,54 @@ artifacts:
   ledger: data/region-waterloo/evidence-ledger.json
   receipt: data/region-waterloo/taxpayer-receipt.json
   schedule: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml
+  sourcesLock: corpus/region-of-waterloo-on/sources.lock.json
   sourcesRoot: source-pdfs/
   extractsRoot: data/_extracts/
 
 controlTotal:
   amountCad: 2984
-  label: Urban tax-supported total after PIL (Region-published)
+  areaKey: urban
+  basis: published Regional Tax Levy after the common general-revenue offset
+  assessmentCad: 354500
+  currency: CAD
+  fiscalYear: 2026
+  label: Urban tax-supported total after general-revenue offset (Region-published)
+  areaTotalsCad:
+    blended: 2929
+    urban: 2984
+    rural: 2543
+    woolwich: 2617
+    wilmot: 2576
+  programBasis:
+    unit: CAD thousands
+    propertyTaxLevyBeforeGeneralRevenue000Cad: 910967
+    generalRevenueOffset000Cad: -23639
+    printedRoundingAdjustment000Cad: 1
+    regionalTaxLevyAfterGeneralRevenue000Cad: 887329
   note: >
-    Authoritative published after-PIL urban household total at $354,500.
-    Line-item sum may differ by a few dollars (roundingAdjustmentCad).
+    The legacy amountCad is the urban after-offset control retained for bridge
+    compatibility. The shared schedule locks all five household controls and the
+    program-basis gross-to-net reconciliation. Printed line sums may differ from
+    printed controls by disclosed source-table rounding adjustments.
+
+coverage:
+  status: complete-for-declared-tax-supported-household-scope
+  sourcePage: 12
+  serviceRows: 23
+  householdAllocations: 115
+  areas:
+    - blended
+    - urban
+    - rural
+    - woolwich
+    - wilmot
+  exclusions:
+    - user-rate water and wastewater rows
+    - lower-tier and education tax portions
+    - property-specific bill adjustments
+  evidenceGap: >
+    The exact official PDF and extract bytes are locked, but the original source
+    retrieval timestamp was not independently recorded and remains null.
 
 disclaimer: >
   Not affiliated with the Region of Waterloo. Figures illustrate the published

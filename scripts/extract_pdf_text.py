@@ -88,7 +88,7 @@ def extract_one(pdf: Path, out: Path) -> None:
         parts.append(page.extract_text() or "")
     out.parent.mkdir(parents=True, exist_ok=True)
     safe_out = ensure_output_still_safe(out)
-    safe_out.write_text("".join(parts), encoding="utf-8")
+    safe_out.write_text("".join(parts), encoding="utf-8", newline="\n")
     print(
         f"wrote {safe_out}: {len(reader.pages)} pages, "
         f"{safe_out.stat().st_size} bytes"
