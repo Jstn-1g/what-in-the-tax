@@ -61,7 +61,7 @@ describe('buildHeroBriefing', () => {
     expect(model!.destinations.length).toBeLessThanOrEqual(6)
     expect(model!.attention.find((c) => c.id === 'watch')?.label).toBe('0 Watch')
     expect(model!.attention.find((c) => c.id === 'watch')?.href).toBeUndefined()
-    expect(model!.attention.find((c) => c.id === 'gaps')?.label).toBe('2 Gaps')
+    expect(model!.attention.find((c) => c.id === 'gaps')?.label).toBe('0 Gaps')
     expect(model!.attention.find((c) => c.id === 'cite')?.tone).toBe('cite-ok')
   })
 

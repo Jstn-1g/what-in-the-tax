@@ -203,10 +203,10 @@ export default function HelpGuide({
                 </dd>
               </div>
               <div>
-                <dt>Published</dt>
+                <dt>Not published</dt>
                 <dd>
-                  The receipt passed the project&apos;s required source, identity, arithmetic, and
-                  review checks for that release.
+                  This static preview does not label any receipt Published. A
+                  public publisher and correction route have not been designated.
                 </dd>
               </div>
             </dl>

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/release-publication-approval.schema.json",
+  "title": "AuditBack release publication approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "releaseId",
+    "candidateOnly",
+    "decision",
+    "publisher",
+    "publisherContact",
+    "approvedBy",
+    "approvedAt",
+    "releaseReference",
+    "license",
+    "correctionsUrl"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "auditback-release-publication-approval-1.0.0"},
+    "releaseId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "candidateOnly": {"type": "boolean"},
+    "decision": {"type": ["string", "null"], "enum": ["approved", null]},
+    "publisher": {"type": ["string", "null"], "minLength": 1},
+    "publisherContact": {"type": ["string", "null"], "minLength": 1},
+    "approvedBy": {"type": ["string", "null"], "minLength": 1},
+    "approvedAt": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "releaseReference": {"type": ["string", "null"], "minLength": 1},
+    "license": {"type": ["string", "null"], "minLength": 1},
+    "correctionsUrl": {"type": ["string", "null"], "pattern": "^https://"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"candidateOnly": {"const": false}},
+        "required": ["candidateOnly"]
+      },
+      "then": {
+        "properties": {
+          "decision": {"const": "approved"},
+          "publisher": {"type": "string"},
+          "publisherContact": {"type": "string"},
+          "approvedBy": {"type": "string"},
+          "approvedAt": {"type": "string"},
+          "releaseReference": {"type": "string"},
+          "license": {"type": "string"},
+          "correctionsUrl": {"type": "string"}
+        }
+      },
+      "else": {
+        "properties": {
+          "decision": {"const": null},
+          "publisher": {"const": null},
+          "publisherContact": {"const": null},
+          "approvedBy": {"const": null},
+          "approvedAt": {"const": null},
+          "releaseReference": {"const": null},
+          "license": {"const": null},
+          "correctionsUrl": {"const": null}
+        }
+      }
+    }
+  ]
+}

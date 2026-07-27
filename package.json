@@ -1,0 +1,14 @@
+{
+  "name": "what-in-the-tax-release",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Pinned release tooling for the What in the Tax Cloudflare Worker.",
+  "scripts": {
+    "cloudflare:dry-run": "wrangler deploy --dry-run",
+    "cloudflare:upload": "wrangler versions upload",
+    "cloudflare:deploy-version": "wrangler versions deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.114.0"
+  }
+}

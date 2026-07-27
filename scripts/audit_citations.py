@@ -481,7 +481,11 @@ def audit_ledger(ledger: dict[str, Any], *, root: Path = ROOT) -> dict[str, Any]
 
 def write_audit(report: dict[str, Any], output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    output_path.write_text(
+        json.dumps(report, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
 
 def _parse_args(argv: list[str]) -> argparse.Namespace:

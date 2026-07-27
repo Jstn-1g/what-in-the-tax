@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "source-lock-1.0.0",
+  "ledgerPath": "data/brant/evidence-ledger.json",
+  "ledgerSha256": "8a2f440eae950f92135c5cec01cea4d2cf632a6014cc64b3d41b0d9433acb166",
+  "sources": [
+    {
+      "id": "brant-2026-approved-budget",
+      "url": "https://www.brant.ca/media/0dpbiteo/2026-approved-budget-accessible.pdf",
+      "authority": "official-municipal",
+      "asOf": "2026-02",
+      "license": "unspecified",
+      "localPath": "source-pdfs/brant/2026-approved-budget-accessible.pdf",
+      "sha256": "b8c622e920e82ae9c00160b730e970c39968f1a7cf6fcb522886214bfed8f5d9",
+      "bytes": 1438059,
+      "extractedText": "data/_extracts/brant/2026-approved-budget-accessible.txt",
+      "extractedTextSha256": "2878a735c4d2420329a4710150905b0ac108c9330b76439cb9c5a49097c2705d",
+      "lockStatus": "source-and-extract"
+    },
+    {
+      "id": "brant-2026-tax-rates",
+      "url": "https://www.brant.ca/media/wgootdma/2026-tax-rates.pdf",
+      "authority": "official-municipal",
+      "asOf": "2026",
+      "license": "unspecified",
+      "localPath": "source-pdfs/brant/2026-tax-rates.pdf",
+      "sha256": "27d1266f0f10b52c7179806a577cd0ef45199448b9b127ee54793cf871bf3652",
+      "bytes": 199564,
+      "extractedText": "data/_extracts/brant/2026-tax-rates.txt",
+      "extractedTextSha256": "b4470259d7cecab15440f8f4c95b9f4747291f6d5b2512c8e9ad8b70be420af9",
+      "lockStatus": "source-and-extract"
+    }
+  ]
+}

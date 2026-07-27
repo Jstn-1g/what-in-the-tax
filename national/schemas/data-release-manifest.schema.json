@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/data-release-manifest.schema.json",
+  "title": "AuditBack sealed data release manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "releaseId",
+    "releaseTimestamp",
+    "planSha256",
+    "verificationSha256",
+    "publicationStatus",
+    "deploymentStatus",
+    "tools",
+    "git",
+    "securityHeaders",
+    "files"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "auditback-data-release-manifest-1.0.0"},
+    "releaseId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "releaseTimestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "planSha256": {"$ref": "#/$defs/sha256"},
+    "verificationSha256": {"$ref": "#/$defs/sha256"},
+    "publicationStatus": {"enum": ["candidate", "approved"]},
+    "deploymentStatus": {"enum": ["candidate", "attested"]},
+    "tools": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "git": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "trackedTreeState", "trackedDiffSha256"],
+      "properties": {
+        "commit": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "trackedTreeState": {"enum": ["clean", "dirty", "unavailable"]},
+        "trackedDiffSha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "securityHeaders": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"pattern": "^[A-Za-z0-9-]+$"},
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "files": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "byteLength", "contentType", "routes"],
+        "properties": {
+          "path": {"$ref": "#/$defs/bundlePath"},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "byteLength": {"type": "integer", "minimum": 0},
+          "contentType": {"type": "string", "minLength": 1},
+          "routes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^/"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "bundlePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![/\\\\])(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))[^?#\\u0000]+$"
+    }
+  }
+}

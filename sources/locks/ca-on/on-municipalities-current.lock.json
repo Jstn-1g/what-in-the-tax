@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "official-source-lock-1.0.0",
+  "reviewStatus": "reviewed",
+  "reviewedAt": "2026-07-26T21:53:21-04:00",
+  "jurisdiction": "CA-ON",
+  "sourceId": "on-municipalities-current",
+  "fiscalYear": null,
+  "url": "https://data.ontario.ca/dataset/62e83cbc-0731-4d66-abdc-2f2b31bcd76c/resource/6783a586-6b05-4a73-9663-e60a6963c91e/download/municipalities_-_en_2026-0526.csv",
+  "mediaType": "application/csv",
+  "byteLength": 56886,
+  "sha256": "5370b4e1b3804d10059c67513db9ea59d61bba964096f8e5b35f4a8afd973196",
+  "localPath": "source-pdfs/fir/municipalities_-_en_2026-0526.csv",
+  "archiveMember": null,
+  "encoding": "utf-8-sig",
+  "headers": [
+    "Municipality",
+    "Municipal status",
+    "Geographic area"
+  ],
+  "fiscalYearField": null,
+  "recordIdField": "Municipality",
+  "rowCount": 444,
+  "recordCount": 444,
+  "retrievedAt": "2026-07-26T20:23:41-04:00",
+  "licence": {
+    "name": "Open Government Licence – Ontario",
+    "url": "https://www.ontario.ca/page/open-government-licence-ontario",
+    "attribution": "Contains information licensed under the Open Government Licence – Ontario."
+  },
+  "runtimeAiRequired": false
+}

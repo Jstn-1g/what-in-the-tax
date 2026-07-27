@@ -89,6 +89,49 @@ export type TaxpayerReceipt = {
   fiscalYear: number
   currency: 'CAD'
   status: string
+  publisher?: {
+    name: string
+    role: string
+  }
+  license?: {
+    spdx: string
+    scope: string
+    sourceDocuments: string
+  }
+  correctionsRoute?: {
+    type: string
+    url: string | null
+    status: string
+  }
+  publicationApproval?: {
+    status: string
+    approvedBy: string | null
+    approvedAt: string | null
+  }
+  coverage?: {
+    status: string
+    tier: number
+    fiscalYear: number
+    currency: 'CAD'
+    geography: string
+    assessmentClass: string
+    included: string[]
+    excluded: string[]
+    sourceCoverage?: {
+      receiptDrivingSources: number
+      reviewedSourceAndExtractPairs: number
+      citedFacts: number
+      loadBearingFacts: number
+      citationAuditExpected?: {
+        verbatim: number
+        normalized: number
+        hardFailures: number
+        bindingIssues: number
+      }
+    }
+    findingsCount: number
+    openGapsCount: number
+  }
   purpose: string
   evidencePolicyRef: string
   jurisdiction?: {

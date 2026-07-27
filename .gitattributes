@@ -2,3 +2,9 @@
 data/evidence-ledger.json text eol=lf
 data/_extracts/** text eol=lf
 source-pdfs/fir/*.csv text eol=lf
+corpus/region-of-waterloo-on/** text eol=lf
+data/region-waterloo/** text eol=lf
+corpus/brant-county-on/** text eol=lf
+data/brant/** text eol=lf
+web/src/data/brant/** text eol=lf
+web/public/** text eol=lf

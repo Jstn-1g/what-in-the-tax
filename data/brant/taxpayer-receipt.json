@@ -4,6 +4,60 @@
   "fiscalYear": 2026,
   "currency": "CAD",
   "status": "partial_evidence_based",
+  "publisher": {
+    "name": "What in the Tax? project",
+    "role": "Independent project publisher; not the County of Brant",
+    "repositoryUrl": "https://github.com/Jstn-1g/tax-receipt-prototype"
+  },
+  "license": {
+    "spdx": "MIT",
+    "scope": "Project-authored receipt and evidence metadata only",
+    "sourceDocuments": "Official source documents are not relicensed; see each source's licence metadata"
+  },
+  "correctionsRoute": {
+    "type": "required-before-publication",
+    "url": null,
+    "status": "pending-public-contact-channel"
+  },
+  "publicationApproval": {
+    "status": "pending-named-human-approval",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "coverage": {
+    "status": "complete-for-declared-tier-0-scope",
+    "tier": 0,
+    "fiscalYear": 2026,
+    "currency": "CAD",
+    "geography": "County of Brant, including Paris",
+    "assessmentClass": "RT Residential",
+    "included": [
+      "County municipal rate",
+      "hospital special levy",
+      "education rate",
+      "eleven-department pro-rata municipal allocation"
+    ],
+    "excluded": [
+      "parcel-specific adjustments and rebates",
+      "non-RT classes and special-area charges",
+      "water/wastewater and other user fees",
+      "peer comparisons, findings, and judgments"
+    ],
+    "sourceCoverage": {
+      "receiptDrivingSources": 2,
+      "reviewedSourceAndExtractPairs": 2,
+      "citedFacts": 20,
+      "citationAuditExpected": {
+        "verbatim": 18,
+        "normalized": 2,
+        "hardFailures": 0,
+        "bindingIssues": 0
+      },
+      "loadBearingFacts": 20
+    },
+    "findingsCount": 0,
+    "openGapsCount": 0
+  },
   "purpose": "Paris / County of Brant 2026 taxpayer receipt. Single-tier: County municipal + hospital special levy + education. No Region column.",
   "evidencePolicyRef": "data/brant/evidence-ledger.json",
   "jurisdiction": {
@@ -22,7 +76,10 @@
         "amountCad": 4295.33,
         "assessmentCad": 391000,
         "evidenceStatus": "DERIVED",
-        "sourceFactId": "DRV-BRANT-BILL-MUNICIPAL-391K",
+        "sourceFactId": "DRV-BRANT-BILL-COUNTY-391K",
+        "citedFactIds": [
+          "DRV-BRANT-ILLUSTRATION-DELTA-391K"
+        ],
         "lineItems": [
           {
             "id": "BRANT-DEPT-MAYOR-COUNCIL-2026",
@@ -151,6 +208,7 @@
             "amountCad": -0.01,
             "classification": "reconciling_item",
             "evidenceStatus": "RECONCILING",
+            "sourceFactId": "DRV-BRANT-ALLOCATION-ROUNDING-391K",
             "note": "Cent rounding so department shares sum to the municipal portion."
           },
           {
@@ -164,7 +222,7 @@
           }
         ],
         "uiLabel": "County portion",
-        "note": "Rate-derived municipal+hospital $4,295.33; County illustration prints $4,295.35 (see GAP-BRANT-ILLUSTRATION-2CENTS)."
+        "note": "Rate-derived municipal+hospital $4,295.33; the approved-budget illustration prints $4,295.35, a cited $0.02 difference. The receipt uses the final tax-rate schedule."
       },
       "region": {
         "basis": "Not applicable \u2014 County of Brant is single-tier (no upper-tier Region)",
@@ -184,34 +242,39 @@
         "uiLabel": "Education"
       },
       "combinedTotalCad": 4893.56,
+      "sourceFactId": "DRV-BRANT-BILL-COMBINED-391K",
       "combinedAtAssessment": {
         "assessmentCad": 391000,
         "basis": "County of Brant 2026 Tax Rates \u2014 CODE RT Residential",
         "evidenceStatus": "DERIVED",
+        "sourceFactId": "DRV-BRANT-BILL-COMBINED-391K",
+        "citedFactIds": [
+          "DRV-BRANT-RATE-TOTAL-CHECK-2026"
+        ],
         "components": [
           {
             "label": "County of Brant (municipal)",
             "amountCad": 4217.29,
             "rate": 0.0107859,
-            "sourceFactId": "BRANT-TAXRATE-RES-MUNICIPAL-2026"
+            "sourceFactId": "DRV-BRANT-BILL-MUNICIPAL-391K"
           },
           {
             "label": "Hospital special levy",
             "amountCad": 78.04,
             "rate": 0.0001996,
-            "sourceFactId": "BRANT-TAXRATE-RES-HOSPITAL-2026"
+            "sourceFactId": "DRV-BRANT-BILL-HOSPITAL-391K"
           },
           {
             "label": "Education (Province of Ontario)",
             "amountCad": 598.23,
             "rate": 0.00153,
-            "sourceFactId": "BRANT-TAXRATE-RES-EDUCATION-2026"
+            "sourceFactId": "DRV-BRANT-BILL-EDUCATION-391K"
           }
         ],
         "totalCad": 4893.56,
         "totalRate": 0.0125155
       },
-      "combinedTotalNote": "Built from the 2026 Tax Rates RT row applied to the County's published median assessment ($391,000). Municipal + hospital = $4,295.33, matching the approved budget's illustrated residential impact $4,295.35 (which excludes education). Full bill including education is $4,893.56.",
+      "combinedTotalNote": "Built from the 2026 Tax Rates RT row applied to the County's published median assessment ($391,000). Municipal + hospital = $4,295.33, while the approved budget's illustrated residential impact is $4,295.35 (a cited $0.02 presentation difference; education excluded). Full bill including education is $4,893.56.",
       "warnings": [
         "County budget illustrations of $4,295.35 exclude education; this receipt shows the full RT total.",
         "Rate \u00d7 $391,000 yields $4,295.33 for municipal+hospital; the budget table prints $4,295.35 (2\u00a2).",
@@ -224,21 +287,22 @@
       "evidenceStatus": "DERIVED",
       "allocatable": true,
       "impliedAssessmentCad": 399505,
+      "sourceFactId": "DRV-BRANT-IMPLIED-ASSESSMENT-5000",
       "compositionShares": [
         {
           "label": "County of Brant (municipal)",
-          "share": 0.8618033638288521,
-          "sourceFactId": "BRANT-TAXRATE-RES-MUNICIPAL-2026"
+          "share": 0.861803363829,
+          "sourceFactId": "DRV-BRANT-SHARE-MUNICIPAL-2026"
         },
         {
           "label": "Hospital special levy",
-          "share": 0.015948224201989533,
-          "sourceFactId": "BRANT-TAXRATE-RES-HOSPITAL-2026"
+          "share": 0.015948224202,
+          "sourceFactId": "DRV-BRANT-SHARE-HOSPITAL-2026"
         },
         {
           "label": "Education (Province of Ontario)",
-          "share": 0.12224841196915823,
-          "sourceFactId": "BRANT-TAXRATE-RES-EDUCATION-2026"
+          "share": 0.122248411969,
+          "sourceFactId": "DRV-BRANT-SHARE-EDUCATION-2026"
         }
       ],
       "message": "A $5,000 total bill implies an assessment of about $399,505. Shown as rate shares rather than invented department dollars."
@@ -248,9 +312,8 @@
   "uiModelHints": {
     "screen": "TaxReceipt",
     "defaultProfile": "supportedAverageHousehold",
-    "showGapsAsFirstClassUi": true,
+    "showGapsAsFirstClassUi": false,
     "forbidFillerAllocation": true,
-    "flaggedDefinition": "Flagged means this line needs an explanation. It does not mean the money was wasted.",
     "publishedFindingIds": [],
     "marqueeFindings": [],
     "municipalBucketLabel": "County portion",

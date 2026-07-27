@@ -204,7 +204,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"OK: {lock_path.relative_to(ROOT)}")
         return 0
 
-    lock_path.write_text(rendered, encoding="utf-8")
+    lock_path.write_text(rendered, encoding="utf-8", newline="\n")
     print(f"wrote {lock_path.relative_to(ROOT)}")
     return 0
 

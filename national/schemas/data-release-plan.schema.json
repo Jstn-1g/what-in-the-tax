@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/data-release-plan.schema.json",
+  "title": "AuditBack deterministic data release plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "releaseId",
+    "releaseTimestamp",
+    "toolVersions",
+    "sources",
+    "artifacts",
+    "site",
+    "publicationApprovalPath",
+    "deploymentPath"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "auditback-data-release-plan-1.0.0"},
+    "releaseId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "releaseTimestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "toolVersions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engine", "extractor", "normalizationLadder", "siteBuilder"],
+      "properties": {
+        "engine": {"type": "string", "minLength": 1},
+        "extractor": {"type": "string", "minLength": 1},
+        "normalizationLadder": {"type": "string", "minLength": 1},
+        "siteBuilder": {"type": "string", "minLength": 1}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "sha256",
+          "byteLength",
+          "mediaType",
+          "requestUrl"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+          },
+          "path": {"$ref": "#/$defs/projectPath"},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "byteLength": {"type": "integer", "minimum": 0},
+          "mediaType": {"type": "string", "minLength": 1},
+          "requestUrl": {"type": "string", "pattern": "^https://"},
+          "retrievedAt": {"type": "string", "minLength": 1},
+          "effectiveDate": {"type": "string", "minLength": 1},
+          "etag": {"type": "string", "minLength": 1},
+          "lastModified": {"type": "string", "minLength": 1},
+          "adapter": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "version"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "version": {"type": "string", "minLength": 1},
+              "options": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": ["string", "number", "integer", "boolean", "null"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "sha256",
+          "byteLength",
+          "mediaType",
+          "visibility"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+          },
+          "path": {"$ref": "#/$defs/projectPath"},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "byteLength": {"type": "integer", "minimum": 0},
+          "mediaType": {"type": "string", "minLength": 1},
+          "visibility": {"enum": ["public", "internal"]}
+        }
+      }
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "buildCommand",
+        "workingDirectory",
+        "outputDirectory",
+        "requiredFiles",
+        "publicArtifactCopies",
+        "securityHeaders"
+      ],
+      "properties": {
+        "buildCommand": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "buildTimeoutSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3600
+        },
+        "workingDirectory": {"$ref": "#/$defs/projectPath"},
+        "outputDirectory": {"$ref": "#/$defs/projectPath"},
+        "requiredFiles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/bundlePath"}
+        },
+        "publicArtifactCopies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["artifactId", "target"],
+            "properties": {
+              "artifactId": {"type": "string", "minLength": 1},
+              "target": {"$ref": "#/$defs/bundlePath"}
+            }
+          }
+        },
+        "securityHeaders": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {"pattern": "^[A-Za-z0-9-]+$"},
+          "additionalProperties": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "publicationApprovalPath": {"$ref": "#/$defs/projectPath"},
+    "deploymentPath": {"$ref": "#/$defs/projectPath"}
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "projectPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![A-Za-z]:)(?![/\\\\])(?!.*(?:^|[/\\\\])\\.\\.(?:[/\\\\]|$))[^\\u0000]+$"
+    },
+    "bundlePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![/\\\\])(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))[^?#\\u0000]+$"
+    }
+  }
+}

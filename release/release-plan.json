@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "auditback-data-release-plan-1.0.0",
+  "releaseId": "ontario-directory-2026-07-26-1",
+  "releaseTimestamp": "2026-07-27T02:16:00Z",
+  "toolVersions": {
+    "engine": "ontario-municipal-history-index/2.0.0",
+    "extractor": "official-source-acquisition/1.0.0",
+    "normalizationLadder": "deterministic-2025-2024-2023/1.0.0",
+    "siteBuilder": "vite/7.3.6+typescript/5.9.3"
+  },
+  "sources": [
+    {
+      "id": "on-fir-2025",
+      "path": "source-pdfs/fir/fir_data_2025.zip",
+      "sha256": "d43c32a87aeefba7d68835c60072d0e05ae4384ea990d7a2c015fb0c1fe87f07",
+      "byteLength": 3309420,
+      "mediaType": "application/zip",
+      "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+      "retrievedAt": "2026-07-26T20:23:41-04:00"
+    },
+    {
+      "id": "on-fir-2024",
+      "path": "source-pdfs/fir/fir_data_2024.zip",
+      "sha256": "cb64993cfce1fa91d83769658d86a763f2f1d235a778af65109ed177a8424c41",
+      "byteLength": 10160820,
+      "mediaType": "application/zip",
+      "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+      "retrievedAt": "2026-07-25T03:51:45-04:00"
+    },
+    {
+      "id": "on-fir-2023",
+      "path": "source-pdfs/fir/fir_data_2023.zip",
+      "sha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+      "byteLength": 11073979,
+      "mediaType": "application/zip",
+      "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+      "retrievedAt": "2026-07-25T03:51:42-04:00"
+    },
+    {
+      "id": "on-municipalities-current",
+      "path": "source-pdfs/fir/municipalities_-_en_2026-0526.csv",
+      "sha256": "5370b4e1b3804d10059c67513db9ea59d61bba964096f8e5b35f4a8afd973196",
+      "byteLength": 56886,
+      "mediaType": "text/csv",
+      "requestUrl": "https://data.ontario.ca/dataset/62e83cbc-0731-4d66-abdc-2f2b31bcd76c/resource/6783a586-6b05-4a73-9663-e60a6963c91e/download/municipalities_-_en_2026-0526.csv",
+      "retrievedAt": "2026-07-26T20:23:41-04:00"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "ontario-fir-2023",
+      "path": "web/public/registry/ontario-fir-2023.json",
+      "sha256": "c128044a0255e8ac7316d02fde9a85b2f7c0bdaad836be57434a6224f01a957d",
+      "byteLength": 94466,
+      "mediaType": "application/json",
+      "visibility": "public"
+    },
+    {
+      "id": "ontario-municipal-history",
+      "path": "web/public/registry/ontario-municipal-history.json",
+      "sha256": "b9b804559f5c269da1460ca759b51b3a64f8be6371de94a117e19326805f6e84",
+      "byteLength": 326447,
+      "mediaType": "application/json",
+      "visibility": "public"
+    },
+    {
+      "id": "brant-county-on",
+      "path": "web/public/packs/brant-county-on.json",
+      "sha256": "b3519cb984bd9ae40e61e9f12fd04dc40a455f8e8ee5ae6cad92677e4795f986",
+      "byteLength": 31338,
+      "mediaType": "application/json",
+      "visibility": "public"
+    },
+    {
+      "id": "cambridge-on",
+      "path": "web/public/packs/cambridge-on.json",
+      "sha256": "56d16a0b8fd65473cd0db26cd1eb92b0000336e985562a5e820e922157ea11a3",
+      "byteLength": 33891,
+      "mediaType": "application/json",
+      "visibility": "public"
+    },
+    {
+      "id": "kitchener-on",
+      "path": "web/public/packs/kitchener-on.json",
+      "sha256": "22d79fc7ecbb8d0a1ff418930cd3aaa5c33856bb1014113775feb1dbf09360c0",
+      "byteLength": 42484,
+      "mediaType": "application/json",
+      "visibility": "public"
+    },
+    {
+      "id": "north-dumfries-on",
+      "path": "web/public/packs/north-dumfries-on.json",
+      "sha256": "b2a5b5bb49c5e0ee8cda9d0d0fc563b1b5e7b552f9f2cbb04119e959937c9273",
+      "byteLength": 34756,
+      "mediaType": "application/json",
+      "visibility": "public"
+    },
+    {
+      "id": "waterloo-on",
+      "path": "web/public/packs/waterloo-on.json",
+      "sha256": "8d3f26834b628146113c1d5ddba536c9d005a07930c1b6b4bf03991ca839f192",
+      "byteLength": 32430,
+      "mediaType": "application/json",
+      "visibility": "public"
+    },
+    {
+      "id": "woolwich-on",
+      "path": "web/public/packs/woolwich-on.json",
+      "sha256": "b6e236bf4a33fa50351050d61659e2388cb7cb7dd7b672af38c6e95ad031fb09",
+      "byteLength": 33696,
+      "mediaType": "application/json",
+      "visibility": "public"
+    }
+  ],
+  "site": {
+    "buildCommand": [
+      "npm",
+      "--prefix",
+      "web",
+      "run",
+      "build"
+    ],
+    "buildTimeoutSeconds": 900,
+    "workingDirectory": ".",
+    "outputDirectory": "web/dist",
+    "requiredFiles": [
+      "_headers",
+      "favicon.svg",
+      "index.html",
+      "privacy.txt",
+      "registry/ontario-fir-2023.json",
+      "registry/ontario-municipal-history.json",
+      "packs/brant-county-on.json",
+      "packs/cambridge-on.json",
+      "packs/kitchener-on.json",
+      "packs/north-dumfries-on.json",
+      "packs/waterloo-on.json",
+      "packs/woolwich-on.json"
+    ],
+    "publicArtifactCopies": [
+      {
+        "artifactId": "ontario-fir-2023",
+        "target": "registry/ontario-fir-2023.json"
+      },
+      {
+        "artifactId": "ontario-municipal-history",
+        "target": "registry/ontario-municipal-history.json"
+      },
+      {
+        "artifactId": "brant-county-on",
+        "target": "packs/brant-county-on.json"
+      },
+      {
+        "artifactId": "cambridge-on",
+        "target": "packs/cambridge-on.json"
+      },
+      {
+        "artifactId": "kitchener-on",
+        "target": "packs/kitchener-on.json"
+      },
+      {
+        "artifactId": "north-dumfries-on",
+        "target": "packs/north-dumfries-on.json"
+      },
+      {
+        "artifactId": "waterloo-on",
+        "target": "packs/waterloo-on.json"
+      },
+      {
+        "artifactId": "woolwich-on",
+        "target": "packs/woolwich-on.json"
+      }
+    ],
+    "securityHeaders": {
+      "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'self'; media-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Resource-Policy": "same-origin",
+      "Permissions-Policy": "accelerometer=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), serial=(), usb=(), xr-spatial-tracking=()",
+      "Referrer-Policy": "no-referrer",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-Permitted-Cross-Domain-Policies": "none",
+      "X-Robots-Tag": "noindex, nofollow"
+    }
+  },
+  "publicationApprovalPath": "release/publication-approval.json",
+  "deploymentPath": "release/deployment.json"
+}

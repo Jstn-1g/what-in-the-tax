@@ -18,32 +18,84 @@ locale: en-CA
 valuationBasis: "MPAC CVA (County median illustration $391,000)"
 defaultAssessmentCad: 391000
 engineTag: engine/0.1.0-bridge
-packVersion: "2026.0-draft"
+packVersion: "2026.0-candidate"
 
 publication:
   status: draft
-  lifecycle: draft
-  tier: 0  # receipt + gaps; no published findings yet
+  lifecycle: provisional
+  tier: 0  # receipt only; no findings, judgments, or open gaps
   license: MIT
-  publisher: null
+  licenseScope: >
+    Project-authored receipt and evidence metadata only. Official source
+    documents are not relicensed.
+  publisher: "What in the Tax? project"
   contact: null
+  correctionsRoute:
+    type: required-before-publication
+    url: null
+    status: pending-public-contact-channel
+  approval:
+    status: pending-named-human-approval
+    approvedBy: null
+    approvedAt: null
   refreshDueBy: "2027-04-30"
   notes: >
-    First gold-style draft for Paris / Brant County. Single-tier: no Region column.
-    Validate and audit before sealing. Not Published.
+    Strict-validation Tier-0 candidate for Paris / Brant County. Single-tier:
+    no Region column. Machine evidence gates may pass while publication remains
+    a separate named-human act. Not Published.
+
+project:
+  name: "What in the Tax?"
+  role: "Independent project publisher; not the County of Brant"
+  repository: "https://github.com/Jstn-1g/tax-receipt-prototype"
 
 artifacts:
   ledger: data/brant/evidence-ledger.json
   receipt: data/brant/taxpayer-receipt.json
+  sourcesLock: corpus/brant-county-on/sources.lock.json
   sourcesRoot: source-pdfs/brant/
   extractsRoot: data/_extracts/brant/
 
 controlTotal:
   municipalLevyCad: 92457575
   allocationBaseCad: 92457575
+  basis: approved-net-levy
+  grossNet: net
+  sourceFactId: BRANT-LEVY-2026
+  derivedId: DRV-BRANT-ALLOCATION-BASE-2026
+  reconciliation: exact
+  competingFigures:
+    - id: total-expenditures
+      disposition: rejected-as-allocation-base
+      reason: Gross spending includes revenues and is not the department net-requirement control.
+    - id: total-revenues
+      disposition: rejected-as-allocation-base
+      reason: Revenue is already netted in the published department requirements.
   note: >
     Approved net levy equals the sum of department net requirements in the
     2026 Approved Budget Operating Forecast department summary.
+
+coverage:
+  status: complete-for-declared-tier-0-scope
+  geography: "County of Brant, including Paris"
+  assessmentClass: "RT Residential"
+  included:
+    - County municipal rate
+    - hospital special levy
+    - education rate
+    - eleven-department pro-rata municipal allocation
+  excluded:
+    - parcel-specific adjustments and rebates
+    - non-RT classes and special-area charges
+    - water/wastewater and other user fees
+    - peer comparisons, findings, and judgments
+  findingsCount: 0
+  openGapsCount: 0
+  sourceLicenseStatus: unspecified
+  sourceLicenseNote: >
+    The County source pages display a County of Brant copyright notice. No
+    explicit reuse licence was identified for the two PDF sources, so the
+    project licence does not extend to those source documents.
 
 disclaimer: >
   Not affiliated with the County of Brant. Figures illustrate published rates

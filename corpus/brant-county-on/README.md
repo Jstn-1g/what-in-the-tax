@@ -1,36 +1,63 @@
 # brant-county-on (Paris, Ontario)
 
-Gold-style draft pack for the **County of Brant** — the single-tier municipality that bills **Paris, ON**.
+Tier-0 publication candidate for the **County of Brant**, the single-tier
+municipality that bills **Paris, Ontario**. MMAH FIR assessment code **2920**.
+There is no separate Town of Paris property-tax pack.
 
-There is no separate Town of Paris lower-tier tax pack. MMAH FIR assessment code **2920**.
+**Publication status: draft candidate, not Published.** The pack contains no
+findings, judgments, or open gaps. Passing the machine gate does not record the
+named-human publication approval required by `PUBLISH.md`.
 
-**Publication status: draft.** Run validate before any seal.
+## Declared scope
 
-## Why not “Paris”?
+The receipt applies the final 2026 `RT Residential` municipal, hospital, and
+education rates to the County-published median residential assessment of
+$391,000. It allocates only the municipal portion across the eleven approved
+department net requirements, pro rata against their exact $92,457,575 control
+total.
 
-Paris is an urban centre inside County of Brant. Property tax rates and the net levy are County documents. Searching “Paris” should resolve to this slug.
+It excludes parcel-specific adjustments and rebates, non-RT classes,
+special-area charges, water/wastewater and other user fees, peer comparisons,
+findings, and judgments. It is an illustration, not an exact tax bill.
+
+## Evidence and reconciliation
+
+| item | result |
+|---|---|
+| receipt-driving official sources | 2 |
+| reviewed source/extract pairs | 2, each SHA-256 and byte locked |
+| cited facts | 20 (18 verbatim, 2 normalized) |
+| department control | eleven net requirements = $92,457,575 exactly |
+| RT rate control | municipal + hospital + education = 0.0125155 exactly |
+| County portion at $391,000 | $4,295.33 from the final rate schedule |
+| approved-budget illustration | $4,295.35; retained as a cited $0.02 presentation difference |
+| full RT illustration | $4,893.56 including education |
+
+The receipt uses the final tax-rate schedule for bill arithmetic. It does not
+infer why the approved-budget illustration is two cents higher.
 
 ## Artifacts
 
 | file | role |
 |---|---|
-| `pack.yaml` | jurisdiction + publication metadata |
-| `../../data/brant/evidence-ledger.json` | FACT / DERIVED / GAP |
-| `../../data/brant/taxpayer-receipt.json` | UI model |
-| `../../data/_extracts/brant/` | page-marked text for citation audit |
+| `pack.yaml` | jurisdiction, project, licence, coverage, and approval metadata |
+| `sources.lock.json` | exact official source, extract, and ledger hashes |
+| `../../data/brant/evidence-ledger.json` | FACT and DERIVED evidence model |
+| `../../data/brant/taxpayer-receipt.json` | Tier-0 receipt model |
+| `../../data/brant/citation-audit.json` | citation and hash-binding audit |
+| `../../data/_extracts/brant/` | page-marked text used by the audit |
 
 ```bash
-python scripts/extract_brant_pdf_text.py
 python scripts/build_brant_evidence_model.py
-python scripts/validate_pack.py brant-county-on
+python scripts/lock_pack_sources.py brant-county-on
+python scripts/validate_pack.py brant-county-on --strict
+python -m unittest tests.test_brant_pack
 ```
 
-## Bill shape (single-tier)
+The MIT licence covers project-authored receipt and evidence metadata only.
+The County source pages display a County of Brant copyright notice; no explicit
+reuse licence was identified for the two cited PDFs, so they are not relicensed.
 
-Unlike North Dumfries (Township + Region of Waterloo + Education), Brant is:
-
-1. County municipal rate  
-2. Hospital special levy  
-3. Education  
-
-The County’s published median illustration (**$4,295.35** at **$391,000**) is municipal + hospital only — **education excluded**. This receipt shows the full RT total including education.
+The project corrections route is intentionally marked pending until a public,
+anonymous-reader-accessible channel exists. It is not the County's contact
+channel and does not imply County review or endorsement.

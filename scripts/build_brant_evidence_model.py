@@ -1,17 +1,18 @@
-"""Build County of Brant (Paris, ON) evidence ledger + taxpayer receipt.
+"""Build the Tier-0 County of Brant (Paris, ON) evidence receipt.
 
 Paris is not a separate lower-tier municipality — property tax for Paris is
 County of Brant (single-tier, MMAH assessment code 2920).
 
-Rules (same grammar as North Dumfries):
+Rules:
 - FACT: quoted from source with page + amount
 - DERIVED: computed only from FACT ids with explicit formula
-- GAP: missing evidence — never invent amounts
-- JUDGMENT: interpretive; billImpactCad always null
+- every receipt-driving source and extract must match its reviewed SHA-256
+- Tier 0 emits no findings or gaps; exclusions and reconciliations stay explicit
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -27,19 +28,66 @@ def fact(**kwargs):
     return kwargs
 
 
-def gap(**kwargs):
-    kwargs.setdefault("kind", "GAP")
-    return kwargs
-
-
 def derived(**kwargs):
     kwargs.setdefault("kind", "DERIVED")
     return kwargs
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+SOURCE_BINDINGS = {
+    "brant-2026-approved-budget": {
+        "localPath": "source-pdfs/brant/2026-approved-budget-accessible.pdf",
+        "sha256": "b8c622e920e82ae9c00160b730e970c39968f1a7cf6fcb522886214bfed8f5d9",
+        "bytes": 1_438_059,
+        "extractedText": "data/_extracts/brant/2026-approved-budget-accessible.txt",
+        "extractedTextSha256": "2878a735c4d2420329a4710150905b0ac108c9330b76439cb9c5a49097c2705d",
+    },
+    "brant-2026-tax-rates": {
+        "localPath": "source-pdfs/brant/2026-tax-rates.pdf",
+        "sha256": "27d1266f0f10b52c7179806a577cd0ef45199448b9b127ee54793cf871bf3652",
+        "bytes": 199_564,
+        "extractedText": "data/_extracts/brant/2026-tax-rates.txt",
+        "extractedTextSha256": "b4470259d7cecab15440f8f4c95b9f4747291f6d5b2512c8e9ad8b70be420af9",
+    },
+}
+
+
+def bind_reviewed_source(source: dict) -> dict:
+    source_id = source["id"]
+    binding = SOURCE_BINDINGS[source_id]
+    source_path = ROOT / binding["localPath"]
+    extract_path = ROOT / binding["extractedText"]
+    checks = (
+        ("source", source_path, binding["sha256"]),
+        ("extract", extract_path, binding["extractedTextSha256"]),
+    )
+    for label, path, expected_hash in checks:
+        if not path.is_file():
+            raise SystemExit(f"{source_id}: reviewed {label} bytes are missing: {path}")
+        actual_hash = sha256_file(path)
+        if actual_hash != expected_hash:
+            raise SystemExit(
+                f"{source_id}: reviewed {label} SHA-256 changed: "
+                f"expected {expected_hash}, got {actual_hash}"
+            )
+    actual_bytes = source_path.stat().st_size
+    if actual_bytes != binding["bytes"]:
+        raise SystemExit(
+            f"{source_id}: reviewed source byte length changed: "
+            f"expected {binding['bytes']}, got {actual_bytes}"
+        )
+    return {**source, **binding}
+
+
 # --- Control totals from 2026 Approved Budget Operating Forecast p.1 / p.5 ---
 LEVY_2026 = 92_457_575
-LEVY_2025 = 85_371_329
 MEDIAN_ASSESSMENT = 391_000
 ILLUSTRATED_COUNTY_BILL = 4_295.35  # municipal + hospital special; excludes education
 
@@ -77,36 +125,81 @@ ILLUSTRATION_DELTA = round(ILLUSTRATED_COUNTY_BILL - COUNTY_PLUS_HOSPITAL, 2)
 assert ILLUSTRATION_DELTA == 0.02
 
 sources = [
-    {
-        "id": "brant-2026-approved-budget",
-        "title": "County of Brant 2026 Approved Budget — Operating Forecast (Accessible)",
-        "url": "https://www.brant.ca/media/0dpbiteo/2026-approved-budget-accessible.pdf",
-        "localPath": "source-pdfs/brant/2026-approved-budget-accessible.pdf",
-        "extractedText": "data/_extracts/brant/2026-approved-budget-accessible.txt",
-        "asOf": "2026-02",
-        "authority": "County of Brant",
-        "note": "Adopted operating forecast; net levy and department summary.",
-    },
-    {
-        "id": "brant-2026-budget-overview",
-        "title": "County of Brant 2026 Budget Overview (Accessible)",
-        "url": "https://www.brant.ca/media/njpawe0j/1-budget-overview-accessible.pdf",
-        "localPath": "source-pdfs/brant/1-budget-overview-accessible.pdf",
-        "extractedText": "data/_extracts/brant/1-budget-overview-accessible.txt",
-        "asOf": "2026-02",
-        "authority": "County of Brant",
-        "note": "Proposed/overview narrative; levy drivers and median home illustration.",
-    },
-    {
-        "id": "brant-2026-tax-rates",
-        "title": "County of Brant 2026 Tax Rates",
-        "url": "https://www.brant.ca/media/wgootdma/2026-tax-rates.pdf",
-        "localPath": "source-pdfs/brant/2026-tax-rates.pdf",
-        "extractedText": "data/_extracts/brant/2026-tax-rates.txt",
-        "asOf": "2026",
-        "authority": "County of Brant",
-        "note": "Municipal, hospital special levy, and education rates by tax class.",
-    },
+    bind_reviewed_source(
+        {
+            "id": "brant-2026-approved-budget",
+            "title": (
+                "County of Brant 2026 Approved Budget — "
+                "Operating Forecast (Accessible)"
+            ),
+            "url": (
+                "https://www.brant.ca/media/0dpbiteo/"
+                "2026-approved-budget-accessible.pdf"
+            ),
+            "landingPage": (
+                "https://www.brant.ca/council-and-county-administration/"
+                "budget-and-finances/budget-and-capital-forecast/"
+            ),
+            "asOf": "2026-02",
+            "retrievedAt": "2026-07-26",
+            "publisher": "County of Brant",
+            "authority": "official-municipal",
+            "fiscalYear": 2026,
+            "currency": "CAD",
+            "documentKind": "approved-operating-budget",
+            "adoptionStatus": "approved",
+            "license": "unspecified",
+            "licenseNote": (
+                "No explicit reuse licence was identified for this PDF. The source "
+                "site displays © 2026 County of Brant; the project's MIT licence "
+                "does not relicense the official source document."
+            ),
+            "coverage": {
+                "role": "receipt-driving",
+                "citedPages": [1, 2, 3, 4, 5],
+                "scope": (
+                    "2026 net levy, median-home illustration, eleven department "
+                    "control rows, Legal Services, and OPP"
+                ),
+            },
+            "note": (
+                "Adopted operating forecast; net levy and department summary."
+            ),
+        }
+    ),
+    bind_reviewed_source(
+        {
+            "id": "brant-2026-tax-rates",
+            "title": "County of Brant 2026 Tax Rates",
+            "url": "https://www.brant.ca/media/wgootdma/2026-tax-rates.pdf",
+            "landingPage": "https://www.brant.ca/property-taxes/tax-rates/",
+            "asOf": "2026",
+            "retrievedAt": "2026-07-26",
+            "publisher": "County of Brant",
+            "authority": "official-municipal",
+            "fiscalYear": 2026,
+            "currency": "CAD",
+            "documentKind": "tax-rate-schedule",
+            "adoptionStatus": "final",
+            "license": "unspecified",
+            "licenseNote": (
+                "No explicit reuse licence was identified for this PDF. The source "
+                "site displays © 2026 County of Brant; the project's MIT licence "
+                "does not relicense the official source document."
+            ),
+            "coverage": {
+                "role": "receipt-driving",
+                "citedPages": [1],
+                "scope": (
+                    "RT Residential municipal, hospital, education, and total "
+                    "2026 tax rates"
+                ),
+            },
+            "note": (
+                "Municipal, hospital special levy, and education rates by tax class."
+            ),
+        }
+    ),
 ]
 
 facts = [
@@ -118,15 +211,6 @@ facts = [
         amountCad=LEVY_2026,
         excerpt="NET LEVY $85,371,329 $92,457,575 $101,524,129 $110,139,523 $115,787,940",
         status="approved",
-    ),
-    fact(
-        id="BRANT-LEVY-2025",
-        sourceId="brant-2026-approved-budget",
-        page=1,
-        label="County of Brant 2025 reorganized net levy (comparator)",
-        amountCad=LEVY_2025,
-        excerpt="NET LEVY $85,371,329 $92,457,575 $101,524,129 $110,139,523 $115,787,940",
-        status="approved_prior_year",
     ),
     fact(
         id="BRANT-MEDIAN-ASSESSMENT-2026",
@@ -268,6 +352,19 @@ derived_rows = [
         inputs=["BRANT-MEDIAN-ASSESSMENT-2026", "BRANT-TAXRATE-RES-HOSPITAL-2026"],
     ),
     derived(
+        id="DRV-BRANT-BILL-COUNTY-391K",
+        label="County municipal plus hospital special levy at median assessment",
+        amountCad=COUNTY_PLUS_HOSPITAL,
+        formula=(
+            "DRV-BRANT-BILL-MUNICIPAL-391K + "
+            "DRV-BRANT-BILL-HOSPITAL-391K"
+        ),
+        inputs=[
+            "DRV-BRANT-BILL-MUNICIPAL-391K",
+            "DRV-BRANT-BILL-HOSPITAL-391K",
+        ],
+    ),
+    derived(
         id="DRV-BRANT-BILL-EDUCATION-391K",
         label="Education portion at median assessment",
         amountCad=EDUCATION_PORTION,
@@ -278,23 +375,56 @@ derived_rows = [
         id="DRV-BRANT-BILL-COMBINED-391K",
         label="Combined RT bill at median assessment",
         amountCad=COMBINED_TOTAL,
-        formula="municipal + hospital special + education",
+        formula=(
+            "DRV-BRANT-BILL-COUNTY-391K + "
+            "DRV-BRANT-BILL-EDUCATION-391K"
+        ),
         inputs=[
-            "DRV-BRANT-BILL-MUNICIPAL-391K",
-            "DRV-BRANT-BILL-HOSPITAL-391K",
+            "DRV-BRANT-BILL-COUNTY-391K",
             "DRV-BRANT-BILL-EDUCATION-391K",
+        ],
+    ),
+    derived(
+        id="DRV-BRANT-RATE-TOTAL-CHECK-2026",
+        label="RT component rates sum to the published RT total rate",
+        value=RATE_TOTAL,
+        formula="sum(RT component rates) == BRANT-TAXRATE-RES-TOTAL-2026",
+        inputs=[
+            "BRANT-TAXRATE-RES-MUNICIPAL-2026",
+            "BRANT-TAXRATE-RES-HOSPITAL-2026",
+            "BRANT-TAXRATE-RES-EDUCATION-2026",
             "BRANT-TAXRATE-RES-TOTAL-2026",
         ],
-        note="Cross-check: rates sum to printed Total 0.0125155.",
+        note="The three published RT component rates sum exactly to 0.0125155.",
+    ),
+    derived(
+        id="DRV-BRANT-ILLUSTRATION-DELTA-391K",
+        label="Published illustration minus rate-derived County amount",
+        amountCad=ILLUSTRATION_DELTA,
+        formula=(
+            "BRANT-ILLUSTRATED-COUNTY-BILL-2026 - "
+            "DRV-BRANT-BILL-COUNTY-391K"
+        ),
+        inputs=[
+            "BRANT-ILLUSTRATED-COUNTY-BILL-2026",
+            "DRV-BRANT-BILL-COUNTY-391K",
+        ],
+        note=(
+            "The final tax-rate schedule is authoritative for this receipt. "
+            "The approved-budget illustration is retained and reconciled as a "
+            "$0.02 presentation difference; no cause is inferred."
+        ),
     ),
 ]
 
 # Pro-rata household shares of the municipal portion only (hospital is separate)
 county_lines = []
+household_share_ids = []
 for fact_id, label, amount, _page in DEPTS:
     share = amount / LEVY_2026
     line_amt = round(MUNICIPAL_PORTION * share, 2)
     derived_id = f"DRV-{fact_id}-HH"
+    household_share_ids.append(derived_id)
     derived_rows.append(
         derived(
             id=derived_id,
@@ -323,6 +453,26 @@ for fact_id, label, amount, _page in DEPTS:
 lines_sum = sum(x["amountCad"] for x in county_lines)
 residual = round(MUNICIPAL_PORTION - lines_sum, 2)
 if residual != 0:
+    derived_rows.append(
+        derived(
+            id="DRV-BRANT-ALLOCATION-ROUNDING-391K",
+            label="Department allocation cent-rounding residual",
+            amountCad=residual,
+            formula=(
+                "DRV-BRANT-BILL-MUNICIPAL-391K - sum("
+                + ", ".join(household_share_ids)
+                + ")"
+            ),
+            inputs=[
+                "DRV-BRANT-BILL-MUNICIPAL-391K",
+                *household_share_ids,
+            ],
+            note=(
+                "Explicit cent residual after independently rounding the eleven "
+                "department household shares."
+            ),
+        )
+    )
     county_lines.append(
         {
             "id": "BRANT-ALLOC-ROUNDING",
@@ -330,6 +480,7 @@ if residual != 0:
             "amountCad": residual,
             "classification": "reconciling_item",
             "evidenceStatus": "RECONCILING",
+            "sourceFactId": "DRV-BRANT-ALLOCATION-ROUNDING-391K",
             "note": "Cent rounding so department shares sum to the municipal portion.",
         }
     )
@@ -394,42 +545,140 @@ county_lines.append(
     }
 )
 
-gaps = [
-    gap(
-        id="GAP-BRANT-PEER-FIR-FAIRNESS",
-        title="Peer per-capita fairness check not yet run for Brant",
-        detail=(
-            "North Dumfries gold pack includes MMAH FIR Schedule 40 peer benchmarks. "
-            "Brant has a fleet FIR stub (code 2920) but this gold receipt has not yet published a "
-            "hand-checked peer fairness finding."
-        ),
-        blocks=["findings_peer_fairness"],
-        neededEvidence=["Hand-checked FIR Schedule 40 peer cohort + population basis disclosure"],
-    ),
-    gap(
-        id="GAP-BRANT-ILLUSTRATION-2CENTS",
-        title="County illustration is 2¢ above rate × assessment",
-        detail=(
-            f"Approved budget prints residential impact ${ILLUSTRATED_COUNTY_BILL:,.2f} at $391,000. "
-            f"Municipal rate {RATE_MUNICIPAL} + hospital {RATE_HOSPITAL} × $391,000 rounds to "
-            f"${COUNTY_PLUS_HOSPITAL:,.2f} (delta ${ILLUSTRATION_DELTA:,.2f}). This receipt uses the "
-            "tax-rate arithmetic; the printed illustration remains cited as FACT."
-        ),
-        blocks=[],
-        neededEvidence=["County clarification of rounding on the Property Tax Impact table"],
-    ),
-]
+gaps: list[dict] = []
+findings: list[dict] = []
 
-findings: list[dict] = []  # Tier 0 — findings rare; audit this pack before promoting
-
-SHARE_MUN = RATE_MUNICIPAL / RATE_TOTAL
-SHARE_HOSP = RATE_HOSPITAL / RATE_TOTAL
-SHARE_EDU = RATE_EDUCATION / RATE_TOTAL
+SHARE_MUN = round(RATE_MUNICIPAL / RATE_TOTAL, 12)
+SHARE_HOSP = round(RATE_HOSPITAL / RATE_TOTAL, 12)
+SHARE_EDU = round(RATE_EDUCATION / RATE_TOTAL, 12)
 IMPLIED_5000 = round(5000 / RATE_TOTAL)
+
+derived_rows.extend(
+    [
+        derived(
+            id="DRV-BRANT-IMPLIED-ASSESSMENT-5000",
+            label="Assessment implied by the $5,000 RT scenario",
+            amountCad=IMPLIED_5000,
+            formula="5000 / BRANT-TAXRATE-RES-TOTAL-2026",
+            inputs=["BRANT-TAXRATE-RES-TOTAL-2026"],
+            parameters={"scenarioBillCad": 5000},
+            note="Scenario parameter divided by the final published RT total rate.",
+        ),
+        derived(
+            id="DRV-BRANT-SHARE-MUNICIPAL-2026",
+            label="Municipal share of the RT total rate",
+            value=SHARE_MUN,
+            formula=(
+                "BRANT-TAXRATE-RES-MUNICIPAL-2026 / "
+                "BRANT-TAXRATE-RES-TOTAL-2026"
+            ),
+            inputs=[
+                "BRANT-TAXRATE-RES-MUNICIPAL-2026",
+                "BRANT-TAXRATE-RES-TOTAL-2026",
+            ],
+        ),
+        derived(
+            id="DRV-BRANT-SHARE-HOSPITAL-2026",
+            label="Hospital special levy share of the RT total rate",
+            value=SHARE_HOSP,
+            formula=(
+                "BRANT-TAXRATE-RES-HOSPITAL-2026 / "
+                "BRANT-TAXRATE-RES-TOTAL-2026"
+            ),
+            inputs=[
+                "BRANT-TAXRATE-RES-HOSPITAL-2026",
+                "BRANT-TAXRATE-RES-TOTAL-2026",
+            ],
+        ),
+        derived(
+            id="DRV-BRANT-SHARE-EDUCATION-2026",
+            label="Education share of the RT total rate",
+            value=SHARE_EDU,
+            formula=(
+                "BRANT-TAXRATE-RES-EDUCATION-2026 / "
+                "BRANT-TAXRATE-RES-TOTAL-2026"
+            ),
+            inputs=[
+                "BRANT-TAXRATE-RES-EDUCATION-2026",
+                "BRANT-TAXRATE-RES-TOTAL-2026",
+            ],
+        ),
+    ]
+)
+
+assert round(SHARE_MUN + SHARE_HOSP + SHARE_EDU, 12) == 1
+
+PUBLISHER = {
+    "name": "What in the Tax? project",
+    "role": "Independent project publisher; not the County of Brant",
+    "repositoryUrl": "https://github.com/Jstn-1g/tax-receipt-prototype",
+}
+
+LICENSE = {
+    "spdx": "MIT",
+    "scope": "Project-authored receipt and evidence metadata only",
+    "sourceDocuments": (
+        "Official source documents are not relicensed; see each source's "
+        "licence metadata"
+    ),
+}
+
+CORRECTIONS_ROUTE = {
+    "type": "required-before-publication",
+    "url": None,
+    "status": "pending-public-contact-channel",
+}
+
+PUBLICATION_APPROVAL = {
+    "status": "pending-named-human-approval",
+    "approvedBy": None,
+    "approvedAt": None,
+}
+
+COVERAGE = {
+    "status": "complete-for-declared-tier-0-scope",
+    "tier": 0,
+    "fiscalYear": 2026,
+    "currency": "CAD",
+    "geography": "County of Brant, including Paris",
+    "assessmentClass": "RT Residential",
+    "included": [
+        "County municipal rate",
+        "hospital special levy",
+        "education rate",
+        "eleven-department pro-rata municipal allocation",
+    ],
+    "excluded": [
+        "parcel-specific adjustments and rebates",
+        "non-RT classes and special-area charges",
+        "water/wastewater and other user fees",
+        "peer comparisons, findings, and judgments",
+    ],
+    "sourceCoverage": {
+        "receiptDrivingSources": len(sources),
+        "reviewedSourceAndExtractPairs": len(sources),
+        "citedFacts": len(facts),
+        "citationAuditExpected": {
+            "verbatim": 18,
+            "normalized": 2,
+            "hardFailures": 0,
+            "bindingIssues": 0,
+        },
+    },
+    "findingsCount": 0,
+    "openGapsCount": 0,
+}
 
 ledger = {
     "schemaVersion": "2.0.0",
     "artifact": "EvidenceLedger",
+    "fiscalYear": 2026,
+    "currency": "CAD",
+    "publisher": PUBLISHER,
+    "license": LICENSE,
+    "correctionsRoute": CORRECTIONS_ROUTE,
+    "publicationApproval": PUBLICATION_APPROVAL,
+    "coverage": COVERAGE,
     "jurisdiction": {
         "slug": "brant-county-on",
         "name": "County of Brant",
@@ -445,6 +694,7 @@ ledger = {
             "Never invent bill dollars to fill a GAP.",
             "JUDGMENT billImpactCad is always null until a formula is approved.",
             "Single-tier packs must not fabricate a Region column.",
+            "Tier 0 carries no findings, judgments, or open evidence gaps.",
         ]
     },
     "sources": sources,
@@ -452,12 +702,56 @@ ledger = {
     "derived": derived_rows,
     "gaps": gaps,
     "closedGaps": [],
+    "reconciliations": [
+        {
+            "id": "REC-BRANT-DEPARTMENT-CONTROL-2026",
+            "status": "exact",
+            "derivedId": "DRV-BRANT-ALLOCATION-BASE-2026",
+            "controlFactId": "BRANT-LEVY-2026",
+            "amountCad": LEVY_2026,
+            "note": (
+                "The eleven department net requirements sum exactly to the "
+                "approved $92,457,575 net levy."
+            ),
+        },
+        {
+            "id": "REC-BRANT-RT-RATE-CONTROL-2026",
+            "status": "exact",
+            "derivedId": "DRV-BRANT-RATE-TOTAL-CHECK-2026",
+            "controlFactId": "BRANT-TAXRATE-RES-TOTAL-2026",
+            "value": RATE_TOTAL,
+            "note": (
+                "Municipal, hospital, and education rates sum exactly to the "
+                "published RT total rate."
+            ),
+        },
+        {
+            "id": "REC-BRANT-BUDGET-ILLUSTRATION-2026",
+            "status": "explained-difference",
+            "derivedId": "DRV-BRANT-ILLUSTRATION-DELTA-391K",
+            "controlFactId": "BRANT-ILLUSTRATED-COUNTY-BILL-2026",
+            "amountCad": ILLUSTRATION_DELTA,
+            "selectedBasis": "final-2026-tax-rate-schedule",
+            "note": (
+                "The approved-budget illustration is $0.02 above the final "
+                "rate-derived County amount. Both values remain cited; this "
+                "receipt uses the final rate schedule and does not infer a cause."
+            ),
+        },
+    ],
 }
 
 receipt = {
     "schemaVersion": "2.0.0",
     "artifact": "TaxpayerReceipt",
+    "fiscalYear": 2026,
+    "currency": "CAD",
     "status": "partial_evidence_based",
+    "publisher": PUBLISHER,
+    "license": LICENSE,
+    "correctionsRoute": CORRECTIONS_ROUTE,
+    "publicationApproval": PUBLICATION_APPROVAL,
+    "coverage": COVERAGE,
     "purpose": (
         "Paris / County of Brant 2026 taxpayer receipt. Single-tier: County municipal + "
         "hospital special levy + education. No Region column."
@@ -480,12 +774,17 @@ receipt = {
                 "amountCad": COUNTY_PLUS_HOSPITAL,
                 "assessmentCad": MEDIAN_ASSESSMENT,
                 "evidenceStatus": "DERIVED",
-                "sourceFactId": "DRV-BRANT-BILL-MUNICIPAL-391K",
+                "sourceFactId": "DRV-BRANT-BILL-COUNTY-391K",
+                "citedFactIds": [
+                    "DRV-BRANT-ILLUSTRATION-DELTA-391K",
+                ],
                 "lineItems": county_lines,
                 "uiLabel": "County portion",
                 "note": (
                     f"Rate-derived municipal+hospital ${COUNTY_PLUS_HOSPITAL:,.2f}; "
-                    f"County illustration prints ${ILLUSTRATED_COUNTY_BILL:,.2f} (see GAP-BRANT-ILLUSTRATION-2CENTS)."
+                    f"the approved-budget illustration prints "
+                    f"${ILLUSTRATED_COUNTY_BILL:,.2f}, a cited $0.02 difference. "
+                    "The receipt uses the final tax-rate schedule."
                 ),
             },
             "region": {
@@ -506,28 +805,33 @@ receipt = {
                 "uiLabel": "Education",
             },
             "combinedTotalCad": COMBINED_TOTAL,
+            "sourceFactId": "DRV-BRANT-BILL-COMBINED-391K",
             "combinedAtAssessment": {
                 "assessmentCad": MEDIAN_ASSESSMENT,
                 "basis": "County of Brant 2026 Tax Rates — CODE RT Residential",
                 "evidenceStatus": "DERIVED",
+                "sourceFactId": "DRV-BRANT-BILL-COMBINED-391K",
+                "citedFactIds": [
+                    "DRV-BRANT-RATE-TOTAL-CHECK-2026",
+                ],
                 "components": [
                     {
                         "label": "County of Brant (municipal)",
                         "amountCad": MUNICIPAL_PORTION,
                         "rate": RATE_MUNICIPAL,
-                        "sourceFactId": "BRANT-TAXRATE-RES-MUNICIPAL-2026",
+                        "sourceFactId": "DRV-BRANT-BILL-MUNICIPAL-391K",
                     },
                     {
                         "label": "Hospital special levy",
                         "amountCad": HOSPITAL_PORTION,
                         "rate": RATE_HOSPITAL,
-                        "sourceFactId": "BRANT-TAXRATE-RES-HOSPITAL-2026",
+                        "sourceFactId": "DRV-BRANT-BILL-HOSPITAL-391K",
                     },
                     {
                         "label": "Education (Province of Ontario)",
                         "amountCad": EDUCATION_PORTION,
                         "rate": RATE_EDUCATION,
-                        "sourceFactId": "BRANT-TAXRATE-RES-EDUCATION-2026",
+                        "sourceFactId": "DRV-BRANT-BILL-EDUCATION-391K",
                     },
                 ],
                 "totalCad": COMBINED_TOTAL,
@@ -536,8 +840,10 @@ receipt = {
             "combinedTotalNote": (
                 f"Built from the 2026 Tax Rates RT row applied to the County's published median "
                 f"assessment (${MEDIAN_ASSESSMENT:,}). Municipal + hospital = ${COUNTY_PLUS_HOSPITAL:,.2f}, "
-                f"matching the approved budget's illustrated residential impact ${ILLUSTRATED_COUNTY_BILL:,.2f} "
-                f"(which excludes education). Full bill including education is ${COMBINED_TOTAL:,.2f}."
+                f"while the approved budget's illustrated residential impact is "
+                f"${ILLUSTRATED_COUNTY_BILL:,.2f} (a cited $0.02 presentation "
+                f"difference; education excluded). Full bill including education "
+                f"is ${COMBINED_TOTAL:,.2f}."
             ),
             "warnings": [
                 "County budget illustrations of $4,295.35 exclude education; this receipt shows the full RT total.",
@@ -551,21 +857,22 @@ receipt = {
             "evidenceStatus": "DERIVED",
             "allocatable": True,
             "impliedAssessmentCad": IMPLIED_5000,
+            "sourceFactId": "DRV-BRANT-IMPLIED-ASSESSMENT-5000",
             "compositionShares": [
                 {
                     "label": "County of Brant (municipal)",
                     "share": SHARE_MUN,
-                    "sourceFactId": "BRANT-TAXRATE-RES-MUNICIPAL-2026",
+                    "sourceFactId": "DRV-BRANT-SHARE-MUNICIPAL-2026",
                 },
                 {
                     "label": "Hospital special levy",
                     "share": SHARE_HOSP,
-                    "sourceFactId": "BRANT-TAXRATE-RES-HOSPITAL-2026",
+                    "sourceFactId": "DRV-BRANT-SHARE-HOSPITAL-2026",
                 },
                 {
                     "label": "Education (Province of Ontario)",
                     "share": SHARE_EDU,
-                    "sourceFactId": "BRANT-TAXRATE-RES-EDUCATION-2026",
+                    "sourceFactId": "DRV-BRANT-SHARE-EDUCATION-2026",
                 },
             ],
             "message": (
@@ -578,11 +885,8 @@ receipt = {
     "uiModelHints": {
         "screen": "TaxReceipt",
         "defaultProfile": "supportedAverageHousehold",
-        "showGapsAsFirstClassUi": True,
+        "showGapsAsFirstClassUi": False,
         "forbidFillerAllocation": True,
-        "flaggedDefinition": (
-            "Flagged means this line needs an explanation. It does not mean the money was wasted."
-        ),
         "publishedFindingIds": [],
         "marqueeFindings": [],
         "municipalBucketLabel": "County portion",
@@ -591,12 +895,71 @@ receipt = {
     },
 }
 
+
+def collect_receipt_evidence_ids(value) -> set[str]:
+    references: set[str] = set()
+    if isinstance(value, list):
+        for child in value:
+            references.update(collect_receipt_evidence_ids(child))
+    elif isinstance(value, dict):
+        source_fact_id = value.get("sourceFactId")
+        if isinstance(source_fact_id, str):
+            references.add(source_fact_id)
+        for cited_id in value.get("citedFactIds", []) or []:
+            if isinstance(cited_id, str):
+                references.add(cited_id)
+        for child in value.values():
+            references.update(collect_receipt_evidence_ids(child))
+    return references
+
+
+facts_by_id = {item["id"]: item for item in facts}
+derived_by_id = {item["id"]: item for item in derived_rows}
+load_bearing_ids = collect_receipt_evidence_ids(receipt)
+pending_ids = list(load_bearing_ids)
+while pending_ids:
+    evidence_id = pending_ids.pop()
+    node = derived_by_id.get(evidence_id)
+    if not node:
+        continue
+    for input_id in node["inputs"]:
+        if input_id not in load_bearing_ids:
+            load_bearing_ids.add(input_id)
+            pending_ids.append(input_id)
+
+load_bearing_fact_ids = load_bearing_ids & set(facts_by_id)
+assert load_bearing_fact_ids == set(facts_by_id)
+assert len(facts) == 20
+assert not gaps
+assert not findings
+assert receipt["findings"] == []
+assert round(sum(item["amountCad"] for item in county_lines), 2) == COUNTY_PLUS_HOSPITAL
+assert (
+    round(
+        sum(
+            item["amountCad"]
+            for item in receipt["profiles"]["supportedAverageHousehold"][
+                "combinedAtAssessment"
+            ]["components"]
+        ),
+        2,
+    )
+    == COMBINED_TOTAL
+)
+assert all(
+    fact_row.get("sourceId")
+    and fact_row.get("page")
+    and fact_row.get("excerpt")
+    for fact_row in facts
+)
+COVERAGE["sourceCoverage"]["loadBearingFacts"] = len(load_bearing_fact_ids)
+
 for target in (DATA, WEB_DATA):
     (target / "evidence-ledger.json").write_text(
-        json.dumps(ledger, indent=2) + "\n", encoding="utf-8"
+        json.dumps(ledger, indent=2) + "\n", encoding="utf-8", newline="\n"
     )
     (target / "taxpayer-receipt.json").write_text(
-        json.dumps(receipt, indent=2) + "\n", encoding="utf-8"
+        json.dumps(receipt, indent=2) + "\n", encoding="utf-8", newline="\n"
     )
 
 print("facts", len(facts))

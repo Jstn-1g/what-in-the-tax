@@ -1,0 +1,8 @@
+/*/
+/verification.json
+/*-release-verification.json
+/deployment-attestation.json
+/*.bundle.sha256
+!/release-plan.json
+!/publication-approval.json
+!/deployment.json

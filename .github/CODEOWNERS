@@ -12,3 +12,24 @@
 /.github/ISSUE_TEMPLATE/ @Jstn-1g
 /.github/PULL_REQUEST_TEMPLATE.md @Jstn-1g
 /.github/workflows/ @Jstn-1g
+
+# Release transport and Ontario source locks are production controls. Keep their
+# ownership explicit even though the workflow directory also has a broad rule.
+/.github/workflows/release-validation.yml @Jstn-1g
+/.github/workflows/source-refresh.yml @Jstn-1g
+/.github/workflows/publish-approved-release.yml @Jstn-1g
+/release/release-plan.json @Jstn-1g
+/release/publication-approval.json @Jstn-1g
+/release/deployment.json @Jstn-1g
+/national/schemas/data-release-*.json @Jstn-1g
+/national/schemas/release-*.json @Jstn-1g
+/national/schemas/post-deployment-attestation.schema.json @Jstn-1g
+/package.json @Jstn-1g
+/package-lock.json @Jstn-1g
+/scripts/acquire_official_sources.py @Jstn-1g
+/scripts/verify_data_release.py @Jstn-1g
+/scripts/build_release_bundle.py @Jstn-1g
+/scripts/verify_release_manifest.py @Jstn-1g
+/scripts/verify_deployed_release.py @Jstn-1g
+/scripts/create_deployment_attestation.py @Jstn-1g
+/sources/locks/ca-on/ @Jstn-1g

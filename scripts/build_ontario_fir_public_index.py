@@ -367,7 +367,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(rendered, encoding="utf-8")
+    args.output.write_text(rendered, encoding="utf-8", newline="\n")
     print(
         f"Wrote {args.output.relative_to(ROOT)}: "
         f"{EXPECTED_RECORD_COUNT} records, AI tokens 0"

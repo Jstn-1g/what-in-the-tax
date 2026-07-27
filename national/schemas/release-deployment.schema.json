@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auditback.ca/schemas/release-deployment.schema.json",
+  "title": "AuditBack immutable release deployment target",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "releaseId",
+    "candidateOnly",
+    "baseUrl",
+    "immutableVersion",
+    "rollbackUrl"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "auditback-release-deployment-1.0.0"},
+    "releaseId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "candidateOnly": {"type": "boolean"},
+    "baseUrl": {"type": ["string", "null"], "pattern": "^https://"},
+    "immutableVersion": {"type": ["string", "null"], "minLength": 1},
+    "rollbackUrl": {"type": ["string", "null"], "pattern": "^https://"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"candidateOnly": {"const": false}},
+        "required": ["candidateOnly"]
+      },
+      "then": {
+        "properties": {
+          "baseUrl": {"type": "string"},
+          "immutableVersion": {"type": "string"},
+          "rollbackUrl": {"type": "string"}
+        }
+      },
+      "else": {
+        "properties": {
+          "baseUrl": {"const": null},
+          "immutableVersion": {"const": null},
+          "rollbackUrl": {"const": null}
+        }
+      }
+    }
+  ]
+}
