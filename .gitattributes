@@ -1,0 +1,4 @@
+# Evidence hashes must resolve to identical bytes on Windows and Linux.
+data/evidence-ledger.json text eol=lf
+data/_extracts/** text eol=lf
+source-pdfs/fir/*.csv text eol=lf
