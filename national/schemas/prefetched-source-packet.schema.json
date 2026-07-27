@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://whatinthetax.com/schemas/prefetched-source-packet-1.0.0.json",
+  "title": "What in the Tax? bounded prefetched-source packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "jobId",
+    "jobCanonicalSha256",
+    "taskType",
+    "assembledAt",
+    "sources",
+    "packetCanonicalSha256"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "whatinthetax-prefetched-source-packet-1.0.0"
+    },
+    "jobId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}-[A-Za-z0-9]+(?:[._:-][A-Za-z0-9]+)*-FY[0-9]{4}-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "jobCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "taskType": {
+      "type": "string",
+      "const": "extract-candidates"
+    },
+    "assembledAt": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "packetCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "authorityId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._:-][a-z0-9]+)*$"
+    },
+    "documentType": {
+      "type": "string",
+      "enum": [
+        "approved-budget",
+        "final-tax-rate-instrument",
+        "service-allocation-schedule"
+      ]
+    },
+    "governmentLevel": {
+      "type": "string",
+      "enum": [
+        "single-tier",
+        "lower-tier",
+        "upper-tier",
+        "education",
+        "special-purpose"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceKey",
+        "url",
+        "publisher",
+        "title",
+        "documentType",
+        "authorityId",
+        "governmentLevel",
+        "fiscalYear",
+        "publicationDate",
+        "retrievedAt",
+        "contentType",
+        "locator",
+        "exactExcerpt",
+        "sourceContentSha256",
+        "exactExcerptUtf8Sha256"
+      ],
+      "properties": {
+        "sourceKey": {
+          "type": "string",
+          "pattern": "^S[1-9][0-9]*$"
+        },
+        "url": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 2048,
+          "pattern": "^https://"
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "documentType": {
+          "$ref": "#/$defs/documentType"
+        },
+        "authorityId": {
+          "$ref": "#/$defs/authorityId"
+        },
+        "governmentLevel": {
+          "$ref": "#/$defs/governmentLevel"
+        },
+        "fiscalYear": {
+          "type": "integer",
+          "minimum": 2000,
+          "maximum": 2100
+        },
+        "publicationDate": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            }
+          ]
+        },
+        "retrievedAt": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+        },
+        "contentType": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/pdf",
+            "text/csv",
+            "text/html",
+            "text/plain"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "exactExcerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 800
+        },
+        "sourceContentSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "exactExcerptUtf8Sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

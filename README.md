@@ -63,6 +63,13 @@ Optional exception review can use a trusted operator's existing ChatGPT/Codex
 subscription without an API key or pay-as-you-go API calls. The local-only
 boundary and mandatory review controls are documented in
 [`docs/SUBSCRIPTION-AI-REVIEW.md`](docs/SUBSCRIPTION-AI-REVIEW.md).
+Provider-neutral source mapping through signed-in subscription clients uses
+quarantined candidates and the offline gate documented in
+[`docs/MODEL-HANDOFF.md`](docs/MODEL-HANDOFF.md). The reviewed executable routes
+use Claude for one automatic subscription-backed classification turn.
+Antigravity (`agy`) can prepare a dry run or receive the same handoff manually,
+but its automatic route stays disabled until it can accept the prompt through
+standard input and attest the model, tool use, and per-run usage.
 
 ```powershell
 python scripts/build_national_registry.py `
@@ -125,6 +132,8 @@ workflow runs the offline checks on pull requests but never deploys.
 | `docs/WHATINTHETAX-DOMAIN.md` | safe `whatinthetax.com` registration and cutover checklist |
 | `docs/PROVINCIAL-ROLLOUT.md` | GitHub playbook for all 13 province/territory rollouts |
 | `docs/SUBSCRIPTION-AI-REVIEW.md` | local subscription-only exception review; no API key or API billing |
+| `docs/MODEL-HANDOFF.md` | provider-neutral municipal source-mapping handoff and candidate-only gate |
+| `handoffs/` | hash-bound jobs, permanent prompt, and non-authoritative examples |
 | `docs/` | deployment and working briefs |
 
 ## Evidence rules

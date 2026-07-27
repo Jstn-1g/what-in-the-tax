@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "whatinthetax-municipal-evidence-job-1.0.0",
+  "jobId": "ON-3024-FY2026-source-classification",
+  "sequence": 2,
+  "taskType": "extract-candidates",
+  "target": {
+    "directoryId": "on-3024",
+    "assessmentCode": "3024",
+    "displayName": "Wellesley",
+    "officialName": "Wellesley, Township of",
+    "provinceTerritory": "ON",
+    "governmentTier": "lower-tier",
+    "geographicArea": "Waterloo",
+    "parentBody": {
+      "officialName": "Regional Municipality of Waterloo",
+      "governmentTier": "upper-tier"
+    }
+  },
+  "targetFiscalYears": [
+    2026
+  ],
+  "requiredGovernmentLevels": [
+    "lower-tier",
+    "upper-tier",
+    "education"
+  ],
+  "requestedDocuments": [
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "service-allocation-schedule",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "service-allocation-schedule",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-education",
+      "governmentLevel": "education",
+      "fiscalYear": 2026,
+      "required": true
+    }
+  ],
+  "officialAuthorities": [
+    {
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "publisher": "Township of Wellesley",
+      "domains": [
+        "wellesley.ca"
+      ]
+    },
+    {
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "publisher": "Regional Municipality of Waterloo",
+      "domains": [
+        "regionofwaterloo.ca",
+        "pub-regionofwaterloo.escribemeetings.com"
+      ]
+    },
+    {
+      "authorityId": "ca-on-education",
+      "governmentLevel": "education",
+      "publisher": "Government of Ontario",
+      "domains": [
+        "ontario.ca"
+      ]
+    }
+  ],
+  "budget": {
+    "maxPromptUtf8Bytes": 20000,
+    "maxModelTurns": 1,
+    "maxOutputTokens": 1800,
+    "maxWebSearches": 0,
+    "maxWebFetches": 0,
+    "maxPdfPagesPerDocument": 0,
+    "fullDocumentInPrompt": false,
+    "automaticRetryAllowed": false
+  },
+  "rules": {
+    "officialSourcesOnly": true,
+    "unknownValuesMustBeNull": true,
+    "doNotMixFiscalYears": true,
+    "doNotMixAccountingBases": true,
+    "humanReviewRequired": true,
+    "mayAutoPublish": false
+  },
+  "jobCanonicalSha256": "4444255fc57e961982c46c3c921128be4a0bbebaed27a77369e4c710f5c28aef"
+}

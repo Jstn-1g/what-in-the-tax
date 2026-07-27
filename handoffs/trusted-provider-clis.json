@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "whatinthetax-trusted-provider-clis-1.0.0",
+  "platform": "windows",
+  "providers": {
+    "claude": {
+      "baseEnvironmentVariable": "USERPROFILE",
+      "relativePath": ".local/bin/claude.exe",
+      "version": "2.1.220",
+      "sha256": "af5bf1f1b2aadffc768eccd787084c6fdf9ba81624cbe96c1c6d9ac1a1550231",
+      "publisher": "Anthropic, PBC",
+      "liveExecutionAllowed": true
+    },
+    "agy": {
+      "baseEnvironmentVariable": "LOCALAPPDATA",
+      "relativePath": "agy/bin/agy.exe",
+      "version": "1.1.7",
+      "sha256": "cbf804c9f58d7e2fe65c6ca3840039aaa7b64d662f3e62d13fdc250fc39eedb",
+      "publisher": "Google LLC",
+      "liveExecutionAllowed": false
+    }
+  }
+}

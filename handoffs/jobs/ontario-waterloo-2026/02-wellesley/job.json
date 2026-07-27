@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "whatinthetax-municipal-evidence-job-1.0.0",
+  "jobId": "ON-3024-FY2026-source-map",
+  "sequence": 2,
+  "taskType": "discover-sources",
+  "target": {
+    "directoryId": "on-3024",
+    "assessmentCode": "3024",
+    "displayName": "Wellesley",
+    "officialName": "Wellesley, Township of",
+    "provinceTerritory": "ON",
+    "governmentTier": "lower-tier",
+    "geographicArea": "Waterloo",
+    "parentBody": {
+      "officialName": "Regional Municipality of Waterloo",
+      "governmentTier": "upper-tier"
+    }
+  },
+  "targetFiscalYears": [
+    2026,
+    2025,
+    2024
+  ],
+  "requiredGovernmentLevels": [
+    "lower-tier",
+    "upper-tier",
+    "education"
+  ],
+  "requestedDocuments": [
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "service-allocation-schedule",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "service-allocation-schedule",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-education",
+      "governmentLevel": "education",
+      "fiscalYear": 2026,
+      "required": true
+    },
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2025,
+      "required": false
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2025,
+      "required": false
+    },
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2025,
+      "required": false
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2025,
+      "required": false
+    },
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2024,
+      "required": false
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2024,
+      "required": false
+    }
+  ],
+  "officialAuthorities": [
+    {
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "publisher": "Township of Wellesley",
+      "domains": [
+        "wellesley.ca"
+      ]
+    },
+    {
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "publisher": "Regional Municipality of Waterloo",
+      "domains": [
+        "regionofwaterloo.ca",
+        "pub-regionofwaterloo.escribemeetings.com"
+      ]
+    },
+    {
+      "authorityId": "ca-on-education",
+      "governmentLevel": "education",
+      "publisher": "Government of Ontario",
+      "domains": [
+        "ontario.ca"
+      ]
+    }
+  ],
+  "budget": {
+    "maxPromptUtf8Bytes": 20000,
+    "maxModelTurns": 3,
+    "maxOutputTokens": 2000,
+    "maxWebSearches": 8,
+    "maxWebFetches": 8,
+    "maxPdfPagesPerDocument": 6,
+    "fullDocumentInPrompt": false,
+    "automaticRetryAllowed": false
+  },
+  "rules": {
+    "officialSourcesOnly": true,
+    "unknownValuesMustBeNull": true,
+    "doNotMixFiscalYears": true,
+    "doNotMixAccountingBases": true,
+    "humanReviewRequired": true,
+    "mayAutoPublish": false
+  },
+  "jobCanonicalSha256": "6fdde623db4b63ec05b9d4d023d60098fc072594eba77fb2a1c12963fec7d479"
+}

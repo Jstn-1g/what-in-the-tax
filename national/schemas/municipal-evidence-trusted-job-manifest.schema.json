@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://whatinthetax.com/schemas/municipal-evidence-trusted-job-manifest-1.0.0.json",
+  "title": "What in the Tax? trusted municipal evidence job manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "prompt",
+    "candidateSchema",
+    "targetDirectories",
+    "jobs"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "whatinthetax-municipal-evidence-trusted-jobs-1.0.0"
+    },
+    "prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "utf8Sha256"
+      ],
+      "properties": {
+        "path": {
+          "const": "handoffs/PROMPT.md"
+        },
+        "utf8Sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "candidateSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "canonicalSha256"
+      ],
+      "properties": {
+        "path": {
+          "const": "national/schemas/municipal-evidence-candidate.schema.json"
+        },
+        "canonicalSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "targetDirectories": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {
+        "$ref": "#/$defs/targetDirectory"
+      }
+    },
+    "jobs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 500,
+      "items": {
+        "$ref": "#/$defs/job"
+      }
+    }
+  },
+  "$defs": {
+    "stableId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9]+(?:[._:-][A-Za-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "targetDirectory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "schemaVersion",
+        "jurisdiction",
+        "canonicalSha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 500,
+          "pattern": "^[A-Za-z0-9._/-]+\\.json$"
+        },
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "pattern": "^CA-(?:AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT)$"
+        },
+        "canonicalSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "job": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jobId",
+        "path",
+        "targetDirectoryPath",
+        "targetRecordId",
+        "jobCanonicalSha256"
+      ],
+      "properties": {
+        "jobId": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}-[A-Za-z0-9]+(?:[._:-][A-Za-z0-9]+)*-FY[0-9]{4}-[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^handoffs/jobs/[a-z0-9/-]+/job\\.json$"
+        },
+        "targetDirectoryPath": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 500,
+          "pattern": "^[A-Za-z0-9._/-]+\\.json$"
+        },
+        "targetRecordId": {
+          "$ref": "#/$defs/stableId"
+        },
+        "jobCanonicalSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "packetPath": {
+          "type": "string",
+          "pattern": "^handoffs/jobs/[a-z0-9/-]+/prefetched-source-packet\\.json$"
+        },
+        "packetCanonicalSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "dependentRequired": {
+        "packetPath": [
+          "packetCanonicalSha256"
+        ],
+        "packetCanonicalSha256": [
+          "packetPath"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "whatinthetax-municipal-evidence-candidate-1.0.0",
+  "jobId": "ON-3024-FY2026-source-map",
+  "jobCanonicalSha256": "6fdde623db4b63ec05b9d4d023d60098fc072594eba77fb2a1c12963fec7d479",
+  "packetCanonicalSha256": null,
+  "target": {
+    "directoryId": "on-3024",
+    "assessmentCode": "3024",
+    "displayName": "Wellesley",
+    "officialName": "Wellesley, Township of",
+    "provinceTerritory": "ON",
+    "governmentTier": "lower-tier",
+    "geographicArea": "Waterloo",
+    "parentBody": {
+      "officialName": "Regional Municipality of Waterloo",
+      "governmentTier": "upper-tier"
+    }
+  },
+  "producer": {
+    "provider": "example",
+    "model": "replace-with-actual-model",
+    "accessMode": "subscription-ui",
+    "runBindingAt": "2026-07-26T18:00:00Z"
+  },
+  "status": "pending-human-review",
+  "outcome": "partial",
+  "humanReviewRequired": true,
+  "mayAutoPublish": false,
+  "sources": [
+    {
+      "sourceKey": "S1",
+      "url": "https://www.wellesley.ca/council-and-administration/budget-and-finance/budgets/",
+      "publisher": "Township of Wellesley",
+      "title": "Budgets",
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-wellesley",
+      "adoptionStatus": "unknown",
+      "fiscalYear": 2026,
+      "governmentLevel": "lower-tier",
+      "publicationDate": null,
+      "retrievedAt": null,
+      "contentType": null,
+      "locator": null,
+      "exactExcerpt": null,
+      "sourceContentSha256": null,
+      "exactExcerptUtf8Sha256": null,
+      "issueCodes": [
+        "date-unclear",
+        "status-unclear",
+        "excerpt-not-captured"
+      ],
+      "secondCheckRequired": true
+    }
+  ],
+  "gaps": [
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "reasonCode": "status-unclear",
+      "searchTrail": [
+        {
+          "authorityId": "ca-on-wellesley",
+          "url": "https://www.wellesley.ca/council-and-administration/budget-and-finance/budgets/"
+        }
+      ],
+      "note": "The official landing page is a useful candidate, but the excerpt and final approval status have not been captured."
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "reasonCode": "not-yet-researched",
+      "searchTrail": [],
+      "note": "Starter example only; research has not been performed."
+    },
+    {
+      "documentType": "service-allocation-schedule",
+      "authorityId": "ca-on-wellesley",
+      "governmentLevel": "lower-tier",
+      "fiscalYear": 2026,
+      "reasonCode": "not-yet-researched",
+      "searchTrail": [],
+      "note": "Starter example only; research has not been performed."
+    },
+    {
+      "documentType": "approved-budget",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "reasonCode": "not-yet-researched",
+      "searchTrail": [],
+      "note": "Starter example only; research has not been performed."
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "reasonCode": "not-yet-researched",
+      "searchTrail": [],
+      "note": "Starter example only; research has not been performed."
+    },
+    {
+      "documentType": "service-allocation-schedule",
+      "authorityId": "ca-on-waterloo-region",
+      "governmentLevel": "upper-tier",
+      "fiscalYear": 2026,
+      "reasonCode": "not-yet-researched",
+      "searchTrail": [],
+      "note": "Starter example only; research has not been performed."
+    },
+    {
+      "documentType": "final-tax-rate-instrument",
+      "authorityId": "ca-on-education",
+      "governmentLevel": "education",
+      "fiscalYear": 2026,
+      "reasonCode": "not-yet-researched",
+      "searchTrail": [],
+      "note": "Starter example only; research has not been performed."
+    }
+  ]
+}
