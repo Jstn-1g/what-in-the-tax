@@ -42,5 +42,6 @@
     "url": "https://www.ontario.ca/page/open-government-licence-ontario",
     "attribution": "Contains information licensed under the Open Government Licence – Ontario."
   },
-  "runtimeAiRequired": false
+  "runtimeAiRequired": false,
+  "archiveMemberSha256": "f6bf90b6494046c26398eca9b9d3d3e6dc16edc59e84fe5b5706f0688567f5cb"
 }
