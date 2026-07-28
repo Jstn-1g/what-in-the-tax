@@ -198,6 +198,35 @@ Until all seven steps exist, release records and UI language must say **Preview*
   access, sampling, and deletion, and after ensuring URLs cannot contain personal
   data.
 
+## Contribution links
+
+`SupportCard` renders contribution buttons from two Stripe Payment Link URLs.
+There is no Stripe API key anywhere in this project and no server-side payment
+code: a Payment Link is a public URL, so the card is a plain anchor and the
+strict CSP in `web/public/_headers` needs no Stripe origins added. Link
+navigation is not restricted by CSP; embedded Stripe Checkout would be, and
+would break the no-third-party-request property this deployment claims.
+
+    VITE_SUPPORT_ONCE_URL      one-time contribution Payment Link
+    VITE_SUPPORT_MONTHLY_URL   recurring contribution Payment Link
+
+Both are **build-time** values. Vite inlines `VITE_*` into the bundle when the
+build runs, so in Cloudflare they must be set where the *build command* can see
+them, not as runtime Worker variables or secrets. A runtime-only variable
+produces no error and no buttons - the card silently keeps saying "Support
+options are coming at launch", which is also what it correctly shows whenever
+either variable is unset.
+
+`normalizeSupportUrl` refuses anything that is not an `https://buy.stripe.com`
+URL with no credentials and no fragment, and it specifically rejects any path
+segment beginning with `test_`. Test-mode Payment Links therefore cannot reach
+the live site. That guard is deliberate: a contribution button that opens a
+sandbox checkout takes real card details into a flow that will never charge
+them, on a site whose only asset is not misleading people. Use live-mode links
+and verify with a real small contribution you refund.
+
+Neither value is a secret. Both may be committed to build configuration.
+
 ## Remaining supply-chain risk
 
 The workflow pins GitHub Actions to immutable SHAs and Python dependencies to
