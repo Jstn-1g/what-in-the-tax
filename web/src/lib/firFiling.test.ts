@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest'
 import checkedFiling from '../../public/fir/2023/3001.json'
 import {
   filingCodeFromSearch,
+  filingRouteFromSearch,
+  FIR_FILING_YEARS,
   firFilingUrl,
   loadFirFilingWithFetcher,
   validateFirFiling,
@@ -86,6 +88,30 @@ describe('FIR functional filing', () => {
     expect(filingCodeFromSearch('?filing=../../etc/passwd')).toBeNull()
     expect(filingCodeFromSearch('?filing=30011')).toBeNull()
     expect(filingCodeFromSearch('?filing=abc')).toBeNull()
+  })
+
+  it('reads an explicit filing year when it is one we publish', () => {
+    expect(filingRouteFromSearch('?filing=1999&year=2025')).toEqual({
+      code: '1999',
+      year: 2025,
+    })
+    expect(filingRouteFromSearch('?filing=1999&year=2023')).toEqual({
+      code: '1999',
+      year: 2023,
+    })
+  })
+
+  it('falls back to no year rather than guessing an unpublished one', () => {
+    // A year we do not publish must resolve to null so the caller opens the
+    // municipality's newest actual filing instead of fetching a 404.
+    expect(filingRouteFromSearch('?filing=1999&year=1899')?.year).toBeNull()
+    expect(filingRouteFromSearch('?filing=1999&year=abcd')?.year).toBeNull()
+    expect(filingRouteFromSearch('?filing=1999')?.year).toBeNull()
+  })
+
+  it('publishes years newest first so the first entry is the default', () => {
+    expect([...FIR_FILING_YEARS]).toEqual([2025, 2024, 2023])
+    expect(FIR_FILING_YEARS[0]).toBe(Math.max(...FIR_FILING_YEARS))
   })
 
   it('builds a filing URL under the deployment base', () => {

@@ -2644,3 +2644,50 @@ main#main-content {
     font-size: 1.15rem;
   }
 }
+
+/* Filing year switcher. Ontario municipalities file on their own schedule, so
+   the newest available year differs by place and has to be stated, not assumed. */
+
+.fir-filing__years {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  margin-top: 1.1rem;
+}
+
+.fir-filing__years-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+
+.fir-filing__year {
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--green);
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.fir-filing__year:hover {
+  border-color: var(--teal);
+  background: var(--mint);
+}
+
+.fir-filing__year[aria-current='page'] {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}
+
+.fir-filing__years-note {
+  flex-basis: 100%;
+  margin-top: 0.35rem;
+  max-width: 46rem;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}

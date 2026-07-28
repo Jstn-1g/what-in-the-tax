@@ -2,6 +2,9 @@ import type { FirFiling } from '../lib/firFiling'
 
 export type FirFilingScreenProps = {
   filing: FirFiling
+  /** Every year this municipality has a published filing for, newest first. */
+  availableYears: readonly number[]
+  onSelectYear: (year: number) => void
   onBack: () => void
 }
 
@@ -18,7 +21,12 @@ const percent = new Intl.NumberFormat('en-CA', {
 
 const count = new Intl.NumberFormat('en-CA')
 
-export default function FirFilingScreen({ filing, onBack }: FirFilingScreenProps) {
+export default function FirFilingScreen({
+  filing,
+  availableYears,
+  onSelectYear,
+  onBack,
+}: FirFilingScreenProps) {
   const { totals, comparability } = filing
   const hasOther = filing.other.amountCad !== 0 || filing.other.components.length > 0
 
@@ -37,6 +45,41 @@ export default function FirFilingScreen({ filing, onBack }: FirFilingScreenProps
           What this {filing.tier} municipality reported spending, by function, in
           its own Financial Information Return. This is a filing, not a tax bill.
         </p>
+
+        {availableYears.length > 1 ? (
+          <nav className="fir-filing__years" aria-label="Filing year">
+            <span className="fir-filing__years-label">Filing year</span>
+            {availableYears.map((year) => (
+              <a
+                key={year}
+                href={`?filing=${filing.assessmentCode}&year=${year}`}
+                className="fir-filing__year"
+                aria-current={year === filing.fiscalYear ? 'page' : undefined}
+                onClick={(event) => {
+                  if (
+                    event.defaultPrevented ||
+                    event.button !== 0 ||
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  ) {
+                    return
+                  }
+                  event.preventDefault()
+                  onSelectYear(year)
+                }}
+              >
+                {year}
+              </a>
+            ))}
+            <span className="fir-filing__years-note">
+              Ontario municipalities file on their own schedule, so the newest
+              available year differs by place. Comparing one year against
+              another is a different question than this page answers.
+            </span>
+          </nav>
+        ) : null}
       </header>
 
       <dl className="fir-filing__totals">
