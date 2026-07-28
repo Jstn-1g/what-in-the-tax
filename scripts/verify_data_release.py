@@ -18,6 +18,7 @@ import socket
 import subprocess
 import sys
 import unicodedata
+import zipfile
 from contextlib import contextmanager
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterator
@@ -235,6 +236,26 @@ def json_bytes(value: Any) -> bytes:
         raise ReleaseVerificationError(
             "release metadata is not strict JSON"
         ) from exc
+
+
+def sha256_archive_member(path: Path, member: str, *, label: str) -> str:
+    """SHA-256 of one member inside a zip, without holding it all in memory."""
+    digest = hashlib.sha256()
+    try:
+        with zipfile.ZipFile(path) as archive:
+            names = archive.namelist()
+            if names != [member]:
+                raise ReleaseVerificationError(
+                    f"{label} archive members are {names!r}; expected [{member!r}]"
+                )
+            with archive.open(member) as raw_member:
+                for chunk in iter(lambda: raw_member.read(1 << 20), b""):
+                    digest.update(chunk)
+    except (OSError, KeyError, zipfile.BadZipFile) as exc:
+        raise ReleaseVerificationError(
+            f"{label} cannot read {member}: {exc}"
+        ) from exc
+    return digest.hexdigest()
 
 
 def sha256_bytes(payload: bytes) -> str:
@@ -819,16 +840,33 @@ def verify_release_plan(
         )
         payload = source_path.read_bytes()
         observed_hash = sha256_bytes(payload)
-        if observed_hash != raw["sha256"]:
-            raise ReleaseVerificationError(
-                f"source {raw['id']} hash mismatch: expected {raw['sha256']}, "
-                f"observed {observed_hash}"
+        # When the plan pins the archive member, that digest is the check and
+        # the container digest is cited identity only. Ontario re-zips
+        # identical data, which changes the container and its length while
+        # every byte the release is derived from stays the same. This mirrors
+        # acquire_official_sources.py, which already decides this way.
+        locked_member = raw.get("archiveMemberSha256")
+        member_name = raw.get("archiveMember")
+        if isinstance(locked_member, str) and isinstance(member_name, str):
+            observed_member = sha256_archive_member(
+                source_path, member_name, label=f"source {raw['id']}"
             )
-        if len(payload) != raw["byteLength"]:
-            raise ReleaseVerificationError(
-                f"source {raw['id']} byte length mismatch: expected "
-                f"{raw['byteLength']}, observed {len(payload)}"
-            )
+            if observed_member != locked_member:
+                raise ReleaseVerificationError(
+                    f"source {raw['id']} payload hash mismatch: expected "
+                    f"{locked_member}, observed {observed_member}"
+                )
+        else:
+            if observed_hash != raw["sha256"]:
+                raise ReleaseVerificationError(
+                    f"source {raw['id']} hash mismatch: expected {raw['sha256']}, "
+                    f"observed {observed_hash}"
+                )
+            if len(payload) != raw["byteLength"]:
+                raise ReleaseVerificationError(
+                    f"source {raw['id']} byte length mismatch: expected "
+                    f"{raw['byteLength']}, observed {len(payload)}"
+                )
         entry: dict[str, Any] = {
             "id": raw["id"],
             "path": project_relative(source_path, project_root),
