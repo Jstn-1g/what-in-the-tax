@@ -6,19 +6,40 @@
 # seal that verifies locally fails in CI and vice versa. PUBLISH.md step 5 and
 # docs/DEPLOY.md steps 2 and 6 both depend on this holding.
 #
-# The previous version of this file listed nine specific paths. That allowlist
-# silently excluded 45 hash-bearing files — every Cambridge, Kitchener,
-# Waterloo and Woolwich ledger and citation audit, north-dumfries-on's
-# sources.lock.json, all three receipts/north-dumfries-on/2026/*/manifest.json,
-# and the whole web/src/data mirror. Enumerating paths does not scale with the
-# fleet and fails open when a municipality is added, so normalization is now
-# repo-wide and binaries are declared explicitly instead.
+# This file previously listed only the nine explicit paths retained at the
+# bottom. That allowlist silently excluded 45 hash-bearing files: every
+# Cambridge, Kitchener, Waterloo and Woolwich ledger and citation audit,
+# north-dumfries-on's sources.lock.json, all three
+# receipts/north-dumfries-on/2026/*/manifest.json, and the whole web/src/data
+# mirror. Enumerating paths does not scale with the fleet and fails open when a
+# municipality is added, so a repo-wide default now sits underneath them.
+#
+# ASCII only. tests/test_release_core.py and tests/test_region_waterloo_pack.py
+# string-match lines in this file; non-ASCII risks an encoding mismatch there.
+#
+# Order matters: git applies the last matching rule. Global default first,
+# explicit evidence paths second, binary extensions last so they always win.
 
-# Normalize every text file to LF, in the repository and in the working tree.
-# eol=lf (not just text=auto) is required: the working tree is what gets hashed.
+# 1. Repo-wide default. eol=lf (not just text=auto) is required, because the
+#    working tree is what gets hashed, not only the stored blob.
 * text=auto eol=lf
 
-# Binary — never normalized, never diffed as text.
+# 2. Explicit evidence paths. Redundant against the default above and retained
+#    deliberately: these are the guarantees the test suite pins by name, and
+#    `text` (not `text=auto`) forces text handling regardless of content
+#    sniffing, which is the behaviour these paths had before.
+data/evidence-ledger.json text eol=lf
+data/_extracts/** text eol=lf
+source-pdfs/fir/*.csv text eol=lf
+corpus/region-of-waterloo-on/** text eol=lf
+data/region-waterloo/** text eol=lf
+corpus/brant-county-on/** text eol=lf
+data/brant/** text eol=lf
+web/src/data/brant/** text eol=lf
+web/public/** text eol=lf
+
+# 3. Binary. Last so it overrides both rules above; a PNG under web/public must
+#    never be normalized just because its directory is listed there.
 *.pdf   binary
 *.zip   binary
 *.png   binary
@@ -40,6 +61,3 @@
 # today; the rule exists so adding one later cannot break it silently.
 *.bat text eol=crlf
 *.cmd text eol=crlf
-
-# PowerShell handles LF correctly and scripts/deploy_preview.ps1 is read by the
-# release path, so it stays LF with everything else.
