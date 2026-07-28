@@ -9,6 +9,13 @@ export type SupportOption = {
   className: string
 }
 
+// Stripe serves Payment Links from two hosts: buy.stripe.com for ordinary
+// links and donate.stripe.com for donation-type links, where the contributor
+// chooses the amount. Both are hosted checkout pages Stripe controls; neither
+// carries a key. Allowing only the first silently dropped a valid donation
+// link, which is the shape this project actually wants.
+const SUPPORT_HOSTS = new Set(['buy.stripe.com', 'donate.stripe.com'])
+
 export function normalizeSupportUrl(value: unknown): string | null {
   if (typeof value !== 'string' || value.trim() === '') return null
 
@@ -16,7 +23,7 @@ export function normalizeSupportUrl(value: unknown): string | null {
     const url = new URL(value.trim())
     if (
       url.protocol !== 'https:' ||
-      url.hostname !== 'buy.stripe.com' ||
+      !SUPPORT_HOSTS.has(url.hostname) ||
       url.username ||
       url.password ||
       url.hash ||
