@@ -1,10 +1,45 @@
 # Evidence hashes must resolve to identical bytes on Windows and Linux.
-data/evidence-ledger.json text eol=lf
-data/_extracts/** text eol=lf
-source-pdfs/fir/*.csv text eol=lf
-corpus/region-of-waterloo-on/** text eol=lf
-data/region-waterloo/** text eol=lf
-corpus/brant-county-on/** text eol=lf
-data/brant/** text eol=lf
-web/src/data/brant/** text eol=lf
-web/public/** text eol=lf
+#
+# manifest.json asserts a sha256 for every file in a sealed receipt directory,
+# and those hashes are computed over the working tree. A file checked out CRLF
+# on Windows and LF in CI cannot produce the same digest in both places, so a
+# seal that verifies locally fails in CI and vice versa. PUBLISH.md step 5 and
+# docs/DEPLOY.md steps 2 and 6 both depend on this holding.
+#
+# The previous version of this file listed nine specific paths. That allowlist
+# silently excluded 45 hash-bearing files — every Cambridge, Kitchener,
+# Waterloo and Woolwich ledger and citation audit, north-dumfries-on's
+# sources.lock.json, all three receipts/north-dumfries-on/2026/*/manifest.json,
+# and the whole web/src/data mirror. Enumerating paths does not scale with the
+# fleet and fails open when a municipality is added, so normalization is now
+# repo-wide and binaries are declared explicitly instead.
+
+# Normalize every text file to LF, in the repository and in the working tree.
+# eol=lf (not just text=auto) is required: the working tree is what gets hashed.
+* text=auto eol=lf
+
+# Binary — never normalized, never diffed as text.
+*.pdf   binary
+*.zip   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.xlsx  binary
+*.xlsm  binary
+*.docx  binary
+*.pptx  binary
+
+# Windows shells require CRLF to parse these correctly. None are checked in
+# today; the rule exists so adding one later cannot break it silently.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# PowerShell handles LF correctly and scripts/deploy_preview.ps1 is read by the
+# release path, so it stays LF with everything else.
