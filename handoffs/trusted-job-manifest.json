@@ -13,7 +13,7 @@
       "path": "web/public/registry/ontario-municipal-history.json",
       "schemaVersion": "ontario-municipal-history-index-2.0.0",
       "jurisdiction": "CA-ON",
-      "canonicalSha256": "8245ca7ca3dcf46a44a78b2acf5ab0bdafbe74661b8e8a16b421250463c922e6"
+      "canonicalSha256": "c1d9602a6b26a515ded81454bf7d90668eed940ab3e7ac7471a4c9843dcbfc7b"
     }
   ],
   "jobs": [

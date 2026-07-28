@@ -2,7 +2,7 @@
   "schemaVersion": "ontario-municipal-history-index-2.0.0",
   "artifactKind": "current-municipality-directory-with-fir-history",
   "jurisdiction": "CA-ON",
-  "sourceSnapshotDate": "2026-07-25",
+  "sourceSnapshotDate": "2026-07-28",
   "isReceipt": false,
   "sources": {
     "currentMunicipalities": {
@@ -22,27 +22,30 @@
         {
           "fiscalYear": 2025,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
-          "sha256": "d43c32a87aeefba7d68835c60072d0e05ae4384ea990d7a2c015fb0c1fe87f07",
-          "postedDate": "2026-07-25",
-          "sourceLastUpdated": "2026-07-24",
-          "rowCount": 203069,
-          "uniqueAssessmentCodes": 129,
+          "sha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+          "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416",
+          "postedDate": "2026-07-28",
+          "sourceLastUpdated": "2026-07-27",
+          "rowCount": 205342,
+          "uniqueAssessmentCodes": 130,
           "coverageBasis": "Unique assessment codes in this hash-pinned bulk file; Ontario's webpage file count can differ."
         },
         {
           "fiscalYear": 2024,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
-          "sha256": "cb64993cfce1fa91d83769658d86a763f2f1d235a778af65109ed177a8424c41",
-          "postedDate": "2026-07-24",
-          "sourceLastUpdated": "2026-07-24",
-          "rowCount": 627268,
-          "uniqueAssessmentCodes": 402,
+          "sha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+          "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4",
+          "postedDate": "2026-07-28",
+          "sourceLastUpdated": "2026-07-27",
+          "rowCount": 629192,
+          "uniqueAssessmentCodes": 403,
           "coverageBasis": "Unique assessment codes in this hash-pinned bulk file; Ontario's webpage file count can differ."
         },
         {
           "fiscalYear": 2023,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
           "sha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+          "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef",
           "postedDate": "2026-07-24",
           "sourceLastUpdated": "2026-07-24",
           "rowCount": 682127,
@@ -59,14 +62,14 @@
     "withFirHistory": 436,
     "withoutFirHistory": 8,
     "latestFirYearCounts": {
-      "2025": 129,
+      "2025": 130,
       "2024": 273,
-      "2023": 34,
+      "2023": 33,
       "unavailable": 8
     },
     "firYearRecordCounts": {
-      "2025": 129,
-      "2024": 402,
+      "2025": 130,
+      "2024": 403,
       "2023": 436
     },
     "tierCounts": {
@@ -623,15 +626,20 @@
       "typeLabel": "Town",
       "tier": "single-tier",
       "geographicArea": "Rainy River",
-      "latestFirYear": 2023,
+      "latestFirYear": 2024,
       "firYears": [
+        {
+          "fiscalYear": 2024,
+          "lastUpdated": "2026-07-27",
+          "sourceName": "Atikokan Tp"
+        },
         {
           "fiscalYear": 2023,
           "lastUpdated": "2026-04-23",
           "sourceName": "Atikokan Tp"
         }
       ],
-      "fallbackReason": "No 2025 or 2024 record in the corresponding locked FIR bulk files."
+      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
     },
     {
       "directoryId": "on-0706",
@@ -2735,7 +2743,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-24",
+          "lastUpdated": "2026-07-27",
           "sourceName": "Dubreuilville Tp"
         },
         {
@@ -5372,7 +5380,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-20",
+          "lastUpdated": "2026-07-27",
           "sourceName": "Kingsville T"
         },
         {
@@ -7474,8 +7482,13 @@
       "typeLabel": "County",
       "tier": "single-tier",
       "geographicArea": "Norfolk",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-27",
+          "sourceName": "Norfolk County"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-09-23",
@@ -7487,7 +7500,7 @@
           "sourceName": "Norfolk County"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-4769",
@@ -10502,7 +10515,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-23",
+          "lastUpdated": "2026-07-27",
           "sourceName": "Tarbutt Tp"
         },
         {
@@ -10866,7 +10879,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-24",
+          "lastUpdated": "2026-07-27",
           "sourceName": "Thorold C"
         },
         {
@@ -11224,7 +11237,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-17",
+          "lastUpdated": "2026-07-27",
           "sourceName": "Vaughan C"
         },
         {

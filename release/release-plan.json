@@ -12,20 +12,24 @@
     {
       "id": "on-fir-2025",
       "path": "source-pdfs/fir/fir_data_2025.zip",
-      "sha256": "d43c32a87aeefba7d68835c60072d0e05ae4384ea990d7a2c015fb0c1fe87f07",
-      "byteLength": 3309420,
+      "sha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+      "byteLength": 3346415,
       "mediaType": "application/zip",
       "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
-      "retrievedAt": "2026-07-26T20:23:41-04:00"
+      "retrievedAt": "2026-07-28T14:06:52Z",
+      "archiveMember": "fir_data_2025.csv",
+      "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
     },
     {
       "id": "on-fir-2024",
       "path": "source-pdfs/fir/fir_data_2024.zip",
-      "sha256": "cb64993cfce1fa91d83769658d86a763f2f1d235a778af65109ed177a8424c41",
-      "byteLength": 10160820,
+      "sha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+      "byteLength": 10189998,
       "mediaType": "application/zip",
       "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
-      "retrievedAt": "2026-07-25T03:51:45-04:00"
+      "retrievedAt": "2026-07-28T14:06:57Z",
+      "archiveMember": "fir_data_2024.csv",
+      "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
     },
     {
       "id": "on-fir-2023",
@@ -34,7 +38,9 @@
       "byteLength": 11073979,
       "mediaType": "application/zip",
       "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
-      "retrievedAt": "2026-07-25T03:51:42-04:00"
+      "retrievedAt": "2026-07-25T03:51:42-04:00",
+      "archiveMember": "fir_data_2023.csv",
+      "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
     },
     {
       "id": "on-municipalities-current",
@@ -50,16 +56,16 @@
     {
       "id": "ontario-fir-2023",
       "path": "web/public/registry/ontario-fir-2023.json",
-      "sha256": "aa9d4f12b6f57f2de687d838b578c2e884f4d16b0e1f8df9268687bd4f6175c9",
-      "byteLength": 93890,
+      "sha256": "7028e41b84b0a2cc29be3a659fe056033c4c630dc0a13e27d9fd3af37b804757",
+      "byteLength": 93985,
       "mediaType": "application/json",
       "visibility": "public"
     },
     {
       "id": "ontario-municipal-history",
       "path": "web/public/registry/ontario-municipal-history.json",
-      "sha256": "07a078c239e852093b06df2df9e50f82119fce1dfb12f720260c12c111a7e641",
-      "byteLength": 325871,
+      "sha256": "63e2bc68bbba0d391e03b75fd2c43cbed9d50a5521c99d59d338f0253d04540d",
+      "byteLength": 326369,
       "mediaType": "application/json",
       "visibility": "public"
     },

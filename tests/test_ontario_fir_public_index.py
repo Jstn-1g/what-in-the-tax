@@ -16,7 +16,8 @@ from scripts.build_ontario_fir_public_index import (
     EXPECTED_HEADERS,
     EXPECTED_RECORD_COUNT,
     EXPECTED_TIER_COUNTS,
-    EXPECTED_ZIP_SHA256,
+    EXPECTED_CSV_SHA256,
+    REVIEWED_ZIP_SHA256,
     IndexBuildError,
     build_index,
     render_index,
@@ -96,7 +97,12 @@ class OntarioFirPublicIndexTests(unittest.TestCase):
             EXPECTED_RECORD_COUNT,
             len({record["sourceName"] for record in records}),
         )
-        self.assertEqual(EXPECTED_ZIP_SHA256, index["source"]["sha256"])
+        # The artifact cites the reviewed release and is bound to the
+        # payload, so it survives Ontario re-zipping identical data.
+        self.assertEqual(REVIEWED_ZIP_SHA256, index["source"]["sha256"])
+        self.assertEqual(
+            EXPECTED_CSV_SHA256, index["source"]["archiveMemberSha256"]
+        )
         self.assertFalse(index["isReceipt"])
         self.assertFalse(index["method"]["currentTaxBylaw"])
         self.assertFalse(index["method"]["containsFinancialMetrics"])

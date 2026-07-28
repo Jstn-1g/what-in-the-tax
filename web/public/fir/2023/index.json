@@ -6,6 +6,7 @@
   "fiscalYear": 2023,
   "sourceZip": "fir_data_2023.zip",
   "sourceZipSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+  "sourceArchiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef",
   "method": "schedule-40-functional-breakdown",
   "aiTokensUsed": 0,
   "crossMunicipalityComparable": false,

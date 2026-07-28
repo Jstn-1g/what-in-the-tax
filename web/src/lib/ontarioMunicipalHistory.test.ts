@@ -141,9 +141,10 @@ describe('Ontario current directory with FIR history', () => {
       withFirHistory: 436,
       withoutFirHistory: 8,
       latestFirYearCounts: {
-        '2025': 129,
+        // Norfolk County files for 2025 now, so it moves out of the 2023 bucket.
+        '2025': 130,
         '2024': 273,
-        '2023': 34,
+        '2023': 33,
         unavailable: 8,
       },
     })

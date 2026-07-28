@@ -55,6 +55,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FIR_DIR = ROOT / "source-pdfs" / "fir"
+LOCK_DIR = ROOT / "sources" / "locks" / "ca-on"
 OUT_ROOT = ROOT / "web" / "public" / "fir"
 
 # Schedule 40, column 01, measure 07 = Total Expenses Before Adjustments.
@@ -91,6 +92,34 @@ SOURCE = {
 
 class ReceiptBuildError(RuntimeError):
     """Raised when the build cannot proceed safely."""
+
+
+def load_source_lock(year: str) -> dict:
+    """The reviewed release record for a fiscal year."""
+    path = LOCK_DIR / f"on-fir-{year}.lock.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        raise ReceiptBuildError(f"cannot read reviewed lock {path}: {exc}") from exc
+
+
+def sha256_archive_member(path: Path, member: str) -> str:
+    """Digest the data inside the archive, not the archive.
+
+    Ontario re-zips the same CSV from time to time: the container digest
+    changes while every byte a receipt is built from stays identical. Pinning
+    the container made those benign re-compressions look like data changes, so
+    provenance here is anchored to the payload. acquire_official_sources.py
+    already decides this way; this keeps the builders consistent with it.
+    """
+    digest = hashlib.sha256()
+    try:
+        with zipfile.ZipFile(path) as archive, archive.open(member) as raw:
+            for chunk in iter(lambda: raw.read(1 << 20), b""):
+                digest.update(chunk)
+    except (OSError, KeyError, zipfile.BadZipFile) as exc:
+        raise ReceiptBuildError(f"cannot read {member} from {path}: {exc}") from exc
+    return digest.hexdigest()
 
 
 def sha256_file(path: Path) -> str:
@@ -240,6 +269,7 @@ def build_receipt(
     year: str,
     entry: dict,
     zip_hash: str,
+    member_hash: str,
     zip_name: str,
     built_at: str | None,
 ) -> tuple[dict | None, str | None]:
@@ -390,6 +420,7 @@ def build_receipt(
             "localZip": f"source-pdfs/fir/{zip_name}",
             "localZipSha256": zip_hash,
             "archiveMember": f"fir_data_{year}.csv",
+            "archiveMemberSha256": member_hash,
         },
         "totals": {
             "grandTotalCad": grand,
@@ -495,7 +526,30 @@ def main() -> int:
         print(SOURCE["urlPattern"].format(year=year), file=sys.stderr)
         return 1
 
-    zip_hash = sha256_file(zip_path)
+    # Verify the payload against the reviewed lock before building anything.
+    # The builder used to trust whatever zip was on disk; now a swapped archive
+    # fails here instead of quietly producing 400 wrong receipts. The container
+    # digest is deliberately not compared - see sha256_archive_member.
+    lock = load_source_lock(year)
+    member_name = lock.get("archiveMember") or f"fir_data_{year}.csv"
+    member_hash = sha256_archive_member(zip_path, member_name)
+    locked_member = lock.get("archiveMemberSha256")
+    if not isinstance(locked_member, str):
+        print(
+            f"MISSING: on-fir-{year} lock does not pin archiveMemberSha256",
+            file=sys.stderr,
+        )
+        return 1
+    if member_hash != locked_member:
+        print(
+            f"MISMATCH: {member_name} is {member_hash}, "
+            f"reviewed lock pins {locked_member}",
+            file=sys.stderr,
+        )
+        return 1
+    # Cite the reviewed release, which is a committed fact, rather than the
+    # digest of whichever equivalent container this machine happens to hold.
+    zip_hash = lock["sha256"]
     collected = extract(zip_path, year, codes)
     if not collected:
         print("No matching municipalities found.", file=sys.stderr)
@@ -508,7 +562,7 @@ def main() -> int:
 
     for code in sorted(collected):
         receipt, reason = build_receipt(
-            year, collected[code], zip_hash, zip_path.name, built_at
+            year, collected[code], zip_hash, member_hash, zip_path.name, built_at
         )
         if receipt is None:
             skipped.append({"assessmentCode": code, "reason": reason})
@@ -523,6 +577,7 @@ def main() -> int:
         "fiscalYear": int(year),
         "sourceZip": zip_path.name,
         "sourceZipSha256": zip_hash,
+        "sourceArchiveMemberSha256": member_hash,
         "method": "schedule-40-functional-breakdown",
         "aiTokensUsed": 0,
         "crossMunicipalityComparable": False,
@@ -582,7 +637,7 @@ def main() -> int:
         for item in receipts
     )
     print(f"=== FIR functional receipts, fiscal {year} ===")
-    print(f"1. Official input: {zip_path.name}  sha256={zip_hash[:12]}...")
+    print(f"1. Official input: {zip_path.name}  payload sha256={member_hash[:12]}...")
     print(f"2. Municipalities receipted: {len(receipts)}")
     print(f"3. Skipped (fail closed): {len(skipped)}")
     for item in skipped[:5]:

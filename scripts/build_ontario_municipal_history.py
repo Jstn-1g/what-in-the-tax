@@ -123,6 +123,7 @@ NON_ALNUM_RE = re.compile(r"[^a-z0-9]+")
 class FirReleaseLock:
     year: int
     sha256: str
+    member_sha256: str
     row_count: int
     record_count: int
     tier_counts: dict[str, int]
@@ -147,23 +148,26 @@ class FirReleaseLock:
 FIR_RELEASES = {
     2025: FirReleaseLock(
         year=2025,
-        sha256="d43c32a87aeefba7d68835c60072d0e05ae4384ea990d7a2c015fb0c1fe87f07",
-        row_count=203_069,
-        record_count=129,
-        tier_counts={"lower-tier": 75, "single-tier": 39, "upper-tier": 15},
-        posted_date="2026-07-25",
+        sha256="6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+        member_sha256="8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416",
+        row_count=205_342,
+        record_count=130,
+        tier_counts={"lower-tier": 75, "single-tier": 40, "upper-tier": 15},
+        posted_date="2026-07-28",
     ),
     2024: FirReleaseLock(
         year=2024,
-        sha256="cb64993cfce1fa91d83769658d86a763f2f1d235a778af65109ed177a8424c41",
-        row_count=627_268,
-        record_count=402,
-        tier_counts={"lower-tier": 220, "single-tier": 152, "upper-tier": 30},
-        posted_date="2026-07-24",
+        sha256="b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+        member_sha256="2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4",
+        row_count=629_192,
+        record_count=403,
+        tier_counts={"lower-tier": 220, "single-tier": 153, "upper-tier": 30},
+        posted_date="2026-07-28",
     ),
     2023: FirReleaseLock(
         year=2023,
         sha256="30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+        member_sha256="e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef",
         row_count=682_127,
         record_count=436,
         tier_counts={"lower-tier": 238, "single-tier": 168, "upper-tier": 30},
@@ -226,6 +230,20 @@ class _MunicipalityAnchorParser(HTMLParser):
     def handle_data(self, data: str) -> None:
         if data.strip():
             self.text_parts.append(data.strip())
+
+
+def sha256_archive_member(path: Path, member: str, year: int) -> str:
+    """Digest the data inside the archive rather than the archive itself."""
+    digest = hashlib.sha256()
+    try:
+        with zipfile.ZipFile(path) as archive, archive.open(member) as raw:
+            for chunk in iter(lambda: raw.read(1 << 20), b""):
+                digest.update(chunk)
+    except (OSError, KeyError, zipfile.BadZipFile) as exc:
+        raise HistoryBuildError(
+            f"cannot read {member} from the {year} FIR archive: {exc}"
+        ) from exc
+    return digest.hexdigest()
 
 
 def sha256_file(path: Path) -> str:
@@ -359,12 +377,15 @@ def _read_fir_release(
     release: FirReleaseLock,
     *,
     enforce_release_lock: bool,
-) -> tuple[dict[str, dict[str, Any]], int, str]:
-    observed_hash = sha256_file(zip_path)
-    if enforce_release_lock and observed_hash != release.sha256:
+) -> tuple[dict[str, dict[str, Any]], int, str, str]:
+    # The container digest changes whenever Ontario re-zips identical data, so
+    # the payload is what gets verified and what the artifact varies with.
+    observed_member_hash = sha256_archive_member(zip_path, release.member, release.year)
+    if enforce_release_lock and observed_member_hash != release.member_sha256:
         raise HistoryBuildError(
-            f"{release.year} FIR archive SHA-256 changed; review and pin it first"
+            f"{release.year} FIR archive payload SHA-256 changed; review and pin it first"
         )
+    observed_hash = release.sha256
 
     identities: dict[str, dict[str, Any]] = {}
     row_count = 0
@@ -454,7 +475,7 @@ def _read_fir_release(
             raise HistoryBuildError(
                 f"{release.year} FIR tier counts changed: {dict(tier_counts)!r}"
             )
-    return identities, row_count, observed_hash
+    return identities, row_count, observed_hash, observed_member_hash
 
 
 def _fallback_reason(latest_year: int | None) -> str | None:
@@ -510,7 +531,7 @@ def build_index(
     fir_sources: list[dict[str, Any]] = []
     for year in FIR_YEARS:
         release = FIR_RELEASES[year]
-        records, row_count, observed_hash = _read_fir_release(
+        records, row_count, observed_hash, observed_member_hash = _read_fir_release(
             fir_paths[year],
             release,
             enforce_release_lock=enforce_release_locks,
@@ -521,6 +542,7 @@ def build_index(
                 "fiscalYear": year,
                 "downloadUrl": release.download_url,
                 "sha256": observed_hash,
+                "archiveMemberSha256": observed_member_hash,
                 "postedDate": release.posted_date,
                 "sourceLastUpdated": max(
                     record["lastUpdated"] for record in records.values()
