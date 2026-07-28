@@ -144,11 +144,11 @@ class OntarioMunicipalHistoryTests(unittest.TestCase):
         self.assertEqual(436, index["coverage"]["withFirHistory"])
         self.assertEqual(8, index["coverage"]["withoutFirHistory"])
         self.assertEqual(
-            {"2025": 129, "2024": 273, "2023": 34, "unavailable": 8},
+            {"2025": 130, "2024": 273, "2023": 33, "unavailable": 8},
             index["coverage"]["latestFirYearCounts"],
         )
         self.assertEqual(
-            {"2025": 129, "2024": 402, "2023": 436},
+            {"2025": 130, "2024": 403, "2023": 436},
             index["coverage"]["firYearRecordCounts"],
         )
         self.assertFalse(index["isReceipt"])

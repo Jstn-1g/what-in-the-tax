@@ -155,9 +155,19 @@ def _format_source_date(value: str) -> str:
 
 
 def sha256_archive_member(path: Path, member: str) -> str:
-    """Digest the data inside the archive rather than the archive itself."""
+    """Digest the data inside the archive rather than the archive itself.
+
+    The member list is checked first so a renamed payload reports what is
+    actually wrong instead of failing as a missing key mid-digest.
+    """
     digest = hashlib.sha256()
     try:
+        with zipfile.ZipFile(path) as archive:
+            members = archive.namelist()
+            if members != [member]:
+                raise IndexBuildError(
+                    f"FIR archive members are {members!r}; expected [{member!r}]"
+                )
         with zipfile.ZipFile(path) as archive, archive.open(member) as raw:
             for chunk in iter(lambda: raw.read(1 << 20), b""):
                 digest.update(chunk)

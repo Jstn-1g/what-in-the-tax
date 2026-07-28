@@ -50,16 +50,16 @@
     {
       "id": "ontario-fir-2023",
       "path": "web/public/registry/ontario-fir-2023.json",
-      "sha256": "aa9d4f12b6f57f2de687d838b578c2e884f4d16b0e1f8df9268687bd4f6175c9",
-      "byteLength": 93890,
+      "sha256": "7028e41b84b0a2cc29be3a659fe056033c4c630dc0a13e27d9fd3af37b804757",
+      "byteLength": 93985,
       "mediaType": "application/json",
       "visibility": "public"
     },
     {
       "id": "ontario-municipal-history",
       "path": "web/public/registry/ontario-municipal-history.json",
-      "sha256": "07a078c239e852093b06df2df9e50f82119fce1dfb12f720260c12c111a7e641",
-      "byteLength": 325871,
+      "sha256": "63e2bc68bbba0d391e03b75fd2c43cbed9d50a5521c99d59d338f0253d04540d",
+      "byteLength": 326369,
       "mediaType": "application/json",
       "visibility": "public"
     },
