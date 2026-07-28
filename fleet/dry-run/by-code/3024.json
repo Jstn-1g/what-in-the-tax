@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "fleet-stub-0.1.0",
+  "schemaVersion": "fleet-stub-0.2.0",
   "grade": "FIR",
   "badge": "Verified: FIR baseline (not local by-law)",
   "slug": "wellesley-on",
@@ -40,7 +40,25 @@
     "hasGeneralGovernment": true,
     "passed": true
   },
+  "comparability": {
+    "crossMunicipalityComparable": false,
+    "reason": "fleet stub is a coarse FIR baseline, not a comparison instrument",
+    "basis": {
+      "fiscalYear": 2023,
+      "sourceId": "mmah-fir",
+      "measure": "generalGovernmentPerCapita",
+      "tier": "lower-tier"
+    },
+    "declaredPopulationFloor": 5000,
+    "belowPopulationFloor": false,
+    "blockers": [
+      {
+        "code": "tier-scope-differs",
+        "detail": "General government scope depends on tier. A lower-tier municipality's figure excludes upper-tier functions billed to the same resident, so lower-, upper- and single-tier figures are not interchangeable."
+      }
+    ],
+    "note": "Any cross-municipality reading requires one common fiscal year, one common basis, and the same tier \u2014 and even then this remains a coarse baseline rather than a rate or bill comparison."
+  },
   "disclaimer": "This is a machine-built FIR baseline stub. It is not a property-tax bill, not a by-law citation, and not a finding. For by-law-grade receipts see gold packs (e.g. north-dumfries-on).",
-  "parisNote": null,
-  "builtAt": "2026-07-25T19:56:32.480257+00:00"
+  "parisNote": null
 }
