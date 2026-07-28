@@ -30,7 +30,15 @@ DEFAULT_OUTPUT = ROOT / "web" / "public" / "registry" / "ontario-fir-2023.json"
 
 SCHEMA_VERSION = "ontario-fir-public-index-1.0.0"
 FISCAL_YEAR = "2023"
-EXPECTED_ZIP_SHA256 = (
+# The digest of the CSV inside the archive, not of the archive. Ontario
+# re-zips identical data periodically; pinning the container turned those
+# benign re-compressions into build failures.
+EXPECTED_CSV_SHA256 = (
+    "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+)
+# Retained as the reviewed release identity that the artifact cites. It is
+# never compared against a local file.
+REVIEWED_ZIP_SHA256 = (
     "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf"
 )
 EXPECTED_CSV_MEMBER = "fir_data_2023.csv"
@@ -146,6 +154,18 @@ def _format_source_date(value: str) -> str:
     return f"{value[0:4]}-{value[4:6]}-{value[6:8]}"
 
 
+def sha256_archive_member(path: Path, member: str) -> str:
+    """Digest the data inside the archive rather than the archive itself."""
+    digest = hashlib.sha256()
+    try:
+        with zipfile.ZipFile(path) as archive, archive.open(member) as raw:
+            for chunk in iter(lambda: raw.read(1 << 20), b""):
+                digest.update(chunk)
+    except (OSError, KeyError, zipfile.BadZipFile) as exc:
+        raise IndexBuildError(f"cannot read {member} from {path}: {exc}") from exc
+    return digest.hexdigest()
+
+
 def _read_identity_records(zip_path: Path) -> tuple[list[dict[str, str]], int]:
     identities: dict[str, dict[str, str]] = {}
     row_count = 0
@@ -238,10 +258,11 @@ def build_index(
     *,
     enforce_release_lock: bool = True,
 ) -> dict[str, Any]:
-    observed_hash = sha256_file(zip_path)
-    if enforce_release_lock and observed_hash != EXPECTED_ZIP_SHA256:
+    observed_hash = sha256_archive_member(zip_path, EXPECTED_CSV_MEMBER)
+    if enforce_release_lock and observed_hash != EXPECTED_CSV_SHA256:
         raise IndexBuildError(
-            "FIR archive SHA-256 changed; review and pin a new release before publishing"
+            "FIR archive payload SHA-256 changed; review and pin a new release "
+            "before publishing"
         )
 
     records, row_count = _read_identity_records(zip_path)
@@ -282,7 +303,8 @@ def build_index(
         "isReceipt": False,
         "source": {
             **SOURCE,
-            "sha256": observed_hash,
+            "sha256": REVIEWED_ZIP_SHA256,
+            "archiveMemberSha256": observed_hash,
             "lastUpdated": source_last_updated,
         },
         "coverage": {

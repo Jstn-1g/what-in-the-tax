@@ -6,6 +6,7 @@
   "fiscalYear": 2025,
   "sourceZip": "fir_data_2025.zip",
   "sourceZipSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+  "sourceArchiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416",
   "method": "schedule-40-functional-breakdown",
   "aiTokensUsed": 0,
   "crossMunicipalityComparable": false,
