@@ -58,13 +58,53 @@ jobs:
           --only-binary=:all: -r requirements.txt
 
       - name: Acquire and verify reviewed official source snapshots
+        id: acquire
         shell: bash
         run: |
-          set -euo pipefail
-          # A changed upstream payload exits non-zero after being preserved as a
-          # candidate. That is intentionally a release-validation failure.
+          set -uo pipefail
+          # GitHub invokes this block as `bash -e`, so errexit is on before the
+          # first line runs and `set -uo pipefail` does not clear it. Without
+          # this the python call below exits the step directly and the case
+          # statements are dead code. Reading the exit codes IS the point here.
+          set +e
+          # acquire_official_sources.py exits 2 when an upstream payload changed
+          # and was preserved as a candidate, and 1 for a real acquisition or
+          # integrity error. Those two deserve different answers.
+          #
+          # Exit 2 is still a release-validation failure, but it is not a reason
+          # to skip every gate behind it. Treating it as fatal here left the FIR
+          # receipt check, the entire Python suite, the registry and draft-pack
+          # gates and the web tests unrun across three merged commits. Record it
+          # and fail at the end of the job instead.
+          #
+          # Exit 1 means the source tree itself cannot be trusted, so no gate
+          # below would mean anything. Stop immediately.
+          drift=0
+
           python scripts/acquire_official_sources.py
+          case $? in
+            0) ;;
+            2) drift=1 ;;
+            *)
+              echo "::error::Official source acquisition failed." >&2
+              exit 1
+              ;;
+          esac
+
           python scripts/acquire_official_sources.py --offline
+          case $? in
+            0) ;;
+            2) drift=1 ;;
+            *)
+              echo "::error::Offline re-verification of local snapshots failed." >&2
+              exit 1
+              ;;
+          esac
+
+          echo "drift=$drift" >> "$GITHUB_OUTPUT"
+          if [[ $drift -eq 1 ]]; then
+            echo "::warning::An upstream payload changed and is preserved as a candidate. Every remaining gate still runs; this job fails at the end."
+          fi
 
       - name: Verify Ontario derived directories are fresh
         shell: bash
@@ -197,3 +237,14 @@ jobs:
             release/${{ env.RELEASE_ID }}.bundle.sha256
           if-no-files-found: error
           retention-days: 14
+
+      - name: Fail the validation if a reviewed official source drifted
+        if: always() && steps.acquire.outputs.drift == '1'
+        shell: bash
+        run: |
+          echo "An upstream official source no longer matches its reviewed lock." >&2
+          echo "The changed payload is preserved under sources/candidates for a" >&2
+          echo "named human to review and install." >&2
+          echo "Every other gate above ran; this job fails because the drift" >&2
+          echo "itself is unreviewed." >&2
+          exit 1
