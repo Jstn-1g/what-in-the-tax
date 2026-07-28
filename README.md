@@ -120,7 +120,7 @@ workflow runs the offline checks on pull requests but never deploys.
 | `data/taxpayer-receipt.json` | UI data model |
 | `web/src/data/` | mirror of the two above, written by the generator |
 | `scripts/build_evidence_model.py` | single source of truth — regenerates both copies |
-| `scripts/extract_pdf_text.py` | PDF to text |
+| `scripts/extract_pdf_text.py` | PDF to text, driven by each pack's `sources[]`; `--check` verifies every committed extract still reproduces |
 | `source-pdfs/` | cited source documents only |
 | `national/` | national registry, source catalog, coverage gates, schemas, and AI gap policy |
 | `national/sgc_2021_geography_index.json` | release-pinned allowlist of all 5,473 official SGC 2021 geography IDs |

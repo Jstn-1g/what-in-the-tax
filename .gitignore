@@ -56,6 +56,11 @@ tmp/
 #   corpus/*/extracts/             pack extracts
 #   corpus/*/sources.lock          source hashes
 #   receipts/**                    sealed output, including manifest.json and rendered/
-# data/.gitignore currently excludes data/_extracts/ and the superseded
-# taxpayer-receipt.ui-v1.json; GENERALIZATION-PLAN Phase 0 item 5 requires both to be
-# committed. That contradiction is in data/.gitignore, not here.
+# Phase 0 item 5 is done: data/_extracts/ and taxpayer-receipt.ui-v1.json are both
+# committed, and data/.gitignore now says so rather than excluding them.
+
+# The exception, and it is deliberate. Local PDFs no pack cites are extracted here
+# by `extract_pdf_text.py --uncited` so a gap's searchTrail can say we looked and
+# mean it. They are search working material, not evidence, and must not sit in the
+# tree a reader reconciles citations against.
+data/_extracts/_uncited/
