@@ -1253,7 +1253,12 @@ findings = [
         "id": "FIND-CAP-ARENA",
         "kind": "JUDGMENT",
         "category": "questionable_capital",
-        "title": "Net Zero Twin Pad dominates 2026 capital program",
+        # 16,190,160 of 31,192,121 is 51.9%. "Dominates" is a claim about a
+        # bare majority, and the project's own review produced this wording
+        # before the plan was written; it never reached the repo. Findings are
+        # watch items with citations, so the title may not say more than the
+        # cited arithmetic supports.
+        "title": "Net Zero Twin Pad takes just over half the 2026 capital program",
         "opportunitySeverity": "high_attention",
         "citedFactIds": [
             "ND-CAP-ARENA-2026",
