@@ -153,6 +153,11 @@ jobs:
           python scripts/validate_regional_registry.py
           python scripts/build_public_packs.py --check
 
+          # README.md states counts that belong to the ledger, the citation audit
+          # and the Ontario registry. Hand-written, they had already drifted at
+          # N=1. This fails the build rather than letting a reader find it.
+          python scripts/render_readme_facts.py --check
+
           pack_count=0
           for pack in corpus/*/pack.yaml; do
             [[ -f "$pack" ]] || continue

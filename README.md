@@ -22,12 +22,6 @@ contracts, not the resident-facing brand, and are not being renamed casually.
   requests and collects no address, roll number, or account data.
 - Six Ontario receipts are available as **draft previews**. They are not sealed
   publications.
-- The resident search now starts from Ontario's current 444-municipality list.
-  Each municipality then selects its newest record from hash-pinned 2025, 2024,
-  and 2023 FIR bulk files: 129 currently select 2025, 273 fall back to 2024,
-  34 fall back to 2023, and 8 have no record in that window. All available
-  years are retained for context. FIR records are historical filings, not
-  receipts, current tax by-laws, or formal audits.
 - The national builder reproducibly loads the approved Statistics Canada SGC
   2021 baseline: 5,473 geographies, including 5,161 census subdivisions across
   all 13 provinces and territories. A checked-in, schema-validated index pins
@@ -41,6 +35,14 @@ contracts, not the resident-facing brand, and are not being renamed casually.
 - All 13 municipal/regional onboarding packets are tracked: 11 are
   `adapter-needed`, 2 remain in `source-discovery`, and 0 are currently
   publication-ready.
+
+<!-- generated:fir-selection -->
+The resident search starts from Ontario's current 444-municipality list. Each municipality
+then selects its newest record from the hash-pinned 2025, 2024 and 2023 FIR bulk files: 130
+currently select 2025, 273 fall back to 2024, 33 fall back to 2023, and 8 have no record in
+that window. All available years are retained for context. FIR records are historical
+filings, not receipts, current tax by-laws, or formal audits.
+<!-- /generated:fir-selection -->
 
 The current milestone is therefore a hardened, zero-token national ingestion
 foundation—not a claim that every Canadian governing body is already loaded.
@@ -142,7 +144,7 @@ workflow runs the offline checks on pull requests but never deploys.
 - **DERIVED** — computed only from fact IDs, with the formula recorded.
 - **GAP** — missing evidence. Never invent a number to fill one. Resolved gaps move to `closedGaps` rather than being deleted, so the audit trail survives.
 - **JUDGMENT** — interpretive only. `billImpactCad` stays `null`, always.
-- A documented dead end is a correct outcome. Gaps carry a `searchTrail` recording where we looked.
+- A documented dead end is a correct outcome. Where we have searched, the gap carries a `searchTrail` recording where we looked; the open-gap list below reports how many currently do.
 
 ## Static packs, validation, and versioning
 
@@ -169,18 +171,40 @@ experiments, but they are not deployment attestations: their metadata and the de
 not agree, their claimed release tags are absent, and their source evidence is not fully locked.
 The next valid seal must be a new revision produced after every gate in `PUBLISH.md` passes.
 
+## What the artifacts currently say
+
+Every figure in this section and the two below is regenerated from
+`data/evidence-ledger.json`, `data/citation-audit.json` and
+`web/public/registry/ontario-municipal-history.json` by
+`scripts/render_readme_facts.py`. Release validation runs it with `--check`, so a
+count here that has drifted from the artifact behind it is a failed build rather
+than a correction someone eventually notices. The prose is hand-written and
+reviewed; the numbers are not, and each is bound to a ledger id so a renamed
+entry fails loudly instead of quietly rewriting this page.
+
+<!-- generated:ledger-counts -->
+- Draft previews published: **6** Ontario packs.
+- North Dumfries ledger: **93** facts, 30 derived rows, 8 findings, 4 open gaps, 6 closed gaps.
+- Citation audit over 93 cited facts: **0** hard failures (not-found, wrong-page, bad-page-number). Binding tiers — row-bound 45, numbers-only 14, verbatim 12, normalized 11, unverifiable 10, alnum 1.
+- Every finding carries `billImpactCad: null`. No exception exists in the policy and none is reachable in the builder.
+<!-- /generated:ledger-counts -->
+
 ## Reconciliation
 
-The township allocation base is **10,049,624**, which ties exactly to the binder's own published total: taxation 9,182,824 + corporate revenues 866,800, Net Budget 0. The generator asserts this.
+<!-- generated:reconciliation -->
+The township allocation base is **10,049,624**, which ties exactly to the binder's own
+published total: taxation 9,182,824 + corporate revenues 866,800, Net Budget 0.
+The generator asserts this identity and so does this README renderer.
 
 Four figures are easy to conflate and are deliberately kept distinct:
 
-| figure | meaning |
-|---|---|
-| 9,002,499 | municipal levy — rate × assessment, what appears on a tax bill |
-| 9,182,824 | total taxation revenue — levy plus supplementaries and PILs |
-| 10,049,624 | expenditure base — funded by taxation *plus* non-tax corporate revenue |
-| 9,002,462 | the tax-rate by-law's recital, $37 off the adopted levy — recorded, not reconciled |
+| figure | ledger id | meaning |
+|---|---|---|
+| 9,002,499 | `ND-LEVY-2026-ADOPTED` | municipal levy — rate × assessment, what appears on a tax bill |
+| 9,182,824 | `ND-TAXATION-REVENUE-2026` | total taxation revenue — levy plus supplementaries and PILs |
+| 10,049,624 | `DRV-ND-DEPT-SUM` | expenditure base — funded by taxation *plus* non-tax corporate revenue |
+| 9,002,462 | `ND-BUDGET-REQUIREMENT-TAXBYLAW-2026` | the tax-rate by-law's recital, $37 below the adopted levy — recorded, not reconciled |
+<!-- /generated:reconciliation -->
 
 ## Findings discipline
 
@@ -203,16 +227,30 @@ npm test           # vitest suite in web/
 npm run build      # tsc + vite
 ```
 
+```bash
+python scripts/render_readme_facts.py --check   # this README still matches the artifacts
+```
+
+Test counts are deliberately not quoted on this page. A number that cannot be
+kept true mechanically should not be written down: the last one drifted from 31
+to 35 without anyone noticing. Run the suites.
+
 ## Known open gaps
 
-Open gaps (each with a search trail in the ledger):
+<!-- generated:open-gaps -->
+4 open, from the ledger's own `gaps` list:
 
-- `GAP-TWINPAD-OPERATING-DELTA` — no published Twin Pad vs ACC ice operating delta
-- `GAP-FLAGGED-DOLLARS-ON-BILL` — no approved rule for “flagged” dollars on a household bill
-- `GAP-ARENA-2026-TAX-IMPACT` — Twin Pad debt service tax impact not stated for 2026
-- `GAP-BEAVER-LINE-AMOUNT` — beaver extraction spend not isolated as a line amount
+- `GAP-ARENA-2026-TAX-IMPACT` — 2026 tax-bill impact of Twin Pad debt service not stated
+- `GAP-BEAVER-LINE-AMOUNT` — Beaver extraction spend not isolated as its own budget line amount
+- `GAP-FLAGGED-DOLLARS-ON-BILL` — Cannot allocate 'flagged/inefficient' dollars on a household bill without an explicit rule set
+- `GAP-TWINPAD-OPERATING-DELTA` — Net operating cost change once Twin Pad opens is not established *(search trail recorded)*
 
-Closed (retained in `closedGaps`): `GAP-PEER-BENCHMARK`, `GAP-ND-POP-CURRENT`, and earlier resolved items. The ledger is authority over this list.
+1 of 4 carries a `searchTrail` recording where we looked. The rest record what is missing and what would close them, but not yet the search.
+
+Closed and retained in `closedGaps` rather than deleted, so the audit trail survives (6): `GAP-5000-BILL`, `GAP-EDUCATION-2026`, `GAP-ND-FINAL-BUDGET`, `GAP-ND-POP-CURRENT`, `GAP-PEER-BENCHMARK`, `GAP-RURAL-HH-LINE-SUM`.
+<!-- /generated:open-gaps -->
+
+The ledger is authority over this list; this page only reports it.
 
 **Before Published:** citation audit hard failures must be zero and every load-bearing source,
 calculation, identity, public projection, and deployed byte must pass the stronger gates in
