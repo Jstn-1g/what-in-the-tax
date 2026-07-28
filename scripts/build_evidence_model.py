@@ -10,11 +10,55 @@ Rules:
 from __future__ import annotations
 
 import json
+import os
 import re
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
+
+# web/src/types.ts declares both of these required on TaxpayerReceipt, and
+# publicPackSchema.ts cross-checks coverage.fiscalYear against receipt.fiscalYear.
+# The builder had stopped emitting them, so a rebuild silently produced an
+# artifact that violates the project's own schema while the checked-in copy
+# still had the fields. Named here rather than inlined so the year has one home.
+FISCAL_YEAR = 2026
+CURRENCY = "CAD"
+
+
+class EvidenceModelError(RuntimeError):
+    """A build invariant failed.
+
+    These were bare `assert`s. Python strips assert statements under -O, so the
+    checks that decide whether a published receipt is arithmetically honest could
+    be silently removed by a flag nobody in this repo sets deliberately. They are
+    real exceptions now.
+    """
+
+
+def write_bytes_atomic(path: Path, payload: bytes) -> None:
+    """Write via a temp file in the same directory, then replace.
+
+    write_text truncates the destination before it writes. An interrupt midway
+    leaves a short file that still parses as JSON often enough to be dangerous,
+    and the UI mirror reads whatever is on disk. os.replace is atomic within a
+    filesystem, so a reader sees either the old artifact or the new one.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    handle, tmp_name = tempfile.mkstemp(
+        dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp"
+    )
+    tmp = Path(tmp_name)
+    try:
+        with os.fdopen(handle, "wb") as stream:
+            stream.write(payload)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(tmp, path)
+    except BaseException:
+        tmp.unlink(missing_ok=True)
+        raise
 
 
 def fact(**kwargs):
@@ -771,7 +815,10 @@ dept_amounts = {f["id"]: f["amountCad"] for f in facts if f["id"] in dept_ids}
 dept_sum = sum(dept_amounts.values())
 _by_id = {f["id"]: f.get("amountCad") for f in facts}
 REVENUE_TOTAL = _by_id["ND-TAXATION-REVENUE-2026"] + _by_id["ND-CORPORATE-REVENUES-2026"]
-assert dept_sum == REVENUE_TOTAL, "allocation base %d does not tie to published revenues %d" % (dept_sum, REVENUE_TOTAL)
+if dept_sum != REVENUE_TOTAL:
+    raise EvidenceModelError(
+        f"allocation base {dept_sum} does not tie to published revenues {REVENUE_TOTAL}"
+    )
 GOVERNANCE_SUBLINE = round(1434.63 * (_by_id["ND-COUNCIL-2026"] + _by_id["ND-ELECTIONS-2026"]) / dept_sum, 2)
 
 township_avg = 1434.63
@@ -787,8 +834,15 @@ RATE_TOTAL_AYR = _val["ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL"]
 ASSESSMENT = 455_000
 
 # The published rate columns must be internally consistent before we bill anything off them.
-assert abs((RATE_TWP + RATE_REG + RATE_EDU) - RATE_TOTAL) < 1e-12, "rate columns do not sum to printed total"
-assert abs((RATE_TOTAL + RATE_SAR) - RATE_TOTAL_AYR) < 1e-12, "Ayr total is not total + SAR"
+if abs((RATE_TWP + RATE_REG + RATE_EDU) - RATE_TOTAL) >= 1e-12:
+    raise EvidenceModelError(
+        f"rate columns {RATE_TWP} + {RATE_REG} + {RATE_EDU} do not sum to the "
+        f"printed total {RATE_TOTAL}"
+    )
+if abs((RATE_TOTAL + RATE_SAR) - RATE_TOTAL_AYR) >= 1e-12:
+    raise EvidenceModelError(
+        f"Ayr total {RATE_TOTAL_AYR} is not total {RATE_TOTAL} + SAR {RATE_SAR}"
+    )
 
 BILL_TWP = round(RATE_TWP * ASSESSMENT, 2)
 BILL_REG = round(RATE_REG * ASSESSMENT, 2)
@@ -803,8 +857,16 @@ SHARE_EDU = round(RATE_EDU / RATE_TOTAL, 6)
 
 # The township component derived from the final rate must reproduce the separately cited
 # $1,434.63 to the cent, or one of the two figures is wrong.
-assert BILL_TWP == township_avg, "township rate x assessment %.2f != cited %.2f" % (BILL_TWP, township_avg)
-assert abs(BILL_COMBINED - round(RATE_TOTAL * ASSESSMENT, 2)) < 0.02, "components do not reconcile to total rate"
+if BILL_TWP != township_avg:
+    raise EvidenceModelError(
+        f"township rate x assessment {BILL_TWP:.2f} does not equal the separately "
+        f"cited {township_avg:.2f}; one of the two figures is wrong"
+    )
+if abs(BILL_COMBINED - round(RATE_TOTAL * ASSESSMENT, 2)) >= 0.02:
+    raise EvidenceModelError(
+        f"components sum to {BILL_COMBINED:.2f} but the total rate gives "
+        f"{round(RATE_TOTAL * ASSESSMENT, 2):.2f}"
+    )
 
 derived_rows = [
     derived(
@@ -1286,7 +1348,10 @@ PUBLISHED_FINDING_IDS = [_f["id"] for _f in findings if not _f["belowMateriality
 _gap_ids_all = {_g["id"] for _g in gaps}
 for _f in findings:
     for _g in _f["gapIds"]:
-        assert _g in _gap_ids_all, "finding %s references missing gap %s" % (_f["id"], _g)
+        if _g not in _gap_ids_all:
+            raise EvidenceModelError(
+                f"finding {_f['id']} references missing gap {_g}"
+            )
 
 sources = [
     {
@@ -1475,6 +1540,8 @@ for _tl in township_lines:
 receipt = {
     "schemaVersion": "2.0.0",
     "artifact": "TaxpayerReceipt",
+    "fiscalYear": FISCAL_YEAR,
+    "currency": CURRENCY,
     "status": "partial_evidence_based",
     "purpose": (
         "UI data model using only supported allocations. A hypothetical $5,000 "
@@ -1597,16 +1664,46 @@ receipt = {
 # hand, so running this script silently left the UI reading stale data.
 # Pack metadata lives in corpus/north-dumfries-on/pack.yaml (bridge until YAML corpus).
 WEB_DATA = ROOT / "web" / "src" / "data"
-for _target in (DATA, WEB_DATA):
-    (_target / "evidence-ledger.json").write_text(json.dumps(ledger, indent=2) + "\n", encoding="utf-8")
-    (_target / "taxpayer-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
-assert (DATA / "evidence-ledger.json").read_bytes() == (WEB_DATA / "evidence-ledger.json").read_bytes()
-assert (DATA / "taxpayer-receipt.json").read_bytes() == (WEB_DATA / "taxpayer-receipt.json").read_bytes()
 
-# Mirror citation audit when present so the UI can refuse bad #page= deep links.
+# Serialise once per artifact and hand the same bytes to both destinations. The
+# mirror check used to run after both files had already been written: by the time
+# it noticed a divergence, the divergence was on disk and the UI could be reading
+# it. Establishing the invariant before the write makes divergence impossible
+# rather than merely detected.
+_artifacts = {
+    "evidence-ledger.json": (json.dumps(ledger, indent=2) + "\n").encode("utf-8"),
+    "taxpayer-receipt.json": (json.dumps(receipt, indent=2) + "\n").encode("utf-8"),
+}
+
+# Mirror the citation audit when present so the UI can refuse bad #page= deep links.
 _audit = DATA / "citation-audit.json"
+
+_destinations = (DATA, WEB_DATA)
+if len({_d.resolve() for _d in _destinations}) != len(_destinations):
+    raise EvidenceModelError(
+        f"canonical and mirror directories resolve to the same path: {DATA}"
+    )
+for _dir in _destinations:
+    if not _dir.is_dir():
+        raise EvidenceModelError(f"output directory does not exist: {_dir}")
+
+for _name, _payload in _artifacts.items():
+    for _dir in _destinations:
+        write_bytes_atomic(_dir / _name, _payload)
+
 if _audit.exists():
-    (WEB_DATA / "citation-audit.json").write_text(_audit.read_text(encoding="utf-8"), encoding="utf-8")
+    write_bytes_atomic(WEB_DATA / "citation-audit.json", _audit.read_bytes())
+
+# Read back what actually landed. The pre-write guarantee covers what we intended
+# to write; this covers the disk.
+for _name, _payload in _artifacts.items():
+    for _dir in _destinations:
+        _written = (_dir / _name).read_bytes()
+        if _written != _payload:
+            raise EvidenceModelError(
+                f"{_dir / _name} does not match the bytes just written "
+                f"({len(_written)} on disk vs {len(_payload)} intended)"
+            )
 
 print("facts", len(facts))
 print("derived", len(derived_rows))
