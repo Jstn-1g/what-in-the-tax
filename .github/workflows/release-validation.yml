@@ -62,6 +62,11 @@ jobs:
         shell: bash
         run: |
           set -uo pipefail
+          # GitHub invokes this block as `bash -e`, so errexit is on before the
+          # first line runs and `set -uo pipefail` does not clear it. Without
+          # this the python call below exits the step directly and the case
+          # statements are dead code. Reading the exit codes IS the point here.
+          set +e
           # acquire_official_sources.py exits 2 when an upstream payload changed
           # and was preserved as a candidate, and 1 for a real acquisition or
           # integrity error. Those two deserve different answers.
