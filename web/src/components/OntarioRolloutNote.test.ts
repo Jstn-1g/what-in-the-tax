@@ -37,7 +37,8 @@ describe('Ontario data verification status', () => {
     expect(content).toContain('444')
     expect(content).toContain('436')
     expect(content).toContain('2026-06-03')
-    expect(content).toContain('2026-07-25')
+    // Ontario re-posted the 2025 return on 2026-07-28; the note cites that.
+    expect(content).toContain('2026-07-28')
     expect(content).toContain('2025, 2024, 2023')
     expect(content).toContain('No AI calls and no live government requests')
     expect(content).toContain(
