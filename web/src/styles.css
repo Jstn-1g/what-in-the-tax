@@ -2499,6 +2499,20 @@ main#main-content {
   max-width: 46rem;
 }
 
+/* When the builder withholds percentages, the caption carries the reason. It
+   is the only thing standing where a whole column used to be, so it gets the
+   same amber the page already uses for evidence caveats rather than sinking
+   into the surrounding prose. */
+.fir-filing__shares-withheld {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-left: 3px solid var(--note-line);
+  background: var(--note);
+  color: var(--ink);
+  border-radius: 0 0.35rem 0.35rem 0;
+}
+
 .fir-filing__functions thead th {
   text-align: left;
   padding: 0.5rem 0.6rem;

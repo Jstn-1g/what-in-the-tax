@@ -27,7 +27,8 @@
     "grandTotalSlc": "slc.40X.L9910.C01.07",
     "populationFir": 4065.0,
     "perCapitaCad": 2770.9,
-    "sharesReported": true
+    "sharesReported": true,
+    "sharesNote": "One line below is negative, because this municipality booked a recovery or an adjustment against it rather than a cost. That is its own filed figure. It also means the remaining lines add to more than 100% of the total, which is arithmetic rather than an error."
   },
   "functions": [
     {

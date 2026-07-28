@@ -55,6 +55,12 @@ export type FirFiling = {
     populationFir: number | null
     perCapitaCad: number | null
     sharesReported: boolean
+    /**
+     * Why shares are absent, when they are. Non-null exactly when
+     * sharesReported is false, so the page can say what happened instead of
+     * printing a blank column.
+     */
+    sharesNote: string | null
   }
   functions: FirFilingFunction[]
   other: FirFilingComponent & { components: FirFilingComponent[]; note: string }
@@ -121,6 +127,14 @@ export function validateFirFiling(value: unknown): FirFiling {
       ? null
       : requireFiniteNumber(totals.perCapitaCad, 'totals.perCapitaCad')
   const sharesReported = totals.sharesReported === true
+  // Read leniently rather than throwing. An artifact built before this field
+  // existed simply has no note, and a missing explanation is not a reason to
+  // refuse to render a filing whose amounts are intact - the amounts are the
+  // evidence. The screen supplies a fallback sentence when this is null.
+  const sharesNote =
+    typeof totals.sharesNote === 'string' && totals.sharesNote.trim() !== ''
+      ? totals.sharesNote
+      : null
 
   if (!Array.isArray(root.functions) || root.functions.length === 0) {
     throw new Error('functions must be a non-empty array.')
@@ -212,6 +226,7 @@ export function validateFirFiling(value: unknown): FirFiling {
       populationFir: population,
       perCapitaCad: perCapita,
       sharesReported,
+      sharesNote,
     },
     functions,
     other,
