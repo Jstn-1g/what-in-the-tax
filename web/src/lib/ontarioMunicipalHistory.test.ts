@@ -122,16 +122,6 @@ function registryFixture() {
       findingsSupported: false,
       mixedYearFinancialComparisonsSupported: false,
     },
-    rolloutPlan: {
-      basis: 'Documented cohort',
-      sharedUpperTierAssessmentCode: '3000',
-      cohort: [
-        { order: 1, assessmentCode: '3001', label: 'North Dumfries' },
-        { order: 2, assessmentCode: '3024', label: 'Wellesley' },
-        { order: 3, assessmentCode: '3018', label: 'Wilmot' },
-        { order: 4, assessmentCode: '3029', label: 'Woolwich' },
-      ],
-    },
     caveat: 'Current identity and historical FIR years are separate.',
     records: [
       record('3001', 'North Dumfries', [2024, 2023]),
@@ -258,14 +248,8 @@ describe('Ontario current directory with FIR history', () => {
 
   it('keeps directory records informational and exposes retained years', () => {
     const registry = validateOntarioMunicipalHistory(registryFixture())
-    const targets = new Map(
-      registry.rolloutPlan.cohort.map((target) => [
-        target.assessmentCode,
-        target,
-      ]),
-    )
-    const wellesley = toDirectoryFinderRecord(registry.records[2], targets)
-    const wilmot = toDirectoryFinderRecord(registry.records[1], targets)
+    const wellesley = toDirectoryFinderRecord(registry.records[2])
+    const wilmot = toDirectoryFinderRecord(registry.records[1])
 
     expect(wellesley).toMatchObject({
       id: 'directory-on-3024',
@@ -273,9 +257,9 @@ describe('Ontario current directory with FIR history', () => {
       availability: 'directory-record',
       latestFirYear: 2025,
       firYears: [2025, 2024, 2023],
-      releaseStatus: 'Next receipt target',
+      releaseStatus: 'Latest FIR 2025',
     })
-    expect(wilmot.releaseStatus).toBe('Queued after Wellesley')
+    expect(wilmot.releaseStatus).not.toMatch(/queued|next|target/i)
     expect(wellesley).not.toHaveProperty('href')
   })
 })

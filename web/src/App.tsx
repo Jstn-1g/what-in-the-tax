@@ -449,12 +449,6 @@ export default function App() {
 
   const finderRecords: readonly PlaceSearchRecord[] = useMemo(() => {
     if (!municipalHistory) return RECEIPT_FINDER_RECORDS
-    const rolloutTargets = new Map(
-      municipalHistory.rolloutPlan.cohort.map((target) => [
-        target.assessmentCode,
-        target,
-      ]),
-    )
     const directoryByCode = new Map(
       municipalHistory.records.flatMap((record) =>
         record.assessmentCode ? [[record.assessmentCode, record] as const] : [],
@@ -474,7 +468,7 @@ export default function App() {
           record.assessmentCode === null ||
           !RECEIPT_ASSESSMENT_CODES.has(record.assessmentCode),
       )
-      .map((record) => toDirectoryFinderRecord(record, rolloutTargets))
+      .map((record) => toDirectoryFinderRecord(record))
     return [...receiptRecords, ...directoryRecords]
   }, [municipalHistory])
 
@@ -612,7 +606,6 @@ export default function App() {
               {municipalHistory ? (
                 <OntarioRolloutNote
                   registry={municipalHistory}
-                  receiptAssessmentCodes={RECEIPT_ASSESSMENT_CODES}
                   receiptPreviewCount={PACK_CATALOG.length}
                   verificationHref={ontarioMunicipalHistoryUrl(
                     import.meta.env.BASE_URL,

@@ -80,14 +80,14 @@ ENTITY_TYPE_LABELS = {
     "V": "Village",
 }
 
-# The only explicitly ordered current-year receipt cohort in the project plan.
-# These remain registry records until their separate receipt evidence gates pass.
-ROLLOUT_COHORT = [
-    {"order": 1, "assessmentCode": "3001", "label": "North Dumfries"},
-    {"order": 2, "assessmentCode": "3024", "label": "Wellesley"},
-    {"order": 3, "assessmentCode": "3018", "label": "Wilmot"},
-    {"order": 4, "assessmentCode": "3029", "label": "Woolwich"},
-]
+# Municipalities this repository already holds local evidence work for.
+#
+# This is an integrity guard, not a schedule: if the FIR source stops carrying
+# one of these codes the build must fail loudly rather than quietly shrinking.
+# It carries no order and is never emitted into the public artifact. Publishing a
+# sequence would commit the project to a queue in public, and PURPOSE.md caps
+# coverage by capacity rather than ambition.
+REQUIRED_SOURCE_CODES = ("3001", "3018", "3024", "3029")
 
 SOURCE = {
     "publisher": "Government of Ontario, Ministry of Municipal Affairs and Housing",
@@ -265,14 +265,12 @@ def build_index(
             )
 
     records_by_code = {record["assessmentCode"]: record for record in records}
-    missing_cohort = [
-        item["assessmentCode"]
-        for item in ROLLOUT_COHORT
-        if item["assessmentCode"] not in records_by_code
+    missing_required = [
+        code for code in REQUIRED_SOURCE_CODES if code not in records_by_code
     ]
-    if missing_cohort:
+    if missing_required:
         raise IndexBuildError(
-            f"documented rollout cohort missing from FIR source: {missing_cohort}"
+            f"required municipalities missing from FIR source: {missing_required}"
         )
 
     source_last_updated = max(record["lastUpdated"] for record in records)
@@ -305,11 +303,6 @@ def build_index(
             "containsFinancialMetrics": False,
             "currentTaxBylaw": False,
             "findingsSupported": False,
-        },
-        "rolloutPlan": {
-            "basis": "First current-year receipt cohort in the project generalization plan",
-            "sharedUpperTierAssessmentCode": "3000",
-            "cohort": ROLLOUT_COHORT,
         },
         "caveat": (
             "These are municipality-submitted 2023 Financial Information Return "

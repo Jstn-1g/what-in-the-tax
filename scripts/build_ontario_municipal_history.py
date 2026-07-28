@@ -199,14 +199,6 @@ EXPECTED_WITHOUT_FIR_HISTORY = {
     "Tehkummah, Township of",
 }
 
-ROLLOUT_COHORT = [
-    {"order": 1, "assessmentCode": "3001", "label": "North Dumfries"},
-    {"order": 2, "assessmentCode": "3024", "label": "Wellesley"},
-    {"order": 3, "assessmentCode": "3018", "label": "Wilmot"},
-    {"order": 4, "assessmentCode": "3029", "label": "Woolwich"},
-]
-
-
 class HistoryBuildError(ValueError):
     """Raised when a locked input or deterministic crosswalk fails a gate."""
 
@@ -739,14 +731,6 @@ def build_index(
             "currentTaxBylaw": False,
             "findingsSupported": False,
             "mixedYearFinancialComparisonsSupported": False,
-        },
-        "rolloutPlan": {
-            "basis": (
-                "First current-year receipt cohort in the project "
-                "generalization plan"
-            ),
-            "sharedUpperTierAssessmentCode": "3000",
-            "cohort": ROLLOUT_COHORT,
         },
         "caveat": (
             "The municipality identity list is current to June 3, 2026. FIR "

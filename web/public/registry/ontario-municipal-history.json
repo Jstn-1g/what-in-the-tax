@@ -91,32 +91,6 @@
     "findingsSupported": false,
     "mixedYearFinancialComparisonsSupported": false
   },
-  "rolloutPlan": {
-    "basis": "First current-year receipt cohort in the project generalization plan",
-    "sharedUpperTierAssessmentCode": "3000",
-    "cohort": [
-      {
-        "order": 1,
-        "assessmentCode": "3001",
-        "label": "North Dumfries"
-      },
-      {
-        "order": 2,
-        "assessmentCode": "3024",
-        "label": "Wellesley"
-      },
-      {
-        "order": 3,
-        "assessmentCode": "3018",
-        "label": "Wilmot"
-      },
-      {
-        "order": 4,
-        "assessmentCode": "3029",
-        "label": "Woolwich"
-      }
-    ]
-  },
   "caveat": "The municipality identity list is current to June 3, 2026. FIR years are municipality-submitted historical filings selected independently per municipality from the locked 2025, 2024, and 2023 bulk files. FIR data may be incomplete or revised and is not a current tax bill, tax-rate by-law, receipt, formal audit, finding, or publication approval. Years are never blended.",
   "records": [
     {

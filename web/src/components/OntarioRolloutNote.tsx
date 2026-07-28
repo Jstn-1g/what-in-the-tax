@@ -2,25 +2,12 @@ import type { OntarioMunicipalHistoryRegistry } from '../lib/ontarioMunicipalHis
 
 export type OntarioRolloutNoteProps = {
   registry: OntarioMunicipalHistoryRegistry
-  receiptAssessmentCodes: ReadonlySet<string>
   receiptPreviewCount: number
   verificationHref: string
 }
 
-function targetStatus(
-  assessmentCode: string,
-  order: number,
-  receiptAssessmentCodes: ReadonlySet<string>,
-): string {
-  if (receiptAssessmentCodes.has(assessmentCode)) return 'Draft preview available'
-  if (order === 2) return 'Next evidence target'
-  if (order === 3) return 'Queued after Wellesley'
-  return 'Identity indexed'
-}
-
 export default function OntarioRolloutNote({
   registry,
-  receiptAssessmentCodes,
   receiptPreviewCount,
   verificationHref,
 }: OntarioRolloutNoteProps) {
@@ -94,25 +81,9 @@ export default function OntarioRolloutNote({
       </div>
 
       <div className="registry-brief__rollout">
-        <h3>Receipt evidence order</h3>
-        <ol>
-          {registry.rolloutPlan.cohort.map((target) => (
-            <li key={target.assessmentCode}>
-              <span>{target.label}</span>
-              <small>
-                {targetStatus(
-                  target.assessmentCode,
-                  target.order,
-                  receiptAssessmentCodes,
-                )}
-              </small>
-            </li>
-          ))}
-        </ol>
         <p>
-          Wellesley is the next local evidence target, followed by Wilmot.
           Missing evidence stays visible instead of being estimated. Historical
-          comparisons will use one common year and basis rather than mixing each
+          comparisons use one common year and basis rather than mixing each
           community&apos;s newest filing.
         </p>
       </div>
