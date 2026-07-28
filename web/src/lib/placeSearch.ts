@@ -15,6 +15,10 @@ export type PlaceSearchRecord = {
   currentEvidenceYear?: number
   latestFirYear?: number | null
   firYears?: readonly number[]
+  /** Set only when a published filing exists for this record. The finder
+   *  renders a link when present and stays static when absent, so a
+   *  municipality is never offered a page that does not exist. */
+  filingHref?: string
 }
 
 export type PlaceSearchResults<T extends PlaceSearchRecord> = {

@@ -39,6 +39,7 @@ const RECORDS = [
     aliases: ['Toronto C', '1906'],
     province: 'Ontario',
     typeLabel: 'City',
+    filingHref: '?filing=1906',
     availability: 'directory-record',
     releaseStatus: 'Latest FIR 2025',
     latestFirYear: 2025,
@@ -121,5 +122,27 @@ describe('place finder result separation', () => {
     expect(result.displayedMatches).toBe(20)
     expect(result.receiptTotal + result.directoryTotal).toBe(26)
     expect(result.capped).toBe(true)
+  })
+})
+
+describe('directory records are reachable', () => {
+  it('carries a filing href through to the rendered match', () => {
+    const result = buildPlaceFinderResults(RECORDS, 'Toronto')
+    const toronto = result.directoryMatches.find(
+      (place) => place.label === 'Toronto',
+    )
+    expect(toronto).toBeDefined()
+    // The original defect: directory records rendered as static text, so every
+    // municipality outside the gold packs was searchable but unreachable.
+    expect(toronto?.filingHref).toBe('?filing=1906')
+  })
+
+  it('tells an empty search box that filings exist', () => {
+    const empty = buildPlaceFinderResults(RECORDS, '')
+    expect(empty.hasQuery).toBe(false)
+    expect(empty.directoryMatches).toHaveLength(0)
+    // Directory records stay query-gated, so the summary has to carry the
+    // coverage or a resident never learns to type.
+    expect(empty.receiptTotal).toBeGreaterThan(0)
   })
 })

@@ -80,9 +80,12 @@ function resultSummary(
   hasQuery: boolean,
 ): string {
   if (!hasQuery) {
+    // Directory records are query-gated, so with an empty box the count
+    // alone told a resident nothing about the 435 places they could
+    // actually reach. Say the coverage out loud instead.
     return `${receiptMatches} receipt ${
       receiptMatches === 1 ? 'preview' : 'previews'
-    }`
+    }. Search any Ontario municipality to open its filing.`
   }
   const totalMatches = receiptMatches + directoryMatches
   if (totalMatches === 0) return 'No matching communities'
@@ -201,8 +204,9 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
       <div className="place-finder__intro">
         <h2 id={headingId}>Find your community</h2>
         <p>
-          Start with a 2026 receipt preview where one is ready. Earlier FIR
-          years remain visible for historical context.
+          Start with a 2026 receipt preview where one is ready. Every other
+          Ontario municipality has a filing showing where its money went by
+          function &mdash; type a name to open it.
         </p>
       </div>
 
@@ -332,22 +336,55 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
               Ontario municipality directory
             </h3>
             <p className="place-finder__group-note">
-              Current municipality identity with the newest available FIR year
-              shown first. FIR history is not a current tax bill or receipt.
+              These open the municipality&apos;s own Financial Information
+              Return: what it reported spending, by function. A filing is a
+              past-year return, not a current tax bill, by-law, or receipt.
             </p>
             <ul className="place-finder__results">
               {result.directoryMatches.map((place) => (
                 <li key={place.id} className="place-finder__result">
-                  <div className="place-finder__result-static">
-                    <span className="place-finder__name">{place.label}</span>
-                    <span className="place-finder__result-context">
-                      {renderMetadata(place)}
-                      {renderYearContext(place)}
-                    </span>
-                    <span className="place-finder__not-ready">
-                      No receipt preview yet
-                    </span>
-                  </div>
+                  {place.filingHref ? (
+                    <a
+                      href={place.filingHref}
+                      aria-current={
+                        activePlaceId === place.id ? 'page' : undefined
+                      }
+                      onClick={(event) => handlePlaceClick(event, place.id)}
+                    >
+                      <span className="place-finder__name">{place.label}</span>
+                      <span className="place-finder__result-context">
+                        {renderMetadata(place)}
+                        {renderYearContext(place)}
+                      </span>
+                      <svg
+                        className="place-finder__arrow"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M5 12h13m-5-5 5 5-5 5"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </a>
+                  ) : (
+                    <div className="place-finder__result-static">
+                      <span className="place-finder__name">{place.label}</span>
+                      <span className="place-finder__result-context">
+                        {renderMetadata(place)}
+                        {renderYearContext(place)}
+                      </span>
+                      <span className="place-finder__not-ready">
+                        No filing published
+                      </span>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
