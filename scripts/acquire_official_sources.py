@@ -279,6 +279,22 @@ def load_reviewed_lock(
     elif archive_member is not None:
         raise OfficialSourceError("archiveMember must be null for a non-ZIP source")
 
+    # Optional. When present it pins the bytes *inside* the archive, which is
+    # what the data actually is; the container digest above only pins how those
+    # bytes happened to be packaged on the day they were reviewed.
+    archive_member_sha256 = document.get("archiveMemberSha256")
+    if archive_member_sha256 is not None:
+        if media_type != "application/zip":
+            raise OfficialSourceError(
+                "archiveMemberSha256 is only meaningful for a ZIP source"
+            )
+        if not isinstance(archive_member_sha256, str) or not SHA256_RE.fullmatch(
+            archive_member_sha256
+        ):
+            raise OfficialSourceError(
+                "archiveMemberSha256 must be 64 lowercase hexadecimal digits"
+            )
+
     row_count = _require_plain_int(document, "rowCount", minimum=1)
     record_count = _require_plain_int(document, "recordCount", minimum=1)
     if record_count > row_count:
@@ -456,7 +472,40 @@ def _scan_csv(
         csv.field_size_limit(previous_limit)
 
 
-def _inspect_zip(data: bytes, lock: SourceLock) -> tuple[int, int]:
+class _HashingReader(io.RawIOBase):
+    """Digest every byte that passes through, without a second read.
+
+    A ZIP member stream is not seekable, so hashing the payload separately
+    would mean decompressing it twice. Wrapping the stream keeps the cost at
+    one pass over data that is already being scanned.
+    """
+
+    def __init__(self, inner: BinaryIO) -> None:
+        self._inner = inner
+        self._digest = hashlib.sha256()
+        self._read = 0
+
+    def readable(self) -> bool:
+        return True
+
+    def readinto(self, buffer) -> int:  # type: ignore[override]
+        chunk = self._inner.read(len(buffer))
+        count = len(chunk)
+        if count:
+            buffer[:count] = chunk
+            self._digest.update(chunk)
+            self._read += count
+        return count
+
+    @property
+    def bytes_read(self) -> int:
+        return self._read
+
+    def hexdigest(self) -> str:
+        return self._digest.hexdigest()
+
+
+def _inspect_zip(data: bytes, lock: SourceLock) -> tuple[int, int, str]:
     try:
         archive = zipfile.ZipFile(io.BytesIO(data))
     except (OSError, zipfile.BadZipFile) as exc:
@@ -504,7 +553,20 @@ def _inspect_zip(data: bytes, lock: SourceLock) -> tuple[int, int]:
             )
         try:
             with archive.open(member, "r") as raw:
-                return _scan_csv(raw, lock)
+                hashing = _HashingReader(raw)
+                row_count, record_count = _scan_csv(
+                    io.BufferedReader(hashing), lock
+                )
+                # Assert the digest covers the whole member rather than trusting
+                # that the CSV scan happened to reach EOF. A partial read would
+                # otherwise produce a confident digest of an incomplete payload,
+                # which is worse than no digest at all.
+                if hashing.bytes_read != member.file_size:
+                    raise OfficialSourceError(
+                        f"{lock.source_id}: hashed {hashing.bytes_read} of "
+                        f"{member.file_size} member bytes"
+                    )
+                return row_count, record_count, hashing.hexdigest()
         except (OSError, RuntimeError, zipfile.BadZipFile) as exc:
             raise OfficialSourceError(
                 f"{lock.source_id}: cannot safely read the ZIP member"
@@ -520,8 +582,9 @@ def inspect_payload(data: bytes, lock: SourceLock) -> dict:
         raise OfficialSourceError(
             f"{lock.source_id}: source exceeds the download bound"
         )
+    archive_member_sha256: str | None = None
     if lock.media_type == "application/zip":
-        row_count, record_count = _inspect_zip(data, lock)
+        row_count, record_count, archive_member_sha256 = _inspect_zip(data, lock)
     elif lock.media_type in ("text/csv", "application/csv"):
         row_count, record_count = _scan_csv(io.BytesIO(data), lock)
     else:
@@ -533,19 +596,53 @@ def inspect_payload(data: bytes, lock: SourceLock) -> dict:
         "sha256": sha256_bytes(data),
         "rowCount": row_count,
         "recordCount": record_count,
+        "archiveMemberSha256": archive_member_sha256,
     }
 
 
 def _lock_differences(lock: SourceLock, observed: dict) -> dict:
-    fields = ("byteLength", "sha256", "rowCount", "recordCount")
-    return {
+    """Report what actually changed, not merely what was repackaged.
+
+    Ontario re-exports its FIR archives on a schedule. The CSV inside can be
+    byte-identical while the ZIP around it carries new timestamps, which changes
+    the container digest and nothing else. Treating that as a source change
+    quarantines an unchanged file and spends a human review on a non-event.
+
+    When the lock pins the payload and the payload still matches, container
+    drift is recorded as reproducibility metadata rather than a difference. A
+    lock without archiveMemberSha256 keeps the original all-fields comparison,
+    so nothing loosens implicitly.
+    """
+
+    document = lock.document
+    locked_member = document.get("archiveMemberSha256")
+    observed_member = observed.get("archiveMemberSha256")
+    payload_pinned = isinstance(locked_member, str)
+    payload_matches = payload_pinned and locked_member == observed_member
+
+    fields = ["rowCount", "recordCount"]
+    if not payload_matches:
+        # Without a verified payload the container digest is the only evidence
+        # available, so it stays authoritative.
+        fields = ["byteLength", "sha256"] + fields
+
+    differences = {
         field: {
-            "locked": lock.document[field],
+            "locked": document[field],
             "observed": observed[field],
         }
         for field in fields
-        if lock.document[field] != observed[field]
+        if document[field] != observed[field]
     }
+
+    if payload_pinned and not payload_matches:
+        # A changed payload is the real finding and must be named as such,
+        # never left to be inferred from a container mismatch.
+        differences["archiveMemberSha256"] = {
+            "locked": locked_member,
+            "observed": observed_member,
+        }
+    return differences
 
 
 def _read_bounded_file(path: Path) -> bytes:

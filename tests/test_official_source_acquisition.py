@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import io
 import json
 import tempfile
@@ -11,6 +12,7 @@ from scripts.acquire_official_sources import (
     MAX_DOWNLOAD_BYTES,
     OfficialSourceError,
     SourceLock,
+    _lock_differences,
     acquire_source,
     discover_locks,
     download_source,
@@ -395,3 +397,110 @@ class OfficialSourceAcquisitionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RepackagedArchiveTests(unittest.TestCase):
+    """A ZIP rebuilt around identical data is not a change to the source.
+
+    Ontario re-exports its FIR archives on a schedule. The CSV inside stays
+    byte-identical while the container digest moves, and treating that as a
+    source change quarantines an unchanged file and spends a human review on a
+    non-event.
+    """
+
+    @staticmethod
+    def _repackage(csv_payload: bytes) -> bytes:
+        """Same member bytes, deliberately different container bytes."""
+        output = io.BytesIO()
+        with zipfile.ZipFile(
+            output, "w", compression=zipfile.ZIP_STORED
+        ) as archive:
+            archive.writestr("fir_data_2025.csv", csv_payload)
+        return output.getvalue()
+
+    def test_repackaged_archive_installs_when_the_payload_is_pinned(self) -> None:
+        csv_payload = _csv_bytes([("2025", "3001", "ok")])
+        reviewed = _zip_bytes(csv_payload)
+        repackaged = self._repackage(csv_payload)
+        member_digest = hashlib.sha256(csv_payload).hexdigest()
+
+        self.assertNotEqual(
+            sha256_bytes(reviewed),
+            sha256_bytes(repackaged),
+            "fixture must actually differ at the container level",
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                reviewed,
+                row_count=1,
+                record_count=1,
+                mutate=lambda document: document.update(
+                    {"archiveMemberSha256": member_digest}
+                ),
+            )
+            observed = inspect_payload(repackaged, lock)
+            self.assertEqual(observed["archiveMemberSha256"], member_digest)
+            self.assertEqual(
+                _lock_differences(lock, observed),
+                {},
+                "a repackaged archive with identical data is not a difference",
+            )
+
+    def test_changed_payload_is_still_quarantined_and_named(self) -> None:
+        csv_payload = _csv_bytes([("2025", "3001", "ok")])
+        reviewed = _zip_bytes(csv_payload)
+        member_digest = hashlib.sha256(csv_payload).hexdigest()
+        changed = _zip_bytes(
+            _csv_bytes([("2025", "3001", "ok"), ("2025", "3002", "added")])
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                reviewed,
+                row_count=1,
+                record_count=1,
+                mutate=lambda document: document.update(
+                    {"archiveMemberSha256": member_digest}
+                ),
+            )
+            differences = _lock_differences(lock, inspect_payload(changed, lock))
+            self.assertIn(
+                "archiveMemberSha256",
+                differences,
+                "a changed payload must be named, not inferred from the container",
+            )
+            self.assertIn("recordCount", differences)
+
+    def test_lock_without_a_payload_digest_keeps_container_comparison(self) -> None:
+        """Nothing loosens implicitly for locks that predate this field."""
+        csv_payload = _csv_bytes([("2025", "3001", "ok")])
+        reviewed = _zip_bytes(csv_payload)
+        repackaged = self._repackage(csv_payload)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp), reviewed, row_count=1, record_count=1
+            )
+            differences = _lock_differences(lock, inspect_payload(repackaged, lock))
+            self.assertIn("sha256", differences)
+
+    def test_payload_digest_is_rejected_for_a_non_zip_source(self) -> None:
+        csv_payload = _csv_bytes([("2025", "3001", "ok")])
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(OfficialSourceError):
+                _write_lock(
+                    Path(tmp),
+                    _zip_bytes(csv_payload),
+                    row_count=1,
+                    record_count=1,
+                    mutate=lambda document: document.update(
+                        {
+                            "mediaType": "text/csv",
+                            "archiveMember": None,
+                            "archiveMemberSha256": "0" * 64,
+                        }
+                    ),
+                )
