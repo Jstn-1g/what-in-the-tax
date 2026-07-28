@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "whatinthetax-municipal-evidence-trusted-jobs-1.0.0",
+  "prompt": {
+    "path": "handoffs/PROMPT.md",
+    "utf8Sha256": "263f1f3a512d751a72d200f9bd87f137e8a8887098387475b22898a5b78fee61"
+  },
+  "candidateSchema": {
+    "path": "national/schemas/municipal-evidence-candidate.schema.json",
+    "canonicalSha256": "123d6b4d7485ec32e7bee461b7f6c49569ee2200bf2f8e5e1212db0b2125d80d"
+  },
+  "targetDirectories": [
+    {
+      "path": "web/public/registry/ontario-municipal-history.json",
+      "schemaVersion": "ontario-municipal-history-index-2.0.0",
+      "jurisdiction": "CA-ON",
+      "canonicalSha256": "15d6b033c92e124dd37a6a73611a3fe68ac978007fbbf18d7947a25099f9c2da"
+    }
+  ],
+  "jobs": [
+    {
+      "jobId": "ON-3024-FY2026-source-classification",
+      "path": "handoffs/jobs/ontario-waterloo-2026/02-wellesley/classification/job.json",
+      "targetDirectoryPath": "web/public/registry/ontario-municipal-history.json",
+      "targetRecordId": "on-3024",
+      "jobCanonicalSha256": "4444255fc57e961982c46c3c921128be4a0bbebaed27a77369e4c710f5c28aef",
+      "packetPath": "handoffs/jobs/ontario-waterloo-2026/02-wellesley/classification/prefetched-source-packet.json",
+      "packetCanonicalSha256": "3489e9af5645bcd8cb547438fa8f3dc349275e326ee532b47a78201b82d68a69"
+    },
+    {
+      "jobId": "ON-3024-FY2026-source-map",
+      "path": "handoffs/jobs/ontario-waterloo-2026/02-wellesley/job.json",
+      "targetDirectoryPath": "web/public/registry/ontario-municipal-history.json",
+      "targetRecordId": "on-3024",
+      "jobCanonicalSha256": "6fdde623db4b63ec05b9d4d023d60098fc072594eba77fb2a1c12963fec7d479"
+    },
+    {
+      "jobId": "ON-3018-FY2026-source-map",
+      "path": "handoffs/jobs/ontario-waterloo-2026/03-wilmot/job.json",
+      "targetDirectoryPath": "web/public/registry/ontario-municipal-history.json",
+      "targetRecordId": "on-3018",
+      "jobCanonicalSha256": "4924e065ebe56d61c267f0477f895c33cb51023d161207fcd6985fee4861da58"
+    }
+  ]
+}

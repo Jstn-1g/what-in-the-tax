@@ -7,6 +7,29 @@
   "observability": {
     "enabled": false
   },
+  // The *.workers.dev address is the documented rollback target in
+  // docs/DEPLOY.md. Adding "routes" does not disable it, but the value is
+  // declared explicitly rather than inherited so the rollback path cannot be
+  // lost to a future default change.
+  "workers_dev": true,
+  // Apex custom domain. Cloudflare creates the DNS record and issues the
+  // certificate; no manual DNS or certificate management is required, and the
+  // apex must not already carry a CNAME record. www is deliberately NOT routed
+  // here: it is handled by a Redirect Rule to the apex so only one canonical
+  // copy is served. See docs/WHATINTHETAX-DOMAIN.md.
+  //
+  // This attaches on the next *production* deploy from the Cloudflare
+  // production branch. It is inert on feature branches, which build with
+  // `wrangler versions upload` and cannot attach a custom domain. Attaching the
+  // domain does not change the publication state: every pack remains a draft
+  // preview and web/public/_headers must keep serving `X-Robots-Tag: noindex,
+  // nofollow` until the PUBLISH.md gates pass.
+  "routes": [
+    {
+      "pattern": "whatinthetax.com",
+      "custom_domain": true
+    }
+  ],
   // Serve the Vite production build. web/public/_headers is copied into this
   // directory and applied by Cloudflare Static Assets.
   "assets": {

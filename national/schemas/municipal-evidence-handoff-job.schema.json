@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://whatinthetax.com/schemas/municipal-evidence-handoff-job-1.0.0.json",
+  "title": "What in the Tax? municipal evidence handoff job",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "jobId",
+    "sequence",
+    "taskType",
+    "target",
+    "targetFiscalYears",
+    "requiredGovernmentLevels",
+    "requestedDocuments",
+    "officialAuthorities",
+    "budget",
+    "rules",
+    "jobCanonicalSha256"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "whatinthetax-municipal-evidence-job-1.0.0"
+    },
+    "jobId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}-[A-Za-z0-9]+(?:[._:-][A-Za-z0-9]+)*-FY[0-9]{4}-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "taskType": {
+      "type": "string",
+      "enum": [
+        "discover-sources",
+        "extract-candidates"
+      ]
+    },
+    "target": {
+      "$ref": "#/$defs/target"
+    },
+    "targetFiscalYears": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 2000,
+        "maximum": 2100
+      }
+    },
+    "requiredGovernmentLevels": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/governmentLevel"
+      }
+    },
+    "requestedDocuments": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 24,
+      "items": {
+        "$ref": "#/$defs/requestedDocument"
+      }
+    },
+    "officialAuthorities": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "$ref": "#/$defs/officialAuthority"
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxPromptUtf8Bytes",
+        "maxModelTurns",
+        "maxOutputTokens",
+        "maxWebSearches",
+        "maxWebFetches",
+        "maxPdfPagesPerDocument",
+        "fullDocumentInPrompt",
+        "automaticRetryAllowed"
+      ],
+      "properties": {
+        "maxPromptUtf8Bytes": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 24000
+        },
+        "maxModelTurns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "maxOutputTokens": {
+          "type": "integer",
+          "minimum": 250,
+          "maximum": 2500
+        },
+        "maxWebSearches": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "maxWebFetches": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "maxPdfPagesPerDocument": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "fullDocumentInPrompt": {
+          "const": false
+        },
+        "automaticRetryAllowed": {
+          "const": false
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "officialSourcesOnly",
+        "unknownValuesMustBeNull",
+        "doNotMixFiscalYears",
+        "doNotMixAccountingBases",
+        "humanReviewRequired",
+        "mayAutoPublish"
+      ],
+      "properties": {
+        "officialSourcesOnly": {
+          "const": true
+        },
+        "unknownValuesMustBeNull": {
+          "const": true
+        },
+        "doNotMixFiscalYears": {
+          "const": true
+        },
+        "doNotMixAccountingBases": {
+          "const": true
+        },
+        "humanReviewRequired": {
+          "const": true
+        },
+        "mayAutoPublish": {
+          "const": false
+        }
+      }
+    },
+    "jobCanonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "authorityId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._:-][a-z0-9]+)*$"
+    },
+    "governmentLevel": {
+      "type": "string",
+      "enum": [
+        "single-tier",
+        "lower-tier",
+        "upper-tier",
+        "education",
+        "special-purpose"
+      ]
+    },
+    "officialAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorityId",
+        "governmentLevel",
+        "publisher",
+        "domains"
+      ],
+      "properties": {
+        "authorityId": {
+          "$ref": "#/$defs/authorityId"
+        },
+        "governmentLevel": {
+          "$ref": "#/$defs/governmentLevel"
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "domains": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 253,
+            "pattern": "^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\\.[a-z]{2,63}$"
+          }
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directoryId",
+        "assessmentCode",
+        "displayName",
+        "officialName",
+        "provinceTerritory",
+        "governmentTier",
+        "geographicArea",
+        "parentBody"
+      ],
+      "properties": {
+        "directoryId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9]+(?:[._:-][A-Za-z0-9]+)*$"
+        },
+        "assessmentCode": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[A-Za-z0-9]+(?:[._:-][A-Za-z0-9]+)*$"
+        },
+        "externalIdNamespace": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96,
+          "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "officialName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "provinceTerritory": {
+          "type": "string",
+          "enum": [
+            "AB",
+            "BC",
+            "MB",
+            "NB",
+            "NL",
+            "NS",
+            "NT",
+            "NU",
+            "ON",
+            "PE",
+            "QC",
+            "SK",
+            "YT"
+          ]
+        },
+        "governmentTier": {
+          "type": "string",
+          "enum": [
+            "single-tier",
+            "lower-tier",
+            "upper-tier"
+          ]
+        },
+        "geographicArea": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "governsGeographyIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^ca:[a-z0-9][a-z0-9:._-]+$"
+          }
+        },
+        "parentBody": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "officialName",
+                "governmentTier"
+              ],
+              "properties": {
+                "directoryId": {
+                  "type": "string",
+                  "minLength": 2,
+                  "maxLength": 128,
+                  "pattern": "^[A-Za-z0-9]+(?:[._:-][A-Za-z0-9]+)*$"
+                },
+                "officialName": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240
+                },
+                "governmentTier": {
+                  "const": "upper-tier"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "requestedDocument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "documentType",
+        "authorityId",
+        "governmentLevel",
+        "fiscalYear",
+        "required"
+      ],
+      "properties": {
+        "documentType": {
+          "type": "string",
+          "enum": [
+            "approved-budget",
+            "final-tax-rate-instrument",
+            "service-allocation-schedule"
+          ]
+        },
+        "governmentLevel": {
+          "$ref": "#/$defs/governmentLevel"
+        },
+        "authorityId": {
+          "$ref": "#/$defs/authorityId"
+        },
+        "fiscalYear": {
+          "type": "integer",
+          "minimum": 2000,
+          "maximum": 2100
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

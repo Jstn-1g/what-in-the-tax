@@ -1,4 +1,33 @@
 # Evidence hashes must resolve to identical bytes on Windows and Linux.
+#
+# manifest.json asserts a sha256 for every file in a sealed receipt directory,
+# and those hashes are computed over the working tree. A file checked out CRLF
+# on Windows and LF in CI cannot produce the same digest in both places, so a
+# seal that verifies locally fails in CI and vice versa. PUBLISH.md step 5 and
+# docs/DEPLOY.md steps 2 and 6 both depend on this holding.
+#
+# This file previously listed only the nine explicit paths retained at the
+# bottom. That allowlist silently excluded 45 hash-bearing files: every
+# Cambridge, Kitchener, Waterloo and Woolwich ledger and citation audit,
+# north-dumfries-on's sources.lock.json, all three
+# receipts/north-dumfries-on/2026/*/manifest.json, and the whole web/src/data
+# mirror. Enumerating paths does not scale with the fleet and fails open when a
+# municipality is added, so a repo-wide default now sits underneath them.
+#
+# ASCII only. tests/test_release_core.py and tests/test_region_waterloo_pack.py
+# string-match lines in this file; non-ASCII risks an encoding mismatch there.
+#
+# Order matters: git applies the last matching rule. Global default first,
+# explicit evidence paths second, binary extensions last so they always win.
+
+# 1. Repo-wide default. eol=lf (not just text=auto) is required, because the
+#    working tree is what gets hashed, not only the stored blob.
+* text=auto eol=lf
+
+# 2. Explicit evidence paths. Redundant against the default above and retained
+#    deliberately: these are the guarantees the test suite pins by name, and
+#    `text` (not `text=auto`) forces text handling regardless of content
+#    sniffing, which is the behaviour these paths had before.
 data/evidence-ledger.json text eol=lf
 data/_extracts/** text eol=lf
 source-pdfs/fir/*.csv text eol=lf
@@ -8,3 +37,27 @@ corpus/brant-county-on/** text eol=lf
 data/brant/** text eol=lf
 web/src/data/brant/** text eol=lf
 web/public/** text eol=lf
+
+# 3. Binary. Last so it overrides both rules above; a PNG under web/public must
+#    never be normalized just because its directory is listed there.
+*.pdf   binary
+*.zip   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.xlsx  binary
+*.xlsm  binary
+*.docx  binary
+*.pptx  binary
+
+# Windows shells require CRLF to parse these correctly. None are checked in
+# today; the rule exists so adding one later cannot break it silently.
+*.bat text eol=crlf
+*.cmd text eol=crlf

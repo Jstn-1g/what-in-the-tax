@@ -48,6 +48,15 @@ DEFAULT_CODES = ("2920", "3001", "3024")
 SLC_POP = "slc.02X.L0041.C01.01"
 SLC_GG_BEFORE = "slc.40X.L0299.C01.07"  # General government, Total Expenses Before Adjustments
 
+# Declared, not discovered. There is no natural break in the distribution: across
+# the 435 municipalities that pass the gate on the 2023 basis, median general
+# government per capita is $322.59 overall, $617.88 below population 5,000,
+# $823.68 below 2,000 and $1,162.57 below 500. The curve is continuous, so any
+# floor is a judgement. 5,000 is recorded here as that judgement rather than
+# presented as a property of the data. Every card also carries populationFir, so
+# a consumer may apply its own floor without re-deriving this one.
+COMPARABILITY_POPULATION_FLOOR = 5000
+
 SOURCE = {
     "id": "mmah-fir",
     "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
@@ -148,6 +157,62 @@ def extract_rows(zip_path: Path, year: str, codes: set[str]) -> dict[str, dict]:
     return by_code
 
 
+def build_comparability(pop: float, tier_label: str, year: str) -> dict:
+    """Emit machine-readable non-comparability, refusing by default.
+
+    PURPOSE.md puts rankings, scores and leaderboards out of scope and requires
+    non-comparability to be machine-readable with refusal as the default
+    (GENERALIZATION-PLAN §10.11). ``crossMunicipalityComparable`` is therefore
+    unconditionally False: this stub is a coarse FIR baseline, never a ranking
+    input. The blockers explain why, so a consumer cannot re-derive permission
+    it was never given.
+    """
+
+    below_floor = pop < COMPARABILITY_POPULATION_FLOOR
+    blockers = [
+        {
+            "code": "tier-scope-differs",
+            "detail": (
+                "General government scope depends on tier. A lower-tier "
+                "municipality's figure excludes upper-tier functions billed to "
+                "the same resident, so lower-, upper- and single-tier figures "
+                "are not interchangeable."
+            ),
+        }
+    ]
+    if below_floor:
+        blockers.append(
+            {
+                "code": "population-below-declared-floor",
+                "detail": (
+                    f"FIR population {pop:,.0f} is below the declared floor of "
+                    f"{COMPARABILITY_POPULATION_FLOOR:,}. Below it, general "
+                    "government per capita mostly measures the indivisible fixed "
+                    "cost of maintaining a municipal corporation, not spending "
+                    "behaviour."
+                ),
+            }
+        )
+    return {
+        "crossMunicipalityComparable": False,
+        "reason": "fleet stub is a coarse FIR baseline, not a comparison instrument",
+        "basis": {
+            "fiscalYear": int(year),
+            "sourceId": SOURCE["id"],
+            "measure": "generalGovernmentPerCapita",
+            "tier": tier_label,
+        },
+        "declaredPopulationFloor": COMPARABILITY_POPULATION_FLOOR,
+        "belowPopulationFloor": below_floor,
+        "blockers": blockers,
+        "note": (
+            "Any cross-municipality reading requires one common fiscal year, one "
+            "common basis, and the same tier — and even then this remains a "
+            "coarse baseline rather than a rate or bill comparison."
+        ),
+    }
+
+
 def build_stub(
     year: str,
     code: str,
@@ -178,7 +243,7 @@ def build_stub(
     tier_label = {"LT": "lower-tier", "UT": "upper-tier", "ST": "single-tier"}.get(tier, tier)
 
     stub = {
-        "schemaVersion": "fleet-stub-0.1.0",
+        "schemaVersion": "fleet-stub-0.2.0",
         "grade": "FIR",
         "badge": "Verified: FIR baseline (not local by-law)",
         "slug": slugify(desc, code),
@@ -216,6 +281,9 @@ def build_stub(
             "hasGeneralGovernment": True,
             "passed": True,
         },
+        # gates prove the two required rows exist. They say nothing about
+        # whether the derived figure may be set beside another municipality's.
+        "comparability": build_comparability(pop, tier_label, year),
         "disclaimer": (
             "This is a machine-built FIR baseline stub. It is not a property-tax bill, "
             "not a by-law citation, and not a finding. For by-law-grade receipts see gold packs "
@@ -265,8 +333,12 @@ def main() -> int:
     zip_hash = sha256_file(zip_path)
     print("=== FIR fleet dry run (explain-as-we-go) ===")
     print(f"1. Official input: {zip_path.name}  sha256={zip_hash[:12]}…")
-    print(f"2. Demo cohort assessment codes: {', '.join(codes)}")
-    print("   (2920=Brant County/Paris area, 3001=North Dumfries, 3024=Wellesley)")
+    if set(codes) == set(DEFAULT_CODES):
+        print(f"2. Demo cohort assessment codes: {', '.join(codes)}")
+        print("   (2920=Brant County/Paris area, 3001=North Dumfries, 3024=Wellesley)")
+    else:
+        print(f"2. Fleet cohort: {len(codes)} assessment codes")
+        print(f"   first={codes[0]} last={codes[-1]}")
     print("3. Streaming CSV — keeping only population + general-government expense rows…")
 
     extracted = extract_rows(zip_path, year, set(codes))
@@ -275,8 +347,12 @@ def main() -> int:
     by_code_dir.mkdir(exist_ok=True)
 
     index = {
-        "schemaVersion": "fleet-index-0.1.0",
+        "schemaVersion": "fleet-index-0.2.0",
         "grade": "FIR",
+        # Restated on every index entry so a consumer building a list or table
+        # cannot reach the per-capita column without also reading the refusal.
+        "crossMunicipalityComparable": False,
+        "declaredPopulationFloor": COMPARABILITY_POPULATION_FLOOR,
         "marsYear": year,
         "sourceZip": zip_path.name,
         "sourceZipSha256": zip_hash,
@@ -313,6 +389,8 @@ def main() -> int:
                 "generalGovernmentPerCapitaCad": stub["metrics"]["generalGovernmentPerCapita"][
                     "amountCad"
                 ],
+                "populationFir": stub["metrics"]["populationFir"]["amount"],
+                "belowPopulationFloor": stub["comparability"]["belowPopulationFloor"],
                 "path": f"fleet/dry-run/by-code/{code}.json",
             }
         )
@@ -326,7 +404,13 @@ def main() -> int:
     index_path = OUT_DIR / "index.json"
     index_path.write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
 
+    below = sum(1 for m in index["municipalities"] if m["belowPopulationFloor"])
     print(f"5. Directory index written → {index_path.relative_to(ROOT)}")
+    print(
+        f"   {below} of {index['municipalityCount']} are below the declared "
+        f"population floor ({COMPARABILITY_POPULATION_FLOOR:,}) and are flagged "
+        f"non-comparable for that additional reason."
+    )
     print("6. Done. No AI was called. Tokens burned for this run: 0.")
     print()
     print("How to explain this:")

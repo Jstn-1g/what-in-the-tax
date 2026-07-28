@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "fleet-stub-0.2.0",
+  "grade": "FIR",
+  "badge": "Verified: FIR baseline (not local by-law)",
+  "slug": "tillsonburg-on",
+  "assessmentCode": "3204",
+  "name": "Tillsonburg T",
+  "tier": "lower-tier",
+  "fiscalYear": 2023,
+  "currency": "CAD",
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "note": "Amounts are PSAB accrual FIR actuals for the stated year \u2014 not the current tax by-law.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "localZip": "source-pdfs/fir/fir_data_2023.zip",
+    "localZipSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "marsYear": "2023"
+  },
+  "metrics": {
+    "populationFir": {
+      "amount": 19000.0,
+      "slc": "slc.02X.L0041.C01.01",
+      "label": "FIR population (Schedule 02)"
+    },
+    "generalGovernmentExpensesBeforeAdjustments": {
+      "amountCad": 4945355.0,
+      "slc": "slc.40X.L0299.C01.07",
+      "label": "General government \u2014 Total Expenses Before Adjustments (Schedule 40)"
+    },
+    "generalGovernmentPerCapita": {
+      "amountCad": 260.28,
+      "formula": "generalGovernmentExpensesBeforeAdjustments / populationFir",
+      "label": "General government $ per FIR capita"
+    }
+  },
+  "gates": {
+    "hasPopulation": true,
+    "hasGeneralGovernment": true,
+    "passed": true
+  },
+  "comparability": {
+    "crossMunicipalityComparable": false,
+    "reason": "fleet stub is a coarse FIR baseline, not a comparison instrument",
+    "basis": {
+      "fiscalYear": 2023,
+      "sourceId": "mmah-fir",
+      "measure": "generalGovernmentPerCapita",
+      "tier": "lower-tier"
+    },
+    "declaredPopulationFloor": 5000,
+    "belowPopulationFloor": false,
+    "blockers": [
+      {
+        "code": "tier-scope-differs",
+        "detail": "General government scope depends on tier. A lower-tier municipality's figure excludes upper-tier functions billed to the same resident, so lower-, upper- and single-tier figures are not interchangeable."
+      }
+    ],
+    "note": "Any cross-municipality reading requires one common fiscal year, one common basis, and the same tier \u2014 and even then this remains a coarse baseline rather than a rate or bill comparison."
+  },
+  "disclaimer": "This is a machine-built FIR baseline stub. It is not a property-tax bill, not a by-law citation, and not a finding. For by-law-grade receipts see gold packs (e.g. north-dumfries-on).",
+  "parisNote": null
+}
