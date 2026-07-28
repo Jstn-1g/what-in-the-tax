@@ -5,12 +5,12 @@
   "jurisdiction": "CA-ON",
   "fiscalYear": 2025,
   "sourceZip": "fir_data_2025.zip",
-  "sourceZipSha256": "d43c32a87aeefba7d68835c60072d0e05ae4384ea990d7a2c015fb0c1fe87f07",
+  "sourceZipSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
   "method": "schedule-40-functional-breakdown",
   "aiTokensUsed": 0,
   "crossMunicipalityComparable": false,
   "declaredPopulationFloor": 5000,
-  "municipalityCount": 129,
+  "municipalityCount": 130,
   "skipped": [],
   "municipalities": [
     {
@@ -749,6 +749,17 @@
       "belowPopulationFloor": false,
       "functionCount": 7,
       "path": "fir/2025/3245.json"
+    },
+    {
+      "assessmentCode": "3310",
+      "slug": "norfolk-county-on",
+      "name": "Norfolk County",
+      "tier": "single-tier",
+      "grandTotalCad": 262362159.0,
+      "populationFir": 67490.0,
+      "belowPopulationFloor": false,
+      "functionCount": 9,
+      "path": "fir/2025/3310.json"
     },
     {
       "assessmentCode": "3400",
