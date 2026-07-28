@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import FirFilingScreen from './components/FirFilingScreen'
 import HelpGuide from './components/HelpGuide'
 import OntarioRolloutNote from './components/OntarioRolloutNote'
 import PlaceFinder from './components/PlaceFinder'
@@ -21,12 +22,21 @@ import {
   toDirectoryFinderRecord,
   type OntarioMunicipalHistoryRegistry,
 } from './lib/ontarioMunicipalHistory'
+import {
+  filingCodeFromSearch,
+  loadFirFiling,
+  type FirFiling,
+} from './lib/firFiling'
 import type { PlaceSearchRecord } from './lib/placeSearch'
 
 type ViewId = 'receipt' | 'help'
 type LoadedPack = { id: PackId; pack: PackEntry }
 type LoadFailure = { id: PackId }
 
+// FIR filings are a lower evidence grade than gold by-law packs and live on
+// their own query parameter. A filing never resolves to ?pack=, and
+// PACK_CATALOG never learns about one.
+const FIR_FILING_YEAR = 2023
 const HELP_HASH_ROOT = 'help'
 const HELP_HISTORY_KEY = 'whatInTheTaxHelpEntry'
 const RECEIPT_ASSESSMENT_CODES: ReadonlySet<string> = new Set(
@@ -95,6 +105,15 @@ function currentPackRoute(): PackRoute {
 function writePackToUrl(id: PackId) {
   const url = new URL(window.location.href)
   url.searchParams.set('pack', id)
+  url.searchParams.delete('filing')
+  url.hash = ''
+  history.pushState(null, '', `${url.pathname}${url.search}`)
+}
+
+function writeFilingToUrl(assessmentCode: string) {
+  const url = new URL(window.location.href)
+  url.searchParams.set('filing', assessmentCode)
+  url.searchParams.delete('pack')
   url.hash = ''
   history.pushState(null, '', `${url.pathname}${url.search}`)
 }
@@ -102,6 +121,7 @@ function writePackToUrl(id: PackId) {
 function writeChooserToUrl() {
   const url = new URL(window.location.href)
   url.searchParams.delete('pack')
+  url.searchParams.delete('filing')
   url.hash = ''
   history.pushState(null, '', `${url.pathname}${url.search}`)
 }
@@ -188,7 +208,38 @@ export default function App() {
   const [view, setView] = useState<ViewId>(() =>
     typeof window !== 'undefined' ? viewFromHash() : 'receipt',
   )
+  const [filingCode, setFilingCode] = useState<string | null>(() =>
+    typeof window !== 'undefined'
+      ? filingCodeFromSearch(window.location.search)
+      : null,
+  )
+  const [filing, setFiling] = useState<FirFiling | null>(null)
+  const [filingUnavailable, setFilingUnavailable] = useState(false)
   const currentView = useRef(view)
+
+  useEffect(() => {
+    if (!filingCode) {
+      setFiling(null)
+      setFilingUnavailable(false)
+      return
+    }
+    let active = true
+    setFiling((current) =>
+      current?.assessmentCode === filingCode ? current : null,
+    )
+    setFilingUnavailable(false)
+    loadFirFiling(filingCode, FIR_FILING_YEAR).then(
+      (next) => {
+        if (active) setFiling(next)
+      },
+      (_error: unknown) => {
+        if (active) setFilingUnavailable(true)
+      },
+    )
+    return () => {
+      active = false
+    }
+  }, [filingCode])
 
   useEffect(() => {
     let active = true
@@ -270,6 +321,7 @@ export default function App() {
       pendingFocusPack.current = null
       setRoute(nextRoute)
       setView(nextView)
+      setFilingCode(filingCodeFromSearch(window.location.search))
       window.requestAnimationFrame(() => {
         const returnKey = pendingHelpTriggerFocus.current
         const returnTarget = returnKey
@@ -350,16 +402,30 @@ export default function App() {
     window.scrollTo(0, 0)
   }
 
+  function selectFiling(assessmentCode: string) {
+    if (filingCode === assessmentCode && view === 'receipt') return
+    writeFilingToUrl(assessmentCode)
+    pendingFocusPack.current = null
+    pendingLocationFocus.current = 'fir-filing-heading'
+    currentView.current = 'receipt'
+    setRoute({ kind: 'chooser' })
+    setLoaded(null)
+    setFilingCode(assessmentCode)
+    setView('receipt')
+    window.scrollTo(0, 0)
+  }
+
   function showChooser() {
     pendingFocusPack.current = null
     pendingLocationFocus.current = 'place-chooser'
     currentView.current = 'receipt'
-    if (route.kind !== 'chooser' || view !== 'receipt') {
+    if (route.kind !== 'chooser' || view !== 'receipt' || filingCode) {
       writeChooserToUrl()
     }
     setRoute({ kind: 'chooser' })
     setView('receipt')
     setLoaded(null)
+    setFilingCode(null)
     window.scrollTo(0, 0)
   }
 
@@ -447,6 +513,17 @@ export default function App() {
       ? getPackCatalogEntry(route.id)
       : null
 
+  const directoryCodeById = useMemo(() => {
+    const map = new Map<string, string>()
+    if (!municipalHistory) return map
+    for (const record of municipalHistory.records) {
+      if (record.assessmentCode) {
+        map.set(`directory-${record.directoryId}`, record.assessmentCode)
+      }
+    }
+    return map
+  }, [municipalHistory])
+
   const finderRecords: readonly PlaceSearchRecord[] = useMemo(() => {
     if (!municipalHistory) return RECEIPT_FINDER_RECORDS
     const directoryByCode = new Map(
@@ -495,6 +572,38 @@ export default function App() {
           onNavigate={navigateWithinHelp}
           backLabel={route.kind === 'pack' ? 'Back to receipt' : 'Back to places'}
         />
+        <ProductFooter />
+      </div>
+    )
+  }
+
+  if (filingCode) {
+    return (
+      <div className="page">
+        <SiteHeader
+          currentPlace={filing?.name}
+          onChoosePlace={showChooser}
+          onOpenHelp={openHelp}
+        />
+        {filing ? (
+          <FirFilingScreen filing={filing} onBack={showChooser} />
+        ) : filingUnavailable ? (
+          <main className="fir-filing" aria-labelledby="fir-filing-heading">
+            <h1 id="fir-filing-heading">That filing could not be loaded</h1>
+            <p>
+              No Financial Information Return filing is published here for
+              assessment code {filingCode}. Missing evidence stays visible
+              instead of being estimated.
+            </p>
+            <button type="button" className="fir-filing__back" onClick={showChooser}>
+              All places
+            </button>
+          </main>
+        ) : (
+          <main className="fir-filing" aria-labelledby="fir-filing-heading">
+            <h1 id="fir-filing-heading">Loading filing...</h1>
+          </main>
+        )}
         <ProductFooter />
       </div>
     )
@@ -578,7 +687,15 @@ export default function App() {
               <PlaceFinder
                 records={finderRecords}
                 onSelectPlace={(id) => {
-                  if (isPackId(id)) selectPack(id)
+                  if (isPackId(id)) {
+                    selectPack(id)
+                    return
+                  }
+                  // Directory records were previously inert. One with an
+                  // assessment code now opens its FIR filing, a lower
+                  // evidence grade on a route separate from ?pack=.
+                  const assessmentCode = directoryCodeById.get(id)
+                  if (assessmentCode) selectFiling(assessmentCode)
                 }}
                 activePlaceId={packId ?? undefined}
                 registryState={

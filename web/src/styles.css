@@ -2400,3 +2400,247 @@ main#main-content {
     color: #000;
   }
 }
+
+/* --- FIR functional filings ------------------------------------------------
+   A lower evidence grade than a gold by-law receipt, and styled to read that
+   way: quieter, tabular, no hero. The weight difference is deliberate - a
+   filing should not be mistaken for a bill. */
+
+.fir-filing {
+  max-width: var(--reading);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem) 4rem;
+}
+
+.fir-filing__back {
+  background: none;
+  border: 0;
+  padding: 0.35rem 0;
+  color: var(--green);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fir-filing__back:hover {
+  text-decoration: underline;
+}
+
+.fir-filing__header {
+  margin: 1rem 0 2rem;
+}
+
+.fir-filing__grade {
+  display: inline-block;
+  margin: 0 0 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--note-line);
+  border-radius: 999px;
+  background: var(--note);
+  color: var(--amber);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.fir-filing__header h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.6rem, 4vw, 2.35rem);
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.fir-filing__subtitle {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--ink-soft);
+}
+
+.fir-filing__totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem clamp(1.5rem, 5vw, 3.5rem);
+  margin: 0 0 2.25rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+}
+
+.fir-filing__totals div {
+  min-width: 8rem;
+}
+
+.fir-filing__totals dt {
+  margin: 0 0 0.2rem;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+.fir-filing__totals dd {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 650;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.fir-filing__functions table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fir-filing__caption {
+  caption-side: top;
+  text-align: left;
+  margin-bottom: 0.85rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  max-width: 46rem;
+}
+
+.fir-filing__functions thead th {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 2px solid var(--line-strong);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+
+.fir-filing__num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.fir-filing__group-row th,
+.fir-filing__group-row td {
+  padding: 0.7rem 0.6rem 0.55rem;
+  border-top: 1px solid var(--line-strong);
+  font-weight: 650;
+  color: var(--ink);
+  text-align: left;
+}
+
+.fir-filing__group-row td {
+  text-align: right;
+}
+
+.fir-filing__component-row td {
+  padding: 0.3rem 0.6rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+}
+
+.fir-filing__component-label {
+  display: inline-block;
+  padding-left: 1rem;
+}
+
+/* The SLC line identifier is the reader's route back to the source row. It is
+   secondary information, not decoration, so it stays selectable. */
+.fir-filing__slc {
+  display: block;
+  padding-left: 1rem;
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.fir-filing__other-note {
+  padding-left: 1.6rem;
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+  max-width: 46rem;
+}
+
+.fir-filing__functions tfoot th,
+.fir-filing__functions tfoot td {
+  padding: 0.8rem 0.6rem;
+  border-top: 2px solid var(--line-strong);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: left;
+}
+
+.fir-filing__functions tfoot td {
+  text-align: right;
+}
+
+.fir-filing__refusal {
+  margin: 2.5rem 0 0;
+  padding: 1.2rem 1.35rem;
+  background: var(--amber-soft);
+  border: 1px solid var(--note-line);
+  border-radius: 0.5rem;
+}
+
+.fir-filing__refusal h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  color: var(--amber);
+}
+
+.fir-filing__refusal ul {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+  color: var(--ink-soft);
+}
+
+.fir-filing__refusal li {
+  margin-bottom: 0.4rem;
+}
+
+.fir-filing__refusal p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.fir-filing__refusal-note {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.fir-filing__source {
+  margin: 2rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.fir-filing__source h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.fir-filing__source p {
+  margin: 0 0 0.5rem;
+  max-width: 52rem;
+}
+
+.fir-filing__hash {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.fir-filing__disclaimer {
+  margin-top: 0.9rem;
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 40rem) {
+  .fir-filing__slc {
+    display: none;
+  }
+
+  .fir-filing__totals dd {
+    font-size: 1.15rem;
+  }
+}
