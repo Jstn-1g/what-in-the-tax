@@ -291,11 +291,32 @@ export function loadFirFiling(
   return pending
 }
 
-/** Read ?filing=<assessmentCode> without disturbing pack routing. */
-export function filingCodeFromSearch(search: string): string | null {
+/** Fiscal years with published filings, newest first. */
+export const FIR_FILING_YEARS = [2025, 2024, 2023] as const
+
+export type FilingRoute = { code: string; year: number | null }
+
+/**
+ * Read ?filing=<assessmentCode>&year=<fiscalYear> without disturbing pack
+ * routing. A missing or unrecognised year is null, which the caller resolves to
+ * that municipality's newest published filing - Ontario files on its own
+ * schedule, so the newest year differs by place.
+ */
+export function filingRouteFromSearch(search: string): FilingRoute | null {
   const params = new URLSearchParams(search)
   const requested = params.get('filing')
-  if (!requested) return null
   // Assessment codes are short numeric strings. Anything else is not ours.
-  return /^\d{4}$/.test(requested) ? requested : null
+  if (!requested || !/^\d{4}$/.test(requested)) return null
+  const rawYear = params.get('year')
+  const parsed = rawYear && /^\d{4}$/.test(rawYear) ? Number(rawYear) : null
+  const year =
+    parsed !== null && (FIR_FILING_YEARS as readonly number[]).includes(parsed)
+      ? parsed
+      : null
+  return { code: requested, year }
+}
+
+/** Retained for callers that only need the municipality. */
+export function filingCodeFromSearch(search: string): string | null {
+  return filingRouteFromSearch(search)?.code ?? null
 }

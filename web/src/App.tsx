@@ -23,8 +23,10 @@ import {
   type OntarioMunicipalHistoryRegistry,
 } from './lib/ontarioMunicipalHistory'
 import {
-  filingCodeFromSearch,
+  filingRouteFromSearch,
+  FIR_FILING_YEARS,
   loadFirFiling,
+  type FilingRoute,
   type FirFiling,
 } from './lib/firFiling'
 import type { PlaceSearchRecord } from './lib/placeSearch'
@@ -36,7 +38,10 @@ type LoadFailure = { id: PackId }
 // FIR filings are a lower evidence grade than gold by-law packs and live on
 // their own query parameter. A filing never resolves to ?pack=, and
 // PACK_CATALOG never learns about one.
-const FIR_FILING_YEAR = 2023
+//
+// Ontario municipalities file on their own schedule: 129 have a 2025 return,
+// 273 stop at 2024, 33 at 2023. There is no single current year, so a
+// municipality opens at its own newest filing rather than a shared one.
 const HELP_HASH_ROOT = 'help'
 const HELP_HISTORY_KEY = 'whatInTheTaxHelpEntry'
 const RECEIPT_ASSESSMENT_CODES: ReadonlySet<string> = new Set(
@@ -106,13 +111,19 @@ function writePackToUrl(id: PackId) {
   const url = new URL(window.location.href)
   url.searchParams.set('pack', id)
   url.searchParams.delete('filing')
+  url.searchParams.delete('year')
   url.hash = ''
   history.pushState(null, '', `${url.pathname}${url.search}`)
 }
 
-function writeFilingToUrl(assessmentCode: string) {
+function writeFilingToUrl(assessmentCode: string, year?: number) {
   const url = new URL(window.location.href)
   url.searchParams.set('filing', assessmentCode)
+  if (year === undefined) {
+    url.searchParams.delete('year')
+  } else {
+    url.searchParams.set('year', String(year))
+  }
   url.searchParams.delete('pack')
   url.hash = ''
   history.pushState(null, '', `${url.pathname}${url.search}`)
@@ -122,6 +133,7 @@ function writeChooserToUrl() {
   const url = new URL(window.location.href)
   url.searchParams.delete('pack')
   url.searchParams.delete('filing')
+  url.searchParams.delete('year')
   url.hash = ''
   history.pushState(null, '', `${url.pathname}${url.search}`)
 }
@@ -208,14 +220,44 @@ export default function App() {
   const [view, setView] = useState<ViewId>(() =>
     typeof window !== 'undefined' ? viewFromHash() : 'receipt',
   )
-  const [filingCode, setFilingCode] = useState<string | null>(() =>
+  const [filingRoute, setFilingRoute] = useState<FilingRoute | null>(() =>
     typeof window !== 'undefined'
-      ? filingCodeFromSearch(window.location.search)
+      ? filingRouteFromSearch(window.location.search)
       : null,
   )
   const [filing, setFiling] = useState<FirFiling | null>(null)
   const [filingUnavailable, setFilingUnavailable] = useState(false)
   const currentView = useRef(view)
+
+  // Years available per municipality, derived from the registry the app
+  // already holds rather than a second fetch. Verified against the emitted
+  // artifacts: an exact match for 435 of 436 records.
+  const filingYearsByCode = useMemo(() => {
+    const map = new Map<string, number[]>()
+    if (!municipalHistory) return map
+    for (const record of municipalHistory.records) {
+      if (!record.assessmentCode) continue
+      const years = record.firYears
+        .map((entry) => entry.fiscalYear)
+        .filter((year) =>
+          (FIR_FILING_YEARS as readonly number[]).includes(year),
+        )
+        .sort((a, b) => b - a)
+      if (years.length > 0) map.set(record.assessmentCode, years)
+    }
+    return map
+  }, [municipalHistory])
+
+  const filingCode = filingRoute?.code ?? null
+  const availableFilingYears = filingCode
+    ? (filingYearsByCode.get(filingCode) ?? [])
+    : []
+  // An explicit ?year= wins when that year exists for this municipality;
+  // otherwise open the newest one it actually filed.
+  const resolvedFilingYear =
+    filingRoute?.year && availableFilingYears.includes(filingRoute.year)
+      ? filingRoute.year
+      : (availableFilingYears[0] ?? null)
 
   useEffect(() => {
     if (!filingCode) {
@@ -223,12 +265,21 @@ export default function App() {
       setFilingUnavailable(false)
       return
     }
+    if (resolvedFilingYear === null) {
+      // Either the registry has not loaded yet, or this municipality filed
+      // nothing in the published window. Only the second is a dead end.
+      if (municipalHistory) setFilingUnavailable(true)
+      return
+    }
     let active = true
     setFiling((current) =>
-      current?.assessmentCode === filingCode ? current : null,
+      current?.assessmentCode === filingCode &&
+      current?.fiscalYear === resolvedFilingYear
+        ? current
+        : null,
     )
     setFilingUnavailable(false)
-    loadFirFiling(filingCode, FIR_FILING_YEAR).then(
+    loadFirFiling(filingCode, resolvedFilingYear).then(
       (next) => {
         if (active) setFiling(next)
       },
@@ -239,7 +290,7 @@ export default function App() {
     return () => {
       active = false
     }
-  }, [filingCode])
+  }, [filingCode, resolvedFilingYear, municipalHistory])
 
   useEffect(() => {
     let active = true
@@ -321,7 +372,7 @@ export default function App() {
       pendingFocusPack.current = null
       setRoute(nextRoute)
       setView(nextView)
-      setFilingCode(filingCodeFromSearch(window.location.search))
+      setFilingRoute(filingRouteFromSearch(window.location.search))
       window.requestAnimationFrame(() => {
         const returnKey = pendingHelpTriggerFocus.current
         const returnTarget = returnKey
@@ -402,15 +453,21 @@ export default function App() {
     window.scrollTo(0, 0)
   }
 
-  function selectFiling(assessmentCode: string) {
-    if (filingCode === assessmentCode && view === 'receipt') return
-    writeFilingToUrl(assessmentCode)
+  function selectFiling(assessmentCode: string, year?: number) {
+    if (
+      filingCode === assessmentCode &&
+      view === 'receipt' &&
+      (year === undefined || year === resolvedFilingYear)
+    ) {
+      return
+    }
+    writeFilingToUrl(assessmentCode, year)
     pendingFocusPack.current = null
     pendingLocationFocus.current = 'fir-filing-heading'
     currentView.current = 'receipt'
     setRoute({ kind: 'chooser' })
     setLoaded(null)
-    setFilingCode(assessmentCode)
+    setFilingRoute({ code: assessmentCode, year: year ?? null })
     setView('receipt')
     window.scrollTo(0, 0)
   }
@@ -425,7 +482,7 @@ export default function App() {
     setRoute({ kind: 'chooser' })
     setView('receipt')
     setLoaded(null)
-    setFilingCode(null)
+    setFilingRoute(null)
     window.scrollTo(0, 0)
   }
 
@@ -547,13 +604,15 @@ export default function App() {
       )
       .map((record) => {
         const finder = toDirectoryFinderRecord(record)
-        // Offer a filing only where one is actually published. A 2023 FIR
-        // year is an exact proxy but for Manitouwadge, which filed without
-        // a Schedule 40 total; that one falls through to the honest
+        // Offer a filing only where one is actually published. Filing in any
+        // covered year is an exact proxy but for Manitouwadge, which filed
+        // without a Schedule 40 total; that one falls through to the honest
         // could-not-be-loaded state rather than a broken promise.
         const hasFiling =
           record.assessmentCode !== null &&
-          record.firYears.some((year) => year.fiscalYear === FIR_FILING_YEAR)
+          record.firYears.some((year) =>
+            (FIR_FILING_YEARS as readonly number[]).includes(year.fiscalYear),
+          )
         return hasFiling && record.assessmentCode
           ? {
               ...finder,
@@ -601,7 +660,12 @@ export default function App() {
           onOpenHelp={openHelp}
         />
         {filing ? (
-          <FirFilingScreen filing={filing} onBack={showChooser} />
+          <FirFilingScreen
+            filing={filing}
+            availableYears={availableFilingYears}
+            onSelectYear={(year) => selectFiling(filing.assessmentCode, year)}
+            onBack={showChooser}
+          />
         ) : filingUnavailable ? (
           <main className="fir-filing" aria-labelledby="fir-filing-heading">
             <h1 id="fir-filing-heading">That filing could not be loaded</h1>
