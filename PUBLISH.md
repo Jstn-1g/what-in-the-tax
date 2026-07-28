@@ -53,10 +53,10 @@ python scripts/audit_citations.py data/evidence-ledger.json   # must exit 0
 
 Hard failures are `not-found`, `wrong-page` and `bad-page-number`. Zero means zero — no allowance,
 no waiver, no "13 is close enough." `numbers-only` and `unverifiable` are honest weaker tiers: they
-do not block publication, but they must be disclosed in `coverage.json` and on the page, and the
-page must not describe them as verbatim quotations (Phase 0 item 2). Deep links must not append
-`#page=` for any fact that does not verify on that page (Phase 0 item 3), because a citation that
-opens the wrong page is worse than no link for the one reader who clicks.
+do not block publication, but they must be disclosed in `data/citation-audit.json` and on the
+page, and the page must not describe them as verbatim quotations (Phase 0 item 2). Deep links
+must not append `#page=` for any fact that does not verify on that page (Phase 0 item 3),
+because a citation that opens the wrong page is worse than no link for the one reader who clicks.
 
 **4. MARAI receipt — optional, and can only block.**
 
@@ -116,8 +116,11 @@ Honest inventory, so this page is not read as a description of working software:
   living `data/` artifacts named by `corpus/<slug>/pack.yaml`, refuse seal on any citation hard
   failure, and write `receipts/<slug>/<year>/<revision>/` with `manifest.json` (both-directions
   hash check). They do **not** yet implement full §9.5 (JSON Schema with `additionalProperties:
-  false`, expression AST, `sources.lock` verify, two-artifact emission). Module-level `assert`s in
-  `build_evidence_model.py` remain until Phase 0 item 8.
+  false`, expression AST, `sources.lock` verify, two-artifact emission). Phase 0 item 8 is done:
+  `build_evidence_model.py` raises `EvidenceModelError` rather than asserting (Python strips
+  `assert` under `-O`, so the invariants were optional in exactly the mode a release would use),
+  writes through a temp file plus `os.replace`, and checks the canonical/mirror invariant before
+  either file is written rather than after.
 - Full `corpus/<slug>/*.yaml` transcription (Phase 1 item 7) is not done; the pack is a descriptor
   pointing at `data/`.
 - The preview interface is currently English-only. The `fr-CA` number-formatting primitives are
@@ -125,8 +128,16 @@ Honest inventory, so this page is not read as a description of working software:
   Canada-wide publication remains blocked until the interface, accessibility labels, dates/rates,
   and reader-facing pack narratives have complete human-reviewed French equivalents and the page
   language switches with the selected locale. Runtime machine translation is not an approval path.
-- `coverage.json` on the page and `#page=` suppression for non-verifying cites (Phase 0 items 1–3)
-  are not fully wired in the UI yet.
+- Phase 0 items 1 and 3 are done. `data/citation-audit.json` is committed, copied into the web
+  bundle, and its measured tier counts render on the page as a source-check line rather than a
+  claim of perfection. `#page=` is suppressed for any fact that does not verify on its cited
+  page, and the suppression **fails closed**: every fact starts unverified, so a fact missing
+  from the audit gets a plain source link, never a page anchor. The 13 wrong-page cites are
+  fixed — including `ND-TAXATION-REVENUE-2026` and `ND-CORPORATE-REVENUES-2026`, the two
+  operands of the control-total assertion, which now bind to page 9 where the rows physically
+  are. Current audit: 93 facts, zero hard failures, 24 on a weaker tier, all disclosed.
+- The richer `coverage.json` of §9.4 — facts per tier, checks run versus applicable — is **not**
+  built. The audit's tier counts are the whole of what the page discloses today.
 - MARAI export to `review.jsonl` does not exist; local `marai-ledger/` is gitignored working state.
 
 **Today:** every pack remains **draft**. Seal and Published stay blocked until strict identity,
