@@ -8,6 +8,15 @@ describe('normalizeSupportUrl', () => {
     )
   })
 
+  it('accepts a donation-host payment link', () => {
+    // Stripe issues donation-type links on donate.stripe.com. Rejecting that
+    // host dropped a valid live link and left the card saying support was
+    // still coming.
+    expect(
+      normalizeSupportUrl('https://donate.stripe.com/7sY7sMcpteSo4uS4FH2cg01'),
+    ).toBe('https://donate.stripe.com/7sY7sMcpteSo4uS4FH2cg01')
+  })
+
   it.each([
     undefined,
     null,
@@ -19,6 +28,11 @@ describe('normalizeSupportUrl', () => {
     'https://user:password@example.com/support',
     'https://buy.stripe.com/test_example',
     'https://buy.stripe.com/example#checkout',
+    // The test-mode and look-alike-host guards hold on the donation host too.
+    'https://donate.stripe.com/test_example',
+    'https://donate.stripe.com/example#checkout',
+    'https://donate.stripe.com.evil.example/support',
+    'https://notdonate.stripe.com/support',
     'not a URL',
   ])('rejects an unsafe or missing value: %s', (value) => {
     expect(normalizeSupportUrl(value)).toBeNull()
