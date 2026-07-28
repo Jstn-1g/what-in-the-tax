@@ -72,6 +72,12 @@ jobs:
           set -euo pipefail
           python scripts/build_ontario_fir_public_index.py --check
           python scripts/build_ontario_municipal_history.py --check
+          # 969 public FIR functional receipts. Each year rebuilds from its
+          # reviewed source lock and compares byte for byte, so tampering
+          # with either the archive or an emitted receipt fails here.
+          python scripts/build_fir_functional_receipts.py --year 2023 --check
+          python scripts/build_fir_functional_receipts.py --year 2024 --check
+          python scripts/build_fir_functional_receipts.py --year 2025 --check
 
       - name: Run all Python tests and reject skipped release-critical tests
         shell: bash

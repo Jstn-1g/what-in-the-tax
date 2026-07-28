@@ -42,6 +42,15 @@ automatic hosting path:
   ledgers and unsupported packs are not accepted as browser artifacts.
 - Pack validators run in explicit `--no-write` mode, followed by a clean-tree
   assertion that catches accidental evidence or timestamp rewrites.
+- FIR functional receipts are verified per fiscal year. These are not pinned by
+  hash in `release/release-plan.json` like the packs and registry artifacts;
+  they are protected by a stronger chain instead. Each year rebuilds from its
+  reviewed entry in `sources/locks/ca-on/`, and `--check` compares the result
+  byte for byte against what is committed, so tampering with either the source
+  archive or an emitted receipt fails the gate. Every receipt records the
+  source archive's sha256, and each year's index records the same digest, so
+  the chain from human-reviewed lock to published figure is traceable without
+  enumerating 969 hashes that would need rewriting on every rebuild.
 
 The former GitHub Pages deployment was removed because this project is hosted on
 Cloudflare and Pages was not enabled. This avoids a misleading second deployment
@@ -99,6 +108,11 @@ if ($LASTEXITCODE -ne 0) { throw "Ontario 2023 FIR baseline drifted" }
 
 python scripts/build_ontario_municipal_history.py --check
 if ($LASTEXITCODE -ne 0) { throw "Ontario municipal history index drifted" }
+
+foreach ($FirYear in @(2023, 2024, 2025)) {
+  python scripts/build_fir_functional_receipts.py --year $FirYear --check
+  if ($LASTEXITCODE -ne 0) { throw "FIR functional receipts drifted: $FirYear" }
+}
 
 Get-ChildItem corpus -Directory |
   Where-Object {
