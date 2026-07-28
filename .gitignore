@@ -38,6 +38,14 @@ Thumbs.db
 
 # web/ has its own .gitignore (node_modules, dist).
 
+# Dependency trees and local scratch. web/.gitignore covers web/node_modules, but
+# nothing covered the root tree or a renamed-aside broken one, so a single
+# `git add .` would have committed ~180 MB of vendored code. Patterns without a
+# leading slash match at any depth, so these cover web/ too.
+node_modules/
+node_modules.broken-*/
+tmp/
+
 # Deliberately NOT ignored — these are the evidence trail, and excluding them
 # turns every citation into an unverifiable claim:
 #   data/evidence-ledger.json      the ledger
