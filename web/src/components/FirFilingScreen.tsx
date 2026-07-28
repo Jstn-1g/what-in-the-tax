@@ -16,10 +16,16 @@ const money = new Intl.NumberFormat('en-CA', {
 
 const percent = new Intl.NumberFormat('en-CA', {
   style: 'percent',
+  minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 })
 
 const count = new Intl.NumberFormat('en-CA')
+
+const FALLBACK_SHARES_NOTE =
+  'Percentages are withheld for this filing, because a share of its reported ' +
+  "total would misread. The dollar amounts below are the filing's own and are " +
+  'unaffected.'
 
 export default function FirFilingScreen({
   filing,
@@ -29,6 +35,26 @@ export default function FirFilingScreen({
 }: FirFilingScreenProps) {
   const { totals, comparability } = filing
   const hasOther = filing.other.amountCad !== 0 || filing.other.components.length > 0
+  // Two different situations both arrive here as a note, and only one of them
+  // also drops the column. A filing with a negative line keeps its shares and
+  // gains an explanation; a filing whose total stopped working as a denominator
+  // loses the column entirely. When it does, drop the column rather than print
+  // a stack of em-dashes - an empty column invites the reader to wonder what is
+  // being hidden, and the caption says plainly what happened and why.
+  const showShares = totals.sharesReported
+  const columnCount = showShares ? 3 : 2
+  // A missing column must never be unexplained. Artifacts built before the
+  // builder emitted this field carry no note, so supply one rather than leave
+  // the reader looking at a gap.
+  const sharesNote =
+    totals.sharesNote ?? (showShares ? null : FALLBACK_SHARES_NOTE)
+  // Other carries a real amount, so it carries a real share. Showing an amount
+  // while withholding its share is what made the visible column fall short of
+  // the stated total. It can be negative where a filing records recoveries.
+  const otherShare =
+    showShares && totals.grandTotalCad !== 0
+      ? filing.other.amountCad / totals.grandTotalCad
+      : null
 
   return (
     <main className="fir-filing" aria-labelledby="fir-filing-heading">
@@ -106,7 +132,13 @@ export default function FirFilingScreen({
           <caption className="fir-filing__caption">
             Every figure below is a line the municipality filed. Components are
             shown under the function they roll up into, and the parts add to the
-            total.
+            total.{' '}
+            {showShares
+              ? 'Shares are rounded to one decimal place, so they may not read as exactly 100%; the dollar amounts are the authority.'
+              : null}
+            {sharesNote ? (
+              <span className="fir-filing__shares-withheld">{sharesNote}</span>
+            ) : null}
           </caption>
           <thead>
             <tr>
@@ -114,9 +146,11 @@ export default function FirFilingScreen({
               <th scope="col" className="fir-filing__num">
                 Amount
               </th>
-              <th scope="col" className="fir-filing__num">
-                {totals.sharesReported ? 'Share' : ''}
-              </th>
+              {showShares ? (
+                <th scope="col" className="fir-filing__num">
+                  Share
+                </th>
+              ) : null}
             </tr>
           </thead>
           {filing.functions.map((fn) => (
@@ -124,11 +158,13 @@ export default function FirFilingScreen({
               <tr className="fir-filing__group-row">
                 <th scope="rowgroup">{fn.label}</th>
                 <td className="fir-filing__num">{money.format(fn.amountCad)}</td>
-                <td className="fir-filing__num">
-                  {totals.sharesReported && fn.shareOfTotal !== null
-                    ? percent.format(fn.shareOfTotal)
-                    : '—'}
-                </td>
+                {showShares ? (
+                  <td className="fir-filing__num">
+                    {fn.shareOfTotal !== null
+                      ? percent.format(fn.shareOfTotal)
+                      : '—'}
+                  </td>
+                ) : null}
               </tr>
               {fn.components.map((component) => (
                 <tr key={component.code} className="fir-filing__component-row">
@@ -141,7 +177,7 @@ export default function FirFilingScreen({
                   <td className="fir-filing__num">
                     {money.format(component.amountCad)}
                   </td>
-                  <td />
+                  {showShares ? <td /> : null}
                 </tr>
               ))}
             </tbody>
@@ -153,10 +189,14 @@ export default function FirFilingScreen({
                 <td className="fir-filing__num">
                   {money.format(filing.other.amountCad)}
                 </td>
-                <td className="fir-filing__num">—</td>
+                {showShares ? (
+                  <td className="fir-filing__num">
+                    {otherShare !== null ? percent.format(otherShare) : '—'}
+                  </td>
+                ) : null}
               </tr>
               <tr className="fir-filing__component-row">
-                <td colSpan={3} className="fir-filing__other-note">
+                <td colSpan={columnCount} className="fir-filing__other-note">
                   {filing.other.note}
                 </td>
               </tr>
@@ -166,9 +206,9 @@ export default function FirFilingScreen({
             <tr>
               <th scope="row">Total</th>
               <td className="fir-filing__num">{money.format(totals.grandTotalCad)}</td>
-              <td className="fir-filing__num">
-                {totals.sharesReported ? percent.format(1) : '—'}
-              </td>
+              {showShares ? (
+                <td className="fir-filing__num">{percent.format(1)}</td>
+              ) : null}
             </tr>
           </tfoot>
         </table>

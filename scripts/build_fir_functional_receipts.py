@@ -316,12 +316,61 @@ def build_receipt(
     )
     name = entry["name"] or f"ASSESSMENT_CODE {entry['assessmentCode']}"
 
-    # Shares are reported only when the denominator is positive. A negative or
-    # zero grand total makes a percentage meaningless rather than merely odd.
-    shares_reported = grand > 0
-    if shares_reported:
-        for function in functions:
-            function["shareOfTotal"] = round(function["amountCad"] / grand, 6)
+    # A share is only readable as a share when the total works as a denominator.
+    # Two distinct things go wrong in Ontario's filings, and they do not deserve
+    # the same answer.
+    #
+    # A line can be negative, because the municipality booked a recovery or an
+    # adjustment against it. Twelve filings do this. The share is then negative
+    # too, which is accurate -- and it means the remaining lines add to more
+    # than 100%. That is worth explaining, not hiding: for Faraday Tp 2023 the
+    # -63.6% environmental services line is the most interesting fact on the page.
+    #
+    # Or the total itself stops working. Carlow-Mayo Tp 2023 files a -$1,751,200
+    # "Other" against a $973,603 total, so the total is net of a recovery larger
+    # than the total itself and transportation alone reads 127.4%. A part cannot
+    # exceed the whole; that column is not a breakdown of anything. Only here do
+    # we withhold. Withholding a percentage never withholds the filing -- the
+    # dollar amounts are the evidence and they publish in every case.
+    denominator_usable = grand > 0
+    function_shares = (
+        [round(item["amountCad"] / grand, 6) for item in functions]
+        if denominator_usable
+        else []
+    )
+    other_share = round(other_total / grand, 6) if denominator_usable else None
+    visible_shares = function_shares + ([other_share] if denominator_usable else [])
+    part_exceeds_whole = any(share > 1 for share in visible_shares)
+    has_negative_share = any(share < 0 for share in visible_shares)
+
+    shares_reported = denominator_usable and not part_exceeds_whole
+    shares_note = None
+    if not denominator_usable:
+        shares_note = (
+            "Percentages are withheld: this filing reports no positive total "
+            "to divide by. The dollar amounts below are the filing's own and "
+            "are unaffected."
+        )
+    elif part_exceeds_whole:
+        shares_note = (
+            "Percentages are withheld for this filing. Its total is net of a "
+            "negative line large enough that the total comes out smaller than "
+            "the spending listed above it, so a single function would read as "
+            "more than 100% of it. A part cannot exceed the whole, so the "
+            "percentages would not be shares of anything. The dollar amounts "
+            "below are the filing's own and are unaffected."
+        )
+    else:
+        for function, share in zip(functions, function_shares):
+            function["shareOfTotal"] = share
+        if has_negative_share:
+            shares_note = (
+                "One line below is negative, because this municipality booked "
+                "a recovery or an adjustment against it rather than a cost. "
+                "That is its own filed figure. It also means the remaining "
+                "lines add to more than 100% of the total, which is arithmetic "
+                "rather than an error."
+            )
 
     receipt = {
         "schemaVersion": "fir-functional-receipt-0.1.0",
@@ -348,6 +397,11 @@ def build_receipt(
             "populationFir": population,
             "perCapitaCad": per_capita,
             "sharesReported": shares_reported,
+            # Emitted only when there is something to say. A null on all 966
+            # receipts would churn every artifact to announce the absence of a
+            # note, burying the two filings this actually changes. The reader
+            # side treats a missing note as no note.
+            **({"sharesNote": shares_note} if shares_note else {}),
         },
         "functions": functions,
         "other": {

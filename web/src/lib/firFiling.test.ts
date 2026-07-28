@@ -121,6 +121,59 @@ describe('FIR functional filing', () => {
     )
   })
 
+  it('keeps shares, with a note, when a line is merely negative', () => {
+    // The common case: twelve Ontario filings book a recovery against one
+    // function, so its share is negative and the rest add past 100%. Those
+    // percentages are accurate and worth reading -- Faraday Tp 2023 spends
+    // -63.6% on environmental services and that is the story of its page.
+    // Suppressing them would have cost Mississauga its whole share column over
+    // a single -0.1% line. Shares stay; the note explains.
+    const negativeLine = clone(checkedFiling) as Record<string, unknown>
+    const negTotals = negativeLine.totals as Record<string, unknown>
+    negTotals.sharesNote =
+      'One line below is negative, because this municipality booked a recovery.'
+
+    const kept = validateFirFiling(negativeLine)
+    expect(kept.totals.sharesReported).toBe(true)
+    expect(kept.totals.sharesNote).toContain('negative')
+    expect(kept.functions.every((fn) => fn.shareOfTotal !== null)).toBe(true)
+  })
+
+  it('carries the reason when a filing withholds its shares', () => {
+    // The rare case, and the only one that drops the column: Carlow-Mayo Tp
+    // 2023 files a -$1,751,200 "Other" against a $973,603 total, so the total
+    // is net of a recovery bigger than itself and transportation alone read
+    // 127.4% on the live site. A part cannot exceed the whole. This pins that
+    // the reason survives parsing, because a blank column with no explanation
+    // is worse than the bad number it replaced.
+    const withheld = clone(checkedFiling) as Record<string, unknown>
+    const totals = withheld.totals as Record<string, unknown>
+    totals.sharesReported = false
+    totals.sharesNote =
+      "Percentages are withheld for this filing. Its 'Other' line is negative."
+
+    const filing = validateFirFiling(withheld)
+    expect(filing.totals.sharesReported).toBe(false)
+    expect(filing.totals.sharesNote).toContain('withheld')
+    // The amounts are the evidence and must be untouched by the suppression.
+    expect(filing.totals.grandTotalCad).toBe(10669698)
+    const computed =
+      filing.functions.reduce((sum, fn) => sum + fn.amountCad, 0) +
+      filing.other.amountCad
+    expect(Math.abs(computed - filing.totals.grandTotalCad)).toBeLessThan(0.51)
+  })
+
+  it('renders a filing built before sharesNote existed', () => {
+    // Every artifact already deployed predates the field. Missing must parse as
+    // "no note", never as a validation failure - the amounts are still good.
+    const legacy = clone(checkedFiling) as Record<string, unknown>
+    delete (legacy.totals as Record<string, unknown>).sharesNote
+
+    const filing = validateFirFiling(legacy)
+    expect(filing.totals.sharesNote).toBeNull()
+    expect(filing.totals.sharesReported).toBe(true)
+  })
+
   it('surfaces a failed fetch rather than rendering a partial filing', async () => {
     await expect(
       loadFirFilingWithFetcher(

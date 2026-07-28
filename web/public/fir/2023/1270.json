@@ -27,7 +27,8 @@
     "grandTotalSlc": "slc.40X.L9910.C01.07",
     "populationFir": 953.0,
     "perCapitaCad": 1021.62,
-    "sharesReported": true
+    "sharesReported": false,
+    "sharesNote": "Percentages are withheld for this filing. Its total is net of a negative line large enough that the total comes out smaller than the spending listed above it, so a single function would read as more than 100% of it. A part cannot exceed the whole, so the percentages would not be shares of anything. The dollar amounts below are the filing's own and are unaffected."
   },
   "functions": [
     {
@@ -54,8 +55,7 @@
           "label": "Program Support",
           "amountCad": 409925.0
         }
-      ],
-      "shareOfTotal": 0.496351
+      ]
     },
     {
       "code": "0499",
@@ -81,8 +81,7 @@
           "label": "Protective inspection and control",
           "amountCad": 56426.0
         }
-      ],
-      "shareOfTotal": 0.30495
+      ]
     },
     {
       "code": "0699",
@@ -114,8 +113,7 @@
           "label": "Winter control - except sidewalks,parking lots",
           "amountCad": 99049.0
         }
-      ],
-      "shareOfTotal": 1.274317
+      ]
     },
     {
       "code": "0899",
@@ -135,8 +133,7 @@
           "label": "Waste diversion",
           "amountCad": 55942.0
         }
-      ],
-      "shareOfTotal": 0.583645
+      ]
     },
     {
       "code": "1699",
@@ -162,8 +159,7 @@
           "label": "Libraries",
           "amountCad": 31905.0
         }
-      ],
-      "shareOfTotal": 0.139416
+      ]
     }
   ],
   "other": {
