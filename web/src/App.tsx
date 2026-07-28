@@ -545,7 +545,22 @@ export default function App() {
           record.assessmentCode === null ||
           !RECEIPT_ASSESSMENT_CODES.has(record.assessmentCode),
       )
-      .map((record) => toDirectoryFinderRecord(record))
+      .map((record) => {
+        const finder = toDirectoryFinderRecord(record)
+        // Offer a filing only where one is actually published. A 2023 FIR
+        // year is an exact proxy but for Manitouwadge, which filed without
+        // a Schedule 40 total; that one falls through to the honest
+        // could-not-be-loaded state rather than a broken promise.
+        const hasFiling =
+          record.assessmentCode !== null &&
+          record.firYears.some((year) => year.fiscalYear === FIR_FILING_YEAR)
+        return hasFiling && record.assessmentCode
+          ? {
+              ...finder,
+              filingHref: `?filing=${record.assessmentCode}`,
+            }
+          : finder
+      })
     return [...receiptRecords, ...directoryRecords]
   }, [municipalHistory])
 
