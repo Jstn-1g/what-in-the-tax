@@ -27,12 +27,6 @@ export type OntarioMunicipalityRecord = {
   fallbackReason: string | null
 }
 
-export type OntarioFirRolloutTarget = {
-  order: number
-  assessmentCode: string
-  label: string
-}
-
 export type OntarioFirRelease = {
   fiscalYear: FirYear
   downloadUrl: string
@@ -94,11 +88,6 @@ export type OntarioMunicipalHistoryRegistry = {
     currentTaxBylaw: false
     findingsSupported: false
     mixedYearFinancialComparisonsSupported: false
-  }
-  rolloutPlan: {
-    basis: string
-    sharedUpperTierAssessmentCode: string
-    cohort: OntarioFirRolloutTarget[]
   }
   caveat: string
   records: OntarioMunicipalityRecord[]
@@ -326,41 +315,6 @@ function parseMunicipalityRecord(
   }
 }
 
-function parseRolloutTargets(
-  value: unknown,
-  assessmentCodes: ReadonlySet<string>,
-): OntarioFirRolloutTarget[] {
-  if (!Array.isArray(value) || value.length === 0) {
-    throw new Error('rolloutPlan.cohort must be a non-empty array.')
-  }
-  const seen = new Set<string>()
-  return value.map((candidate, index) => {
-    const row = requireObject(candidate, `rolloutPlan.cohort[${index}]`)
-    const order = requireInteger(
-      row.order,
-      `rolloutPlan.cohort[${index}].order`,
-    )
-    const assessmentCode = requireString(
-      row.assessmentCode,
-      `rolloutPlan.cohort[${index}].assessmentCode`,
-    )
-    if (order !== index + 1) {
-      throw new Error('rolloutPlan.cohort orders must be contiguous.')
-    }
-    if (!assessmentCodes.has(assessmentCode) || seen.has(assessmentCode)) {
-      throw new Error(
-        'rolloutPlan.cohort must reference unique directory records.',
-      )
-    }
-    seen.add(assessmentCode)
-    return {
-      order,
-      assessmentCode,
-      label: requireString(row.label, `rolloutPlan.cohort[${index}].label`),
-    }
-  })
-}
-
 export function validateOntarioMunicipalHistory(
   value: unknown,
 ): OntarioMunicipalHistoryRegistry {
@@ -583,9 +537,6 @@ export function validateOntarioMunicipalHistory(
     throw new Error('Ontario municipality year or tier counts do not reconcile.')
   }
 
-  const rolloutPlan = requireObject(root.rolloutPlan, 'rolloutPlan')
-  const cohort = parseRolloutTargets(rolloutPlan.cohort, assessmentCodes)
-
   return {
     schemaVersion: SCHEMA_VERSION,
     artifactKind: 'current-municipality-directory-with-fir-history',
@@ -664,14 +615,6 @@ export function validateOntarioMunicipalHistory(
       findingsSupported: false,
       mixedYearFinancialComparisonsSupported: false,
     },
-    rolloutPlan: {
-      basis: requireString(rolloutPlan.basis, 'rolloutPlan.basis'),
-      sharedUpperTierAssessmentCode: requireString(
-        rolloutPlan.sharedUpperTierAssessmentCode,
-        'rolloutPlan.sharedUpperTierAssessmentCode',
-      ),
-      cohort,
-    },
     caveat: requireString(root.caveat, 'caveat'),
     records,
   }
@@ -714,19 +657,13 @@ export function loadOntarioMunicipalHistory(): Promise<OntarioMunicipalHistoryRe
 
 export function toDirectoryFinderRecord(
   record: OntarioMunicipalityRecord,
-  rolloutTargets: ReadonlyMap<string, OntarioFirRolloutTarget>,
 ): DirectoryFinderRecord {
-  const target = record.assessmentCode
-    ? rolloutTargets.get(record.assessmentCode)
-    : undefined
-  const releaseStatus =
-    target?.order === 2
-      ? 'Next receipt target'
-      : target?.order === 3
-        ? 'Queued after Wellesley'
-        : record.latestFirYear
-          ? `Latest FIR ${record.latestFirYear}`
-          : 'Current directory only'
+  // Describes what evidence a record already has, never what is planned for it.
+  // Publishing a sequence commits the project to an order in public and invites
+  // "why not my town yet" against a roadmap that capacity, not ambition, sets.
+  const releaseStatus = record.latestFirYear
+    ? `Latest FIR ${record.latestFirYear}`
+    : 'Current directory only'
 
   return {
     kind: 'directory-record',

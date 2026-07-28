@@ -18,7 +18,6 @@ from scripts.build_ontario_fir_public_index import (
     EXPECTED_TIER_COUNTS,
     EXPECTED_ZIP_SHA256,
     IndexBuildError,
-    ROLLOUT_COHORT,
     build_index,
     render_index,
 )
@@ -129,13 +128,18 @@ class OntarioFirPublicIndexTests(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, serialized)
 
-    def test_documented_cohort_order_is_preserved(self) -> None:
-        index = json.loads(DEFAULT_OUTPUT.read_text(encoding="utf-8"))
-        self.assertEqual(ROLLOUT_COHORT, index["rolloutPlan"]["cohort"])
-        self.assertEqual(
-            ["3001", "3024", "3018", "3029"],
-            [item["assessmentCode"] for item in index["rolloutPlan"]["cohort"]],
-        )
+    def test_public_index_does_not_publish_a_rollout_sequence(self) -> None:
+        """A published order commits the project to a queue it never promised.
+
+        PURPOSE.md caps coverage by capacity rather than ambition, so the public
+        artifact states what evidence exists and never what is scheduled next.
+        """
+
+        serialized = DEFAULT_OUTPUT.read_text(encoding="utf-8")
+        index = json.loads(serialized)
+        self.assertNotIn("rolloutPlan", index)
+        for forbidden in ("rolloutPlan", "Queued after", "Next receipt target"):
+            self.assertNotIn(forbidden, serialized)
 
     def test_small_fixture_build_is_deterministic_and_strips_only_suffix(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

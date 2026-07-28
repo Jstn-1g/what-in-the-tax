@@ -27,7 +27,6 @@ describe('Ontario data verification status', () => {
     const verificationHref = '/registry/ontario-municipal-history.json'
     const note = OntarioRolloutNote({
       registry,
-      receiptAssessmentCodes: new Set(['3012', '3016', '3006', '3029', '3001', '2920']),
       receiptPreviewCount: 6,
       verificationHref,
     })
@@ -45,6 +44,14 @@ describe('Ontario data verification status', () => {
       'Contains information licensed under the Open Government Licence – Ontario.',
     )
     expect(content).not.toContain('Published')
+
+    // The component must not advertise a rollout sequence. Publishing an order
+    // commits the project to a queue in public that PURPOSE.md does not promise.
+    expect(content).not.toContain('Receipt evidence order')
+    for (const scheduled of ['Next evidence target', 'Queued after', 'Wellesley']) {
+      expect(content).not.toContain(scheduled)
+    }
+
     expect(hrefs(note)).toContain(verificationHref)
   })
 })
