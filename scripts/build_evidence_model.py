@@ -1447,7 +1447,13 @@ ledger = {
     "artifact": "EvidenceLedger",
     "evidencePolicy": {
         "rules": [
-            "FACT: must include sourceId, excerpt, and page when from PDF.",
+            # The reader sees these rules on the page, so the excerpt rule has to
+            # carry the same qualification README.md does. An "excerpt" that is
+            # actually a reconstruction of the cited row, presented without saying
+            # so, is the one overclaim this project cannot afford.
+            "FACT: must include sourceId, excerpt, and page when from PDF. An excerpt is a "
+            "reconstruction of the cited row unless data/citation-audit.json reports a verbatim "
+            "or stronger match for that fact.",
             "DERIVED: must include formula and input ids; no new external numbers.",
             "GAP: record missing evidence; never invent amounts to fill UI.",
             "JUDGMENT: interpretive only; billImpactCad stays null.",

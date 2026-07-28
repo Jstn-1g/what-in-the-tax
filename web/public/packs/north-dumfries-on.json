@@ -1,8 +1,8 @@
 {
   "audit": {
     "counts": {
-      "numbers-only": 6,
-      "row-bound": 26,
+      "numbers-only": 4,
+      "row-bound": 28,
       "verbatim": 3
     },
     "results": [
@@ -56,7 +56,7 @@
       },
       {
         "id": "ROW-RURAL-HH-02",
-        "tier": "numbers-only"
+        "tier": "row-bound"
       },
       {
         "id": "ROW-RURAL-HH-03",
@@ -132,7 +132,7 @@
       },
       {
         "id": "ROW-RURAL-HH-21",
-        "tier": "numbers-only"
+        "tier": "row-bound"
       },
       {
         "id": "ROW-RURAL-HH-22",
@@ -163,7 +163,7 @@
     ],
     "evidencePolicy": {
       "rules": [
-        "FACT: must include sourceId, excerpt, and page when from PDF.",
+        "FACT: must include sourceId, excerpt, and page when from PDF. An excerpt is a reconstruction of the cited row unless data/citation-audit.json reports a verbatim or stronger match for that fact.",
         "DERIVED: must include formula and input ids; no new external numbers.",
         "GAP: record missing evidence; never invent amounts to fill UI.",
         "JUDGMENT: interpretive only; billImpactCad stays null.",
