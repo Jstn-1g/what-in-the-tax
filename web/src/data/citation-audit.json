@@ -1,756 +1,1452 @@
 {
- "counts": {
-  "verbatim": 12,
-  "numbers-only": 16,
-  "normalized": 11,
-  "row-bound": 43,
-  "alnum": 1,
-  "unverifiable": 10
- },
- "results": [
-  {
-   "id": "ND-LEVY-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 8,
-   "amountCad": 9002499,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-LEVY-2025",
-   "sourceId": "nd-2026-draft",
-   "page": 8,
-   "amountCad": 8427827,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-LEVY-INCREASE-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 8,
-   "amountCad": 574672,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-TAXRATE-RURAL-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 8,
-   "amountCad": null,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ND-LEVY-2026-ADOPTED",
-   "sourceId": "nd-2026-budget-minutes",
-   "page": 5,
-   "amountCad": 9002499,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
-   "sourceId": "nd-2026-tax-rate-bylaw",
-   "page": 103,
-   "amountCad": null,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-TAXRATE-RES-REGION-2026-FINAL",
-   "sourceId": "nd-2026-tax-rate-bylaw",
-   "page": 103,
-   "amountCad": null,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
-   "sourceId": "nd-2026-tax-rate-bylaw",
-   "page": 103,
-   "amountCad": null,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-TAXRATE-RES-AYR-SAR-2026-FINAL",
-   "sourceId": "nd-2026-tax-rate-bylaw",
-   "page": 103,
-   "amountCad": null,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-TAXRATE-RES-TOTAL-2026-FINAL",
-   "sourceId": "nd-2026-tax-rate-bylaw",
-   "page": 103,
-   "amountCad": null,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL",
-   "sourceId": "nd-2026-tax-rate-bylaw",
-   "page": 103,
-   "amountCad": null,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-TAXRATE-BYLAW-ADOPTION-2026",
-   "sourceId": "nd-2026-tax-rate-minutes",
-   "page": 6,
-   "amountCad": null,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-BUDGET-REQUIREMENT-TAXBYLAW-2026",
-   "sourceId": "nd-2026-tax-rate-bylaw",
-   "page": 101,
-   "amountCad": 9002462,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-AVG-ASSESSMENT",
-   "sourceId": "nd-2026-draft",
-   "page": 8,
-   "amountCad": 455000,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 8,
-   "amountCad": 1434.63,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ND-TOWNSHIP-TAX-URBAN-AVG-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 8,
-   "amountCad": 1505.47,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ND-DEPT-CORPORATE-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 2091306,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-DEPT-FIRE-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 1182646,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-DEPT-PROTECTIVE-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 1554793,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-DEPT-PW-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 2477423,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-DEPT-REC-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 1867455,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-DEPT-REC-OVERHEAD-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 1468430,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-DEPT-PW-OVERHEAD-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 1466225,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-DEPT-PLANNING-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 451372,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 43,
-   "amountCad": 1625000,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 1607500,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-DEPT-ENVIRONMENTAL-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": -225,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-COUNCIL-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 201669,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-ELECTIONS-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 37034,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-CORP-SERV-ADMIN-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 1841803,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-TAXATION-REVENUE-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 9182824,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-CORPORATE-REVENUES-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 866800,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-CAPITAL-PROGRAM-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 57,
-   "amountCad": 31192121,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-CAP-ARENA-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 53,
-   "amountCad": 16190160,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-CAP-DEBT-TWINPAD",
-   "sourceId": "nd-2026-draft",
-   "page": 43,
-   "amountCad": 5000000,
-   "tier": "numbers-only",
-   "note": "all 3 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors); amountCad 5000000 not literally present on the cited page (may be a subtotal or reformatted)"
-  },
-  {
-   "id": "ND-CAP-ACC-EXTERIOR-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 52,
-   "amountCad": 3500000,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ND-CAP-PUMPTRACK-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 54,
-   "amountCad": 568756,
-   "tier": "numbers-only",
-   "note": "all 3 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ND-CAP-CLYDE-PARK-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 54,
-   "amountCad": 185500,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-CAP-BROADBAND-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 46,
-   "amountCad": 150000,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-CAP-OFFICIAL-PLAN-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 47,
-   "amountCad": 405000,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-LEGAL-ADMIN-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 18,
-   "amountCad": 27000,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-LEGAL-TAX-SALE-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 18,
-   "amountCad": 22000,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-LEGAL-BUILDING-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 24,
-   "amountCad": 12000,
-   "tier": "alnum",
-   "note": "matched after stripping non-alphanumerics (PDF spacing/ligature loss)"
-  },
-  {
-   "id": "ND-LEGAL-BYLAW-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 26,
-   "amountCad": 25000,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-LEGAL-PLANNING-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 41,
-   "amountCad": 8000,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-GRANTS-COMMUNITY-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 16,
-   "amountCad": 40000,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-GRANT-AYR-CEMETERY-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 16,
-   "amountCad": 10000,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ND-GRANT-SHEFFIELD-LIONS-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 16,
-   "amountCad": 3500,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse"
-  },
-  {
-   "id": "ND-RECORDS-MGMT-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 18,
-   "amountCad": 8500,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-WREDC-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 41,
-   "amountCad": 20000,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ND-TOURISM-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 41,
-   "amountCad": 5000,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ND-SUSTAINABLE-WR-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 41,
-   "amountCad": 1725,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-HERITAGE-SOFTWARE-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 41,
-   "amountCad": 5000,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-ANIMAL-CONTROL-2026",
-   "sourceId": "nd-2026-draft",
-   "page": 9,
-   "amountCad": 10875,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ND-POP-CENSUS-2021",
-   "sourceId": "statcan-2021",
-   "page": null,
-   "amountCad": null,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'statcan-2021' (url-only or missing PDF)"
-  },
-  {
-   "id": "ND-POP-STATCAN-2025",
-   "sourceId": "statcan-csd-estimates",
-   "page": null,
-   "amountCad": null,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'statcan-csd-estimates' (url-only or missing PDF)"
-  },
-  {
-   "id": "ND-POP-STATCAN-2023",
-   "sourceId": "statcan-csd-estimates",
-   "page": null,
-   "amountCad": null,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'statcan-csd-estimates' (url-only or missing PDF)"
-  },
-  {
-   "id": "FIR-GG-ND-2023",
-   "sourceId": "mmah-fir-2023",
-   "page": null,
-   "amountCad": 1933805,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'mmah-fir-2023' (url-only or missing PDF)"
-  },
-  {
-   "id": "FIR-GG-WELLESLEY-2023",
-   "sourceId": "mmah-fir-2023",
-   "page": null,
-   "amountCad": 2104106,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'mmah-fir-2023' (url-only or missing PDF)"
-  },
-  {
-   "id": "FIR-GG-WILMOT-2023",
-   "sourceId": "mmah-fir-2023",
-   "page": null,
-   "amountCad": 4008877,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'mmah-fir-2023' (url-only or missing PDF)"
-  },
-  {
-   "id": "FIR-GG-WOOLWICH-2023",
-   "sourceId": "mmah-fir-2023",
-   "page": null,
-   "amountCad": 4153213,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'mmah-fir-2023' (url-only or missing PDF)"
-  },
-  {
-   "id": "STATCAN-POP-WELLESLEY-2023",
-   "sourceId": "statcan-csd-estimates",
-   "page": null,
-   "amountCad": null,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'statcan-csd-estimates' (url-only or missing PDF)"
-  },
-  {
-   "id": "STATCAN-POP-WILMOT-2023",
-   "sourceId": "statcan-csd-estimates",
-   "page": null,
-   "amountCad": null,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'statcan-csd-estimates' (url-only or missing PDF)"
-  },
-  {
-   "id": "STATCAN-POP-WOOLWICH-2023",
-   "sourceId": "statcan-csd-estimates",
-   "page": null,
-   "amountCad": null,
-   "tier": "unverifiable",
-   "note": "no local extract for source 'statcan-csd-estimates' (url-only or missing PDF)"
-  },
-  {
-   "id": "ROW-LEVY-2026",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 887329000,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors); amountCad 887329000 not literally present on the cited page (may be a subtotal or reformatted)"
-  },
-  {
-   "id": "ROW-WRPS-LEVY-2026",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 272610000,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors); amountCad 272610000 not literally present on the cited page (may be a subtotal or reformatted)"
-  },
-  {
-   "id": "ROW-RURAL-HH-TOTAL-2026",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 2543,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-SUMMARY-OP-FUNDING-TAX-2026",
-   "sourceId": "row-2026-summary",
-   "page": 6,
-   "amountCad": 887000000,
-   "tier": "verbatim",
-   "note": "amountCad 887000000 not literally present on the cited page (may be a subtotal or reformatted)"
-  },
-  {
-   "id": "ROW-SUMMARY-CAPITAL-2026",
-   "sourceId": "row-2026-summary",
-   "page": 7,
-   "amountCad": 772000000,
-   "tier": "normalized",
-   "note": "matched after whitespace/case collapse; amountCad 772000000 not literally present on the cited page (may be a subtotal or reformatted)"
-  },
-  {
-   "id": "ROW-SUMMARY-AVG-IMPACT-2026",
-   "sourceId": "row-2026-summary",
-   "page": 4,
-   "amountCad": 142,
-   "tier": "numbers-only",
-   "note": "all 3 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-RURAL-HH-01",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 900,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-02",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 63,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-RURAL-HH-03",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 429,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-04",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 240,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-05",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 213,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-06",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 89,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-07",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 134,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-08",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 53,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-09",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 51,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-10",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 39,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-11",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 49,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-12",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 45,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-13",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 24,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-14",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 33,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-15",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 30,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-16",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 17,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-17",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 19,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-18",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 31,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-RURAL-HH-19",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 21,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-20",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 24,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-RURAL-HH-21",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 79,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-RURAL-HH-22",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 16,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-RURAL-HH-23",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 20,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  }
- ]
+  "ok": true,
+  "counts": {
+    "verbatim": 12,
+    "numbers-only": 14,
+    "normalized": 11,
+    "row-bound": 45,
+    "alnum": 1,
+    "unverifiable": 10
+  },
+  "bindingIssueCounts": {
+    "extract-sha256-missing": 83,
+    "source-bytes-missing": 87,
+    "source-sha256-missing": 87,
+    "amount-sign-mismatch": 2,
+    "amount-not-on-cited-page": 5,
+    "source-path-missing": 6,
+    "extract-path-missing": 10
+  },
+  "results": [
+    {
+      "id": "ND-LEVY-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "amountCad": 9002499,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-LEVY-2025",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "amountCad": 8427827,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-LEVY-INCREASE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "amountCad": 574672,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-TAXRATE-RURAL-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "amountCad": null,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ND-LEVY-2026-ADOPTED",
+      "sourceId": "nd-2026-budget-minutes",
+      "page": 5,
+      "amountCad": 9002499,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "amountCad": null,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-TAXRATE-RES-REGION-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "amountCad": null,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "amountCad": null,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-TAXRATE-RES-AYR-SAR-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "amountCad": null,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-TAXRATE-RES-TOTAL-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "amountCad": null,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-TAXRATE-RES-TOTAL-AYR-2026-FINAL",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 103,
+      "amountCad": null,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-TAXRATE-BYLAW-ADOPTION-2026",
+      "sourceId": "nd-2026-tax-rate-minutes",
+      "page": 6,
+      "amountCad": null,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-BUDGET-REQUIREMENT-TAXBYLAW-2026",
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "page": 101,
+      "amountCad": 9002462,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-AVG-ASSESSMENT",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "amountCad": 455000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "amountCad": 1434.63,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ND-TOWNSHIP-TAX-URBAN-AVG-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 8,
+      "amountCad": 1505.47,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ND-DEPT-CORPORATE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 2091306,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-DEPT-FIRE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 1182646,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-DEPT-PROTECTIVE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 1554793,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-DEPT-PW-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 2477423,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-DEPT-REC-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 1867455,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-DEPT-REC-OVERHEAD-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 1468430,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-DEPT-PW-OVERHEAD-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 1466225,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-DEPT-PLANNING-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 451372,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-CAPITAL-TAX-RESERVE-XFER-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 43,
+      "amountCad": 1625000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 1607500,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-DEPT-ENVIRONMENTAL-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": -225,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-COUNCIL-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 201669,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-ELECTIONS-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 37034,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-CORP-SERV-ADMIN-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 1841803,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-TAXATION-REVENUE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 9182824,
+      "bindingIssues": [
+        "amount-sign-mismatch",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-CORPORATE-REVENUES-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 866800,
+      "bindingIssues": [
+        "amount-sign-mismatch",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-CAPITAL-PROGRAM-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 57,
+      "amountCad": 31192121,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-CAP-ARENA-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 53,
+      "amountCad": 16190160,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-CAP-DEBT-TWINPAD",
+      "sourceId": "nd-2026-draft",
+      "page": 43,
+      "amountCad": 5000000,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 3 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ND-CAP-ACC-EXTERIOR-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 52,
+      "amountCad": 3500000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ND-CAP-PUMPTRACK-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 54,
+      "amountCad": 568756,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 3 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ND-CAP-CLYDE-PARK-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 54,
+      "amountCad": 185500,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-CAP-BROADBAND-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 46,
+      "amountCad": 150000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-CAP-OFFICIAL-PLAN-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 47,
+      "amountCad": 405000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-LEGAL-ADMIN-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 18,
+      "amountCad": 27000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-LEGAL-TAX-SALE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 18,
+      "amountCad": 22000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-LEGAL-BUILDING-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 24,
+      "amountCad": 12000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "alnum",
+      "note": "matched after stripping non-alphanumerics (PDF spacing/ligature loss)"
+    },
+    {
+      "id": "ND-LEGAL-BYLAW-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 26,
+      "amountCad": 25000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-LEGAL-PLANNING-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "amountCad": 8000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-GRANTS-COMMUNITY-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 16,
+      "amountCad": 40000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-GRANT-AYR-CEMETERY-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 16,
+      "amountCad": 10000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ND-GRANT-SHEFFIELD-LIONS-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 16,
+      "amountCad": 3500,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ND-RECORDS-MGMT-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 18,
+      "amountCad": 8500,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-WREDC-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "amountCad": 20000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ND-TOURISM-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "amountCad": 5000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ND-SUSTAINABLE-WR-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "amountCad": 1725,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-HERITAGE-SOFTWARE-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 41,
+      "amountCad": 5000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-ANIMAL-CONTROL-2026",
+      "sourceId": "nd-2026-draft",
+      "page": 9,
+      "amountCad": 10875,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ND-POP-CENSUS-2021",
+      "sourceId": "statcan-2021",
+      "page": null,
+      "amountCad": null,
+      "bindingIssues": [
+        "source-path-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'statcan-2021'"
+    },
+    {
+      "id": "ND-POP-STATCAN-2025",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "amountCad": null,
+      "bindingIssues": [
+        "source-path-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'statcan-csd-estimates'"
+    },
+    {
+      "id": "ND-POP-STATCAN-2023",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "amountCad": null,
+      "bindingIssues": [
+        "source-path-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'statcan-csd-estimates'"
+    },
+    {
+      "id": "FIR-GG-ND-2023",
+      "sourceId": "mmah-fir-2023",
+      "page": null,
+      "amountCad": 1933805,
+      "bindingIssues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'mmah-fir-2023'"
+    },
+    {
+      "id": "FIR-GG-WELLESLEY-2023",
+      "sourceId": "mmah-fir-2023",
+      "page": null,
+      "amountCad": 2104106,
+      "bindingIssues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'mmah-fir-2023'"
+    },
+    {
+      "id": "FIR-GG-WILMOT-2023",
+      "sourceId": "mmah-fir-2023",
+      "page": null,
+      "amountCad": 4008877,
+      "bindingIssues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'mmah-fir-2023'"
+    },
+    {
+      "id": "FIR-GG-WOOLWICH-2023",
+      "sourceId": "mmah-fir-2023",
+      "page": null,
+      "amountCad": 4153213,
+      "bindingIssues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'mmah-fir-2023'"
+    },
+    {
+      "id": "STATCAN-POP-WELLESLEY-2023",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "amountCad": null,
+      "bindingIssues": [
+        "source-path-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'statcan-csd-estimates'"
+    },
+    {
+      "id": "STATCAN-POP-WILMOT-2023",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "amountCad": null,
+      "bindingIssues": [
+        "source-path-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'statcan-csd-estimates'"
+    },
+    {
+      "id": "STATCAN-POP-WOOLWICH-2023",
+      "sourceId": "statcan-csd-estimates",
+      "page": null,
+      "amountCad": null,
+      "bindingIssues": [
+        "source-path-missing",
+        "extract-path-missing"
+      ],
+      "tier": "unverifiable",
+      "note": "no readable local extract for source 'statcan-csd-estimates'"
+    },
+    {
+      "id": "ROW-LEVY-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 887329000,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-WRPS-LEVY-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 272610000,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-RURAL-HH-TOTAL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 2543,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-SUMMARY-OP-FUNDING-TAX-2026",
+      "sourceId": "row-2026-summary",
+      "page": 6,
+      "amountCad": 887000000,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ROW-SUMMARY-CAPITAL-2026",
+      "sourceId": "row-2026-summary",
+      "page": 7,
+      "amountCad": 772000000,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
+    },
+    {
+      "id": "ROW-SUMMARY-AVG-IMPACT-2026",
+      "sourceId": "row-2026-summary",
+      "page": 4,
+      "amountCad": 142,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 3 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-RURAL-HH-01",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 900,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-02",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 63,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-03",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 429,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-04",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 240,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-05",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 213,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-06",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 89,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-07",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 134,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-08",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 53,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-09",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 51,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-10",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 39,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-11",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 49,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-12",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 45,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-13",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 24,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-14",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 33,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-15",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 30,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-16",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 17,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-17",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 19,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-18",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 31,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-RURAL-HH-19",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 21,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-20",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 24,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-RURAL-HH-21",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 79,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-22",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 16,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-RURAL-HH-23",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 20,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    }
+  ],
+  "sourceBindings": [
+    {
+      "sourceId": "nd-2026-draft",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026-draft-budget-binder.pdf",
+        "declaredSha256": null,
+        "actualSha256": "a1b815cbf6aa3820b7b0c53f9faeadd93dd9d2f48a6dc0345e7d2c8f838830ab",
+        "declaredBytes": null,
+        "actualBytes": 3922996
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026-draft-budget-binder.txt",
+        "declaredSha256": null,
+        "actualSha256": "4c68973a132e0e1558788213045bbe00d1949713be1e752ed4f23a3202a8e664"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "nd-2026-budget-agenda",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026-02-02-special-budget-agenda.pdf",
+        "declaredSha256": null,
+        "actualSha256": "5665dbc1ca1dd46bc982de21a005b8327da08a384b15eacd8ea7b39fb44e4a02",
+        "declaredBytes": null,
+        "actualBytes": 1294321
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026-02-02-special-budget-agenda.txt",
+        "declaredSha256": null,
+        "actualSha256": "d42da6a85238ec413b607cc579512e6c22f6441a652a536539ebe6b1eac7af87"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "nd-2026-budget-minutes",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026-02-02-special-budget-minutes.pdf",
+        "declaredSha256": null,
+        "actualSha256": "b3ec062eccea5c3bcfb1ec25c2ed2814d6915bfb716205fbbef27b366e65a6ac",
+        "declaredBytes": null,
+        "actualBytes": 2156962
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026-02-02-special-budget-minutes.txt",
+        "declaredSha256": null,
+        "actualSha256": "e24bbfa790a6b562213116ce2e2b1ea0b988383792414601b8ba388487698872"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "nd-2026-tax-rate-bylaw",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026-04-27-council-agenda.pdf",
+        "declaredSha256": null,
+        "actualSha256": "0da335ca8390c6941a865d9b267034dce0f050080f9cfe2a574e5b23df89b222",
+        "declaredBytes": null,
+        "actualBytes": 35264383
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026-04-27-council-agenda.txt",
+        "declaredSha256": null,
+        "actualSha256": "052b03beafa173a9d5ab620e4fffd2085302d8d7701991f5f4735b7d1198de10"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "nd-2026-tax-rate-minutes",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026-04-27-council-minutes.pdf",
+        "declaredSha256": null,
+        "actualSha256": "43fffc624d05fc1aadb9f9aab1affc1fd4c320f0d6a9b8b7154337c49f50cdfd",
+        "declaredBytes": null,
+        "actualBytes": 4788808
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026-04-27-council-minutes.txt",
+        "declaredSha256": null,
+        "actualSha256": "618d58dae350a8c77796318acd2987af7d66a548002400a0f4812c6900ee4bdf"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "row-2026-book",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026_final_budget_book_region.pdf",
+        "declaredSha256": null,
+        "actualSha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
+        "declaredBytes": null,
+        "actualBytes": 5442331
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026_final_budget_book_region.txt",
+        "declaredSha256": null,
+        "actualSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "row-2026-summary",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026-plan-and-budget-summary-booklet.pdf",
+        "declaredSha256": null,
+        "actualSha256": "b0525cb619840bf9f5d9b7e3e1bbd11f48d7e09aeb8f3f41eb6df77a86f14c2a",
+        "declaredBytes": null,
+        "actualBytes": 9965151
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026-plan-and-budget-summary-booklet.txt",
+        "declaredSha256": null,
+        "actualSha256": "72e39bf3ed08ac670767dcfb42fb5e3c266735d4417e6fe458780ff7a743255b"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "statcan-2021",
+      "sourceFile": {
+        "declaredPath": null,
+        "declaredSha256": null,
+        "actualSha256": null,
+        "declaredBytes": null,
+        "actualBytes": null
+      },
+      "extractFile": {
+        "declaredPath": null,
+        "declaredSha256": null,
+        "actualSha256": null
+      },
+      "issues": [
+        "source-path-missing",
+        "extract-path-missing"
+      ],
+      "sourceReadable": false,
+      "extractReadable": false
+    },
+    {
+      "sourceId": "statcan-csd-estimates",
+      "sourceFile": {
+        "declaredPath": null,
+        "declaredSha256": null,
+        "actualSha256": null,
+        "declaredBytes": null,
+        "actualBytes": null
+      },
+      "extractFile": {
+        "declaredPath": null,
+        "declaredSha256": null,
+        "actualSha256": null
+      },
+      "issues": [
+        "source-path-missing",
+        "extract-path-missing"
+      ],
+      "sourceReadable": false,
+      "extractReadable": false
+    },
+    {
+      "sourceId": "mmah-fir-2023",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
+        "declaredSha256": null,
+        "actualSha256": "97c1e98e20e905a5e8435adb2b68238d1de7c120969df0379309e5c2ae9fd2eb",
+        "declaredBytes": null,
+        "actualBytes": 2879
+      },
+      "extractFile": {
+        "declaredPath": null,
+        "declaredSha256": null,
+        "actualSha256": null
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-path-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": false
+    }
+  ]
 }
