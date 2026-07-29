@@ -133,6 +133,40 @@ The `National rollout readiness` GitHub workflow repeats the offline national
 checks and verifies that validation did not rewrite tracked files. It does not
 download official data, publish a registry, or deploy a website.
 
+## Adding a municipality's gold receipt
+
+The honest state first: this path is partly data and partly code, and the
+data-only transcription format (`GENERALIZATION-PLAN.md` Phase 1 item 7) is not
+built yet. What exists today:
+
+**Mostly data — a lower-tier municipality inside Region of Waterloo.** Copy
+`corpus/cambridge-on/` as a worked example:
+
+1. `corpus/<slug>/pack.yaml` — the descriptor (`corpus/_template/` documents
+   the fields).
+2. `corpus/<slug>/build-inputs.yaml` — the sources you used, the RT residential
+   rate row exactly as the by-law prints it, and the published average
+   assessment. Every figure needs a source id, a page, and an excerpt the
+   citation audit can find on that page.
+3. Put the source documents under `source-pdfs/<name>/` and run
+   `python scripts/extract_pdf_text.py --pack <slug>` so extracts derive from
+   the documents rather than being typed.
+4. `python scripts/build_lower_tier_pack.py <slug>` builds the ledger and
+   receipt; `python scripts/lock_pack_sources.py <slug>` locks them.
+5. Run the gates. They are the review: `validate_pack.py <slug> --no-write`,
+   `audit_citations.py data/<dir>/evidence-ledger.json`,
+   `build_public_packs.py --check`, `extract_pdf_text.py --check`.
+
+**Still code, said plainly:** registering the pack for readers means a
+TypeScript entry in `web/src/packCatalog.ts`, and a municipality outside a
+two-tier structure this repository already models means builder work in Python.
+If that is your town, open an issue first — the maintainer would rather adapt a
+builder than have you reverse-engineer one.
+
+Two things no contribution may do: type a figure with no citable source, and
+declare a body's role from its display name. The gates refuse both, and the
+refusal messages say why.
+
 ## Who may attest, and to what
 
 Most of this project is machine-checkable: hashes match, arithmetic reconciles,

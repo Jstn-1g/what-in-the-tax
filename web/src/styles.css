@@ -938,6 +938,28 @@ button {
   margin: 0;
 }
 
+/* The footer's project links: privacy, the repository once it is public, and
+   the support link. One row, wrapping on narrow screens, styled as quiet
+   links rather than buttons - the footer states facts about the project and
+   these are two more of them. */
+.product-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.product-footer__links a {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.product-footer__links a:hover {
+  color: var(--ink);
+}
+
 /* Receipt overview */
 
 .hero {

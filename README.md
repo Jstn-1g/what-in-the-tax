@@ -184,8 +184,8 @@ entry fails loudly instead of quietly rewriting this page.
 
 <!-- generated:ledger-counts -->
 - Draft previews published: **6** Ontario packs.
-- North Dumfries ledger: **93** facts, 30 derived rows, 8 findings, 4 open gaps, 6 closed gaps.
-- Citation audit over 93 cited facts: **0** hard failures (not-found, wrong-page, bad-page-number). Binding tiers — row-bound 49, numbers-only 14, verbatim 12, normalized 11, unverifiable 6, alnum 1.
+- North Dumfries ledger: **94** facts, 30 derived rows, 8 findings, 4 open gaps, 6 closed gaps.
+- Citation audit over 94 cited facts: **0** hard failures (not-found, wrong-page, bad-page-number). Binding tiers — row-bound 49, numbers-only 15, verbatim 12, normalized 11, unverifiable 6, alnum 1.
 - Every finding carries `billImpactCad: null`. No exception exists in the policy and none is reachable in the builder.
 <!-- /generated:ledger-counts -->
 
@@ -241,7 +241,7 @@ to 35 without anyone noticing. Run the suites.
 4 open, from the ledger's own `gaps` list:
 
 - `GAP-ARENA-2026-TAX-IMPACT` — 2026 tax-bill impact of Twin Pad debt service not stated
-- `GAP-BEAVER-LINE-AMOUNT` — Beaver extraction spend not isolated as its own budget line amount
+- `GAP-BEAVER-LINE-AMOUNT` — Animal Control budget components are not itemized in the binder
 - `GAP-FLAGGED-DOLLARS-ON-BILL` — Cannot allocate 'flagged/inefficient' dollars on a household bill without an explicit rule set
 - `GAP-TWINPAD-OPERATING-DELTA` — Net operating cost change once Twin Pad opens is not established *(search trail recorded)*
 

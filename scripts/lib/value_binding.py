@@ -109,6 +109,29 @@ def unbound_values(receipt: dict, nodes: dict[str, dict]) -> list[Unbound]:
         if abs(printed - node_amount) <= TOLERANCE_CAD:
             continue
 
+        # A citation may support a sibling of amountCad rather than amountCad
+        # itself. Brant's hypothetical5000 prints a $5,000 premise while citing
+        # the derived implied assessment - and carries impliedAssessmentCad
+        # equal to that node exactly. The number the node evidences is present
+        # and checkable in the same object, so the citation is bound.
+        #
+        # The comparison scales with the node rather than using the cent
+        # tolerance flat. A flat cent swallows rate-sized nodes whole: 0.0052
+        # sits within a cent of a body's order: 0, so the first version of this
+        # fallback quietly re-bound every doubled-rate tamper the module exists
+        # to catch. The planted-defect test caught it before it shipped, which
+        # is the entire argument for planted-defect tests. Structural fields
+        # are excluded outright - their equality with an amount is never
+        # evidence of anything.
+        sibling_tolerance = min(TOLERANCE_CAD, max(abs(node_amount) * 1e-3, 1e-9))
+        if any(
+            _is_number(sibling)
+            and key not in ("amountCad", "order", "page", "fiscalYear")
+            and abs(float(sibling) - node_amount) <= sibling_tolerance
+            for key, sibling in obj.items()
+        ):
+            continue
+
         # A rate is only a rate if the artifact says so and the cited node is
         # that same rate. Inferring "this looks like a rate because the numbers
         # divide nicely" would rebuild the hole this closes.

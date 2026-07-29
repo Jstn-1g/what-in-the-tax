@@ -1,7 +1,7 @@
 {
   "audit": {
     "counts": {
-      "numbers-only": 4,
+      "numbers-only": 5,
       "row-bound": 28,
       "verbatim": 3
     },
@@ -48,6 +48,10 @@
       },
       {
         "id": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+        "tier": "numbers-only"
+      },
+      {
+        "id": "ROW-PIL-SUPP-REDUCTION-2026",
         "tier": "numbers-only"
       },
       {
@@ -390,6 +394,16 @@
         "status": "approved"
       },
       {
+        "amountCad": -78,
+        "excerpt": "Less: Payments in Lieu & Supplementary Taxes(3) ... ($78)",
+        "id": "ROW-PIL-SUPP-REDUCTION-2026",
+        "kind": "FACT",
+        "label": "Less: Payments in Lieu & Supplementary Taxes, rural household share",
+        "page": 12,
+        "sourceId": "row-2026-book",
+        "status": "approved"
+      },
+      {
         "amountCad": 900,
         "excerpt": "Police Service ... Rural $900",
         "id": "ROW-RURAL-HH-01",
@@ -652,14 +666,14 @@
         "blocks": [
           "beaver_extraction_amount"
         ],
-        "detail": "Narrative mentions external contractors for beaver extraction; no discrete dollar line extracted.",
+        "detail": "The binder states (p.20) that 'the balance of the Animal Control budget includes Pound costs as well as for traps as required by external contractors for beaver extraction', without dollar amounts for any component. No component amount is extracted, and none is published.",
         "disposition": "missing_evidence",
         "id": "GAP-BEAVER-LINE-AMOUNT",
         "kind": "GAP",
         "neededEvidence": [
-          "Invoice/contract line or GL detail"
+          "Departmental GL detail or invoice line for any Animal Control component"
         ],
-        "title": "Beaver extraction spend not isolated as its own budget line amount"
+        "title": "Animal Control budget components are not itemized in the binder"
       },
       {
         "blocks": [
@@ -982,7 +996,7 @@
               "id": "ROW-PIL-OFFSET",
               "label": "Less: Payments in Lieu & Supplementary Taxes (household share)",
               "note": "Source reduces rural household to $2,543 after PIL/supplementary taxes.",
-              "sourceFactId": "ROW-RURAL-HH-TOTAL-2026"
+              "sourceFactId": "ROW-PIL-SUPP-REDUCTION-2026"
             },
             {
               "amountCad": 2,

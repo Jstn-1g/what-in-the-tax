@@ -300,7 +300,7 @@
             "amountCad": -78,
             "classification": "region_tax_supported",
             "evidenceStatus": "FACT",
-            "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+            "sourceFactId": "ROW-PIL-SUPP-REDUCTION-2026",
             "note": "Source reduces rural household to $2,543 after PIL/supplementary taxes."
           },
           {
