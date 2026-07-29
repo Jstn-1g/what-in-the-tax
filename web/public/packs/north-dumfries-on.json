@@ -151,6 +151,22 @@
   "evidence": {
     "derived": [
       {
+        "amountCad": 10049624,
+        "formula": "CORPORATE + PROTECTIVE + PW + ENVIRONMENTAL + REC + PLANNING + CAPITAL_FUNDED_BY_LEVY",
+        "id": "DRV-ND-DEPT-SUM",
+        "inputs": [
+          "ND-DEPT-CORPORATE-2026",
+          "ND-DEPT-PROTECTIVE-2026",
+          "ND-DEPT-PW-2026",
+          "ND-DEPT-ENVIRONMENTAL-2026",
+          "ND-DEPT-REC-2026",
+          "ND-DEPT-PLANNING-2026",
+          "ND-CAPITAL-FUNDED-BY-LEVY-2026"
+        ],
+        "kind": "DERIVED",
+        "label": "Sum of township draft dept nets used for allocation base"
+      },
+      {
         "amountCad": 696.15,
         "formula": "ND-TAXRATE-RES-EDUCATION-2026-FINAL * 455000",
         "id": "DRV-ND-BILL-EDUCATION-455K",
@@ -159,6 +175,90 @@
         ],
         "kind": "DERIVED",
         "label": "Education portion of a $455,000 residential bill"
+      },
+      {
+        "amountCad": 298.54,
+        "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-CORPORATE-2026 / DRV-ND-DEPT-SUM)",
+        "id": "DRV-ALLOC-ND-DEPT-CORPORATE-2026",
+        "inputs": [
+          "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+          "ND-DEPT-CORPORATE-2026",
+          "DRV-ND-DEPT-SUM"
+        ],
+        "kind": "DERIVED",
+        "label": "Rural avg township bill share — ND-DEPT-CORPORATE-2026"
+      },
+      {
+        "amountCad": 221.95,
+        "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-PROTECTIVE-2026 / DRV-ND-DEPT-SUM)",
+        "id": "DRV-ALLOC-ND-DEPT-PROTECTIVE-2026",
+        "inputs": [
+          "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+          "ND-DEPT-PROTECTIVE-2026",
+          "DRV-ND-DEPT-SUM"
+        ],
+        "kind": "DERIVED",
+        "label": "Rural avg township bill share — ND-DEPT-PROTECTIVE-2026"
+      },
+      {
+        "amountCad": 353.66,
+        "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-PW-2026 / DRV-ND-DEPT-SUM)",
+        "id": "DRV-ALLOC-ND-DEPT-PW-2026",
+        "inputs": [
+          "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+          "ND-DEPT-PW-2026",
+          "DRV-ND-DEPT-SUM"
+        ],
+        "kind": "DERIVED",
+        "label": "Rural avg township bill share — ND-DEPT-PW-2026"
+      },
+      {
+        "amountCad": 266.59,
+        "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-REC-2026 / DRV-ND-DEPT-SUM)",
+        "id": "DRV-ALLOC-ND-DEPT-REC-2026",
+        "inputs": [
+          "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+          "ND-DEPT-REC-2026",
+          "DRV-ND-DEPT-SUM"
+        ],
+        "kind": "DERIVED",
+        "label": "Rural avg township bill share — ND-DEPT-REC-2026"
+      },
+      {
+        "amountCad": 64.44,
+        "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-PLANNING-2026 / DRV-ND-DEPT-SUM)",
+        "id": "DRV-ALLOC-ND-DEPT-PLANNING-2026",
+        "inputs": [
+          "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+          "ND-DEPT-PLANNING-2026",
+          "DRV-ND-DEPT-SUM"
+        ],
+        "kind": "DERIVED",
+        "label": "Rural avg township bill share — ND-DEPT-PLANNING-2026"
+      },
+      {
+        "amountCad": 229.48,
+        "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-CAPITAL-FUNDED-BY-LEVY-2026 / DRV-ND-DEPT-SUM)",
+        "id": "DRV-ALLOC-ND-CAPITAL-FUNDED-BY-LEVY-2026",
+        "inputs": [
+          "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+          "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+          "DRV-ND-DEPT-SUM"
+        ],
+        "kind": "DERIVED",
+        "label": "Rural avg township bill share — ND-CAPITAL-FUNDED-BY-LEVY-2026"
+      },
+      {
+        "amountCad": -0.03,
+        "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-ENVIRONMENTAL-2026 / DRV-ND-DEPT-SUM)",
+        "id": "DRV-ALLOC-ND-DEPT-ENVIRONMENTAL-2026",
+        "inputs": [
+          "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
+          "ND-DEPT-ENVIRONMENTAL-2026",
+          "DRV-ND-DEPT-SUM"
+        ],
+        "kind": "DERIVED",
+        "label": "Rural avg township bill share — ND-DEPT-ENVIRONMENTAL-2026"
       }
     ],
     "evidencePolicy": {
@@ -944,7 +1044,7 @@
               "id": "ND-DEPT-CORPORATE-2026",
               "label": "Corporate Services",
               "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
-              "sourceFactId": "ND-DEPT-CORPORATE-2026"
+              "sourceFactId": "DRV-ALLOC-ND-DEPT-CORPORATE-2026"
             },
             {
               "amountCad": 221.95,
@@ -953,7 +1053,7 @@
               "id": "ND-DEPT-PROTECTIVE-2026",
               "label": "Protective Services (incl. Fire)",
               "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
-              "sourceFactId": "ND-DEPT-PROTECTIVE-2026"
+              "sourceFactId": "DRV-ALLOC-ND-DEPT-PROTECTIVE-2026"
             },
             {
               "amountCad": 353.66,
@@ -962,7 +1062,7 @@
               "id": "ND-DEPT-PW-2026",
               "label": "Public Works",
               "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
-              "sourceFactId": "ND-DEPT-PW-2026"
+              "sourceFactId": "DRV-ALLOC-ND-DEPT-PW-2026"
             },
             {
               "amountCad": 266.59,
@@ -971,7 +1071,7 @@
               "id": "ND-DEPT-REC-2026",
               "label": "Recreation Services",
               "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
-              "sourceFactId": "ND-DEPT-REC-2026"
+              "sourceFactId": "DRV-ALLOC-ND-DEPT-REC-2026"
             },
             {
               "amountCad": 64.44,
@@ -980,7 +1080,7 @@
               "id": "ND-DEPT-PLANNING-2026",
               "label": "Planning",
               "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
-              "sourceFactId": "ND-DEPT-PLANNING-2026"
+              "sourceFactId": "DRV-ALLOC-ND-DEPT-PLANNING-2026"
             },
             {
               "amountCad": 229.48,
@@ -989,7 +1089,7 @@
               "id": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
               "label": "Capital funded by tax levy",
               "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
-              "sourceFactId": "ND-CAPITAL-FUNDED-BY-LEVY-2026"
+              "sourceFactId": "DRV-ALLOC-ND-CAPITAL-FUNDED-BY-LEVY-2026"
             },
             {
               "amountCad": -0.03,
@@ -998,7 +1098,7 @@
               "id": "ND-DEPT-ENVIRONMENTAL-2026",
               "label": "Environmental Services (net credit)",
               "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
-              "sourceFactId": "ND-DEPT-ENVIRONMENTAL-2026"
+              "sourceFactId": "DRV-ALLOC-ND-DEPT-ENVIRONMENTAL-2026"
             }
           ],
           "sourceFactId": "ND-TOWNSHIP-TAX-RURAL-AVG-2026",

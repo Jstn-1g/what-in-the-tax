@@ -4,17 +4,18 @@
     "verbatim": 12,
     "numbers-only": 14,
     "normalized": 11,
-    "row-bound": 45,
+    "row-bound": 49,
     "alnum": 1,
-    "unverifiable": 10
+    "unverifiable": 6
   },
   "bindingIssueCounts": {
-    "extract-sha256-missing": 83,
+    "extract-sha256-missing": 87,
     "source-bytes-missing": 87,
     "source-sha256-missing": 87,
     "amount-sign-mismatch": 2,
     "source-path-missing": 6,
-    "extract-path-missing": 10,
+    "extract-path-missing": 6,
+    "page-citation-missing": 4,
     "amount-not-on-cited-page": 2
   },
   "results": [
@@ -764,12 +765,13 @@
       "page": null,
       "amountCad": 1933805,
       "bindingIssues": [
-        "source-sha256-missing",
+        "extract-sha256-missing",
+        "page-citation-missing",
         "source-bytes-missing",
-        "extract-path-missing"
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'mmah-fir-2023'"
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page; no page cited; searched the whole extract"
     },
     {
       "id": "FIR-GG-WELLESLEY-2023",
@@ -777,12 +779,13 @@
       "page": null,
       "amountCad": 2104106,
       "bindingIssues": [
-        "source-sha256-missing",
+        "extract-sha256-missing",
+        "page-citation-missing",
         "source-bytes-missing",
-        "extract-path-missing"
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'mmah-fir-2023'"
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page; no page cited; searched the whole extract"
     },
     {
       "id": "FIR-GG-WILMOT-2023",
@@ -790,12 +793,13 @@
       "page": null,
       "amountCad": 4008877,
       "bindingIssues": [
-        "source-sha256-missing",
+        "extract-sha256-missing",
+        "page-citation-missing",
         "source-bytes-missing",
-        "extract-path-missing"
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'mmah-fir-2023'"
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page; no page cited; searched the whole extract"
     },
     {
       "id": "FIR-GG-WOOLWICH-2023",
@@ -803,12 +807,13 @@
       "page": null,
       "amountCad": 4153213,
       "bindingIssues": [
-        "source-sha256-missing",
+        "extract-sha256-missing",
+        "page-citation-missing",
         "source-bytes-missing",
-        "extract-path-missing"
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'mmah-fir-2023'"
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page; no page cited; searched the whole extract"
     },
     {
       "id": "STATCAN-POP-WELLESLEY-2023",
@@ -1433,17 +1438,17 @@
         "actualBytes": 2879
       },
       "extractFile": {
-        "declaredPath": null,
+        "declaredPath": "data/_extracts/fir/fir-general-government-peers-2023-2024.txt",
         "declaredSha256": null,
-        "actualSha256": null
+        "actualSha256": "96296c54b223bd9a85f4dc55b7474a9ccbcd8460f4f2f0e6f9d29bbd0dea50aa"
       },
       "issues": [
         "source-sha256-missing",
         "source-bytes-missing",
-        "extract-path-missing"
+        "extract-sha256-missing"
       ],
       "sourceReadable": true,
-      "extractReadable": false
+      "extractReadable": true
     }
   ]
 }
