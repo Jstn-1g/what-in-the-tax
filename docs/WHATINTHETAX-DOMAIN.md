@@ -34,8 +34,7 @@ This is a release blocker, not a DNS problem, and it must be resolved before the
 domain is attached.
 
 - Cloudflare Workers Builds deploys from the production branch recorded in
-  `docs/DEPLOY.md` (`cursor/north-dumfries-taxpayer-receipt`, also the GitHub
-  default branch).
+  `docs/DEPLOY.md` (`main`, also the GitHub default branch).
 - Current development is on `codex/canada-rollout-hardening`, which is ahead of
   that branch and additionally carries a large uncommitted working tree.
 - Attaching the domain in this state points the public brand hostname at a build

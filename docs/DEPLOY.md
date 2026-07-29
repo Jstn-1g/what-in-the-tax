@@ -69,8 +69,13 @@ indexing controls, and Vite copies it to `web/dist` during a build.
 The connected Workers Builds path is the normal release mechanism and does not
 require a local Cloudflare credential:
 
-- GitHub/default and Cloudflare production branch:
-  `cursor/north-dumfries-taxpayer-receipt`;
+- GitHub/default and Cloudflare production branch: `main`;
+  <!-- Renamed from cursor/north-dumfries-taxpayer-receipt on 2026-07-29. GitHub
+       redirects git operations and moved open pull requests, but Cloudflare
+       stores this branch name in its own Workers Builds settings and does not
+       follow a rename. If production stops deploying after a rename, that
+       setting is the first thing to check. -->
+
 - production command: `npx wrangler deploy`;
 - non-production command: `npx wrangler versions upload`;
 - non-production branch builds stay enabled as preview versions only.
