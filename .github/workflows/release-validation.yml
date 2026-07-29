@@ -207,8 +207,25 @@ jobs:
 
           # Publication-grade draft candidates must meet their strict evidence
           # contracts even before a human publication approval is supplied.
-          python scripts/validate_pack.py brant-county-on --strict --no-write
-          python scripts/validate_pack.py region-of-waterloo-on --strict --no-write
+          # Which packs those are is declared by each pack (validationMode:
+          # strict in its pack.yaml), not maintained here: this list and the
+          # release plan were two hand-kept lists and had already diverged -
+          # CI strict-validated a pack that does not ship and shipped five that
+          # were never strict-validated. A declaration cannot diverge from
+          # itself. The count check keeps the gate honest: a strict list that
+          # silently empties is a gate that guards nothing.
+          strict_count=0
+          for pack in corpus/*/pack.yaml; do
+            [[ -f "$pack" ]] || continue
+            slug="${pack#corpus/}"
+            slug="${slug%/pack.yaml}"
+            [[ "$slug" == _* ]] && continue
+            if python -c "import sys, yaml; sys.exit(0 if yaml.safe_load(open('$pack', encoding='utf-8')).get('validationMode') == 'strict' else 1)"; then
+              python scripts/validate_pack.py "$slug" --strict --no-write
+              ((strict_count += 1))
+            fi
+          done
+          ((strict_count > 0))
 
       - name: Confirm validation did not alter tracked content
         shell: bash

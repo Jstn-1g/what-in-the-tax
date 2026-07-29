@@ -895,7 +895,7 @@ derived_rows = [
         id="DRV-ND-DEPT-SUM",
         label="Sum of township draft dept nets used for allocation base",
         amountCad=dept_sum,
-        formula="CORPORATE + PROTECTIVE + PW + ENVIRONMENTAL + REC + PLANNING + CAPITAL_FUNDED_BY_LEVY",
+        formula=" + ".join(dept_ids),
         inputs=dept_ids,
         note="Ties to the p.7 summary schedule. NOT the $9,002,499 municipal levy: the base is funded by taxation ($9,182,824) plus non-tax corporate revenues ($866,800).",
     ),
@@ -951,7 +951,7 @@ derived_rows = [
         id="DRV-ND-BILL-COMBINED-455K",
         label="Total 2026 residential bill at $455,000 (rural)",
         amountCad=BILL_COMBINED,
-        formula="(township + region + education rates) * 455000",
+        formula="DRV-ND-BILL-TOWNSHIP-455K + DRV-ND-BILL-REGION-455K + DRV-ND-BILL-EDUCATION-455K",
         inputs=["DRV-ND-BILL-TOWNSHIP-455K", "DRV-ND-BILL-REGION-455K", "DRV-ND-BILL-EDUCATION-455K", "ND-TAXRATE-RES-TOTAL-2026-FINAL"],
         note="Cross-checked against the printed Total 2026 Rate column applied to the same assessment.",
     ),
@@ -1007,7 +1007,7 @@ derived_rows.append(
         id="DRV-ND-LEGAL-STACK-2026",
         label="Sum of identified 2026 draft legal expense lines",
         amountCad=legal_sum,
-        formula="ADMIN + TAX_SALE + BUILDING + BYLAW + PLANNING legal lines",
+        formula=" + ".join(legal_ids),
         inputs=legal_ids,
     )
 )
@@ -1097,7 +1097,7 @@ derived_rows.append(
         id="DRV-FIR-GG-PEER-MEAN-PCAP-2023",
         label="Mean FIR 2023 General government $/capita — Wellesley/Wilmot/Woolwich",
         amountCad=_peer_mean,
-        formula="mean(DRV-FIR-GG-PCAP-WELLESLEY-2023, WILMOT, WOOLWICH)",
+        formula="(DRV-FIR-GG-PCAP-WELLESLEY-2023 + DRV-FIR-GG-PCAP-WILMOT-2023 + DRV-FIR-GG-PCAP-WOOLWICH-2023) / 3",
         inputs=[
             "DRV-FIR-GG-PCAP-WELLESLEY-2023",
             "DRV-FIR-GG-PCAP-WILMOT-2023",

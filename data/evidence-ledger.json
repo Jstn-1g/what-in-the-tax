@@ -1205,7 +1205,7 @@
       "id": "DRV-ND-DEPT-SUM",
       "label": "Sum of township draft dept nets used for allocation base",
       "amountCad": 10049624,
-      "formula": "CORPORATE + PROTECTIVE + PW + ENVIRONMENTAL + REC + PLANNING + CAPITAL_FUNDED_BY_LEVY",
+      "formula": "ND-DEPT-CORPORATE-2026 + ND-DEPT-PROTECTIVE-2026 + ND-DEPT-PW-2026 + ND-DEPT-ENVIRONMENTAL-2026 + ND-DEPT-REC-2026 + ND-DEPT-PLANNING-2026 + ND-CAPITAL-FUNDED-BY-LEVY-2026",
       "inputs": [
         "ND-DEPT-CORPORATE-2026",
         "ND-DEPT-PROTECTIVE-2026",
@@ -1293,7 +1293,7 @@
       "id": "DRV-ND-BILL-COMBINED-455K",
       "label": "Total 2026 residential bill at $455,000 (rural)",
       "amountCad": 5395.61,
-      "formula": "(township + region + education rates) * 455000",
+      "formula": "DRV-ND-BILL-TOWNSHIP-455K + DRV-ND-BILL-REGION-455K + DRV-ND-BILL-EDUCATION-455K",
       "inputs": [
         "DRV-ND-BILL-TOWNSHIP-455K",
         "DRV-ND-BILL-REGION-455K",
@@ -1421,7 +1421,7 @@
       "id": "DRV-ND-LEGAL-STACK-2026",
       "label": "Sum of identified 2026 draft legal expense lines",
       "amountCad": 94000,
-      "formula": "ADMIN + TAX_SALE + BUILDING + BYLAW + PLANNING legal lines",
+      "formula": "ND-LEGAL-ADMIN-2026 + ND-LEGAL-TAX-SALE-2026 + ND-LEGAL-BUILDING-2026 + ND-LEGAL-BYLAW-2026 + ND-LEGAL-PLANNING-2026",
       "inputs": [
         "ND-LEGAL-ADMIN-2026",
         "ND-LEGAL-TAX-SALE-2026",
@@ -1547,7 +1547,7 @@
       "id": "DRV-FIR-GG-PEER-MEAN-PCAP-2023",
       "label": "Mean FIR 2023 General government $/capita \u2014 Wellesley/Wilmot/Woolwich",
       "amountCad": 159.52,
-      "formula": "mean(DRV-FIR-GG-PCAP-WELLESLEY-2023, WILMOT, WOOLWICH)",
+      "formula": "(DRV-FIR-GG-PCAP-WELLESLEY-2023 + DRV-FIR-GG-PCAP-WILMOT-2023 + DRV-FIR-GG-PCAP-WOOLWICH-2023) / 3",
       "inputs": [
         "DRV-FIR-GG-PCAP-WELLESLEY-2023",
         "DRV-FIR-GG-PCAP-WILMOT-2023",
