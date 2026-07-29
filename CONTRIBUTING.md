@@ -133,6 +133,40 @@ The `National rollout readiness` GitHub workflow repeats the offline national
 checks and verifies that validation did not rewrite tracked files. It does not
 download official data, publish a registry, or deploy a website.
 
+## Who may attest, and to what
+
+Most of this project is machine-checkable: hashes match, arithmetic reconciles,
+the cited page contains the value, the artifact reproduces byte for byte. Those
+checks scale to every municipality in the country for free, and a contribution
+either passes them or does not.
+
+A few claims are not like that. They are assertions that **a named person read
+the source and stands behind it**, and no amount of hashing produces one:
+
+| claim | where it lives |
+|---|---|
+| this official source is what it says it is | `reviewStatus` / `reviewedAt` / `reviewedBy` in a source lock |
+| this pack may be published | `publicationApproval` |
+| this interface meets WCAG 2.1 AA | the conformance statement |
+
+Rules:
+
+1. **Never write one of these on someone else's behalf**, and never as an
+   automated step. If a change is blocked on an attestation, say so and stop.
+   An attestation nobody signed is indistinguishable from an invented one, and
+   the project's entire value is that it is not inventing them.
+2. **A source review names its reviewer.** Any lock reviewed on or after
+   2026-07-29 must carry `"reviewedBy": "<name>"`;
+   `scripts/acquire_official_sources.py` refuses to load one that does not.
+   Four locks predate that policy and are grandfathered as unattributed rather
+   than backfilled — inventing a name for a review that happened before anyone
+   was asked to sign it is the failure the field exists to prevent.
+3. **Attribution is a person, not a tool.** "CI", "automation", or a bot account
+   is not a reviewer.
+
+If you are extending this project to another province, this is the part that
+does not come with you for free. Everything else is a script.
+
 ## Adapter and source expectations
 
 A province/territory adapter pull request should include:
