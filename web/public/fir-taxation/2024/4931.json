@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4931",
+  "slug": "mcdougall-on",
+  "name": "McDougall Tp",
+  "tier": "ST",
+  "sgcCode": "49031",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 797766500.0,
+    "totalTaxesCad": 6392783.0,
+    "municipalLowerOrSingleTierCad": 5172200.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 1220583.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.809069,
+      "municipalUpperTier": 0.0,
+      "education": 0.190931
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 797766500.0,
+      "taxableAssessmentWeightedDiscountedCad": 797766500.0,
+      "totalTaxesCad": 6392783.0,
+      "municipalLowerOrSingleTierCad": 5172200.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1220583.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 1194800.0,
+      "taxableAssessmentWeightedDiscountedCad": 298700.0,
+      "totalTaxesCad": 2394.0,
+      "municipalLowerOrSingleTierCad": 1937.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 457.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 4907100.0,
+      "taxableAssessmentWeightedDiscountedCad": 1226775.0,
+      "totalTaxesCad": 9831.0,
+      "municipalLowerOrSingleTierCad": 7954.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1877.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 6919400.0,
+      "taxableAssessmentWeightedDiscountedCad": 9611277.96,
+      "totalTaxesCad": 115241.0,
+      "municipalLowerOrSingleTierCad": 62313.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 52928.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 1626900.0,
+      "taxableAssessmentWeightedDiscountedCad": 3855653.79,
+      "totalTaxesCad": 39615.0,
+      "municipalLowerOrSingleTierCad": 24997.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 14618.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

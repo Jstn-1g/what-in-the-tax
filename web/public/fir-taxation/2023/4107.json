@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4107",
+  "slug": "huron-kinloss-on",
+  "name": "Huron-Kinloss Tp",
+  "tier": "LT",
+  "sgcCode": "41015",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 1219421450.0,
+    "totalTaxesCad": 16066359.0,
+    "municipalLowerOrSingleTierCad": 8436009.0,
+    "municipalUpperTierCad": 5764638.0,
+    "educationCad": 1865712.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.525073,
+      "municipalUpperTier": 0.358802,
+      "education": 0.116125
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 1219421450.0,
+      "taxableAssessmentWeightedDiscountedCad": 1219420050.0,
+      "totalTaxesCad": 16066359.0,
+      "municipalLowerOrSingleTierCad": 8436009.0,
+      "municipalUpperTierCad": 5764638.0,
+      "educationCad": 1865712.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 7600000.0,
+      "taxableAssessmentWeightedDiscountedCad": 7600000.0,
+      "totalTaxesCad": 100133.0,
+      "municipalLowerOrSingleTierCad": 52577.0,
+      "municipalUpperTierCad": 35928.0,
+      "educationCad": 11628.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 720633246.0,
+      "taxableAssessmentWeightedDiscountedCad": 180158311.5,
+      "totalTaxesCad": 2373657.0,
+      "municipalLowerOrSingleTierCad": 1246342.0,
+      "municipalUpperTierCad": 851673.0,
+      "educationCad": 275642.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 3374500.0,
+      "taxableAssessmentWeightedDiscountedCad": 843625.0,
+      "totalTaxesCad": 11115.0,
+      "municipalLowerOrSingleTierCad": 5836.0,
+      "municipalUpperTierCad": 3988.0,
+      "educationCad": 1291.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 30806704.0,
+      "taxableAssessmentWeightedDiscountedCad": 37987746.7,
+      "totalTaxesCad": 713483.0,
+      "municipalLowerOrSingleTierCad": 262801.0,
+      "municipalUpperTierCad": 179583.0,
+      "educationCad": 271099.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 8483800.0,
+      "taxableAssessmentWeightedDiscountedCad": 14827137.26,
+      "totalTaxesCad": 247647.0,
+      "municipalLowerOrSingleTierCad": 102575.0,
+      "municipalUpperTierCad": 70093.0,
+      "educationCad": 74979.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

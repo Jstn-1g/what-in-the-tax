@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "1201",
+  "slug": "tyendinaga-on",
+  "name": "Tyendinaga Tp",
+  "tier": "LT",
+  "sgcCode": "12001",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 411987120.0,
+    "totalTaxesCad": 5196171.0,
+    "municipalLowerOrSingleTierCad": 3248453.0,
+    "municipalUpperTierCad": 1317378.0,
+    "educationCad": 630340.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.625163,
+      "municipalUpperTier": 0.253529,
+      "education": 0.121309
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 411987120.0,
+      "taxableAssessmentWeightedDiscountedCad": 411987120.0,
+      "totalTaxesCad": 5196171.0,
+      "municipalLowerOrSingleTierCad": 3248453.0,
+      "municipalUpperTierCad": 1317378.0,
+      "educationCad": 630340.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 69240080.0,
+      "taxableAssessmentWeightedDiscountedCad": 17310020.0,
+      "totalTaxesCad": 217980.0,
+      "municipalLowerOrSingleTierCad": 136145.0,
+      "municipalUpperTierCad": 55351.0,
+      "educationCad": 26484.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 2328900.0,
+      "taxableAssessmentWeightedDiscountedCad": 582225.0,
+      "totalTaxesCad": 7332.0,
+      "municipalLowerOrSingleTierCad": 4579.0,
+      "municipalUpperTierCad": 1862.0,
+      "educationCad": 891.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 11318700.0,
+      "taxableAssessmentWeightedDiscountedCad": 12450570.0,
+      "totalTaxesCad": 237359.0,
+      "municipalLowerOrSingleTierCad": 97943.0,
+      "municipalUpperTierCad": 39812.0,
+      "educationCad": 99604.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 1398200.0,
+      "taxableAssessmentWeightedDiscountedCad": 1538020.0,
+      "totalTaxesCad": 29331.0,
+      "municipalLowerOrSingleTierCad": 12097.0,
+      "municipalUpperTierCad": 4917.0,
+      "educationCad": 12317.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 15838000.0,
+      "taxableAssessmentWeightedDiscountedCad": 13017252.2,
+      "totalTaxesCad": 283381.0,
+      "municipalLowerOrSingleTierCad": 102383.0,
+      "municipalUpperTierCad": 41624.0,
+      "educationCad": 139374.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

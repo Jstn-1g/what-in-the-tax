@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5648",
+  "slug": "smooth-rock-falls-on",
+  "name": "Smooth Rock Falls T",
+  "tier": "ST",
+  "sgcCode": "56048",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 44946400.0,
+    "totalTaxesCad": 1217114.0,
+    "municipalLowerOrSingleTierCad": 1148346.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 68768.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.943499,
+      "municipalUpperTier": 0.0,
+      "education": 0.056501
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 44946400.0,
+      "taxableAssessmentWeightedDiscountedCad": 44946400.0,
+      "totalTaxesCad": 1217114.0,
+      "municipalLowerOrSingleTierCad": 1148346.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 68768.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 1214000.0,
+      "taxableAssessmentWeightedDiscountedCad": 2268916.23,
+      "totalTaxesCad": 59826.0,
+      "municipalLowerOrSingleTierCad": 57969.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1857.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 110700.0,
+      "taxableAssessmentWeightedDiscountedCad": 27675.0,
+      "totalTaxesCad": 749.0,
+      "municipalLowerOrSingleTierCad": 707.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 42.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 19142900.0,
+      "taxableAssessmentWeightedDiscountedCad": 35028571.22,
+      "totalTaxesCad": 1063411.0,
+      "municipalLowerOrSingleTierCad": 894953.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 168458.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 288200.0,
+      "taxableAssessmentWeightedDiscountedCad": 142344.0,
+      "totalTaxesCad": 6185.0,
+      "municipalLowerOrSingleTierCad": 3636.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 2549.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 29503000.0,
+      "taxableAssessmentWeightedDiscountedCad": 34837702.96,
+      "totalTaxesCad": 1149703.0,
+      "municipalLowerOrSingleTierCad": 890077.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 259626.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

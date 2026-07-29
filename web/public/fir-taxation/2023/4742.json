@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4742",
+  "slug": "admaston-bromley-on",
+  "name": "Admaston-Bromley Tp",
+  "tier": "LT",
+  "sgcCode": "47043",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 281317500.0,
+    "totalTaxesCad": 3621364.0,
+    "municipalLowerOrSingleTierCad": 2089587.0,
+    "municipalUpperTierCad": 1101361.0,
+    "educationCad": 430416.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.577017,
+      "municipalUpperTier": 0.304129,
+      "education": 0.118855
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 281317500.0,
+      "taxableAssessmentWeightedDiscountedCad": 281317500.0,
+      "totalTaxesCad": 3621364.0,
+      "municipalLowerOrSingleTierCad": 2089587.0,
+      "municipalUpperTierCad": 1101361.0,
+      "educationCad": 430416.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 154590100.0,
+      "taxableAssessmentWeightedDiscountedCad": 38647525.0,
+      "totalTaxesCad": 497504.0,
+      "municipalLowerOrSingleTierCad": 287068.0,
+      "municipalUpperTierCad": 151305.0,
+      "educationCad": 59131.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 2592600.0,
+      "taxableAssessmentWeightedDiscountedCad": 648150.0,
+      "totalTaxesCad": 8344.0,
+      "municipalLowerOrSingleTierCad": 4814.0,
+      "municipalUpperTierCad": 2538.0,
+      "educationCad": 992.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 4374900.0,
+      "taxableAssessmentWeightedDiscountedCad": 7939131.03,
+      "totalTaxesCad": 128173.0,
+      "municipalLowerOrSingleTierCad": 58971.0,
+      "municipalUpperTierCad": 31082.0,
+      "educationCad": 38120.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 797400.0,
+      "taxableAssessmentWeightedDiscountedCad": 1967109.25,
+      "totalTaxesCad": 29331.0,
+      "municipalLowerOrSingleTierCad": 14612.0,
+      "municipalUpperTierCad": 7702.0,
+      "educationCad": 7017.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 28600000.0,
+      "taxableAssessmentWeightedDiscountedCad": 38118080.0,
+      "totalTaxesCad": 684049.0,
+      "municipalLowerOrSingleTierCad": 283136.0,
+      "municipalUpperTierCad": 149233.0,
+      "educationCad": 251680.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

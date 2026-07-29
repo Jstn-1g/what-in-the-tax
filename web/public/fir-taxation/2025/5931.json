@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5931",
+  "slug": "morley-on",
+  "name": "Morley Tp",
+  "tier": "ST",
+  "sgcCode": "59031",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 36742700.0,
+    "totalTaxesCad": 518473.0,
+    "municipalLowerOrSingleTierCad": 462257.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 56216.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.891574,
+      "municipalUpperTier": 0.0,
+      "education": 0.108426
+    },
+    "educationRate": 0.00152999
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 36742700.0,
+      "taxableAssessmentWeightedDiscountedCad": 36742700.0,
+      "totalTaxesCad": 518473.0,
+      "municipalLowerOrSingleTierCad": 462257.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 56216.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 162000.0,
+      "taxableAssessmentWeightedDiscountedCad": 145800.0,
+      "totalTaxesCad": 2092.0,
+      "municipalLowerOrSingleTierCad": 1844.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 248.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 12765000.0,
+      "taxableAssessmentWeightedDiscountedCad": 3191250.0,
+      "totalTaxesCad": 45032.0,
+      "municipalLowerOrSingleTierCad": 40149.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 4883.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 2597500.0,
+      "taxableAssessmentWeightedDiscountedCad": 4523406.14,
+      "totalTaxesCad": 79767.0,
+      "municipalLowerOrSingleTierCad": 56909.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 22858.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 368100.0,
+      "taxableAssessmentWeightedDiscountedCad": 404910.0,
+      "totalTaxesCad": 8333.0,
+      "municipalLowerOrSingleTierCad": 5094.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 3239.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 1291000.0,
+      "taxableAssessmentWeightedDiscountedCad": 10141192.3,
+      "totalTaxesCad": 138947.0,
+      "municipalLowerOrSingleTierCad": 127586.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 11361.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

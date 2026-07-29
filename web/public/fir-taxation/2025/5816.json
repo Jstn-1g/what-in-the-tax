@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5816",
+  "slug": "oconnor-on",
+  "name": "O'Connor Tp",
+  "tier": "ST",
+  "sgcCode": "58016",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 78621977.0,
+    "totalTaxesCad": 1196797.0,
+    "municipalLowerOrSingleTierCad": 1076505.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 120292.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.899488,
+      "municipalUpperTier": 0.0,
+      "education": 0.100512
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 78621977.0,
+      "taxableAssessmentWeightedDiscountedCad": 78621977.0,
+      "totalTaxesCad": 1196797.0,
+      "municipalLowerOrSingleTierCad": 1076505.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 120292.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 2679000.0,
+      "taxableAssessmentWeightedDiscountedCad": 669750.0,
+      "totalTaxesCad": 10195.0,
+      "municipalLowerOrSingleTierCad": 9170.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1025.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 758400.0,
+      "taxableAssessmentWeightedDiscountedCad": 189600.0,
+      "totalTaxesCad": 2886.0,
+      "municipalLowerOrSingleTierCad": 2596.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 290.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 470100.0,
+      "taxableAssessmentWeightedDiscountedCad": 522704.19,
+      "totalTaxesCad": 11242.0,
+      "municipalLowerOrSingleTierCad": 7157.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 4085.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 335700.0,
+      "taxableAssessmentWeightedDiscountedCad": 344091.0,
+      "totalTaxesCad": 7666.0,
+      "municipalLowerOrSingleTierCad": 4711.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 2955.0
+    },
+    {
+      "code": "0705",
+      "label": "Landfill",
+      "taxableAssessmentCvaCad": 17400.0,
+      "taxableAssessmentWeightedDiscountedCad": 19347.06,
+      "totalTaxesCad": 265.0,
+      "municipalLowerOrSingleTierCad": 265.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 0.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "2219",
+  "slug": "melancthon-on",
+  "name": "Melancthon Tp",
+  "tier": "LT",
+  "sgcCode": "22019",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 457031200.0,
+    "totalTaxesCad": 5121962.0,
+    "municipalLowerOrSingleTierCad": 2510024.0,
+    "municipalUpperTierCad": 1912680.0,
+    "educationCad": 699258.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.490051,
+      "municipalUpperTier": 0.373427,
+      "education": 0.136522
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 457031200.0,
+      "taxableAssessmentWeightedDiscountedCad": 457031200.0,
+      "totalTaxesCad": 5121962.0,
+      "municipalLowerOrSingleTierCad": 2510024.0,
+      "municipalUpperTierCad": 1912680.0,
+      "educationCad": 699258.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 258894126.0,
+      "taxableAssessmentWeightedDiscountedCad": 56956707.72,
+      "totalTaxesCad": 650197.0,
+      "municipalLowerOrSingleTierCad": 312806.0,
+      "municipalUpperTierCad": 238364.0,
+      "educationCad": 99027.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 2779000.0,
+      "taxableAssessmentWeightedDiscountedCad": 694750.0,
+      "totalTaxesCad": 7787.0,
+      "municipalLowerOrSingleTierCad": 3816.0,
+      "municipalUpperTierCad": 2908.0,
+      "educationCad": 1063.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 12076600.0,
+      "taxableAssessmentWeightedDiscountedCad": 14733452.0,
+      "totalTaxesCad": 248851.0,
+      "municipalLowerOrSingleTierCad": 80917.0,
+      "municipalUpperTierCad": 61660.0,
+      "educationCad": 106274.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 44634200.0,
+      "taxableAssessmentWeightedDiscountedCad": 98123825.28,
+      "totalTaxesCad": 1342762.0,
+      "municipalLowerOrSingleTierCad": 538898.0,
+      "municipalUpperTierCad": 410649.0,
+      "educationCad": 393215.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 1948000.0,
+      "taxableAssessmentWeightedDiscountedCad": 1640410.8,
+      "totalTaxesCad": 32549.0,
+      "municipalLowerOrSingleTierCad": 9009.0,
+      "municipalUpperTierCad": 6865.0,
+      "educationCad": 16675.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

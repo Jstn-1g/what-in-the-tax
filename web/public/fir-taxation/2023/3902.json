@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "3902",
+  "slug": "newbury-v-on",
+  "name": "Newbury V",
+  "tier": "LT",
+  "sgcCode": "39002",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 27329900.0,
+    "totalTaxesCad": 427372.0,
+    "municipalLowerOrSingleTierCad": 267698.0,
+    "municipalUpperTierCad": 117859.0,
+    "educationCad": 41815.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.626382,
+      "municipalUpperTier": 0.275776,
+      "education": 0.097842
+    },
+    "educationRate": 0.00153001
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 27329900.0,
+      "taxableAssessmentWeightedDiscountedCad": 27329900.0,
+      "totalTaxesCad": 427372.0,
+      "municipalLowerOrSingleTierCad": 267698.0,
+      "municipalUpperTierCad": 117859.0,
+      "educationCad": 41815.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 1583000.0,
+      "taxableAssessmentWeightedDiscountedCad": 2801435.1,
+      "totalTaxesCad": 41943.0,
+      "municipalLowerOrSingleTierCad": 27440.0,
+      "municipalUpperTierCad": 12081.0,
+      "educationCad": 2422.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 2557700.0,
+      "taxableAssessmentWeightedDiscountedCad": 639425.0,
+      "totalTaxesCad": 9998.0,
+      "municipalLowerOrSingleTierCad": 6263.0,
+      "municipalUpperTierCad": 2757.0,
+      "educationCad": 978.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 4140300.0,
+      "taxableAssessmentWeightedDiscountedCad": 4657521.89,
+      "totalTaxesCad": 102140.0,
+      "municipalLowerOrSingleTierCad": 45620.0,
+      "municipalUpperTierCad": 20085.0,
+      "educationCad": 36435.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 59400.0,
+      "taxableAssessmentWeightedDiscountedCad": 103658.94,
+      "totalTaxesCad": 1985.0,
+      "municipalLowerOrSingleTierCad": 1015.0,
+      "municipalUpperTierCad": 447.0,
+      "educationCad": 523.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 170000.0,
+      "taxableAssessmentWeightedDiscountedCad": 179435.0,
+      "totalTaxesCad": 4028.0,
+      "municipalLowerOrSingleTierCad": 1758.0,
+      "municipalUpperTierCad": 774.0,
+      "educationCad": 1496.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

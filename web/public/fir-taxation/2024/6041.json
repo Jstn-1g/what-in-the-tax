@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "6041",
+  "slug": "red-lake-m-on",
+  "name": "Red Lake M",
+  "tier": "ST",
+  "sgcCode": "60042",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 400092363.0,
+    "totalTaxesCad": 6718831.0,
+    "municipalLowerOrSingleTierCad": 6106690.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 612141.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.908892,
+      "municipalUpperTier": 0.0,
+      "education": 0.091108
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 400092363.0,
+      "taxableAssessmentWeightedDiscountedCad": 400092363.0,
+      "totalTaxesCad": 6718831.0,
+      "municipalLowerOrSingleTierCad": 6106690.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 612141.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 9145500.0,
+      "taxableAssessmentWeightedDiscountedCad": 12745218.54,
+      "totalTaxesCad": 208526.0,
+      "municipalLowerOrSingleTierCad": 194533.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 13993.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 59535237.0,
+      "taxableAssessmentWeightedDiscountedCad": 117879769.26,
+      "totalTaxesCad": 2323132.0,
+      "municipalLowerOrSingleTierCad": 1799222.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 523910.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 11242180.0,
+      "taxableAssessmentWeightedDiscountedCad": 38650963.35,
+      "totalTaxesCad": 633149.0,
+      "municipalLowerOrSingleTierCad": 539102.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 94047.0
+    },
+    {
+      "code": "0610",
+      "label": "Large industrial",
+      "taxableAssessmentCvaCad": 27859400.0,
+      "taxableAssessmentWeightedDiscountedCad": 95781480.84,
+      "totalTaxesCad": 1709167.0,
+      "municipalLowerOrSingleTierCad": 1458485.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 250682.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 5426000.0,
+      "taxableAssessmentWeightedDiscountedCad": 3798200.0,
+      "totalTaxesCad": 105722.0,
+      "municipalLowerOrSingleTierCad": 57973.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 47749.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

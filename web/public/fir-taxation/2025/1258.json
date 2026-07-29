@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "1258",
+  "slug": "faraday-on",
+  "name": "Faraday Tp",
+  "tier": "LT",
+  "sgcCode": "12058",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 347035100.0,
+    "totalTaxesCad": 4634088.0,
+    "municipalLowerOrSingleTierCad": 2880391.0,
+    "municipalUpperTierCad": 1222733.0,
+    "educationCad": 530964.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.621566,
+      "municipalUpperTier": 0.263856,
+      "education": 0.114578
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 347035100.0,
+      "taxableAssessmentWeightedDiscountedCad": 347035100.0,
+      "totalTaxesCad": 4634088.0,
+      "municipalLowerOrSingleTierCad": 2880391.0,
+      "municipalUpperTierCad": 1222733.0,
+      "educationCad": 530964.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 459500.0,
+      "taxableAssessmentWeightedDiscountedCad": 114875.0,
+      "totalTaxesCad": 1534.0,
+      "municipalLowerOrSingleTierCad": 953.0,
+      "municipalUpperTierCad": 405.0,
+      "educationCad": 176.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 10200400.0,
+      "taxableAssessmentWeightedDiscountedCad": 2550100.0,
+      "totalTaxesCad": 34053.0,
+      "municipalLowerOrSingleTierCad": 21166.0,
+      "municipalUpperTierCad": 8985.0,
+      "educationCad": 3902.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 7304300.0,
+      "taxableAssessmentWeightedDiscountedCad": 7959556.0,
+      "totalTaxesCad": 158672.0,
+      "municipalLowerOrSingleTierCad": 66086.0,
+      "municipalUpperTierCad": 28308.0,
+      "educationCad": 64278.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 1963700.0,
+      "taxableAssessmentWeightedDiscountedCad": 2061125.0,
+      "totalTaxesCad": 42030.0,
+      "municipalLowerOrSingleTierCad": 17137.0,
+      "municipalUpperTierCad": 7612.0,
+      "educationCad": 17281.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

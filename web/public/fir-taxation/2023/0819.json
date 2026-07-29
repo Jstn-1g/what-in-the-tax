@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "0819",
+  "slug": "athens-on",
+  "name": "Athens Tp",
+  "tier": "LT",
+  "sgcCode": "7042",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 308581759.0,
+    "totalTaxesCad": 3211828.0,
+    "municipalLowerOrSingleTierCad": 1492117.0,
+    "municipalUpperTierCad": 1247581.0,
+    "educationCad": 472130.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.464569,
+      "municipalUpperTier": 0.388433,
+      "education": 0.146997
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 308581759.0,
+      "taxableAssessmentWeightedDiscountedCad": 308581759.0,
+      "totalTaxesCad": 3211828.0,
+      "municipalLowerOrSingleTierCad": 1492117.0,
+      "municipalUpperTierCad": 1247581.0,
+      "educationCad": 472130.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 1049000.0,
+      "taxableAssessmentWeightedDiscountedCad": 1049000.0,
+      "totalTaxesCad": 12151.0,
+      "municipalLowerOrSingleTierCad": 6305.0,
+      "municipalUpperTierCad": 4241.0,
+      "educationCad": 1605.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 17427100.0,
+      "taxableAssessmentWeightedDiscountedCad": 4356775.0,
+      "totalTaxesCad": 44128.0,
+      "municipalLowerOrSingleTierCad": 19848.0,
+      "municipalUpperTierCad": 17614.0,
+      "educationCad": 6666.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 738700.0,
+      "taxableAssessmentWeightedDiscountedCad": 184675.0,
+      "totalTaxesCad": 1866.0,
+      "municipalLowerOrSingleTierCad": 836.0,
+      "municipalUpperTierCad": 747.0,
+      "educationCad": 283.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 8368641.0,
+      "taxableAssessmentWeightedDiscountedCad": 11224732.42,
+      "totalTaxesCad": 178844.0,
+      "municipalLowerOrSingleTierCad": 59821.0,
+      "municipalUpperTierCad": 45380.0,
+      "educationCad": 73643.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 587900.0,
+      "taxableAssessmentWeightedDiscountedCad": 1047804.33,
+      "totalTaxesCad": 14007.0,
+      "municipalLowerOrSingleTierCad": 4642.0,
+      "municipalUpperTierCad": 4144.0,
+      "educationCad": 5221.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 609000.0,
+      "taxableAssessmentWeightedDiscountedCad": 1007955.9,
+      "totalTaxesCad": 13999.0,
+      "municipalLowerOrSingleTierCad": 4565.0,
+      "municipalUpperTierCad": 4075.0,
+      "educationCad": 5359.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

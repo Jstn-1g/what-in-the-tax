@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4769",
+  "slug": "north-algona-wilberforce-on",
+  "name": "North Algona-Wilberforce Tp",
+  "tier": "LT",
+  "sgcCode": "47070",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 459553601.0,
+    "totalTaxesCad": 5935980.0,
+    "municipalLowerOrSingleTierCad": 3337825.0,
+    "municipalUpperTierCad": 1895038.0,
+    "educationCad": 703117.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.562304,
+      "municipalUpperTier": 0.319246,
+      "education": 0.11845
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 459553601.0,
+      "taxableAssessmentWeightedDiscountedCad": 459553601.0,
+      "totalTaxesCad": 5935980.0,
+      "municipalLowerOrSingleTierCad": 3337825.0,
+      "municipalUpperTierCad": 1895038.0,
+      "educationCad": 703117.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 32734500.0,
+      "taxableAssessmentWeightedDiscountedCad": 8183625.0,
+      "totalTaxesCad": 105706.0,
+      "municipalLowerOrSingleTierCad": 59439.0,
+      "municipalUpperTierCad": 33746.0,
+      "educationCad": 12521.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 7337700.0,
+      "taxableAssessmentWeightedDiscountedCad": 1834425.0,
+      "totalTaxesCad": 23696.0,
+      "municipalLowerOrSingleTierCad": 13324.0,
+      "municipalUpperTierCad": 7565.0,
+      "educationCad": 2807.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 10708500.0,
+      "taxableAssessmentWeightedDiscountedCad": 19432714.95,
+      "totalTaxesCad": 315485.0,
+      "municipalLowerOrSingleTierCad": 141144.0,
+      "municipalUpperTierCad": 80134.0,
+      "educationCad": 94207.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 2595400.0,
+      "taxableAssessmentWeightedDiscountedCad": 6402602.64,
+      "totalTaxesCad": 95854.0,
+      "municipalLowerOrSingleTierCad": 46504.0,
+      "municipalUpperTierCad": 26402.0,
+      "educationCad": 22948.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

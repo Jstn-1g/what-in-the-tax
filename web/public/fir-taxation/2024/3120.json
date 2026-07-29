@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "3120",
+  "slug": "perth-south-on",
+  "name": "Perth South Tp",
+  "tier": "LT",
+  "sgcCode": "31013",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 457602114.0,
+    "totalTaxesCad": 4404809.0,
+    "municipalLowerOrSingleTierCad": 2226550.0,
+    "municipalUpperTierCad": 1478128.0,
+    "educationCad": 700131.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.505482,
+      "municipalUpperTier": 0.335571,
+      "education": 0.158947
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 457602114.0,
+      "taxableAssessmentWeightedDiscountedCad": 457602114.0,
+      "totalTaxesCad": 4404809.0,
+      "municipalLowerOrSingleTierCad": 2226550.0,
+      "municipalUpperTierCad": 1478128.0,
+      "educationCad": 700131.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 1437609358.0,
+      "taxableAssessmentWeightedDiscountedCad": 359402339.5,
+      "totalTaxesCad": 3459550.0,
+      "municipalLowerOrSingleTierCad": 1748737.0,
+      "municipalUpperTierCad": 1160927.0,
+      "educationCad": 549886.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 9314500.0,
+      "taxableAssessmentWeightedDiscountedCad": 2328625.0,
+      "totalTaxesCad": 22415.0,
+      "municipalLowerOrSingleTierCad": 11330.0,
+      "municipalUpperTierCad": 7522.0,
+      "educationCad": 3563.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 26313528.0,
+      "taxableAssessmentWeightedDiscountedCad": 32765917.25,
+      "totalTaxesCad": 496515.0,
+      "municipalLowerOrSingleTierCad": 159429.0,
+      "municipalUpperTierCad": 105840.0,
+      "educationCad": 231246.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 14341800.0,
+      "taxableAssessmentWeightedDiscountedCad": 28094182.56,
+      "totalTaxesCad": 353060.0,
+      "municipalLowerOrSingleTierCad": 136698.0,
+      "municipalUpperTierCad": 90749.0,
+      "educationCad": 125613.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 3808000.0,
+      "taxableAssessmentWeightedDiscountedCad": 6241692.8,
+      "totalTaxesCad": 84042.0,
+      "municipalLowerOrSingleTierCad": 30370.0,
+      "municipalUpperTierCad": 20162.0,
+      "educationCad": 33510.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

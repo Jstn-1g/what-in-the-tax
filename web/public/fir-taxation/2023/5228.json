@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5228",
+  "slug": "baldwin-on",
+  "name": "Baldwin Tp",
+  "tier": "ST",
+  "sgcCode": "52028",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 54958600.0,
+    "totalTaxesCad": 698036.0,
+    "municipalLowerOrSingleTierCad": 613949.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 84087.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.879538,
+      "municipalUpperTier": 0.0,
+      "education": 0.120462
+    },
+    "educationRate": 0.00153001
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 54958600.0,
+      "taxableAssessmentWeightedDiscountedCad": 54958600.0,
+      "totalTaxesCad": 698036.0,
+      "municipalLowerOrSingleTierCad": 613949.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 84087.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 388000.0,
+      "taxableAssessmentWeightedDiscountedCad": 466347.29,
+      "totalTaxesCad": 5804.0,
+      "municipalLowerOrSingleTierCad": 5210.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 594.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 264700.0,
+      "taxableAssessmentWeightedDiscountedCad": 66175.0,
+      "totalTaxesCad": 840.0,
+      "municipalLowerOrSingleTierCad": 739.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 101.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 446600.0,
+      "taxableAssessmentWeightedDiscountedCad": 111650.0,
+      "totalTaxesCad": 1418.0,
+      "municipalLowerOrSingleTierCad": 1247.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 171.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 4287900.0,
+      "taxableAssessmentWeightedDiscountedCad": 5270532.32,
+      "totalTaxesCad": 96610.0,
+      "municipalLowerOrSingleTierCad": 58877.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 37733.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 23700.0,
+      "taxableAssessmentWeightedDiscountedCad": 26070.0,
+      "totalTaxesCad": 500.0,
+      "municipalLowerOrSingleTierCad": 291.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 209.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 314000.0,
+      "taxableAssessmentWeightedDiscountedCad": 245646.91,
+      "totalTaxesCad": 5245.0,
+      "municipalLowerOrSingleTierCad": 2744.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 2501.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}
