@@ -232,6 +232,7 @@ function validateTaxingBody(value: unknown, path: string) {
     'label',
     'order',
     'amountCad',
+    'rate',
     'basis',
     'evidenceStatus',
     'assessmentCad',
@@ -250,6 +251,10 @@ function validateTaxingBody(value: unknown, path: string) {
   // nothing knowable is not a shorter bill, it is a gap, and the two must not
   // be spelled the same way.
   assertFiniteNumber(value.amountCad, `${path}.amountCad`)
+  // The rate this amount is the product of, when the bill states one. Optional
+  // because a body can be a flat levy, but when present it is what lets a
+  // checker confirm amountCad follows from the rate fact the body cites.
+  assertOptionalNumber(value.rate, `${path}.rate`)
   assertString(value.basis, `${path}.basis`)
   assertString(value.evidenceStatus, `${path}.evidenceStatus`)
   assertOptionalNumber(value.assessmentCad, `${path}.assessmentCad`)

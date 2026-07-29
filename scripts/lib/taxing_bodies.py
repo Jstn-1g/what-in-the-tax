@@ -24,6 +24,7 @@ malformed bill and a page.
 
 from __future__ import annotations
 
+from decimal import Decimal
 from typing import Any, Iterable, Mapping, Sequence
 
 ROLES = ("local", "special-area", "upper-tier", "education")
@@ -80,6 +81,20 @@ def build_taxing_bodies(
         }
         if assessment_cad is not None:
             body["assessmentCad"] = assessment_cad
+        # Carry the rate across when the component declares one. A body's
+        # amountCad is rate x assessment, but the body cited the rate fact while
+        # printing the product and said nothing about the relationship - so the
+        # printed number could not be checked against what it cited, and 12 of
+        # these were unbound. With rate and assessmentCad both present the
+        # arithmetic is stated by the artifact rather than inferred by a reader.
+        rate = component.get("rate")
+        # Decimal as well as float: these builders carry rates as Decimal so the
+        # eight-place by-law rate is not rounded on the way in, and a plain
+        # isinstance(int, float) check silently dropped every one of them.
+        if isinstance(rate, Decimal):
+            rate = float(rate)
+        if isinstance(rate, (int, float)) and not isinstance(rate, bool):
+            body["rate"] = rate
         note = (notes_by_fact_id or {}).get(fact_id)
         if note:
             body["note"] = note

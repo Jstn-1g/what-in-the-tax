@@ -376,7 +376,8 @@
           "basis": "RT Residential rates applied to reference assessment scenario",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "WOO-TAXRATE-RES-CITY-2026",
-          "assessmentCad": 354500
+          "assessmentCad": 354500,
+          "rate": 0.00322187
         },
         {
           "id": "woo-taxrate-res-region-2026",
@@ -387,7 +388,8 @@
           "basis": "RT Residential rates applied to reference assessment scenario",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "WOO-TAXRATE-RES-REGION-2026",
-          "assessmentCad": 354500
+          "assessmentCad": 354500,
+          "rate": 0.00738314
         },
         {
           "id": "woo-taxrate-res-education-2026",
@@ -398,7 +400,8 @@
           "basis": "RT Residential rates applied to reference assessment scenario",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "WOO-TAXRATE-RES-EDUCATION-2026",
-          "assessmentCad": 354500
+          "assessmentCad": 354500,
+          "rate": 0.00153
         }
       ],
       "combinedTotalNote": "Local $1,142.15 + Region $2,617.32 + Education $542.39 = $4,301.86 at $354,500.",

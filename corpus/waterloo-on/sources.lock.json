@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "source-lock-1.0.0",
+  "ledgerPath": "data/waterloo/evidence-ledger.json",
+  "ledgerSha256": "fe507f9ed765136edb7733a0d564424b64a356e3479c8c5a3720fd83231606f4",
+  "sources": [
+    {
+      "id": "row-2026-book",
+      "url": "https://www.regionofwaterloo.ca/",
+      "authority": "Region of Waterloo",
+      "asOf": "2026",
+      "license": "unknown",
+      "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
+      "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
+      "bytes": 5442331,
+      "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
+      "extractedTextSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423",
+      "lockStatus": "source-and-extract"
+    },
+    {
+      "id": "wat-2026-budget",
+      "url": "https://www.waterloo.ca/media/nm2bdamz/2024-2026-approved-operating-budget-book.pdf",
+      "authority": "City of Waterloo",
+      "asOf": "2025-12",
+      "license": "unknown",
+      "localPath": "source-pdfs/waterloo/2024-2026-approved-operating-budget-book.pdf",
+      "sha256": null,
+      "bytes": null,
+      "extractedText": "data/_extracts/waterloo/2026-operating-budget-excerpt.txt",
+      "extractedTextSha256": "efdb7c72b657e63c54b8a479542297b52613d0de26d3d6198ba0fbbc95068f1b",
+      "lockStatus": "missing",
+      "missing": [
+        "localPath"
+      ]
+    },
+    {
+      "id": "wat-2026-tax-rates",
+      "url": "https://www.waterloo.ca/water-and-tax-billing/tax-billing/check-property-tax-rates/",
+      "authority": "City of Waterloo",
+      "asOf": "2026",
+      "license": "unknown",
+      "localPath": null,
+      "sha256": null,
+      "bytes": null,
+      "extractedText": "data/_extracts/waterloo/2026-tax-rates-page.txt",
+      "extractedTextSha256": "c63a18d8f820feb1e2231209acf3e890540bb00a7a3db65c0170994e36709e21",
+      "lockStatus": "extract-only"
+    }
+  ]
+}

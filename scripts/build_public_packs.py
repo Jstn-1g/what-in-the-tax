@@ -230,6 +230,10 @@ TAXING_BODY_FIELDS = (
     "label",
     "order",
     "amountCad",
+    # The rate this body's amount is the product of. Without it the public
+    # artifact prints a dollar figure citing a rate fact and states no
+    # relationship between them, so nothing downstream can check the two agree.
+    "rate",
     "basis",
     "evidenceStatus",
     "assessmentCad",

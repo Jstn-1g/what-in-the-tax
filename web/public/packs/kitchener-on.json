@@ -1072,6 +1072,7 @@
             "id": "kit-taxrate-res-city-2026",
             "label": "City of Kitchener",
             "order": 0,
+            "rate": 0.00411164,
             "role": "local",
             "sourceFactId": "KIT-TAXRATE-RES-CITY-2026"
           },
@@ -1083,6 +1084,7 @@
             "id": "kit-taxrate-res-region-2026",
             "label": "Region of Waterloo",
             "order": 1,
+            "rate": 0.00841834,
             "role": "upper-tier",
             "sourceFactId": "KIT-TAXRATE-RES-REGION-2026"
           },
@@ -1094,6 +1096,7 @@
             "id": "kit-taxrate-res-education-2026",
             "label": "Education (Province of Ontario)",
             "order": 2,
+            "rate": 0.00153,
             "role": "education",
             "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026"
           }

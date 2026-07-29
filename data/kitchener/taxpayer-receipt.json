@@ -405,7 +405,8 @@
           "basis": "2026 Final Tax Rates RT Residential row at the City's published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "KIT-TAXRATE-RES-CITY-2026",
-          "assessmentCad": 326000
+          "assessmentCad": 326000,
+          "rate": 0.00411164
         },
         {
           "id": "kit-taxrate-res-region-2026",
@@ -416,7 +417,8 @@
           "basis": "2026 Final Tax Rates RT Residential row at the City's published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "KIT-TAXRATE-RES-REGION-2026",
-          "assessmentCad": 326000
+          "assessmentCad": 326000,
+          "rate": 0.00841834
         },
         {
           "id": "kit-taxrate-res-education-2026",
@@ -427,7 +429,8 @@
           "basis": "2026 Final Tax Rates RT Residential row at the City's published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026",
-          "assessmentCad": 326000
+          "assessmentCad": 326000,
+          "rate": 0.00153
         }
       ],
       "combinedTotalNote": "Built from the 2026 Final Tax Rates RT row applied to the City's published average assessment ($326,000). City $1,340.39 + Region $2,744.38 + Education $498.78 = $4,583.55. The City's published $29 / 2.2% increase is the City portion only.",

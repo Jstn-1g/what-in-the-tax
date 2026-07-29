@@ -9,7 +9,6 @@
     "extract-sha256-missing": 33,
     "source-file-missing": 4,
     "source-path-missing": 4,
-    "amount-not-on-cited-page": 1,
     "source-bytes-missing": 25,
     "source-sha256-missing": 25
   },
@@ -92,7 +91,6 @@
       "page": 1,
       "amountCad": 3000000,
       "bindingIssues": [
-        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-file-missing"
       ],

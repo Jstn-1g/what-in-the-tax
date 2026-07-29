@@ -377,7 +377,8 @@
           "basis": "RT Residential rates applied to published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "WAT-TAXRATE-RES-CITY-2026",
-          "assessmentCad": 405000
+          "assessmentCad": 405000,
+          "rate": 0.00437426
         },
         {
           "id": "wat-taxrate-res-region-2026",
@@ -388,7 +389,8 @@
           "basis": "RT Residential rates applied to published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "WAT-TAXRATE-RES-REGION-2026",
-          "assessmentCad": 405000
+          "assessmentCad": 405000,
+          "rate": 0.00841834
         },
         {
           "id": "wat-taxrate-res-education-2026",
@@ -399,7 +401,8 @@
           "basis": "RT Residential rates applied to published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "WAT-TAXRATE-RES-EDUCATION-2026",
-          "assessmentCad": 405000
+          "assessmentCad": 405000,
+          "rate": 0.00153
         }
       ],
       "combinedTotalNote": "Local $1,771.58 + Region $3,409.43 + Education $619.65 + source rounding -0.01 = $5,800.65 at $405,000.",
