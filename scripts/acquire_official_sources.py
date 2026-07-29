@@ -59,6 +59,11 @@ HTTPS_SOURCE_ALLOWLIST: dict[str, tuple[str, ...]] = {
         "6783a586-6b05-4a73-9663-e60a6963c91e/download/",
     ),
     "efis.fma.csc.gov.on.ca": ("/fir/MultiYearReport/",),
+    # Statistics Canada 92F0009X - Interim List of Changes to Municipal
+    # Boundaries, Status and Names. The official record of dissolutions and
+    # amalgamations; feeds the former-municipalities crosswalk. Path-scoped to
+    # that one publication, per the review on issue #34.
+    "www150.statcan.gc.ca": ("/n1/pub/92f0009x/",),
 }
 
 ALLOWED_ZIP_COMPRESSION = {
@@ -228,16 +233,31 @@ def validate_source_url(value: object) -> str:
     return value
 
 
+# The reuse licences a lock may claim, by exact URL. This was a single
+# hardcoded Ontario URL, which quietly meant no source outside Ontario's open
+# data programme could ever be locked - including Statistics Canada, whose
+# interim-list files are the only official record of municipal dissolutions.
+# An allowlist keeps the property that mattered (a lock cannot claim an
+# unreviewed licence) without hardcoding one province's licence as the only
+# reviewable one in a project that intends to cover the country.
+REVIEWED_LICENCE_URLS = frozenset(
+    {
+        "https://www.ontario.ca/page/open-government-licence-ontario",
+        "https://www.statcan.gc.ca/en/reference/licence",
+    }
+)
+
+
 def _validate_licence(value: object) -> None:
     if not isinstance(value, dict):
         raise OfficialSourceError("licence must be an object")
     if not isinstance(value.get("name"), str) or not value["name"].strip():
         raise OfficialSourceError("licence.name must be a non-empty string")
     licence_url = value.get("url")
-    if licence_url != (
-        "https://www.ontario.ca/page/open-government-licence-ontario"
-    ):
-        raise OfficialSourceError("licence.url is not the reviewed Ontario licence")
+    if licence_url not in REVIEWED_LICENCE_URLS:
+        raise OfficialSourceError(
+            f"licence.url is not a reviewed licence: {licence_url!r}"
+        )
     if (
         not isinstance(value.get("attribution"), str)
         or not value["attribution"].strip()

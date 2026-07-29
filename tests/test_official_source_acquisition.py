@@ -168,6 +168,16 @@ class OfficialSourceAcquisitionTests(unittest.TestCase):
                 "on-fir-2024",
                 "on-fir-2023",
                 "on-municipalities-current",
+                # StatCan 92F0009X interim lists - the official record of
+                # municipal dissolutions, feeding the former-municipalities
+                # crosswalk (issue #34). Exact-list on purpose: a lock that
+                # appears here uninvited is a source nobody decided to trust.
+                "statcan-il-2001-2006",
+                "statcan-il-2006-2011-t1",
+                "statcan-il-2011-2016-t1",
+                "statcan-il-2011-2016-t2",
+                "statcan-il-2016-2021",
+                "statcan-il-2025",
             ],
         )
         for lock in locks:
