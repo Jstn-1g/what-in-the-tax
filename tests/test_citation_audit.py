@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 
 from scripts.audit_citations import (
+    _amount_binding_issue,
     audit_ledger,
     classify,
     numbers_present,
@@ -166,3 +167,66 @@ class CitationBindingTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class MagnitudeProseBindingTests(unittest.TestCase):
+    """Budget prose writes round figures in words, and the audit has to read it.
+
+    "new debt financing proposed [$5 million] to finance the Twin Pad Project"
+    is the correct page for a $5,000,000 fact, and the digit variants never
+    matched it, so a citation pointing at exactly the right page was reported as
+    amount-not-on-cited-page - a hard failure, and a false one.
+
+    The loosening is deliberately narrow. Prose binds only when it renders the
+    figure exactly; a rounded "$5 million" must never bind 5,043,210, because
+    treating a rounding as proof of a precise figure is the overclaim this audit
+    exists to catch.
+    """
+
+    def issue(self, amount, text):
+        return _amount_binding_issue({"amountCad": amount}, text)
+
+    def test_exact_prose_binds_the_figure(self) -> None:
+        self.assertIsNone(
+            self.issue(5_000_000, "new debt financing proposed [$5 million] here")
+        )
+
+    def test_a_rounded_prose_figure_never_binds(self) -> None:
+        # The case that keeps this honest.
+        self.assertEqual(
+            self.issue(5_043_210, "new debt financing proposed [$5 million] here"),
+            "amount-not-on-cited-page",
+        )
+
+    def test_one_decimal_place_binds_when_exact(self) -> None:
+        self.assertIsNone(self.issue(1_500_000, "a $1.5 million reserve"))
+
+    def test_the_wrong_magnitude_word_does_not_bind(self) -> None:
+        self.assertEqual(
+            self.issue(5_000_000, "a $5 thousand grant"),
+            "amount-not-on-cited-page",
+        )
+
+    def test_digit_matching_is_unchanged(self) -> None:
+        self.assertIsNone(self.issue(5_000_000, "total of 5,000,000 dollars"))
+        self.assertEqual(
+            self.issue(5_000_000, "nothing numeric here"),
+            "amount-not-on-cited-page",
+        )
+
+    def test_the_single_letter_abbreviation_binds(self) -> None:
+        # The Region's own summary prints "Property Taxes $887 M".
+        self.assertIsNone(self.issue(887_000_000, "Property Taxes $887 M"))
+
+    def test_the_abbreviation_needs_a_word_boundary(self) -> None:
+        # "887 Metres" must never bind $887,000,000.
+        self.assertEqual(
+            self.issue(887_000_000, "887 Metres of watermain"),
+            "amount-not-on-cited-page",
+        )
+
+    def test_a_rounded_abbreviation_never_binds(self) -> None:
+        self.assertEqual(
+            self.issue(887_329_000, "Property Taxes $887 M"),
+            "amount-not-on-cited-page",
+        )

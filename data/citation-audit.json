@@ -13,9 +13,9 @@
     "source-bytes-missing": 87,
     "source-sha256-missing": 87,
     "amount-sign-mismatch": 2,
-    "amount-not-on-cited-page": 5,
     "source-path-missing": 6,
-    "extract-path-missing": 10
+    "extract-path-missing": 10,
+    "amount-not-on-cited-page": 2
   },
   "results": [
     {
@@ -468,7 +468,6 @@
       "page": 43,
       "amountCad": 5000000,
       "bindingIssues": [
-        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-bytes-missing",
         "source-sha256-missing"
@@ -894,7 +893,6 @@
       "page": 6,
       "amountCad": 887000000,
       "bindingIssues": [
-        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-bytes-missing",
         "source-sha256-missing"
@@ -908,7 +906,6 @@
       "page": 7,
       "amountCad": 772000000,
       "bindingIssues": [
-        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-bytes-missing",
         "source-sha256-missing"
