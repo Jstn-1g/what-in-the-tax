@@ -31,7 +31,9 @@ const PACK_CATALOG_RECORDS = [
     label: 'Cambridge',
     province: 'Ontario',
     typeLabel: 'City',
-    aliases: ['City of Cambridge'],
+    // Galt, Preston and Hespeler amalgamated into Cambridge in 1973 and are
+    // still what many residents call home; their taxes are Cambridge's.
+    aliases: ['City of Cambridge', 'Galt', 'Preston', 'Hespeler'],
     currentEvidenceYear: 2026,
     banner: 'Preview · pack/cambridge-on · City of Cambridge + Region of Waterloo',
     availability: 'available',

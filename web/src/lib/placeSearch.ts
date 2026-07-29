@@ -19,6 +19,10 @@ export type PlaceSearchRecord = {
    *  renders a link when present and stays static when absent, so a
    *  municipality is never offered a page that does not exist. */
   filingHref?: string
+  /** Why a dissolved municipality's name matched this record - "Includes the
+   *  former municipalities Scarborough, ... (amalgamated)." Rendered on the
+   *  row so a match through a former name explains itself. */
+  formerNote?: string
 }
 
 export type PlaceSearchResults<T extends PlaceSearchRecord> = {

@@ -178,17 +178,30 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
 
   function renderYearContext(place: PlaceSearchRecord) {
     const firYears = place.firYears ?? []
+    const former = place.formerNote ? (
+      // "Scarborough" matching a row that says only "Toronto" reads as a wrong
+      // answer; this line is what makes it a right one.
+      <span className="place-finder__years">{place.formerNote}</span>
+    ) : null
     if (firYears.length === 0) {
       return place.kind === 'directory-record' ? (
-        <span className="place-finder__years">
-          No 2023–2025 FIR in the locked bulk files
-        </span>
-      ) : null
+        <>
+          <span className="place-finder__years">
+            No 2023–2025 FIR in the locked bulk files
+          </span>
+          {former}
+        </>
+      ) : (
+        former
+      )
     }
     return (
-      <span className="place-finder__years">
-        FIR history: {firYears.join(', ')}
-      </span>
+      <>
+        <span className="place-finder__years">
+          FIR history: {firYears.join(', ')}
+        </span>
+        {former}
+      </>
     )
   }
 
@@ -394,7 +407,9 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
         {result.displayedMatches === 0 ? (
           <p className="place-finder__empty">
             No match in the current receipt previews or loaded Ontario records.
-            We will not substitute another community&apos;s data.
+            We will not substitute another community&apos;s data. If this was a
+            former municipality — many were amalgamated in the 1990s and 2000s
+            — its records appear under the municipality it joined.
           </p>
         ) : null}
       </div>
