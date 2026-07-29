@@ -58,6 +58,7 @@ import {
   type FirFiling,
 } from './lib/firFiling'
 import { loadFirTaxation, type FirTaxationReceipt } from './lib/firTaxation'
+import { formerNamesNote, formerNamesOf } from './lib/formerMunicipalities'
 import type { PlaceSearchRecord } from './lib/placeSearch'
 
 type ViewId = 'receipt' | 'help'
@@ -683,6 +684,15 @@ export default function App() {
       )
       .map((record) => {
         const finder = toDirectoryFinderRecord(record)
+        // Fold dissolved municipalities into their successor's search record,
+        // so "Scarborough" finds Toronto instead of an empty state that reads
+        // as a missing city. Navigation aid only: nothing here reaches a
+        // ledger or a published figure, and the row says why it matched.
+        const formerNames = formerNamesOf(finder.label)
+        if (formerNames.length > 0) {
+          finder.aliases = [...(finder.aliases ?? []), ...formerNames]
+          finder.formerNote = formerNamesNote(finder.label) ?? undefined
+        }
         // Offer a filing only where one is actually published. Filing in any
         // covered year is an exact proxy but for Manitouwadge, which filed
         // without a Schedule 40 total; that one falls through to the honest
