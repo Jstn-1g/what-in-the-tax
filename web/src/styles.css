@@ -1,5 +1,6 @@
 :root {
-  --white: #ffffff;
+  --page: #ffffff;
+  --on-fill: #ffffff;
   --ink: #071a3c;
   --ink-soft: #3f4d64;
   --ink-faint: #59677a;
@@ -16,6 +17,19 @@
   --red: #a23d35;
   --red-soft: #fff1ef;
   --focus: #005fcc;
+  --veil: rgba(255, 255, 255, 0.97);
+  --veil-soft: rgba(255, 255, 255, 0.55);
+  --placeholder: #677484;
+  --flag-ink: #744600;
+  --flag-line: #e2b66a;
+  --note-fold: #fff6c5;
+  --pin-line: #8f211b;
+  --evidence-line: #e3bd75;
+  --evidence-surface: #fffdfa;
+  --evidence-rule: #ead7ae;
+  --callout-line: #e7bd6c;
+  --tone-special: #bd8426;
+  --tone-education: #439e89;
   --line: #d8e0e7;
   --line-strong: #b9c5cf;
   --surface: #f7f9fa;
@@ -32,13 +46,60 @@
   --mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 }
 
+/* Dark scheme.
+   Same hues, relit for a dark page: text and links move up in lightness, tints
+   and fills move down, and --on-fill flips to near-black because the button
+   fills are now the light thing. Every pair a reader actually sees is checked
+   against WCAG 2.1 AA in contrast.test.ts, in both schemes, so these values are
+   measured rather than eyeballed - which is the only reason to ship a second
+   palette at all. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #0b1420;
+    --surface: #141f2d;
+    --on-fill: #04150f;
+    --ink: #e9eff6;
+    --ink-soft: #bcc9d8;
+    --ink-faint: #9aabbe;
+    --placeholder: #93a5b8;
+    --green: #66d3af;
+    --green-dark: #93e5c6;
+    --teal: #57c9b0;
+    --teal-soft: #17352f;
+    --mint: #112620;
+    --accent: #ff8878;
+    --note: #241f11;
+    --note-line: #7a6a35;
+    --amber: #f2bb5f;
+    --amber-soft: #2b2111;
+    --red: #ff9186;
+    --red-soft: #2c1613;
+    --focus: #8cbcff;
+    --veil: rgba(11, 20, 32, 0.97);
+    --veil-soft: rgba(20, 31, 45, 0.55);
+    --line: #27374b;
+    --line-strong: #3d5068;
+    --flag-ink: #f3cb74;
+    --flag-line: #7d6224;
+    --note-fold: #302813;
+    --pin-line: #ffa294;
+    --evidence-line: #6d5829;
+    --evidence-surface: #1b1811;
+    --evidence-rule: #4d4123;
+    --callout-line: #6d5829;
+    --tone-special: #e0a944;
+    --tone-education: #317164;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
+  color-scheme: light dark;
   scroll-behavior: smooth;
-  background: var(--white);
+  background: var(--page);
 }
 
 body {
@@ -46,7 +107,7 @@ body {
   min-width: 0;
   min-height: 100vh;
   color: var(--ink);
-  background: var(--white);
+  background: var(--page);
   font-family: var(--sans);
   font-size: 1rem;
   line-height: 1.55;
@@ -114,7 +175,7 @@ button {
   padding: 0.75rem 1rem;
   border: 2px solid var(--ink);
   border-radius: 0.25rem;
-  background: var(--white);
+  background: var(--page);
   color: var(--ink);
   font-weight: 750;
 }
@@ -127,7 +188,7 @@ button {
 
 .site-header {
   border-bottom: 1px solid var(--line);
-  background: var(--white);
+  background: var(--page);
 }
 
 .site-header-inner {
@@ -214,7 +275,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  background: var(--white);
+  background: var(--page);
   color: var(--green);
   font-weight: 720;
   line-height: 1.2;
@@ -233,14 +294,14 @@ button {
 .cta:not(.cta-ghost) {
   border-color: var(--green);
   background: var(--green);
-  color: var(--white);
+  color: var(--on-fill);
 }
 
 .button-primary:hover,
 .cta:not(.cta-ghost):hover {
   border-color: var(--green-dark);
   background: var(--green-dark);
-  color: var(--white);
+  color: var(--on-fill);
 }
 
 /* Place chooser */
@@ -335,7 +396,7 @@ button {
   max-width: 58rem;
   margin: -1rem 0 2.5rem;
   padding: 1.15rem 1.25rem;
-  border: 1px solid #e7bd6c;
+  border: 1px solid var(--callout-line);
   border-left: 4px solid var(--amber);
   border-radius: 0.25rem;
   background: var(--amber-soft);
@@ -400,13 +461,13 @@ button {
   padding: 0.85rem 1.15rem 0.85rem 3.55rem;
   border: 2px solid var(--green);
   border-radius: 0.3rem;
-  background: var(--white);
+  background: var(--page);
   color: var(--ink);
   font-size: clamp(1rem, 1.8vw, 1.2rem);
 }
 
 .place-finder__search input::placeholder {
-  color: #6b7889;
+  color: var(--placeholder);
   opacity: 1;
 }
 
@@ -765,7 +826,7 @@ button {
   height: 2.1rem;
   border-top: 1px solid var(--note-line);
   border-left: 1px solid var(--note-line);
-  background: #fff6c5;
+  background: var(--note-fold);
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
@@ -775,7 +836,7 @@ button {
   left: 1.5rem;
   width: 0.85rem;
   height: 1.55rem;
-  border: 2px solid #8f211b;
+  border: 2px solid var(--pin-line);
   border-radius: 50% 50% 45% 45%;
   background: var(--accent);
   box-shadow: 0.2rem 0.3rem 0 rgba(7, 26, 60, 0.16);
@@ -835,7 +896,7 @@ button {
   margin-top: 1.4rem !important;
   padding: 0.75rem 1rem;
   border-left: 3px solid var(--green);
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--veil-soft);
   color: var(--green-dark);
   font-weight: 700;
 }
@@ -865,7 +926,7 @@ button {
 /* Receipt overview */
 
 .hero {
-  background: var(--white);
+  background: var(--page);
   color: var(--ink);
   scroll-margin-top: 5rem;
 }
@@ -986,7 +1047,7 @@ button {
 .bill-share-segment {
   display: block;
   min-width: 2px;
-  border-right: 2px solid var(--white);
+  border-right: 2px solid var(--page);
 }
 
 .bill-share-segment:last-child {
@@ -1002,11 +1063,11 @@ button {
 }
 
 .tone-special {
-  background: #d79a36;
+  background: var(--tone-special);
 }
 
 .tone-education {
-  background: var(--teal-soft);
+  background: var(--tone-education);
 }
 
 .bill-share-list {
@@ -1063,9 +1124,9 @@ button {
 .evidence-summary {
   margin-top: clamp(2.75rem, 5vw, 4rem);
   padding: 1.4rem 1.5rem;
-  border: 1px solid #e3bd75;
+  border: 1px solid var(--evidence-line);
   border-radius: 0.3rem;
-  background: #fffdfa;
+  background: var(--evidence-surface);
 }
 
 .evidence-summary-heading {
@@ -1088,7 +1149,7 @@ button {
 .evidence-summary > ul {
   margin: 1.1rem 0 0;
   padding: 1.1rem 0 0;
-  border-top: 1px solid #ead7ae;
+  border-top: 1px solid var(--evidence-rule);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   list-style: none;
@@ -1097,7 +1158,7 @@ button {
 .evidence-summary > ul > li {
   min-width: 0;
   padding: 0 1.25rem;
-  border-left: 1px solid #ead7ae;
+  border-left: 1px solid var(--evidence-rule);
 }
 
 .evidence-summary > ul > li:first-child {
@@ -1218,7 +1279,7 @@ button {
   display: flex;
   align-items: stretch;
   gap: clamp(1.25rem, 4vw, 3rem);
-  background: rgba(255, 255, 255, 0.97);
+  background: var(--veil);
   backdrop-filter: blur(10px);
 }
 
@@ -1479,8 +1540,8 @@ main#main-content {
 }
 
 .badge-flagged {
-  border-color: #e2b66a;
-  color: #744600;
+  border-color: var(--flag-line);
+  color: var(--flag-ink);
   background: var(--amber-soft);
 }
 
@@ -1870,7 +1931,7 @@ main#main-content {
   height: 100%;
   padding: clamp(1.25rem, 4vw, 2.5rem);
   overflow-y: auto;
-  background: var(--white);
+  background: var(--page);
   box-shadow: -0.75rem 0 2rem rgba(13, 27, 50, 0.18);
 }
 
@@ -1895,7 +1956,7 @@ main#main-content {
   padding: 0.6rem 0.85rem;
   border: 1px solid var(--line-strong);
   border-radius: 0.25rem;
-  background: var(--white);
+  background: var(--page);
   cursor: pointer;
 }
 
@@ -2213,7 +2274,7 @@ main#main-content {
   .evidence-summary > ul > li {
     padding: 0;
     border-left: 0;
-    border-bottom: 1px solid #ead7ae;
+    border-bottom: 1px solid var(--evidence-rule);
   }
 
   .evidence-summary > ul > li:last-child {
