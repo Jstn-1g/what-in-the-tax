@@ -21,12 +21,12 @@ describe('on-demand public pack loading', () => {
     const pack = await loadPackWithFetcher(
       'kitchener-on',
       fetcher,
-      '/tax-receipt-prototype/',
+      '/what-in-the-tax/',
     )
 
     expect(fetcher).toHaveBeenCalledOnce()
     expect(fetcher).toHaveBeenCalledWith(
-      '/tax-receipt-prototype/packs/kitchener-on.json',
+      '/what-in-the-tax/packs/kitchener-on.json',
     )
     expect(pack.id).toBe('kitchener-on')
     expect(pack.receipt.fiscalYear).toBe(2026)

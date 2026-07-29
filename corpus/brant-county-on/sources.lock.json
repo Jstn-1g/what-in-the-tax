@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/brant/evidence-ledger.json",
-  "ledgerSha256": "8a2f440eae950f92135c5cec01cea4d2cf632a6014cc64b3d41b0d9433acb166",
+  "ledgerSha256": "35251e31f614f17138d1847a1fcf23cba88e6ce154bf316f48c93c92db07694e",
   "sources": [
     {
       "id": "brant-2026-approved-budget",

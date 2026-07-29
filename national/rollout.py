@@ -70,7 +70,7 @@ PATH_RE = re.compile(r"^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\.\.(?:/|$))(?!.*\\).+$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 DATE_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
 RELEASE_REFERENCE_RE = re.compile(
-    r"^https://github\.com/Jstn-1g/tax-receipt-prototype/"
+    r"^https://github\.com/Jstn-1g/what-in-the-tax/"
     r"(?:commit/[0-9a-f]{40}|releases/tag/[^\s]+|pull/[1-9][0-9]*)$"
 )
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]

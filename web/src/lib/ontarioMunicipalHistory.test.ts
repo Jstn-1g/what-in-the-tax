@@ -234,13 +234,13 @@ describe('Ontario current directory with FIR history', () => {
     await expect(
       loadOntarioMunicipalHistoryWithFetcher(
         fetcher,
-        '/tax-receipt-prototype/',
+        '/what-in-the-tax/',
       ),
     ).resolves.toMatchObject({
       sourceSnapshotDate: '2026-07-25',
     })
     expect(fetcher).toHaveBeenCalledWith(
-      '/tax-receipt-prototype/registry/ontario-municipal-history.json',
+      '/what-in-the-tax/registry/ontario-municipal-history.json',
     )
     expect(ontarioMunicipalHistoryUrl('/')).toBe(
       '/registry/ontario-municipal-history.json',

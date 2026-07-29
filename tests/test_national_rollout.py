@@ -561,7 +561,7 @@ if __name__ == "__main__":
                 "approvedAt": "2026-07-26",
                 "releaseReference": (
                     "https://github.com/Jstn-1g/"
-                    "tax-receipt-prototype/pull/2"
+                    "what-in-the-tax/pull/2"
                 ),
                 "sourceLockCanonicalSha256": source_lock[
                     "sourceLockCanonicalSha256"

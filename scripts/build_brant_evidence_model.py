@@ -611,7 +611,7 @@ assert round(SHARE_MUN + SHARE_HOSP + SHARE_EDU, 12) == 1
 PUBLISHER = {
     "name": "What in the Tax? project",
     "role": "Independent project publisher; not the County of Brant",
-    "repositoryUrl": "https://github.com/Jstn-1g/tax-receipt-prototype",
+    "repositoryUrl": "https://github.com/Jstn-1g/what-in-the-tax",
 }
 
 LICENSE = {
