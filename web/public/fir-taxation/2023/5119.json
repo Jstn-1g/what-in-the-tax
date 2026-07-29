@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5119",
+  "slug": "northeastern-manitoulin-&-the-isl-on",
+  "name": "Northeastern Manitoulin & The Isl T",
+  "tier": "ST",
+  "sgcCode": "51017",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 469009100.0,
+    "totalTaxesCad": 5455331.0,
+    "municipalLowerOrSingleTierCad": 4737748.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 717583.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.868462,
+      "municipalUpperTier": 0.0,
+      "education": 0.131538
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 469009100.0,
+      "taxableAssessmentWeightedDiscountedCad": 469009100.0,
+      "totalTaxesCad": 5455331.0,
+      "municipalLowerOrSingleTierCad": 4737748.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 717583.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 1856100.0,
+      "taxableAssessmentWeightedDiscountedCad": 1869463.92,
+      "totalTaxesCad": 25862.0,
+      "municipalLowerOrSingleTierCad": 23022.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 2840.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 36755400.0,
+      "taxableAssessmentWeightedDiscountedCad": 9188850.0,
+      "totalTaxesCad": 100539.0,
+      "municipalLowerOrSingleTierCad": 86480.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 14059.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 2246500.0,
+      "taxableAssessmentWeightedDiscountedCad": 561625.0,
+      "totalTaxesCad": 7095.0,
+      "municipalLowerOrSingleTierCad": 6236.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 859.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 28360000.0,
+      "taxableAssessmentWeightedDiscountedCad": 40098957.84,
+      "totalTaxesCad": 723942.0,
+      "municipalLowerOrSingleTierCad": 474375.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 249567.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 7207500.0,
+      "taxableAssessmentWeightedDiscountedCad": 12519691.38,
+      "totalTaxesCad": 193385.0,
+      "municipalLowerOrSingleTierCad": 129959.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 63426.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

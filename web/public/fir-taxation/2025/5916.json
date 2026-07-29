@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5916",
+  "slug": "la-vallee-on",
+  "name": "La Vallee Tp",
+  "tier": "ST",
+  "sgcCode": "59016",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 65810900.0,
+    "totalTaxesCad": 1072241.0,
+    "municipalLowerOrSingleTierCad": 971550.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 100691.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.906093,
+      "municipalUpperTier": 0.0,
+      "education": 0.093907
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 65810900.0,
+      "taxableAssessmentWeightedDiscountedCad": 65810900.0,
+      "totalTaxesCad": 1072241.0,
+      "municipalLowerOrSingleTierCad": 971550.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 100691.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 8322700.0,
+      "taxableAssessmentWeightedDiscountedCad": 2080675.0,
+      "totalTaxesCad": 33899.0,
+      "municipalLowerOrSingleTierCad": 30716.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 3183.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 246900.0,
+      "taxableAssessmentWeightedDiscountedCad": 61725.0,
+      "totalTaxesCad": 1005.0,
+      "municipalLowerOrSingleTierCad": 911.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 94.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 1100700.0,
+      "taxableAssessmentWeightedDiscountedCad": 1472249.7,
+      "totalTaxesCad": 31420.0,
+      "municipalLowerOrSingleTierCad": 21734.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 9686.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 1213900.0,
+      "taxableAssessmentWeightedDiscountedCad": 2409834.28,
+      "totalTaxesCad": 46258.0,
+      "municipalLowerOrSingleTierCad": 35576.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 10682.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 1197000.0,
+      "taxableAssessmentWeightedDiscountedCad": 8293414.5,
+      "totalTaxesCad": 132968.0,
+      "municipalLowerOrSingleTierCad": 122434.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 10534.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5436",
+  "slug": "armstrong-on",
+  "name": "Armstrong Tp",
+  "tier": "ST",
+  "sgcCode": "54036",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 84220539.0,
+    "totalTaxesCad": 1058347.0,
+    "municipalLowerOrSingleTierCad": 929490.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 128857.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.878247,
+      "municipalUpperTier": 0.0,
+      "education": 0.121753
+    },
+    "educationRate": 0.00152999
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 84220539.0,
+      "taxableAssessmentWeightedDiscountedCad": 84220539.0,
+      "totalTaxesCad": 1058347.0,
+      "municipalLowerOrSingleTierCad": 929490.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 128857.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 756000.0,
+      "taxableAssessmentWeightedDiscountedCad": 1624313.63,
+      "totalTaxesCad": 19084.0,
+      "municipalLowerOrSingleTierCad": 17927.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1157.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 52356300.0,
+      "taxableAssessmentWeightedDiscountedCad": 13089075.0,
+      "totalTaxesCad": 164482.0,
+      "municipalLowerOrSingleTierCad": 144456.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 20026.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 14480900.0,
+      "taxableAssessmentWeightedDiscountedCad": 22674564.31,
+      "totalTaxesCad": 377677.0,
+      "municipalLowerOrSingleTierCad": 250245.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 127432.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 2206700.0,
+      "taxableAssessmentWeightedDiscountedCad": 4224051.8,
+      "totalTaxesCad": 66055.0,
+      "municipalLowerOrSingleTierCad": 46618.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 19437.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 18511000.0,
+      "taxableAssessmentWeightedDiscountedCad": 22102837.42,
+      "totalTaxesCad": 406832.0,
+      "municipalLowerOrSingleTierCad": 243935.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 162897.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

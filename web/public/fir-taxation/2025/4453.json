@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4453",
+  "slug": "muskoka-lakes-on",
+  "name": "Muskoka Lakes Tp",
+  "tier": "LT",
+  "sgcCode": "44053",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 10520214219.0,
+    "totalTaxesCad": 72887260.0,
+    "municipalLowerOrSingleTierCad": 17033489.0,
+    "municipalUpperTierCad": 39757843.0,
+    "educationCad": 16095928.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.233696,
+      "municipalUpperTier": 0.54547,
+      "education": 0.220833
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 10520214219.0,
+      "taxableAssessmentWeightedDiscountedCad": 10520214219.0,
+      "totalTaxesCad": 72887260.0,
+      "municipalLowerOrSingleTierCad": 17033489.0,
+      "municipalUpperTierCad": 39757843.0,
+      "educationCad": 16095928.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 757000.0,
+      "taxableAssessmentWeightedDiscountedCad": 757000.0,
+      "totalTaxesCad": 7313.0,
+      "municipalLowerOrSingleTierCad": 1226.0,
+      "municipalUpperTierCad": 4929.0,
+      "educationCad": 1158.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 8535449.0,
+      "taxableAssessmentWeightedDiscountedCad": 2133862.25,
+      "totalTaxesCad": 14604.0,
+      "municipalLowerOrSingleTierCad": 3455.0,
+      "municipalUpperTierCad": 7884.0,
+      "educationCad": 3265.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 51573700.0,
+      "taxableAssessmentWeightedDiscountedCad": 12893425.0,
+      "totalTaxesCad": 88241.0,
+      "municipalLowerOrSingleTierCad": 20876.0,
+      "municipalUpperTierCad": 47638.0,
+      "educationCad": 19727.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 278674510.0,
+      "taxableAssessmentWeightedDiscountedCad": 306541961.0,
+      "totalTaxesCad": 3719201.0,
+      "municipalLowerOrSingleTierCad": 496327.0,
+      "municipalUpperTierCad": 1325047.0,
+      "educationCad": 1897827.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 6155573.0,
+      "taxableAssessmentWeightedDiscountedCad": 6771130.3,
+      "totalTaxesCad": 88419.0,
+      "municipalLowerOrSingleTierCad": 10964.0,
+      "municipalUpperTierCad": 28228.0,
+      "educationCad": 49227.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

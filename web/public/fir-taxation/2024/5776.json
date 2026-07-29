@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5776",
+  "slug": "wawa-m-on",
+  "name": "Wawa M",
+  "tier": "ST",
+  "sgcCode": "57076",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 120016845.0,
+    "totalTaxesCad": 3513905.0,
+    "municipalLowerOrSingleTierCad": 3330279.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 183626.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.947743,
+      "municipalUpperTier": 0.0,
+      "education": 0.052257
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 120016845.0,
+      "taxableAssessmentWeightedDiscountedCad": 120016845.0,
+      "totalTaxesCad": 3513905.0,
+      "municipalLowerOrSingleTierCad": 3330279.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 183626.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 3244600.0,
+      "taxableAssessmentWeightedDiscountedCad": 4741441.84,
+      "totalTaxesCad": 136531.0,
+      "municipalLowerOrSingleTierCad": 131567.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 4964.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 1105400.0,
+      "taxableAssessmentWeightedDiscountedCad": 276350.0,
+      "totalTaxesCad": 8091.0,
+      "municipalLowerOrSingleTierCad": 7668.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 423.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 576700.0,
+      "taxableAssessmentWeightedDiscountedCad": 144175.0,
+      "totalTaxesCad": 4222.0,
+      "municipalLowerOrSingleTierCad": 4001.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 221.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 34236055.0,
+      "taxableAssessmentWeightedDiscountedCad": 61681479.18,
+      "totalTaxesCad": 2012841.0,
+      "municipalLowerOrSingleTierCad": 1711564.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 301277.0
+    },
+    {
+      "code": "0310",
+      "label": "Parking lot",
+      "taxableAssessmentCvaCad": 60300.0,
+      "taxableAssessmentWeightedDiscountedCad": 118748.79,
+      "totalTaxesCad": 3826.0,
+      "municipalLowerOrSingleTierCad": 3295.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 531.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 927600.0,
+      "taxableAssessmentWeightedDiscountedCad": 1274987.87,
+      "totalTaxesCad": 43488.0,
+      "municipalLowerOrSingleTierCad": 35379.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 8109.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

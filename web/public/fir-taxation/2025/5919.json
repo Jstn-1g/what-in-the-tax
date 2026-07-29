@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5919",
+  "slug": "emo-on",
+  "name": "Emo Tp",
+  "tier": "ST",
+  "sgcCode": "59019",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 102493800.0,
+    "totalTaxesCad": 1801881.0,
+    "municipalLowerOrSingleTierCad": 1645065.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 156816.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.912971,
+      "municipalUpperTier": 0.0,
+      "education": 0.087029
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 102493800.0,
+      "taxableAssessmentWeightedDiscountedCad": 102493800.0,
+      "totalTaxesCad": 1801881.0,
+      "municipalLowerOrSingleTierCad": 1645065.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 156816.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 2145000.0,
+      "taxableAssessmentWeightedDiscountedCad": 3267907.5,
+      "totalTaxesCad": 55733.0,
+      "municipalLowerOrSingleTierCad": 52451.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 3282.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 6201900.0,
+      "taxableAssessmentWeightedDiscountedCad": 1550475.0,
+      "totalTaxesCad": 27258.0,
+      "municipalLowerOrSingleTierCad": 24886.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 2372.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 146900.0,
+      "taxableAssessmentWeightedDiscountedCad": 36725.0,
+      "totalTaxesCad": 645.0,
+      "municipalLowerOrSingleTierCad": 589.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 56.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 9469500.0,
+      "taxableAssessmentWeightedDiscountedCad": 15848211.32,
+      "totalTaxesCad": 337702.0,
+      "municipalLowerOrSingleTierCad": 254370.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 83332.0
+    },
+    {
+      "code": "0310",
+      "label": "Parking lot",
+      "taxableAssessmentCvaCad": 17700.0,
+      "taxableAssessmentWeightedDiscountedCad": 29856.36,
+      "totalTaxesCad": 635.0,
+      "municipalLowerOrSingleTierCad": 479.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 156.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 596000.0,
+      "taxableAssessmentWeightedDiscountedCad": 986381.6,
+      "totalTaxesCad": 21121.0,
+      "municipalLowerOrSingleTierCad": 15832.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 5289.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 1511000.0,
+      "taxableAssessmentWeightedDiscountedCad": 6897866.1,
+      "totalTaxesCad": 124010.0,
+      "municipalLowerOrSingleTierCad": 110713.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 13297.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

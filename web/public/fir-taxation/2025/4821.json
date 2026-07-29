@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4821",
+  "slug": "mattawa-on",
+  "name": "Mattawa T",
+  "tier": "ST",
+  "sgcCode": "48021",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 91095700.0,
+    "totalTaxesCad": 1985334.0,
+    "municipalLowerOrSingleTierCad": 1845958.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 139376.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.929797,
+      "municipalUpperTier": 0.0,
+      "education": 0.070203
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 91095700.0,
+      "taxableAssessmentWeightedDiscountedCad": 91095700.0,
+      "totalTaxesCad": 1985334.0,
+      "municipalLowerOrSingleTierCad": 1845958.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 139376.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 5626600.0,
+      "taxableAssessmentWeightedDiscountedCad": 7858518.28,
+      "totalTaxesCad": 167852.0,
+      "municipalLowerOrSingleTierCad": 159244.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 8608.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 11946925.0,
+      "taxableAssessmentWeightedDiscountedCad": 18993702.65,
+      "totalTaxesCad": 490020.0,
+      "municipalLowerOrSingleTierCad": 384887.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 105133.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 365800.0,
+      "taxableAssessmentWeightedDiscountedCad": 766855.15,
+      "totalTaxesCad": 18759.0,
+      "municipalLowerOrSingleTierCad": 15540.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 3219.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 605000.0,
+      "taxableAssessmentWeightedDiscountedCad": 711722.0,
+      "totalTaxesCad": 19746.0,
+      "municipalLowerOrSingleTierCad": 14422.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 5324.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

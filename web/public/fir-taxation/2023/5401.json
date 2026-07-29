@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5401",
+  "slug": "coleman-on",
+  "name": "Coleman Tp",
+  "tier": "ST",
+  "sgcCode": "54001",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 87086800.0,
+    "totalTaxesCad": 921379.0,
+    "municipalLowerOrSingleTierCad": 788136.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 133243.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.855387,
+      "municipalUpperTier": 0.0,
+      "education": 0.144613
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 87086800.0,
+      "taxableAssessmentWeightedDiscountedCad": 87086800.0,
+      "totalTaxesCad": 921379.0,
+      "municipalLowerOrSingleTierCad": 788136.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 133243.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 3943199.0,
+      "taxableAssessmentWeightedDiscountedCad": 4962238.5,
+      "totalTaxesCad": 79608.0,
+      "municipalLowerOrSingleTierCad": 44908.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 34700.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 1266801.0,
+      "taxableAssessmentWeightedDiscountedCad": 3138652.5,
+      "totalTaxesCad": 39552.0,
+      "municipalLowerOrSingleTierCad": 28404.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 11148.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 34121000.0,
+      "taxableAssessmentWeightedDiscountedCad": 59941759.66,
+      "totalTaxesCad": 842738.0,
+      "municipalLowerOrSingleTierCad": 542473.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 300265.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

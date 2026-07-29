@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "0940",
+  "slug": "lanark-highlands-on",
+  "name": "Lanark Highlands Tp",
+  "tier": "LT",
+  "sgcCode": "9039",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 859756451.0,
+    "totalTaxesCad": 9858383.0,
+    "municipalLowerOrSingleTierCad": 5199527.0,
+    "municipalUpperTierCad": 3343429.0,
+    "educationCad": 1315427.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.527422,
+      "municipalUpperTier": 0.339146,
+      "education": 0.133432
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 859756451.0,
+      "taxableAssessmentWeightedDiscountedCad": 859756451.0,
+      "totalTaxesCad": 9858383.0,
+      "municipalLowerOrSingleTierCad": 5199527.0,
+      "municipalUpperTierCad": 3343429.0,
+      "educationCad": 1315427.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 3175000.0,
+      "taxableAssessmentWeightedDiscountedCad": 6418138.68,
+      "totalTaxesCad": 68715.0,
+      "municipalLowerOrSingleTierCad": 38898.0,
+      "municipalUpperTierCad": 24959.0,
+      "educationCad": 4858.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 33741800.0,
+      "taxableAssessmentWeightedDiscountedCad": 8435450.0,
+      "totalTaxesCad": 96725.0,
+      "municipalLowerOrSingleTierCad": 51015.0,
+      "municipalUpperTierCad": 32804.0,
+      "educationCad": 12906.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 16196000.0,
+      "taxableAssessmentWeightedDiscountedCad": 4049000.0,
+      "totalTaxesCad": 46428.0,
+      "municipalLowerOrSingleTierCad": 24487.0,
+      "municipalUpperTierCad": 15746.0,
+      "educationCad": 6195.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 6746749.0,
+      "taxableAssessmentWeightedDiscountedCad": 12433772.64,
+      "totalTaxesCad": 182870.0,
+      "municipalLowerOrSingleTierCad": 75195.0,
+      "municipalUpperTierCad": 48352.0,
+      "educationCad": 59323.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 2222300.0,
+      "taxableAssessmentWeightedDiscountedCad": 5626052.46,
+      "totalTaxesCad": 75476.0,
+      "municipalLowerOrSingleTierCad": 34025.0,
+      "municipalUpperTierCad": 21879.0,
+      "educationCad": 19572.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

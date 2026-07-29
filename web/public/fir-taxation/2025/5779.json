@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5779",
+  "slug": "dubreuilville-on",
+  "name": "Dubreuilville Tp",
+  "tier": "ST",
+  "sgcCode": "57079",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 32565200.0,
+    "totalTaxesCad": 1132495.0,
+    "municipalLowerOrSingleTierCad": 1082670.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 49825.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.956004,
+      "municipalUpperTier": 0.0,
+      "education": 0.043996
+    },
+    "educationRate": 0.00153001
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 32565200.0,
+      "taxableAssessmentWeightedDiscountedCad": 32565200.0,
+      "totalTaxesCad": 1132495.0,
+      "municipalLowerOrSingleTierCad": 1082670.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 49825.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 383000.0,
+      "taxableAssessmentWeightedDiscountedCad": 457315.77,
+      "totalTaxesCad": 15790.0,
+      "municipalLowerOrSingleTierCad": 15204.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 586.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 6805000.0,
+      "taxableAssessmentWeightedDiscountedCad": 10683850.0,
+      "totalTaxesCad": 415082.0,
+      "municipalLowerOrSingleTierCad": 355198.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 59884.0
+    },
+    {
+      "code": "0310",
+      "label": "Parking lot",
+      "taxableAssessmentCvaCad": 222100.0,
+      "taxableAssessmentWeightedDiscountedCad": 348697.0,
+      "totalTaxesCad": 13547.0,
+      "municipalLowerOrSingleTierCad": 11593.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1954.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 123800.0,
+      "taxableAssessmentWeightedDiscountedCad": 274496.66,
+      "totalTaxesCad": 10215.0,
+      "municipalLowerOrSingleTierCad": 9126.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1089.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

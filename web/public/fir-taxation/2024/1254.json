@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "1254",
+  "slug": "wollaston-on",
+  "name": "Wollaston Tp",
+  "tier": "LT",
+  "sgcCode": "12054",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 174973700.0,
+    "totalTaxesCad": 2694410.0,
+    "municipalLowerOrSingleTierCad": 1837688.0,
+    "municipalUpperTierCad": 589012.0,
+    "educationCad": 267710.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.682037,
+      "municipalUpperTier": 0.218605,
+      "education": 0.099358
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 174973700.0,
+      "taxableAssessmentWeightedDiscountedCad": 174973700.0,
+      "totalTaxesCad": 2694410.0,
+      "municipalLowerOrSingleTierCad": 1837688.0,
+      "municipalUpperTierCad": 589012.0,
+      "educationCad": 267710.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 2892100.0,
+      "taxableAssessmentWeightedDiscountedCad": 723025.0,
+      "totalTaxesCad": 11134.0,
+      "municipalLowerOrSingleTierCad": 7594.0,
+      "municipalUpperTierCad": 2434.0,
+      "educationCad": 1106.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 7065300.0,
+      "taxableAssessmentWeightedDiscountedCad": 1766325.0,
+      "totalTaxesCad": 27199.0,
+      "municipalLowerOrSingleTierCad": 18551.0,
+      "municipalUpperTierCad": 5946.0,
+      "educationCad": 2702.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 1954800.0,
+      "taxableAssessmentWeightedDiscountedCad": 2150280.0,
+      "totalTaxesCad": 47025.0,
+      "municipalLowerOrSingleTierCad": 22583.0,
+      "municipalUpperTierCad": 7239.0,
+      "educationCad": 17203.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 426800.0,
+      "taxableAssessmentWeightedDiscountedCad": 469480.0,
+      "totalTaxesCad": 10267.0,
+      "municipalLowerOrSingleTierCad": 4931.0,
+      "municipalUpperTierCad": 1580.0,
+      "educationCad": 3756.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

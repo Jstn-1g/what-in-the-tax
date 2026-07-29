@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "6042",
+  "slug": "ear-falls-on",
+  "name": "Ear Falls Tp",
+  "tier": "ST",
+  "sgcCode": "60032",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 55544900.0,
+    "totalTaxesCad": 1334674.0,
+    "municipalLowerOrSingleTierCad": 1249690.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 84984.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.936326,
+      "municipalUpperTier": 0.0,
+      "education": 0.063674
+    },
+    "educationRate": 0.00153001
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 55544900.0,
+      "taxableAssessmentWeightedDiscountedCad": 55544900.0,
+      "totalTaxesCad": 1334674.0,
+      "municipalLowerOrSingleTierCad": 1249690.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 84984.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 1481000.0,
+      "taxableAssessmentWeightedDiscountedCad": 2038014.47,
+      "totalTaxesCad": 48119.0,
+      "municipalLowerOrSingleTierCad": 45853.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 2266.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 6106400.0,
+      "taxableAssessmentWeightedDiscountedCad": 12090672.0,
+      "totalTaxesCad": 326411.0,
+      "municipalLowerOrSingleTierCad": 272025.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 54386.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 157700.0,
+      "taxableAssessmentWeightedDiscountedCad": 392112.69,
+      "totalTaxesCad": 10210.0,
+      "municipalLowerOrSingleTierCad": 8822.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1388.0
+    },
+    {
+      "code": "0610",
+      "label": "Large industrial",
+      "taxableAssessmentCvaCad": 3771000.0,
+      "taxableAssessmentWeightedDiscountedCad": 9938791.04,
+      "totalTaxesCad": 256795.0,
+      "municipalLowerOrSingleTierCad": 223610.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 33185.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 3029000.0,
+      "taxableAssessmentWeightedDiscountedCad": 6728472.18,
+      "totalTaxesCad": 178037.0,
+      "municipalLowerOrSingleTierCad": 151382.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 26655.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

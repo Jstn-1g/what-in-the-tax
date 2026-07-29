@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4070",
+  "slug": "ashfield-colborne-wawanosh-on",
+  "name": "Ashfield-Colborne-Wawanosh Tp",
+  "tier": "LT",
+  "sgcCode": "40063",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 960652900.0,
+    "totalTaxesCad": 11368770.0,
+    "municipalLowerOrSingleTierCad": 4878098.0,
+    "municipalUpperTierCad": 5022917.0,
+    "educationCad": 1467755.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.429079,
+      "municipalUpperTier": 0.441817,
+      "education": 0.129104
+    },
+    "educationRate": 0.00152787
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 960652900.0,
+      "taxableAssessmentWeightedDiscountedCad": 959317075.0,
+      "totalTaxesCad": 11368770.0,
+      "municipalLowerOrSingleTierCad": 4878098.0,
+      "municipalUpperTierCad": 5022917.0,
+      "educationCad": 1467755.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 1064916083.0,
+      "taxableAssessmentWeightedDiscountedCad": 266229020.75,
+      "totalTaxesCad": 3155048.0,
+      "municipalLowerOrSingleTierCad": 1353764.0,
+      "municipalUpperTierCad": 1393954.0,
+      "educationCad": 407330.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 7610600.0,
+      "taxableAssessmentWeightedDiscountedCad": 1902650.0,
+      "totalTaxesCad": 22548.0,
+      "municipalLowerOrSingleTierCad": 9675.0,
+      "municipalUpperTierCad": 9962.0,
+      "educationCad": 2911.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 28387800.0,
+      "taxableAssessmentWeightedDiscountedCad": 31214287.5,
+      "totalTaxesCad": 571873.0,
+      "municipalLowerOrSingleTierCad": 158723.0,
+      "municipalUpperTierCad": 163436.0,
+      "educationCad": 249714.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 31238800.0,
+      "taxableAssessmentWeightedDiscountedCad": 34298247.5,
+      "totalTaxesCad": 628806.0,
+      "municipalLowerOrSingleTierCad": 174406.0,
+      "municipalUpperTierCad": 179583.0,
+      "educationCad": 274817.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 2659700.0,
+      "taxableAssessmentWeightedDiscountedCad": 1861790.0,
+      "totalTaxesCad": 31415.0,
+      "municipalLowerOrSingleTierCad": 9467.0,
+      "municipalUpperTierCad": 9748.0,
+      "educationCad": 12200.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

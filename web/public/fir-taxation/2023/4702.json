@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4702",
+  "slug": "arnprior-on",
+  "name": "Arnprior T",
+  "tier": "LT",
+  "sgcCode": "47002",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 959851920.0,
+    "totalTaxesCad": 13992202.0,
+    "municipalLowerOrSingleTierCad": 8765800.0,
+    "municipalUpperTierCad": 3757829.0,
+    "educationCad": 1468573.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.626478,
+      "municipalUpperTier": 0.268566,
+      "education": 0.104957
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 959851920.0,
+      "taxableAssessmentWeightedDiscountedCad": 959851920.0,
+      "totalTaxesCad": 13992202.0,
+      "municipalLowerOrSingleTierCad": 8765800.0,
+      "municipalUpperTierCad": 3757829.0,
+      "educationCad": 1468573.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 38639841.0,
+      "taxableAssessmentWeightedDiscountedCad": 72913130.17,
+      "totalTaxesCad": 1010451.0,
+      "municipalLowerOrSingleTierCad": 665876.0,
+      "municipalUpperTierCad": 285456.0,
+      "educationCad": 59119.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 674900.0,
+      "taxableAssessmentWeightedDiscountedCad": 168725.0,
+      "totalTaxesCad": 2460.0,
+      "municipalLowerOrSingleTierCad": 1541.0,
+      "municipalUpperTierCad": 661.0,
+      "educationCad": 258.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 79394969.0,
+      "taxableAssessmentWeightedDiscountedCad": 144078050.24,
+      "totalTaxesCad": 2581748.0,
+      "municipalLowerOrSingleTierCad": 1315786.0,
+      "municipalUpperTierCad": 564067.0,
+      "educationCad": 701895.0
+    },
+    {
+      "code": "0340",
+      "label": "Shopping centre",
+      "taxableAssessmentCvaCad": 10045770.0,
+      "taxableAssessmentWeightedDiscountedCad": 18230058.82,
+      "totalTaxesCad": 326259.0,
+      "municipalLowerOrSingleTierCad": 166485.0,
+      "municipalUpperTierCad": 71371.0,
+      "educationCad": 88403.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 6748100.0,
+      "taxableAssessmentWeightedDiscountedCad": 16646914.88,
+      "totalTaxesCad": 276762.0,
+      "municipalLowerOrSingleTierCad": 152028.0,
+      "municipalUpperTierCad": 65173.0,
+      "educationCad": 59561.0
+    },
+    {
+      "code": "0610",
+      "label": "Large industrial",
+      "taxableAssessmentCvaCad": 5497200.0,
+      "taxableAssessmentWeightedDiscountedCad": 15293386.31,
+      "totalTaxesCad": 247915.0,
+      "municipalLowerOrSingleTierCad": 139666.0,
+      "municipalUpperTierCad": 59874.0,
+      "educationCad": 48375.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 2749000.0,
+      "taxableAssessmentWeightedDiscountedCad": 3663867.2,
+      "totalTaxesCad": 71995.0,
+      "municipalLowerOrSingleTierCad": 33460.0,
+      "municipalUpperTierCad": 14344.0,
+      "educationCad": 24191.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

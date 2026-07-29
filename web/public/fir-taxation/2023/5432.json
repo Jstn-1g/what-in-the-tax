@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5432",
+  "slug": "brethour-on",
+  "name": "Brethour Tp",
+  "tier": "ST",
+  "sgcCode": "54032",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 8108400.0,
+    "totalTaxesCad": 84340.0,
+    "municipalLowerOrSingleTierCad": 71934.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 12406.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.852905,
+      "municipalUpperTier": 0.0,
+      "education": 0.147095
+    },
+    "educationRate": 0.00153002
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 8108400.0,
+      "taxableAssessmentWeightedDiscountedCad": 8108400.0,
+      "totalTaxesCad": 84340.0,
+      "municipalLowerOrSingleTierCad": 71934.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 12406.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 27086000.0,
+      "taxableAssessmentWeightedDiscountedCad": 6771500.0,
+      "totalTaxesCad": 70434.0,
+      "municipalLowerOrSingleTierCad": 60074.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 10360.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 26100.0,
+      "taxableAssessmentWeightedDiscountedCad": 51678.0,
+      "totalTaxesCad": 688.0,
+      "municipalLowerOrSingleTierCad": 458.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 230.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 555000.0,
+      "taxableAssessmentWeightedDiscountedCad": 3498331.5,
+      "totalTaxesCad": 35920.0,
+      "municipalLowerOrSingleTierCad": 31036.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 4884.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

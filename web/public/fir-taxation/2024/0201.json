@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "0201",
+  "slug": "east-hawkesbury-on",
+  "name": "East Hawkesbury Tp",
+  "tier": "LT",
+  "sgcCode": "2001",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 378434000.0,
+    "totalTaxesCad": 4352029.0,
+    "municipalLowerOrSingleTierCad": 2022230.0,
+    "municipalUpperTierCad": 1750795.0,
+    "educationCad": 579004.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.464664,
+      "municipalUpperTier": 0.402294,
+      "education": 0.133042
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 378434000.0,
+      "taxableAssessmentWeightedDiscountedCad": 378434000.0,
+      "totalTaxesCad": 4352029.0,
+      "municipalLowerOrSingleTierCad": 2022230.0,
+      "municipalUpperTierCad": 1750795.0,
+      "educationCad": 579004.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 347000.0,
+      "taxableAssessmentWeightedDiscountedCad": 416400.0,
+      "totalTaxesCad": 4682.0,
+      "municipalLowerOrSingleTierCad": 2225.0,
+      "municipalUpperTierCad": 1926.0,
+      "educationCad": 531.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 287197900.0,
+      "taxableAssessmentWeightedDiscountedCad": 71799475.0,
+      "totalTaxesCad": 825702.0,
+      "municipalLowerOrSingleTierCad": 383673.0,
+      "municipalUpperTierCad": 332176.0,
+      "educationCad": 109853.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 482600.0,
+      "taxableAssessmentWeightedDiscountedCad": 120650.0,
+      "totalTaxesCad": 1388.0,
+      "municipalLowerOrSingleTierCad": 645.0,
+      "municipalUpperTierCad": 558.0,
+      "educationCad": 185.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 6999900.0,
+      "taxableAssessmentWeightedDiscountedCad": 10086848.9,
+      "totalTaxesCad": 162166.0,
+      "municipalLowerOrSingleTierCad": 53901.0,
+      "municipalUpperTierCad": 46666.0,
+      "educationCad": 61599.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 10062200.0,
+      "taxableAssessmentWeightedDiscountedCad": 24621116.68,
+      "totalTaxesCad": 333274.0,
+      "municipalLowerOrSingleTierCad": 131567.0,
+      "municipalUpperTierCad": 113907.0,
+      "educationCad": 87800.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

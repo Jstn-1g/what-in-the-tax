@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5677",
+  "slug": "mattice---val-cote-on",
+  "name": "Mattice - Val Cote Tp",
+  "tier": "ST",
+  "sgcCode": "56077",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 26365000.0,
+    "totalTaxesCad": 506238.0,
+    "municipalLowerOrSingleTierCad": 465900.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 40338.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.920318,
+      "municipalUpperTier": 0.0,
+      "education": 0.079682
+    },
+    "educationRate": 0.00152998
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 26365000.0,
+      "taxableAssessmentWeightedDiscountedCad": 26365000.0,
+      "totalTaxesCad": 506238.0,
+      "municipalLowerOrSingleTierCad": 465900.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 40338.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 334000.0,
+      "taxableAssessmentWeightedDiscountedCad": 320139.0,
+      "totalTaxesCad": 6168.0,
+      "municipalLowerOrSingleTierCad": 5657.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 511.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 19200.0,
+      "taxableAssessmentWeightedDiscountedCad": 4800.0,
+      "totalTaxesCad": 92.0,
+      "municipalLowerOrSingleTierCad": 85.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 7.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 1384300.0,
+      "taxableAssessmentWeightedDiscountedCad": 2754809.33,
+      "totalTaxesCad": 60035.0,
+      "municipalLowerOrSingleTierCad": 47853.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 12182.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 137300.0,
+      "taxableAssessmentWeightedDiscountedCad": 232037.0,
+      "totalTaxesCad": 5308.0,
+      "municipalLowerOrSingleTierCad": 4100.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 1208.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 46117000.0,
+      "taxableAssessmentWeightedDiscountedCad": 42519874.0,
+      "totalTaxesCad": 956621.0,
+      "municipalLowerOrSingleTierCad": 751375.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 205246.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

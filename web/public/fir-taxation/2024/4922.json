@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4922",
+  "slug": "burks-falls-v-on",
+  "name": "Burk's Falls V",
+  "tier": "ST",
+  "sgcCode": "49022",
+  "fiscalYear": 2024,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
+    "archive": "fir_data_2024.zip",
+    "archiveSha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
+    "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 63152700.0,
+    "totalTaxesCad": 1206536.0,
+    "municipalLowerOrSingleTierCad": 1109912.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 96624.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.919916,
+      "municipalUpperTier": 0.0,
+      "education": 0.080084
+    },
+    "educationRate": 0.00153001
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 63152700.0,
+      "taxableAssessmentWeightedDiscountedCad": 63152700.0,
+      "totalTaxesCad": 1206536.0,
+      "municipalLowerOrSingleTierCad": 1109912.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 96624.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 6245700.0,
+      "taxableAssessmentWeightedDiscountedCad": 7309194.26,
+      "totalTaxesCad": 138016.0,
+      "municipalLowerOrSingleTierCad": 128460.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 9556.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 62400.0,
+      "taxableAssessmentWeightedDiscountedCad": 15600.0,
+      "totalTaxesCad": 298.0,
+      "municipalLowerOrSingleTierCad": 274.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 24.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 8998500.0,
+      "taxableAssessmentWeightedDiscountedCad": 9784731.0,
+      "totalTaxesCad": 251154.0,
+      "municipalLowerOrSingleTierCad": 171967.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 79187.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 3714500.0,
+      "taxableAssessmentWeightedDiscountedCad": 5252262.79,
+      "totalTaxesCad": 124997.0,
+      "municipalLowerOrSingleTierCad": 92309.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 32688.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 324000.0,
+      "taxableAssessmentWeightedDiscountedCad": 277862.4,
+      "totalTaxesCad": 7734.0,
+      "municipalLowerOrSingleTierCad": 4883.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 2851.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

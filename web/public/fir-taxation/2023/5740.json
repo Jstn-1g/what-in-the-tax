@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "5740",
+  "slug": "the-north-shore-on",
+  "name": "The North Shore Tp",
+  "tier": "ST",
+  "sgcCode": "57040",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 65846700.0,
+    "totalTaxesCad": 1019738.0,
+    "municipalLowerOrSingleTierCad": 918993.0,
+    "municipalUpperTierCad": 0.0,
+    "educationCad": 100745.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.901205,
+      "municipalUpperTier": 0.0,
+      "education": 0.098795
+    },
+    "educationRate": 0.00152999
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 65846700.0,
+      "taxableAssessmentWeightedDiscountedCad": 65846700.0,
+      "totalTaxesCad": 1019738.0,
+      "municipalLowerOrSingleTierCad": 918993.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 100745.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 268400.0,
+      "taxableAssessmentWeightedDiscountedCad": 295240.0,
+      "totalTaxesCad": 4532.0,
+      "municipalLowerOrSingleTierCad": 4121.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 411.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 457300.0,
+      "taxableAssessmentWeightedDiscountedCad": 114325.0,
+      "totalTaxesCad": 1771.0,
+      "municipalLowerOrSingleTierCad": 1596.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 175.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 3599300.0,
+      "taxableAssessmentWeightedDiscountedCad": 3600883.0,
+      "totalTaxesCad": 81929.0,
+      "municipalLowerOrSingleTierCad": 50255.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 31674.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 2363300.0,
+      "taxableAssessmentWeightedDiscountedCad": 2503572.5,
+      "totalTaxesCad": 56061.0,
+      "municipalLowerOrSingleTierCad": 34941.0,
+      "municipalUpperTierCad": 0.0,
+      "educationCad": 21120.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4109",
+  "slug": "northern-bruce-peninsula-m-on",
+  "name": "Northern Bruce Peninsula M",
+  "tier": "LT",
+  "sgcCode": "41069",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 1558307799.0,
+    "totalTaxesCad": 17028518.0,
+    "municipalLowerOrSingleTierCad": 7277625.0,
+    "municipalUpperTierCad": 7366682.0,
+    "educationCad": 2384211.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.427379,
+      "municipalUpperTier": 0.432609,
+      "education": 0.140013
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 1558307799.0,
+      "taxableAssessmentWeightedDiscountedCad": 1558307799.0,
+      "totalTaxesCad": 17028518.0,
+      "municipalLowerOrSingleTierCad": 7277625.0,
+      "municipalUpperTierCad": 7366682.0,
+      "educationCad": 2384211.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 7979200.0,
+      "taxableAssessmentWeightedDiscountedCad": 7979200.0,
+      "totalTaxesCad": 87192.0,
+      "municipalLowerOrSingleTierCad": 37264.0,
+      "municipalUpperTierCad": 37720.0,
+      "educationCad": 12208.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 101705900.0,
+      "taxableAssessmentWeightedDiscountedCad": 25426475.0,
+      "totalTaxesCad": 277850.0,
+      "municipalLowerOrSingleTierCad": 118747.0,
+      "municipalUpperTierCad": 120200.0,
+      "educationCad": 38903.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 6320500.0,
+      "taxableAssessmentWeightedDiscountedCad": 1580125.0,
+      "totalTaxesCad": 17267.0,
+      "municipalLowerOrSingleTierCad": 7379.0,
+      "municipalUpperTierCad": 7470.0,
+      "educationCad": 2418.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 40235419.0,
+      "taxableAssessmentWeightedDiscountedCad": 49614295.17,
+      "totalTaxesCad": 820292.0,
+      "municipalLowerOrSingleTierCad": 231710.0,
+      "municipalUpperTierCad": 234545.0,
+      "educationCad": 354037.0
+    },
+    {
+      "code": "0310",
+      "label": "Parking lot",
+      "taxableAssessmentCvaCad": 376900.0,
+      "taxableAssessmentWeightedDiscountedCad": 464755.39,
+      "totalTaxesCad": 7685.0,
+      "municipalLowerOrSingleTierCad": 2171.0,
+      "municipalUpperTierCad": 2197.0,
+      "educationCad": 3317.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 2867700.0,
+      "taxableAssessmentWeightedDiscountedCad": 5011879.29,
+      "totalTaxesCad": 72627.0,
+      "municipalLowerOrSingleTierCad": 23407.0,
+      "municipalUpperTierCad": 23693.0,
+      "educationCad": 25527.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

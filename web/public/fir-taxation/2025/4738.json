@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "4738",
+  "slug": "bonnechere-valley-on",
+  "name": "Bonnechere Valley Tp",
+  "tier": "LT",
+  "sgcCode": "47035",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 500624555.0,
+    "totalTaxesCad": 6780814.0,
+    "municipalLowerOrSingleTierCad": 3835509.0,
+    "municipalUpperTierCad": 2179349.0,
+    "educationCad": 765956.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.565641,
+      "municipalUpperTier": 0.321399,
+      "education": 0.112959
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 500624555.0,
+      "taxableAssessmentWeightedDiscountedCad": 500624555.0,
+      "totalTaxesCad": 6780814.0,
+      "municipalLowerOrSingleTierCad": 3835509.0,
+      "municipalUpperTierCad": 2179349.0,
+      "educationCad": 765956.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 3586600.0,
+      "taxableAssessmentWeightedDiscountedCad": 6970915.76,
+      "totalTaxesCad": 89274.0,
+      "municipalLowerOrSingleTierCad": 53441.0,
+      "municipalUpperTierCad": 30346.0,
+      "educationCad": 5487.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 36672123.0,
+      "taxableAssessmentWeightedDiscountedCad": 9168030.75,
+      "totalTaxesCad": 124223.0,
+      "municipalLowerOrSingleTierCad": 70285.0,
+      "municipalUpperTierCad": 39911.0,
+      "educationCad": 14027.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 7910700.0,
+      "taxableAssessmentWeightedDiscountedCad": 1977675.0,
+      "totalTaxesCad": 26796.0,
+      "municipalLowerOrSingleTierCad": 15161.0,
+      "municipalUpperTierCad": 8609.0,
+      "educationCad": 3026.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 13074328.0,
+      "taxableAssessmentWeightedDiscountedCad": 23725983.02,
+      "totalTaxesCad": 400230.0,
+      "municipalLowerOrSingleTierCad": 181890.0,
+      "municipalUpperTierCad": 103286.0,
+      "educationCad": 115054.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 1610772.0,
+      "taxableAssessmentWeightedDiscountedCad": 3973619.89,
+      "totalTaxesCad": 62051.0,
+      "municipalLowerOrSingleTierCad": 30463.0,
+      "municipalUpperTierCad": 17298.0,
+      "educationCad": 14290.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "1938",
+  "slug": "richmond-hill-on",
+  "name": "Richmond Hill C",
+  "tier": "LT",
+  "sgcCode": "19038",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
+    "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 64613859269.0,
+    "totalTaxesCad": 476210605.0,
+    "municipalLowerOrSingleTierCad": 134491810.0,
+    "municipalUpperTierCad": 242859590.0,
+    "educationCad": 98859205.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.282421,
+      "municipalUpperTier": 0.509984,
+      "education": 0.207596
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 64613859269.0,
+      "taxableAssessmentWeightedDiscountedCad": 64613859269.0,
+      "totalTaxesCad": 476210605.0,
+      "municipalLowerOrSingleTierCad": 134491810.0,
+      "municipalUpperTierCad": 242859590.0,
+      "educationCad": 98859205.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 868879300.0,
+      "taxableAssessmentWeightedDiscountedCad": 868879300.0,
+      "totalTaxesCad": 6403727.0,
+      "municipalLowerOrSingleTierCad": 1808546.0,
+      "municipalUpperTierCad": 3265796.0,
+      "educationCad": 1329385.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 23021600.0,
+      "taxableAssessmentWeightedDiscountedCad": 5755400.0,
+      "totalTaxesCad": 42418.0,
+      "municipalLowerOrSingleTierCad": 11980.0,
+      "municipalUpperTierCad": 21632.0,
+      "educationCad": 8806.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 694700.0,
+      "taxableAssessmentWeightedDiscountedCad": 173675.0,
+      "totalTaxesCad": 1281.0,
+      "municipalLowerOrSingleTierCad": 362.0,
+      "municipalUpperTierCad": 653.0,
+      "educationCad": 266.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 3457288618.0,
+      "taxableAssessmentWeightedDiscountedCad": 4605454168.04,
+      "totalTaxesCad": 57320462.0,
+      "municipalLowerOrSingleTierCad": 9586128.0,
+      "municipalUpperTierCad": 17310194.0,
+      "educationCad": 30424140.0
+    },
+    {
+      "code": "0310",
+      "label": "Parking lot",
+      "taxableAssessmentCvaCad": 49499800.0,
+      "taxableAssessmentWeightedDiscountedCad": 65938683.58,
+      "totalTaxesCad": 820687.0,
+      "municipalLowerOrSingleTierCad": 137250.0,
+      "municipalUpperTierCad": 247839.0,
+      "educationCad": 435598.0
+    },
+    {
+      "code": "0320",
+      "label": "Office building",
+      "taxableAssessmentCvaCad": 248960600.0,
+      "taxableAssessmentWeightedDiscountedCad": 331640415.26,
+      "totalTaxesCad": 4127668.0,
+      "municipalLowerOrSingleTierCad": 690301.0,
+      "municipalUpperTierCad": 1246513.0,
+      "educationCad": 2190854.0
+    },
+    {
+      "code": "0340",
+      "label": "Shopping centre",
+      "taxableAssessmentCvaCad": 1158190560.0,
+      "taxableAssessmentWeightedDiscountedCad": 1542825644.98,
+      "totalTaxesCad": 19202336.0,
+      "municipalLowerOrSingleTierCad": 3211350.0,
+      "municipalUpperTierCad": 5798909.0,
+      "educationCad": 10192077.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 590970302.0,
+      "taxableAssessmentWeightedDiscountedCad": 927745521.05,
+      "totalTaxesCad": 10359867.0,
+      "municipalLowerOrSingleTierCad": 1931074.0,
+      "municipalUpperTierCad": 3487052.0,
+      "educationCad": 4941741.0
+    },
+    {
+      "code": "0610",
+      "label": "Large industrial",
+      "taxableAssessmentCvaCad": 33543000.0,
+      "taxableAssessmentWeightedDiscountedCad": 55117857.6,
+      "totalTaxesCad": 617072.0,
+      "municipalLowerOrSingleTierCad": 114726.0,
+      "municipalUpperTierCad": 207168.0,
+      "educationCad": 295178.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 45098000.0,
+      "taxableAssessmentWeightedDiscountedCad": 41445062.0,
+      "totalTaxesCad": 638906.0,
+      "municipalLowerOrSingleTierCad": 86267.0,
+      "municipalUpperTierCad": 155777.0,
+      "educationCad": 396862.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

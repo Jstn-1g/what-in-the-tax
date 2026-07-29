@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "0919",
+  "slug": "drummond-north-elmsley-on",
+  "name": "Drummond-North Elmsley Tp",
+  "tier": "LT",
+  "sgcCode": "9010",
+  "fiscalYear": 2023,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
+    "archive": "fir_data_2023.zip",
+    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 1115058871.0,
+    "totalTaxesCad": 10576451.0,
+    "municipalLowerOrSingleTierCad": 4535823.0,
+    "municipalUpperTierCad": 4334588.0,
+    "educationCad": 1706040.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.428861,
+      "municipalUpperTier": 0.409834,
+      "education": 0.161306
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 1115058871.0,
+      "taxableAssessmentWeightedDiscountedCad": 1115058871.0,
+      "totalTaxesCad": 10576451.0,
+      "municipalLowerOrSingleTierCad": 4535823.0,
+      "municipalUpperTierCad": 4334588.0,
+      "educationCad": 1706040.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 1073800.0,
+      "taxableAssessmentWeightedDiscountedCad": 2170644.82,
+      "totalTaxesCad": 18555.0,
+      "municipalLowerOrSingleTierCad": 8471.0,
+      "municipalUpperTierCad": 8441.0,
+      "educationCad": 1643.0
+    },
+    {
+      "code": "0110",
+      "label": "Farmland",
+      "taxableAssessmentCvaCad": 69275900.0,
+      "taxableAssessmentWeightedDiscountedCad": 17318975.0,
+      "totalTaxesCad": 164325.0,
+      "municipalLowerOrSingleTierCad": 70477.0,
+      "municipalUpperTierCad": 67350.0,
+      "educationCad": 26498.0
+    },
+    {
+      "code": "0140",
+      "label": "Managed forests",
+      "taxableAssessmentCvaCad": 1466900.0,
+      "taxableAssessmentWeightedDiscountedCad": 366725.0,
+      "totalTaxesCad": 3479.0,
+      "municipalLowerOrSingleTierCad": 1492.0,
+      "municipalUpperTierCad": 1426.0,
+      "educationCad": 561.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 28109800.0,
+      "taxableAssessmentWeightedDiscountedCad": 51804337.49,
+      "totalTaxesCad": 659413.0,
+      "municipalLowerOrSingleTierCad": 210810.0,
+      "municipalUpperTierCad": 201457.0,
+      "educationCad": 247146.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 4173756.0,
+      "taxableAssessmentWeightedDiscountedCad": 10566426.77,
+      "totalTaxesCad": 121377.0,
+      "municipalLowerOrSingleTierCad": 42999.0,
+      "municipalUpperTierCad": 41091.0,
+      "educationCad": 37287.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 2595000.0,
+      "taxableAssessmentWeightedDiscountedCad": 5208803.37,
+      "totalTaxesCad": 64288.0,
+      "municipalLowerOrSingleTierCad": 21196.0,
+      "municipalUpperTierCad": 20256.0,
+      "educationCad": 22836.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}
