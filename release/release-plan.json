@@ -80,40 +80,40 @@
     {
       "id": "cambridge-on",
       "path": "web/public/packs/cambridge-on.json",
-      "sha256": "dad73e755edb6e7c436a4ecac6a0b0b6d16d3279821c31f16eb07af1e598e072",
-      "byteLength": 35223,
+      "sha256": "125c95f299894e44a4f465bf105ad3efcc66438785d1593955fea444ebb038aa",
+      "byteLength": 35314,
       "mediaType": "application/json",
       "visibility": "public"
     },
     {
       "id": "kitchener-on",
       "path": "web/public/packs/kitchener-on.json",
-      "sha256": "aa6898d22ed424bcbf9e15e22d12448f4385a3d2985132c20183b8e8697fc632",
-      "byteLength": 43883,
+      "sha256": "82c55f5cdd22c0f87c40b75a798dc837557b82e4d69466a9d5e2ac1c8949d7b5",
+      "byteLength": 43976,
       "mediaType": "application/json",
       "visibility": "public"
     },
     {
       "id": "north-dumfries-on",
       "path": "web/public/packs/north-dumfries-on.json",
-      "sha256": "912cc2b0c777b768a951f1c0cffb1f304955fde7b286ad90f877f4ef405af7b1",
-      "byteLength": 39945,
+      "sha256": "515c0d83dd59506b01ef5f0c80e0f129c20eb2fd88313872ac1b0465e55afd57",
+      "byteLength": 40038,
       "mediaType": "application/json",
       "visibility": "public"
     },
     {
       "id": "waterloo-on",
       "path": "web/public/packs/waterloo-on.json",
-      "sha256": "833745f265269242b3062ad9548c96cb8c404547f27b7d63df97baa7eb3c199c",
-      "byteLength": 33762,
+      "sha256": "f0e74cc8c883f76f0bc52dfeee3b0fd7175eede84b05499364205db1d87c92ae",
+      "byteLength": 33855,
       "mediaType": "application/json",
       "visibility": "public"
     },
     {
       "id": "woolwich-on",
       "path": "web/public/packs/woolwich-on.json",
-      "sha256": "4dcd80796f6be2834a36694a73e2b56dde3d3631e537a6aa3e69323cc8a94490",
-      "byteLength": 35035,
+      "sha256": "4e3f16e93dacf2b00e26d106999ab9814edd567df7a8992a65660f09c50b2888",
+      "byteLength": 35128,
       "mediaType": "application/json",
       "visibility": "public"
     }

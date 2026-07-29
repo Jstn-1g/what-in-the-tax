@@ -753,10 +753,13 @@ receipt = {
             "taxingBodies": build_taxing_bodies(
                 [
                     {"label": "City of Kitchener", "amountCad": CITY_PORTION,
+                     "rate": RATE_CITY,
                      "sourceFactId": "KIT-TAXRATE-RES-CITY-2026"},
                     {"label": "Region of Waterloo", "amountCad": REGION_PORTION,
+                     "rate": RATE_REGION,
                      "sourceFactId": "KIT-TAXRATE-RES-REGION-2026"},
                     {"label": "Education (Province of Ontario)", "amountCad": EDUCATION_PORTION,
+                     "rate": RATE_EDUCATION,
                      "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026"},
                 ],
                 {

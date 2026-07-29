@@ -367,7 +367,8 @@
           "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
-          "assessmentCad": 455000
+          "assessmentCad": 455000,
+          "rate": 0.00315303
         },
         {
           "id": "nd-taxrate-res-region-2026-final",
@@ -378,7 +379,8 @@
           "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL",
-          "assessmentCad": 455000
+          "assessmentCad": 455000,
+          "rate": 0.00717545
         },
         {
           "id": "nd-taxrate-res-education-2026-final",
@@ -389,7 +391,8 @@
           "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
-          "assessmentCad": 455000
+          "assessmentCad": 455000,
+          "rate": 0.00153
         }
       ],
       "combinedTotalNote": "Built from the adopted By-law 3637-26 Schedule A rates applied to ONE assessment ($455,000), not by adding two governments' differently-based household averages. The three rates sum exactly to the printed Total 2026 Rate, and the township component reproduces the separately cited $1,434.63 to the cent.",

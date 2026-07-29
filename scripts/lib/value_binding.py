@@ -87,7 +87,15 @@ def unbound_values(receipt: dict, nodes: dict[str, dict]) -> list[Unbound]:
         node = nodes.get(node_id)
         if node is None:
             continue
+        # Rate facts carry their number under `value` in some ledgers and
+        # `amountCad` in others - North Dumfries writes 0.00315303 as `value`
+        # while Cambridge writes the same kind of rate as `amountCad`. Reading
+        # only one of them reported seven nodes as carrying no amount when every
+        # one of them does. The inconsistency is worth fixing at the source, but
+        # a checker that cannot read the ledger it guards is the worse problem.
         node_amount = node.get("amountCad")
+        if not _is_number(node_amount):
+            node_amount = node.get("value")
         if not _is_number(node_amount):
             problems.append(
                 Unbound(path, node_id, float(obj["amountCad"]), None,

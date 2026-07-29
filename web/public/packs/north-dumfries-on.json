@@ -1005,6 +1005,7 @@
             "id": "nd-taxrate-res-township-2026-final",
             "label": "Township of North Dumfries",
             "order": 0,
+            "rate": 0.00315303,
             "role": "local",
             "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"
           },
@@ -1016,6 +1017,7 @@
             "id": "nd-taxrate-res-region-2026-final",
             "label": "Region of Waterloo",
             "order": 1,
+            "rate": 0.00717545,
             "role": "upper-tier",
             "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"
           },
@@ -1027,6 +1029,7 @@
             "id": "nd-taxrate-res-education-2026-final",
             "label": "Education (Province of Ontario)",
             "order": 2,
+            "rate": 0.00153,
             "role": "education",
             "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
           }

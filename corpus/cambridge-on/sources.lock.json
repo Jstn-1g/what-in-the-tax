@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "source-lock-1.0.0",
+  "ledgerPath": "data/cambridge/evidence-ledger.json",
+  "ledgerSha256": "1df012d79824ed41ed944f84dc40a9c0de831c5b25eb1f05906eba7a20d59a10",
+  "sources": [
+    {
+      "id": "cam-2026-budget",
+      "url": "https://www.cambridge.ca/media/pysixppv/2026approvedbudget_final_web-remedated.pdf",
+      "authority": "City of Cambridge",
+      "asOf": "2025-12",
+      "license": "unknown",
+      "localPath": "source-pdfs/cambridge/2026approvedbudget_final_web-remedated.pdf",
+      "sha256": null,
+      "bytes": null,
+      "extractedText": "data/_extracts/cambridge/2026-budget-excerpt.txt",
+      "extractedTextSha256": "d60a8513e040fcf7b28e97ecf771eb30549a875a7334717efbc759563fa4fec8",
+      "lockStatus": "missing",
+      "missing": [
+        "localPath"
+      ]
+    },
+    {
+      "id": "cam-2026-tax-rates",
+      "url": "https://www.cambridge.ca/resident-services/taxes/",
+      "authority": "City of Cambridge",
+      "asOf": "2026",
+      "license": "unknown",
+      "localPath": null,
+      "sha256": null,
+      "bytes": null,
+      "extractedText": "data/_extracts/cambridge/2026-tax-rates-page.txt",
+      "extractedTextSha256": "60c3c36cb102af5f5373caba34c775be9561afbabe787177e719f099dee58863",
+      "lockStatus": "extract-only"
+    },
+    {
+      "id": "row-2026-book",
+      "url": "https://www.regionofwaterloo.ca/",
+      "authority": "Region of Waterloo",
+      "asOf": "2026",
+      "license": "unknown",
+      "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
+      "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
+      "bytes": 5442331,
+      "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
+      "extractedTextSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423",
+      "lockStatus": "source-and-extract"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "source-lock-1.0.0",
+  "ledgerPath": "data/woolwich/evidence-ledger.json",
+  "ledgerSha256": "db791837d40597700549c4f95912c787fe5392dad634ba2abb59b9b4e9a5b515",
+  "sources": [
+    {
+      "id": "row-2026-book",
+      "url": "https://www.regionofwaterloo.ca/",
+      "authority": "Region of Waterloo",
+      "asOf": "2026",
+      "license": "unknown",
+      "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
+      "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
+      "bytes": 5442331,
+      "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
+      "extractedTextSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423",
+      "lockStatus": "source-and-extract"
+    },
+    {
+      "id": "woo-2026-budget",
+      "url": "https://www.woolwich.ca/media/pytjesxk/2026-budget-book-final.pdf",
+      "authority": "Township of Woolwich",
+      "asOf": "2026-01",
+      "license": "unknown",
+      "localPath": "source-pdfs/woolwich/2026-budget-book-final.pdf",
+      "sha256": null,
+      "bytes": null,
+      "extractedText": "data/_extracts/woolwich/2026-budget-excerpt.txt",
+      "extractedTextSha256": "193ae2bb88092bfcf5e36c72be7a26e2edf0903caaf44d65b27094df506eb7d8",
+      "lockStatus": "missing",
+      "missing": [
+        "localPath"
+      ]
+    },
+    {
+      "id": "woo-2026-tax-rates",
+      "url": "https://www.woolwich.ca/pay-buy/taxes/",
+      "authority": "Township of Woolwich",
+      "asOf": "2026",
+      "license": "unknown",
+      "localPath": null,
+      "sha256": null,
+      "bytes": null,
+      "extractedText": "data/_extracts/woolwich/2026-tax-rates-page.txt",
+      "extractedTextSha256": "281780ca8b7c572c6269a582ed06156a5b2a2f372b33f2f360838ff4706d31ad",
+      "lockStatus": "extract-only"
+    }
+  ]
+}

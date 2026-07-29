@@ -1664,11 +1664,11 @@ receipt = {
             # stays inside combinedAtAssessment until variants are modelled.
             "taxingBodies": build_taxing_bodies(
                 [
-                    {"label": "Township of North Dumfries", "amountCad": BILL_TWP,
+                    {"label": "Township of North Dumfries", "amountCad": BILL_TWP, "rate": RATE_TWP,
                      "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"},
-                    {"label": "Region of Waterloo", "amountCad": BILL_REG,
+                    {"label": "Region of Waterloo", "amountCad": BILL_REG, "rate": RATE_REG,
                      "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"},
-                    {"label": "Education (Province of Ontario)", "amountCad": BILL_EDU,
+                    {"label": "Education (Province of Ontario)", "amountCad": BILL_EDU, "rate": RATE_EDU,
                      "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"},
                 ],
                 {

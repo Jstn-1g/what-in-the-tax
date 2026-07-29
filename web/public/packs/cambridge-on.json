@@ -904,6 +904,7 @@
             "id": "cam-taxrate-res-city-2026",
             "label": "City of Cambridge",
             "order": 0,
+            "rate": 0.0051735,
             "role": "local",
             "sourceFactId": "CAM-TAXRATE-RES-CITY-2026"
           },
@@ -915,6 +916,7 @@
             "id": "cam-taxrate-res-region-2026",
             "label": "Region of Waterloo",
             "order": 1,
+            "rate": 0.0084183,
             "role": "upper-tier",
             "sourceFactId": "CAM-TAXRATE-RES-REGION-2026"
           },
@@ -926,6 +928,7 @@
             "id": "cam-taxrate-res-education-2026",
             "label": "Education (Province of Ontario)",
             "order": 2,
+            "rate": 0.00153,
             "role": "education",
             "sourceFactId": "CAM-TAXRATE-RES-EDUCATION-2026"
           }

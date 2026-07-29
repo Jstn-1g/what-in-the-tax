@@ -82,6 +82,8 @@ export type TaxingBody = {
   /** Position on the bill. Stable, so the bar and the list cannot disagree. */
   order: number
   amountCad: number
+  /** The rate amountCad is the product of, when the bill states one. */
+  rate?: number
   basis: string
   evidenceStatus: string
   assessmentCad?: number

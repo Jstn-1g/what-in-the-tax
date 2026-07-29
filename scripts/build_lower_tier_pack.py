@@ -1428,16 +1428,19 @@ def build_pack(cfg: dict) -> tuple[dict, dict]:
                         {
                             "label": name,
                             "amountCad": city_portion,
+                            "rate": rate_city,
                             "sourceFactId": f"{prefix}-TAXRATE-RES-CITY-{fiscal_year}",
                         },
                         {
                             "label": "Region of Waterloo",
                             "amountCad": region_portion,
+                            "rate": rate_region,
                             "sourceFactId": f"{prefix}-TAXRATE-RES-REGION-{fiscal_year}",
                         },
                         {
                             "label": "Education (Province of Ontario)",
                             "amountCad": edu_portion,
+                            "rate": rate_edu,
                             "sourceFactId": f"{prefix}-TAXRATE-RES-EDUCATION-{fiscal_year}",
                         },
                     ],

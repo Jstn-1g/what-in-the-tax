@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "source-lock-1.0.0",
+  "ledgerPath": "data/kitchener/evidence-ledger.json",
+  "ledgerSha256": "6cc32ff89711be1262732d4f1022c179320cfb849c1b30e434b77e45c80869b4",
+  "sources": [
+    {
+      "id": "kit-2026-appendix-b",
+      "url": "https://www.kitchener.ca/media/kzxdj3nt/cok_fin_budget_2026_appendix-b-operating.pdf",
+      "authority": "City of Kitchener",
+      "asOf": "2025-12",
+      "license": "unknown",
+      "localPath": "source-pdfs/kitchener/2026-appendix-b-operating.pdf",
+      "sha256": "e975f97faf14f875ee874411375278a8e744e2399078df908ab810bd573cc805",
+      "bytes": 4054869,
+      "extractedText": "data/_extracts/kitchener/2026-appendix-b-operating.txt",
+      "extractedTextSha256": "883df290cbcfd71fe4104e424131bb68293c80bcf1bf1e4b4c432a4b392d94c9",
+      "lockStatus": "source-and-extract"
+    },
+    {
+      "id": "kit-2026-budget-summary",
+      "url": "https://www.kitchener.ca/media/2mxbmlay/cok_fin_budget_2026.pdf",
+      "authority": "City of Kitchener",
+      "asOf": "2025-12",
+      "license": "unknown",
+      "localPath": "source-pdfs/kitchener/2026-budget-summary.pdf",
+      "sha256": "58528658c9660c8389ae2886f6d8ae0313a78d09395982016b2459534d005725",
+      "bytes": 12601881,
+      "extractedText": "data/_extracts/kitchener/2026-budget-summary.txt",
+      "extractedTextSha256": "3796c4c172f0b2484c5910f0d499152a5fa3765a4668a5fdb2660cbf89fb3ae7",
+      "lockStatus": "source-and-extract"
+    },
+    {
+      "id": "kit-2026-tax-rates",
+      "url": "https://kitchener-ca.govstack.com/media/1itfipd0/2026-rates-remediated.pdf",
+      "authority": "City of Kitchener",
+      "asOf": "2026",
+      "license": "unknown",
+      "localPath": "source-pdfs/kitchener/2026-final-tax-rates.pdf",
+      "sha256": "89427f76b3609646e4cf9e5c1477d0f8f5a22bcd5f2ec87d4704aa54b0636077",
+      "bytes": 102295,
+      "extractedText": "data/_extracts/kitchener/2026-final-tax-rates.txt",
+      "extractedTextSha256": "53a94f3845aea0d5559e11a59c348aaf84ecd40bedd571db98033672da99312c",
+      "lockStatus": "source-and-extract"
+    },
+    {
+      "id": "row-2026-book",
+      "url": "https://www.regionofwaterloo.ca/",
+      "authority": "Region of Waterloo",
+      "asOf": "2026",
+      "license": "unknown",
+      "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
+      "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
+      "bytes": 5442331,
+      "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
+      "extractedTextSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423",
+      "lockStatus": "source-and-extract"
+    }
+  ]
+}

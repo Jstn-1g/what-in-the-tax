@@ -376,7 +376,8 @@
           "basis": "RT Residential rates applied to published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "CAM-TAXRATE-RES-CITY-2026",
-          "assessmentCad": 344000
+          "assessmentCad": 344000,
+          "rate": 0.0051735
         },
         {
           "id": "cam-taxrate-res-region-2026",
@@ -387,7 +388,8 @@
           "basis": "RT Residential rates applied to published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "CAM-TAXRATE-RES-REGION-2026",
-          "assessmentCad": 344000
+          "assessmentCad": 344000,
+          "rate": 0.0084183
         },
         {
           "id": "cam-taxrate-res-education-2026",
@@ -398,7 +400,8 @@
           "basis": "RT Residential rates applied to published average assessment",
           "evidenceStatus": "DERIVED",
           "sourceFactId": "CAM-TAXRATE-RES-EDUCATION-2026",
-          "assessmentCad": 344000
+          "assessmentCad": 344000,
+          "rate": 0.00153
         }
       ],
       "combinedTotalNote": "Local $1,779.68 + Region $2,895.90 + Education $526.32 = $5,201.90 at $344,000.",
