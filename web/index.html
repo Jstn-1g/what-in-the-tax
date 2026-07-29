@@ -10,7 +10,27 @@
     />
     <meta name="theme-color" content="#ffffff" />
     <meta name="referrer" content="no-referrer" />
+    <!-- noindex is publication policy, not an oversight: every pack is a draft
+         and PUBLISH.md blocks indexing until the seal gates pass. A test pins
+         this tag and the matching X-Robots-Tag header so no refactor can drop
+         them silently. Open Graph tags below are independent of indexing -
+         they shape how a deliberately shared link renders, which is wanted
+         even while search engines are asked to stay out. -->
     <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:site_name" content="What in the Tax?" />
+    <meta property="og:title" content="What in the Tax? — Where did your property-tax dollars go?" />
+    <meta
+      property="og:description"
+      content="Ontario property taxes traced to reviewed public sources: who levied it and what it was spent on, for every taxing municipality with a usable provincial filing. Independent draft preview; not tax advice."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://whatinthetax.com/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="What in the Tax? — Where did your property-tax dollars go?" />
+    <meta
+      name="twitter:description"
+      content="Ontario property taxes traced to reviewed public sources. Independent draft preview; not tax advice."
+    />
     <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
   </head>
   <body>

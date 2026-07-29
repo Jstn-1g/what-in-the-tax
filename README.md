@@ -1,9 +1,17 @@
 # What in the Tax?
 
 What in the Tax? is an evidence-first public-finance model and resident-facing
-property-tax receipt guide.
-It currently provides draft previews for six Ontario municipalities while the
-Canada-wide registry and source-ingestion system are being built.
+property-tax receipt guide, live at [whatinthetax.com](https://whatinthetax.com).
+
+For every Ontario taxing municipality with a usable filing in the province's
+own Financial Information Return — the exact counts are generated from the
+artifacts further down this page — it shows who levied the property tax and
+what it was spent on, rebuilt byte-for-byte from hash-locked official files in
+CI. Six municipalities additionally carry hand-built draft receipts traced to
+their own budget books and tax by-laws. The Canada-wide registry and
+source-ingestion system this generalizes into is documented in
+[CONTRIBUTING.md](CONTRIBUTING.md), with a rollout manifest already in place
+for all thirteen provinces and territories.
 
 Every displayed figure is intended to trace to a published document or to a recorded formula
 over cited inputs. Explicit illustration and pro-rata models are labelled as such, and missing

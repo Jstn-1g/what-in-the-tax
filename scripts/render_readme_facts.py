@@ -210,7 +210,11 @@ def render_fir_selection(history: dict, **_: object) -> str:
 # stay hand-written, but they do not get to go stale quietly: if the artifact
 # moves, this fails and a human rewrites the sentence deliberately.
 PROSE_BINDINGS = (
-    ("draft previews for six Ontario municipalities", "packs", 6),
+    # The README opening now says "Six municipalities additionally carry
+    # hand-built draft receipts". The old phrase it replaced is unbound here
+    # because this checker refuses a binding that guards nothing - which is
+    # exactly how the replacement was caught and rebound instead of drifting.
+    ("Six municipalities additionally carry", "packs", 6),
     ("Six Ontario receipts are available", "packs", 6),
 )
 
