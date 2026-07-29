@@ -390,6 +390,18 @@ def main(argv: list[str] | None = None) -> int:
             "(gitignored working material, so a searchTrail can be honest)"
         ),
     )
+    parser.add_argument(
+        "--require",
+        choices=("all", "reproduction"),
+        default="all",
+        help=(
+            "which failures set the exit code. 'all' (default) also fails on "
+            "undeclared or missing sources. 'reproduction' fails only when an "
+            "extract no longer reproduces from its source, and reports the "
+            "declaration issues without gating on them - they are open source "
+            "reviews rather than build failures."
+        ),
+    )
     args = parser.parse_args(argv)
 
     jobs: list[Job] = []
@@ -460,7 +472,34 @@ def main(argv: list[str] | None = None) -> int:
     report("extracts no source declares", orphans)
     report("extracts that no longer reproduce", drift)
 
-    if failures or orphans or drift:
+    # Two different problems share this exit code, and they have different
+    # owners. Whether an extract reproduces from its source is arithmetic and is
+    # nobody's judgement call. Whether a source is declared and on disk is a
+    # source review - adding one to a lock is an attestation - and those twelve
+    # are open decisions, not defects a build can fix.
+    #
+    # Fusing them meant this gate could not run in CI at all: it would have been
+    # permanently red on someone else's open decisions, so it ran nowhere, and a
+    # hand-typed extract with a matching sha256 passed every gate the project
+    # has. The hash proves nobody edited the extract after it was written. It
+    # does not prove the extract came from the PDF. Only re-extraction does, and
+    # re-extraction was not running.
+    #
+    # --require reproduction gates on the arithmetic half so it can start
+    # running today. The declaration half stays reported, loudly, and stays
+    # counted, so nothing is quietly downgraded to a warning.
+    gating = list(drift) if args.require == "reproduction" else (
+        list(failures) + list(orphans) + list(drift)
+    )
+    deferred = 0 if args.require != "reproduction" else len(failures) + len(orphans)
+
+    if deferred:
+        print(
+            f"\n::warning::{deferred} declaration issue(s) reported above are not "
+            "gating this run (--require reproduction). They are open source "
+            "reviews, not build failures, and they are listed by pack and source.",
+        )
+    if gating:
         print(
             "\n::error::Some published text cannot be traced to a document on disk. "
             "Each line above names the pack and the source.",

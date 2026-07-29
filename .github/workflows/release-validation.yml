@@ -182,6 +182,18 @@ jobs:
           # N=1. This fails the build rather than letting a reader find it.
           python scripts/render_readme_facts.py --check
 
+          # Re-derive every extract from the document it claims to come from.
+          # sources.lock pins the extract's sha256, which proves nobody edited
+          # it after it was written - not that it came from the PDF at all. A
+          # hand-typed extract with a matching hash passed every gate this
+          # project had, because this one existed and ran nowhere.
+          #
+          # --require reproduction gates on the arithmetic and reports the
+          # twelve open declaration issues without failing on them. Those are
+          # source reviews, not build failures, and fusing the two is why this
+          # check could never be turned on.
+          python scripts/extract_pdf_text.py --check --require reproduction
+
           pack_count=0
           for pack in corpus/*/pack.yaml; do
             [[ -f "$pack" ]] || continue
