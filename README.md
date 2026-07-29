@@ -38,8 +38,8 @@ contracts, not the resident-facing brand, and are not being renamed casually.
 
 <!-- generated:fir-selection -->
 The resident search starts from Ontario's current 444-municipality list. Each municipality
-then selects its newest record from the hash-pinned 2025, 2024 and 2023 FIR bulk files: 130
-currently select 2025, 273 fall back to 2024, 33 fall back to 2023, and 8 have no record in
+then selects its newest record from the hash-pinned 2025, 2024 and 2023 FIR bulk files: 132
+currently select 2025, 271 fall back to 2024, 33 fall back to 2023, and 8 have no record in
 that window. All available years are retained for context. FIR records are historical
 filings, not receipts, current tax by-laws, or formal audits.
 <!-- /generated:fir-selection -->

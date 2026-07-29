@@ -5,14 +5,14 @@
   "jurisdiction": "CA-ON",
   "fiscalYear": 2025,
   "sourceZip": "fir_data_2025.zip",
-  "sourceZipSha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
-  "sourceArchiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416",
+  "sourceZipSha256": "af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
+  "sourceArchiveMemberSha256": "4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41",
   "method": "schedule-26A-taxation-summary",
   "aiTokensUsed": 0,
   "crossMunicipalityComparable": false,
   "provincialEducationRate": 0.00153,
   "educationRateToleranceAbsolute": 5e-05,
-  "municipalityCount": 115,
+  "municipalityCount": 116,
   "skipped": [
     {
       "assessmentCode": "0100",
@@ -64,6 +64,10 @@
     },
     {
       "assessmentCode": "3800",
+      "reason": "upper-tier municipality: it does not levy on assessment directly, and its share is already inside each member municipality's receipt"
+    },
+    {
+      "assessmentCode": "4300",
       "reason": "upper-tier municipality: it does not levy on assessment directly, and its share is already inside each member municipality's receipt"
     },
     {
@@ -955,6 +959,17 @@
       "educationRate": 0.00153,
       "classCount": 7,
       "path": "fir-taxation/2025/4792.json"
+    },
+    {
+      "assessmentCode": "4796",
+      "slug": "deep-river-on",
+      "name": "Deep River T",
+      "tier": "LT",
+      "residentialTotalTaxesCad": 6836402.0,
+      "residentialCvaCad": 384977867.0,
+      "educationRate": 0.00153,
+      "classCount": 6,
+      "path": "fir-taxation/2025/4796.json"
     },
     {
       "assessmentCode": "4801",
