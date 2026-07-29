@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tax-receipt-prototype",
+  "name": "what-in-the-tax",
   "compatibility_date": "2026-07-25",
   // This static preview has no application logs. Disable automatic request-log
   // persistence; platform-level aggregate metrics may still exist in Cloudflare.

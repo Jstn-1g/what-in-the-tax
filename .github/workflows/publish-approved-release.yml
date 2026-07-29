@@ -34,8 +34,8 @@ jobs:
       deployments: write
     env:
       PYTHONDONTWRITEBYTECODE: '1'
-      WORKER_NAME: tax-receipt-prototype
-      PRODUCTION_URL: https://tax-receipt-prototype.jstn0513.workers.dev/
+      WORKER_NAME: what-in-the-tax
+      PRODUCTION_URL: https://what-in-the-tax.jstn0513.workers.dev/
     steps:
       - name: Require an independently protected production environment
         shell: bash

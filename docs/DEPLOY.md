@@ -59,7 +59,7 @@ status and keeps one clear production path.
 ## Cloudflare Workers static-assets preview
 
 Current account preview:
-`https://tax-receipt-prototype.jstn0513.workers.dev/`
+`https://what-in-the-tax.jstn0513.workers.dev/`
 
 `wrangler.jsonc` serves `web/dist`, not the Vite source directory. It explicitly
 disables persistent Workers Logs. `web/public/_headers` supplies CSP,
@@ -152,7 +152,7 @@ After deployment, verify the response rather than trusting the command's exit
 code:
 
 ```powershell
-$PreviewUrl = "https://tax-receipt-prototype.jstn0513.workers.dev/"
+$PreviewUrl = "https://what-in-the-tax.jstn0513.workers.dev/"
 $Response = Invoke-WebRequest -Uri $PreviewUrl
 $Response.StatusCode
 $Response.Headers["Content-Security-Policy"]
