@@ -1455,6 +1455,24 @@ sources = [
 ledger = {
     "schemaVersion": "2.0.0",
     "artifact": "EvidenceLedger",
+    # The ledger has to say which municipality, year and currency it describes.
+    # It did not, so validate_pack --strict could not confirm that the pack
+    # descriptor, the ledger and the receipt were talking about the same place:
+    # an identity check that cannot run is not a check that passed.
+    #
+    # Nothing here is new. Every value is already declared in
+    # corpus/north-dumfries-on/pack.yaml and carried on the receipt; this
+    # carries it into the third artifact so the three can be compared, which is
+    # what makes a mismatch detectable at all. Brant's builder already does this.
+    "fiscalYear": 2026,
+    "currency": "CAD",
+    "jurisdiction": {
+        "slug": "north-dumfries-on",
+        "name": "Township of North Dumfries",
+        "level": "lower-tier",
+        "assessmentCode": "3001",
+        "aliases": ["North Dumfries", "Ayr"],
+    },
     "evidencePolicy": {
         "rules": [
             # The reader sees these rules on the page, so the excerpt rule has to

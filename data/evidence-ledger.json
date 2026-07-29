@@ -1,6 +1,18 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "EvidenceLedger",
+  "fiscalYear": 2026,
+  "currency": "CAD",
+  "jurisdiction": {
+    "slug": "north-dumfries-on",
+    "name": "Township of North Dumfries",
+    "level": "lower-tier",
+    "assessmentCode": "3001",
+    "aliases": [
+      "North Dumfries",
+      "Ayr"
+    ]
+  },
   "evidencePolicy": {
     "rules": [
       "FACT: must include sourceId, excerpt, and page when from PDF. An excerpt is a reconstruction of the cited row unless data/citation-audit.json reports a verbatim or stronger match for that fact.",
