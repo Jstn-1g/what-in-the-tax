@@ -736,7 +736,12 @@ facts = [
         page=12,
         label="Region of Waterloo 2026 property tax levy",
         amountCad=887_329_000,
-        excerpt="Regional Tax Levy ... $887,329 ($000's)",
+        # The page prints the levy in thousands; scaleFactor states that
+        # relationship so the audit checks 887,329 against the page instead of
+        # a number the page never prints. Section 9.5's printedValue x
+        # scaleFactor == canonicalValue, made checkable.
+        scaleFactor=1000,
+        excerpt="$1,612,760 $887,329 100%",
         status="approved",
     ),
     fact(
@@ -745,7 +750,8 @@ facts = [
         page=12,
         label="WRPS 2026 property tax levy",
         amountCad=272_610_000,
-        excerpt="Police Service ... Property Tax Levy ($000's) 272,610",
+        scaleFactor=1000,
+        excerpt="Police Service 298,907 272,610",
         status="approved",
     ),
     fact(

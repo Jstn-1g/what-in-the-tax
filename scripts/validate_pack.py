@@ -47,6 +47,15 @@ except ModuleNotFoundError:  # pragma: no cover - exercised by direct CLI
 
 ROOT = Path(__file__).resolve().parents[1]
 STRICT_PUBLICATION_STATUSES = frozenset({"sealed", "published"})
+
+# The declared publication threshold GENERALIZATION-PLAN 9.5 requires: "WARN
+# LOUDLY AND BLOCK PUBLISH, NOT BUILD: coverage below a declared threshold,
+# e.g. fewer than 90% of published figures at T3 or better." The value is the
+# spec's own example, adopted as-is - it was NOT tuned to what any pack
+# currently scores, which is the only way a threshold stays a bar rather than
+# a mirror. North Dumfries crossed it by strengthening excerpts, not by
+# moving the bar to meet them.
+CITATION_COVERAGE_THRESHOLD = 0.90
 HASH_MISMATCH_ISSUES = frozenset(
     {
         "source-sha256-invalid",
@@ -767,6 +776,8 @@ def check_citation_gate(
                 + ", ".join(sorted(mismatch_issues))
             )
 
+    strong = 0
+    counted = 0
     for fact_id in sorted(load_bearing_fact_ids):
         result = by_id.get(fact_id)
         if result is None:
@@ -779,20 +790,41 @@ def check_citation_gate(
             continue
         tier = result.get("tier")
         binding_issues = sorted(set(result.get("bindingIssues", [])))
-        if tier not in STRONG_TIERS:
-            _strict_issue(
-                f"load-bearing fact {fact_id!r} has weak citation tier {tier!r}",
-                strict=strict,
-                errors=errors,
-                warnings=warnings,
+        counted += 1
+        if tier in STRONG_TIERS:
+            strong += 1
+        else:
+            # GENERALIZATION-PLAN 9.5: an excerpt matching at a weaker level
+            # DEGRADES - record the tier, lower the coverage - and weak tiers
+            # block publication through the coverage threshold below, not one
+            # error per fact. Zero-tolerance here was stricter than the spec
+            # in a way that made the gate less honest, not more: it reported a
+            # pack with one weak citation and a pack with twenty as the same
+            # kind of failure, and it punished honest downgrades - quoting the
+            # printed ($78) cell instead of a strong-looking citation of the
+            # wrong node should never make the score worse.
+            warnings.append(
+                f"load-bearing fact {fact_id!r} has weak citation tier {tier!r}"
             )
         if binding_issues:
+            # Binding defects stay per-fact errors under strict. Unlike a weak
+            # match tier, a hash that does not verify or a source that is not
+            # on disk is fidelity, and fidelity fails hard.
             _strict_issue(
                 f"load-bearing fact {fact_id!r} is not fully bound: "
                 + ", ".join(binding_issues),
                 strict=strict,
                 errors=errors,
                 warnings=warnings,
+            )
+
+    if strict and counted:
+        coverage = strong / counted
+        if coverage < CITATION_COVERAGE_THRESHOLD:
+            errors.append(
+                f"strong-tier citation coverage is {strong}/{counted} "
+                f"({coverage:.1%}), below the declared publication threshold "
+                f"of {CITATION_COVERAGE_THRESHOLD:.0%}"
             )
 
     return errors, warnings

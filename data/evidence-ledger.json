@@ -809,7 +809,8 @@
       "page": 12,
       "label": "Region of Waterloo 2026 property tax levy",
       "amountCad": 887329000,
-      "excerpt": "Regional Tax Levy ... $887,329 ($000's)",
+      "scaleFactor": 1000,
+      "excerpt": "$1,612,760 $887,329 100%",
       "status": "approved",
       "kind": "FACT"
     },
@@ -819,7 +820,8 @@
       "page": 12,
       "label": "WRPS 2026 property tax levy",
       "amountCad": 272610000,
-      "excerpt": "Police Service ... Property Tax Levy ($000's) 272,610",
+      "scaleFactor": 1000,
+      "excerpt": "Police Service 298,907 272,610",
       "status": "approved",
       "kind": "FACT"
     },

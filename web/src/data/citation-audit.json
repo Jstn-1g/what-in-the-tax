@@ -1,11 +1,11 @@
 {
   "ok": true,
   "counts": {
-    "verbatim": 41,
+    "verbatim": 42,
     "normalized": 12,
     "row-bound": 30,
     "alnum": 1,
-    "numbers-only": 4,
+    "numbers-only": 3,
     "unverifiable": 6
   },
   "bindingIssueCounts": {
@@ -902,8 +902,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-SUMMARY-OP-FUNDING-TAX-2026",
