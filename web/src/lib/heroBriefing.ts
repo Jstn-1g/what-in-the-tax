@@ -1,7 +1,7 @@
 /** Derive the hero "at a glance" briefing from receipt data — no new judgments. */
 
 import type { CitationAudit } from './evidenceLookup'
-import type { Finding, Gap, ReceiptLineItem, TaxpayerReceipt } from '../types'
+import type { Finding, Gap, ReceiptLineItem, TaxpayerReceipt , TaxingBodyRole } from '../types'
 import { money } from './format'
 
 export type BillShare = {
@@ -27,6 +27,14 @@ export type BillComponentRoleBasis =
   | 'bucket-amount'
   | 'component-order'
   | 'unclassified'
+
+/** The declared taxing-body roles, in this module's vocabulary. */
+const DECLARED_ROLE_TO_BILL_ROLE: Record<TaxingBodyRole, BillComponentRole> = {
+  local: 'municipal',
+  'upper-tier': 'upper-tier',
+  'special-area': 'special-levy',
+  education: 'education',
+}
 
 export type Destination = {
   id: string
@@ -234,14 +242,32 @@ export function buildHeroBriefing(
   )
     return null
 
+  // A pack that declares taxingBodies[] has already said what each line is, and
+  // the bodies were built from these same components keyed on sourceFactId, so
+  // the join is exact rather than a label match. Preferring the declaration
+  // keeps the hero's bar and the bill list below it from categorising the same
+  // line two different ways - which they would, since one was reading declared
+  // roles and the other was inferring from position.
+  const declaredRoles = new Map<string, BillComponentRole>()
+  for (const body of profile.taxingBodies ?? []) {
+    if (!body.sourceFactId) continue
+    declaredRoles.set(body.sourceFactId, DECLARED_ROLE_TO_BILL_ROLE[body.role])
+  }
+
   const shares: BillShare[] = combined.components.map((component, index) => {
-    const { role, basis } = deriveBillComponentRole(
-      component,
-      index,
-      combined.components.length,
-      profile,
-      data.jurisdiction?.level,
-    )
+    const declared =
+      typeof component.sourceFactId === 'string'
+        ? declaredRoles.get(component.sourceFactId)
+        : undefined
+    const { role, basis } = declared
+      ? { role: declared, basis: 'explicit' as const }
+      : deriveBillComponentRole(
+          component,
+          index,
+          combined.components.length,
+          profile,
+          data.jurisdiction?.level,
+        )
     const quantitative = component.amountCad >= 0
     const componentLabel =
       typeof component.label === 'string' && component.label.trim()
