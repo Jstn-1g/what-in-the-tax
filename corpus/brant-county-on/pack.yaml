@@ -102,3 +102,9 @@ disclaimer: >
   at the County's stated median assessment; not tax advice. Paris residents
   are billed by the County (single-tier). Findings are judgment only;
   billImpactCad is always null.
+
+# Publication-grade candidate: CI runs validate_pack --strict on every pack
+# that declares this, so the strict list lives with the pack rather than as a
+# hand-maintained slug list in the workflow (which had already diverged from
+# the release plan once).
+validationMode: strict

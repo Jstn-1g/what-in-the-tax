@@ -91,3 +91,7 @@ disclaimer: >
   Not affiliated with the Region of Waterloo. Figures illustrate the published
   household schedule; not tax advice. Lower-tier packs (Kitchener, North Dumfries,
   etc.) own the combined municipal bill.
+
+# Publication-grade candidate: CI runs validate_pack --strict on every pack
+# that declares this. See brant-county-on/pack.yaml for the reasoning.
+validationMode: strict

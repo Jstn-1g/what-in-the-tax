@@ -36,8 +36,8 @@
   "artifacts": {
     "pack": {
       "path": "corpus/region-of-waterloo-on/pack.yaml",
-      "sha256": "10f5499c895ea33a1a340eb40495e97d43a592ffc7dbf71dd8dcfcf0f5be9dd3",
-      "bytes": 3074,
+      "sha256": "ab57c4f46c72650b4c1a4cf63ffbc5f88cbbed68510355f6da0f8677b8e1fa23",
+      "bytes": 3245,
       "lineEndings": "LF"
     },
     "schedule": {
