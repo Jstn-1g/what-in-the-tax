@@ -1446,6 +1446,11 @@ sources = [
         "title": "Ontario MMAH Financial Information Return — fir_data_2023 (Schedule 40 General government)",
         "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
         "localPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
+        # A text source is its own extract. Declaring it lets audit_citations
+        # read the rows these four facts quote; without it they were reported
+        # "unverifiable", which meant unread rather than unverifiable - the file
+        # has been committed the whole time.
+        "extractedText": "data/_extracts/fir/fir-general-government-peers-2023-2024.txt",
         "authority": "external",
         "asOf": "2023-12-31",
         "note": "Peer extract only is committed. Full provincial ZIP kept locally / gitignored.",

@@ -119,10 +119,38 @@ def ensure_output_still_safe(path: Path) -> Path:
     )
 
 
-def extract_text(pdf: Path) -> tuple[str, int]:
-    """Render one PDF to page-marked text. Pure: nothing is written here."""
+# Not every reviewed source is a PDF. The FIR peer comparison is a CSV, and
+# because this extractor only knew how to read PDFs that source had no extract -
+# so audit_citations reported its four facts "unverifiable" even though the rows
+# they quote sit in a file already committed to the tree. Unverifiable there
+# meant unread, not unverifiable.
+TEXT_SUFFIXES = frozenset({".csv", ".tsv", ".txt"})
 
-    reader = PdfReader(str(pdf))
+
+def extract_text_source(path: Path) -> tuple[str, int]:
+    """A text source is already its own extract; normalise and mark it.
+
+    Decoded strictly as UTF-8 rather than with errors='replace': a source whose
+    bytes are not what the lock says they are should stop the build, not be
+    silently rewritten into replacement characters that then reconcile against
+    nothing.
+
+    One page, because a CSV has none. Facts citing such a source carry
+    page: null, which the audit already handles by searching the whole extract
+    and recording page-citation-missing - honest for a file with no pages.
+    """
+
+    raw = path.read_bytes().decode("utf-8")
+    normalized = raw.replace("\r\n", "\n").replace("\r", "\n")
+    return f"\n\n===== PAGE 1 =====\n{normalized}", 1
+
+
+def extract_text(source: Path) -> tuple[str, int]:
+    """Render one source to page-marked text. Pure: nothing is written here."""
+
+    if source.suffix.lower() in TEXT_SUFFIXES:
+        return extract_text_source(source)
+    reader = PdfReader(str(source))
     parts: list[str] = []
     for index, page in enumerate(reader.pages):
         parts.append(f"\n\n===== PAGE {index + 1} =====\n")
