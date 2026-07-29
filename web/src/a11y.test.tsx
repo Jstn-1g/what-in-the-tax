@@ -18,6 +18,7 @@ import axe from 'axe-core'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import pack from '../public/packs/north-dumfries-on.json'
+import singleTierPack from '../public/packs/brant-county-on.json'
 import filing from '../public/fir/2023/3001.json'
 import FirFilingScreen from './components/FirFilingScreen'
 import HelpGuide from './components/HelpGuide'
@@ -79,6 +80,32 @@ describe('rendered screens', () => {
         facts={evidence.facts}
         derived={evidence.derived}
         citationAudit={pack.audit as unknown as CitationAudit}
+        bannerText="Draft — source checks pending."
+      />,
+    )
+    expect(await violationsIn(container)).toEqual([])
+  })
+
+  it('renders a single-tier receipt without accessibility violations', async () => {
+    // A single-tier bill renders a different tree: no upper-tier section, an
+    // extra special-area charge, and a declared reason in place of a row. It
+    // had never been rendered here, so it had never been checked.
+    const evidence = singleTierPack.evidence as unknown as {
+      gaps: Gap[]
+      evidencePolicy: { rules: string[] }
+      sources: Source[]
+      facts: Fact[]
+      derived: Derived[]
+    }
+    const { container } = render(
+      <TaxReceiptScreen
+        data={singleTierPack.receipt as unknown as TaxpayerReceipt}
+        gaps={evidence.gaps}
+        evidenceRules={evidence.evidencePolicy.rules}
+        sources={evidence.sources}
+        facts={evidence.facts}
+        derived={evidence.derived}
+        citationAudit={singleTierPack.audit as unknown as CitationAudit}
         bannerText="Draft — source checks pending."
       />,
     )
