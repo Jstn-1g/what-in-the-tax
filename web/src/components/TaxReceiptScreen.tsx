@@ -480,7 +480,7 @@ export default function TaxReceiptScreen({
                 )}
               </p>
             </div>
-            <p className="hero-amount" aria-live="polite">
+            <p className="hero-amount">
               <span className="hero-amount-label">
                 Estimated {receiptYear ? `${receiptYear} ` : ''}property-tax bill
               </span>
@@ -496,7 +496,7 @@ export default function TaxReceiptScreen({
               simpleLanguage={simpleLanguage}
             />
           ) : null}
-          <div className="hero-status-row" role="status">
+          <div className="hero-status-row">
             <p>
               {bannerText ??
                 'Draft preview — source checks are not currently available.'}

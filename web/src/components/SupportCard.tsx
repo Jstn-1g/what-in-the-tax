@@ -92,7 +92,7 @@ export default function SupportCard({
             ))}
           </div>
         ) : (
-          <p className="support-card__pending" role="status">
+          <p className="support-card__pending">
             Support options are coming at launch.
           </p>
         )}

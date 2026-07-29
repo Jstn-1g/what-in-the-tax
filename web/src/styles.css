@@ -21,9 +21,14 @@
   --surface: #f7f9fa;
   --content: 87rem;
   --reading: 72rem;
+  /* No web font is fetched. The IBM Plex and Syne links were removed with the
+     Google Fonts preconnects, which is what closed the referer leak and the
+     offline case; Inter stayed named in this stack and was never loaded, so the
+     declared font and the rendered font disagreed on every machine without it
+     installed. These are the fonts that actually render. */
   --serif: Georgia, 'Times New Roman', serif;
-  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    sans-serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
   --mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 }
 

@@ -717,7 +717,7 @@ export default function App() {
           tabIndex={-1}
           aria-busy={isLoading}
         >
-          <section className="chooser-hero" aria-live="polite">
+          <section className="chooser-hero">
             <div className="chooser-hero__copy">
               <h1>
                 {isLoading
@@ -730,7 +730,7 @@ export default function App() {
                     )}
               </h1>
               <span className="chooser-hero__rule" aria-hidden="true" />
-              <p>
+              <p aria-live="polite">
                 {isLoading
                   ? 'Loading only the selected receipt and its public evidence.'
                   : 'Search your community to start with current 2026 tax evidence where a receipt is ready, then see which 2025, 2024, and 2023 FIR years are available for context.'}
