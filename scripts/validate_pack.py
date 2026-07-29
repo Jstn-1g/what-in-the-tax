@@ -574,6 +574,8 @@ def _evaluate_formula(
 
 def check_derived_calculations(
     ledger: dict[str, Any],
+    *,
+    strict: bool = False,
 ) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -608,7 +610,19 @@ def check_derived_calculations(
             computed = _evaluate_formula(node, known)
             stored, raw_stored, stored_field = _stored_value(node)
         except UnsupportedFormula as exc:
-            warnings.append(f"derived {node_id} was not recomputed: {exc}")
+            # An unparseable formula was the one case that never failed, in
+            # strict mode too, because this gate was the only one never handed
+            # `strict` - every sibling gets it. So the way to bypass arithmetic
+            # verification entirely was to write prose in `formula`: a node that
+            # cannot be recomputed was treated as a node that had been.
+            # GENERALIZATION-PLAN section 9.5 lists a formula leaf that is a bare
+            # literal or an undeclared id under HARD FAIL.
+            _strict_issue(
+                f"derived {node_id} was not recomputed: {exc}",
+                strict=strict,
+                errors=errors,
+                warnings=warnings,
+            )
             continue
         except (InvalidOperation, ValueError) as exc:
             errors.append(f"derived {node_id} formula is invalid: {exc}")
@@ -900,7 +914,7 @@ def main(argv: list[str]) -> int:
         )
         errors.extend(identity_errors)
         warnings.extend(identity_warnings)
-        derived_errors, derived_warnings = check_derived_calculations(ledger)
+        derived_errors, derived_warnings = check_derived_calculations(ledger, strict=strict)
         errors.extend(derived_errors)
         warnings.extend(derived_warnings)
 
