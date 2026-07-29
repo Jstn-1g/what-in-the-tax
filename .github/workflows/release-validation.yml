@@ -91,15 +91,30 @@ jobs:
               ;;
           esac
 
-          python scripts/acquire_official_sources.py --offline
-          case $? in
-            0) ;;
-            2) drift=1 ;;
-            *)
-              echo "::error::Offline re-verification of local snapshots failed." >&2
-              exit 1
-              ;;
-          esac
+          # Only re-verify offline when nothing drifted, and the reason is not
+          # tidiness. When the online pass quarantines a drifted payload it does
+          # not write it to localPath, and the FIR archives are gitignored for
+          # size, so a fresh clone has no file there at all. --offline then
+          # reports "missing local snapshot" and exits 1, which this case
+          # statement reads as "the source tree cannot be trusted" and stops the
+          # job - skipping every gate below for the second time, for the same
+          # reason the comment above says must not happen again.
+          #
+          # A missing snapshot after a quarantine is a consequence of the drift,
+          # not a separate integrity failure. The online pass has already
+          # recorded it, the candidate is preserved for review, and the job
+          # still fails at the end. Nothing ships either way.
+          if [[ $drift -eq 0 ]]; then
+            python scripts/acquire_official_sources.py --offline
+            case $? in
+              0) ;;
+              2) drift=1 ;;
+              *)
+                echo "::error::Offline re-verification of local snapshots failed." >&2
+                exit 1
+                ;;
+            esac
+          fi
 
           echo "drift=$drift" >> "$GITHUB_OUTPUT"
           if [[ $drift -eq 1 ]]; then
