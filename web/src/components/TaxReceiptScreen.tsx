@@ -23,6 +23,7 @@ import type {
 import FlagDetailDrawer from './FlagDetailDrawer'
 import HeroBriefing from './HeroBriefing'
 import { buildHeroBriefing } from '../lib/heroBriefing'
+import { declaredBillFor } from '../lib/taxingBodies'
 
 function isFiniteAmount(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value)
@@ -312,9 +313,29 @@ export default function TaxReceiptScreen({
   const selectedFlag = selectedFlagId ? findingsById.get(selectedFlagId) ?? null : null
   const townshipLines = profile.township.lineItems ?? []
   const regionLines = profile.region.lineItems ?? []
-  const hasRegionBucket =
-    isFiniteAmount(profile.region.amountCad) &&
-    (regionLines.length > 0 || profile.region.evidenceStatus !== 'GAP')
+
+  // The bill as its builder declared it, or null for a pack not yet migrated.
+  // Only the questions that are *about roles* are answered from here; the
+  // amounts and line items still come from the buckets, because the declared
+  // bodies do not carry line items and their amounts measure something else.
+  const bill = useMemo(
+    () => declaredBillFor(profile, data.jurisdiction?.slug),
+    [profile, data.jurisdiction?.slug],
+  )
+  const declaredUpperTier =
+    bill?.bodies.find((body) => body.role === 'upper-tier') ?? null
+  const upperTierNotApplicable =
+    bill?.inapplicable.find((entry) => entry.role === 'upper-tier') ?? null
+
+  // With a declared bill, "is there an upper tier" is a stated fact about the
+  // jurisdiction. Without one it has to be inferred from whether the bucket
+  // happens to carry a usable amount - which is exactly the inference the
+  // declaration exists to retire, and which cannot tell a single-tier
+  // municipality apart from a two-tier one whose evidence is missing.
+  const hasRegionBucket = bill
+    ? declaredUpperTier !== null
+    : isFiniteAmount(profile.region.amountCad) &&
+      (regionLines.length > 0 || profile.region.evidenceStatus !== 'GAP')
   const regionIllustration = profile.regionIllustrationAt354500
   const assessmentCad =
     combined?.assessmentCad ?? profile.township.assessmentCad ?? null
@@ -330,7 +351,13 @@ export default function TaxReceiptScreen({
     ? simplifyBucketLabel(rawMunicipalLabel, simpleLanguage)
     : 'Municipal identity unavailable'
   const regionLabel = simplifyBucketLabel(
-    data.uiModelHints.regionBucketLabel ??
+    // A declared body names itself. The uiModelHints fallback is how a pack
+    // that has not declared one still gets a heading - and it is also how
+    // "Upper-tier (n/a)" survived into a single-tier receipt, so a declared
+    // body has to win.
+    declaredUpperTier?.uiLabel ??
+      declaredUpperTier?.label ??
+      data.uiModelHints.regionBucketLabel ??
       profile.region.uiLabel ??
       'Other governing-body portion',
     simpleLanguage,
@@ -604,9 +631,16 @@ export default function TaxReceiptScreen({
             <ul className="child-list">
               <li>
                 {combined?.basis ??
-                  (hasRegionBucket
-                    ? `${municipalLabel} + ${regionLabel} + education at one assessment.`
-                    : `${municipalLabel} + education at one assessment.`)}
+                  (bill
+                    ? // Name the bodies this bill actually has. The two fixed
+                      // sentences below assume an education body exists, which
+                      // is true in Ontario and not true everywhere.
+                      `${bill.bodies
+                        .map((body) => body.uiLabel ?? body.label)
+                        .join(' + ')} at one assessment.`
+                    : hasRegionBucket
+                      ? `${municipalLabel} + ${regionLabel} + education at one assessment.`
+                      : `${municipalLabel} + education at one assessment.`)}
               </li>
               {profile.warnings.map((warning) => (
                 <li key={warning}>{warning}</li>
@@ -625,7 +659,24 @@ export default function TaxReceiptScreen({
                   above at this household assessment
                 </li>
               ) : (
-                <li>{profile.region.note ?? profile.region.basis}</li>
+                // A declared absence states why the tier does not exist here.
+                // The bucket note is a fallback for packs that have not
+                // declared one, and it describes missing evidence rather than
+                // a fact about the jurisdiction - the two must not read alike.
+                <li>
+                  {[
+                    upperTierNotApplicable?.reason ??
+                      profile.region.note ??
+                      profile.region.basis,
+                    // The declaration says the tier does not exist; the bucket
+                    // note says where those services are actually paid for.
+                    // Different questions, so keep both rather than letting the
+                    // new field quietly delete the older answer.
+                    upperTierNotApplicable ? profile.region.note : null,
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                </li>
               )}
               {regionIllustration ? (
                 <li>

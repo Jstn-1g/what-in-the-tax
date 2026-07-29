@@ -111,6 +111,22 @@ export function taxingBodiesFor(profile: Profile, jurisdictionSlug?: string): Bi
   return bill
 }
 
+/**
+ * The bill if this receipt declares one, and null if it does not.
+ *
+ * taxingBodiesFor() refuses an undeclared receipt, which is right for anything
+ * that needs the roles: guessing them is the failure this module exists to
+ * prevent. But a screen has to render the five packs whose builders have not
+ * been migrated yet, and "no declaration" is a different condition from "a
+ * declaration that does not hold". This returns null for the first and still
+ * throws for the second, so a migrated pack can never quietly fall back to the
+ * legacy path when its bill is wrong.
+ */
+export function declaredBillFor(profile: Profile, jurisdictionSlug?: string): Bill | null {
+  if (!profile.taxingBodies || profile.taxingBodies.length === 0) return null
+  return taxingBodiesFor(profile, jurisdictionSlug)
+}
+
 /** Each body's share of the bill, for the bar and the legend. */
 export function billShares(bill: Bill): { body: TaxingBody; share: number }[] {
   const total = bill.bodies.reduce((sum, body) => sum + body.amountCad, 0)

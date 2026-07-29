@@ -1,9 +1,13 @@
+import { assertBillIsCoherent, TaxingBodyError } from './lib/taxingBodies'
 import type { CitationAudit } from './lib/evidenceLookup'
 import type {
   Derived,
   Fact,
   Gap,
+  InapplicableBody,
   Source,
+  TaxingBody,
+  TaxingBodyRole,
   TaxpayerReceipt,
 } from './types'
 
@@ -193,6 +197,84 @@ function validateProfileBucket(value: unknown, path: string) {
       validateLineItem(item, `${path}.lineItems[${index}]`),
     )
   }
+}
+
+/**
+ * The roles a body may hold, as a closed set.
+ *
+ * `role` is the only field that says what a line on the bill *means*, and it is
+ * declared by the builder rather than recovered from a label. A fifth role
+ * arriving from upstream would be an unreviewed claim about someone's tax bill,
+ * so it is refused here rather than rendered.
+ */
+const TAXING_BODY_ROLES = new Set<string>([
+  'local',
+  'upper-tier',
+  'education',
+  'special-area',
+])
+
+function assertTaxingBodyRole(
+  value: unknown,
+  path: string,
+): asserts value is TaxingBodyRole {
+  assertString(value, path)
+  if (!TAXING_BODY_ROLES.has(value)) {
+    fail(path, `must be one of ${[...TAXING_BODY_ROLES].join(', ')}`)
+  }
+}
+
+function validateTaxingBody(value: unknown, path: string) {
+  assertObject(value, path)
+  assertOnlyKeys(value, path, [
+    'id',
+    'role',
+    'label',
+    'order',
+    'amountCad',
+    'basis',
+    'evidenceStatus',
+    'assessmentCad',
+    'sourceFactId',
+    'gapId',
+    'lineItems',
+    'warnings',
+    'note',
+    'uiLabel',
+  ])
+  assertString(value.id, `${path}.id`)
+  assertTaxingBodyRole(value.role, `${path}.role`)
+  assertString(value.label, `${path}.label`)
+  assertFiniteNumber(value.order, `${path}.order`)
+  // Unlike a legacy bucket, a body's amount may not be null: a body that levies
+  // nothing knowable is not a shorter bill, it is a gap, and the two must not
+  // be spelled the same way.
+  assertFiniteNumber(value.amountCad, `${path}.amountCad`)
+  assertString(value.basis, `${path}.basis`)
+  assertString(value.evidenceStatus, `${path}.evidenceStatus`)
+  assertOptionalNumber(value.assessmentCad, `${path}.assessmentCad`)
+  assertOptionalString(value.sourceFactId, `${path}.sourceFactId`)
+  assertOptionalString(value.gapId, `${path}.gapId`)
+  assertOptionalString(value.note, `${path}.note`)
+  assertOptionalString(value.uiLabel, `${path}.uiLabel`)
+  if (value.warnings !== undefined) {
+    assertStringArray(value.warnings, `${path}.warnings`)
+  }
+  if (value.lineItems !== undefined) {
+    assertArray(value.lineItems, `${path}.lineItems`)
+    value.lineItems.forEach((item, index) =>
+      validateLineItem(item, `${path}.lineItems[${index}]`),
+    )
+  }
+}
+
+function validateInapplicableBody(value: unknown, path: string) {
+  assertObject(value, path)
+  assertOnlyKeys(value, path, ['role', 'reason'])
+  assertTaxingBodyRole(value.role, `${path}.role`)
+  // The reason is the whole point of the entry. "Not applicable" with no stated
+  // reason reads as a hole in the evidence rather than a fact about the place.
+  assertString(value.reason, `${path}.reason`)
 }
 
 function validateCombinedAssessment(value: unknown, path: string) {
@@ -466,6 +548,8 @@ function validateReceipt(expectedId: string, value: unknown) {
   const supported = value.profiles.supportedAverageHousehold
   assertOnlyKeys(supported, supportedPath, [
     'description',
+    'taxingBodies',
+    'inapplicableBodies',
     'township',
     'region',
     'regionIllustrationAt354500',
@@ -486,6 +570,44 @@ function validateReceipt(expectedId: string, value: unknown) {
     )
   }
   assertNumberOrNull(supported.combinedTotalCad, `${supportedPath}.combinedTotalCad`)
+
+  // The bill as a declared list of bodies. Optional, because artifacts built
+  // before the field exists must keep loading; but once declared it is checked
+  // here rather than only at render time, so a bill whose parts disagree with
+  // its printed total is refused before a reader can be shown it.
+  if (supported.taxingBodies !== undefined) {
+    assertArray(supported.taxingBodies, `${supportedPath}.taxingBodies`)
+    supported.taxingBodies.forEach((body, index) =>
+      validateTaxingBody(body, `${supportedPath}.taxingBodies[${index}]`),
+    )
+  }
+  if (supported.inapplicableBodies !== undefined) {
+    assertArray(supported.inapplicableBodies, `${supportedPath}.inapplicableBodies`)
+    supported.inapplicableBodies.forEach((entry, index) =>
+      validateInapplicableBody(entry, `${supportedPath}.inapplicableBodies[${index}]`),
+    )
+  }
+  if (Array.isArray(supported.taxingBodies) && supported.taxingBodies.length > 0) {
+    // Reuse the render-time invariant rather than restating the arithmetic, so
+    // the loader and the screen can never disagree about what a coherent bill is.
+    try {
+      assertBillIsCoherent(
+        {
+          bodies: supported.taxingBodies as TaxingBody[],
+          inapplicable: (supported.inapplicableBodies ?? []) as InapplicableBody[],
+        },
+        typeof supported.combinedTotalCad === 'number'
+          ? supported.combinedTotalCad
+          : null,
+      )
+    } catch (error) {
+      if (error instanceof TaxingBodyError) {
+        fail(`${supportedPath}.taxingBodies`, `is not a coherent bill: ${error.message}`)
+      }
+      throw error
+    }
+  }
+
   if (supported.combinedAtAssessment !== undefined) {
     validateCombinedAssessment(
       supported.combinedAtAssessment,

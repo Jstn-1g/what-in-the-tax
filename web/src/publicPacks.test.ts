@@ -5,7 +5,8 @@ import kitchenerPack from '../public/packs/kitchener-on.json'
 import northDumfriesPack from '../public/packs/north-dumfries-on.json'
 import waterlooPack from '../public/packs/waterloo-on.json'
 import woolwichPack from '../public/packs/woolwich-on.json'
-import { PACK_CATALOG } from './packCatalog'
+import { PACK_CATALOG, type PackId } from './packCatalog'
+import { validatePublicPack } from './publicPackSchema'
 
 const PUBLIC_PACKS = [
   brantPack,
@@ -131,4 +132,85 @@ describe('committed public pack artifacts', () => {
     })
   })
 
+  // packs.ts validates every pack through this schema on load, so a committed
+  // artifact the schema rejects is a receipt no reader can open. Nothing
+  // exercised that pairing before: the schema was tested against hand-built
+  // fixtures and the artifacts were tested structurally, and the gap between
+  // them is exactly where a builder can ship a field the reader's schema
+  // refuses.
+  it('every committed artifact passes the schema the app loads it through', () => {
+    for (const pack of PUBLIC_PACKS) {
+      expect(() => validatePublicPack(pack.id as PackId, pack), pack.id).not.toThrow()
+    }
+  })
+})
+
+// A gate that has never refused anything has not been shown to work. Each case
+// below plants one defect into the only pack that declares a bill and proves
+// the loader refuses it, so the test above means "checked" rather than "ran".
+describe('the declared bill is checked, not just carried', () => {
+  function brantWith(
+    mutate: (profile: Record<string, unknown>) => void,
+  ): unknown {
+    const clone = structuredClone(brantPack) as typeof brantPack
+    mutate(
+      clone.receipt.profiles.supportedAverageHousehold as unknown as Record<
+        string,
+        unknown
+      >,
+    )
+    return clone
+  }
+
+  function refusal(pack: unknown): string {
+    try {
+      validatePublicPack('brant-county-on', pack)
+    } catch (error) {
+      return (error as Error).message
+    }
+    throw new Error('expected the pack to be refused, but it validated')
+  }
+
+  it('refuses a role the model does not define', () => {
+    const pack = brantWith((profile) => {
+      ;(profile.taxingBodies as { role: string }[])[0].role = 'transit-authority'
+    })
+    expect(refusal(pack)).toMatch(/taxingBodies\[0\]\.role must be one of/)
+  })
+
+  it('refuses a bill whose parts disagree with its printed total', () => {
+    const pack = brantWith((profile) => {
+      ;(profile.taxingBodies as { amountCad: number }[])[0].amountCad += 100
+    })
+    expect(refusal(pack)).toMatch(/is not a coherent bill/)
+  })
+
+  it('refuses two bodies claiming the same singular role', () => {
+    const pack = brantWith((profile) => {
+      const bodies = profile.taxingBodies as { role: string }[]
+      bodies[1].role = 'local'
+    })
+    expect(refusal(pack)).toMatch(/at most one local body/)
+  })
+
+  it('refuses a role that is both charged and declared not applicable', () => {
+    const pack = brantWith((profile) => {
+      ;(profile.inapplicableBodies as { role: string }[])[0].role = 'education'
+    })
+    expect(refusal(pack)).toMatch(/both as a taxing body and as not applicable/)
+  })
+
+  it('refuses a not-applicable entry that gives no reason', () => {
+    const pack = brantWith((profile) => {
+      ;(profile.inapplicableBodies as { reason: string }[])[0].reason = ''
+    })
+    expect(refusal(pack)).toMatch(/inapplicableBodies\[0\]\.reason/)
+  })
+
+  it('refuses a body carrying a key nobody reviewed', () => {
+    const pack = brantWith((profile) => {
+      ;(profile.taxingBodies as Record<string, unknown>[])[0].billImpactCad = 999
+    })
+    expect(refusal(pack)).toMatch(/taxingBodies\[0\]\.billImpactCad is not allowed/)
+  })
 })
