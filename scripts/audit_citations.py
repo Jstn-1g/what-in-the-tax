@@ -516,6 +516,18 @@ def audit_ledger(ledger: dict[str, Any], *, root: Path = ROOT) -> dict[str, Any]
         amount_issue = _amount_binding_issue(fact, page_text)
         if amount_issue:
             entry["bindingIssues"].append(amount_issue)
+        # A strong tier says the excerpt is on the page and the amount is on the
+        # page - two facts checked independently and never against each other.
+        # An excerpt can be a genuine verbatim quote of a sentence that does not
+        # contain the number, while the number sits elsewhere on the same page
+        # in an unrelated row. That citation looks top-tier and evidences
+        # nothing about the figure. Recorded per fact so it is visible and
+        # countable; excerpts that carry no amount at all (definitions, dates)
+        # are not the target and facts without an amount are exempt.
+        if tier in STRONG_TIERS and not amount_issue:
+            excerpt_issue = _amount_binding_issue(fact, excerpt)
+            if excerpt_issue == "amount-not-on-cited-page":
+                entry["bindingIssues"].append("amount-not-in-excerpt")
         entry["bindingIssues"] = sorted(set(entry["bindingIssues"]))
         entry.update(
             tier=tier,

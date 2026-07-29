@@ -35,6 +35,7 @@ try:  # Works both as ``python scripts/validate_pack.py`` and as an import.
         audit_ledger,
         write_audit,
     )
+    from scripts.lib.value_binding import unbound_values
 except ModuleNotFoundError:  # pragma: no cover - exercised by direct CLI
     from audit_citations import (  # type: ignore
         HARD_CITATION_TIERS,
@@ -42,6 +43,7 @@ except ModuleNotFoundError:  # pragma: no cover - exercised by direct CLI
         audit_ledger,
         write_audit,
     )
+    from lib.value_binding import unbound_values  # type: ignore
 
 ROOT = Path(__file__).resolve().parents[1]
 STRICT_PUBLICATION_STATUSES = frozenset({"sealed", "published"})
@@ -917,6 +919,21 @@ def main(argv: list[str]) -> int:
         derived_errors, derived_warnings = check_derived_calculations(ledger, strict=strict)
         errors.extend(derived_errors)
         warnings.extend(derived_warnings)
+
+        # Every printed number must follow from the node it cites - equal to it,
+        # or rate x the assessment in scope where the artifact declares that
+        # relationship. Unconditional, not strict-only: a draft is allowed weak
+        # provenance, but it is not allowed to print a number inconsistent with
+        # its own citation. Before this check a line item changed to $999,999
+        # with its sourceFactId intact passed here with zero errors, because the
+        # reference was verified to exist and never compared to anything.
+        binding_nodes = {
+            node["id"]: node
+            for node in (ledger.get("facts", []) or []) + (ledger.get("derived", []) or [])
+            if isinstance(node, dict) and isinstance(node.get("id"), str)
+        }
+        for issue in unbound_values(receipt, binding_nodes):
+            errors.append(f"unbound printed value: {issue}")
 
     source_lock: dict[str, Any] | None = None
     source_lock_path: Path | None = None

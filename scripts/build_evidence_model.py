@@ -760,6 +760,23 @@ facts = [
         note="Rural column explicitly includes Wellesley and North Dumfries.",
     ),
     fact(
+        # The last unbound value in the corpus. The receipt's -$78 PIL line
+        # cited ROW-RURAL-HH-TOTAL-2026 ($2,543) - the total it helps reconcile,
+        # not itself - so nothing could compare the printed number to anything.
+        # The figure is printed on the same page 12: the rural household column
+        # shows ($78) against "Less: Payments in Lieu & Supplementary Taxes(3)",
+        # between the $2,621 subtotal and the $2,543 Regional Tax Levy row.
+        id="ROW-PIL-SUPP-REDUCTION-2026",
+        sourceId="row-2026-book",
+        page=12,
+        label="Less: Payments in Lieu & Supplementary Taxes, rural household share",
+        amountCad=-78,
+        excerpt="Less: Payments in Lieu & Supplementary Taxes(3) ... ($78)",
+        status="approved",
+        assessmentBasisCad=354_500,
+        note="Rural column: $2,621 subtotal less ($78) PIL/supplementary equals the $2,543 Regional Tax Levy.",
+    ),
+    fact(
         id="ROW-SUMMARY-OP-FUNDING-TAX-2026",
         sourceId="row-2026-summary",
         page=6,
@@ -1187,11 +1204,24 @@ gaps = [
         neededEvidence=["Debt amortization schedule / 2027+ levy impact estimate from Township"],
     ),
     gap(
+        # Reworded to say only what the binder says. The previous title and
+        # detail ("spend not isolated...") asserted the existence of a spend the
+        # ledger holds no amount for and attached a characterisation to it -
+        # docs/GENERALIZATION-PLAN.md calls that exact text a published
+        # insinuation the project's own finding rules would forbid. A gap
+        # records what was looked for and not found; it does not get to imply a
+        # conclusion the evidence cannot carry. The id is stable and kept.
         id="GAP-BEAVER-LINE-AMOUNT",
-        title="Beaver extraction spend not isolated as its own budget line amount",
-        detail="Narrative mentions external contractors for beaver extraction; no discrete dollar line extracted.",
+        title="Animal Control budget components are not itemized in the binder",
+        detail=(
+            "The binder states (p.20) that 'the balance of the Animal Control "
+            "budget includes Pound costs as well as for traps as required by "
+            "external contractors for beaver extraction', without dollar "
+            "amounts for any component. No component amount is extracted, and "
+            "none is published."
+        ),
         blocks=["beaver_extraction_amount"],
-        neededEvidence=["Invoice/contract line or GL detail"],
+        neededEvidence=["Departmental GL detail or invoice line for any Animal Control component"],
     ),
 ]
 
@@ -1528,7 +1558,10 @@ region_lines.append(
         "amountCad": -78,
         "classification": "region_tax_supported",
         "evidenceStatus": "FACT",
-        "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
+        # Cite the printed ($78) itself, not the $2,543 total it reconciles to.
+        # Citing the total meant this line's number could never be checked
+        # against what it cited - the last unbound value in the corpus.
+        "sourceFactId": "ROW-PIL-SUPP-REDUCTION-2026",
         "note": "Source reduces rural household to $2,543 after PIL/supplementary taxes.",
     }
 )

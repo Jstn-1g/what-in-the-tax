@@ -2,16 +2,16 @@
   "ok": true,
   "counts": {
     "verbatim": 12,
-    "numbers-only": 14,
+    "numbers-only": 15,
     "normalized": 11,
     "row-bound": 49,
     "alnum": 1,
     "unverifiable": 6
   },
   "bindingIssueCounts": {
-    "extract-sha256-missing": 87,
-    "source-bytes-missing": 87,
-    "source-sha256-missing": 87,
+    "extract-sha256-missing": 88,
+    "source-bytes-missing": 88,
+    "source-sha256-missing": 88,
     "amount-sign-mismatch": 2,
     "source-path-missing": 6,
     "extract-path-missing": 6,
@@ -884,6 +884,19 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 2543,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-PIL-SUPP-REDUCTION-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": -78,
       "bindingIssues": [
         "extract-sha256-missing",
         "source-bytes-missing",

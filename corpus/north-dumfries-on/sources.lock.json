@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/evidence-ledger.json",
-  "ledgerSha256": "173a85b09f0be3fab4558671d49ca3a70e7a97200f54e57a30c6bad29278e70c",
+  "ledgerSha256": "c9fc8f68ffa3a153e4d02e3cab35c1561e8098b87b0efa031f4f49610cb28f0c",
   "sources": [
     {
       "id": "mmah-fir-2023",

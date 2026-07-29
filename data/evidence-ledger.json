@@ -836,6 +836,18 @@
       "kind": "FACT"
     },
     {
+      "id": "ROW-PIL-SUPP-REDUCTION-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "label": "Less: Payments in Lieu & Supplementary Taxes, rural household share",
+      "amountCad": -78,
+      "excerpt": "Less: Payments in Lieu & Supplementary Taxes(3) ... ($78)",
+      "status": "approved",
+      "assessmentBasisCad": 354500,
+      "note": "Rural column: $2,621 subtotal less ($78) PIL/supplementary equals the $2,543 Regional Tax Levy.",
+      "kind": "FACT"
+    },
+    {
       "id": "ROW-SUMMARY-OP-FUNDING-TAX-2026",
       "sourceId": "row-2026-summary",
       "page": 6,
@@ -1584,13 +1596,13 @@
     },
     {
       "id": "GAP-BEAVER-LINE-AMOUNT",
-      "title": "Beaver extraction spend not isolated as its own budget line amount",
-      "detail": "Narrative mentions external contractors for beaver extraction; no discrete dollar line extracted.",
+      "title": "Animal Control budget components are not itemized in the binder",
+      "detail": "The binder states (p.20) that 'the balance of the Animal Control budget includes Pound costs as well as for traps as required by external contractors for beaver extraction', without dollar amounts for any component. No component amount is extracted, and none is published.",
       "blocks": [
         "beaver_extraction_amount"
       ],
       "neededEvidence": [
-        "Invoice/contract line or GL detail"
+        "Departmental GL detail or invoice line for any Animal Control component"
       ],
       "kind": "GAP"
     },
