@@ -806,6 +806,66 @@ receipt = {
             },
             "combinedTotalCad": COMBINED_TOTAL,
             "sourceFactId": "DRV-BRANT-BILL-COMBINED-391K",
+            # The bill as a list of bodies with declared roles. Brant is the
+            # case that proves why the three fixed slots had to go: it is
+            # single-tier, so there is no upper tier to put in the middle slot,
+            # and it charges a hospital special levy that had nowhere to go and
+            # was being folded into the municipal portion. Both are now what
+            # they are - two roles, plus a declared absence.
+            #
+            # Roles are stated here rather than inferred downstream, because a
+            # reader of the artifact cannot recover them: the labels are the
+            # only clue and this receipt's own disclaimer forbids using display
+            # names to guess a role.
+            "taxingBodies": [
+                {
+                    "id": "brant-county",
+                    "role": "local",
+                    "label": "County of Brant",
+                    "order": 0,
+                    "amountCad": MUNICIPAL_PORTION,
+                    "basis": "County of Brant 2026 Tax Rates — CODE RT Residential, municipal rate",
+                    "evidenceStatus": "DERIVED",
+                    "assessmentCad": MEDIAN_ASSESSMENT,
+                    "sourceFactId": "DRV-BRANT-BILL-MUNICIPAL-391K",
+                },
+                {
+                    "id": "brant-hospital",
+                    "role": "special-area",
+                    "label": "Hospital special levy",
+                    "order": 1,
+                    "amountCad": HOSPITAL_PORTION,
+                    "basis": "County of Brant 2026 Tax Rates — CODE RT Residential, hospital levy rate",
+                    "evidenceStatus": "DERIVED",
+                    "assessmentCad": MEDIAN_ASSESSMENT,
+                    "sourceFactId": "DRV-BRANT-BILL-HOSPITAL-391K",
+                    "note": (
+                        "A separate levy on the same assessment, shown on its own line rather "
+                        "than inside the County portion."
+                    ),
+                },
+                {
+                    "id": "brant-education",
+                    "role": "education",
+                    "label": "Education (Province of Ontario)",
+                    "order": 2,
+                    "amountCad": EDUCATION_PORTION,
+                    "basis": "County of Brant 2026 Tax Rates — CODE RT Residential education rate",
+                    "evidenceStatus": "DERIVED",
+                    "assessmentCad": MEDIAN_ASSESSMENT,
+                    "sourceFactId": "DRV-BRANT-BILL-EDUCATION-391K",
+                },
+            ],
+            "inapplicableBodies": [
+                {
+                    "role": "upper-tier",
+                    "reason": (
+                        "County of Brant is a single-tier municipality. There is no upper tier "
+                        "to levy a share, which is a fact about the jurisdiction rather than "
+                        "evidence we are missing."
+                    ),
+                },
+            ],
             "combinedAtAssessment": {
                 "assessmentCad": MEDIAN_ASSESSMENT,
                 "basis": "County of Brant 2026 Tax Rates — CODE RT Residential",

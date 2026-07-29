@@ -58,6 +58,53 @@ export type ProfileBucket = {
   uiLabel?: string
 }
 
+/**
+ * A body that levies part of the bill.
+ *
+ * The schema used to be three fixed slots - township, region, education - which
+ * is the shape of one Ontario two-tier municipality and not the shape of the
+ * province. 167 of Ontario's 405 taxing municipalities are single-tier and have
+ * no upper tier at all; today they carry a placeholder bucket labelled
+ * "Upper-tier (n/a)" because the field is required. Alberta apportions a
+ * provincial education requisition rather than printing a rate. A municipality
+ * with a special area rate has four bodies, not three.
+ *
+ * So the bill is a list. Absence is representable by a shorter list, which is
+ * the whole point: nothing has to be invented to fill a slot.
+ */
+export type TaxingBodyRole = 'local' | 'upper-tier' | 'education' | 'special-area'
+
+export type TaxingBody = {
+  id: string
+  role: TaxingBodyRole
+  /** What the reader sees: "Township of North Dumfries", "Education". */
+  label: string
+  /** Position on the bill. Stable, so the bar and the list cannot disagree. */
+  order: number
+  amountCad: number
+  basis: string
+  evidenceStatus: string
+  assessmentCad?: number
+  sourceFactId?: string
+  gapId?: string
+  lineItems?: ReceiptLineItem[]
+  warnings?: string[]
+  note?: string
+  uiLabel?: string
+}
+
+/**
+ * A role that does not apply here, and why.
+ *
+ * A single-tier municipality has no upper tier. That is a fact about the
+ * jurisdiction, not missing evidence, and it reads very differently from a gap.
+ * Recorded rather than rendered as an empty row.
+ */
+export type InapplicableBody = {
+  role: TaxingBodyRole
+  reason: string
+}
+
 export type Finding = {
   id: string
   kind: string
@@ -143,6 +190,14 @@ export type TaxpayerReceipt = {
   profiles: {
     supportedAverageHousehold: {
       description: string
+      /**
+       * The bill, as a list of bodies. Optional only because artifacts built
+       * before this field exist and must keep rendering; new builders emit it,
+       * and readers should go through taxingBodiesFor() rather than the three
+       * legacy buckets below.
+       */
+      taxingBodies?: TaxingBody[]
+      inapplicableBodies?: InapplicableBody[]
       township: ProfileBucket
       region: ProfileBucket
       /** Informational Region schedule at a different assessment; not part of the bill stack. */

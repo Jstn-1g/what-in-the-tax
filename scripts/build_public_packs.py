@@ -224,6 +224,24 @@ def project_combined_assessment(value: Any) -> dict[str, Any]:
     return projected
 
 
+TAXING_BODY_FIELDS = (
+    "id",
+    "role",
+    "label",
+    "order",
+    "amountCad",
+    "basis",
+    "evidenceStatus",
+    "assessmentCad",
+    "sourceFactId",
+    "gapId",
+    "lineItems",
+    "warnings",
+    "note",
+    "uiLabel",
+)
+
+
 def project_supported_profile(value: Any) -> dict[str, Any]:
     profile = as_object(value)
     projected = pick_fields(
@@ -235,6 +253,19 @@ def project_supported_profile(value: Any) -> dict[str, Any]:
             "warnings",
         ),
     )
+    # The bill as declared bodies. Projected field-by-field like everything else
+    # here, so a builder cannot smuggle an unreviewed key into a public artifact
+    # by adding it upstream.
+    bodies = profile.get("taxingBodies")
+    if isinstance(bodies, list) and bodies:
+        projected["taxingBodies"] = [
+            pick_fields(as_object(body), TAXING_BODY_FIELDS) for body in bodies
+        ]
+    inapplicable = profile.get("inapplicableBodies")
+    if isinstance(inapplicable, list) and inapplicable:
+        projected["inapplicableBodies"] = [
+            pick_fields(as_object(entry), ("role", "reason")) for entry in inapplicable
+        ]
     for bucket_name in ("township", "region", "education"):
         projected[bucket_name] = project_profile_bucket(profile.get(bucket_name))
     if isinstance(profile.get("regionIllustrationAt354500"), dict):

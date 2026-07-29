@@ -243,6 +243,48 @@
       },
       "combinedTotalCad": 4893.56,
       "sourceFactId": "DRV-BRANT-BILL-COMBINED-391K",
+      "taxingBodies": [
+        {
+          "id": "brant-county",
+          "role": "local",
+          "label": "County of Brant",
+          "order": 0,
+          "amountCad": 4217.29,
+          "basis": "County of Brant 2026 Tax Rates \u2014 CODE RT Residential, municipal rate",
+          "evidenceStatus": "DERIVED",
+          "assessmentCad": 391000,
+          "sourceFactId": "DRV-BRANT-BILL-MUNICIPAL-391K"
+        },
+        {
+          "id": "brant-hospital",
+          "role": "special-area",
+          "label": "Hospital special levy",
+          "order": 1,
+          "amountCad": 78.04,
+          "basis": "County of Brant 2026 Tax Rates \u2014 CODE RT Residential, hospital levy rate",
+          "evidenceStatus": "DERIVED",
+          "assessmentCad": 391000,
+          "sourceFactId": "DRV-BRANT-BILL-HOSPITAL-391K",
+          "note": "A separate levy on the same assessment, shown on its own line rather than inside the County portion."
+        },
+        {
+          "id": "brant-education",
+          "role": "education",
+          "label": "Education (Province of Ontario)",
+          "order": 2,
+          "amountCad": 598.23,
+          "basis": "County of Brant 2026 Tax Rates \u2014 CODE RT Residential education rate",
+          "evidenceStatus": "DERIVED",
+          "assessmentCad": 391000,
+          "sourceFactId": "DRV-BRANT-BILL-EDUCATION-391K"
+        }
+      ],
+      "inapplicableBodies": [
+        {
+          "role": "upper-tier",
+          "reason": "County of Brant is a single-tier municipality. There is no upper tier to levy a share, which is a fact about the jurisdiction rather than evidence we are missing."
+        }
+      ],
       "combinedAtAssessment": {
         "assessmentCad": 391000,
         "basis": "County of Brant 2026 Tax Rates \u2014 CODE RT Residential",
