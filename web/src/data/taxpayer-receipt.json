@@ -32,7 +32,7 @@
             "amountCad": 298.54,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "ND-DEPT-CORPORATE-2026",
+            "sourceFactId": "DRV-ALLOC-ND-DEPT-CORPORATE-2026",
             "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
             "subLines": [
               {
@@ -52,7 +52,7 @@
             "amountCad": 221.95,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "ND-DEPT-PROTECTIVE-2026",
+            "sourceFactId": "DRV-ALLOC-ND-DEPT-PROTECTIVE-2026",
             "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
@@ -61,7 +61,7 @@
             "amountCad": 353.66,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "ND-DEPT-PW-2026",
+            "sourceFactId": "DRV-ALLOC-ND-DEPT-PW-2026",
             "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
@@ -70,7 +70,7 @@
             "amountCad": 266.59,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "ND-DEPT-REC-2026",
+            "sourceFactId": "DRV-ALLOC-ND-DEPT-REC-2026",
             "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
@@ -79,7 +79,7 @@
             "amountCad": 64.44,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "ND-DEPT-PLANNING-2026",
+            "sourceFactId": "DRV-ALLOC-ND-DEPT-PLANNING-2026",
             "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
@@ -88,7 +88,7 @@
             "amountCad": 229.48,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "ND-CAPITAL-FUNDED-BY-LEVY-2026",
+            "sourceFactId": "DRV-ALLOC-ND-CAPITAL-FUNDED-BY-LEVY-2026",
             "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           },
           {
@@ -97,7 +97,7 @@
             "amountCad": -0.03,
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "ND-DEPT-ENVIRONMENTAL-2026",
+            "sourceFactId": "DRV-ALLOC-ND-DEPT-ENVIRONMENTAL-2026",
             "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63"
           }
         ]

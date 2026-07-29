@@ -96,8 +96,8 @@
     {
       "id": "north-dumfries-on",
       "path": "web/public/packs/north-dumfries-on.json",
-      "sha256": "23d1ba7760d86b6302fda67d257d27592567e75a013152547fb3418ccc6a927d",
-      "byteLength": 36256,
+      "sha256": "912cc2b0c777b768a951f1c0cffb1f304955fde7b286ad90f877f4ef405af7b1",
+      "byteLength": 39945,
       "mediaType": "application/json",
       "visibility": "public"
     },

@@ -964,7 +964,13 @@ for did, amt in dept_amounts.items():
             id=f"DRV-ALLOC-{did}",
             label=f"Rural avg township bill share — {did}",
             amountCad=dollars,
-            formula=f"{township_avg} * ({amt} / {dept_sum})",
+            # Node ids, not the numbers they happen to hold. With literals baked
+            # in, recomputing the formula only re-evaluates its own constants -
+            # it agrees with itself no matter what the cited facts say, which is
+            # the definition of a check that cannot fail. GENERALIZATION-PLAN
+            # section 9.5 already calls a bare-literal formula leaf a hard fail;
+            # this makes these nodes actually recomputable from their inputs.
+            formula=f"ND-TOWNSHIP-TAX-RURAL-AVG-2026 * ({did} / DRV-ND-DEPT-SUM)",
             inputs=["ND-TOWNSHIP-TAX-RURAL-AVG-2026", did, "DRV-ND-DEPT-SUM"],
             shareOfTownshipBill=round(share, 6),
         )
@@ -1557,7 +1563,16 @@ for row in township_alloc:
             "amountCad": row["amountCad"],
             "classification": "township_draft_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": row["factId"],
+            # Cite the allocation, not its input. This line printed a
+            # per-household share while citing the municipality-wide department
+            # figure it was derived from, so the two were never the same number
+            # and nothing could compare them: a planted 999999 passed
+            # validate_pack with zero errors. Pointing at DRV-ALLOC-* makes the
+            # printed value equal to its cited node, which is what makes the
+            # binding checkable at all. Provenance is not lost - the department
+            # fact is the first declared input, and every consumer already walks
+            # a derived node's inputs to reach the source document.
+            "sourceFactId": f"DRV-ALLOC-{row['factId']}",
             "note": "Pro-rata of the tax-supported expenditure base ($10,049,624) against rural average township tax $1,434.63",
         }
     )

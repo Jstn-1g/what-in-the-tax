@@ -1318,7 +1318,7 @@
       "id": "DRV-ALLOC-ND-DEPT-CORPORATE-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-CORPORATE-2026",
       "amountCad": 298.54,
-      "formula": "1434.63 * (2091306 / 10049624)",
+      "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-CORPORATE-2026 / DRV-ND-DEPT-SUM)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-CORPORATE-2026",
@@ -1331,7 +1331,7 @@
       "id": "DRV-ALLOC-ND-DEPT-PROTECTIVE-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-PROTECTIVE-2026",
       "amountCad": 221.95,
-      "formula": "1434.63 * (1554793 / 10049624)",
+      "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-PROTECTIVE-2026 / DRV-ND-DEPT-SUM)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-PROTECTIVE-2026",
@@ -1344,7 +1344,7 @@
       "id": "DRV-ALLOC-ND-DEPT-PW-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-PW-2026",
       "amountCad": 353.66,
-      "formula": "1434.63 * (2477423 / 10049624)",
+      "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-PW-2026 / DRV-ND-DEPT-SUM)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-PW-2026",
@@ -1357,7 +1357,7 @@
       "id": "DRV-ALLOC-ND-DEPT-REC-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-REC-2026",
       "amountCad": 266.59,
-      "formula": "1434.63 * (1867455 / 10049624)",
+      "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-REC-2026 / DRV-ND-DEPT-SUM)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-REC-2026",
@@ -1370,7 +1370,7 @@
       "id": "DRV-ALLOC-ND-DEPT-PLANNING-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-PLANNING-2026",
       "amountCad": 64.44,
-      "formula": "1434.63 * (451372 / 10049624)",
+      "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-PLANNING-2026 / DRV-ND-DEPT-SUM)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-PLANNING-2026",
@@ -1383,7 +1383,7 @@
       "id": "DRV-ALLOC-ND-CAPITAL-FUNDED-BY-LEVY-2026",
       "label": "Rural avg township bill share \u2014 ND-CAPITAL-FUNDED-BY-LEVY-2026",
       "amountCad": 229.48,
-      "formula": "1434.63 * (1607500 / 10049624)",
+      "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-CAPITAL-FUNDED-BY-LEVY-2026 / DRV-ND-DEPT-SUM)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-CAPITAL-FUNDED-BY-LEVY-2026",
@@ -1396,7 +1396,7 @@
       "id": "DRV-ALLOC-ND-DEPT-ENVIRONMENTAL-2026",
       "label": "Rural avg township bill share \u2014 ND-DEPT-ENVIRONMENTAL-2026",
       "amountCad": -0.03,
-      "formula": "1434.63 * (-225 / 10049624)",
+      "formula": "ND-TOWNSHIP-TAX-RURAL-AVG-2026 * (ND-DEPT-ENVIRONMENTAL-2026 / DRV-ND-DEPT-SUM)",
       "inputs": [
         "ND-TOWNSHIP-TAX-RURAL-AVG-2026",
         "ND-DEPT-ENVIRONMENTAL-2026",
