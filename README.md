@@ -153,6 +153,11 @@ workflow runs the offline checks on pull requests but never deploys.
 - **GAP** — missing evidence. Never invent a number to fill one. Resolved gaps move to `closedGaps` rather than being deleted, so the audit trail survives.
 - **JUDGMENT** — interpretive only. `billImpactCad` stays `null`, always.
 - A documented dead end is a correct outcome. Where we have searched, the gap carries a `searchTrail` recording where we looked; the open-gap list below reports how many currently do.
+- Think a published figure is wrong? File it with the
+  [Report a wrong number](https://github.com/Jstn-1g/what-in-the-tax/issues/new?template=wrong-number.yml)
+  form — that is the report this project most wants. Outcomes, including
+  reports that turn out to be sound, are logged with dates in
+  [CORRECTIONS.md](CORRECTIONS.md).
 
 ## Static packs, validation, and versioning
 

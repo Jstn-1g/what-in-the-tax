@@ -36,8 +36,9 @@ the usual one:
 **Not a security issue, but still wanted**
 
 - A wrong number that traces honestly to its source. That is a *data* problem,
-  and it is the one this project most wants to hear about. It goes to the
-  corrections route rather than here.
+  and it is the one this project most wants to hear about. File it with the
+  [Report a wrong number](https://github.com/Jstn-1g/what-in-the-tax/issues/new?template=wrong-number.yml)
+  form; outcomes are logged in [CORRECTIONS.md](CORRECTIONS.md).
 - A municipality disputing how its figures are characterised. Same route.
 
 ## Why the first category matters more than it looks
