@@ -61,3 +61,10 @@ web/public/** text eol=lf
 # today; the rule exists so adding one later cannot break it silently.
 *.bat text eol=crlf
 *.cmd text eol=crlf
+
+# StatCan payloads are preserved byte-exactly. Unlike the Ontario CSVs above,
+# these are served with CRLF line endings, and the locks pin the bytes the
+# server actually sends - so online re-acquisition verifies. Normalizing them
+# (as git just tried to) changes 151,789 bytes to 150,711 and breaks every
+# hash on a fresh clone, invisibly to whoever committed from Windows.
+source-pdfs/statcan/* -text
