@@ -895,6 +895,41 @@
           "sourceFactId": "ROW-URBAN-HH-TOTAL-2026",
           "uiLabel": "Region illustration @ $354,500"
         },
+        "taxingBodies": [
+          {
+            "amountCad": 1779.68,
+            "assessmentCad": 344000,
+            "basis": "RT Residential rates applied to published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "cam-taxrate-res-city-2026",
+            "label": "City of Cambridge",
+            "order": 0,
+            "role": "local",
+            "sourceFactId": "CAM-TAXRATE-RES-CITY-2026"
+          },
+          {
+            "amountCad": 2895.9,
+            "assessmentCad": 344000,
+            "basis": "RT Residential rates applied to published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "cam-taxrate-res-region-2026",
+            "label": "Region of Waterloo",
+            "order": 1,
+            "role": "upper-tier",
+            "sourceFactId": "CAM-TAXRATE-RES-REGION-2026"
+          },
+          {
+            "amountCad": 526.32,
+            "assessmentCad": 344000,
+            "basis": "RT Residential rates applied to published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "cam-taxrate-res-education-2026",
+            "label": "Education (Province of Ontario)",
+            "order": 2,
+            "role": "education",
+            "sourceFactId": "CAM-TAXRATE-RES-EDUCATION-2026"
+          }
+        ],
         "township": {
           "amountCad": 1779.68,
           "assessmentCad": 344000,

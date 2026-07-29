@@ -437,7 +437,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/woolwich/2026-tax-rates-page.txt",
         "declaredSha256": null,
-        "actualSha256": "b7dfa41896269c248fca35633a64a7ea8fab0268b7f6223d9165e839b7704740"
+        "actualSha256": "281780ca8b7c572c6269a582ed06156a5b2a2f372b33f2f360838ff4706d31ad"
       },
       "issues": [
         "source-path-missing",
@@ -458,7 +458,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/woolwich/2026-budget-excerpt.txt",
         "declaredSha256": null,
-        "actualSha256": "a9d2370078839a61207b0d9a4190011b7ead133ffeef26286f90bdd1d8541229"
+        "actualSha256": "193ae2bb88092bfcf5e36c72be7a26e2edf0903caaf44d65b27094df506eb7d8"
       },
       "issues": [
         "source-file-missing",
@@ -479,7 +479,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/2026_final_budget_book_region.txt",
         "declaredSha256": null,
-        "actualSha256": "3a79328613126951dbb7aedf8097b7cd79b5278f6f359d6b5c9ad1f9a429497f"
+        "actualSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423"
       },
       "issues": [
         "source-sha256-missing",

@@ -1063,6 +1063,41 @@
           "sourceFactId": "ROW-URBAN-HH-TOTAL-2026",
           "uiLabel": "Region illustration @ $354,500"
         },
+        "taxingBodies": [
+          {
+            "amountCad": 1340.39,
+            "assessmentCad": 326000,
+            "basis": "2026 Final Tax Rates RT Residential row at the City's published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "kit-taxrate-res-city-2026",
+            "label": "City of Kitchener",
+            "order": 0,
+            "role": "local",
+            "sourceFactId": "KIT-TAXRATE-RES-CITY-2026"
+          },
+          {
+            "amountCad": 2744.38,
+            "assessmentCad": 326000,
+            "basis": "2026 Final Tax Rates RT Residential row at the City's published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "kit-taxrate-res-region-2026",
+            "label": "Region of Waterloo",
+            "order": 1,
+            "role": "upper-tier",
+            "sourceFactId": "KIT-TAXRATE-RES-REGION-2026"
+          },
+          {
+            "amountCad": 498.78,
+            "assessmentCad": 326000,
+            "basis": "2026 Final Tax Rates RT Residential row at the City's published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "kit-taxrate-res-education-2026",
+            "label": "Education (Province of Ontario)",
+            "order": 2,
+            "role": "education",
+            "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026"
+          }
+        ],
         "township": {
           "amountCad": 1340.39,
           "assessmentCad": 326000,

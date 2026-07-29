@@ -896,6 +896,41 @@
           "sourceFactId": "ROW-RURAL-HH-TOTAL-2026",
           "uiLabel": "Region portion"
         },
+        "taxingBodies": [
+          {
+            "amountCad": 1434.63,
+            "assessmentCad": 455000,
+            "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
+            "evidenceStatus": "DERIVED",
+            "id": "nd-taxrate-res-township-2026-final",
+            "label": "Township of North Dumfries",
+            "order": 0,
+            "role": "local",
+            "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"
+          },
+          {
+            "amountCad": 3264.83,
+            "assessmentCad": 455000,
+            "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
+            "evidenceStatus": "DERIVED",
+            "id": "nd-taxrate-res-region-2026-final",
+            "label": "Region of Waterloo",
+            "order": 1,
+            "role": "upper-tier",
+            "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"
+          },
+          {
+            "amountCad": 696.15,
+            "assessmentCad": 455000,
+            "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
+            "evidenceStatus": "DERIVED",
+            "id": "nd-taxrate-res-education-2026-final",
+            "label": "Education (Province of Ontario)",
+            "order": 2,
+            "role": "education",
+            "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"
+          }
+        ],
         "township": {
           "amountCad": 1434.63,
           "assessmentCad": 455000,

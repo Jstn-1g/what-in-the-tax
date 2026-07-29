@@ -21,6 +21,11 @@ except ImportError:  # pragma: no cover
     yaml = None
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from lib.taxing_bodies import build_taxing_bodies  # noqa: E402
 DATA = ROOT / "data" / "kitchener"
 WEB_DATA = ROOT / "web" / "src" / "data" / "kitchener"
 REGION_SCHEDULE = (
@@ -69,6 +74,8 @@ def derived(**kwargs):
 LEVY_2026 = 171_432_000  # published net tax levy (Budget at a Glance)
 # Department net expenditures (Appendix B) — allocation base for city-share pro-rata
 ALLOC_BASE = 170_039_303
+FISCAL_YEAR = 2026
+CURRENCY = "CAD"
 AVG_ASSESSMENT = 326_000
 CITY_TAX_INCREASE_PCT = 2.2
 CITY_TAX_INCREASE_CAD = 29  # published average-home impact (city portion only)
@@ -629,6 +636,8 @@ ledger = {
 receipt = {
     "schemaVersion": "2.0.0",
     "artifact": "TaxpayerReceipt",
+    "fiscalYear": FISCAL_YEAR,
+    "currency": CURRENCY,
     "status": "partial_evidence_based",
     "purpose": (
         "City of Kitchener 2026 taxpayer receipt. Lower-tier: City + Region of Waterloo + education."
@@ -737,6 +746,28 @@ receipt = {
                 "totalCad": COMBINED_TOTAL,
                 "totalRate": RATE_TOTAL,
             },
+            # Declared, not inferred: "Region of Waterloo" is an upper tier
+            # because of how Ontario is organised, not because of how the
+            # string reads. Built from the same components the page prints so
+            # the two representations cannot drift.
+            "taxingBodies": build_taxing_bodies(
+                [
+                    {"label": "City of Kitchener", "amountCad": CITY_PORTION,
+                     "sourceFactId": "KIT-TAXRATE-RES-CITY-2026"},
+                    {"label": "Region of Waterloo", "amountCad": REGION_PORTION,
+                     "sourceFactId": "KIT-TAXRATE-RES-REGION-2026"},
+                    {"label": "Education (Province of Ontario)", "amountCad": EDUCATION_PORTION,
+                     "sourceFactId": "KIT-TAXRATE-RES-EDUCATION-2026"},
+                ],
+                {
+                    "KIT-TAXRATE-RES-CITY-2026": "local",
+                    "KIT-TAXRATE-RES-REGION-2026": "upper-tier",
+                    "KIT-TAXRATE-RES-EDUCATION-2026": "education",
+                },
+                total_cad=COMBINED_TOTAL,
+                assessment_cad=AVG_ASSESSMENT,
+                basis="2026 Final Tax Rates RT Residential row at the City's published average assessment",
+            ),
             "combinedTotalNote": (
                 f"Built from the 2026 Final Tax Rates RT row applied to the City's published "
                 f"average assessment (${AVG_ASSESSMENT:,}). City ${CITY_PORTION:,.2f} + "

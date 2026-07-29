@@ -448,7 +448,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/waterloo/2026-tax-rates-page.txt",
         "declaredSha256": null,
-        "actualSha256": "b1e56e2fafebd148df4f31d22558317363663d2bab0bbaf57440b8b6621e23e0"
+        "actualSha256": "c63a18d8f820feb1e2231209acf3e890540bb00a7a3db65c0170994e36709e21"
       },
       "issues": [
         "source-path-missing",
@@ -469,7 +469,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/waterloo/2026-operating-budget-excerpt.txt",
         "declaredSha256": null,
-        "actualSha256": "fe5c8b8dbea8c9cc10381ae20a0cf74b8d805a7f4f1f76c7eee7defac1289a32"
+        "actualSha256": "efdb7c72b657e63c54b8a479542297b52613d0de26d3d6198ba0fbbc95068f1b"
       },
       "issues": [
         "source-file-missing",
@@ -490,7 +490,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/2026_final_budget_book_region.txt",
         "declaredSha256": null,
-        "actualSha256": "3a79328613126951dbb7aedf8097b7cd79b5278f6f359d6b5c9ad1f9a429497f"
+        "actualSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423"
       },
       "issues": [
         "source-sha256-missing",

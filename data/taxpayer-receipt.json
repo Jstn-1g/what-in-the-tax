@@ -357,6 +357,41 @@
           "note": "Ayr urban service area only. Rural properties pay the rural total."
         }
       },
+      "taxingBodies": [
+        {
+          "id": "nd-taxrate-res-township-2026-final",
+          "role": "local",
+          "label": "Township of North Dumfries",
+          "order": 0,
+          "amountCad": 1434.63,
+          "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL",
+          "assessmentCad": 455000
+        },
+        {
+          "id": "nd-taxrate-res-region-2026-final",
+          "role": "upper-tier",
+          "label": "Region of Waterloo",
+          "order": 1,
+          "amountCad": 3264.83,
+          "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL",
+          "assessmentCad": 455000
+        },
+        {
+          "id": "nd-taxrate-res-education-2026-final",
+          "role": "education",
+          "label": "Education (Province of Ontario)",
+          "order": 2,
+          "amountCad": 696.15,
+          "basis": "By-law 3637-26 Schedule A RT Residential rates at $455,000",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL",
+          "assessmentCad": 455000
+        }
+      ],
       "combinedTotalNote": "Built from the adopted By-law 3637-26 Schedule A rates applied to ONE assessment ($455,000), not by adding two governments' differently-based household averages. The three rates sum exactly to the printed Total 2026 Rate, and the township component reproduces the separately cited $1,434.63 to the cent.",
       "warnings": [
         "The Region figure of $2,543 elsewhere in this model is the Region's own average household at $354,500 \u2014 do not mix it with this $455,000 receipt. Both sit on the same MPAC January 1, 2016 base; they differ only in which average property each government reports.",

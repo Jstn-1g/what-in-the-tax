@@ -450,7 +450,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/cambridge/2026-tax-rates-page.txt",
         "declaredSha256": null,
-        "actualSha256": "5073632a6282a0f73359325df3fdb83e7b013efecb879932b40cd891c55201a0"
+        "actualSha256": "60c3c36cb102af5f5373caba34c775be9561afbabe787177e719f099dee58863"
       },
       "issues": [
         "source-path-missing",
@@ -471,7 +471,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/cambridge/2026-budget-excerpt.txt",
         "declaredSha256": null,
-        "actualSha256": "7afdc3e133aba1ce724cd513b7766e05fec3b7ca174b9cbab8e0e8f8ddf5307b"
+        "actualSha256": "d60a8513e040fcf7b28e97ecf771eb30549a875a7334717efbc759563fa4fec8"
       },
       "issues": [
         "source-file-missing",
@@ -492,7 +492,7 @@
       "extractFile": {
         "declaredPath": "data/_extracts/2026_final_budget_book_region.txt",
         "declaredSha256": null,
-        "actualSha256": "3a79328613126951dbb7aedf8097b7cd79b5278f6f359d6b5c9ad1f9a429497f"
+        "actualSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423"
       },
       "issues": [
         "source-sha256-missing",

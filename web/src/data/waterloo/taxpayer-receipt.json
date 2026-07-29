@@ -367,6 +367,41 @@
           "componentVsTotalRateDeltaCad": 0.01
         }
       },
+      "taxingBodies": [
+        {
+          "id": "wat-taxrate-res-city-2026",
+          "role": "local",
+          "label": "City of Waterloo",
+          "order": 0,
+          "amountCad": 1771.58,
+          "basis": "RT Residential rates applied to published average assessment",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "WAT-TAXRATE-RES-CITY-2026",
+          "assessmentCad": 405000
+        },
+        {
+          "id": "wat-taxrate-res-region-2026",
+          "role": "upper-tier",
+          "label": "Region of Waterloo",
+          "order": 1,
+          "amountCad": 3409.43,
+          "basis": "RT Residential rates applied to published average assessment",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "WAT-TAXRATE-RES-REGION-2026",
+          "assessmentCad": 405000
+        },
+        {
+          "id": "wat-taxrate-res-education-2026",
+          "role": "education",
+          "label": "Education (Province of Ontario)",
+          "order": 2,
+          "amountCad": 619.65,
+          "basis": "RT Residential rates applied to published average assessment",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "WAT-TAXRATE-RES-EDUCATION-2026",
+          "assessmentCad": 405000
+        }
+      ],
       "combinedTotalNote": "Local $1,771.58 + Region $3,409.43 + Education $619.65 + source rounding -0.01 = $5,800.65 at $405,000.",
       "warnings": [
         "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",

@@ -366,6 +366,41 @@
           "componentVsTotalRateDeltaCad": 0
         }
       },
+      "taxingBodies": [
+        {
+          "id": "cam-taxrate-res-city-2026",
+          "role": "local",
+          "label": "City of Cambridge",
+          "order": 0,
+          "amountCad": 1779.68,
+          "basis": "RT Residential rates applied to published average assessment",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "CAM-TAXRATE-RES-CITY-2026",
+          "assessmentCad": 344000
+        },
+        {
+          "id": "cam-taxrate-res-region-2026",
+          "role": "upper-tier",
+          "label": "Region of Waterloo",
+          "order": 1,
+          "amountCad": 2895.9,
+          "basis": "RT Residential rates applied to published average assessment",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "CAM-TAXRATE-RES-REGION-2026",
+          "assessmentCad": 344000
+        },
+        {
+          "id": "cam-taxrate-res-education-2026",
+          "role": "education",
+          "label": "Education (Province of Ontario)",
+          "order": 2,
+          "amountCad": 526.32,
+          "basis": "RT Residential rates applied to published average assessment",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "CAM-TAXRATE-RES-EDUCATION-2026",
+          "assessmentCad": 344000
+        }
+      ],
       "combinedTotalNote": "Local $1,779.68 + Region $2,895.90 + Education $526.32 = $5,201.90 at $344,000.",
       "warnings": [
         "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",

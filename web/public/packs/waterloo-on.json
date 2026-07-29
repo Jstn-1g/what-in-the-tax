@@ -867,6 +867,41 @@
           "sourceFactId": "ROW-URBAN-HH-TOTAL-2026",
           "uiLabel": "Region illustration @ $354,500"
         },
+        "taxingBodies": [
+          {
+            "amountCad": 1771.58,
+            "assessmentCad": 405000,
+            "basis": "RT Residential rates applied to published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "wat-taxrate-res-city-2026",
+            "label": "City of Waterloo",
+            "order": 0,
+            "role": "local",
+            "sourceFactId": "WAT-TAXRATE-RES-CITY-2026"
+          },
+          {
+            "amountCad": 3409.43,
+            "assessmentCad": 405000,
+            "basis": "RT Residential rates applied to published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "wat-taxrate-res-region-2026",
+            "label": "Region of Waterloo",
+            "order": 1,
+            "role": "upper-tier",
+            "sourceFactId": "WAT-TAXRATE-RES-REGION-2026"
+          },
+          {
+            "amountCad": 619.65,
+            "assessmentCad": 405000,
+            "basis": "RT Residential rates applied to published average assessment",
+            "evidenceStatus": "DERIVED",
+            "id": "wat-taxrate-res-education-2026",
+            "label": "Education (Province of Ontario)",
+            "order": 2,
+            "role": "education",
+            "sourceFactId": "WAT-TAXRATE-RES-EDUCATION-2026"
+          }
+        ],
         "township": {
           "amountCad": 1771.58,
           "assessmentCad": 405000,

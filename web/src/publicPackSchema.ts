@@ -195,6 +195,62 @@ function validateProfileBucket(value: unknown, path: string) {
   }
 }
 
+const TAXING_BODY_ROLES = ['local', 'special-area', 'upper-tier', 'education']
+
+/**
+ * A declared taxing body in a public pack.
+ *
+ * Roles are checked against a closed set rather than accepted as any string,
+ * because a role is what the page uses to decide whether a bill is missing its
+ * upper tier or simply does not have one. An unrecognised role would render as
+ * neither.
+ */
+function validateTaxingBodies(value: unknown, path: string): void {
+  if (!Array.isArray(value) || value.length === 0) {
+    fail(path, 'must be a non-empty array')
+  }
+  value.forEach((entry, index) => {
+    const at = `${path}[${index}]`
+    assertObject(entry, at)
+    assertOnlyKeys(entry as Record<string, unknown>, at, [
+      'id', 'role', 'label', 'order', 'amountCad', 'basis', 'evidenceStatus',
+      'assessmentCad', 'sourceFactId', 'gapId', 'lineItems', 'warnings', 'note', 'uiLabel',
+    ])
+    const body = entry as Record<string, unknown>
+    assertString(body.id, `${at}.id`)
+    assertString(body.label, `${at}.label`)
+    assertString(body.basis, `${at}.basis`)
+    assertString(body.evidenceStatus, `${at}.evidenceStatus`)
+    if (typeof body.role !== 'string' || !TAXING_BODY_ROLES.includes(body.role)) {
+      fail(`${at}.role`, `must be one of ${TAXING_BODY_ROLES.join(', ')}`)
+    }
+    if (typeof body.order !== 'number' || !Number.isInteger(body.order)) {
+      fail(`${at}.order`, 'must be an integer')
+    }
+    if (typeof body.amountCad !== 'number' || !Number.isFinite(body.amountCad)) {
+      fail(`${at}.amountCad`, 'must be a finite number')
+    }
+  })
+}
+
+function validateInapplicableBodies(value: unknown, path: string): void {
+  if (!Array.isArray(value)) {
+    fail(path, 'must be an array')
+  }
+  value.forEach((entry, index) => {
+    const at = `${path}[${index}]`
+    assertObject(entry, at)
+    assertOnlyKeys(entry as Record<string, unknown>, at, ['role', 'reason'])
+    const row = entry as Record<string, unknown>
+    if (typeof row.role !== 'string' || !TAXING_BODY_ROLES.includes(row.role)) {
+      fail(`${at}.role`, `must be one of ${TAXING_BODY_ROLES.join(', ')}`)
+    }
+    // A reason is required. "Not applicable" with no explanation reads exactly
+    // like a gap, which is the confusion this field exists to prevent.
+    assertString(row.reason, `${at}.reason`)
+  })
+}
+
 function validateCombinedAssessment(value: unknown, path: string) {
   assertObject(value, path)
   assertOnlyKeys(value, path, [
@@ -466,6 +522,8 @@ function validateReceipt(expectedId: string, value: unknown) {
   const supported = value.profiles.supportedAverageHousehold
   assertOnlyKeys(supported, supportedPath, [
     'description',
+    'taxingBodies',
+    'inapplicableBodies',
     'township',
     'region',
     'regionIllustrationAt354500',
@@ -476,6 +534,15 @@ function validateReceipt(expectedId: string, value: unknown) {
     'warnings',
   ])
   assertString(supported.description, `${supportedPath}.description`)
+  if (supported.taxingBodies !== undefined) {
+    validateTaxingBodies(supported.taxingBodies, `${supportedPath}.taxingBodies`)
+  }
+  if (supported.inapplicableBodies !== undefined) {
+    validateInapplicableBodies(
+      supported.inapplicableBodies,
+      `${supportedPath}.inapplicableBodies`,
+    )
+  }
   validateProfileBucket(supported.township, `${supportedPath}.township`)
   validateProfileBucket(supported.region, `${supportedPath}.region`)
   validateProfileBucket(supported.education, `${supportedPath}.education`)

@@ -53,24 +53,39 @@ describe('reading a declared bill', () => {
   })
 })
 
+describe('every committed pack', () => {
+  // All six declare their bodies now. This is the regression guard: if a builder
+  // stops emitting them, the pack it produces stops rendering, and that should
+  // fail here rather than in a browser.
+  it.each([
+    ['north-dumfries-on', northDumfries, ['local', 'upper-tier', 'education']],
+    ['kitchener-on', kitchener, ['local', 'upper-tier', 'education']],
+    ['brant-county-on', brant, ['local', 'special-area', 'education']],
+  ])('%s declares a coherent bill', (slug, receipt, roles) => {
+    const { profile } = profileOf(receipt)
+    const bill = taxingBodiesFor(profile, slug)
+    expect(bill.bodies.map((b) => b.role)).toEqual(roles)
+    const summed = bill.bodies.reduce((sum, b) => sum + b.amountCad, 0)
+    expect(Math.abs(summed - (profile.combinedTotalCad ?? 0))).toBeLessThan(0.05)
+  })
+})
+
 describe('a receipt that has not declared its bodies', () => {
   it('is refused rather than guessed at', () => {
-    // The legacy buckets cannot be converted honestly. North Dumfries' region
-    // bucket is $2,543 at a $354,500 assessment while its region component is
-    // $3,264.83 at $455,000, and their fact ids do not join, so the only way to
-    // pair them is the display label - which this receipt's own disclaimer
-    // forbids using to guess a role.
-    const { profile } = profileOf(northDumfries)
-    expect(profile.taxingBodies).toBeUndefined()
-    expect(() => taxingBodiesFor(profile, 'north-dumfries-on')).toThrow(TaxingBodyError)
-    expect(() => taxingBodiesFor(profile, 'north-dumfries-on')).toThrow(
-      /north-dumfries-on does not declare taxingBodies/,
+    // The legacy buckets cannot be converted honestly. A bucket cites an
+    // allocation fact and a component cites a rate fact, at different
+    // assessments, and their ids do not join - so the only way to pair them is
+    // the display label, which this receipt's own disclaimer forbids using to
+    // guess a role. Refusing is the only correct behaviour left.
+    const undeclared = {
+      ...profileOf(northDumfries).profile,
+      taxingBodies: undefined,
+    }
+    expect(() => taxingBodiesFor(undeclared, 'somewhere-on')).toThrow(TaxingBodyError)
+    expect(() => taxingBodiesFor(undeclared, 'somewhere-on')).toThrow(
+      /somewhere-on does not declare taxingBodies/,
     )
-  })
-
-  it('names a builder rather than a stack frame', () => {
-    const { profile } = profileOf(kitchener)
-    expect(() => taxingBodiesFor(profile, 'kitchener-on')).toThrow(/builder that produced/)
+    expect(() => taxingBodiesFor(undeclared, 'somewhere-on')).toThrow(/builder that produced/)
   })
 })
 

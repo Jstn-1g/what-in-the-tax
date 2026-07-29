@@ -16,6 +16,11 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from lib.taxing_bodies import build_taxing_bodies  # noqa: E402
 DATA = ROOT / "data"
 
 # web/src/types.ts declares both of these required on TaxpayerReceipt, and
@@ -1616,6 +1621,27 @@ receipt = {
                     "note": "Ayr urban service area only. Rural properties pay the rural total.",
                 },
             },
+            # The Ayr urban special area rate is a variant of this bill rather
+            # than a fourth body on it - rural properties do not pay it - so it
+            # stays inside combinedAtAssessment until variants are modelled.
+            "taxingBodies": build_taxing_bodies(
+                [
+                    {"label": "Township of North Dumfries", "amountCad": BILL_TWP,
+                     "sourceFactId": "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL"},
+                    {"label": "Region of Waterloo", "amountCad": BILL_REG,
+                     "sourceFactId": "ND-TAXRATE-RES-REGION-2026-FINAL"},
+                    {"label": "Education (Province of Ontario)", "amountCad": BILL_EDU,
+                     "sourceFactId": "ND-TAXRATE-RES-EDUCATION-2026-FINAL"},
+                ],
+                {
+                    "ND-TAXRATE-RES-TOWNSHIP-2026-FINAL": "local",
+                    "ND-TAXRATE-RES-REGION-2026-FINAL": "upper-tier",
+                    "ND-TAXRATE-RES-EDUCATION-2026-FINAL": "education",
+                },
+                total_cad=BILL_COMBINED,
+                assessment_cad=ASSESSMENT,
+                basis="By-law 3637-26 Schedule A RT Residential rates at $455,000",
+            ),
             "combinedTotalNote": (
                 "Built from the adopted By-law 3637-26 Schedule A rates applied to ONE assessment ($455,000), "
                 "not by adding two governments' differently-based household averages. The three rates sum exactly "

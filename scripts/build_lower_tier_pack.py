@@ -31,6 +31,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib.region_schedule import load_region_schedule  # noqa: E402
+from lib.taxing_bodies import build_taxing_bodies  # noqa: E402
 from lib.path_safety import (  # noqa: E402
     PathSafetyError,
     resolve_under_root,
@@ -1415,6 +1416,40 @@ def build_pack(cfg: dict) -> tuple[dict, dict]:
                         ],
                     },
                 },
+                # Roles for this bill, keyed by the same fact ids the
+                # components cite. Every lower-tier Waterloo municipality has
+                # the same three: itself, the Region above it, and the
+                # province's education levy. Declared here rather than
+                # inferred downstream, because "Region of Waterloo" being an
+                # upper tier is a fact about Ontario's structure and not
+                # about the string.
+                "taxingBodies": build_taxing_bodies(
+                    [
+                        {
+                            "label": name,
+                            "amountCad": city_portion,
+                            "sourceFactId": f"{prefix}-TAXRATE-RES-CITY-{fiscal_year}",
+                        },
+                        {
+                            "label": "Region of Waterloo",
+                            "amountCad": region_portion,
+                            "sourceFactId": f"{prefix}-TAXRATE-RES-REGION-{fiscal_year}",
+                        },
+                        {
+                            "label": "Education (Province of Ontario)",
+                            "amountCad": edu_portion,
+                            "sourceFactId": f"{prefix}-TAXRATE-RES-EDUCATION-{fiscal_year}",
+                        },
+                    ],
+                    {
+                        f"{prefix}-TAXRATE-RES-CITY-{fiscal_year}": "local",
+                        f"{prefix}-TAXRATE-RES-REGION-{fiscal_year}": "upper-tier",
+                        f"{prefix}-TAXRATE-RES-EDUCATION-{fiscal_year}": "education",
+                    },
+                    total_cad=combined,
+                    assessment_cad=assessment,
+                    basis=f"RT Residential rates applied to {assessment_context}",
+                ),
                 "combinedTotalNote": (
                     f"Local ${city_portion:,.2f} + Region ${region_portion:,.2f} + "
                     f"Education ${edu_portion:,.2f}"

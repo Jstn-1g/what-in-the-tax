@@ -366,6 +366,41 @@
           "componentVsTotalRateDeltaCad": 0
         }
       },
+      "taxingBodies": [
+        {
+          "id": "woo-taxrate-res-city-2026",
+          "role": "local",
+          "label": "Township of Woolwich",
+          "order": 0,
+          "amountCad": 1142.15,
+          "basis": "RT Residential rates applied to reference assessment scenario",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "WOO-TAXRATE-RES-CITY-2026",
+          "assessmentCad": 354500
+        },
+        {
+          "id": "woo-taxrate-res-region-2026",
+          "role": "upper-tier",
+          "label": "Region of Waterloo",
+          "order": 1,
+          "amountCad": 2617.32,
+          "basis": "RT Residential rates applied to reference assessment scenario",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "WOO-TAXRATE-RES-REGION-2026",
+          "assessmentCad": 354500
+        },
+        {
+          "id": "woo-taxrate-res-education-2026",
+          "role": "education",
+          "label": "Education (Province of Ontario)",
+          "order": 2,
+          "amountCad": 542.39,
+          "basis": "RT Residential rates applied to reference assessment scenario",
+          "evidenceStatus": "DERIVED",
+          "sourceFactId": "WOO-TAXRATE-RES-EDUCATION-2026",
+          "assessmentCad": 354500
+        }
+      ],
       "combinedTotalNote": "Local $1,142.15 + Region $2,617.32 + Education $542.39 = $4,301.86 at $354,500.",
       "warnings": [
         "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",
