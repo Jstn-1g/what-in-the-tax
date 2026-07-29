@@ -9,6 +9,7 @@ import zipfile
 from pathlib import Path
 
 from scripts.acquire_official_sources import (
+    ATTRIBUTION_REQUIRED_FROM,
     MAX_DOWNLOAD_BYTES,
     OfficialSourceError,
     SourceLock,
@@ -17,6 +18,7 @@ from scripts.acquire_official_sources import (
     discover_locks,
     download_source,
     inspect_payload,
+    is_attributed,
     load_reviewed_lock,
     sha256_bytes,
     validate_source_url,
@@ -504,3 +506,71 @@ class RepackagedArchiveTests(unittest.TestCase):
                         }
                     ),
                 )
+
+
+class ReviewerAttributionTests(unittest.TestCase):
+    """Who reviewed a source, recorded in the artifact rather than in git.
+
+    docs/ONTARIO-COMPLETION.md section 6 names this a prerequisite for opening
+    the project to contributors: in a solo repository the reviewer is implicit,
+    and in a public one an unsigned attestation is indistinguishable from an
+    invented one.
+
+    The boundary is a date, not a migration. Backfilling the existing locks
+    would mean inventing an attestation for a review that predates anyone being
+    asked to sign it, so those stay valid and unattributed and every review
+    after the policy has to name someone.
+    """
+
+    AFTER = "2026-08-01T09:00:00-04:00"
+    BEFORE = "2026-07-26T20:00:00-04:00"
+
+    def _payload(self) -> bytes:
+        return _zip_bytes(b"MARSYEAR,ASSESSMENT_CODE,VALUE_TEXT\n2025,0001,x\n")
+
+    def _load(self, **fields):
+        payload = self._payload()
+        with tempfile.TemporaryDirectory() as tmp:
+            return _write_lock(
+                Path(tmp),
+                payload,
+                row_count=1,
+                record_count=1,
+                mutate=lambda doc: doc.update(fields),
+            )
+
+    def test_a_review_under_the_policy_must_name_its_reviewer(self) -> None:
+        with self.assertRaises(OfficialSourceError) as caught:
+            self._load(reviewedAt=self.AFTER)
+        message = str(caught.exception)
+        self.assertIn("reviewedBy", message)
+        # The refusal has to be actionable: a reviewer reading it should know
+        # what to add without going to the source.
+        self.assertIn("must name", message)
+
+    def test_a_named_reviewer_satisfies_the_policy(self) -> None:
+        lock, _ = self._load(reviewedAt=self.AFTER, reviewedBy="A. Reviewer")
+        self.assertTrue(is_attributed(lock.document))
+
+    def test_a_review_predating_the_policy_stays_valid_and_unattributed(self) -> None:
+        # Grandfathered rather than rewritten. This is the case that makes the
+        # gap visible instead of fabricating a name to close it.
+        lock, _ = self._load(reviewedAt=self.BEFORE)
+        self.assertFalse(is_attributed(lock.document))
+
+    def test_blank_attribution_never_counts_as_attribution(self) -> None:
+        for blank in ("", "   "):
+            with self.subTest(blank=blank):
+                with self.assertRaises(OfficialSourceError):
+                    self._load(reviewedAt=self.AFTER, reviewedBy=blank)
+                # Even grandfathered, a present-but-empty value is a claim to
+                # attribution that is not one, so it is refused there too.
+                with self.assertRaises(OfficialSourceError):
+                    self._load(reviewedAt=self.BEFORE, reviewedBy=blank)
+
+    def test_a_non_string_reviewer_is_refused(self) -> None:
+        with self.assertRaises(OfficialSourceError):
+            self._load(reviewedAt=self.AFTER, reviewedBy=["A. Reviewer"])
+
+    def test_the_policy_boundary_is_declared_in_utc(self) -> None:
+        self.assertIsNotNone(ATTRIBUTION_REQUIRED_FROM.tzinfo)

@@ -141,6 +141,52 @@ def _require_plain_int(
     return value
 
 
+# Adopting a source is a named-human attestation, and until now the lock
+# recorded that a review happened and when, but never who. In a solo repository
+# the reviewer is implicit. In a public one it is the only link in the
+# provenance chain that lives outside the artifact - recoverable, if at all,
+# from git authorship - and docs/ONTARIO-COMPLETION.md section 6 names it as a
+# prerequisite for opening the project to contributors.
+#
+# The boundary is a date rather than a migration on purpose. Rewriting the four
+# existing locks to name a reviewer would mean inventing an attestation for a
+# review that happened before anyone was asked to sign it, which is the exact
+# failure this field exists to prevent. So locks reviewed before this instant
+# stay valid and are reported as unattributed, and every review from here on
+# has to name someone.
+ATTRIBUTION_REQUIRED_FROM = datetime(2026, 7, 29, tzinfo=timezone.utc)
+
+
+def _validate_reviewer(document: dict, path: Path, reviewed_at: datetime) -> None:
+    """Require a named reviewer for anything reviewed under the policy."""
+
+    reviewer = document.get("reviewedBy")
+    if reviewed_at < ATTRIBUTION_REQUIRED_FROM:
+        # Grandfathered. Absent is allowed; present must still be usable, so a
+        # blank string cannot pass itself off as attribution.
+        if reviewer is not None and (
+            not isinstance(reviewer, str) or not reviewer.strip()
+        ):
+            raise OfficialSourceError(
+                f"reviewedBy in {path} must be a non-empty string when present"
+            )
+        return
+    if not isinstance(reviewer, str) or not reviewer.strip():
+        raise OfficialSourceError(
+            f"lock {path} was reviewed at {reviewed_at.isoformat()} and must name "
+            'its reviewer: add "reviewedBy": "<name of the person who reviewed '
+            'the source>". Adopting a source is an attestation, and an '
+            "attestation nobody signed is not one."
+        )
+
+
+def is_attributed(document: dict) -> bool:
+    """Whether this lock records who reviewed it, for reporting gaps honestly."""
+
+    reviewer = document.get("reviewedBy")
+    return isinstance(reviewer, str) and bool(reviewer.strip())
+
+
 def _parse_reviewed_at(value: object, field: str) -> datetime:
     if not isinstance(value, str) or not value:
         raise OfficialSourceError(f"{field} must be an RFC 3339 timestamp")
@@ -241,8 +287,9 @@ def load_reviewed_lock(
         raise OfficialSourceError(f"unsupported lock schema in {path}")
     if document.get("reviewStatus") != "reviewed":
         raise OfficialSourceError(f"lock is not reviewed: {path}")
-    _parse_reviewed_at(document.get("reviewedAt"), "reviewedAt")
+    reviewed_at = _parse_reviewed_at(document.get("reviewedAt"), "reviewedAt")
     _parse_reviewed_at(document.get("retrievedAt"), "retrievedAt")
+    _validate_reviewer(document, path, reviewed_at)
 
     jurisdiction = document.get("jurisdiction")
     if not isinstance(jurisdiction, str) or not JURISDICTION_RE.fullmatch(
@@ -816,6 +863,11 @@ def _preserve_candidate(
     proposed_lock.update(observed)
     proposed_lock["retrievedAt"] = observed_at
     proposed_lock["reviewStatus"] = "candidate-unreviewed"
+    # Carry the reviewer slot, emptied. A candidate has by definition not been
+    # reviewed, so inheriting the previous reviewer's name would attribute this
+    # payload to someone who never saw it. Emptying it also shows whoever adopts
+    # this candidate exactly which field they are expected to fill.
+    proposed_lock["reviewedBy"] = None
     candidate = {
         "schemaVersion": "official-source-candidate-1.0.0",
         "status": "candidate-unreviewed",
