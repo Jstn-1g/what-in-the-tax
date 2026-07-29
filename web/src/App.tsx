@@ -29,6 +29,7 @@ import {
   type FilingRoute,
   type FirFiling,
 } from './lib/firFiling'
+import { loadFirTaxation, type FirTaxationReceipt } from './lib/firTaxation'
 import type { PlaceSearchRecord } from './lib/placeSearch'
 
 type ViewId = 'receipt' | 'help'
@@ -227,6 +228,12 @@ export default function App() {
   )
   const [filing, setFiling] = useState<FirFiling | null>(null)
   const [filingUnavailable, setFilingUnavailable] = useState(false)
+  const [taxation, setTaxation] = useState<FirTaxationReceipt | null>(null)
+  // Set only when the artifact resolved as genuinely absent - an upper tier
+  // that does not levy on assessment, or a municipality with no FIR record. A
+  // transport failure leaves this false, so a network problem can never be
+  // rendered as a claim about how a municipality is governed.
+  const [taxationAbsent, setTaxationAbsent] = useState(false)
   const currentView = useRef(view)
 
   // Years available per municipality, derived from the registry the app
@@ -285,6 +292,21 @@ export default function App() {
       },
       (_error: unknown) => {
         if (active) setFilingUnavailable(true)
+      },
+    )
+    // Who levied it, alongside what it was spent on. Loaded separately because
+    // 405 municipalities have a taxation receipt and 435 have a functional one,
+    // so one being absent must not withhold the other.
+    setTaxation(null)
+    setTaxationAbsent(false)
+    loadFirTaxation(filingCode, resolvedFilingYear).then(
+      (next) => {
+        if (!active) return
+        setTaxation(next)
+        setTaxationAbsent(next === null)
+      },
+      (_error: unknown) => {
+        if (active) setTaxationAbsent(false)
       },
     )
     return () => {
@@ -662,6 +684,8 @@ export default function App() {
         {filing ? (
           <FirFilingScreen
             filing={filing}
+            taxation={taxation}
+            taxationAbsent={taxationAbsent}
             availableYears={availableFilingYears}
             onSelectYear={(year) => selectFiling(filing.assessmentCode, year)}
             onBack={showChooser}

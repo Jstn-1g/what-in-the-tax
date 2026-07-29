@@ -2571,6 +2571,64 @@ main#main-content {
   border-collapse: collapse;
 }
 
+/* The levy summary answers "who levied it" directly above the functional
+   breakdown's "what it was spent on". Same kind of table - one filed figure per
+   row, amounts right-aligned - so it reuses that table's rules and tokens
+   rather than growing a second visual language for the same thing. */
+.fir-filing__taxation {
+  margin-top: 2rem;
+}
+
+.fir-filing__taxation h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+}
+
+.fir-filing__taxation table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fir-filing__taxation thead th {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 2px solid var(--line-strong);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+
+.fir-filing__taxation tbody th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.fir-filing__taxation tbody th,
+.fir-filing__taxation tbody td {
+  padding: 0.55rem 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.fir-filing__taxation tbody td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* The total is the row the other rows have to add up to, so it reads as a rule
+   under them rather than as one more line of the same weight. Scoped through
+   tbody deliberately: the row rule above is (0,2,1) and a bare
+   .fir-filing__row-total td is (0,1,1), so the heavier border silently lost and
+   the total rendered identical to the rows it totals. */
+.fir-filing__taxation tbody .fir-filing__row-total th,
+.fir-filing__taxation tbody .fir-filing__row-total td {
+  border-top: 2px solid var(--line-strong);
+  font-weight: 650;
+}
+
 .fir-filing__caption {
   caption-side: top;
   text-align: left;

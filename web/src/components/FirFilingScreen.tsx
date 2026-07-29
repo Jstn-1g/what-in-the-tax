@@ -1,7 +1,15 @@
 import type { FirFiling } from '../lib/firFiling'
+import {
+  PROVINCIAL_EDUCATION_RATE,
+  type FirTaxationReceipt,
+} from '../lib/firTaxation'
 
 export type FirFilingScreenProps = {
   filing: FirFiling
+  /** Schedule 26A, if this municipality has one. Null while loading or absent. */
+  taxation?: FirTaxationReceipt | null
+  /** True only when the artifact resolved as genuinely absent, never on error. */
+  taxationAbsent?: boolean
   /** Every year this municipality has a published filing for, newest first. */
   availableYears: readonly number[]
   onSelectYear: (year: number) => void
@@ -29,6 +37,8 @@ const FALLBACK_SHARES_NOTE =
 
 export default function FirFilingScreen({
   filing,
+  taxation = null,
+  taxationAbsent = false,
   availableYears,
   onSelectYear,
   onBack,
@@ -126,6 +136,88 @@ export default function FirFilingScreen({
           </div>
         ) : null}
       </dl>
+
+      {taxation ? (
+        <section className="fir-filing__taxation" aria-labelledby="fir-taxation-heading">
+          <h2 id="fir-taxation-heading">Who levied it</h2>
+          <p className="fir-filing__caption">
+            Residential property taxes for {taxation.fiscalYear}, as filed on
+            Schedule 26A, split between the bodies that levied them. These are
+            the municipality&rsquo;s totals across every residential property,
+            not one household&rsquo;s bill.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Levied by</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Share</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                {
+                  key: 'local',
+                  label:
+                    taxation.tier === 'ST'
+                      ? 'This municipality'
+                      : 'This municipality (lower tier)',
+                  amount: taxation.residential.municipalLowerOrSingleTierCad,
+                  share: taxation.residential.shares.municipalLowerOrSingleTier,
+                },
+                {
+                  key: 'upper',
+                  label: 'County or region (upper tier)',
+                  amount: taxation.residential.municipalUpperTierCad,
+                  share: taxation.residential.shares.municipalUpperTier,
+                },
+                {
+                  key: 'education',
+                  label: 'Education (Province of Ontario)',
+                  amount: taxation.residential.educationCad,
+                  share: taxation.residential.shares.education,
+                },
+              ]
+                // A single-tier municipality has no upper tier. A shorter bill
+                // is a shorter list; a zero row would read as a levy of nothing
+                // rather than as a body that does not exist here.
+                .filter((row) => row.key !== 'upper' || row.amount !== 0)
+                .map((row) => (
+                  <tr key={row.key}>
+                    <th scope="row">{row.label}</th>
+                    <td>{money.format(row.amount)}</td>
+                    <td>{row.share === null ? '—' : percent.format(row.share)}</td>
+                  </tr>
+                ))}
+              <tr className="fir-filing__row-total">
+                <th scope="row">Total residential taxes</th>
+                <td>{money.format(taxation.residential.totalTaxesCad)}</td>
+                <td>{percent.format(1)}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p className="fir-filing__caption">
+            {taxation.tier === 'ST'
+              ? 'This is a single-tier municipality, so no county or region levies a share here. That is a fact about the jurisdiction, not a missing figure. '
+              : ''}
+            Education is levied at Ontario&rsquo;s province-wide residential
+            rate. This filing reports{' '}
+            {(taxation.residential.educationRate * 100).toFixed(4)}% against the
+            province&rsquo;s {(PROVINCIAL_EDUCATION_RATE * 100).toFixed(4)}% —
+            checked here, in your browser, against a rate the municipality does
+            not set.
+          </p>
+        </section>
+      ) : taxationAbsent ? (
+        <section className="fir-filing__taxation" aria-labelledby="fir-taxation-heading">
+          <h2 id="fir-taxation-heading">Who levied it</h2>
+          <p className="fir-filing__caption">
+            {filing.tier.toLowerCase().includes('upper')
+              ? 'An upper-tier municipality does not levy on assessment directly. Its share is apportioned through its member municipalities and already appears inside each of their receipts, so there is no separate levy to show here.'
+              : 'This municipality filed no Schedule 26A taxation summary for this year, so we have nothing to show. Missing evidence stays visible instead of being estimated.'}
+          </p>
+        </section>
+      ) : null}
 
       <section className="fir-filing__functions" aria-label="Spending by function">
         <table>
