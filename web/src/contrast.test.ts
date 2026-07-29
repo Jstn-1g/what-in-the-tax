@@ -36,9 +36,9 @@ function tokensFor(scheme: Scheme): Map<string, string> {
     tokens.set(name, value)
   }
   if (scheme === 'dark') {
-    const start = CSS.indexOf('@media (prefers-color-scheme: dark)')
-    if (start === -1) throw new Error('no prefers-color-scheme: dark block in styles.css')
-    const block = CSS.slice(start, CSS.indexOf('\n}', CSS.indexOf('{', start + 40)))
+    const start = CSS.indexOf(":root[data-theme='dark']")
+    if (start === -1) throw new Error("no :root[data-theme='dark'] block in styles.css")
+    const block = CSS.slice(start, CSS.indexOf('\n}', start))
     for (const [, name, value] of block.matchAll(/--([a-z-]+):\s*(#[0-9a-fA-F]{3,6})\s*;/g)) {
       tokens.set(name, value)
     }

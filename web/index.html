@@ -8,13 +8,22 @@
       name="description"
       content="What in the Tax? helps residents explore a sample property-tax bill and the public records behind each supported figure. Independent preview; not tax advice."
     />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0b1420" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="referrer" content="no-referrer" />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
   </head>
   <body>
+    <script>
+      // Light is the default; the OS colour scheme is deliberately not consulted.
+      // Runs before first paint so a reader who chose dark never sees a white flash.
+      try {
+        if (localStorage.getItem('whatinthetax.theme') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark')
+          document.querySelector('meta[name="theme-color"]').content = '#0b1420'
+        }
+      } catch (e) {}
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

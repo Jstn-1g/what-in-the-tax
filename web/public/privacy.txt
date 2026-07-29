@@ -8,6 +8,12 @@ The displayed assessment scenarios are fixed examples. This preview does not
 accept an address, roll number, or personal assessment value, and it does not
 use browser storage for accounts, profiles, or tracking.
 
+It stores exactly one thing in your browser: whether you chose the light or the
+dark reading theme, under the key whatinthetax.theme. It holds one of two words.
+It is never sent anywhere, it identifies nobody, and clearing site data removes
+it. The theme starts light for everyone and changes only when you press the
+toggle in the header.
+
 The hosting provider necessarily receives technical request information such as
 an IP address, browser details, requested path, and time. Persistent Cloudflare
 Workers Logs are disabled in this project's deployment configuration. Hosting

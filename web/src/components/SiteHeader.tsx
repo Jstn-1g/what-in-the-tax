@@ -1,3 +1,5 @@
+import ThemeToggle from './ThemeToggle'
+
 type SiteHeaderProps = {
   currentPlace?: string
   onChoosePlace: () => void
@@ -52,6 +54,7 @@ export default function SiteHeader({
           <span className="wordmark-domain">whatinthetax.com</span>
         </button>
         <nav className="site-actions" aria-label="Main navigation">
+          <ThemeToggle />
           <button
             type="button"
             className="site-action site-action-help"

@@ -46,50 +46,54 @@
   --mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 }
 
-/* Dark scheme.
+/* Dark theme, opt-in.
+   Light is the default and stays the default regardless of the operating
+   system's colour scheme: this is a page people read carefully, and a dark
+   page arriving unasked is worse for some readers than no dark page at all.
+   Dark is reached only by the header toggle, which sets data-theme on the
+   document element.
+
    Same hues, relit for a dark page: text and links move up in lightness, tints
    and fills move down, and --on-fill flips to near-black because the button
    fills are now the light thing. Every pair a reader actually sees is checked
-   against WCAG 2.1 AA in contrast.test.ts, in both schemes, so these values are
-   measured rather than eyeballed - which is the only reason to ship a second
-   palette at all. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --page: #0b1420;
-    --surface: #141f2d;
-    --on-fill: #04150f;
-    --ink: #e9eff6;
-    --ink-soft: #bcc9d8;
-    --ink-faint: #9aabbe;
-    --placeholder: #93a5b8;
-    --green: #66d3af;
-    --green-dark: #93e5c6;
-    --teal: #57c9b0;
-    --teal-soft: #17352f;
-    --mint: #112620;
-    --accent: #ff8878;
-    --note: #241f11;
-    --note-line: #7a6a35;
-    --amber: #f2bb5f;
-    --amber-soft: #2b2111;
-    --red: #ff9186;
-    --red-soft: #2c1613;
-    --focus: #8cbcff;
-    --veil: rgba(11, 20, 32, 0.97);
-    --veil-soft: rgba(20, 31, 45, 0.55);
-    --line: #27374b;
-    --line-strong: #3d5068;
-    --flag-ink: #f3cb74;
-    --flag-line: #7d6224;
-    --note-fold: #302813;
-    --pin-line: #ffa294;
-    --evidence-line: #6d5829;
-    --evidence-surface: #1b1811;
-    --evidence-rule: #4d4123;
-    --callout-line: #6d5829;
-    --tone-special: #e0a944;
-    --tone-education: #317164;
-  }
+   against WCAG 2.1 AA in contrast.test.ts, in both themes, so these values are
+   measured rather than eyeballed. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page: #0b1420;
+  --surface: #141f2d;
+  --on-fill: #04150f;
+  --ink: #e9eff6;
+  --ink-soft: #bcc9d8;
+  --ink-faint: #9aabbe;
+  --placeholder: #93a5b8;
+  --green: #66d3af;
+  --green-dark: #93e5c6;
+  --teal: #57c9b0;
+  --teal-soft: #17352f;
+  --mint: #112620;
+  --accent: #ff8878;
+  --note: #241f11;
+  --note-line: #7a6a35;
+  --amber: #f2bb5f;
+  --amber-soft: #2b2111;
+  --red: #ff9186;
+  --red-soft: #2c1613;
+  --focus: #8cbcff;
+  --veil: rgba(11, 20, 32, 0.97);
+  --veil-soft: rgba(20, 31, 45, 0.55);
+  --line: #27374b;
+  --line-strong: #3d5068;
+  --flag-ink: #f3cb74;
+  --flag-line: #7d6224;
+  --note-fold: #302813;
+  --pin-line: #ffa294;
+  --evidence-line: #6d5829;
+  --evidence-surface: #1b1811;
+  --evidence-rule: #4d4123;
+  --callout-line: #6d5829;
+  --tone-special: #e0a944;
+  --tone-education: #317164;
 }
 
 * {
@@ -97,7 +101,7 @@
 }
 
 html {
-  color-scheme: light dark;
+  color-scheme: light;
   scroll-behavior: smooth;
   background: var(--page);
 }
@@ -235,6 +239,17 @@ button {
   display: flex;
   align-items: center;
   gap: 1.75rem;
+}
+
+/* The theme toggle is a utility rather than a destination, so it reads quieter
+   than the two nav actions beside it. Both of its states use pairs already
+   declared in contrast.test.ts: ink-soft on page, and green on page when on. */
+.site-action-theme {
+  color: var(--ink-soft);
+}
+
+.site-action-theme[aria-pressed='true'] {
+  color: var(--green);
 }
 
 .site-action {
