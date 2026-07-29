@@ -1,0 +1,66 @@
+name: Report a wrong number
+description: A published figure looks wrong, or does not match the source it cites. This is the report this project most wants.
+title: "[Correction]: "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. A wrong number that traces honestly to its source is the
+        report this project cares about most — it is the whole reason the site
+        publishes its citations. You do not need to be right to file this;
+        "these two things do not match and I cannot tell why" is a complete
+        report. Every resolved report lands in `CORRECTIONS.md` with a date,
+        whatever the outcome.
+
+  - type: input
+    id: where
+    attributes:
+      label: Where you saw it
+      description: The page URL, or the municipality and year.
+      placeholder: "https://whatinthetax.com/?filing=3001&year=2023 — Region share"
+    validations:
+      required: true
+
+  - type: input
+    id: figure
+    attributes:
+      label: The figure in question
+      description: The number as the site shows it.
+      placeholder: "$3,264.83"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and why
+      description: >-
+        What the source document, your own bill, or your municipality's
+        published material says instead. A page number or link helps; the
+        site's own citation links open the document it used.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Your relationship to the figure (optional)
+      description: >-
+        Helps route the check. Municipal staff and councillors reading their
+        own municipality's numbers are especially welcome here.
+      options:
+        - Resident
+        - Municipal staff or councillor
+        - Journalist or researcher
+        - Other / prefer not to say
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        **Privacy:** do not include your address, roll number, account number,
+        or a copy of your own tax bill. The figures here are published
+        municipal totals and rates; personal assessment details are never
+        needed to check one, and this tracker is public.
