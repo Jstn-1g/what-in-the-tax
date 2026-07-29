@@ -1446,6 +1446,11 @@ sources = [
         "title": "Ontario MMAH Financial Information Return — fir_data_2023 (Schedule 40 General government)",
         "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
         "localPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
+        # A text source is its own extract. Declaring it lets audit_citations
+        # read the rows these four facts quote; without it they were reported
+        # "unverifiable", which meant unread rather than unverifiable - the file
+        # has been committed the whole time.
+        "extractedText": "data/_extracts/fir/fir-general-government-peers-2023-2024.txt",
         "authority": "external",
         "asOf": "2023-12-31",
         "note": "Peer extract only is committed. Full provincial ZIP kept locally / gitignored.",
@@ -1455,6 +1460,24 @@ sources = [
 ledger = {
     "schemaVersion": "2.0.0",
     "artifact": "EvidenceLedger",
+    # The ledger has to say which municipality, year and currency it describes.
+    # It did not, so validate_pack --strict could not confirm that the pack
+    # descriptor, the ledger and the receipt were talking about the same place:
+    # an identity check that cannot run is not a check that passed.
+    #
+    # Nothing here is new. Every value is already declared in
+    # corpus/north-dumfries-on/pack.yaml and carried on the receipt; this
+    # carries it into the third artifact so the three can be compared, which is
+    # what makes a mismatch detectable at all. Brant's builder already does this.
+    "fiscalYear": 2026,
+    "currency": "CAD",
+    "jurisdiction": {
+        "slug": "north-dumfries-on",
+        "name": "Township of North Dumfries",
+        "level": "lower-tier",
+        "assessmentCode": "3001",
+        "aliases": ["North Dumfries", "Ayr"],
+    },
     "evidencePolicy": {
         "rules": [
             # The reader sees these rules on the page, so the excerpt rule has to

@@ -344,6 +344,64 @@ def _match_is_negative(match: re.Match[str], text: str) -> bool:
     return has_minus or has_parentheses
 
 
+# Budget prose writes round figures in words: "new debt financing proposed
+# [$5 million]". The digit variants below never match that, so a citation
+# pointing at exactly the right page was reported as amount-not-on-cited-page -
+# a hard failure, and a false one. docs/GENERALIZATION-PLAN.md records the same
+# class of defect: the author was more accurate than the measurement.
+#
+# Only exact renderings are accepted. "5 million" binds 5,000,000 because the
+# division is exact; it must never bind 5,043,210, because there the prose is a
+# rounding and treating it as proof of the precise figure is the overclaim this
+# audit exists to catch.
+# Budget books use the word and the single-letter abbreviation interchangeably:
+# the Region's own summary prints "Property Taxes $887 M". The abbreviation is
+# matched with a trailing word boundary so "887 Metres" cannot bind.
+_MAGNITUDES = (
+    (1_000_000_000, ("billion", "B")),
+    (1_000_000, ("million", "M")),
+    (1_000, ("thousand", "K")),
+)
+
+
+def _magnitude_phrases(absolute: float) -> set[tuple[str, str]]:
+    """(number, magnitude word or abbreviation) pairs that render this exactly."""
+
+    phrases: set[tuple[str, str]] = set()
+    for scale, words in _MAGNITUDES:
+        if absolute < scale:
+            continue
+        quotient = absolute / scale
+        # Exact multiples only, and only to one decimal place ("1.5 million"),
+        # because a longer decimal is not how prose renders a figure anyway.
+        for places in (0, 1):
+            rendered = round(quotient, places)
+            if abs(rendered * scale - absolute) > 1e-9:
+                continue
+            text = (
+                f"{rendered:.{places}f}".rstrip("0").rstrip(".")
+                if places
+                else f"{int(rendered)}"
+            )
+            for word in words:
+                phrases.add((text, word))
+    return phrases
+
+
+def _magnitude_pattern(number: str, word: str) -> re.Pattern[str]:
+    # A single-letter abbreviation needs a trailing word boundary so "887 M"
+    # binds and "887 Metres" does not. The spelled word does not, so plurals and
+    # possessives still match.
+    tail = r"\b" if len(word) == 1 else ""
+    return re.compile(
+        re.escape(number).replace(r"\.", r"\s*[.,]\s*")
+        + r"\s*(?:-|–)?\s*"
+        + re.escape(word)
+        + tail,
+        re.IGNORECASE if len(word) > 1 else 0,
+    )
+
+
 def _amount_binding_issue(fact: dict[str, Any], page_text: str) -> str | None:
     amount = fact.get("amountCad")
     if isinstance(amount, bool) or not isinstance(amount, (int, float)) or amount == 0:
@@ -360,6 +418,12 @@ def _amount_binding_issue(fact: dict[str, Any], page_text: str) -> str | None:
         for variant in variants
         for match in _number_pattern(variant).finditer(page_text)
     ]
+    if not matches:
+        matches = [
+            match
+            for number, word in _magnitude_phrases(absolute)
+            for match in _magnitude_pattern(number, word).finditer(page_text)
+        ]
     if not matches:
         return "amount-not-on-cited-page"
     expected_negative = amount < 0

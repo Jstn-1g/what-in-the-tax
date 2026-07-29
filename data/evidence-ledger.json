@@ -1,6 +1,18 @@
 {
   "schemaVersion": "2.0.0",
   "artifact": "EvidenceLedger",
+  "fiscalYear": 2026,
+  "currency": "CAD",
+  "jurisdiction": {
+    "slug": "north-dumfries-on",
+    "name": "Township of North Dumfries",
+    "level": "lower-tier",
+    "assessmentCode": "3001",
+    "aliases": [
+      "North Dumfries",
+      "Ayr"
+    ]
+  },
   "evidencePolicy": {
     "rules": [
       "FACT: must include sourceId, excerpt, and page when from PDF. An excerpt is a reconstruction of the cited row unless data/citation-audit.json reports a verbatim or stronger match for that fact.",
@@ -93,6 +105,7 @@
       "title": "Ontario MMAH Financial Information Return \u2014 fir_data_2023 (Schedule 40 General government)",
       "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
       "localPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
+      "extractedText": "data/_extracts/fir/fir-general-government-peers-2023-2024.txt",
       "authority": "external",
       "asOf": "2023-12-31",
       "note": "Peer extract only is committed. Full provincial ZIP kept locally / gitignored."

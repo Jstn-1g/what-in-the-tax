@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/evidence-ledger.json",
-  "ledgerSha256": "db021af69f6ee0dd4b42527f5baccff7ab79160cc1266539f32d394e3863ae45",
+  "ledgerSha256": "721d39041ce5979e5c17932d47a80b5e3d130fdda9e201f8a0954b222267ae3a",
   "sources": [
     {
       "id": "mmah-fir-2023",
@@ -12,9 +12,9 @@
       "localPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
       "sha256": "97c1e98e20e905a5e8435adb2b68238d1de7c120969df0379309e5c2ae9fd2eb",
       "bytes": 2879,
-      "extractedText": null,
-      "extractedTextSha256": null,
-      "lockStatus": "source-only"
+      "extractedText": "data/_extracts/fir/fir-general-government-peers-2023-2024.txt",
+      "extractedTextSha256": "96296c54b223bd9a85f4dc55b7474a9ccbcd8460f4f2f0e6f9d29bbd0dea50aa",
+      "lockStatus": "source-and-extract"
     },
     {
       "id": "nd-2026-budget-agenda",
