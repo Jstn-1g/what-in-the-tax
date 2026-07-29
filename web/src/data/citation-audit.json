@@ -1,11 +1,11 @@
 {
   "ok": true,
   "counts": {
-    "verbatim": 12,
-    "numbers-only": 15,
-    "normalized": 11,
-    "row-bound": 49,
+    "verbatim": 41,
+    "normalized": 12,
+    "row-bound": 30,
     "alnum": 1,
+    "numbers-only": 4,
     "unverifiable": 6
   },
   "bindingIssueCounts": {
@@ -68,8 +68,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ND-LEVY-2026-ADOPTED",
@@ -211,8 +211,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ND-TOWNSHIP-TAX-URBAN-AVG-2026",
@@ -224,8 +224,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ND-DEPT-CORPORATE-2026",
@@ -473,8 +473,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 3 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ND-CAP-ACC-EXTERIOR-2026",
@@ -486,8 +486,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ND-CAP-PUMPTRACK-2026",
@@ -499,8 +499,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 3 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ND-CAP-CLYDE-PARK-2026",
@@ -668,8 +668,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ND-TOURISM-2026",
@@ -889,8 +889,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-PIL-SUPP-REDUCTION-2026",
@@ -941,8 +941,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 3 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "normalized",
+      "note": "matched after whitespace/case collapse"
     },
     {
       "id": "ROW-RURAL-HH-01",
@@ -954,8 +954,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-02",
@@ -980,8 +980,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-04",
@@ -993,8 +993,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-05",
@@ -1006,8 +1006,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-06",
@@ -1019,8 +1019,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-07",
@@ -1032,8 +1032,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-08",
@@ -1045,8 +1045,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-09",
@@ -1058,8 +1058,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-10",
@@ -1071,8 +1071,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-11",
@@ -1084,8 +1084,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-12",
@@ -1097,8 +1097,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-13",
@@ -1110,8 +1110,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-14",
@@ -1123,8 +1123,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-15",
@@ -1136,8 +1136,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-16",
@@ -1149,8 +1149,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-17",
@@ -1162,8 +1162,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-18",
@@ -1175,8 +1175,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-19",
@@ -1188,8 +1188,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-20",
@@ -1201,8 +1201,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-21",
@@ -1227,8 +1227,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-23",
@@ -1240,8 +1240,8 @@
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     }
   ],
   "sourceBindings": [

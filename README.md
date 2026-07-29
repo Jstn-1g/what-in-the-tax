@@ -198,7 +198,7 @@ entry fails loudly instead of quietly rewriting this page.
 <!-- generated:ledger-counts -->
 - Draft previews published: **6** Ontario packs.
 - North Dumfries ledger: **94** facts, 30 derived rows, 8 findings, 4 open gaps, 6 closed gaps.
-- Citation audit over 94 cited facts: **0** hard failures (not-found, wrong-page, bad-page-number). Binding tiers — row-bound 49, numbers-only 15, verbatim 12, normalized 11, unverifiable 6, alnum 1.
+- Citation audit over 94 cited facts: **0** hard failures (not-found, wrong-page, bad-page-number). Binding tiers — verbatim 42, row-bound 30, normalized 12, unverifiable 6, numbers-only 3, alnum 1.
 - Every finding carries `billImpactCad: null`. No exception exists in the policy and none is reachable in the builder.
 <!-- /generated:ledger-counts -->
 
