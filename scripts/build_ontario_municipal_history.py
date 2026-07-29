@@ -146,23 +146,32 @@ class FirReleaseLock:
 
 
 FIR_RELEASES = {
+    # Re-pinned for the 2026-07-29 re-publication. Counts recomputed from the
+    # installed payload, not carried over; posted_date is the server's
+    # Last-Modified (Wed, 29 Jul 2026 00:34 GMT) rather than a guess. 2023
+    # recomputes to its existing pin unchanged, which is what makes the
+    # recomputation trustworthy rather than merely agreeable.
     2025: FirReleaseLock(
         year=2025,
-        sha256="6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
-        member_sha256="8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416",
-        row_count=205_342,
-        record_count=130,
-        tier_counts={"lower-tier": 75, "single-tier": 40, "upper-tier": 15},
-        posted_date="2026-07-28",
+        sha256="af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
+        member_sha256="4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41",
+        row_count=208_311,
+        record_count=132,
+        # +1 lower-tier and +1 upper-tier: Deep River T and Simcoe Co, the two
+        # municipalities whose 2025 returns appeared in this re-publication.
+        tier_counts={"lower-tier": 76, "single-tier": 40, "upper-tier": 16},
+        posted_date="2026-07-29",
     ),
     2024: FirReleaseLock(
         year=2024,
-        sha256="b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
-        member_sha256="2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4",
-        row_count=629_192,
+        sha256="5244f9e637cdef1b83f0d98b587f5f26783b2e2a2e6ec903d965f86126d2c304",
+        member_sha256="e211edfd8510c3cbace9831c98c9f27c406603f09fd7a3f3a073db69181660d9",
+        row_count=629_193,
         record_count=403,
+        # Unchanged: the extra row is Atikokan Tp splitting one revenue line in
+        # two, not a new filer.
         tier_counts={"lower-tier": 220, "single-tier": 153, "upper-tier": 30},
-        posted_date="2026-07-28",
+        posted_date="2026-07-29",
     ),
     2023: FirReleaseLock(
         year=2023,

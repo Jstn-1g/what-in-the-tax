@@ -143,12 +143,16 @@ class OntarioMunicipalHistoryTests(unittest.TestCase):
         self.assertEqual(444, index["coverage"]["currentMunicipalities"])
         self.assertEqual(436, index["coverage"]["withFirHistory"])
         self.assertEqual(8, index["coverage"]["withoutFirHistory"])
+        # Deep River T and Simcoe Co filed 2025 in the 2026-07-29 re-publication,
+        # so each moves from "latest 2024" to "latest 2025": 130 -> 132 and
+        # 273 -> 271. The pair still totals 436, which is what says these two
+        # numbers moved together rather than one of them drifting.
         self.assertEqual(
-            {"2025": 130, "2024": 273, "2023": 33, "unavailable": 8},
+            {"2025": 132, "2024": 271, "2023": 33, "unavailable": 8},
             index["coverage"]["latestFirYearCounts"],
         )
         self.assertEqual(
-            {"2025": 130, "2024": 403, "2023": 436},
+            {"2025": 132, "2024": 403, "2023": 436},
             index["coverage"]["firYearRecordCounts"],
         )
         self.assertFalse(index["isReceipt"])

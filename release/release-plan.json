@@ -12,24 +12,24 @@
     {
       "id": "on-fir-2025",
       "path": "source-pdfs/fir/fir_data_2025.zip",
-      "sha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
-      "byteLength": 3346415,
+      "sha256": "af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
+      "byteLength": 3394868,
       "mediaType": "application/zip",
       "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
-      "retrievedAt": "2026-07-28T14:06:52Z",
+      "retrievedAt": "2026-07-29T02:34:46Z",
       "archiveMember": "fir_data_2025.csv",
-      "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416"
+      "archiveMemberSha256": "4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41"
     },
     {
       "id": "on-fir-2024",
       "path": "source-pdfs/fir/fir_data_2024.zip",
-      "sha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
-      "byteLength": 10189998,
+      "sha256": "5244f9e637cdef1b83f0d98b587f5f26783b2e2a2e6ec903d965f86126d2c304",
+      "byteLength": 10190019,
       "mediaType": "application/zip",
       "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
-      "retrievedAt": "2026-07-28T14:06:57Z",
+      "retrievedAt": "2026-07-29T02:34:52Z",
       "archiveMember": "fir_data_2024.csv",
-      "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4"
+      "archiveMemberSha256": "e211edfd8510c3cbace9831c98c9f27c406603f09fd7a3f3a073db69181660d9"
     },
     {
       "id": "on-fir-2023",
@@ -64,8 +64,8 @@
     {
       "id": "ontario-municipal-history",
       "path": "web/public/registry/ontario-municipal-history.json",
-      "sha256": "63e2bc68bbba0d391e03b75fd2c43cbed9d50a5521c99d59d338f0253d04540d",
-      "byteLength": 326369,
+      "sha256": "37398e49510c7124df01287a8266f2462e46a516909098d1d892f37905591973",
+      "byteLength": 326532,
       "mediaType": "application/json",
       "visibility": "public"
     },

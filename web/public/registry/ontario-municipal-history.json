@@ -2,7 +2,7 @@
   "schemaVersion": "ontario-municipal-history-index-2.0.0",
   "artifactKind": "current-municipality-directory-with-fir-history",
   "jurisdiction": "CA-ON",
-  "sourceSnapshotDate": "2026-07-28",
+  "sourceSnapshotDate": "2026-07-29",
   "isReceipt": false,
   "sources": {
     "currentMunicipalities": {
@@ -22,22 +22,22 @@
         {
           "fiscalYear": 2025,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
-          "sha256": "6e731d2e4a22ef8c9da470bbaf07a2e72d716b5cfdc34f3fc25593104ac3a29d",
-          "archiveMemberSha256": "8e33c7ed5045a72d15ecdda6fa570164faa34517dc08eafc7bec24a3d5b86416",
-          "postedDate": "2026-07-28",
-          "sourceLastUpdated": "2026-07-27",
-          "rowCount": 205342,
-          "uniqueAssessmentCodes": 130,
+          "sha256": "af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
+          "archiveMemberSha256": "4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41",
+          "postedDate": "2026-07-29",
+          "sourceLastUpdated": "2026-07-28",
+          "rowCount": 208311,
+          "uniqueAssessmentCodes": 132,
           "coverageBasis": "Unique assessment codes in this hash-pinned bulk file; Ontario's webpage file count can differ."
         },
         {
           "fiscalYear": 2024,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
-          "sha256": "b3ed998b1a8b2de8f33220d24b4edfae6ae8c1ce4dca52a45ef6aa7c8387af5f",
-          "archiveMemberSha256": "2b345692617a30abd3bfec6ac16f10fae3eb7dd6c6b7dc0be4e8ed934ccdaee4",
-          "postedDate": "2026-07-28",
-          "sourceLastUpdated": "2026-07-27",
-          "rowCount": 629192,
+          "sha256": "5244f9e637cdef1b83f0d98b587f5f26783b2e2a2e6ec903d965f86126d2c304",
+          "archiveMemberSha256": "e211edfd8510c3cbace9831c98c9f27c406603f09fd7a3f3a073db69181660d9",
+          "postedDate": "2026-07-29",
+          "sourceLastUpdated": "2026-07-28",
+          "rowCount": 629193,
           "uniqueAssessmentCodes": 403,
           "coverageBasis": "Unique assessment codes in this hash-pinned bulk file; Ontario's webpage file count can differ."
         },
@@ -62,13 +62,13 @@
     "withFirHistory": 436,
     "withoutFirHistory": 8,
     "latestFirYearCounts": {
-      "2025": 130,
-      "2024": 273,
+      "2025": 132,
+      "2024": 271,
       "2023": 33,
       "unavailable": 8
     },
     "firYearRecordCounts": {
-      "2025": 130,
+      "2025": 132,
       "2024": 403,
       "2023": 436
     },
@@ -630,7 +630,7 @@
       "firYears": [
         {
           "fiscalYear": 2024,
-          "lastUpdated": "2026-07-27",
+          "lastUpdated": "2026-07-28",
           "sourceName": "Atikokan Tp"
         },
         {
@@ -2578,8 +2578,13 @@
       "typeLabel": "Town",
       "tier": "lower-tier",
       "geographicArea": "Renfrew",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-28",
+          "sourceName": "Deep River T"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-11-20",
@@ -2591,7 +2596,7 @@
           "sourceName": "Deep River T"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-1202",
@@ -2743,7 +2748,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-27",
+          "lastUpdated": "2026-07-28",
           "sourceName": "Dubreuilville Tp"
         },
         {
@@ -7281,7 +7286,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-06-15",
+          "lastUpdated": "2026-07-28",
           "sourceName": "New Tecumseth T"
         },
         {
@@ -7933,7 +7938,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-24",
+          "lastUpdated": "2026-07-28",
           "sourceName": "Oakville T"
         },
         {
@@ -8390,7 +8395,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-06-10",
+          "lastUpdated": "2026-07-28",
           "sourceName": "Pelham T"
         },
         {
@@ -9648,8 +9653,13 @@
       "typeLabel": "County",
       "tier": "upper-tier",
       "geographicArea": "Simcoe",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-28",
+          "sourceName": "Simcoe Co"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-09-29",
@@ -9661,7 +9671,7 @@
           "sourceName": "Simcoe Co"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-6034",
@@ -11922,7 +11932,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-24",
+          "lastUpdated": "2026-07-28",
           "sourceName": "Woodstock C"
         },
         {
