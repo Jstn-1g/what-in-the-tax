@@ -216,6 +216,31 @@ export default function HelpGuide({
               while it is reviewed. A gap, question, or correction request is not an allegation of
               waste, misconduct, or wrongdoing.
             </p>
+            <p>
+              The project is open source: every number on this site, the evidence behind it, and
+              the checks that gate it live in a{' '}
+              <a
+                href="https://github.com/Jstn-1g/what-in-the-tax"
+                target="_blank"
+                rel="noreferrer"
+              >
+                public repository
+                <span className="visually-hidden"> (opens in a new tab)</span>
+              </a>
+              . To report a figure that looks wrong, open a{' '}
+              <a
+                href="https://github.com/Jstn-1g/what-in-the-tax/issues/new?template=wrong-number.yml"
+                target="_blank"
+                rel="noreferrer"
+              >
+                correction issue
+                <span className="visually-hidden"> (opens in a new tab)</span>
+              </a>{' '}
+              or write to{' '}
+              <a href="mailto:corrections@whatinthetax.com">corrections@whatinthetax.com</a>.
+              Every resolved report is recorded in the repository&apos;s public corrections log,
+              whatever the outcome.
+            </p>
           </section>
 
           <section id="help/faq" className="help-section" tabIndex={-1}>

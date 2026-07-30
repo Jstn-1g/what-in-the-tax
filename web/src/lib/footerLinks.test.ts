@@ -1,24 +1,24 @@
 import { describe, expect, it } from 'vitest'
 
-import { normalizeRepoUrl } from '../App'
+import { CANONICAL_REPO_URL, normalizeRepoUrl, repoBaseUrl } from '../repoLink'
 import { normalizeSupportUrl } from '../components/SupportCard'
 
 // The footer renders on every page shape, so a bad value here ships
-// everywhere at once. Both links are env-gated and normalized: the rule under
-// test is that an unset or malformed variable renders NO link rather than a
-// wrong one. A footer link to a 404 - or to somewhere that merely resembles
-// the repository - is worse than no link.
+// everywhere at once. The repository links default to the canonical public
+// repository and VITE_REPO_URL is only an override for forks; the rule under
+// test is that a malformed override falls back to the canonical URL rather
+// than shipping a link to somewhere that merely resembles the repository.
+// The support link stays env-gated: unset or malformed renders NO link.
 describe('the footer repository link', () => {
   it('accepts the canonical repository page', () => {
-    expect(normalizeRepoUrl('https://github.com/Jstn-1g/what-in-the-tax')).toBe(
-      'https://github.com/Jstn-1g/what-in-the-tax',
-    )
+    expect(normalizeRepoUrl(CANONICAL_REPO_URL)).toBe(CANONICAL_REPO_URL)
+    expect(CANONICAL_REPO_URL).toBe('https://github.com/Jstn-1g/what-in-the-tax')
   })
 
-  it('renders nothing while the variable is unset', () => {
-    // The pre-launch state: repository private, no VITE_REPO_URL configured.
+  it('falls back to the canonical repository while the override is unset', () => {
     expect(normalizeRepoUrl(undefined)).toBeNull()
     expect(normalizeRepoUrl('')).toBeNull()
+    expect(repoBaseUrl()).toBe(CANONICAL_REPO_URL)
   })
 
   it('refuses anything that is not a GitHub repository page', () => {

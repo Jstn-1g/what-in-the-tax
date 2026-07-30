@@ -1,5 +1,6 @@
 import { useMemo, useState, type ReactNode } from 'react'
 import { money, pct } from '../lib/format'
+import RepoLinks from './RepoLinks'
 import {
   buildEvidenceIndex,
   citationLabel,
@@ -867,6 +868,8 @@ export default function TaxReceiptScreen({
           <p>
             Independent public-information project. Not affiliated with any
             government. Not an official bill, formal audit, or tax advice.
+            Open source: every number on this receipt, and the checks behind
+            it, can be inspected and re-run from the repository.
           </p>
           <p className="technical-id">
             {data.status} · {data.evidencePolicyRef}
@@ -883,9 +886,10 @@ export default function TaxReceiptScreen({
               </button>
             </p>
           ) : null}
-          <p>
+          <nav className="product-footer__links" aria-label="Project links">
             <a href={`${import.meta.env.BASE_URL}privacy.txt`}>Privacy</a>
-          </p>
+            <RepoLinks />
+          </nav>
         </footer>
       </main>
 
