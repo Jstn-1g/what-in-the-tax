@@ -19,9 +19,9 @@
     "note": "PSAB accrual FIR actuals for the stated fiscal year, filed by the municipality. Not a current tax by-law, tax bill, or audit.",
     "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
     "localZip": "source-pdfs/fir/fir_data_2025.zip",
-    "localZipSha256": "af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
+    "localZipSha256": "e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
     "archiveMember": "fir_data_2025.csv",
-    "archiveMemberSha256": "4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41"
+    "archiveMemberSha256": "578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e"
   },
   "totals": {
     "grandTotalCad": 9775532.0,

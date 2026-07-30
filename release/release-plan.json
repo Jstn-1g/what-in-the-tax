@@ -12,13 +12,13 @@
     {
       "id": "on-fir-2025",
       "path": "source-pdfs/fir/fir_data_2025.zip",
-      "sha256": "af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
-      "byteLength": 3394868,
+      "sha256": "e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
+      "byteLength": 3444973,
       "mediaType": "application/zip",
       "requestUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
-      "retrievedAt": "2026-07-29T02:34:46Z",
+      "retrievedAt": "2026-07-30T01:14:34Z",
       "archiveMember": "fir_data_2025.csv",
-      "archiveMemberSha256": "4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41"
+      "archiveMemberSha256": "578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e"
     },
     {
       "id": "on-fir-2024",
@@ -64,8 +64,8 @@
     {
       "id": "ontario-municipal-history",
       "path": "web/public/registry/ontario-municipal-history.json",
-      "sha256": "37398e49510c7124df01287a8266f2462e46a516909098d1d892f37905591973",
-      "byteLength": 326532,
+      "sha256": "c497f41d2e243d204a4703efb275b0bacb151f9b9286ccaab9ac932b50be9e92",
+      "byteLength": 326611,
       "mediaType": "application/json",
       "visibility": "public"
     },

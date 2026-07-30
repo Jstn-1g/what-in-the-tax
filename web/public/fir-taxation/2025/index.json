@@ -5,14 +5,14 @@
   "jurisdiction": "CA-ON",
   "fiscalYear": 2025,
   "sourceZip": "fir_data_2025.zip",
-  "sourceZipSha256": "af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
-  "sourceArchiveMemberSha256": "4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41",
+  "sourceZipSha256": "e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
+  "sourceArchiveMemberSha256": "578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e",
   "method": "schedule-26A-taxation-summary",
   "aiTokensUsed": 0,
   "crossMunicipalityComparable": false,
   "provincialEducationRate": 0.00153,
   "educationRateToleranceAbsolute": 5e-05,
-  "municipalityCount": 116,
+  "municipalityCount": 117,
   "skipped": [
     {
       "assessmentCode": "0100",
@@ -145,6 +145,17 @@
       "educationRate": 0.00153,
       "classCount": 8,
       "path": "fir-taxation/2025/0411.json"
+    },
+    {
+      "assessmentCode": "0614",
+      "slug": "ottawa-on",
+      "name": "Ottawa C",
+      "tier": "ST",
+      "residentialTotalTaxesCad": 1704637949.0,
+      "residentialCvaCad": 142005405781.0,
+      "educationRate": 0.00153,
+      "classCount": 12,
+      "path": "fir-taxation/2025/0614.json"
     },
     {
       "assessmentCode": "0806",
