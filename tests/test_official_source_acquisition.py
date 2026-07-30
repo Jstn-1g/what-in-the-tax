@@ -178,6 +178,7 @@ class OfficialSourceAcquisitionTests(unittest.TestCase):
                 "statcan-il-2011-2016-t2",
                 "statcan-il-2016-2021",
                 "statcan-il-2025",
+                "statcan-pop-estimates-17100155",
             ],
         )
         for lock in locks:
@@ -584,3 +585,58 @@ class ReviewerAttributionTests(unittest.TestCase):
 
     def test_the_policy_boundary_is_declared_in_utc(self) -> None:
         self.assertIsNotNone(ATTRIBUTION_REQUIRED_FROM.tzinfo)
+
+
+class CompanionMemberTests(unittest.TestCase):
+    """A publisher may ship metadata beside the data; nothing may ship uninvited.
+
+    StatCan full-table zips carry <table>_MetaData.csv next to the table. The
+    lock declares companions explicitly and the member SET stays exact: an
+    undeclared extra refuses, a declared-but-missing companion refuses, and
+    only the primary member is scanned and hashed.
+    """
+
+    def _payload(self, extra: bool) -> bytes:
+        return _zip_bytes(
+            _csv_bytes([("2025", "3001", "ok")]), extra_member=extra
+        )
+
+    def test_a_declared_companion_is_accepted(self) -> None:
+        payload = self._payload(extra=True)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            lock, _ = _write_lock(
+                root, payload, row_count=1, record_count=1,
+                mutate=lambda d: d.update(
+                    archiveCompanionMembers=["unexpected.csv"]
+                ),
+            )
+            lock.local_path.parent.mkdir(parents=True)
+            lock.local_path.write_bytes(payload)
+            self.assertEqual(verify_offline(lock)["status"], "verified-offline")
+
+    def test_an_undeclared_extra_member_still_refuses(self) -> None:
+        payload = self._payload(extra=True)
+        clean = self._payload(extra=False)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            lock, _ = _write_lock(root, payload, row_count=1, record_count=1)
+            lock.local_path.parent.mkdir(parents=True)
+            lock.local_path.write_bytes(payload)
+            with self.assertRaisesRegex(OfficialSourceError, "ZIP members changed"):
+                verify_offline(lock)
+
+    def test_a_declared_companion_that_vanishes_refuses(self) -> None:
+        clean = self._payload(extra=False)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            lock, _ = _write_lock(
+                root, clean, row_count=1, record_count=1,
+                mutate=lambda d: d.update(
+                    archiveCompanionMembers=["unexpected.csv"]
+                ),
+            )
+            lock.local_path.parent.mkdir(parents=True)
+            lock.local_path.write_bytes(clean)
+            with self.assertRaisesRegex(OfficialSourceError, "ZIP members changed"):
+                verify_offline(lock)

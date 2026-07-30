@@ -63,7 +63,13 @@ HTTPS_SOURCE_ALLOWLIST: dict[str, tuple[str, ...]] = {
     # Boundaries, Status and Names. The official record of dissolutions and
     # amalgamations; feeds the former-municipalities crosswalk. Path-scoped to
     # that one publication, per the review on issue #34.
-    "www150.statcan.gc.ca": ("/n1/pub/92f0009x/",),
+    "www150.statcan.gc.ca": (
+        "/n1/pub/92f0009x/",
+        # Full-table CSV downloads (17-10-0155 population estimates by CSD -
+        # the product the North Dumfries ledger has cited by name since July
+        # without ever locking it).
+        "/n1/tbl/csv/",
+    ),
 }
 
 ALLOWED_ZIP_COMPRESSION = {
@@ -582,12 +588,25 @@ def _inspect_zip(data: bytes, lock: SourceLock) -> tuple[int, int, str]:
     with archive:
         members = archive.infolist()
         expected_name = lock.document["archiveMember"]
-        if len(members) != 1 or members[0].filename != expected_name:
-            observed = [member.filename for member in members]
+        # A lock may declare companion members the publisher ships alongside
+        # the data - StatCan full-table zips carry a *_MetaData.csv next to the
+        # table. The member SET is still exact: anything undeclared appearing,
+        # or anything declared missing, refuses. Only the primary member is
+        # scanned and hashed; companions are acknowledged, not trusted.
+        declared = lock.document.get("archiveCompanionMembers") or []
+        if not isinstance(declared, list) or not all(
+            isinstance(name, str) and name for name in declared
+        ):
+            raise OfficialSourceError(
+                f"{lock.source_id}: archiveCompanionMembers must be a list of names"
+            )
+        expected_set = {expected_name, *declared}
+        observed = [member.filename for member in members]
+        if sorted(observed) != sorted(expected_set) or observed.count(expected_name) != 1:
             raise OfficialSourceError(
                 f"{lock.source_id}: ZIP members changed: {observed!r}"
             )
-        member = members[0]
+        member = next(m for m in members if m.filename == expected_name)
         _validate_archive_member_name(member.filename, source_id=lock.source_id)
         if member.is_dir() or member.flag_bits & 0x1:
             raise OfficialSourceError(

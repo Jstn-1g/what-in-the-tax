@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "official-source-lock-1.0.0",
+  "reviewStatus": "reviewed",
+  "reviewedAt": "2026-07-29T20:08:24-04:00",
+  "reviewedBy": null,
+  "jurisdiction": "CA-ON",
+  "sourceId": "statcan-pop-estimates-17100155",
+  "fiscalYear": null,
+  "url": "https://www150.statcan.gc.ca/n1/tbl/csv/17100155-eng.zip",
+  "mediaType": "application/zip",
+  "byteLength": 2807984,
+  "sha256": "b9375641eadd9843086b7536e3853efd262a7f397d48b5872b9ce3d4afca5dbf",
+  "localPath": "source-pdfs/statcan/pop-estimates-17100155.zip",
+  "archiveMember": "17100155.csv",
+  "archiveMemberSha256": "4f747e11d50df331c489cb1d81689e0257494d0bfcb76e15faccf1f9f6b04336",
+  "encoding": "utf-8-sig",
+  "headers": [
+    "REF_DATE",
+    "GEO",
+    "DGUID",
+    "UOM",
+    "UOM_ID",
+    "SCALAR_FACTOR",
+    "SCALAR_ID",
+    "VECTOR",
+    "COORDINATE",
+    "VALUE",
+    "STATUS",
+    "SYMBOL",
+    "TERMINATED",
+    "DECIMALS"
+  ],
+  "fiscalYearField": null,
+  "recordIdField": "GEO",
+  "rowCount": 130025,
+  "recordCount": 5201,
+  "retrievedAt": "2026-07-29T20:08:24-04:00",
+  "licence": {
+    "name": "Statistics Canada Open Licence",
+    "url": "https://www.statcan.gc.ca/en/reference/licence",
+    "attribution": "Source: Statistics Canada, table 17-10-0155-01, Population estimates, July 1, by census subdivision. Reproduced under the Statistics Canada Open Licence."
+  },
+  "runtimeAiRequired": false,
+  "archiveCompanionMembers": [
+    "17100155_MetaData.csv"
+  ]
+}
