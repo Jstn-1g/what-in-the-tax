@@ -21,6 +21,7 @@ import hashlib
 import json
 import re
 import sys
+import zipfile
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -330,7 +331,56 @@ def inspect_source(source: dict[str, Any], root: Path) -> tuple[dict[str, Any], 
         binding["issues"].append(f"extract-file-missing:unreadable:{exc}")
         binding["extractReadable"] = False
         extract_text = None
+
+    if extract_text is None and source.get("archiveMember") is not None:
+        # A tabular archive member is its own extract. The container bytes are
+        # already hash-bound above; the member digest declared here is
+        # re-verified on every audit, and the text is read in memory rather
+        # than committed as a multi-megabyte derived copy of a file the
+        # repository already pins exactly. Nothing is read unpinned: a missing
+        # or mismatched member digest yields no extract, and the publication
+        # validator treats both as invalid declared bindings.
+        member_text = _read_archive_member(source, source_path, binding["issues"])
+        if member_text is not None:
+            binding["extractReadable"] = True
+            extract_text = member_text
+            # The extract is not missing - it is the digest-bound member. The
+            # path-shaped issues from the null extractedText field would say
+            # otherwise, and hash-shaped extract bindings do not apply here.
+            binding["issues"] = [
+                issue
+                for issue in binding["issues"]
+                if issue not in ("extract-path-missing", "extract-sha256-missing")
+            ]
     return binding, extract_text
+
+
+def _read_archive_member(
+    source: dict[str, Any], source_path: Path | None, issues: list[str]
+) -> str | None:
+    """Read a declared ZIP member as extract text, bound by its digest."""
+
+    member_name = source.get("archiveMember")
+    declared_hash = source.get("archiveMemberSha256")
+    if source_path is None:
+        issues.append("archive-member-source-unreadable")
+        return None
+    if not isinstance(member_name, str) or not member_name:
+        issues.append("archive-member-invalid")
+        return None
+    if not isinstance(declared_hash, str) or not SHA256.fullmatch(declared_hash):
+        issues.append("archive-member-sha256-missing")
+        return None
+    try:
+        with zipfile.ZipFile(source_path) as archive:
+            member_bytes = archive.read(member_name)
+    except (OSError, KeyError, zipfile.BadZipFile):
+        issues.append("archive-member-missing")
+        return None
+    if hashlib.sha256(member_bytes).hexdigest() != declared_hash.casefold():
+        issues.append("archive-member-sha256-mismatch")
+        return None
+    return member_bytes.decode("utf-8-sig", errors="replace")
 
 
 def _match_is_negative(match: re.Match[str], text: str) -> bool:

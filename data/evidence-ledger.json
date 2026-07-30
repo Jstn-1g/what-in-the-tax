@@ -95,10 +95,12 @@
       "id": "statcan-csd-estimates",
       "title": "Statistics Canada Table 17-10-0155-01 \u2014 Population estimates, July 1, by census subdivision",
       "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
-      "localPath": null,
+      "localPath": "source-pdfs/statcan/pop-estimates-17100155.zip",
+      "archiveMember": "17100155.csv",
+      "archiveMemberSha256": "4f747e11d50df331c489cb1d81689e0257494d0bfcb76e15faccf1f9f6b04336",
       "authority": "external",
       "asOf": "2025-07-01",
-      "note": "Downloaded CSV extract 17100155-eng.zip used to cite township estimates; full table not committed."
+      "note": "Full table 17100155-eng.zip committed and hash-locked; township estimates cite rows of its CSV member."
     },
     {
       "id": "mmah-fir-2023",
@@ -708,7 +710,7 @@
       "page": null,
       "label": "North Dumfries population estimate (StatCan, July 1, 2025)",
       "value": 13051,
-      "excerpt": "2025,North Dumfries (TP), Ontario,2021A00053530004,...,13051",
+      "excerpt": "\"2025\",\"North Dumfries (TP), Ontario\",\"2021A00053530004\",\"Persons\",\"249\",\"units\",\"0\",\"v1592182818\",\"2275\",\"13051\"",
       "status": "external",
       "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
       "note": "Table 17-10-0155-01. Postcensal estimate adjusted for net undercoverage; not the unadjusted Census count.",
@@ -720,7 +722,7 @@
       "page": null,
       "label": "North Dumfries population estimate (StatCan, July 1, 2023)",
       "value": 12047,
-      "excerpt": "2023,North Dumfries (TP), Ontario,2021A00053530004,...,12047",
+      "excerpt": "\"2023\",\"North Dumfries (TP), Ontario\",\"2021A00053530004\",\"Persons\",\"249\",\"units\",\"0\",\"v1592182818\",\"2275\",\"12047\"",
       "status": "external",
       "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
       "kind": "FACT"
@@ -776,7 +778,7 @@
       "page": null,
       "label": "Wellesley population estimate (StatCan, July 1, 2023)",
       "value": 12253,
-      "excerpt": "2023,Wellesley (TP), Ontario,...,12253",
+      "excerpt": "\"2023\",\"Wellesley (TP), Ontario\",\"2021A00053530027\",\"Persons\",\"249\",\"units\",\"0\",\"v1592182823\",\"2266\",\"12253\"",
       "status": "external",
       "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
       "kind": "FACT"
@@ -787,7 +789,7 @@
       "page": null,
       "label": "Wilmot population estimate (StatCan, July 1, 2023)",
       "value": 23244,
-      "excerpt": "2023,Wilmot (TP), Ontario,...,23244",
+      "excerpt": "\"2023\",\"Wilmot (TP), Ontario\",\"2021A00053530020\",\"Persons\",\"249\",\"units\",\"0\",\"v1592182822\",\"2215\",\"23244\"",
       "status": "external",
       "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
       "kind": "FACT"
@@ -798,7 +800,7 @@
       "page": null,
       "label": "Woolwich population estimate (StatCan, July 1, 2023)",
       "value": 30909,
-      "excerpt": "2023,Woolwich (TP), Ontario,...,30909",
+      "excerpt": "\"2023\",\"Woolwich (TP), Ontario\",\"2021A00053530035\",\"Persons\",\"249\",\"units\",\"0\",\"v1592182824\",\"2197\",\"30909\"",
       "status": "external",
       "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
       "kind": "FACT"

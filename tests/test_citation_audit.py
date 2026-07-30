@@ -3,10 +3,12 @@ from __future__ import annotations
 import hashlib
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 from scripts.audit_citations import (
     _amount_binding_issue,
+    inspect_source,
     audit_ledger,
     classify,
     numbers_present,
@@ -278,3 +280,93 @@ class ScaleFactorBindingTests(unittest.TestCase):
             "amount-not-on-cited-page",
         )
         self.assertIsNone(self.issue({"amountCad": 298.54}, "totals 298.54 here"))
+
+
+class ArchiveMemberExtractTests(unittest.TestCase):
+    """A ZIP member as its own extract, bound by a declared digest.
+
+    The container hash pins the archive; the member digest pins the text the
+    audit actually reads. Nothing is read unpinned: every failure mode here
+    must yield no extract text, and the digest issues are hard errors in the
+    publication validator rather than quiet downgrades to unverifiable.
+    """
+
+    MEMBER = '"2025","North Dumfries (TP), Ontario","13051"\r\n'.encode("utf-8")
+
+    def _write_zip(self, root: Path, *, member: str = "table.csv", data: bytes | None = None) -> bytes:
+        payload = self.MEMBER if data is None else data
+        with zipfile.ZipFile(root / "table.zip", "w") as archive:
+            archive.writestr(member, payload)
+        return payload
+
+    @staticmethod
+    def _source(digest: str | None, *, member: str | None = "table.csv") -> dict:
+        source = {"id": "statcan-test", "localPath": "table.zip"}
+        if member is not None:
+            source["archiveMember"] = member
+        if digest is not None:
+            source["archiveMemberSha256"] = digest
+        return source
+
+    def test_a_digest_bound_member_is_the_extract(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            payload = self._write_zip(root)
+            digest = hashlib.sha256(payload).hexdigest()
+            binding, text = inspect_source(self._source(digest), root)
+            self.assertEqual(text, payload.decode("utf-8"))
+            self.assertTrue(binding["extractReadable"])
+            self.assertNotIn("extract-path-missing", binding["issues"])
+            self.assertNotIn("extract-sha256-missing", binding["issues"])
+
+    def test_a_bom_never_reaches_the_extract_text(self) -> None:
+        data = "\ufeff" + self.MEMBER.decode("utf-8")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            payload = self._write_zip(root, data=data.encode("utf-8"))
+            digest = hashlib.sha256(payload).hexdigest()
+            _, text = inspect_source(self._source(digest), root)
+            self.assertEqual(text, self.MEMBER.decode("utf-8"))
+
+    def test_a_tampered_member_yields_no_extract_and_is_named(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_zip(root, data=self.MEMBER + b"tampered")
+            stale_digest = hashlib.sha256(self.MEMBER).hexdigest()
+            binding, text = inspect_source(self._source(stale_digest), root)
+            self.assertIsNone(text)
+            self.assertIn("archive-member-sha256-mismatch", binding["issues"])
+            self.assertFalse(binding["extractReadable"])
+
+    def test_a_member_without_a_digest_is_never_read(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_zip(root)
+            binding, text = inspect_source(self._source(None), root)
+            self.assertIsNone(text)
+            self.assertIn("archive-member-sha256-missing", binding["issues"])
+
+    def test_a_vanished_member_is_named(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            payload = self._write_zip(root, member="other.csv")
+            digest = hashlib.sha256(payload).hexdigest()
+            binding, text = inspect_source(self._source(digest), root)
+            self.assertIsNone(text)
+            self.assertIn("archive-member-missing", binding["issues"])
+
+    def test_every_archive_issue_is_a_publication_error(self) -> None:
+        # The audit degrades; the publication validator must refuse. If one of
+        # these strings falls out of HASH_MISMATCH_ISSUES, a tampered or
+        # unpinned member quietly becomes an "unverifiable" warning instead.
+        from scripts.validate_pack import HASH_MISMATCH_ISSUES
+
+        self.assertLessEqual(
+            {
+                "archive-member-sha256-missing",
+                "archive-member-sha256-mismatch",
+                "archive-member-missing",
+                "archive-member-invalid",
+            },
+            HASH_MISMATCH_ISSUES,
+        )

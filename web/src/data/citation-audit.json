@@ -1,11 +1,11 @@
 {
   "ok": true,
   "counts": {
-    "verbatim": 42,
+    "verbatim": 44,
     "normalized": 12,
     "row-bound": 30,
     "alnum": 1,
-    "numbers-only": 3,
+    "numbers-only": 1,
     "unverifiable": 6
   },
   "bindingIssueCounts": {
@@ -15,8 +15,7 @@
     "amount-sign-mismatch": 2,
     "source-path-missing": 6,
     "extract-path-missing": 6,
-    "page-citation-missing": 4,
-    "amount-not-on-cited-page": 2
+    "page-citation-missing": 4
   },
   "results": [
     {
@@ -857,13 +856,12 @@
       "page": 12,
       "amountCad": 887329000,
       "bindingIssues": [
-        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-WRPS-LEVY-2026",
@@ -871,13 +869,12 @@
       "page": 12,
       "amountCad": 272610000,
       "bindingIssues": [
-        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-bytes-missing",
         "source-sha256-missing"
       ],
-      "tier": "numbers-only",
-      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-RURAL-HH-TOTAL-2026",
