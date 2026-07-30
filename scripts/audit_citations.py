@@ -65,6 +65,13 @@ def split_pages(text: str) -> dict[int, str]:
             pages[int(parts[index])] = parts[index + 1]
         except ValueError:
             continue
+    if not pages:
+        # An extract with no page markers - a CSV, a plain-text table, a ZIP
+        # member - is a one-page document, and page 1 is its only citable
+        # page. Without this, tabular facts could only cite page: null, which
+        # the seal-grade validator rightly refuses as an unbound citation;
+        # with it, page 2 of a CSV is still a bad-page-number hard failure.
+        pages = {1: text}
     return pages
 
 

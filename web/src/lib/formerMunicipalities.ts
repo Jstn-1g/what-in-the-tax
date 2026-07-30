@@ -21,6 +21,13 @@
  *    record findable under the name a resident actually uses.
  *  - The list is deliberately not exhaustive. It carries the widely-searched
  *    names; additions are welcome by pull request under the same rules.
+ *  - Entries taking effect from 2006-01-02 onward are machine-verified: the
+ *    hash-locked StatCan 92F0009X interim lists are parsed by
+ *    scripts/build_municipal_dissolutions.py into municipal-dissolutions.json,
+ *    and a test holds this list against that artifact in both directions -
+ *    every machine-era entry here must be in the official record, and every
+ *    taxing-municipality dissolution in the record must be here. Earlier
+ *    eras exist only as a locked PDF and stay hand-curated.
  */
 
 export type FormerMunicipality = {
@@ -102,6 +109,13 @@ export const FORMER_MUNICIPALITIES: readonly FormerMunicipality[] = [
   // Geraldton and Longlac formed Greenstone in 2001.
   { name: 'Geraldton', successor: 'Greenstone', year: 2001 },
   { name: 'Longlac', successor: 'Greenstone', year: 2001 },
+  // The one taxing-municipality dissolution in the machine-verified era
+  // (2006-2025): Gordon Township and Barrie Island Township amalgamated as
+  // Gordon/Barrie Island effective 2009-01-01. Derived from the hash-locked
+  // StatCan interim list (statcan-il-2006-2011-t1) and held both ways by
+  // municipalDissolutions.test.ts against municipal-dissolutions.json.
+  { name: 'Gordon', successor: 'Gordon/Barrie Island', year: 2009 },
+  { name: 'Barrie Island', successor: 'Gordon/Barrie Island', year: 2009 },
 ]
 
 const bySuccessor = new Map<string, FormerMunicipality[]>()
