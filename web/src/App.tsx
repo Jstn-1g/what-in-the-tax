@@ -6,33 +6,7 @@ import PlaceFinder from './components/PlaceFinder'
 import SiteHeader from './components/SiteHeader'
 import SupportCard, { normalizeSupportUrl } from './components/SupportCard'
 
-/**
- * The footer's repository link, accepted only when it is plainly a GitHub
- * repository page. Env-injected like the support link: a deployment declares
- * what is true of it, and until the repository is public no URL is configured
- * and no link renders. Anything that fails the shape check is dropped rather
- * than rendered, so a typo'd variable cannot ship a link to somewhere else.
- */
-export function normalizeRepoUrl(value: unknown): string | null {
-  if (typeof value !== 'string' || value.trim() === '') return null
-  try {
-    const url = new URL(value.trim())
-    if (
-      url.protocol !== 'https:' ||
-      url.hostname !== 'github.com' ||
-      url.username ||
-      url.password ||
-      url.search ||
-      url.hash ||
-      !/^\/[\w.-]+\/[\w.-]+\/?$/.test(url.pathname)
-    ) {
-      return null
-    }
-    return url.href
-  } catch {
-    return null
-  }
-}
+import RepoLinks from './components/RepoLinks'
 import TaxReceiptScreen from './components/TaxReceiptScreen'
 import {
   getPackCatalogEntry,
@@ -196,26 +170,20 @@ function setDocumentMeta(route: PackRoute) {
 }
 
 function ProductFooter() {
-  // Both links are env-gated rather than hardcoded, for the same reason the
-  // support card's is: the deployment declares what is true of it. The repo
-  // link renders only once VITE_REPO_URL is set - which happens when the
-  // repository is actually public - so the site never ships a link to a 404,
-  // and the donate link reuses the card's normalizer so a test-mode or
+  // The repository links default to the canonical public repository (see
+  // repoLink.ts); a fork deploying its own copy overrides them with
+  // VITE_REPO_URL. The donate link stays env-gated - the deployment declares
+  // what is true of it - and reuses the card's normalizer so a test-mode or
   // non-Stripe URL can never reach the footer either.
-  const repoUrl = normalizeRepoUrl(import.meta.env.VITE_REPO_URL)
   const supportUrl = normalizeSupportUrl(import.meta.env.VITE_SUPPORT_ONCE_URL)
   return (
     <footer className="product-footer">
       <p>
         Independent public-information project. Not affiliated with any government.
-        Not an official bill, formal audit, or tax advice.
-        {repoUrl ? (
-          <>
-            {' '}
-            Open source: every published number, and the checks behind it, can be
-            inspected and re-run from the repository.
-          </>
-        ) : null}
+        Not an official bill, formal audit, or tax advice. Open source: every
+        published number, and the checks behind it, can be inspected and re-run
+        from the repository. The code is MIT-licensed; the data carries the
+        licences below.
       </p>
       {/* Both source licences require these statements to travel with the
           data: the FIR figures are Open Government Licence - Ontario, and the
@@ -228,12 +196,7 @@ function ProductFooter() {
       </p>
       <nav className="product-footer__links" aria-label="Project links">
         <a href={`${import.meta.env.BASE_URL}privacy.txt`}>Privacy</a>
-        {repoUrl ? (
-          <a href={repoUrl} target="_blank" rel="noreferrer">
-            Source code &amp; data
-            <span className="visually-hidden"> (opens in a new tab)</span>
-          </a>
-        ) : null}
+        <RepoLinks />
         {supportUrl ? (
           <a href={supportUrl} target="_blank" rel="noreferrer">
             Support this project
