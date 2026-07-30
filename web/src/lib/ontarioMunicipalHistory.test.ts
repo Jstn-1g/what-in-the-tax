@@ -141,12 +141,12 @@ describe('Ontario current directory with FIR history', () => {
       withFirHistory: 436,
       withoutFirHistory: 8,
       latestFirYearCounts: {
-        // Deep River T and Simcoe Co filed 2025 in the 2026-07-29
-        // re-publication, so each moves from the 2024 bucket to the 2025 one:
-        // 130 -> 132 and 273 -> 271. The pair still totals 403, which is what
-        // says they moved together rather than one of them drifting.
-        '2025': 132,
-        '2024': 271,
+        // Ottawa C filed 2025 in the 2026-07-30 re-publication (issue #47),
+        // so it moves from the 2024 bucket to the 2025 one: 132 -> 133 and
+        // 271 -> 270. The pair still totals 403, which is what says they
+        // moved together rather than one of them drifting.
+        '2025': 133,
+        '2024': 270,
         '2023': 33,
         unavailable: 8,
       },
