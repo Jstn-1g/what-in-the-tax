@@ -87,9 +87,14 @@
     },
     {
       "id": "statcan-2021",
-      "title": "Statistics Canada 2021 Census Profile \u2014 North Dumfries",
-      "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
-      "authority": "external"
+      "title": "Statistics Canada Table 98-10-0002 \u2014 Population and dwelling counts: Canada and census subdivisions (municipalities)",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810000201",
+      "localPath": "source-pdfs/statcan/census-98100002.zip",
+      "archiveMember": "98100002.csv",
+      "archiveMemberSha256": "1e983c04a99ab93d270ae8d113aa6113203c5f872afa5a62918066c499416b3d",
+      "authority": "external",
+      "asOf": "2021-05-11",
+      "note": "2021 Census reference day counts; full table 98100002-eng.zip committed and hash-locked."
     },
     {
       "id": "statcan-csd-estimates",
@@ -695,13 +700,14 @@
     {
       "id": "ND-POP-CENSUS-2021",
       "sourceId": "statcan-2021",
-      "page": null,
+      "page": 1,
       "label": "North Dumfries population (2021 Census)",
       "amountCad": null,
       "value": 10619,
-      "excerpt": "Statistics Canada 2021 Census: North Dumfries population 10,619",
+      "excerpt": "\"2021\",\"North Dumfries\",\"2021A00053530004\",\"2867\",\"10619\"",
       "status": "external",
-      "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810000201",
+      "note": "Census count on reference day May 11, 2021; the postcensal estimates above are adjusted for net undercoverage and differ by design.",
       "kind": "FACT"
     },
     {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/evidence-ledger.json",
-  "ledgerSha256": "3246c78c9229c2defa4efc4a9b349d4d1f3e9458c446cc9f13d03770c87f918c",
+  "ledgerSha256": "a85386bd1476c290a4acfad51d9213d2c5fc30a3e94b4a855d1c66f2f1806a06",
   "sources": [
     {
       "id": "mmah-fir-2023",
@@ -109,16 +109,16 @@
     },
     {
       "id": "statcan-2021",
-      "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810000201",
       "authority": "external",
-      "asOf": null,
+      "asOf": "2021-05-11",
       "license": "unknown",
-      "localPath": null,
-      "sha256": null,
-      "bytes": null,
+      "localPath": "source-pdfs/statcan/census-98100002.zip",
+      "sha256": "36ab6c8f3f6b82d70d9dea927cb5cf04f6fbf9b543a7ad543695e6ea70d22876",
+      "bytes": 551875,
       "extractedText": null,
       "extractedTextSha256": null,
-      "lockStatus": "remote-unlocked"
+      "lockStatus": "source-only"
     },
     {
       "id": "statcan-csd-estimates",

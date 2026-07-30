@@ -1,17 +1,14 @@
 {
   "ok": true,
   "counts": {
-    "verbatim": 49,
+    "verbatim": 50,
     "normalized": 12,
     "row-bound": 30,
     "alnum": 1,
-    "numbers-only": 1,
-    "unverifiable": 1
+    "numbers-only": 1
   },
   "bindingIssueCounts": {
-    "amount-sign-mismatch": 2,
-    "source-path-missing": 1,
-    "extract-path-missing": 1
+    "amount-sign-mismatch": 2
   },
   "results": [
     {
@@ -507,14 +504,11 @@
     {
       "id": "ND-POP-CENSUS-2021",
       "sourceId": "statcan-2021",
-      "page": null,
+      "page": 1,
       "amountCad": null,
-      "bindingIssues": [
-        "source-path-missing",
-        "extract-path-missing"
-      ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'statcan-2021'"
+      "bindingIssues": [],
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ND-POP-STATCAN-2025",
@@ -998,23 +992,20 @@
     {
       "sourceId": "statcan-2021",
       "sourceFile": {
-        "declaredPath": null,
-        "declaredSha256": null,
-        "actualSha256": null,
-        "declaredBytes": null,
-        "actualBytes": null
+        "declaredPath": "source-pdfs/statcan/census-98100002.zip",
+        "declaredSha256": "36ab6c8f3f6b82d70d9dea927cb5cf04f6fbf9b543a7ad543695e6ea70d22876",
+        "actualSha256": "36ab6c8f3f6b82d70d9dea927cb5cf04f6fbf9b543a7ad543695e6ea70d22876",
+        "declaredBytes": 551875,
+        "actualBytes": 551875
       },
       "extractFile": {
         "declaredPath": null,
         "declaredSha256": null,
         "actualSha256": null
       },
-      "issues": [
-        "source-path-missing",
-        "extract-path-missing"
-      ],
-      "sourceReadable": false,
-      "extractReadable": false
+      "issues": [],
+      "sourceReadable": true,
+      "extractReadable": true
     },
     {
       "sourceId": "statcan-csd-estimates",

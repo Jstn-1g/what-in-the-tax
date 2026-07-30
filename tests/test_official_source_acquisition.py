@@ -172,6 +172,7 @@ class OfficialSourceAcquisitionTests(unittest.TestCase):
                 # municipal dissolutions, feeding the former-municipalities
                 # crosswalk (issue #34). Exact-list on purpose: a lock that
                 # appears here uninvited is a source nobody decided to trust.
+                "statcan-census-2021-98100002",
                 "statcan-il-2001-2006",
                 "statcan-il-2006-2011-t1",
                 "statcan-il-2011-2016-t1",
@@ -911,3 +912,75 @@ class SkipLeadingRowsTests(unittest.TestCase):
             )
             with self.assertRaisesRegex(OfficialSourceError, "encoding"):
                 inspect_payload(payload, lock)
+
+
+class RepeatedAnnotationHeaderTests(unittest.TestCase):
+    """Duplicate headers are the file's honest shape; key columns are not.
+
+    StatCan census exports pair every value column with an annotation column
+    literally named "Symbols". A schema that demanded global uniqueness would
+    misdescribe a well-formed official product - but a record-id or
+    fiscal-year field that matches more than one column is ambiguous and must
+    refuse.
+    """
+
+    CENSUS_HEADERS = ["REF_DATE", "GEO", "DGUID", "Pop2021", "Symbols", "Pop2016", "Symbols"]
+
+    def _csv_payload(self) -> bytes:
+        body = ",".join(self.CENSUS_HEADERS) + "\r\n" + "2021,North Dumfries,X1,10619,,10215,\r\n"
+        return body.encode("utf-8")
+
+    def _mutate(self, document: dict) -> None:
+        document.update(
+            {
+                "mediaType": "text/csv",
+                "archiveMember": None,
+                "localPath": "source-pdfs/statcan/census-test.csv",
+                "headers": list(self.CENSUS_HEADERS),
+                "recordIdField": "DGUID",
+                "fiscalYear": None,
+                "fiscalYearField": None,
+            }
+        )
+
+    def test_repeated_annotation_headers_are_accepted_and_scanned(self) -> None:
+        payload = self._csv_payload()
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp), payload, row_count=1, record_count=1, mutate=self._mutate
+            )
+            observed = inspect_payload(payload, lock)
+            self.assertEqual(observed["rowCount"], 1)
+            self.assertEqual(observed["recordCount"], 1)
+
+    def test_an_ambiguous_record_id_column_refuses(self) -> None:
+        def mutate(document: dict) -> None:
+            self._mutate(document)
+            document["recordIdField"] = "Symbols"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(
+                OfficialSourceError, "exactly one reviewed header"
+            ):
+                _write_lock(
+                    Path(tmp),
+                    self._csv_payload(),
+                    row_count=1,
+                    record_count=1,
+                    mutate=mutate,
+                )
+
+    def test_an_empty_header_name_still_refuses(self) -> None:
+        def mutate(document: dict) -> None:
+            self._mutate(document)
+            document["headers"] = ["REF_DATE", "", "DGUID"]
+
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(OfficialSourceError, "non-empty"):
+                _write_lock(
+                    Path(tmp),
+                    self._csv_payload(),
+                    row_count=1,
+                    record_count=1,
+                    mutate=mutate,
+                )

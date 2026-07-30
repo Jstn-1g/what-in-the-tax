@@ -416,12 +416,18 @@ def load_reviewed_lock(
             not isinstance(headers, list)
             or not headers
             or any(not isinstance(header, str) or not header for header in headers)
-            or len(set(headers)) != len(headers)
         ):
-            raise OfficialSourceError("headers must be a non-empty unique string list")
+            raise OfficialSourceError("headers must be a non-empty string list")
         record_field = document.get("recordIdField")
-        if record_field not in headers:
-            raise OfficialSourceError("recordIdField must name a reviewed header")
+        # The key fields must be unambiguous columns. Other headers may
+        # repeat - StatCan census exports pair every value column with an
+        # annotation column literally named "Symbols" - and the exact
+        # header-list comparison at scan time still refuses any change to
+        # the reviewed shape, duplicates included.
+        if headers.count(record_field) != 1:
+            raise OfficialSourceError(
+                "recordIdField must name exactly one reviewed header"
+            )
         max_extra_columns = document.get("maxExtraColumns", 0)
         if (
             type(max_extra_columns) is not int
@@ -435,8 +441,10 @@ def load_reviewed_lock(
                 raise OfficialSourceError(
                     "fiscalYearField must be null when fiscalYear is null"
                 )
-        elif fiscal_year_field not in headers:
-            raise OfficialSourceError("fiscalYearField must name a reviewed header")
+        elif headers.count(fiscal_year_field) != 1:
+            raise OfficialSourceError(
+                "fiscalYearField must name exactly one reviewed header"
+            )
 
     if document.get("runtimeAiRequired") is not False:
         raise OfficialSourceError("runtimeAiRequired must be false")

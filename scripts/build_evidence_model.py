@@ -630,13 +630,14 @@ facts = [
     fact(
         id="ND-POP-CENSUS-2021",
         sourceId="statcan-2021",
-        page=None,
+        page=1,
         label="North Dumfries population (2021 Census)",
         amountCad=None,
         value=10_619,
-        excerpt="Statistics Canada 2021 Census: North Dumfries population 10,619",
+        excerpt='"2021","North Dumfries","2021A00053530004","2867","10619"',
         status="external",
-        url="https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
+        url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810000201",
+        note="Census count on reference day May 11, 2021; the postcensal estimates above are adjusted for net undercoverage and differ by design.",
     ),
     fact(
         id="ND-POP-STATCAN-2025",
@@ -1428,27 +1429,34 @@ for _f in findings:
                 f"finding {_f['id']} references missing gap {_g}"
             )
 
-def _statcan_pop_member_pin() -> dict:
-    """The population table's member pin, copied from its reviewed lock.
+def _statcan_member_pin(lock_name: str, local_path: str) -> dict:
+    """A StatCan table's member pin, copied from its reviewed lock.
 
     The lock is the attestation (a named person reviewed those bytes); this
     builder only transcribes the pin. Refusing on any mismatch keeps a stale
     or edited declaration from quietly outliving the lock it claims to echo.
     """
 
-    lock_path = ROOT / "sources" / "locks" / "ca-on" / "statcan-pop-estimates-17100155.lock.json"
+    lock_path = ROOT / "sources" / "locks" / "ca-on" / f"{lock_name}.lock.json"
     lock = json.loads(lock_path.read_text(encoding="utf-8"))
-    if lock.get("localPath") != "source-pdfs/statcan/pop-estimates-17100155.zip":
+    if lock.get("localPath") != local_path:
         raise EvidenceModelError(
-            "statcan population lock no longer points at the declared archive"
+            f"{lock_name} no longer points at the declared archive"
         )
     member = lock.get("archiveMember")
     digest = lock.get("archiveMemberSha256")
     if not isinstance(member, str) or not isinstance(digest, str):
         raise EvidenceModelError(
-            "statcan population lock carries no member pin to transcribe"
+            f"{lock_name} carries no member pin to transcribe"
         )
     return {"archiveMember": member, "archiveMemberSha256": digest}
+
+
+def _statcan_pop_member_pin() -> dict:
+    return _statcan_member_pin(
+        "statcan-pop-estimates-17100155",
+        "source-pdfs/statcan/pop-estimates-17100155.zip",
+    )
 
 
 sources = [
@@ -1516,9 +1524,18 @@ sources = [
     },
     {
         "id": "statcan-2021",
-        "title": "Statistics Canada 2021 Census Profile — North Dumfries",
-        "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E",
+        "title": "Statistics Canada Table 98-10-0002 — Population and dwelling counts: Canada and census subdivisions (municipalities)",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=9810000201",
+        "localPath": "source-pdfs/statcan/census-98100002.zip",
+        # Member pin transcribed from the reviewed lock, same as the
+        # estimates table below; the audit re-verifies it on every run.
+        **_statcan_member_pin(
+            "statcan-census-2021-98100002",
+            "source-pdfs/statcan/census-98100002.zip",
+        ),
         "authority": "external",
+        "asOf": "2021-05-11",
+        "note": "2021 Census reference day counts; full table 98100002-eng.zip committed and hash-locked.",
     },
     {
         "id": "statcan-csd-estimates",
