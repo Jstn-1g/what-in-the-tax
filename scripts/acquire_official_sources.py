@@ -59,6 +59,17 @@ HTTPS_SOURCE_ALLOWLIST: dict[str, tuple[str, ...]] = {
         "6783a586-6b05-4a73-9663-e60a6963c91e/download/",
     ),
     "efis.fma.csc.gov.on.ca": ("/fir/MultiYearReport/",),
+    # Statistics Canada 92F0009X - Interim List of Changes to Municipal
+    # Boundaries, Status and Names. The official record of dissolutions and
+    # amalgamations; feeds the former-municipalities crosswalk. Path-scoped to
+    # that one publication, per the review on issue #34.
+    "www150.statcan.gc.ca": (
+        "/n1/pub/92f0009x/",
+        # Full-table CSV downloads (17-10-0155 population estimates by CSD -
+        # the product the North Dumfries ledger has cited by name since July
+        # without ever locking it).
+        "/n1/tbl/csv/",
+    ),
 }
 
 ALLOWED_ZIP_COMPRESSION = {
@@ -98,6 +109,10 @@ class SourceLock:
     @property
     def sha256(self) -> str:
         return self.document["sha256"]
+
+    @property
+    def structure(self) -> str:
+        return self.document.get("structure", "tabular")
 
 
 @dataclass(frozen=True)
@@ -228,16 +243,31 @@ def validate_source_url(value: object) -> str:
     return value
 
 
+# The reuse licences a lock may claim, by exact URL. This was a single
+# hardcoded Ontario URL, which quietly meant no source outside Ontario's open
+# data programme could ever be locked - including Statistics Canada, whose
+# interim-list files are the only official record of municipal dissolutions.
+# An allowlist keeps the property that mattered (a lock cannot claim an
+# unreviewed licence) without hardcoding one province's licence as the only
+# reviewable one in a project that intends to cover the country.
+REVIEWED_LICENCE_URLS = frozenset(
+    {
+        "https://www.ontario.ca/page/open-government-licence-ontario",
+        "https://www.statcan.gc.ca/en/reference/licence",
+    }
+)
+
+
 def _validate_licence(value: object) -> None:
     if not isinstance(value, dict):
         raise OfficialSourceError("licence must be an object")
     if not isinstance(value.get("name"), str) or not value["name"].strip():
         raise OfficialSourceError("licence.name must be a non-empty string")
     licence_url = value.get("url")
-    if licence_url != (
-        "https://www.ontario.ca/page/open-government-licence-ontario"
-    ):
-        raise OfficialSourceError("licence.url is not the reviewed Ontario licence")
+    if licence_url not in REVIEWED_LICENCE_URLS:
+        raise OfficialSourceError(
+            f"licence.url is not a reviewed licence: {licence_url!r}"
+        )
     if (
         not isinstance(value.get("attribution"), str)
         or not value["attribution"].strip()
@@ -342,40 +372,71 @@ def load_reviewed_lock(
                 "archiveMemberSha256 must be 64 lowercase hexadecimal digits"
             )
 
-    row_count = _require_plain_int(document, "rowCount", minimum=1)
-    record_count = _require_plain_int(document, "recordCount", minimum=1)
-    if record_count > row_count:
-        raise OfficialSourceError("recordCount cannot exceed rowCount")
+    structure = document.get("structure", "tabular")
+    if structure not in ("tabular", "document"):
+        raise OfficialSourceError("structure must be tabular or document")
+    if media_type == "application/pdf" and structure != "document":
+        raise OfficialSourceError("a PDF source must declare structure: document")
+    if media_type == "application/zip" and structure != "tabular":
+        raise OfficialSourceError("a ZIP source must declare structure: tabular")
 
-    encoding = document.get("encoding")
-    if encoding not in ("utf-8", "utf-8-sig"):
-        raise OfficialSourceError("encoding must be utf-8 or utf-8-sig")
-    headers = document.get("headers")
-    if (
-        not isinstance(headers, list)
-        or not headers
-        or any(not isinstance(header, str) or not header for header in headers)
-        or len(set(headers)) != len(headers)
-    ):
-        raise OfficialSourceError("headers must be a non-empty unique string list")
-    record_field = document.get("recordIdField")
-    if record_field not in headers:
-        raise OfficialSourceError("recordIdField must name a reviewed header")
-    max_extra_columns = document.get("maxExtraColumns", 0)
-    if (
-        type(max_extra_columns) is not int
-        or max_extra_columns < 0
-        or max_extra_columns > 4
-    ):
-        raise OfficialSourceError("maxExtraColumns must be an integer from 0 to 4")
-    fiscal_year_field = document.get("fiscalYearField")
-    if fiscal_year is None:
-        if fiscal_year_field is not None:
+    if structure == "document":
+        # A document source is verified by its bytes alone; no machine-readable
+        # schema is claimed. The tabular fields must stay empty — inventing
+        # headers or row counts for a file nobody parsed would claim structure
+        # the review never covered. This is for PDFs and for legacy exports
+        # (bilingual split headers, footnote tails) that no honest tabular
+        # schema can describe.
+        _require_plain_int(document, "rowCount", minimum=0, maximum=0)
+        _require_plain_int(document, "recordCount", minimum=0, maximum=0)
+        for field in ("encoding", "headers", "recordIdField", "fiscalYearField"):
+            if document.get(field) is not None:
+                raise OfficialSourceError(
+                    f"{field} must be null for a document source"
+                )
+        if document.get("maxExtraColumns", 0) != 0:
+            raise OfficialSourceError("maxExtraColumns must be 0 for a document source")
+        if document.get("skipLeadingRows", 0) != 0:
             raise OfficialSourceError(
-                "fiscalYearField must be null when fiscalYear is null"
+                "skipLeadingRows must be 0 for a document source"
             )
-    elif fiscal_year_field not in headers:
-        raise OfficialSourceError("fiscalYearField must name a reviewed header")
+    else:
+        row_count = _require_plain_int(document, "rowCount", minimum=1)
+        record_count = _require_plain_int(document, "recordCount", minimum=1)
+        if record_count > row_count:
+            raise OfficialSourceError("recordCount cannot exceed rowCount")
+
+        encoding = document.get("encoding")
+        if encoding not in ("utf-8", "utf-8-sig", "cp1252"):
+            raise OfficialSourceError("encoding must be utf-8, utf-8-sig, or cp1252")
+        if "skipLeadingRows" in document:
+            _require_plain_int(document, "skipLeadingRows", minimum=0, maximum=4)
+        headers = document.get("headers")
+        if (
+            not isinstance(headers, list)
+            or not headers
+            or any(not isinstance(header, str) or not header for header in headers)
+            or len(set(headers)) != len(headers)
+        ):
+            raise OfficialSourceError("headers must be a non-empty unique string list")
+        record_field = document.get("recordIdField")
+        if record_field not in headers:
+            raise OfficialSourceError("recordIdField must name a reviewed header")
+        max_extra_columns = document.get("maxExtraColumns", 0)
+        if (
+            type(max_extra_columns) is not int
+            or max_extra_columns < 0
+            or max_extra_columns > 4
+        ):
+            raise OfficialSourceError("maxExtraColumns must be an integer from 0 to 4")
+        fiscal_year_field = document.get("fiscalYearField")
+        if fiscal_year is None:
+            if fiscal_year_field is not None:
+                raise OfficialSourceError(
+                    "fiscalYearField must be null when fiscalYear is null"
+                )
+        elif fiscal_year_field not in headers:
+            raise OfficialSourceError("fiscalYearField must name a reviewed header")
 
     if document.get("runtimeAiRequired") is not False:
         raise OfficialSourceError("runtimeAiRequired must be false")
@@ -465,6 +526,18 @@ def _scan_csv(
             errors="strict",
             newline="",
         )
+        # Some official exports open with reviewed title lines before the real
+        # header. The reviewer declares how many; the header must then match
+        # exactly at that position — seeking further would infer a schema.
+        skip_leading = document.get("skipLeadingRows", 0)
+        if skip_leading:
+            preamble = csv.reader(text)
+            for _ in range(skip_leading):
+                if next(preamble, None) is None:
+                    raise OfficialSourceError(
+                        f"{lock.source_id}: CSV ended before the declared "
+                        "header row"
+                    )
         reader = csv.DictReader(text)
         if reader.fieldnames != document["headers"]:
             raise OfficialSourceError(
@@ -472,7 +545,7 @@ def _scan_csv(
             )
         row_count = 0
         record_ids: set[str] = set()
-        for row_number, row in enumerate(reader, start=2):
+        for row_number, row in enumerate(reader, start=skip_leading + 2):
             row_count += 1
             if None in row:
                 extras = row.pop(None)
@@ -562,12 +635,25 @@ def _inspect_zip(data: bytes, lock: SourceLock) -> tuple[int, int, str]:
     with archive:
         members = archive.infolist()
         expected_name = lock.document["archiveMember"]
-        if len(members) != 1 or members[0].filename != expected_name:
-            observed = [member.filename for member in members]
+        # A lock may declare companion members the publisher ships alongside
+        # the data - StatCan full-table zips carry a *_MetaData.csv next to the
+        # table. The member SET is still exact: anything undeclared appearing,
+        # or anything declared missing, refuses. Only the primary member is
+        # scanned and hashed; companions are acknowledged, not trusted.
+        declared = lock.document.get("archiveCompanionMembers") or []
+        if not isinstance(declared, list) or not all(
+            isinstance(name, str) and name for name in declared
+        ):
+            raise OfficialSourceError(
+                f"{lock.source_id}: archiveCompanionMembers must be a list of names"
+            )
+        expected_set = {expected_name, *declared}
+        observed = [member.filename for member in members]
+        if sorted(observed) != sorted(expected_set) or observed.count(expected_name) != 1:
             raise OfficialSourceError(
                 f"{lock.source_id}: ZIP members changed: {observed!r}"
             )
-        member = members[0]
+        member = next(m for m in members if m.filename == expected_name)
         _validate_archive_member_name(member.filename, source_id=lock.source_id)
         if member.is_dir() or member.flag_bits & 0x1:
             raise OfficialSourceError(
@@ -630,7 +716,16 @@ def inspect_payload(data: bytes, lock: SourceLock) -> dict:
             f"{lock.source_id}: source exceeds the download bound"
         )
     archive_member_sha256: str | None = None
-    if lock.media_type == "application/zip":
+    if lock.structure == "document":
+        # No structure to scan: the sha256/byteLength comparison downstream is
+        # the whole gate, plus this magic-byte check so a PDF lock can never
+        # bless something that is not even a PDF.
+        if lock.media_type == "application/pdf" and not data.startswith(b"%PDF-"):
+            raise OfficialSourceError(
+                f"{lock.source_id}: payload does not begin with a PDF header"
+            )
+        row_count, record_count = 0, 0
+    elif lock.media_type == "application/zip":
         row_count, record_count, archive_member_sha256 = _inspect_zip(data, lock)
     elif lock.media_type in ("text/csv", "application/csv"):
         row_count, record_count = _scan_csv(io.BytesIO(data), lock)
@@ -750,7 +845,7 @@ def download_source(
     request = urllib.request.Request(
         url,
         headers={
-            "Accept": "application/zip, application/csv, text/csv",
+            "Accept": "application/zip, application/csv, text/csv, application/pdf",
             "User-Agent": "TaxReceiptOfficialSourceAcquirer/1.0",
         },
         method="GET",

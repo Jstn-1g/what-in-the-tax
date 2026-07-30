@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "official-source-lock-1.0.0",
+  "reviewStatus": "reviewed",
+  "reviewedAt": "2026-07-29T18:58:03-04:00",
+  "reviewedBy": "Justin Skowyra",
+  "jurisdiction": "CA-ON",
+  "sourceId": "statcan-il-2011-2016-t1",
+  "fiscalYear": null,
+  "url": "https://www150.statcan.gc.ca/n1/pub/92f0009x/2016000/format/csv/tbl1-ont.csv",
+  "mediaType": "text/csv",
+  "structure": "document",
+  "byteLength": 17082,
+  "sha256": "0e93220acb3fdd993885b393c913569cec34505a29944b92bb4b7ea3be657aa0",
+  "localPath": "source-pdfs/statcan/il-2011-2016-t1-ont.csv",
+  "archiveMember": null,
+  "encoding": null,
+  "headers": null,
+  "fiscalYearField": null,
+  "recordIdField": null,
+  "rowCount": 0,
+  "recordCount": 0,
+  "retrievedAt": "2026-07-29T18:58:03-04:00",
+  "licence": {
+    "name": "Statistics Canada Open Licence",
+    "url": "https://www.statcan.gc.ca/en/reference/licence",
+    "attribution": "Source: Statistics Canada, Interim List of Changes to Municipal Boundaries, Status and Names (92F0009X). Reproduced under the Statistics Canada Open Licence."
+  },
+  "runtimeAiRequired": false
+}

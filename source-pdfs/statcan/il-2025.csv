@@ -1,0 +1,301 @@
+Gaining CSDuid,Gaining CSDname,Gaining CSDtype,Gaining CSD Change Code,Gaining CSD Change Code Description,Losing CSDuid,Losing CSDname,Losing CSDtype,Losing CSD Change Code,Losing CSD Change Code Description,Census Population Affected,Total Private Dwellings Affected,Private Dwellings Occupied by Usual Residents Affected,Effective Date,File Number
+Newfoundland and Labrador,,,,,,,,,,,,,,
+1001219,Branch,T,10,Population gained due to correction,1001228,St. Bride's,T,11,Population lost due to correction,46.0,17.0,17.0,02/01/2021,100011
+1001485,Conception Bay South,T,8C,Area gained due to boundary correction,1001519,St. John's,CY,9C,Area lost due to boundary correction,...,...,...,02/01/2021,100010
+1003009,"Division No.  3, Subd. C",SNO,8C,Area gained due to boundary correction,1003010,Seal Cove (Fortune Bay),T,9C,Area lost due to boundary correction,...,...,...,02/01/2021,100007
+1003009,"Division No.  3, Subd. C",SNO,10,Population gained due to correction,1003010,Seal Cove (Fortune Bay),T,11,Population lost due to correction,31.0,130.0,27.0,02/01/2021,100009
+1004022,"Division No.  4, Subd. E",SNO,10,Population gained due to correction,1004016,"Division No.  4, Subd. D",SNO,11,Population lost due to correction,245.0,116.0,116.0,02/01/2021,100022
+1007041,Happy Adventure,T,10,Population gained due to correction,1007042,Eastport,T,11,Population lost due to correction,65.0,33.0,30.0,02/01/2021,100016
+1001263,Long Harbour-Mount Arlington Heights,T,10,Population gained due to correction,1001270,Arnold's Cove,T,11,Population lost due to correction,48.0,28.0,28.0,02/01/2021,100015
+1005025,Meadows,T,10,Population gained due to correction,1005018,Corner Brook,CY,11,Population lost due to correction,17.0,6.0,6.0,02/01/2021,100012
+1005025,Meadows,T,10,Population gained due to correction,1005015,Gillams,T,11,Population lost due to correction,77.0,35.0,34.0,02/01/2021,100012
+1005025,Meadows,T,10,Population gained due to correction,1005022,McIvers,T,11,Population lost due to correction,62.0,27.0,27.0,02/01/2021,100012
+1003005,Pool's Cove,T,10,Population gained due to correction,1003001,"Division No.  3, Subd. A",SNO,11,Population lost due to correction,45.0,21.0,17.0,02/01/2021,100017
+1008062,Port Anson,T,10,Population gained due to correction,1008061,Springdale,T,11,Population lost due to correction,68.0,36.0,36.0,02/01/2021,100018
+1004021,Port au Port East,T,10,Population gained due to correction,1004016,"Division No.  4, Subd. D",SNO,11,Population lost due to correction,129.0,67.0,67.0,02/01/2021,100020
+1004042,Port au Port West-Aguathuna-Felix Cove,T,10,Population gained due to correction,1004016,"Division No.  4, Subd. D",SNO,11,Population lost due to correction,36.0,20.0,20.0,02/01/2021,100021
+1001105,Portugal Cove South,T,10,Population gained due to correction,1001101,"Division No.  1, Subd. V",SNO,11,Population lost due to correction,15.0,9.0,8.0,02/01/2021,100019
+1009048,River of Ponds,T,10,Population gained due to correction,1009047,"Division No.  9, Subd. G",SNO,11,Population lost due to correction,46.0,21.0,21.0,02/01/2021,100013
+1003010,Seal Cove (Fortune Bay),T,8,Area and population gained due to correction,1003009,"Division No.  3, Subd. C",SNO,9,Area and population lost due to correction,146.0,174.0,69.0,02/01/2021,100008
+1007015,Trinity (Trinity Bay),T,10,Population gained due to correction,1007014,"Division No.  7, Subd. J",SNO,11,Population lost due to correction,106.0,68.0,54.0,02/01/2021,100014
+Prince Edward Island,,,,,,,,,,,,,,
+1103063,Miminegash,FD,5A,Area gained due to complete annexation,1103057,St. Louis,RM,4,Dissolution,69.0,35.0,33.0,31/03/2024,110011
+1103042,O'Leary,T,5,Area gained due to partial annexation,1103065,O'Leary,FD,6,Area lost due to partial annexation,15.0,7.0,7.0,01/04/2024,110012
+1102030,Rocky Point 3,IRI,5,Area gained due to partial annexation,1102068,West River,RM,6,Area lost due to partial annexation,5.0,1.0,1.0,20/09/2023,110013
+Nova Scotia,,,,,,,,,,,,,,
+1214001,"Antigonish, Subd. A",SC,8C,Area gained due to boundary correction,1213001,St. Mary's,MD,9C,Area lost due to boundary correction,...,...,...,01/01/2021,120015
+1210001,"Colchester, Subd. C",SC,8C,Area gained due to boundary correction,1209034,Halifax,RGM,9C,Area lost due to boundary correction,...,...,...,01/01/2021,120017
+1210001,"Colchester, Subd. C",SC,8C,Area gained due to boundary correction,1212006,"Pictou, Subd. B",SC,9C,Area lost due to boundary correction,...,...,...,01/01/2021,120017
+1210001,"Colchester, Subd. C",SC,10,Population gained due to correction,1208014,Indian Brook 14,IRI,11,Population lost due to correction,556.0,244.0,242.0,02/01/2021,120022
+1208008,East Hants,MD,10,Population gained due to correction,1208003,West Hants,RM,11,Population lost due to correction,11.0,6.0,5.0,02/01/2021,120023
+1208008,East Hants,MD,10,Population gained due to correction,1208014,Indian Brook 14,IRI,11,Population lost due to correction,831.0,361.0,359.0,02/01/2021,120023
+1209034,Halifax,RGM,8,Area and population gained due to correction,1208008,East Hants,MD,9,Area and population lost due to correction,10.0,3.0,3.0,01/01/2021,120016
+1209034,Halifax,RGM,8C,Area gained due to boundary correction,1210001,"Colchester, Subd. C",SC,9C,Area lost due to boundary correction,...,...,...,01/01/2021,120018
+1209034,Halifax,RGM,8C,Area gained due to boundary correction,1213001,St. Mary's,MD,9C,Area lost due to boundary correction,...,...,...,01/01/2021,120018
+1209034,Halifax,RGM,10,Population gained due to correction,1208014,Indian Brook 14,IRI,11,Population lost due to correction,233.0,101.0,99.0,02/01/2021,120024
+1207001,"Kings, Subd. A",SC,10,Population gained due to correction,1207002,Annapolis Valley First Nation,IRI,11,Population lost due to correction,543.0,249.0,246.0,02/01/2021,120021
+1217008,Membertou 28B,IRI,5,Area gained due to partial annexation,1217030,Cape Breton,RGM,6,Area lost due to partial annexation,0.0,0.0,0.0,05/03/2024,120020
+1212006,"Pictou, Subd. B",SC,8C,Area gained due to boundary correction,1213001,St. Mary's,MD,9C,Area lost due to boundary correction,...,...,...,01/01/2021,120019
+1208003,West Hants,RM,8,Area and population gained due to correction,1206009,Chester,MD,9,Area and population lost due to correction,0.0,4.0,0.0,01/01/2021,120014
+New Brunswick,,,,,,,,,,,,,,
+1325033,Big Hole Tract 8 (North Half),IRI,8C,Area gained due to boundary correction,1325105,Greater Miramichi / Grand-Miramichi,RDR,9C,Area lost due to boundary correction,...,...,...,02/01/2021,130302
+1325034,Big Hole Tract 8 (South Half),IRI,8,Area and population gained due to correction,1325022,Miramichi River Valley,RCR,9,Area and population lost due to correction,0.0,2.0,1.0,02/01/2021,130304
+1331034,Devon 30,IRI,5,Area gained due to partial annexation,1331069,Fredericton,C,6,Area lost due to partial annexation,5.0,1.0,1.0,01/11/2022,130296
+1322010,Eel River 3,IRI,5,Area gained due to partial annexation,1322009,Heron Bay / Baie-des-Hérons,TV,6,Area lost due to partial annexation,0.0,0.0,0.0,12/12/2023,130297
+1325105,Greater Miramichi / Grand-Miramichi,RDR,8,Area and population gained due to correction,1325033,Big Hole Tract 8 (North Half),IRI,9,Area and population lost due to correction,0.0,1.0,1.0,02/01/2021,130303
+1322009,Heron Bay / Baie-des-Hérons,TV,8,Area and population gained due to correction,1322010,Eel River 3,IRI,9,Area and population lost due to correction,5.0,2.0,2.0,12/12/2023,130298
+1322026,Indian Ranch,IRI,5,Area gained due to partial annexation,1322009,Heron Bay / Baie-des-Hérons,TV,6,Area lost due to partial annexation,5.0,1.0,1.0,06/07/2023,130299
+1331013,Oromocto 26,IRI,5,Area gained due to partial annexation,1331065,Oromocto,TV,6,Area lost due to partial annexation,0.0,0.0,0.0,09/11/2024,130300
+1332005,Woodstock 23,IRI,5,Area gained due to partial annexation,1332073,Woodstock,TV,6,Area lost due to partial annexation,0.0,0.0,0.0,15/11/2022,130295
+1332005,Woodstock 23,IRI,5,Area gained due to partial annexation,1332072,Lakeland Ridges,VL,6,Area lost due to partial annexation,0.0,1.0,0.0,26/04/2024,130301
+Quebec,,,,,,,,,,,,,,
+2488057,Amos,V,1,Incorporation from amalgamation,2488060,Saint-Félix-de-Dalquier,MÉ,4,Dissolution,1026.0,414.0,406.0,26/12/2024,240087
+2488057,Amos,V,1,Incorporation from amalgamation,2488055,Amos,V,4,Dissolution,12675.0,6051.0,5780.0,26/12/2024,240087
+2476043,Brownsburg-Chatham,V,8,Area and population gained due to correction,2476035,Wentworth,CT,9,Area and population lost due to correction,0.0,2.0,2.0,02/01/2021,240079
+2440047,Danville,V,8,Area and population gained due to correction,2440043,Val-des-Sources,V,9,Area and population lost due to correction,17.0,7.0,7.0,02/01/2021,240082
+2476025,Gore,CT,8,Area and population gained due to correction,2476035,Wentworth,CT,9,Area and population lost due to correction,10.0,9.0,8.0,02/01/2021,240080
+2476025,Gore,CT,10,Population gained due to correction,2476035,Wentworth,CT,11,Population lost due to correction,13.0,8.0,7.0,02/01/2021,240093
+2469055,Huntingdon,V,5,Area gained due to partial annexation,2469045,Hinchinbrooke,MÉ,6,Area lost due to partial annexation,0.0,0.0,0.0,29/06/2024,240084
+2439097,Kingsey Falls,V,10,Population gained due to correction,2439105,Sainte-Séraphine,PE,11,Population lost due to correction,16.0,4.0,4.0,02/01/2021,240091
+2413062,Lac-des-Aigles,V,1,Incorporation from amalgamation,2413060,Lac-des-Aigles,MÉ,4,Dissolution,495.0,289.0,243.0,31/07/2024,240085
+2413062,Lac-des-Aigles,V,1,Incorporation from amalgamation,2411020,Saint-Guy,MÉ,4,Dissolution,76.0,65.0,47.0,31/07/2024,240085
+2438055,Parisville,PE,10,Population gained due to correction,2433035,Saint-Gilles,MÉ,11,Population lost due to correction,51.0,26.0,26.0,02/01/2021,240092
+2438055,Parisville,PE,10,Population gained due to correction,2433045,Saint-Agapit,MÉ,11,Population lost due to correction,21.0,9.0,8.0,02/01/2021,240092
+2406035,Ristigouche-Sud-Est,MÉ,23,Name and type change,...,Ristigouche-Partie-Sud-Est,CT,...,...,...,...,...,09/03/2024,240074
+2453015,Saint-Aimé,MÉ,8C,Area gained due to boundary correction,2453010,Massueville,VL,9C,Area lost due to boundary correction,...,...,...,02/01/2021,240077
+2470035,Saint-Louis-de-Gonzague,PE,5,Area gained due to partial annexation,2470040,Saint-Stanislas-de-Kostka,MÉ,6,Area lost due to partial annexation,0.0,0.0,0.0,28/06/1967,240088
+2433030,Saint-Narcisse-de-Beaurivage,PE,8C,Area gained due to boundary correction,2426055,Saint-Bernard,MÉ,9C,Area lost due to boundary correction,...,...,...,01/01/2021,240083
+2492903,Sainte-Élisabeth-de-Proulx,NO,1,Incorporation from part,2492902,Passes-Dangereuses,NO,6,Area lost due to incorporation,147.0,73.0,68.0,07/10/2024,240086
+2499802,Waswanipi,TC,10,Population gained due to correction,2499060,Eeyou Istchee Baie-James,GR,11,Population lost due to correction,1377.0,382.0,320.0,02/01/2021,240089
+2476035,Wentworth,CT,8,Area and population gained due to correction,2477060,Wentworth-Nord,MÉ,9,Area and population lost due to correction,5.0,6.0,3.0,02/01/2021,240081
+2477060,Wentworth-Nord,MÉ,8C,Area gained due to boundary correction,2476035,Wentworth,CT,9C,Area lost due to boundary correction,...,...,...,02/01/2021,240078
+2485804,Winneway,S-É,10,Population gained due to correction,2485070,Laforce,MÉ,11,Population lost due to correction,54.0,14.0,14.0,02/01/2021,240090
+Ontario,,,,,,,,,,,,,,
+3514027,Alderville First Nation,IRI,5,Area gained due to partial annexation,3514024,Alnwick/Haldimand,TP,6,Area lost due to partial annexation,0.0,0.0,0.0,29/10/2024,350048
+3558076,Aroland,S-É,8,Area and population gained due to correction,3558090,"Thunder Bay, Unorganized",NO,9,Area and population lost due to correction,196.0,57.0,55.0,02/01/2021,350044
+3537002,Caldwell First Nation,IRI,1,Incorporation from part,3537003,Leamington,MU,6,Area lost due to incorporation,0.0,0.0,0.0,10/11/2020,350042
+3515019,Curve Lake First Nation 35,IRI,5,Area gained due to partial annexation,3515015,Selwyn,TP,6,Area lost due to partial annexation,0.0,0.0,0.0,05/09/2023,350037
+3507014,Elizabethtown-Kitley,TP,8,Area and population gained due to correction,3507015,Brockville,CY,9,Area and population lost due to correction,10.0,5.0,4.0,02/01/2021,350039
+3560058,English River 21,IRI,8C,Area gained due to boundary correction,3560090,"Kenora, Unorganized",NO,9C,Area lost due to boundary correction,...,...,...,02/01/2021,350047
+3560090,"Kenora, Unorganized",NO,8C,Area gained due to boundary correction,3560058,English River 21,IRI,9C,Area lost due to boundary correction,...,...,...,02/01/2021,350046
+3528052,Norfolk County,CY,10,Population gained due to correction,3532004,Tillsonburg,T,11,Population lost due to correction,568.0,201.0,199.0,02/01/2021,350050
+3501030,North Dundas,TP,10,Population gained due to correction,3501050,North Glengarry,TP,11,Population lost due to correction,25.0,13.0,13.0,02/01/2021,350053
+3501030,North Dundas,TP,10,Population gained due to correction,3501042,North Stormont,TP,11,Population lost due to correction,92.0,43.0,43.0,02/01/2021,350053
+3532002,Norwich,TP,10,Population gained due to correction,3528052,Norfolk County,CY,11,Population lost due to correction,216.0,82.0,82.0,02/01/2021,350051
+3558061,Pic Mobert South,IRI,5,Area gained due to partial annexation,3558090,"Thunder Bay, Unorganized",NO,6,Area lost due to partial annexation,0.0,0.0,0.0,12/12/2024,350049
+3518001,Pickering,CY,8C,Area gained due to boundary correction,3518005,Ajax,T,9C,Area lost due to boundary correction,...,...,...,02/01/2021,350041
+3559066,Seine River 23A,IRI,8C,Area gained due to boundary correction,3559090,"Rainy River, Unorganized",NO,9C,Area lost due to boundary correction,...,...,...,02/01/2021,350045
+3526053,St. Catharines,CY,8C,Area gained due to boundary correction,3526028,Pelham,T,9C,Area lost due to boundary correction,...,...,...,02/01/2021,350040
+3531016,St. Marys,T,10,Population gained due to correction,3540005,South Huron,MU,11,Population lost due to correction,26.0,17.0,17.0,02/01/2021,350052
+3558090,"Thunder Bay, Unorganized",NO,8,Area and population gained due to correction,3558076,Aroland,S-É,9,Area and population lost due to correction,10.0,3.0,3.0,02/01/2021,350043
+3519044,Whitchurch-Stouffville,T,8C,Area gained due to boundary correction,3519036,Markham,CY,9C,Area lost due to boundary correction,...,...,...,01/01/2021,350038
+Manitoba,,,,,,,,,,,,,,
+4618074,Arborg,T,8,Area and population gained due to correction,4618076,Bifrost-Riverton,MU,9,Area and population lost due to correction,10.0,4.0,3.0,02/01/2021,460061
+4618076,Bifrost-Riverton,MU,8C,Area gained due to boundary correction,4618074,Arborg,T,9C,Area lost due to boundary correction,...,...,...,02/01/2021,460060
+4622067,Cross Lake 19E,IRI,10,Population gained due to correction,4622046,"Division No. 22, Unorganized",NO,11,Population lost due to correction,70.0,13.0,11.0,02/01/2021,460063
+4619045,"Division No. 19, Unorganized",NO,10,Population gained due to correction,4617072,Mossey River,RM,11,Population lost due to correction,334.0,125.0,125.0,02/01/2021,460072
+4621078,"Division No. 21, Unorganized",NO,8C,Area gained due to boundary correction,4621058,Moose Lake 31A,IRI,9C,Area lost due to boundary correction,...,...,...,02/01/2021,460067
+4607039,Glenboro-South Cypress,MU,10,Population gained due to correction,4607066,North Cypress-Langford,MU,11,Population lost due to correction,151.0,0.0,0.0,02/01/2021,460069
+4621052,Kelsey,RM,8,Area and population gained due to correction,4621045,The Pas,T,9,Area and population lost due to correction,0.0,0.0,0.0,02/01/2021,460056
+4621052,Kelsey,RM,8,Area and population gained due to correction,4621033,Opaskwayak Cree Nation 21A,IRI,9,Area and population lost due to correction,15.0,5.0,5.0,02/01/2021,460056
+4623024,Makesew Sakahikan Aski,IRI,1,Incorporation from part,4623022,Gillam,T,6,Area lost due to incorporation,0.0,0.0,0.0,06/05/2022,460062
+4621058,Moose Lake 31A,IRI,8C,Area gained due to boundary correction,4621078,"Division No. 21, Unorganized",NO,9C,Area lost due to boundary correction,...,...,...,02/01/2021,460066
+4620055,Mountain (North),RM,10,Population gained due to correction,4619045,"Division No. 19, Unorganized",NO,11,Population lost due to correction,15.0,11.0,10.0,02/01/2021,460071
+4602046,Niverville,T,5,Area gained due to partial annexation,4602041,Hanover,RM,6,Area lost due to partial annexation,0.0,1.0,1.0,01/01/2017,460059
+4621033,Opaskwayak Cree Nation 21A,IRI,8C,Area gained due to boundary correction,4621052,Kelsey,RM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,460058
+4621034,Opaskwayak Cree Nation 21B,IRI,10,Population gained due to correction,4621045,The Pas,T,11,Population lost due to correction,2.0,2.0,2.0,02/01/2021,460065
+4609024,Portage la Prairie,RM,10,Population gained due to correction,4614031,Woodlands,RM,11,Population lost due to correction,8.0,5.0,5.0,02/01/2021,460070
+4609024,Portage la Prairie,RM,10,Population gained due to correction,4609029,Portage la Prairie,CY,11,Population lost due to correction,72.0,27.0,27.0,02/01/2021,460070
+4607076,Riverdale,MU,10,Population gained due to correction,4615032,Oakview,RM,11,Population lost due to correction,298.0,141.0,141.0,02/01/2021,460068
+4623037,South Indian Lake,S-É,10,Population gained due to correction,4623040,O-Pipon-Na-Piwin Cree Nation 1,IRI,11,Population lost due to correction,187.0,45.0,42.0,02/01/2021,460064
+4621045,The Pas,T,8,Area and population gained due to correction,4621052,Kelsey,RM,9,Area and population lost due to correction,0.0,0.0,0.0,02/01/2021,460057
+4621045,The Pas,T,8,Area and population gained due to correction,4621033,Opaskwayak Cree Nation 21A,IRI,9,Area and population lost due to correction,99.0,42.0,41.0,02/01/2021,460057
+Saskatchewan,,,,,,,,,,,,,,
+4718855,Amiskosakahikan 210,IRI,10,Population gained due to correction,4718090,"Division No. 18, Unorganized",NO,11,Population lost due to correction,23.0,8.0,8.0,02/01/2021,470182
+4718855,Amiskosakahikan 210,IRI,10,Population gained due to correction,4718049,Denare Beach,NV,11,Population lost due to correction,14.0,2.0,1.0,02/01/2021,470182
+4715068,Birch Hills,T,5,Area gained due to partial annexation,4715067,Birch Hills No. 460,RM,6,Area lost due to partial annexation,0.0,0.0,0.0,29/04/2024,470128
+4715067,Birch Hills No. 460,RM,8C,Area gained due to boundary correction,4715068,Birch Hills,T,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470183
+4718850,Birch Portage 184A,IRI,1,Incorporation from part,4718090,"Division No. 18, Unorganized",NO,6,Area lost due to incorporation,0.0,0.0,0.0,23/01/1930,470170
+4716011,Borden,VL,10,Population gained due to correction,4716008,Great Bend No. 405,RM,11,Population lost due to correction,2.0,1.0,1.0,02/01/2021,470155
+4718825,Brabant Lake,S-É,10,Population gained due to correction,4718090,"Division No. 18, Unorganized",NO,11,Population lost due to correction,23.0,9.0,5.0,02/01/2021,470151
+4718853,Canoe Lake 165A,IRI,1,Incorporation from part,4718090,"Division No. 18, Unorganized",NO,6,Area lost due to incorporation,0.0,0.0,0.0,11/02/1930,470172
+4716051,Canwood No. 494,RM,8C,Area gained due to boundary correction,4716864,Sturgeon Lake Indian Reserve 101D,IRI,9C,Area lost due to boundary correction,...,...,...,18/03/2014,470137
+4701004,Carievale,VL,10,Population gained due to correction,4701001,Argyle No. 1,RM,11,Population lost due to correction,86.0,43.0,38.0,02/01/2021,470184
+4701004,Carievale,VL,10,Population gained due to correction,4701012,Glen Ewen,VL,11,Population lost due to correction,14.0,5.0,5.0,02/01/2021,470184
+4701004,Carievale,VL,10,Population gained due to correction,4701043,Storthoaks No. 31,RM,11,Population lost due to correction,20.0,8.0,6.0,02/01/2021,470184
+4701004,Carievale,VL,10,Population gained due to correction,4701006,Mount Pleasant No. 2,RM,11,Population lost due to correction,34.0,17.0,17.0,02/01/2021,470184
+4705803,Cowessess 73 (Part),IRI,5,Area gained due to partial annexation,4705057,Grayson No. 184,RM,6,Area lost due to partial annexation,5.0,3.0,3.0,15/11/2023,470140
+4705809,Cowessess 73A,IRI,1,Incorporation from part,4705028,Elcapo No. 154,RM,6,Area lost due to incorporation,0.0,1.0,1.0,02/02/1998,470131
+4711073,Dalmeny,T,10,Population gained due to correction,4711066,Saskatoon,CY,11,Population lost due to correction,14.0,5.0,5.0,02/01/2021,470156
+4717055,Dorintosh,VL,10,Population gained due to correction,4717054,Meadow Lake No. 588,RM,11,Population lost due to correction,33.0,14.0,14.0,02/01/2021,470152
+4706059,Dufferin No. 190,RM,10,Population gained due to correction,4706061,Bethune,VL,11,Population lost due to correction,141.0,0.0,0.0,02/01/2021,470150
+4710826,Fishing Lake 89,IRI,5,Area gained due to partial annexation,4710071,Sasman No. 336,RM,6,Area lost due to partial annexation,0.0,0.0,0.0,13/08/2021,470158
+4709823,Fishing Lake 89,IRI,1,Incorporation from part,4709042,St. Philips No. 301,RM,6,Area lost due to incorporation,0.0,1.0,1.0,13/08/2021,470159
+4717830,Flying Dust First Nation 105D,IRI,8C,Area gained due to boundary correction,4717054,Meadow Lake No. 588,RM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470133
+4717830,Flying Dust First Nation 105D,IRI,5,Area gained due to partial annexation,4717054,Meadow Lake No. 588,RM,6,Area lost due to partial annexation,0.0,0.0,0.0,10/01/2022,470135
+4717032,Frenchman Butte No. 501,RM,8C,Area gained due to boundary correction,4717034,Paradise Hill,VL,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470179
+4717032,Frenchman Butte No. 501,RM,5,Area gained due to partial annexation,4717034,Paradise Hill,VL,6,Area lost due to partial annexation,0.0,0.0,0.0,01/01/2025,470180
+4717048,Glaslyn,VL,8C,Area gained due to boundary correction,4717047,Parkdale No. 498,RM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470126
+4701012,Glen Ewen,VL,10,Population gained due to correction,4701043,Storthoaks No. 31,RM,11,Population lost due to correction,1.0,1.0,1.0,02/01/2021,470185
+4701012,Glen Ewen,VL,10,Population gained due to correction,4701006,Mount Pleasant No. 2,RM,11,Population lost due to correction,91.0,36.0,35.0,02/01/2021,470185
+4710823,Gordon 86,IRI,8C,Area gained due to boundary correction,4710014,Touchwood No. 248,RM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470169
+4708056,Happyland No. 231,RM,5A,Area gained due to complete annexation,4708057,Prelate,VL,4,Dissolution,116.0,60.0,52.0,01/07/2024,470132
+4705810,Kahkewistahaw 72-O,IRI,1,Incorporation from part,4705028,Elcapo No. 154,RM,6,Area lost due to incorporation,5.0,1.0,1.0,08/01/2023,470138
+4710821,Kawacatoose First Nation 88,IRI,1,Incorporation from part,4710024,Mount Hope No. 279,RM,6,Area lost due to incorporation,0.0,0.0,0.0,06/02/2003,470160
+4703051,Kincaid,VL,5,Area gained due to partial annexation,4703048,Pinto Creek No. 75,RM,6,Area lost due to partial annexation,0.0,0.0,0.0,09/05/2024,470129
+4716869,Little Pine 116 (Part),IRI,5,Area gained due to partial annexation,4716013,Blaine Lake No. 434,RM,6,Area lost due to partial annexation,5.0,1.0,1.0,10/08/2022,470141
+4716869,Little Pine 116 (Part),IRI,5,Area gained due to partial annexation,4716023,Douglas No. 436,RM,6,Area lost due to partial annexation,5.0,1.0,1.0,10/08/2022,470141
+4717818,Makwa Lake 129A,IRI,1,Incorporation from part,4717056,Loon Lake No. 561,RM,6,Area lost due to incorporation,0.0,0.0,0.0,12/02/1919,470161
+4717054,Meadow Lake No. 588,RM,8C,Area gained due to boundary correction,4717830,Flying Dust First Nation 105D,IRI,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470134
+4717045,Mervin No. 499,RM,8,Area and population gained due to correction,4717047,Parkdale No. 498,RM,9,Area and population lost due to correction,90.0,170.0,48.0,02/01/2021,470125
+4717045,Mervin No. 499,RM,5,Area gained due to partial annexation,4717046,Turtle View,RV,6,Area lost due to partial annexation,0.0,0.0,0.0,09/12/2024,470181
+4705813,Minoahchak 74C,IRI,1,Incorporation from part,4705077,Saltcoats No. 213,RM,6,Area lost due to incorporation,0.0,0.0,0.0,15/03/1961,470175
+4705813,Minoahchak 74C,IRI,1,Incorporation from part,4705073,Cana No. 214,RM,6,Area lost due to incorporation,0.0,2.0,2.0,15/03/1961,470175
+4714039,Mistatim,VL,10,Population gained due to correction,4714038,Bjorkdale No. 426,RM,11,Population lost due to correction,21.0,12.0,12.0,02/01/2021,470153
+4716841,Moosomin 112G,IRI,1,Incorporation from part,4716062,Medstead No. 497,RM,6,Area lost due to incorporation,10.0,3.0,2.0,08/04/1997,470143
+4716842,Moosomin 112L,IRI,1,Incorporation from part,4716062,Medstead No. 497,RM,6,Area lost due to incorporation,0.0,0.0,0.0,29/09/1999,470144
+4716871,Mosquito Grizzly Bear's Head Lean Man TLE (Part),IRI,5,Area gained due to partial annexation,4716038,Meeting Lake No. 466,RM,6,Area lost due to partial annexation,10.0,1.0,1.0,25/08/2021,470142
+4701006,Mount Pleasant No. 2,RM,10,Population gained due to correction,4701043,Storthoaks No. 31,RM,11,Population lost due to correction,4.0,1.0,1.0,02/01/2021,470186
+4701006,Mount Pleasant No. 2,RM,10,Population gained due to correction,4701012,Glen Ewen,VL,11,Population lost due to correction,52.0,18.0,17.0,02/01/2021,470186
+4710829,Muskowekwan 85-65,IRI,1,Incorporation from part,4710031,Emerald No. 277,RM,6,Area lost due to incorporation,0.0,0.0,0.0,22/10/2009,470162
+4705802,Ochapowace 71-119,IRI,1,Incorporation from part,4705028,Elcapo No. 154,RM,6,Area lost due to incorporation,0.0,0.0,0.0,05/05/2005,470130
+4717034,Paradise Hill,VL,8C,Area gained due to boundary correction,4717032,Frenchman Butte No. 501,RM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470178
+4717047,Parkdale No. 498,RM,8C,Area gained due to boundary correction,4717048,Glaslyn,VL,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470127
+4701801,Pheasant Rump Nakota 68D,IRI,1,Incorporation from part,4701058,Brock No. 64,RM,6,Area lost due to incorporation,0.0,0.0,0.0,20/09/1990,470163
+4706803,Piapot First Nation 75T,IRI,1,Incorporation from part,4706091,Cupar No. 218,RM,6,Area lost due to incorporation,5.0,2.0,2.0,24/10/2002,470164
+4702803,Piapot First Nation 75T,IRI,1,Incorporation from part,4702066,Caledonia No. 99,RM,6,Area lost due to incorporation,0.0,1.0,0.0,18/10/2001,470165
+4715032,Rosthern,T,10,Population gained due to correction,4715031,Rosthern No. 403,RM,11,Population lost due to correction,41.0,20.0,20.0,02/01/2021,470157
+4705816,Sakimay 74-1,IRI,1,Incorporation from part,4705077,Saltcoats No. 213,RM,6,Area lost due to incorporation,0.0,2.0,1.0,24/10/1996,470176
+4705817,Sakimay 74-11,IRI,1,Incorporation from part,4705077,Saltcoats No. 213,RM,6,Area lost due to incorporation,0.0,0.0,0.0,25/10/2005,470177
+4705811,Sakimay 74-2,IRI,1,Incorporation from part,4705028,Elcapo No. 154,RM,6,Area lost due to incorporation,0.0,0.0,0.0,15/04/1997,470166
+4705811,Sakimay 74-2,IRI,1,Incorporation from part,4705063,McLeod No. 185,RM,6,Area lost due to incorporation,0.0,0.0,0.0,15/04/1997,470166
+4705812,Sakimay 74-9,IRI,1,Incorporation from part,4705057,Grayson No. 184,RM,6,Area lost due to incorporation,0.0,0.0,0.0,04/04/1997,470167
+4717826,Saulteaux 159C,IRI,1,Incorporation from part,4717047,Parkdale No. 498,RM,6,Area lost due to incorporation,0.0,0.0,0.0,23/01/1996,470147
+4717829,Saulteaux 159D,IRI,1,Incorporation from part,4717047,Parkdale No. 498,RM,6,Area lost due to incorporation,0.0,0.0,0.0,20/05/1997,470146
+4717829,Saulteaux 159D,IRI,8C,Area gained due to boundary correction,4717047,Parkdale No. 498,RM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470173
+4717827,Saulteaux 159E,IRI,1,Incorporation from part,4717001,Meota No. 468,RM,6,Area lost due to incorporation,43.0,8.0,7.0,20/05/1997,470148
+4717827,Saulteaux 159E,IRI,1,Incorporation from part,4717047,Parkdale No. 498,RM,6,Area lost due to incorporation,0.0,1.0,0.0,20/05/1997,470148
+4716843,Saulteaux 159G,IRI,1,Incorporation from part,4716062,Medstead No. 497,RM,6,Area lost due to incorporation,0.0,1.0,1.0,15/07/1998,470145
+4717828,Saulteaux 159MM,IRI,1,Incorporation from part,4717001,Meota No. 468,RM,6,Area lost due to incorporation,10.0,2.0,2.0,29/01/2009,470149
+4717833,Saulteaux First Nation 159Z,IRI,1,Incorporation from part,4717047,Parkdale No. 498,RM,6,Area lost due to incorporation,0.0,0.0,0.0,14/06/2001,470174
+4718803,Stanley 157,IRI,10,Population gained due to correction,4718090,"Division No. 18, Unorganized",NO,11,Population lost due to correction,13.0,3.0,3.0,02/01/2021,470154
+4716864,Sturgeon Lake Indian Reserve 101D,IRI,8C,Area gained due to boundary correction,4716051,Canwood No. 494,RM,9C,Area lost due to boundary correction,...,...,...,18/03/2014,470136
+4714044,Tisdale,T,8C,Area gained due to boundary correction,4714043,Tisdale No. 427,RM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,470139
+4710014,Touchwood No. 248,RM,8,Area and population gained due to correction,4710823,Gordon 86,IRI,9,Area and population lost due to correction,155.0,46.0,46.0,02/01/2021,470168
+4718851,Waskwaynikapik 228,IRI,1,Incorporation from part,4718090,"Division No. 18, Unorganized",NO,6,Area lost due to incorporation,0.0,1.0,1.0,21/11/2002,470171
+Alberta,,,,,,,,,,,,,,
+4813012,Alberta Beach,VL,8,Area and population gained due to correction,4813001,Lac Ste. Anne County,MD,9,Area and population lost due to correction,10.0,2.0,2.0,02/01/2021,480035
+4813018,Barrhead County No. 11,MD,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480039
+4808026,Bentley,T,5,Area gained due to partial annexation,4808022,Lacombe County,MD,6,Area lost due to partial annexation,0.0,0.0,0.0,01/01/2025,480113
+4812004,Bonnyville No. 87,MD,8C,Area gained due to boundary correction,4812037,Lac la Biche County,SM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480107
+4803001,Cardston County,MD,8C,Area gained due to boundary correction,4803002,Magrath,T,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480111
+4809003,Clearwater County,MD,1,Incorporation from amalgamation,4809010,Caroline,VL,4,Dissolution,470.0,246.0,220.0,01/01/2025,480110
+4809003,Clearwater County,MD,1,Incorporation from amalgamation,4809002,Clearwater County,MD,4,Dissolution,11865.0,5605.0,4840.0,01/01/2025,480110
+4812002,Cold Lake,CY,5,Area gained due to partial annexation,4812004,Bonnyville No. 87,MD,6,Area lost due to partial annexation,15.0,3.0,3.0,01/10/2024,480109
+4806001,Foothills County,MD,8C,Area gained due to boundary correction,4806006,High River,T,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480099
+4801008,Forty Mile County No. 8,MD,10,Population gained due to correction,4801009,Foremost,VL,11,Population lost due to correction,129.0,0.0,0.0,02/01/2021,480118
+4812012,Glendon,VL,10,Population gained due to correction,4812004,Bonnyville No. 87,MD,11,Population lost due to correction,40.0,20.0,17.0,02/01/2021,480123
+4817093,High Level,T,5,Area gained due to partial annexation,4817095,Mackenzie County,SM,6,Area lost due to partial annexation,0.0,2.0,2.0,01/07/2024,480102
+4806006,High River,T,5,Area gained due to partial annexation,4806001,Foothills County,MD,6,Area lost due to partial annexation,10.0,5.0,5.0,01/01/2021,480098
+4813001,Lac Ste. Anne County,MD,8C,Area gained due to boundary correction,4813012,Alberta Beach,VL,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480036
+4813001,Lac Ste. Anne County,MD,8C,Area gained due to boundary correction,4813011,Sunset Point,SV,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480037
+4813001,Lac Ste. Anne County,MD,8C,Area gained due to boundary correction,4813018,Barrhead County No. 11,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480040
+4813001,Lac Ste. Anne County,MD,8C,Area gained due to boundary correction,4813013,Birch Cove,SV,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480041
+4813001,Lac Ste. Anne County,MD,8,Area and population gained due to correction,4813002,Mayerthorpe,T,9,Area and population lost due to correction,5.0,1.0,1.0,02/01/2021,480042
+4813001,Lac Ste. Anne County,MD,8C,Area gained due to boundary correction,4813003,Nakamun Park,SV,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480044
+4813001,Lac Ste. Anne County,MD,8,Area and population gained due to correction,4811034,Parkland County,MD,9,Area and population lost due to correction,0.0,1.0,1.0,02/01/2021,480047
+4813001,Lac Ste. Anne County,MD,8,Area and population gained due to correction,4813016,Sandy Beach,SV,9,Area and population lost due to correction,0.0,2.0,1.0,02/01/2021,480049
+4813001,Lac Ste. Anne County,MD,8C,Area gained due to boundary correction,4813010,Silver Sands,SV,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480050
+4813001,Lac Ste. Anne County,MD,8,Area and population gained due to correction,4813006,West Cove,SV,9,Area and population lost due to correction,5.0,5.0,4.0,02/01/2021,480052
+4813001,Lac Ste. Anne County,MD,8C,Area gained due to boundary correction,4813029,Woodlands County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480054
+4813001,Lac Ste. Anne County,MD,8C,Area gained due to boundary correction,4814003,Yellowhead County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480056
+4813001,Lac Ste. Anne County,MD,8,Area and population gained due to correction,4813015,South View,SV,9,Area and population lost due to correction,0.0,1.0,0.0,02/01/2021,480058
+4802011,Lethbridge County,MD,8C,Area gained due to boundary correction,4802014,Nobleford,T,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480115
+4805046,Linden,VL,10,Population gained due to correction,4805041,Kneehill County,MD,11,Population lost due to correction,24.0,7.0,7.0,02/01/2021,480121
+4811803,Louis Bull 138B,IRI,5,Area gained due to partial annexation,4811001,Wetaskiwin County No. 10,MD,6,Area lost due to partial annexation,0.0,0.0,0.0,30/01/2023,480106
+4803002,Magrath,T,5,Area gained due to partial annexation,4803001,Cardston County,MD,6,Area lost due to partial annexation,0.0,0.0,0.0,01/01/2025,480112
+4813002,Mayerthorpe,T,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480043
+4802014,Nobleford,T,8C,Area gained due to boundary correction,4802011,Lethbridge County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480114
+4802014,Nobleford,T,5,Area gained due to partial annexation,4802011,Lethbridge County,MD,6,Area lost due to partial annexation,0.0,0.0,0.0,01/01/2025,480116
+4813014,Onoway,T,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480045
+4804014,Oyen,T,5,Area gained due to partial annexation,4804012,Special Area No. 3,SA,6,Area lost due to partial annexation,0.0,0.0,0.0,01/07/2024,480103
+4807011,Paintearth County No. 18,MD,5A,Area gained due to complete annexation,4807016,Halkirk,VL,4,Dissolution,92.0,58.0,50.0,01/01/2025,480117
+4811034,Parkland County,MD,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480046
+4802008,Raymond,T,5,Area gained due to partial annexation,4802001,Warner County No. 5,MD,6,Area lost due to partial annexation,5.0,1.0,1.0,01/07/2024,480104
+4813016,Sandy Beach,SV,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480048
+4811009,Silver Beach,SV,5,Area gained due to partial annexation,4811001,Wetaskiwin County No. 10,MD,6,Area lost due to partial annexation,0.0,1.0,1.0,01/07/2024,480101
+4813010,Silver Sands,SV,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480051
+4813015,South View,SV,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480057
+4804012,Special Area No. 3,SA,8C,Area gained due to boundary correction,4804019,Youngstown,VL,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480105
+4813011,Sunset Point,SV,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480038
+4805048,Three Hills,T,10,Population gained due to correction,4805041,Kneehill County,MD,11,Population lost due to correction,54.0,24.0,24.0,02/01/2021,480122
+4817824,Utikoomak Lake 155,IRI,10,Population gained due to correction,4817827,Utikoomak Lake 155A,IRI,11,Population lost due to correction,26.0,7.0,6.0,02/01/2021,480119
+4805001,Vulcan County,MD,10,Population gained due to correction,4805009,Milo,VL,11,Population lost due to correction,25.0,0.0,0.0,02/01/2021,480120
+4813006,West Cove,SV,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480053
+4811001,Wetaskiwin County No. 10,MD,8C,Area gained due to boundary correction,4811009,Silver Beach,SV,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480100
+4813029,Woodlands County,MD,8C,Area gained due to boundary correction,4817027,Big Lakes County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480108
+4814003,Yellowhead County,MD,8C,Area gained due to boundary correction,4813001,Lac Ste. Anne County,MD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,480055
+British Columbia,,,,,,,,,,,,,,
+5941012,Cariboo E,RDA,8C,Area gained due to boundary correction,5941009,Williams Lake,CY,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590241
+5903052,Central Kootenay H,RDA,8C,Area gained due to boundary correction,5903027,Silverton,VL,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590214
+5903052,Central Kootenay H,RDA,8,Area and population gained due to correction,5903056,Central Kootenay I,RDA,9,Area and population lost due to correction,37.0,14.0,14.0,01/01/2021,590219
+5931801,Cheakamus 11,IRI,5,Area gained due to partial annexation,5931021,Squamish-Lillooet D,RDA,6,Area lost due to partial annexation,0.0,0.0,0.0,30/08/2023,590222
+5933028,Clinton,VL,8,Area and population gained due to correction,5933032,Thompson-Nicola E (Bonaparte Plateau),RDA,9,Area and population lost due to correction,0.0,2.0,2.0,02/01/2021,590212
+5933028,Clinton,VL,10,Population gained due to correction,5933032,Thompson-Nicola E (Bonaparte Plateau),RDA,11,Population lost due to correction,78.0,44.0,44.0,02/01/2021,590247
+5926024,Comox Valley C (Puntledge - Black Creek),RDA,8,Area and population gained due to correction,5926010,Courtenay,CY,9,Area and population lost due to correction,0.0,1.0,1.0,01/01/2021,590228
+5909886,Coqualeetza,IRI,1,Incorporation from part,5909020,Chilliwack,CY,6,Area lost due to incorporation,15.0,0.0,0.0,24/10/2024,590243
+5926010,Courtenay,CY,8,Area and population gained due to correction,5926024,Comox Valley C (Puntledge - Black Creek),RDA,9,Area and population lost due to correction,5.0,2.0,2.0,01/01/2021,590227
+5926010,Courtenay,CY,8C,Area gained due to boundary correction,5926022,Comox Valley B (Lazo North),RDA,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590229
+5926010,Courtenay,CY,8,Area and population gained due to correction,5926005,Comox,T,9,Area and population lost due to correction,0.0,0.0,0.0,02/01/2021,590230
+5926010,Courtenay,CY,8,Area and population gained due to correction,5926022,Comox Valley B (Lazo North),RDA,9,Area and population lost due to correction,0.0,1.0,1.0,02/01/2021,590230
+5926010,Courtenay,CY,8,Area and population gained due to correction,5926021,Comox Valley A,RDA,9,Area and population lost due to correction,0.0,2.0,2.0,02/01/2021,590231
+5901022,Cranbrook,CY,8C,Area gained due to boundary correction,5901035,East Kootenay C,RDA,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590217
+5901022,Cranbrook,CY,10,Population gained due to correction,5901035,East Kootenay C,RDA,11,Population lost due to correction,29.0,4.0,3.0,02/01/2021,590249
+5903807,Creston 1,IRI,5,Area gained due to partial annexation,5903013,Central Kootenay B,RDA,6,Area lost due to partial annexation,0.0,1.0,0.0,23/01/2023,590236
+5901035,East Kootenay C,RDA,8,Area and population gained due to correction,5901022,Cranbrook,CY,9,Area and population lost due to correction,37.0,11.0,11.0,02/01/2021,590216
+5951013,Fort St. James,DM,8C,Area gained due to boundary correction,5951840,Williams Prairie Meadow 1A,IRI,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590225
+5909819,Kahmoose 4,IRI,5,Area gained due to partial annexation,5909014,Fraser Valley A,RDA,6,Area lost due to partial annexation,0.0,1.0,1.0,06/05/2024,590237
+5915812,Kitsilano 6,IRI,1,Incorporation from part,5915022,Vancouver,CY,6,Area lost due to incorporation,0.0,0.0,0.0,25/11/1869,590246
+5917044,Langford,CY,8C,Area gained due to boundary correction,5917041,Colwood,CY,9C,Area lost due to boundary correction,...,...,...,01/01/2021,590242
+5903805,Lower Kootenay 1C,IRI,1,Incorporation from part,5903017,Central Kootenay C,RDA,6,Area lost due to incorporation,5.0,2.0,2.0,30/06/1916,590232
+5903806,Lower Kootenay 5,IRI,1,Incorporation from part,5903017,Central Kootenay C,RDA,6,Area lost due to incorporation,0.0,1.0,1.0,30/06/1916,590233
+5951848,North Tacla Lake,IRI,5,Area gained due to partial annexation,5951015,Bulkley-Nechako C,RDA,6,Area lost due to partial annexation,0.0,0.0,0.0,29/11/2024,590244
+5907005,Osoyoos,T,5,Area gained due to partial annexation,5907022,Okanagan-Similkameen A,RDA,6,Area lost due to partial annexation,0.0,0.0,0.0,06/05/2024,590218
+5955042,Peace River C,RDA,8,Area and population gained due to correction,5955040,Peace River B,RDA,9,Area and population lost due to correction,15.0,6.0,5.0,02/01/2021,590235
+5929011,Sechelt,DM,8C,Area gained due to boundary correction,5929803,Sechelt (Part),IGD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590206
+5927806,Sechelt (Part),IGD,8C,Area gained due to boundary correction,5927016,qathet C,RDA,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590204
+5929803,Sechelt (Part),IGD,8C,Area gained due to boundary correction,5929011,Sechelt,DM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590205
+5929803,Sechelt (Part),IGD,8C,Area gained due to boundary correction,5929018,Sunshine Coast A,RDA,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590208
+5929803,Sechelt (Part),IGD,8C,Area gained due to boundary correction,5929022,Sunshine Coast B,RDA,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590210
+5949818,Sik-e-dakh 2,IRI,8C,Area gained due to boundary correction,5949028,Kitimat-Stikine B,RDA,9C,Area lost due to boundary correction,...,...,...,30/09/2010,590224
+5903027,Silverton,VL,8,Area and population gained due to correction,5903052,Central Kootenay H,RDA,9,Area and population lost due to correction,15.0,10.0,9.0,02/01/2021,590213
+5903027,Silverton,VL,10,Population gained due to correction,5903052,Central Kootenay H,RDA,11,Population lost due to correction,10.0,6.0,6.0,02/01/2021,590248
+5931006,Squamish,DM,8C,Area gained due to boundary correction,5931801,Cheakamus 11,IRI,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590221
+5931006,Squamish,DM,8C,Area gained due to boundary correction,5931802,Kowtain 17,IRI,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590223
+5931006,Squamish,DM,8C,Area gained due to boundary correction,5931021,Squamish-Lillooet D,RDA,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590238
+5931021,Squamish-Lillooet D,RDA,8C,Area gained due to boundary correction,5931801,Cheakamus 11,IRI,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590220
+5931021,Squamish-Lillooet D,RDA,8,Area and population gained due to correction,5931006,Squamish,DM,9,Area and population lost due to correction,5.0,1.0,1.0,02/01/2021,590239
+5901808,St. Mary's,IRI,8C,Area gained due to boundary correction,5901022,Cranbrook,CY,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590215
+5929018,Sunshine Coast A,RDA,8C,Area gained due to boundary correction,5929022,Sunshine Coast B,RDA,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590207
+5929018,Sunshine Coast A,RDA,8C,Area gained due to boundary correction,5929803,Sechelt (Part),IGD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590207
+5929022,Sunshine Coast B,RDA,8C,Area gained due to boundary correction,5929803,Sechelt (Part),IGD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590209
+5933032,Thompson-Nicola E (Bonaparte Plateau),RDA,8,Area and population gained due to correction,5933028,Clinton,VL,9,Area and population lost due to correction,15.0,6.0,4.0,02/01/2021,590211
+5915802,Tsawwassen,TWL,5,Area gained due to partial annexation,5915011,Delta,CY,6,Area lost due to partial annexation,0.0,1.0,1.0,30/08/2024,590234
+5935803,Tsinstikeptum 10,IRI,8,Area and population gained due to correction,5935029,West Kelowna,CY,9,Area and population lost due to correction,10.0,3.0,3.0,02/01/2021,590240
+5909830,Tzeachten 13,IRI,5,Area gained due to partial annexation,5909020,Chilliwack,CY,6,Area lost due to partial annexation,5.0,3.0,2.0,31/12/2024,590245
+5951840,Williams Prairie Meadow 1A,IRI,8C,Area gained due to boundary correction,5951013,Fort St. James,DM,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590226
+5955805,Wochiigii Nané?,IRI,1,Incorporation from part,5955042,Peace River C,RDA,6,Area lost due to incorporation,5.0,3.0,3.0,19/11/2024,590250
+5927016,qathet C,RDA,8C,Area gained due to boundary correction,5927806,Sechelt (Part),IGD,9C,Area lost due to boundary correction,...,...,...,02/01/2021,590203
+Yukon,,,,,,,,,,,,,,
+6001048,Carcross,SÉ,8,Area and population gained due to correction,6001045,"Yukon, Unorganized",NO,9,Area and population lost due to correction,58.0,30.0,27.0,02/01/2021,600025
+6001008,Carcross 4,SG,8,Area and population gained due to correction,6001048,Carcross,SÉ,9,Area and population lost due to correction,15.0,13.0,10.0,02/01/2021,600023
+6001045,"Yukon, Unorganized",NO,8C,Area gained due to boundary correction,6001048,Carcross,SÉ,9C,Area lost due to boundary correction,...,...,...,02/01/2021,600024
+6001045,"Yukon, Unorganized",NO,5A,Area gained due to complete annexation,6001019,Kloo Lake,S-É,4,Dissolution,0.0,2.0,1.0,02/01/2021,600026
+6001045,"Yukon, Unorganized",NO,5A,Area gained due to complete annexation,6001031,Moosehide Creek 2,SG,4,Dissolution,0.0,0.0,0.0,02/01/2021,600026
+Northwest Territories,,,,,,,,,,,,,,
+6101063,"Region 1, Unorganized",NO,8,Area and population gained due to correction,6101010,Tsiigehtchic,CC,9,Area and population lost due to correction,5.0,1.0,1.0,02/01/2021,610031
+6105097,"Region 5, Unorganized",NO,8,Area and population gained due to correction,6105001,Fort Smith,T,9,Area and population lost due to correction,30.0,18.0,10.0,02/01/2021,610032
+6101010,Tsiigehtchic,CC,8C,Area gained due to boundary correction,6101063,"Region 1, Unorganized",NO,9C,Area lost due to boundary correction,...,...,...,02/01/2021,610030
+6103034,Whatì,CG,8C,Area gained due to boundary correction,6103097,"Region 3, Unorganized",NO,9C,Area lost due to boundary correction,...,...,...,02/01/2021,610033
+Nunavut,,,,,,,,,,,,,,
+... not applicable,,,,,,,,,,,,,,

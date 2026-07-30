@@ -168,6 +168,17 @@ class OfficialSourceAcquisitionTests(unittest.TestCase):
                 "on-fir-2024",
                 "on-fir-2023",
                 "on-municipalities-current",
+                # StatCan 92F0009X interim lists - the official record of
+                # municipal dissolutions, feeding the former-municipalities
+                # crosswalk (issue #34). Exact-list on purpose: a lock that
+                # appears here uninvited is a source nobody decided to trust.
+                "statcan-il-2001-2006",
+                "statcan-il-2006-2011-t1",
+                "statcan-il-2011-2016-t1",
+                "statcan-il-2011-2016-t2",
+                "statcan-il-2016-2021",
+                "statcan-il-2025",
+                "statcan-pop-estimates-17100155",
             ],
         )
         for lock in locks:
@@ -574,3 +585,329 @@ class ReviewerAttributionTests(unittest.TestCase):
 
     def test_the_policy_boundary_is_declared_in_utc(self) -> None:
         self.assertIsNotNone(ATTRIBUTION_REQUIRED_FROM.tzinfo)
+
+
+class CompanionMemberTests(unittest.TestCase):
+    """A publisher may ship metadata beside the data; nothing may ship uninvited.
+
+    StatCan full-table zips carry <table>_MetaData.csv next to the table. The
+    lock declares companions explicitly and the member SET stays exact: an
+    undeclared extra refuses, a declared-but-missing companion refuses, and
+    only the primary member is scanned and hashed.
+    """
+
+    def _payload(self, extra: bool) -> bytes:
+        return _zip_bytes(
+            _csv_bytes([("2025", "3001", "ok")]), extra_member=extra
+        )
+
+    def test_a_declared_companion_is_accepted(self) -> None:
+        payload = self._payload(extra=True)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            lock, _ = _write_lock(
+                root, payload, row_count=1, record_count=1,
+                mutate=lambda d: d.update(
+                    archiveCompanionMembers=["unexpected.csv"]
+                ),
+            )
+            lock.local_path.parent.mkdir(parents=True)
+            lock.local_path.write_bytes(payload)
+            self.assertEqual(verify_offline(lock)["status"], "verified-offline")
+
+    def test_an_undeclared_extra_member_still_refuses(self) -> None:
+        payload = self._payload(extra=True)
+        clean = self._payload(extra=False)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            lock, _ = _write_lock(root, payload, row_count=1, record_count=1)
+            lock.local_path.parent.mkdir(parents=True)
+            lock.local_path.write_bytes(payload)
+            with self.assertRaisesRegex(OfficialSourceError, "ZIP members changed"):
+                verify_offline(lock)
+
+    def test_a_declared_companion_that_vanishes_refuses(self) -> None:
+        clean = self._payload(extra=False)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            lock, _ = _write_lock(
+                root, clean, row_count=1, record_count=1,
+                mutate=lambda d: d.update(
+                    archiveCompanionMembers=["unexpected.csv"]
+                ),
+            )
+            lock.local_path.parent.mkdir(parents=True)
+            lock.local_path.write_bytes(clean)
+            with self.assertRaisesRegex(OfficialSourceError, "ZIP members changed"):
+                verify_offline(lock)
+
+
+def _as_document_lock(document: dict) -> None:
+    """Reshape the fixture into a reviewed document (PDF) lock."""
+    document.update(
+        {
+            "mediaType": "application/pdf",
+            "structure": "document",
+            "archiveMember": None,
+            "encoding": None,
+            "headers": None,
+            "fiscalYear": None,
+            "fiscalYearField": None,
+            "recordIdField": None,
+            "rowCount": 0,
+            "recordCount": 0,
+            "localPath": "source-pdfs/statcan/doc.pdf",
+        }
+    )
+
+
+class DocumentStructureTests(unittest.TestCase):
+    """Some official sources are documents, not tables.
+
+    A scanned PDF or a legacy bilingual export (split headers, footnote tails)
+    has no honest tabular schema. Locking one as `structure: document` pins its
+    bytes without claiming structure nobody parsed — and the schema must refuse
+    any tabular field on such a lock, or the distinction means nothing.
+    """
+
+    PDF = b"%PDF-1.7\nreviewed document bytes\n%%EOF\n"
+
+    def test_a_reviewed_pdf_verifies_by_its_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                self.PDF,
+                row_count=0,
+                record_count=0,
+                mutate=_as_document_lock,
+            )
+            observed = inspect_payload(self.PDF, lock)
+            self.assertEqual(observed["rowCount"], 0)
+            self.assertEqual(_lock_differences(lock, observed), {})
+
+    def test_a_tampered_document_is_named(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                self.PDF,
+                row_count=0,
+                record_count=0,
+                mutate=_as_document_lock,
+            )
+            tampered = self.PDF + b" "
+            differences = _lock_differences(lock, inspect_payload(tampered, lock))
+            self.assertIn("sha256", differences)
+
+    def test_a_pdf_lock_refuses_a_payload_that_is_not_a_pdf(self) -> None:
+        payload = b"<html>not a pdf</html>"
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                payload,
+                row_count=0,
+                record_count=0,
+                mutate=_as_document_lock,
+            )
+            with self.assertRaisesRegex(OfficialSourceError, "PDF header"):
+                inspect_payload(payload, lock)
+
+    def test_a_pdf_lock_must_declare_document_structure(self) -> None:
+        def mutate(document: dict) -> None:
+            _as_document_lock(document)
+            del document["structure"]  # default is tabular
+
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(OfficialSourceError, "structure"):
+                _write_lock(
+                    Path(tmp), self.PDF, row_count=0, record_count=0, mutate=mutate
+                )
+
+    def test_a_zip_lock_cannot_claim_document_structure(self) -> None:
+        payload = _zip_bytes(_csv_bytes([("2025", "3001", "ok")]))
+
+        def mutate(document: dict) -> None:
+            _as_document_lock(document)
+            document["mediaType"] = "application/zip"
+            # keep a valid member so the refusal is specifically structural
+            document["archiveMember"] = "fir_data_2025.csv"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(OfficialSourceError, "structure"):
+                _write_lock(
+                    Path(tmp), payload, row_count=0, record_count=0, mutate=mutate
+                )
+
+    def test_a_document_lock_cannot_carry_tabular_claims(self) -> None:
+        plants = {
+            "headers": ["A", "B"],
+            "encoding": "utf-8",
+            "recordIdField": "A",
+            "fiscalYearField": "B",
+            "rowCount": 1,
+            "recordCount": 1,
+            "skipLeadingRows": 2,
+            "maxExtraColumns": 1,
+        }
+        for field, value in plants.items():
+            with self.subTest(field=field):
+
+                def mutate(document: dict, field=field, value=value) -> None:
+                    _as_document_lock(document)
+                    document[field] = value
+
+                with tempfile.TemporaryDirectory() as tmp:
+                    with self.assertRaises(OfficialSourceError):
+                        _write_lock(
+                            Path(tmp),
+                            self.PDF,
+                            row_count=0,
+                            record_count=0,
+                            mutate=mutate,
+                        )
+
+    def test_a_legacy_csv_document_lock_verifies_by_bytes(self) -> None:
+        # A bilingual 2011-era export: split headers, footnote tail. No
+        # tabular schema fits, so the lock pins bytes and claims nothing else.
+        payload = (
+            "Table 1 / Tableau 1,,\r\n"
+            "Census subdivision,,Type\r\n"
+            "Subdivision de recensement,,Genre\r\n"
+            "Ajax,TP,8C\r\n"
+            "la population a été augmentée,,\r\n"
+        ).encode("cp1252")
+
+        def mutate(document: dict) -> None:
+            _as_document_lock(document)
+            document["mediaType"] = "text/csv"
+            document["localPath"] = "source-pdfs/statcan/legacy.csv"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp), payload, row_count=0, record_count=0, mutate=mutate
+            )
+            self.assertEqual(
+                _lock_differences(lock, inspect_payload(payload, lock)), {}
+            )
+
+
+class SkipLeadingRowsTests(unittest.TestCase):
+    """Reviewed title lines before the real CSV header.
+
+    StatCan exports open with one or two title rows. The reviewer declares how
+    many; the header must then match at exactly that position — a scan that
+    hunted for a plausible header would be inferring the schema it exists to
+    pin.
+    """
+
+    PREAMBLE = "Table 1,,\r\nChanges to census subdivisions,,\r\n"
+
+    def _payload(self, *, preamble: str | None = None) -> bytes:
+        body = ",".join(HEADERS) + "\r\n" + "2025,3001,ok\r\n"
+        return ((self.PREAMBLE if preamble is None else preamble) + body).encode(
+            "utf-8"
+        )
+
+    @staticmethod
+    def _as_csv_lock(document: dict, *, skip: int | None = 2) -> None:
+        document.update(
+            {
+                "mediaType": "text/csv",
+                "archiveMember": None,
+                "localPath": "source-pdfs/statcan/table.csv",
+            }
+        )
+        if skip is not None:
+            document["skipLeadingRows"] = skip
+
+    def test_the_declared_header_position_verifies(self) -> None:
+        payload = self._payload()
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                payload,
+                row_count=1,
+                record_count=1,
+                mutate=self._as_csv_lock,
+            )
+            observed = inspect_payload(payload, lock)
+            self.assertEqual(observed["rowCount"], 1)
+            self.assertEqual(_lock_differences(lock, observed), {})
+
+    def test_an_undeclared_preamble_refuses(self) -> None:
+        payload = self._payload()
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                payload,
+                row_count=1,
+                record_count=1,
+                mutate=lambda document: self._as_csv_lock(document, skip=None),
+            )
+            with self.assertRaisesRegex(OfficialSourceError, "headers changed"):
+                inspect_payload(payload, lock)
+
+    def test_a_header_at_the_wrong_declared_position_refuses(self) -> None:
+        payload = self._payload(preamble="Table 1,,\r\n")  # one line, not two
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                payload,
+                row_count=1,
+                record_count=1,
+                mutate=self._as_csv_lock,
+            )
+            with self.assertRaisesRegex(OfficialSourceError, "headers changed"):
+                inspect_payload(payload, lock)
+
+    def test_a_file_shorter_than_the_declared_preamble_refuses(self) -> None:
+        payload = b"Table 1,,\r\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                payload,
+                row_count=1,
+                record_count=1,
+                mutate=lambda document: self._as_csv_lock(document, skip=4),
+            )
+            with self.assertRaisesRegex(OfficialSourceError, "ended before"):
+                inspect_payload(payload, lock)
+
+    def test_the_preamble_bound_holds(self) -> None:
+        payload = self._payload()
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(OfficialSourceError, "skipLeadingRows"):
+                _write_lock(
+                    Path(tmp),
+                    payload,
+                    row_count=1,
+                    record_count=1,
+                    mutate=lambda document: self._as_csv_lock(document, skip=5),
+                )
+
+    def test_a_reviewed_cp1252_export_verifies(self) -> None:
+        body = ",".join(HEADERS) + "\r\n" + "2025,3001,augmentée\r\n"
+        payload = (self.PREAMBLE + body).encode("cp1252")
+
+        def mutate(document: dict) -> None:
+            self._as_csv_lock(document)
+            document["encoding"] = "cp1252"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp), payload, row_count=1, record_count=1, mutate=mutate
+            )
+            self.assertEqual(inspect_payload(payload, lock)["rowCount"], 1)
+
+    def test_cp1252_bytes_under_a_utf8_lock_refuse(self) -> None:
+        body = ",".join(HEADERS) + "\r\n" + "2025,3001,augmentée\r\n"
+        payload = (self.PREAMBLE + body).encode("cp1252")
+        with tempfile.TemporaryDirectory() as tmp:
+            lock, _ = _write_lock(
+                Path(tmp),
+                payload,
+                row_count=1,
+                record_count=1,
+                mutate=self._as_csv_lock,  # keeps the fixture's utf-8
+            )
+            with self.assertRaisesRegex(OfficialSourceError, "encoding"):
+                inspect_payload(payload, lock)
