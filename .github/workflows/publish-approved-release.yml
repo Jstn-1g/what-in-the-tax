@@ -110,8 +110,8 @@ jobs:
           if run.get("path", "").split("@", 1)[0] != ".github/workflows/release-validation.yml":
               failures.append("run is not the release-validation workflow")
           head_repository = (run.get("head_repository") or {}).get("full_name")
-          if head_repository and head_repository != os.environ.get("GITHUB_REPOSITORY"):
-              failures.append("validation run originated from another repository")
+          if head_repository != os.environ.get("GITHUB_REPOSITORY"):
+              failures.append("validation run head repository is missing or is not this repository")
           if failures:
               print("Invalid validation provenance:", file=sys.stderr)
               for failure in failures:

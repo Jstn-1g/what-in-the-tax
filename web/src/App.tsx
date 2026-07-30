@@ -217,6 +217,15 @@ function ProductFooter() {
           </>
         ) : null}
       </p>
+      {/* Both source licences require these statements to travel with the
+          data: the FIR figures are Open Government Licence - Ontario, and the
+          geography and census tables are Statistics Canada Open Licence. */}
+      <p>
+        Contains information licensed under the Open Government Licence
+        &ndash; Ontario. Includes data adapted from Statistics Canada. This
+        does not constitute an endorsement by Statistics Canada of this
+        product.
+      </p>
       <nav className="product-footer__links" aria-label="Project links">
         <a href={`${import.meta.env.BASE_URL}privacy.txt`}>Privacy</a>
         {repoUrl ? (
