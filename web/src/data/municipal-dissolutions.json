@@ -1,0 +1,265 @@
+{
+  "schemaVersion": "municipal-dissolutions-1.0.0",
+  "jurisdiction": "CA-ON",
+  "method": {
+    "description": "Every change-code-4 (dissolution) event in the hash-locked StatCan 92F0009X interim lists, parsed from the exact reviewed bytes. Editions before 2006 exist only as a locked PDF; that era stays hand-curated in the crosswalk.",
+    "coverageStart": "2006-01-02",
+    "coverageEnd": "2025-01-01",
+    "nonTaxingTypes": [
+      "IRI",
+      "NO",
+      "S-E",
+      "S-É",
+      "SE"
+    ],
+    "runtimeAiRequired": false
+  },
+  "sources": [
+    {
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sha256": "fd14eece58d2d128259a4dea134699bb933f375a38cbbb133a4f9b88ff44dc5f",
+      "reviewedBy": "Justin Skowyra",
+      "eventsFound": 13
+    },
+    {
+      "sourceId": "statcan-il-2011-2016-t1",
+      "sha256": "0e93220acb3fdd993885b393c913569cec34505a29944b92bb4b7ea3be657aa0",
+      "reviewedBy": "Justin Skowyra",
+      "eventsFound": 1
+    },
+    {
+      "sourceId": "statcan-il-2016-2021",
+      "sha256": "9490cb13b19e0ffc7e6a433063fbb4e07be3339408e3c1b472917dba083fcd38",
+      "reviewedBy": "Justin Skowyra",
+      "eventsFound": 6
+    },
+    {
+      "sourceId": "statcan-il-2025",
+      "sha256": "b8a29420b27fa1f6387a01655ffac3f30b40e8193256992efd3facd4782b887e",
+      "reviewedBy": "Justin Skowyra",
+      "eventsFound": 0
+    }
+  ],
+  "events": [
+    {
+      "dissolved": "Manitoulin, Unorganized, Mainland",
+      "dissolvedType": "NO",
+      "successor": "Killarney",
+      "successorType": "MU",
+      "effectiveDate": "2006-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 329,
+      "sgcCode": "3551091"
+    },
+    {
+      "dissolved": "Barrie Island",
+      "dissolvedType": "TP",
+      "successor": "Gordon/Barrie Island",
+      "successorType": "MU",
+      "effectiveDate": "2009-01-01",
+      "leviedPropertyTax": true,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 40,
+      "sgcCode": "3551031"
+    },
+    {
+      "dissolved": "Gordon",
+      "dissolvedType": "TP",
+      "successor": "Gordon/Barrie Island",
+      "successorType": "MU",
+      "effectiveDate": "2009-01-01",
+      "leviedPropertyTax": true,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 209,
+      "sgcCode": "3551024"
+    },
+    {
+      "dissolved": "Lake Of The Woods 31G",
+      "dissolvedType": "IRI",
+      "successor": "Kenora, Unorganized",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 295,
+      "sgcCode": "3560062"
+    },
+    {
+      "dissolved": "Missanabie 62",
+      "dissolvedType": "IRI",
+      "successor": "Algoma, Unorganized, North Part",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 350,
+      "sgcCode": "3557082"
+    },
+    {
+      "dissolved": "Mountbatten 76A",
+      "dissolvedType": "IRI",
+      "successor": "Sudbury, Unorganized, North Part",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 369,
+      "sgcCode": "3552055"
+    },
+    {
+      "dissolved": "Naiscoutaing 17A",
+      "dissolvedType": "IRI",
+      "successor": "Parry Sound, Unorganized, Centre Part",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 372,
+      "sgcCode": "3549079"
+    },
+    {
+      "dissolved": "New Post 69",
+      "dissolvedType": "IRI",
+      "successor": "Cochrane, Unorganized, North Part",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 375,
+      "sgcCode": "3556104"
+    },
+    {
+      "dissolved": "Sachigo Lake 2",
+      "dissolvedType": "IRI",
+      "successor": "Kenora, Unorganized",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 482,
+      "sgcCode": "3560087"
+    },
+    {
+      "dissolved": "Wapekeka 1",
+      "dissolvedType": "IRI",
+      "successor": "Kenora, Unorganized",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 660,
+      "sgcCode": "3560074"
+    },
+    {
+      "dissolved": "Whitefish River (Part) 4",
+      "dissolvedType": "IRI",
+      "successor": "Sudbury, Unorganized, North Part",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 671,
+      "sgcCode": "3552017"
+    },
+    {
+      "dissolved": "Wunnumin 2",
+      "dissolvedType": "IRI",
+      "successor": "Kenora, Unorganized",
+      "successorType": "NO",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 679,
+      "sgcCode": "3560072"
+    },
+    {
+      "dissolved": "Zhiibaahaasing 19 (Cockburn Island 19)",
+      "dissolvedType": "IRI",
+      "successor": "Cockburn Island",
+      "successorType": "TP",
+      "effectiveDate": "2010-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2006-2011-t1",
+      "sourceLine": 682,
+      "sgcCode": "3551035"
+    },
+    {
+      "dissolved": "Long Sault 12",
+      "dissolvedType": "IRI",
+      "successor": "Chapple",
+      "successorType": "TP",
+      "effectiveDate": "2011-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2011-2016-t1",
+      "sourceLine": 185,
+      "sgcCode": "3559092"
+    },
+    {
+      "dissolved": "Long Sault 12",
+      "dissolvedType": "IRI",
+      "successor": "Chapple",
+      "successorType": "TP",
+      "effectiveDate": "2016-01-02",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2016-2021",
+      "sourceLine": 499,
+      "sgcCode": "3559030"
+    },
+    {
+      "dissolved": "McDowell Lake",
+      "dissolvedType": "S-É",
+      "successor": "Kenora, Unorganized",
+      "successorType": "NO",
+      "effectiveDate": "2020-05-27",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2016-2021",
+      "sourceLine": 513,
+      "sgcCode": "3560102"
+    },
+    {
+      "dissolved": "Sabaskong Bay (Part) 35C",
+      "dissolvedType": "IRI",
+      "successor": "Lake of the Woods",
+      "successorType": "TP",
+      "effectiveDate": "2020-05-27",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2016-2021",
+      "sourceLine": 516,
+      "sgcCode": "3559048"
+    },
+    {
+      "dissolved": "Sabaskong Bay (Part) 35C",
+      "dissolvedType": "IRI",
+      "successor": "Sioux Narrows-Nestor Falls",
+      "successorType": "TP",
+      "effectiveDate": "2020-05-27",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2016-2021",
+      "sourceLine": 529,
+      "sgcCode": "3560007"
+    },
+    {
+      "dissolved": "Seine River 22A2",
+      "dissolvedType": "IRI",
+      "successor": "Thunder Bay, Unorganized",
+      "successorType": "NO",
+      "effectiveDate": "2020-05-27",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2016-2021",
+      "sourceLine": 537,
+      "sgcCode": "3558095"
+    },
+    {
+      "dissolved": "Seine River 23B",
+      "dissolvedType": "IRI",
+      "successor": "Rainy River, Unorganized",
+      "successorType": "NO",
+      "effectiveDate": "2020-05-27",
+      "leviedPropertyTax": false,
+      "sourceId": "statcan-il-2016-2021",
+      "sourceLine": 525,
+      "sgcCode": "3559065"
+    }
+  ]
+}

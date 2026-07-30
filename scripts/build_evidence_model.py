@@ -641,7 +641,7 @@ facts = [
     fact(
         id="ND-POP-STATCAN-2025",
         sourceId="statcan-csd-estimates",
-        page=None,
+        page=1,
         label="North Dumfries population estimate (StatCan, July 1, 2025)",
         value=13_051,
         excerpt='"2025","North Dumfries (TP), Ontario","2021A00053530004","Persons","249","units","0","v1592182818","2275","13051"',
@@ -652,7 +652,7 @@ facts = [
     fact(
         id="ND-POP-STATCAN-2023",
         sourceId="statcan-csd-estimates",
-        page=None,
+        page=1,
         label="North Dumfries population estimate (StatCan, July 1, 2023)",
         value=12_047,
         excerpt='"2023","North Dumfries (TP), Ontario","2021A00053530004","Persons","249","units","0","v1592182818","2275","12047"',
@@ -662,7 +662,7 @@ facts = [
     fact(
         id="FIR-GG-ND-2023",
         sourceId="mmah-fir-2023",
-        page=None,
+        page=1,
         label="FIR 2023 General government — Total Expenses Before Adjustments (North Dumfries)",
         amountCad=1_933_805,
         excerpt="2023,3001,North Dumfries Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,1933805",
@@ -673,7 +673,7 @@ facts = [
     fact(
         id="FIR-GG-WELLESLEY-2023",
         sourceId="mmah-fir-2023",
-        page=None,
+        page=1,
         label="FIR 2023 General government — Total Expenses Before Adjustments (Wellesley)",
         amountCad=2_104_106,
         excerpt="2023,3024,Wellesley Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,2104106",
@@ -683,7 +683,7 @@ facts = [
     fact(
         id="FIR-GG-WILMOT-2023",
         sourceId="mmah-fir-2023",
-        page=None,
+        page=1,
         label="FIR 2023 General government — Total Expenses Before Adjustments (Wilmot)",
         amountCad=4_008_877,
         excerpt="2023,3018,Wilmot Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,4008877",
@@ -693,7 +693,7 @@ facts = [
     fact(
         id="FIR-GG-WOOLWICH-2023",
         sourceId="mmah-fir-2023",
-        page=None,
+        page=1,
         label="FIR 2023 General government — Total Expenses Before Adjustments (Woolwich)",
         amountCad=4_153_213,
         excerpt="2023,3029,Woolwich Tp,...,General government,Total Expenses Before Adjustments,slc.40X.L0299.C01.07,4153213",
@@ -703,7 +703,7 @@ facts = [
     fact(
         id="STATCAN-POP-WELLESLEY-2023",
         sourceId="statcan-csd-estimates",
-        page=None,
+        page=1,
         label="Wellesley population estimate (StatCan, July 1, 2023)",
         value=12_253,
         excerpt='"2023","Wellesley (TP), Ontario","2021A00053530027","Persons","249","units","0","v1592182823","2266","12253"',
@@ -713,7 +713,7 @@ facts = [
     fact(
         id="STATCAN-POP-WILMOT-2023",
         sourceId="statcan-csd-estimates",
-        page=None,
+        page=1,
         label="Wilmot population estimate (StatCan, July 1, 2023)",
         value=23_244,
         excerpt='"2023","Wilmot (TP), Ontario","2021A00053530020","Persons","249","units","0","v1592182822","2215","23244"',
@@ -723,7 +723,7 @@ facts = [
     fact(
         id="STATCAN-POP-WOOLWICH-2023",
         sourceId="statcan-csd-estimates",
-        page=None,
+        page=1,
         label="Woolwich population estimate (StatCan, July 1, 2023)",
         value=30_909,
         excerpt='"2023","Woolwich (TP), Ontario","2021A00053530035","Persons","249","units","0","v1592182824","2197","30909"',

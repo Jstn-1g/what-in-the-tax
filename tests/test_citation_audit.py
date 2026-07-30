@@ -370,3 +370,27 @@ class ArchiveMemberExtractTests(unittest.TestCase):
             },
             HASH_MISMATCH_ISSUES,
         )
+
+
+class SinglePageExtractTests(unittest.TestCase):
+    """An extract with no page markers is a one-page document.
+
+    Tabular sources (CSVs, ZIP members) have no pages to mark, and their
+    facts must still cite a page for seal-grade validation to call them
+    fully bound. Page 1 is the only citable page; anything else stays a
+    hard bad-page-number failure rather than a silent whole-document match.
+    """
+
+    def test_an_unmarked_extract_is_page_one(self) -> None:
+        from scripts.audit_citations import split_pages
+
+        text = '"2025","North Dumfries (TP), Ontario","13051"\r\n'
+        self.assertEqual(split_pages(text), {1: text})
+
+    def test_marked_extracts_keep_their_own_pagination(self) -> None:
+        from scripts.audit_citations import split_pages
+
+        text = "===== PAGE 3 =====\nthird page text"
+        pages = split_pages(text)
+        self.assertEqual(list(pages), [3])
+        self.assertNotIn(1, pages)

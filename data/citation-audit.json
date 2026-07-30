@@ -9,13 +9,9 @@
     "unverifiable": 1
   },
   "bindingIssueCounts": {
-    "extract-sha256-missing": 88,
-    "source-bytes-missing": 93,
-    "source-sha256-missing": 93,
     "amount-sign-mismatch": 2,
     "source-path-missing": 1,
-    "extract-path-missing": 1,
-    "page-citation-missing": 9
+    "extract-path-missing": 1
   },
   "results": [
     {
@@ -23,11 +19,7 @@
       "sourceId": "nd-2026-draft",
       "page": 8,
       "amountCad": 9002499,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -36,11 +28,7 @@
       "sourceId": "nd-2026-draft",
       "page": 8,
       "amountCad": 8427827,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -49,11 +37,7 @@
       "sourceId": "nd-2026-draft",
       "page": 8,
       "amountCad": 574672,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -62,11 +46,7 @@
       "sourceId": "nd-2026-draft",
       "page": 8,
       "amountCad": null,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -75,11 +55,7 @@
       "sourceId": "nd-2026-budget-minutes",
       "page": 5,
       "amountCad": 9002499,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -88,11 +64,7 @@
       "sourceId": "nd-2026-tax-rate-bylaw",
       "page": 103,
       "amountCad": null,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -101,11 +73,7 @@
       "sourceId": "nd-2026-tax-rate-bylaw",
       "page": 103,
       "amountCad": null,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -114,11 +82,7 @@
       "sourceId": "nd-2026-tax-rate-bylaw",
       "page": 103,
       "amountCad": null,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -127,11 +91,7 @@
       "sourceId": "nd-2026-tax-rate-bylaw",
       "page": 103,
       "amountCad": null,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -140,11 +100,7 @@
       "sourceId": "nd-2026-tax-rate-bylaw",
       "page": 103,
       "amountCad": null,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -153,11 +109,7 @@
       "sourceId": "nd-2026-tax-rate-bylaw",
       "page": 103,
       "amountCad": null,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -166,11 +118,7 @@
       "sourceId": "nd-2026-tax-rate-minutes",
       "page": 6,
       "amountCad": null,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -179,11 +127,7 @@
       "sourceId": "nd-2026-tax-rate-bylaw",
       "page": 101,
       "amountCad": 9002462,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -192,11 +136,7 @@
       "sourceId": "nd-2026-draft",
       "page": 8,
       "amountCad": 455000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -205,11 +145,7 @@
       "sourceId": "nd-2026-draft",
       "page": 8,
       "amountCad": 1434.63,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -218,11 +154,7 @@
       "sourceId": "nd-2026-draft",
       "page": 8,
       "amountCad": 1505.47,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -231,11 +163,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 2091306,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -244,11 +172,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 1182646,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -257,11 +181,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 1554793,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -270,11 +190,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 2477423,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -283,11 +199,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 1867455,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -296,11 +208,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 1468430,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -309,11 +217,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 1466225,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -322,11 +226,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 451372,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -335,11 +235,7 @@
       "sourceId": "nd-2026-draft",
       "page": 43,
       "amountCad": 1625000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -348,11 +244,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 1607500,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -361,11 +253,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": -225,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -374,11 +262,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 201669,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -387,11 +271,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 37034,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -400,11 +280,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 1841803,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -414,10 +290,7 @@
       "page": 9,
       "amountCad": 9182824,
       "bindingIssues": [
-        "amount-sign-mismatch",
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
+        "amount-sign-mismatch"
       ],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
@@ -428,10 +301,7 @@
       "page": 9,
       "amountCad": 866800,
       "bindingIssues": [
-        "amount-sign-mismatch",
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
+        "amount-sign-mismatch"
       ],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
@@ -441,11 +311,7 @@
       "sourceId": "nd-2026-draft",
       "page": 57,
       "amountCad": 31192121,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -454,11 +320,7 @@
       "sourceId": "nd-2026-draft",
       "page": 53,
       "amountCad": 16190160,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -467,11 +329,7 @@
       "sourceId": "nd-2026-draft",
       "page": 43,
       "amountCad": 5000000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -480,11 +338,7 @@
       "sourceId": "nd-2026-draft",
       "page": 52,
       "amountCad": 3500000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -493,11 +347,7 @@
       "sourceId": "nd-2026-draft",
       "page": 54,
       "amountCad": 568756,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -506,11 +356,7 @@
       "sourceId": "nd-2026-draft",
       "page": 54,
       "amountCad": 185500,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -519,11 +365,7 @@
       "sourceId": "nd-2026-draft",
       "page": 46,
       "amountCad": 150000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -532,11 +374,7 @@
       "sourceId": "nd-2026-draft",
       "page": 47,
       "amountCad": 405000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -545,11 +383,7 @@
       "sourceId": "nd-2026-draft",
       "page": 18,
       "amountCad": 27000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -558,11 +392,7 @@
       "sourceId": "nd-2026-draft",
       "page": 18,
       "amountCad": 22000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -571,11 +401,7 @@
       "sourceId": "nd-2026-draft",
       "page": 24,
       "amountCad": 12000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "alnum",
       "note": "matched after stripping non-alphanumerics (PDF spacing/ligature loss)"
     },
@@ -584,11 +410,7 @@
       "sourceId": "nd-2026-draft",
       "page": 26,
       "amountCad": 25000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -597,11 +419,7 @@
       "sourceId": "nd-2026-draft",
       "page": 41,
       "amountCad": 8000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -610,11 +428,7 @@
       "sourceId": "nd-2026-draft",
       "page": 16,
       "amountCad": 40000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -623,11 +437,7 @@
       "sourceId": "nd-2026-draft",
       "page": 16,
       "amountCad": 10000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -636,11 +446,7 @@
       "sourceId": "nd-2026-draft",
       "page": 16,
       "amountCad": 3500,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -649,11 +455,7 @@
       "sourceId": "nd-2026-draft",
       "page": 18,
       "amountCad": 8500,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -662,11 +464,7 @@
       "sourceId": "nd-2026-draft",
       "page": 41,
       "amountCad": 20000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -675,11 +473,7 @@
       "sourceId": "nd-2026-draft",
       "page": 41,
       "amountCad": 5000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "numbers-only",
       "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
     },
@@ -688,11 +482,7 @@
       "sourceId": "nd-2026-draft",
       "page": 41,
       "amountCad": 1725,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -701,11 +491,7 @@
       "sourceId": "nd-2026-draft",
       "page": 41,
       "amountCad": 5000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -714,11 +500,7 @@
       "sourceId": "nd-2026-draft",
       "page": 9,
       "amountCad": 10875,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -737,134 +519,90 @@
     {
       "id": "ND-POP-STATCAN-2025",
       "sourceId": "statcan-csd-estimates",
-      "page": null,
+      "page": 1,
       "amountCad": null,
-      "bindingIssues": [
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
-      "note": "no page cited; searched the whole extract"
+      "note": ""
     },
     {
       "id": "ND-POP-STATCAN-2023",
       "sourceId": "statcan-csd-estimates",
-      "page": null,
+      "page": 1,
       "amountCad": null,
-      "bindingIssues": [
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
-      "note": "no page cited; searched the whole extract"
+      "note": ""
     },
     {
       "id": "FIR-GG-ND-2023",
       "sourceId": "mmah-fir-2023",
-      "page": null,
+      "page": 1,
       "amountCad": 1933805,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page; no page cited; searched the whole extract"
+      "note": "amount and label words co-occur on one line of the cited page"
     },
     {
       "id": "FIR-GG-WELLESLEY-2023",
       "sourceId": "mmah-fir-2023",
-      "page": null,
+      "page": 1,
       "amountCad": 2104106,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page; no page cited; searched the whole extract"
+      "note": "amount and label words co-occur on one line of the cited page"
     },
     {
       "id": "FIR-GG-WILMOT-2023",
       "sourceId": "mmah-fir-2023",
-      "page": null,
+      "page": 1,
       "amountCad": 4008877,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page; no page cited; searched the whole extract"
+      "note": "amount and label words co-occur on one line of the cited page"
     },
     {
       "id": "FIR-GG-WOOLWICH-2023",
       "sourceId": "mmah-fir-2023",
-      "page": null,
+      "page": 1,
       "amountCad": 4153213,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page; no page cited; searched the whole extract"
+      "note": "amount and label words co-occur on one line of the cited page"
     },
     {
       "id": "STATCAN-POP-WELLESLEY-2023",
       "sourceId": "statcan-csd-estimates",
-      "page": null,
+      "page": 1,
       "amountCad": null,
-      "bindingIssues": [
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
-      "note": "no page cited; searched the whole extract"
+      "note": ""
     },
     {
       "id": "STATCAN-POP-WILMOT-2023",
       "sourceId": "statcan-csd-estimates",
-      "page": null,
+      "page": 1,
       "amountCad": null,
-      "bindingIssues": [
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
-      "note": "no page cited; searched the whole extract"
+      "note": ""
     },
     {
       "id": "STATCAN-POP-WOOLWICH-2023",
       "sourceId": "statcan-csd-estimates",
-      "page": null,
+      "page": 1,
       "amountCad": null,
-      "bindingIssues": [
-        "page-citation-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
-      "note": "no page cited; searched the whole extract"
+      "note": ""
     },
     {
       "id": "ROW-LEVY-2026",
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 887329000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -873,11 +611,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 272610000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -886,11 +620,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 2543,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -899,11 +629,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": -78,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -912,11 +638,7 @@
       "sourceId": "row-2026-summary",
       "page": 6,
       "amountCad": 887000000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -925,11 +647,7 @@
       "sourceId": "row-2026-summary",
       "page": 7,
       "amountCad": 772000000,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -938,11 +656,7 @@
       "sourceId": "row-2026-summary",
       "page": 4,
       "amountCad": 142,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "normalized",
       "note": "matched after whitespace/case collapse"
     },
@@ -951,11 +665,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 900,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -964,11 +674,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 63,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -977,11 +683,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 429,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -990,11 +692,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 240,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1003,11 +701,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 213,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1016,11 +710,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 89,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1029,11 +719,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 134,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1042,11 +728,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 53,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1055,11 +737,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 51,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1068,11 +746,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 39,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1081,11 +755,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 49,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1094,11 +764,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 45,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1107,11 +773,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 24,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1120,11 +782,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 33,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1133,11 +791,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 30,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1146,11 +800,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 17,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1159,11 +809,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 19,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1172,11 +818,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 31,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1185,11 +827,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 21,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1198,11 +836,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 24,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1211,11 +845,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 79,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -1224,11 +854,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 16,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -1237,11 +863,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 20,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     }
@@ -1251,21 +873,17 @@
       "sourceId": "nd-2026-draft",
       "sourceFile": {
         "declaredPath": "source-pdfs/2026-draft-budget-binder.pdf",
-        "declaredSha256": null,
+        "declaredSha256": "a1b815cbf6aa3820b7b0c53f9faeadd93dd9d2f48a6dc0345e7d2c8f838830ab",
         "actualSha256": "a1b815cbf6aa3820b7b0c53f9faeadd93dd9d2f48a6dc0345e7d2c8f838830ab",
-        "declaredBytes": null,
+        "declaredBytes": 3922996,
         "actualBytes": 3922996
       },
       "extractFile": {
         "declaredPath": "data/_extracts/2026-draft-budget-binder.txt",
-        "declaredSha256": null,
+        "declaredSha256": "4c68973a132e0e1558788213045bbe00d1949713be1e752ed4f23a3202a8e664",
         "actualSha256": "4c68973a132e0e1558788213045bbe00d1949713be1e752ed4f23a3202a8e664"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     },
@@ -1273,21 +891,17 @@
       "sourceId": "nd-2026-budget-agenda",
       "sourceFile": {
         "declaredPath": "source-pdfs/2026-02-02-special-budget-agenda.pdf",
-        "declaredSha256": null,
+        "declaredSha256": "5665dbc1ca1dd46bc982de21a005b8327da08a384b15eacd8ea7b39fb44e4a02",
         "actualSha256": "5665dbc1ca1dd46bc982de21a005b8327da08a384b15eacd8ea7b39fb44e4a02",
-        "declaredBytes": null,
+        "declaredBytes": 1294321,
         "actualBytes": 1294321
       },
       "extractFile": {
         "declaredPath": "data/_extracts/2026-02-02-special-budget-agenda.txt",
-        "declaredSha256": null,
+        "declaredSha256": "d42da6a85238ec413b607cc579512e6c22f6441a652a536539ebe6b1eac7af87",
         "actualSha256": "d42da6a85238ec413b607cc579512e6c22f6441a652a536539ebe6b1eac7af87"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     },
@@ -1295,21 +909,17 @@
       "sourceId": "nd-2026-budget-minutes",
       "sourceFile": {
         "declaredPath": "source-pdfs/2026-02-02-special-budget-minutes.pdf",
-        "declaredSha256": null,
+        "declaredSha256": "b3ec062eccea5c3bcfb1ec25c2ed2814d6915bfb716205fbbef27b366e65a6ac",
         "actualSha256": "b3ec062eccea5c3bcfb1ec25c2ed2814d6915bfb716205fbbef27b366e65a6ac",
-        "declaredBytes": null,
+        "declaredBytes": 2156962,
         "actualBytes": 2156962
       },
       "extractFile": {
         "declaredPath": "data/_extracts/2026-02-02-special-budget-minutes.txt",
-        "declaredSha256": null,
+        "declaredSha256": "e24bbfa790a6b562213116ce2e2b1ea0b988383792414601b8ba388487698872",
         "actualSha256": "e24bbfa790a6b562213116ce2e2b1ea0b988383792414601b8ba388487698872"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     },
@@ -1317,21 +927,17 @@
       "sourceId": "nd-2026-tax-rate-bylaw",
       "sourceFile": {
         "declaredPath": "source-pdfs/2026-04-27-council-agenda.pdf",
-        "declaredSha256": null,
+        "declaredSha256": "0da335ca8390c6941a865d9b267034dce0f050080f9cfe2a574e5b23df89b222",
         "actualSha256": "0da335ca8390c6941a865d9b267034dce0f050080f9cfe2a574e5b23df89b222",
-        "declaredBytes": null,
+        "declaredBytes": 35264383,
         "actualBytes": 35264383
       },
       "extractFile": {
         "declaredPath": "data/_extracts/2026-04-27-council-agenda.txt",
-        "declaredSha256": null,
+        "declaredSha256": "052b03beafa173a9d5ab620e4fffd2085302d8d7701991f5f4735b7d1198de10",
         "actualSha256": "052b03beafa173a9d5ab620e4fffd2085302d8d7701991f5f4735b7d1198de10"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     },
@@ -1339,21 +945,17 @@
       "sourceId": "nd-2026-tax-rate-minutes",
       "sourceFile": {
         "declaredPath": "source-pdfs/2026-04-27-council-minutes.pdf",
-        "declaredSha256": null,
+        "declaredSha256": "43fffc624d05fc1aadb9f9aab1affc1fd4c320f0d6a9b8b7154337c49f50cdfd",
         "actualSha256": "43fffc624d05fc1aadb9f9aab1affc1fd4c320f0d6a9b8b7154337c49f50cdfd",
-        "declaredBytes": null,
+        "declaredBytes": 4788808,
         "actualBytes": 4788808
       },
       "extractFile": {
         "declaredPath": "data/_extracts/2026-04-27-council-minutes.txt",
-        "declaredSha256": null,
+        "declaredSha256": "618d58dae350a8c77796318acd2987af7d66a548002400a0f4812c6900ee4bdf",
         "actualSha256": "618d58dae350a8c77796318acd2987af7d66a548002400a0f4812c6900ee4bdf"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     },
@@ -1361,21 +963,17 @@
       "sourceId": "row-2026-book",
       "sourceFile": {
         "declaredPath": "source-pdfs/2026_final_budget_book_region.pdf",
-        "declaredSha256": null,
+        "declaredSha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
         "actualSha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
-        "declaredBytes": null,
+        "declaredBytes": 5442331,
         "actualBytes": 5442331
       },
       "extractFile": {
         "declaredPath": "data/_extracts/2026_final_budget_book_region.txt",
-        "declaredSha256": null,
+        "declaredSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423",
         "actualSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     },
@@ -1383,21 +981,17 @@
       "sourceId": "row-2026-summary",
       "sourceFile": {
         "declaredPath": "source-pdfs/2026-plan-and-budget-summary-booklet.pdf",
-        "declaredSha256": null,
+        "declaredSha256": "b0525cb619840bf9f5d9b7e3e1bbd11f48d7e09aeb8f3f41eb6df77a86f14c2a",
         "actualSha256": "b0525cb619840bf9f5d9b7e3e1bbd11f48d7e09aeb8f3f41eb6df77a86f14c2a",
-        "declaredBytes": null,
+        "declaredBytes": 9965151,
         "actualBytes": 9965151
       },
       "extractFile": {
         "declaredPath": "data/_extracts/2026-plan-and-budget-summary-booklet.txt",
-        "declaredSha256": null,
+        "declaredSha256": "72e39bf3ed08ac670767dcfb42fb5e3c266735d4417e6fe458780ff7a743255b",
         "actualSha256": "72e39bf3ed08ac670767dcfb42fb5e3c266735d4417e6fe458780ff7a743255b"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     },
@@ -1426,9 +1020,9 @@
       "sourceId": "statcan-csd-estimates",
       "sourceFile": {
         "declaredPath": "source-pdfs/statcan/pop-estimates-17100155.zip",
-        "declaredSha256": null,
+        "declaredSha256": "b9375641eadd9843086b7536e3853efd262a7f397d48b5872b9ce3d4afca5dbf",
         "actualSha256": "b9375641eadd9843086b7536e3853efd262a7f397d48b5872b9ce3d4afca5dbf",
-        "declaredBytes": null,
+        "declaredBytes": 2807984,
         "actualBytes": 2807984
       },
       "extractFile": {
@@ -1436,10 +1030,7 @@
         "declaredSha256": null,
         "actualSha256": null
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     },
@@ -1447,21 +1038,17 @@
       "sourceId": "mmah-fir-2023",
       "sourceFile": {
         "declaredPath": "source-pdfs/fir/fir-general-government-peers-2023-2024.csv",
-        "declaredSha256": null,
+        "declaredSha256": "97c1e98e20e905a5e8435adb2b68238d1de7c120969df0379309e5c2ae9fd2eb",
         "actualSha256": "97c1e98e20e905a5e8435adb2b68238d1de7c120969df0379309e5c2ae9fd2eb",
-        "declaredBytes": null,
+        "declaredBytes": 2879,
         "actualBytes": 2879
       },
       "extractFile": {
         "declaredPath": "data/_extracts/fir/fir-general-government-peers-2023-2024.txt",
-        "declaredSha256": null,
+        "declaredSha256": "96296c54b223bd9a85f4dc55b7474a9ccbcd8460f4f2f0e6f9d29bbd0dea50aa",
         "actualSha256": "96296c54b223bd9a85f4dc55b7474a9ccbcd8460f4f2f0e6f9d29bbd0dea50aa"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     }
