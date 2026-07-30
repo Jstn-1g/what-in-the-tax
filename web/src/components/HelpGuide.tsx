@@ -235,11 +235,17 @@ export default function HelpGuide({
               >
                 correction issue
                 <span className="visually-hidden"> (opens in a new tab)</span>
-              </a>{' '}
-              or write to{' '}
-              <a href="mailto:corrections@whatinthetax.com">corrections@whatinthetax.com</a>.
-              Every resolved report is recorded in the repository&apos;s public corrections log,
-              whatever the outcome.
+              </a>
+              . Every resolved report is recorded in the repository&apos;s{' '}
+              <a
+                href="https://github.com/Jstn-1g/what-in-the-tax/blob/main/CORRECTIONS.md"
+                target="_blank"
+                rel="noreferrer"
+              >
+                public corrections log
+                <span className="visually-hidden"> (opens in a new tab)</span>
+              </a>
+              , whatever the outcome.
             </p>
           </section>
 
