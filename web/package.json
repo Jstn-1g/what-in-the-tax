@@ -22,7 +22,7 @@
     "@vitejs/plugin-react": "^5.1.0",
     "axe-core": "^4.12.1",
     "jsdom": "^30.0.1",
-    "typescript": "~5.9.0",
+    "typescript": "~7.0.2",
     "vite": "^7.1.0",
     "vitest": "^3.2.4"
   }
