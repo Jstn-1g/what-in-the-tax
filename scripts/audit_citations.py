@@ -407,12 +407,30 @@ def _amount_binding_issue(fact: dict[str, Any], page_text: str) -> str | None:
     if isinstance(amount, bool) or not isinstance(amount, (int, float)) or amount == 0:
         return None
     absolute = abs(amount)
-    variants = {
-        f"{int(absolute):,}",
-        str(int(absolute)),
-        f"{absolute:,.2f}",
-        f"{absolute:.2f}",
-    }
+
+    # Budget books print large figures in thousands: the Region's page 12 says
+    # 887,329 where the fact's canonical amount is 887,329,000. A fact that
+    # declares scaleFactor states that relationship explicitly - the page
+    # prints canonical / scaleFactor - which is GENERALIZATION-PLAN 9.5's
+    # "printedValue x scaleFactor == canonicalValue" made checkable. The
+    # declaration is validated, never inferred: a nonsense scaleFactor is an
+    # issue in its own right rather than silently ignored, and a canonical
+    # amount that does not divide exactly gets decimal variants only, so
+    # 887,329,432 at scale 1000 can never borrow the page's clean 887,329.
+    scale = fact.get("scaleFactor")
+    if scale is not None:
+        if isinstance(scale, bool) or not isinstance(scale, (int, float)) or scale <= 0:
+            return "scale-factor-invalid"
+        scaled = absolute / scale
+        absolute = scaled
+    # Integer renderings only when the value IS an integer. int() truncates,
+    # so a $298.54 fact used to offer "298" as a variant - and a scaled
+    # 887,329,432 at scale 1000 would have offered the page's clean "887,329".
+    # A truncated rendering matching the page is not the fact being on the
+    # page; it is a different number being on the page.
+    variants = {f"{absolute:,.2f}", f"{absolute:.2f}"}
+    if float(absolute).is_integer():
+        variants |= {f"{int(absolute):,}", str(int(absolute))}
     matches = [
         match
         for variant in variants
