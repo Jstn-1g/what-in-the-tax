@@ -31,9 +31,9 @@ publication:
   publisher: "What in the Tax? project"
   contact: null
   correctionsRoute:
-    type: required-before-publication
-    url: null
-    status: pending-public-contact-channel
+    type: email
+    url: "mailto:corrections@whatinthetax.com"
+    status: active
   approval:
     status: pending-named-human-approval
     approvedBy: null

@@ -270,6 +270,29 @@ class ReleaseVerificationTests(unittest.TestCase):
         self.assertIn("$.publisher.bio (email address)", matches)
         self.assertIn("$.publisher.bio (telephone number)", matches)
 
+    def test_published_corrections_contact_is_exempt_only_in_place(self) -> None:
+        published = "mailto:corrections@whatinthetax.com"
+        self.assertEqual(
+            find_sensitive_strings(
+                {"receipt": {"correctionsRoute": {"url": published}}}
+            ),
+            [],
+        )
+        self.assertEqual(
+            find_sensitive_strings({"publisher": {"bio": published}}),
+            ["$.publisher.bio (email address)"],
+        )
+        self.assertEqual(
+            find_sensitive_strings(
+                {
+                    "receipt": {
+                        "correctionsRoute": {"url": "mailto:alice@example.com"}
+                    }
+                }
+            ),
+            ["$.receipt.correctionsRoute.url (email address)"],
+        )
+
 
 class ReleaseBundleTests(unittest.TestCase):
     def test_exact_prebuilt_public_artifact_is_bound_without_duplication(self) -> None:

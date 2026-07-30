@@ -201,6 +201,50 @@ Rules:
 If you are extending this project to another province, this is the part that
 does not come with you for free. Everything else is a script.
 
+## How an outside contribution reaches publication
+
+The trust chain has three links, held by different people on purpose:
+
+1. **You sign what you personally reviewed.** If you read the source, ran the
+   gates, and stand behind it, the lock carries your name in `reviewedBy`. The
+   attestation rules above apply unchanged: sign only your own review, never
+   one you assume someone else performed.
+2. **A maintainer reviews the pull request.** CODEOWNERS routes the national
+   contracts, source locks, release controls, and workflows to maintainer
+   review. The machine-checkable gates do the heavy lifting; human review
+   confirms what the gates cannot — that the source is what it says it is and
+   that the crosswalk decisions are defensible. A merged pull request means
+   the evidence is accepted into the repository, not that anything is
+   published.
+3. **Publication is a separate, named steward decision.** `publicationApproval`
+   is signed after every technical gate passes, and it names its reviewer like
+   every other attestation.
+
+Today there is one steward. A contributor can carry a rollout from
+`official-source-identified` through `count-reconciled` under their own name,
+and the final `publication-approved` stage queues on one person's review
+capacity. That is stated here so nobody discovers it mid-contribution. If that
+queue becomes the bottleneck, the intended remedy is additional named
+co-reviewers with recorded scope — proposed and reviewed in a public pull
+request like any other consequential change — not weaker gates and not
+unattributed approvals.
+
+### Growing the source allowlist
+
+`scripts/acquire_official_sources.py` downloads only from a hardcoded
+host-and-path-prefix allowlist, and redirects are held to the same checks.
+That is deliberate: automated transport runs only against reviewed official
+endpoints. A new province's rollout therefore starts with a pull request that
+adds the official host and exact path prefix alongside:
+
+- the official landing page that names the machine-readable endpoint;
+- the recorded licence or reuse decision for the source;
+- the rollout issue the new host serves.
+
+The file is CODEOWNERS-owned, so the addition is maintainer-reviewed. However
+the bytes are first acquired, the lock must record the official URL, hash, and
+licence evidence, and adapters consume only locked local bytes.
+
 ## Adapter and source expectations
 
 A province/territory adapter pull request should include:

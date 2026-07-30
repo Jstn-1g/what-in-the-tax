@@ -14,9 +14,9 @@
     "sourceDocuments": "Official source documents are not relicensed; see each source's licence metadata"
   },
   "correctionsRoute": {
-    "type": "required-before-publication",
-    "url": null,
-    "status": "pending-public-contact-channel"
+    "type": "email",
+    "url": "mailto:corrections@whatinthetax.com",
+    "status": "active"
   },
   "publicationApproval": {
     "status": "pending-named-human-approval",
