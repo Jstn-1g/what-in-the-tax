@@ -138,6 +138,11 @@ REQUIRED_SECURITY_HEADERS = frozenset(
 TEXT_SCAN_SUFFIXES = frozenset(
     {".css", ".csv", ".html", ".js", ".json", ".mjs", ".svg", ".txt", ".xml"}
 )
+# The one address the project deliberately publishes: the corrections route a
+# published receipt must carry on its face (PUBLISH.md). Exempt only this exact
+# value at exactly a correctionsRoute.url position — the same address anywhere
+# else, or any other address in that position, still refuses.
+PUBLISHED_CONTACT_ALLOWLIST = frozenset({"mailto:corrections@whatinthetax.com"})
 SENSITIVE_TEXT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "email address",
@@ -482,6 +487,11 @@ def find_sensitive_strings(value: Any, *, location: str = "$") -> list[str]:
                 find_sensitive_strings(child, location=f"{location}[{index}]")
             )
     elif isinstance(value, str):
+        if (
+            location.endswith(".correctionsRoute.url")
+            and value in PUBLISHED_CONTACT_ALLOWLIST
+        ):
+            return matches
         for label, pattern in SENSITIVE_TEXT_PATTERNS:
             if pattern.search(value):
                 matches.append(f"{location} ({label})")
