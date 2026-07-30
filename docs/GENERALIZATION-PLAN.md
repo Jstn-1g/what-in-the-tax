@@ -1,6 +1,6 @@
 # Generalizing the Taxpayer Receipt: What Is Needed, Missing, Good, and Bad
 
-**Subject:** `C:/Users/User/tax-receipt-prototype` — "Taxpayer Receipt", Township of North Dumfries + Region of Waterloo, Ontario
+**Subject:** the repository now published as `what-in-the-tax` (analyzed as a local working copy then named `tax-receipt-prototype`) — "Taxpayer Receipt", Township of North Dumfries + Region of Waterloo, Ontario
 **Question:** can this be pointed at any municipality and produce a similar report?
 **Method:** seven analysis lenses and three adversarial critiques, independently re-verified against the repository on branch `cursor/fir-peers-and-population-gaps` (HEAD `52e6f25`). Where a lens and a critic disagreed, I ran the measurement myself. Several load-bearing claims in the briefing are wrong; they are corrected below before anything is built on them.
 
