@@ -1,0 +1,5 @@
+# Crawling is allowed. Whether pages may be indexed is governed in one place:
+# the X-Robots-Tag response header in web/public/_headers, which stays
+# "noindex, nofollow" while the site is a draft preview.
+User-agent: *
+Allow: /
