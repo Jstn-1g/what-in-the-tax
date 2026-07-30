@@ -2,7 +2,7 @@
   "schemaVersion": "ontario-municipal-history-index-2.0.0",
   "artifactKind": "current-municipality-directory-with-fir-history",
   "jurisdiction": "CA-ON",
-  "sourceSnapshotDate": "2026-07-29",
+  "sourceSnapshotDate": "2026-07-30",
   "isReceipt": false,
   "sources": {
     "currentMunicipalities": {
@@ -22,12 +22,12 @@
         {
           "fiscalYear": 2025,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
-          "sha256": "af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
-          "archiveMemberSha256": "4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41",
-          "postedDate": "2026-07-29",
-          "sourceLastUpdated": "2026-07-28",
-          "rowCount": 208311,
-          "uniqueAssessmentCodes": 132,
+          "sha256": "e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
+          "archiveMemberSha256": "578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e",
+          "postedDate": "2026-07-30",
+          "sourceLastUpdated": "2026-07-29",
+          "rowCount": 211304,
+          "uniqueAssessmentCodes": 133,
           "coverageBasis": "Unique assessment codes in this hash-pinned bulk file; Ontario's webpage file count can differ."
         },
         {
@@ -62,13 +62,13 @@
     "withFirHistory": 436,
     "withoutFirHistory": 8,
     "latestFirYearCounts": {
-      "2025": 132,
-      "2024": 271,
+      "2025": 133,
+      "2024": 270,
       "2023": 33,
       "unavailable": 8
     },
     "firYearRecordCounts": {
-      "2025": 132,
+      "2025": 133,
       "2024": 403,
       "2023": 436
     },
@@ -225,7 +225,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-19",
+          "lastUpdated": "2026-07-29",
           "sourceName": "Ajax T"
         },
         {
@@ -3547,7 +3547,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-24",
+          "lastUpdated": "2026-07-29",
           "sourceName": "Front of Yonge Tp"
         },
         {
@@ -5385,7 +5385,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-27",
+          "lastUpdated": "2026-07-29",
           "sourceName": "Kingsville T"
         },
         {
@@ -7229,7 +7229,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-24",
+          "lastUpdated": "2026-07-29",
           "sourceName": "Nairn and Hyman Tp"
         },
         {
@@ -7286,7 +7286,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-28",
+          "lastUpdated": "2026-07-29",
           "sourceName": "New Tecumseth T"
         },
         {
@@ -8168,8 +8168,13 @@
       "typeLabel": "City",
       "tier": "single-tier",
       "geographicArea": "Ottawa",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-29",
+          "sourceName": "Ottawa C"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-10-30",
@@ -8181,7 +8186,7 @@
           "sourceName": "Ottawa C"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-4259",
@@ -9761,7 +9766,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-24",
+          "lastUpdated": "2026-07-29",
           "sourceName": "Smooth Rock Falls T"
         },
         {
@@ -10889,7 +10894,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-27",
+          "lastUpdated": "2026-07-29",
           "sourceName": "Thorold C"
         },
         {
@@ -11247,7 +11252,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-27",
+          "lastUpdated": "2026-07-29",
           "sourceName": "Vaughan C"
         },
         {

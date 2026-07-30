@@ -153,14 +153,15 @@ FIR_RELEASES = {
     # recomputation trustworthy rather than merely agreeable.
     2025: FirReleaseLock(
         year=2025,
-        sha256="af77f4ecb3b0eff2dad108b1cb78398cdf1b6982581ae9dfa050f7c07383cc03",
-        member_sha256="4da4462e5a5f32cf669f5b82958353c3ce9acaebf616559ed0b2347bebfc1b41",
-        row_count=208_311,
-        record_count=132,
-        # +1 lower-tier and +1 upper-tier: Deep River T and Simcoe Co, the two
-        # municipalities whose 2025 returns appeared in this re-publication.
-        tier_counts={"lower-tier": 76, "single-tier": 40, "upper-tier": 16},
-        posted_date="2026-07-29",
+        # Re-pinned for the 2026-07-30 re-publication the owner adopted in
+        # issue #47: Ottawa C filed (the +1 single-tier), and eight
+        # municipalities revised already-filed rows.
+        sha256="e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
+        member_sha256="578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e",
+        row_count=211_304,
+        record_count=133,
+        tier_counts={"lower-tier": 76, "single-tier": 41, "upper-tier": 16},
+        posted_date="2026-07-30",
     ),
     2024: FirReleaseLock(
         year=2024,

@@ -154,7 +154,7 @@ facts = [
         page=8,
         label="2026 draft rural residential township tax rate",
         value=0.00315303,
-        excerpt="Residential Township Tax Rate 0.00315303 (2026 Rural)",
+        excerpt="Residential Township Tax Rate 0.00315303",
         status="draft",
         note="Matches final RT Township Rate in By-law 3637-26 Schedule A (see ND-TAXRATE-RES-TOWNSHIP-2026-FINAL).",
     ),
@@ -260,7 +260,7 @@ facts = [
         page=8,
         label="2026 draft township taxes — rural average assessment",
         amountCad=1434.63,
-        excerpt="Township Taxes Annually $1,434.63 at $455,000 assessment (Rural; TOWNSHIP PORTION ONLY)",
+        excerpt="Township Taxes Annually 1,434.63$",
         status="draft",
         note="Computed check: 455000 * 0.00315303 = 1434.629 ≈ 1434.63",
     ),
@@ -270,7 +270,7 @@ facts = [
         page=8,
         label="2026 draft township taxes — urban average assessment",
         amountCad=1505.47,
-        excerpt="Township Taxes Annually $1,505.47 at $455,000 assessment (Urban; TOWNSHIP PORTION ONLY)",
+        excerpt="Township Taxes Annually 1,505.47$",
         status="draft",
     ),
     fact(
@@ -449,7 +449,7 @@ facts = [
         page=43,
         label="New debt proposed for Twin Pad",
         amountCad=5_000_000,
-        excerpt="new debt financing proposed [$5 million] to finance the Twin Pad Project ... first installment ... commence in fiscal year 2027 ... 20 year term",
+        excerpt="new debt financing proposed [$5 million] to finance the Twin Pad Project",
         status="draft",
     ),
     fact(
@@ -458,7 +458,7 @@ facts = [
         page=52,
         label="Ayr Community Centre major exterior rehabilitation",
         amountCad=3_500_000,
-        excerpt="projected cost for this work program is $3,500,000. Funding is derived from a Grant of $1 million ... residual drawn from Reserve Accounts",
+        excerpt="The projected cost for this work program is $3,500,000.",
         status="draft",
     ),
     fact(
@@ -467,7 +467,7 @@ facts = [
         page=54,
         label="Pump Track at Jim Schmidt Memorial Park",
         amountCad=568_756,
-        excerpt="estimated value of $568,756 ... fundraising and donations ... $498,756 ... Township is funding $70,000",
+        excerpt="The project has an estimated value of $568,756",
         status="draft",
         funding=[
             {"source": "Fundraising/donations (incl. Trillium $200k, Hallman $100k)", "amountCad": 498_756},
@@ -588,7 +588,7 @@ facts = [
         page=41,
         label="Waterloo Region Economic Development Corporation fee",
         amountCad=20_000,
-        excerpt="Waterloo Region Economic Development Corporation ($20,000)",
+        excerpt="Planning - W. Region Ec. Dev. Comm. (WREDC) 20,000",
         status="draft",
     ),
     fact(
@@ -736,7 +736,12 @@ facts = [
         page=12,
         label="Region of Waterloo 2026 property tax levy",
         amountCad=887_329_000,
-        excerpt="Regional Tax Levy ... $887,329 ($000's)",
+        # The page prints the levy in thousands; scaleFactor states that
+        # relationship so the audit checks 887,329 against the page instead of
+        # a number the page never prints. Section 9.5's printedValue x
+        # scaleFactor == canonicalValue, made checkable.
+        scaleFactor=1000,
+        excerpt="$1,612,760 $887,329 100%",
         status="approved",
     ),
     fact(
@@ -745,7 +750,8 @@ facts = [
         page=12,
         label="WRPS 2026 property tax levy",
         amountCad=272_610_000,
-        excerpt="Police Service ... Property Tax Levy ($000's) 272,610",
+        scaleFactor=1000,
+        excerpt="Police Service 298,907 272,610",
         status="approved",
     ),
     fact(
@@ -754,7 +760,7 @@ facts = [
         page=12,
         label="Tax-supported regional services cost per average rural household (N. Dumfries / Wellesley)",
         amountCad=2543,
-        excerpt="Rural ... Regional Tax Levy ... $2,543 ... Based on an average residential property valued at $354,500",
+        excerpt="Tax Supported Regional Services $2,984 $2,984 $2,984 $2,543",
         status="approved",
         assessmentBasisCad=354_500,
         note="Rural column explicitly includes Wellesley and North Dumfries.",
@@ -771,7 +777,7 @@ facts = [
         page=12,
         label="Less: Payments in Lieu & Supplementary Taxes, rural household share",
         amountCad=-78,
-        excerpt="Less: Payments in Lieu & Supplementary Taxes(3) ... ($78)",
+        excerpt="($78)",  # the printed rural-column cell; the label sits in a split column - see note
         status="approved",
         assessmentBasisCad=354_500,
         note="Rural column: $2,621 subtotal less ($78) PIL/supplementary equals the $2,543 Regional Tax Levy.",
@@ -800,13 +806,36 @@ facts = [
         page=4,
         label="Summary booklet — average property impact",
         amountCad=142,
-        excerpt="5.1% ... $142 for an average property, or $12 per month",
+        excerpt="This amounts to $142 for an average property, or $12 per month.",
         status="summary",
     ),
 ]
 
 # Region rural household service lines as facts (amounts from shared YAML schedule)
+def _row_book_page12_line(label: str, hh: int) -> str | None:
+    """The literal page-12 line for a service row, if one carries both the
+    label and the household dollar figure.
+
+    The template excerpt "<label> ... Rural $N" was a reconstruction, and it
+    cost tiers it did not need to: row_bound checks the excerpt's own words
+    against the page line, and "Rural" is a column heading that never appears
+    on the data row - so rows like Airport and Finance graded numbers-only
+    while quoting a page that states them plainly. Quote the page instead;
+    fall back to the reconstruction only when no single line carries both.
+    """
+    text = (ROOT / "data/_extracts/2026_final_budget_book_region.txt").read_text(
+        encoding="utf-8", errors="replace"
+    )
+    parts = re.split(r"(?m)^=====\s*PAGE\s*(\d+)\s*=====\s*$", text)
+    page12 = {int(parts[j]): parts[j + 1] for j in range(1, len(parts), 2)}[12]
+    for line in page12.splitlines():
+        if label in line and (f"${hh:,}" in line or f"${hh}" in line):
+            return line.strip()
+    return None
+
+
 for i, (label, hh, net_exp, levy) in enumerate(REGION_RURAL_HH, start=1):
+    verbatim_line = _row_book_page12_line(label, hh)
     facts.append(
         fact(
             id=f"ROW-RURAL-HH-{i:02d}",
@@ -816,7 +845,7 @@ for i, (label, hh, net_exp, levy) in enumerate(REGION_RURAL_HH, start=1):
             amountCad=hh,
             regionalNetExpenditure000s=net_exp // 1000,
             regionalPropertyTaxLevy000s=levy // 1000,
-            excerpt=f"{label} ... Rural ${hh}",
+            excerpt=verbatim_line or f"{label} ... Rural ${hh}",
             status="approved",
             assessmentBasisCad=354_500,
             note="Source: corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml rural area.",

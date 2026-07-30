@@ -230,3 +230,51 @@ class MagnitudeProseBindingTests(unittest.TestCase):
             self.issue(887_329_000, "Property Taxes $887 M"),
             "amount-not-on-cited-page",
         )
+
+
+class ScaleFactorBindingTests(unittest.TestCase):
+    """printedValue x scaleFactor == canonicalValue, made checkable.
+
+    Budget books print large figures in thousands: the Region's page prints
+    887,329 where the canonical amount is 887,329,000. scaleFactor declares
+    that relationship; nothing is inferred from how nicely numbers divide.
+    """
+
+    def issue(self, fact, text):
+        return _amount_binding_issue(fact, text)
+
+    def test_a_declared_scale_binds_the_printed_figure(self) -> None:
+        fact = {"amountCad": 887_329_000, "scaleFactor": 1000}
+        self.assertIsNone(self.issue(fact, "$1,612,760 $887,329 100%"))
+
+    def test_the_canonical_amount_alone_does_not_bind_a_scaled_page(self) -> None:
+        fact = {"amountCad": 887_329_000}
+        self.assertEqual(
+            self.issue(fact, "$1,612,760 $887,329 100%"),
+            "amount-not-on-cited-page",
+        )
+
+    def test_inexact_division_cannot_borrow_the_clean_printed_figure(self) -> None:
+        # 887,329,432 / 1000 is not 887,329; a truncated rendering matching
+        # the page is a different number being on the page.
+        fact = {"amountCad": 887_329_432, "scaleFactor": 1000}
+        self.assertEqual(
+            self.issue(fact, "$1,612,760 $887,329 100%"),
+            "amount-not-on-cited-page",
+        )
+
+    def test_a_nonsense_scale_is_an_issue_not_a_pass(self) -> None:
+        for bad in (0, -1000, True):
+            with self.subTest(scale=bad):
+                self.assertEqual(
+                    self.issue({"amountCad": 887_329_000, "scaleFactor": bad}, "887,329"),
+                    "scale-factor-invalid",
+                )
+
+    def test_the_truncation_hole_is_closed_for_unscaled_facts_too(self) -> None:
+        # int(298.54) used to offer "298" as a variant.
+        self.assertEqual(
+            self.issue({"amountCad": 298.54}, "line item 298 units"),
+            "amount-not-on-cited-page",
+        )
+        self.assertIsNone(self.issue({"amountCad": 298.54}, "totals 298.54 here"))

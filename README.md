@@ -46,8 +46,8 @@ contracts, not the resident-facing brand, and are not being renamed casually.
 
 <!-- generated:fir-selection -->
 The resident search starts from Ontario's current 444-municipality list. Each municipality
-then selects its newest record from the hash-pinned 2025, 2024 and 2023 FIR bulk files: 132
-currently select 2025, 271 fall back to 2024, 33 fall back to 2023, and 8 have no record in
+then selects its newest record from the hash-pinned 2025, 2024 and 2023 FIR bulk files: 133
+currently select 2025, 270 fall back to 2024, 33 fall back to 2023, and 8 have no record in
 that window. All available years are retained for context. FIR records are historical
 filings, not receipts, current tax by-laws, or formal audits.
 <!-- /generated:fir-selection -->
@@ -198,7 +198,7 @@ entry fails loudly instead of quietly rewriting this page.
 <!-- generated:ledger-counts -->
 - Draft previews published: **6** Ontario packs.
 - North Dumfries ledger: **94** facts, 30 derived rows, 8 findings, 4 open gaps, 6 closed gaps.
-- Citation audit over 94 cited facts: **0** hard failures (not-found, wrong-page, bad-page-number). Binding tiers — row-bound 49, numbers-only 15, verbatim 12, normalized 11, unverifiable 6, alnum 1.
+- Citation audit over 94 cited facts: **0** hard failures (not-found, wrong-page, bad-page-number). Binding tiers — verbatim 44, row-bound 30, normalized 12, unverifiable 6, alnum 1, numbers-only 1.
 - Every finding carries `billImpactCad: null`. No exception exists in the policy and none is reachable in the builder.
 <!-- /generated:ledger-counts -->
 
