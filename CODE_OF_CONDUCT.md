@@ -44,18 +44,17 @@ messages — and anywhere someone is representing the project.
 
 ## Reporting
 
-Report conduct concerns privately to the repository owner through
-[GitHub's private vulnerability reporting](https://github.com/Jstn-1g/what-in-the-tax/security/advisories/new),
-which is the only private channel this project currently has. Serious cases can
-also go to [GitHub Support](https://support.github.com/contact/report-abuse),
-which can act independently of the maintainer.
+Report conduct concerns privately to the repository owner by email at
+[corrections@whatinthetax.com](mailto:corrections@whatinthetax.com) or through
+[GitHub's private vulnerability reporting](https://github.com/Jstn-1g/what-in-the-tax/security/advisories/new).
+Serious cases can also go to
+[GitHub Support](https://support.github.com/contact/report-abuse), which can
+act independently of the maintainer.
 
 > **Known gap:** a single maintainer receiving conduct reports about their own
-> project is not a real enforcement model, and a published email contact does
-> not exist yet. Both are open items before this repository goes public — the
-> same `pending-public-contact-channel` that blocks publication in `PUBLISH.md`.
-> This section will be wrong until they are fixed, and it says so rather than
-> implying a process that is not there.
+> project is not a real enforcement model. GitHub Support is the independent
+> route until the project has more than one maintainer. This section says so
+> rather than implying a process that is not there.
 
 ## Enforcement
 

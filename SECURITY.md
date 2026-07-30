@@ -10,9 +10,10 @@ Please do not open a public issue for a security problem, and please do not post
 one to a municipality's contact channels — this project is independent and not
 affiliated with any government.
 
-There is no published email contact yet. That gap is tracked: `PUBLISH.md`
-records `correctionsRoute` as `pending-public-contact-channel`, and publication
-is blocked until it exists.
+If you cannot use GitHub, email
+**[corrections@whatinthetax.com](mailto:corrections@whatinthetax.com)**. Private
+vulnerability reporting remains the preferred route for security problems
+because it tracks the report alongside the code.
 
 ## What counts as a security issue here
 

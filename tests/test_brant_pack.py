@@ -76,9 +76,9 @@ class BrantPublicationCandidateTests(unittest.TestCase):
         self.assertEqual(
             self.receipt["correctionsRoute"],
             {
-                "type": "required-before-publication",
-                "url": None,
-                "status": "pending-public-contact-channel",
+                "type": "email",
+                "url": "mailto:corrections@whatinthetax.com",
+                "status": "active",
             },
         )
 

@@ -113,9 +113,9 @@ describe('committed public pack artifacts', () => {
       'publisher.repositoryUrl',
     )
     expect(brantPack.receipt.correctionsRoute).toEqual({
-      type: 'required-before-publication',
-      url: null,
-      status: 'pending-public-contact-channel',
+      type: 'email',
+      url: 'mailto:corrections@whatinthetax.com',
+      status: 'active',
     })
     expect(brantPack.receipt.publicationApproval).toEqual({
       status: 'pending-named-human-approval',

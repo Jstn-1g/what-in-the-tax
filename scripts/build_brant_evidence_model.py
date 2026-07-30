@@ -624,9 +624,9 @@ LICENSE = {
 }
 
 CORRECTIONS_ROUTE = {
-    "type": "required-before-publication",
-    "url": None,
-    "status": "pending-public-contact-channel",
+    "type": "email",
+    "url": "mailto:corrections@whatinthetax.com",
+    "status": "active",
 }
 
 PUBLICATION_APPROVAL = {

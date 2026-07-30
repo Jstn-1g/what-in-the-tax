@@ -530,9 +530,9 @@
   "receipt": {
     "artifact": "TaxpayerReceipt",
     "correctionsRoute": {
-      "status": "pending-public-contact-channel",
-      "type": "required-before-publication",
-      "url": null
+      "status": "active",
+      "type": "email",
+      "url": "mailto:corrections@whatinthetax.com"
     },
     "coverage": {
       "assessmentClass": "RT Residential",
