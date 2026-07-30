@@ -88,13 +88,13 @@ narrowly scoped Cloudflare token stored outside the repository and limited to
 the intended account and Workers script. Never put it in `wrangler.jsonc`, a
 committed environment file, or command history.
 
-The current exact audited Wrangler release is `4.114.0`. Until Wrangler is added
+The current exact audited Wrangler release is `4.116.0`. Until Wrangler is added
 to the project lockfile, use that explicit version instead of an unversioned
 `npx wrangler`:
 
 ```powershell
 $ErrorActionPreference = "Stop"
-$WranglerVersion = "4.114.0"
+$WranglerVersion = "4.116.0"
 
 python -m pip install --disable-pip-version-check --only-binary=:all: -r requirements.txt
 if ($LASTEXITCODE -ne 0) { throw "Python dependency install failed" }
