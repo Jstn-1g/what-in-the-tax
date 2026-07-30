@@ -2,7 +2,7 @@
   "schemaVersion": "official-source-lock-1.0.0",
   "reviewStatus": "reviewed",
   "reviewedAt": "2026-07-29T18:58:03-04:00",
-  "reviewedBy": null,
+  "reviewedBy": "Justin Skowyra",
   "jurisdiction": "CA-ON",
   "sourceId": "statcan-il-2025",
   "fiscalYear": null,
@@ -12,7 +12,7 @@
   "sha256": "b8a29420b27fa1f6387a01655ffac3f30b40e8193256992efd3facd4782b887e",
   "localPath": "source-pdfs/statcan/il-2025.csv",
   "archiveMember": null,
-  "encoding": "utf-8-sig",
+  "encoding": "cp1252",
   "headers": [
     "Gaining CSDuid",
     "Gaining CSDname",
@@ -31,9 +31,9 @@
     "File Number"
   ],
   "fiscalYearField": null,
-  "recordIdField": null,
+  "recordIdField": "Gaining CSDuid",
   "rowCount": 300,
-  "recordCount": 300,
+  "recordCount": 238,
   "retrievedAt": "2026-07-29T18:58:03-04:00",
   "licence": {
     "name": "Statistics Canada Open Licence",
