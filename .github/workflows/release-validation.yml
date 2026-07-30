@@ -127,18 +127,21 @@ jobs:
           set -euo pipefail
           python scripts/build_ontario_fir_public_index.py --check
           python scripts/build_ontario_municipal_history.py --check
-          # 968 public FIR functional receipts - 435 + 403 + 130. Each year
-          # rebuilds from its reviewed source lock and compares byte for byte,
-          # so tampering with either the archive or an emitted receipt fails
-          # here. (2023 files 436 but emits 435: Manitouwadge Tp filed no
-          # Schedule 40 rows, so the builder refuses it by name.)
+          # Public FIR functional receipts: one per municipality per filed
+          # year. Each year rebuilds from its reviewed source lock and
+          # compares byte for byte, so tampering with either the archive or
+          # an emitted receipt fails here. (2023 files 436 but emits 435:
+          # Manitouwadge Tp filed no Schedule 40 rows, so the builder refuses
+          # it by name.) No totals here on purpose - hand-written counts in
+          # this comment drifted twice while the gate stayed correct; the
+          # emitted directories and README's generated counts are the record.
           python scripts/build_fir_functional_receipts.py --year 2023 --check
           python scripts/build_fir_functional_receipts.py --year 2024 --check
           python scripts/build_fir_functional_receipts.py --year 2025 --check
-          # 893 public FIR taxation receipts - 405 + 373 + 115, which is every
-          # taxing municipality in Ontario for each year it has filed. Shipping
-          # a builder without running its gate is how the Schedule 40 receipts
-          # sat unverified; this runs from the first commit that emits them.
+          # Public FIR taxation receipts: every taxing municipality in
+          # Ontario for each year it has filed. Shipping a builder without
+          # running its gate is how the Schedule 40 receipts sat unverified;
+          # this runs from the first commit that emits them.
           python scripts/build_fir_taxation_receipts.py --year 2023 --check
           python scripts/build_fir_taxation_receipts.py --year 2024 --check
           python scripts/build_fir_taxation_receipts.py --year 2025 --check

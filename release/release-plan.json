@@ -64,8 +64,8 @@
     {
       "id": "ontario-municipal-history",
       "path": "web/public/registry/ontario-municipal-history.json",
-      "sha256": "37398e49510c7124df01287a8266f2462e46a516909098d1d892f37905591973",
-      "byteLength": 326532,
+      "sha256": "c497f41d2e243d204a4703efb275b0bacb151f9b9286ccaab9ac932b50be9e92",
+      "byteLength": 326611,
       "mediaType": "application/json",
       "visibility": "public"
     },
