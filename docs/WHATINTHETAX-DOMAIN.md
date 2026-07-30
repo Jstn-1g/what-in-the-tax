@@ -28,28 +28,22 @@ Confirm before proceeding:
 - The apex carries no pre-existing CNAME record. Cloudflare refuses a Workers
   Custom Domain on an apex that already has one.
 
-## Blocking: deployed branch does not match current work
+## Branch alignment before cutover (blocker resolved 2026-07-30)
 
-This is a release blocker, not a DNS problem, and it must be resolved before the
-domain is attached.
+An earlier revision of this page recorded a release blocker: development sat on
+`codex/canada-rollout-hardening`, ahead of the production branch and carrying a
+large uncommitted working tree, so attaching the domain would have pointed the
+public brand hostname at a stale build. That state is resolved: the hardening
+work merged into `main`, the branch was deleted from the remote, and
+`docs/DEPLOY.md` records `main` as both the GitHub default branch and the
+Cloudflare production branch.
 
-- Cloudflare Workers Builds deploys from the production branch recorded in
-  `docs/DEPLOY.md` (`main`, also the GitHub default branch).
-- Current development is on `codex/canada-rollout-hardening`, which is ahead of
-  that branch and additionally carries a large uncommitted working tree.
-- Attaching the domain in this state points the public brand hostname at a build
-  that predates the current Ontario municipal directory, the FIR year history,
-  and the release-pipeline hardening.
+The standing requirements remain binding before the domain is attached:
 
-Required before cutover:
-
-1. Commit the working tree.
-2. Decide explicitly whether the hardening branch merges into the production
-   branch or replaces it as the Cloudflare production branch. Update
-   `docs/DEPLOY.md` so the recorded production branch, the GitHub default
-   branch, and the Cloudflare Workers Builds setting all agree. A silent
+1. The production branch recorded in `docs/DEPLOY.md`, the GitHub default
+   branch, and the Cloudflare Workers Builds setting must all agree. A silent
    disagreement between those three is how the wrong bytes reach a public name.
-3. Run the full gate in `docs/DEPLOY.md` — Python tests, regional registry
+2. Run the full gate in `docs/DEPLOY.md` — Python tests, regional registry
    validation, public-pack projection check, Ontario index checks, every
    non-template pack validated in `--no-write` mode, clean-tree assertion, web
    tests, production dependency audit, web build, Wrangler dry run — and require

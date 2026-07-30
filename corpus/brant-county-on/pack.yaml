@@ -47,7 +47,7 @@ publication:
 project:
   name: "What in the Tax?"
   role: "Independent project publisher; not the County of Brant"
-  repository: "https://github.com/Jstn-1g/tax-receipt-prototype"
+  repository: "https://github.com/Jstn-1g/what-in-the-tax"
 
 artifacts:
   ledger: data/brant/evidence-ledger.json

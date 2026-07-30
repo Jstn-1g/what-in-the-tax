@@ -1,0 +1,50 @@
+name: Report a site problem
+description: Something on the site is broken, confusing, or inaccessible — layout, links, search, mobile, a crash. Anything that is not a number.
+title: "[Site]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for problems with the site itself. If a published **figure**
+        looks wrong or does not match the source it cites, use
+        "Report a wrong number" instead — that is the report this project
+        cares about most, and it gets its own trail in `CORRECTIONS.md`.
+
+  - type: input
+    id: where
+    attributes:
+      label: Where it happened
+      description: The page URL, including any `?pack=` or year selection.
+      placeholder: "https://whatinthetax.com/?pack=north-dumfries-on"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What went wrong
+      description: >-
+        What you did, what the site did, and what you expected instead.
+        "The page went blank when I clicked X" is a complete report.
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and device
+      description: Optional, but it speeds up reproduction.
+      placeholder: "Firefox 141 on Android 16"
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: >-
+        Screenshots, console errors, or whether it happens every time.
+        Please do not include personal information.
+    validations:
+      required: false
