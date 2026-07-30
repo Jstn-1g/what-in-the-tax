@@ -235,7 +235,7 @@ python scripts/build_evidence_model.py   # regenerate both data copies
 
 cd web
 npm install
-npm run dev        # http://127.0.0.1:5173
+npm run dev        # http://127.0.0.1:5401 (fails closed if the port is occupied)
 npm test           # vitest suite in web/
 npm run build      # tsc + vite
 ```
