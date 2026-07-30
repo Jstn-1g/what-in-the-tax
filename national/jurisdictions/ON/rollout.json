@@ -20,7 +20,7 @@
   "stages": [
     {"id": "official-source-identified", "status": "complete"},
     {"id": "reuse-approved", "status": "complete"},
-    {"id": "transport-pinned", "status": "not-started"},
+    {"id": "transport-pinned", "status": "in-progress", "notes": "The roster half of the bundle already has reviewed, hash-locked bytes on the sibling site track: sources/locks/ca-on/on-municipalities-current.lock.json pins the same data.ontario.ca municipalities dataset this catalog entry names (sha256 5370b4e1b3804d10059c67513db9ea59d61bba964096f8e5b35f4a8afd973196, 444 rows, payload source-pdfs/fir/municipalities_-_en_2026-0526.csv, reviewed 2026-07-26). This stage completes only when that snapshot and the not-yet-acquired on-lio-municipal-boundaries bytes are locked together as the auditback-jurisdiction-source-lock this contract validates; acquiring and reviewing the boundary bytes is a named-human attestation and remains open (issue #37)."},
     {"id": "adapter-tested", "status": "not-started"},
     {"id": "exact-crosswalk-reviewed", "status": "not-started"},
     {"id": "exceptions-reviewed", "status": "not-started"},
@@ -56,6 +56,8 @@
   },
   "scopeNotes": [
     "Preserve lower-tier, upper-tier, and single-tier legal structures while mapping them to canonical municipal or regional body types.",
-    "Northern districts are administrative geographies, not municipal governments."
+    "Northern districts are administrative geographies, not municipal governments.",
+    "This manifest tracks the municipal-registry adapter layer only. The live Ontario receipts site is a separate, further-along evidence track: its FIR locks and the reviewed municipal directory live under sources/locks/ca-on/ and do not advance these stages until re-locked in the jurisdiction-source-lock format this contract validates.",
+    "The gap between a live Ontario site and an early manifest is therefore deliberate evidence discipline, not neglect: CONTRIBUTING forbids marking a stage complete ahead of the exact artifact the validator checks."
   ]
 }
