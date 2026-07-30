@@ -64,6 +64,13 @@ HASH_MISMATCH_ISSUES = frozenset(
         "source-bytes-mismatch",
         "extract-sha256-invalid",
         "extract-sha256-mismatch",
+        # A ZIP member read as an extract must be digest-bound: a declared
+        # member without a digest, or with the wrong one, is an invalid
+        # binding rather than a quiet downgrade to "unverifiable".
+        "archive-member-sha256-missing",
+        "archive-member-sha256-mismatch",
+        "archive-member-missing",
+        "archive-member-invalid",
     }
 )
 ID_TOKEN = re.compile(r"[A-Za-z][A-Za-z0-9_-]*")

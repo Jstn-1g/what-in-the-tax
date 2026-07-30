@@ -1,21 +1,21 @@
 {
   "ok": true,
   "counts": {
-    "verbatim": 44,
+    "verbatim": 49,
     "normalized": 12,
     "row-bound": 30,
     "alnum": 1,
     "numbers-only": 1,
-    "unverifiable": 6
+    "unverifiable": 1
   },
   "bindingIssueCounts": {
     "extract-sha256-missing": 88,
-    "source-bytes-missing": 88,
-    "source-sha256-missing": 88,
+    "source-bytes-missing": 93,
+    "source-sha256-missing": 93,
     "amount-sign-mismatch": 2,
-    "source-path-missing": 6,
-    "extract-path-missing": 6,
-    "page-citation-missing": 4
+    "source-path-missing": 1,
+    "extract-path-missing": 1,
+    "page-citation-missing": 9
   },
   "results": [
     {
@@ -740,11 +740,12 @@
       "page": null,
       "amountCad": null,
       "bindingIssues": [
-        "source-path-missing",
-        "extract-path-missing"
+        "page-citation-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'statcan-csd-estimates'"
+      "tier": "verbatim",
+      "note": "no page cited; searched the whole extract"
     },
     {
       "id": "ND-POP-STATCAN-2023",
@@ -752,11 +753,12 @@
       "page": null,
       "amountCad": null,
       "bindingIssues": [
-        "source-path-missing",
-        "extract-path-missing"
+        "page-citation-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'statcan-csd-estimates'"
+      "tier": "verbatim",
+      "note": "no page cited; searched the whole extract"
     },
     {
       "id": "FIR-GG-ND-2023",
@@ -820,11 +822,12 @@
       "page": null,
       "amountCad": null,
       "bindingIssues": [
-        "source-path-missing",
-        "extract-path-missing"
+        "page-citation-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'statcan-csd-estimates'"
+      "tier": "verbatim",
+      "note": "no page cited; searched the whole extract"
     },
     {
       "id": "STATCAN-POP-WILMOT-2023",
@@ -832,11 +835,12 @@
       "page": null,
       "amountCad": null,
       "bindingIssues": [
-        "source-path-missing",
-        "extract-path-missing"
+        "page-citation-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'statcan-csd-estimates'"
+      "tier": "verbatim",
+      "note": "no page cited; searched the whole extract"
     },
     {
       "id": "STATCAN-POP-WOOLWICH-2023",
@@ -844,11 +848,12 @@
       "page": null,
       "amountCad": null,
       "bindingIssues": [
-        "source-path-missing",
-        "extract-path-missing"
+        "page-citation-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
-      "tier": "unverifiable",
-      "note": "no readable local extract for source 'statcan-csd-estimates'"
+      "tier": "verbatim",
+      "note": "no page cited; searched the whole extract"
     },
     {
       "id": "ROW-LEVY-2026",
@@ -1420,11 +1425,11 @@
     {
       "sourceId": "statcan-csd-estimates",
       "sourceFile": {
-        "declaredPath": null,
+        "declaredPath": "source-pdfs/statcan/pop-estimates-17100155.zip",
         "declaredSha256": null,
-        "actualSha256": null,
+        "actualSha256": "b9375641eadd9843086b7536e3853efd262a7f397d48b5872b9ce3d4afca5dbf",
         "declaredBytes": null,
-        "actualBytes": null
+        "actualBytes": 2807984
       },
       "extractFile": {
         "declaredPath": null,
@@ -1432,11 +1437,11 @@
         "actualSha256": null
       },
       "issues": [
-        "source-path-missing",
-        "extract-path-missing"
+        "source-sha256-missing",
+        "source-bytes-missing"
       ],
-      "sourceReadable": false,
-      "extractReadable": false
+      "sourceReadable": true,
+      "extractReadable": true
     },
     {
       "sourceId": "mmah-fir-2023",

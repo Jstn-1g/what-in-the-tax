@@ -644,7 +644,7 @@ facts = [
         page=None,
         label="North Dumfries population estimate (StatCan, July 1, 2025)",
         value=13_051,
-        excerpt="2025,North Dumfries (TP), Ontario,2021A00053530004,...,13051",
+        excerpt='"2025","North Dumfries (TP), Ontario","2021A00053530004","Persons","249","units","0","v1592182818","2275","13051"',
         status="external",
         url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
         note="Table 17-10-0155-01. Postcensal estimate adjusted for net undercoverage; not the unadjusted Census count.",
@@ -655,7 +655,7 @@ facts = [
         page=None,
         label="North Dumfries population estimate (StatCan, July 1, 2023)",
         value=12_047,
-        excerpt="2023,North Dumfries (TP), Ontario,2021A00053530004,...,12047",
+        excerpt='"2023","North Dumfries (TP), Ontario","2021A00053530004","Persons","249","units","0","v1592182818","2275","12047"',
         status="external",
         url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
     ),
@@ -706,7 +706,7 @@ facts = [
         page=None,
         label="Wellesley population estimate (StatCan, July 1, 2023)",
         value=12_253,
-        excerpt="2023,Wellesley (TP), Ontario,...,12253",
+        excerpt='"2023","Wellesley (TP), Ontario","2021A00053530027","Persons","249","units","0","v1592182823","2266","12253"',
         status="external",
         url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
     ),
@@ -716,7 +716,7 @@ facts = [
         page=None,
         label="Wilmot population estimate (StatCan, July 1, 2023)",
         value=23_244,
-        excerpt="2023,Wilmot (TP), Ontario,...,23244",
+        excerpt='"2023","Wilmot (TP), Ontario","2021A00053530020","Persons","249","units","0","v1592182822","2215","23244"',
         status="external",
         url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
     ),
@@ -726,7 +726,7 @@ facts = [
         page=None,
         label="Woolwich population estimate (StatCan, July 1, 2023)",
         value=30_909,
-        excerpt="2023,Woolwich (TP), Ontario,...,30909",
+        excerpt='"2023","Woolwich (TP), Ontario","2021A00053530035","Persons","249","units","0","v1592182824","2197","30909"',
         status="external",
         url="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
     ),
@@ -1428,6 +1428,29 @@ for _f in findings:
                 f"finding {_f['id']} references missing gap {_g}"
             )
 
+def _statcan_pop_member_pin() -> dict:
+    """The population table's member pin, copied from its reviewed lock.
+
+    The lock is the attestation (a named person reviewed those bytes); this
+    builder only transcribes the pin. Refusing on any mismatch keeps a stale
+    or edited declaration from quietly outliving the lock it claims to echo.
+    """
+
+    lock_path = ROOT / "sources" / "locks" / "ca-on" / "statcan-pop-estimates-17100155.lock.json"
+    lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    if lock.get("localPath") != "source-pdfs/statcan/pop-estimates-17100155.zip":
+        raise EvidenceModelError(
+            "statcan population lock no longer points at the declared archive"
+        )
+    member = lock.get("archiveMember")
+    digest = lock.get("archiveMemberSha256")
+    if not isinstance(member, str) or not isinstance(digest, str):
+        raise EvidenceModelError(
+            "statcan population lock carries no member pin to transcribe"
+        )
+    return {"archiveMember": member, "archiveMemberSha256": digest}
+
+
 sources = [
     {
         "id": "nd-2026-draft",
@@ -1501,10 +1524,17 @@ sources = [
         "id": "statcan-csd-estimates",
         "title": "Statistics Canada Table 17-10-0155-01 — Population estimates, July 1, by census subdivision",
         "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710015501",
-        "localPath": None,
+        "localPath": "source-pdfs/statcan/pop-estimates-17100155.zip",
+        # The member pin is copied at build time from the reviewed lock
+        # (sources/locks/ca-on/statcan-pop-estimates-17100155.lock.json,
+        # reviewed by a named person) so the digest has exactly one home. The
+        # audit reads the member in memory and re-verifies this digest on
+        # every run; there is no committed extract because the CSV member is
+        # already text and already pinned inside the committed archive.
+        **_statcan_pop_member_pin(),
         "authority": "external",
         "asOf": "2025-07-01",
-        "note": "Downloaded CSV extract 17100155-eng.zip used to cite township estimates; full table not committed.",
+        "note": "Full table 17100155-eng.zip committed and hash-locked; township estimates cite rows of its CSV member.",
     },
     {
         "id": "mmah-fir-2023",
