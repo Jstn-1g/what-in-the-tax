@@ -214,7 +214,7 @@ jobs:
         run: |
           set -euo pipefail
           npm ci --ignore-scripts --no-audit --no-fund
-          test "$(node -p 'require("./node_modules/wrangler/package.json").version')" = '4.114.0'
+          test "$(node -p 'require("./node_modules/wrangler/package.json").version')" = '4.116.0'
 
       - name: Record the single active version for rollback
         id: previous
