@@ -5,5 +5,5 @@ pypdf==6.14.2
 # DependencyError in CI while working on any developer machine that
 # happens to have cryptography installed - which is part of why the
 # extract reproduction gate was never wired into CI.
-cryptography==46.0.7
+cryptography==49.0.0
 jsonschema==4.26.0
