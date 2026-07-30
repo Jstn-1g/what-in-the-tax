@@ -9,6 +9,6 @@
     "cloudflare:deploy-version": "wrangler versions deploy"
   },
   "devDependencies": {
-    "wrangler": "4.114.0"
+    "wrangler": "4.116.0"
   }
 }
