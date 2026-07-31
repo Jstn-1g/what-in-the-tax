@@ -6,6 +6,7 @@ import PlaceFinder from './components/PlaceFinder'
 import SiteHeader from './components/SiteHeader'
 import SupportCard, { normalizeSupportUrl } from './components/SupportCard'
 
+import ContributeCard from './components/ContributeCard'
 import RepoLinks from './components/RepoLinks'
 import TaxReceiptScreen from './components/TaxReceiptScreen'
 import {
@@ -862,6 +863,7 @@ export default function App() {
                     : undefined
                 }
               />
+              <ContributeCard />
               {municipalHistory ? (
                 <OntarioRolloutNote
                   registry={municipalHistory}

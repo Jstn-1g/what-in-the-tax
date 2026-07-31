@@ -960,6 +960,80 @@ button {
   color: var(--ink);
 }
 
+/* Contribution call-to-action. Same note-paper family as the support card,
+   but accented with the project green and placed high on the chooser page:
+   this one asks for evidence, not money, and it is meant to be seen. */
+.contribute-card {
+  position: relative;
+  max-width: 74rem;
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  padding: clamp(2rem, 4vw, 3.25rem) clamp(1.5rem, 5vw, 4rem);
+  border: 1px solid var(--note-line);
+  border-left: 0.35rem solid var(--green);
+  border-radius: 0.2rem;
+  background: var(--note);
+  color: var(--ink);
+  box-shadow: 0 0.25rem 0 rgba(7, 26, 60, 0.04);
+}
+
+.contribute-card__body {
+  max-width: 63rem;
+  margin: 0 auto;
+}
+
+.contribute-card__eyebrow {
+  margin: 0 0 0.4rem;
+  color: var(--green);
+  font-size: 0.8rem;
+  font-weight: 780;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contribute-card h2 {
+  max-width: 30ch;
+  margin: 0 0 0.8rem;
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3.2vw, 2.35rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.contribute-card p {
+  max-width: 55rem;
+  margin: 0;
+}
+
+.contribute-card__actions {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.contribute-card__promise {
+  padding-top: 1rem;
+  font-weight: 720;
+}
+
+/* In-context contribution callout on the receipt page: one bordered line
+   between the sources list and the footer, where a reader who just checked
+   a citation is standing. */
+.contribute-callout {
+  margin: 2rem 0 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--note-line);
+  border-left: 0.35rem solid var(--green);
+  border-radius: 0.2rem;
+  background: var(--note);
+}
+
+.contribute-callout p {
+  margin: 0;
+  max-width: 60rem;
+}
+
 /* Receipt overview */
 
 .hero {
