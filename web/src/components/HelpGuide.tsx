@@ -247,6 +247,21 @@ export default function HelpGuide({
               </a>
               , whatever the outcome.
             </p>
+            <p>
+              Contributions are welcome beyond corrections: pull requests that
+              add official sources, evidence, or coverage follow{' '}
+              <a
+                href="https://github.com/Jstn-1g/what-in-the-tax/blob/main/CONTRIBUTING.md"
+                target="_blank"
+                rel="noreferrer"
+              >
+                the contribution guide
+                <span className="visually-hidden"> (opens in a new tab)</span>
+              </a>
+              . Every contributed figure must trace to an official public
+              source and pass the same checks as everything else here; nothing
+              is published without human review.
+            </p>
           </section>
 
           <section id="help/faq" className="help-section" tabIndex={-1}>
