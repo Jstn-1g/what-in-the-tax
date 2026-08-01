@@ -1,7 +1,14 @@
 # What in the Tax?
 
+[![Validate sealed release candidate](https://github.com/Jstn-1g/what-in-the-tax/actions/workflows/release-validation.yml/badge.svg?branch=main)](https://github.com/Jstn-1g/what-in-the-tax/actions/workflows/release-validation.yml)
+[![National rollout readiness](https://github.com/Jstn-1g/what-in-the-tax/actions/workflows/national-readiness.yml/badge.svg?branch=main)](https://github.com/Jstn-1g/what-in-the-tax/actions/workflows/national-readiness.yml)
+[![License: MIT](https://img.shields.io/badge/code%20license-MIT-1f6f43)](LICENSE)
+[![Corrections welcome](https://img.shields.io/badge/wrong%20number%3F-report%20it-c92f23)](https://github.com/Jstn-1g/what-in-the-tax/issues/new?template=wrong-number.yml)
+
 What in the Tax? is an evidence-first public-finance model and resident-facing
 property-tax receipt guide, live at [whatinthetax.com](https://whatinthetax.com).
+Created and maintained by Justin Skowyra (Eversko), with AI-assisted
+engineering under human review.
 
 For every Ontario taxing municipality with a usable filing in the province's
 own Financial Information Return — the exact counts are generated from the
