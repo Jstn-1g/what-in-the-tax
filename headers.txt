@@ -1,0 +1,12 @@
+== fir_data_2023.zip
+Last-Modified: Mon, 27 Jul 2026 16:10:28 GMT
+ETag: "a8f9bb-65799f5fc2160"
+Content-Length: 11073979
+== fir_data_2024.zip
+Last-Modified: Sat, 01 Aug 2026 00:29:32 GMT
+ETag: "9bcbe6-657f1661d5c7e"
+Content-Length: 10210278
+== fir_data_2025.zip
+Last-Modified: Sat, 01 Aug 2026 00:29:39 GMT
+ETag: "385081-657f166869daa"
+Content-Length: 3690625
