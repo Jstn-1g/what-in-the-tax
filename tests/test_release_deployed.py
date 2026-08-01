@@ -230,6 +230,50 @@ class DeployedReleaseTests(unittest.TestCase):
                     fetcher=deployment,
                 )
 
+    def test_platform_injected_bare_noindex_is_accepted(self) -> None:
+        # Cloudflare replaces the declared X-Robots-Tag with a bare "noindex"
+        # on workers.dev and version-preview hostnames. The verifier accepts
+        # any value carrying the noindex token; every other header stays
+        # byte-exact.
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            release = self.build(root)
+            deployment = LocalDeployment(release)
+
+            def inject(relative, status, headers, body):
+                headers["X-Robots-Tag"] = "noindex"
+                return status, headers, body
+
+            deployment.mutate = inject
+            verify_deployed_release(
+                release,
+                project_root=root,
+                release_root=root / "release",
+                fetcher=deployment,
+            )
+
+    def test_robots_header_without_noindex_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            release = self.build(root)
+            deployment = LocalDeployment(release)
+
+            def weaken(relative, status, headers, body):
+                if relative == "privacy.txt":
+                    headers["X-Robots-Tag"] = "nofollow"
+                return status, headers, body
+
+            deployment.mutate = weaken
+            with self.assertRaisesRegex(
+                DeployedReleaseError, "lacks noindex"
+            ):
+                verify_deployed_release(
+                    release,
+                    project_root=root,
+                    release_root=root / "release",
+                    fetcher=deployment,
+                )
+
     def test_redirect_is_not_accepted(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

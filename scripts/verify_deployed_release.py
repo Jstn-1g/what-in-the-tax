@@ -261,6 +261,25 @@ def verify_deployed_release(
                 )
             for name, expected in security_headers.items():
                 observed = headers.get(name)
+                if name.lower() == "x-robots-tag":
+                    # Cloudflare injects its own bare "noindex" on workers.dev
+                    # and version-preview hostnames, replacing the bundle's
+                    # declared value, so byte equality can never hold there.
+                    # The load-bearing property (docs/WHATINTHETAX-DOMAIN.md
+                    # calls it the highest-consequence check) is that the
+                    # response is not indexable: require the noindex token,
+                    # refuse a missing header or any value without it. The
+                    # bundle itself still ships the full declared value.
+                    observed_tokens = {
+                        token.strip().lower()
+                        for token in (observed or "").split(",")
+                    }
+                    if "noindex" not in observed_tokens:
+                        raise DeployedReleaseError(
+                            f"{route} security header {name!r} lacks noindex: "
+                            f"expected {expected!r}, observed {observed!r}"
+                        )
+                    continue
                 if observed != expected:
                     raise DeployedReleaseError(
                         f"{route} security header {name!r} differs: "
