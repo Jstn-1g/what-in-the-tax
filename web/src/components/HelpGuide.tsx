@@ -3,11 +3,13 @@
  */
 
 const SECTIONS = [
+  { id: 'about', title: 'What this site is for' },
   { id: 'quick-start', title: 'Quick start' },
   { id: 'evidence-labels', title: 'Evidence labels' },
   { id: 'calculations', title: 'How calculations work' },
   { id: 'governing-bodies', title: 'Which governing bodies can appear' },
   { id: 'sources-corrections', title: 'Sources and corrections' },
+  { id: 'technical', title: 'How it works, technically' },
   { id: 'faq', title: 'FAQ' },
 ] as const
 
@@ -84,6 +86,39 @@ export default function HelpGuide({
         </nav>
 
         <article className="help-article">
+          <section id="help/about" className="help-section" tabIndex={-1}>
+            <h2>What this site is for</h2>
+            <p>
+              Property taxes are most people&apos;s largest direct payment to
+              government, and the answer to &ldquo;where does that money
+              go?&rdquo; is spread across budget binders, by-laws, and
+              financial returns that few residents have time to read. What in
+              the Tax? reads those public documents and turns them into a
+              receipt: where a sample tax bill for your community goes, line by
+              line, with every number linked to the official record it came
+              from.
+            </p>
+            <p>
+              Three commitments shape everything here. <strong>Every number
+              traces to a source</strong> &mdash; a budget, by-law, or the
+              province&apos;s own Financial Information Return &mdash; and the
+              link is on the page, so you never have to take our word for it.
+              <strong> Missing evidence stays visible</strong> &mdash; where a
+              document does not answer a question, the receipt shows a gap
+              rather than an estimate. <strong>Mistakes are logged in
+              public</strong> &mdash; every resolved correction report lands in
+              a public log with a date, whatever the outcome.
+            </p>
+            <p>
+              This is an independent, open-source public-information project.
+              It is not a government service, not your tax bill, not a formal
+              audit, and not tax advice. Everything on the site today is a
+              draft preview while the project&apos;s publication checks are
+              completed &mdash; the site says so on its face rather than
+              implying more than the evidence supports.
+            </p>
+          </section>
+
           <section id="help/quick-start" className="help-section" tabIndex={-1}>
             <h2>Quick start</h2>
             <ol className="help-steps">
@@ -262,6 +297,61 @@ export default function HelpGuide({
               source and pass the same checks as everything else here; nothing
               is published without human review.
             </p>
+          </section>
+
+          <section id="help/technical" className="help-section" tabIndex={-1}>
+            <h2>How it works, technically</h2>
+            <p>
+              For readers who want the machinery: the site is a static page
+              built from a pipeline where every step is checked and nothing
+              publishes on trust.
+            </p>
+            <ul className="help-technical-list">
+              <li>
+                <strong>Sources are hash-locked.</strong> Each official input
+                &mdash; Ontario&apos;s Financial Information Return bulk files,
+                the municipal directory, budget and by-law PDFs &mdash; is
+                recorded in a reviewed lock file carrying its exact URL,
+                SHA-256 digest, byte count, and review date. If a government
+                server re-publishes a file, the changed bytes are quarantined
+                and every build fails until a person reviews and adopts the
+                change. That gate fired during this launch when Ontario
+                re-exported its FIR files overnight, and the adoption is in the
+                public commit history.
+              </li>
+              <li>
+                <strong>Builds are deterministic, with no AI at runtime.</strong>{' '}
+                Receipts are generated from the locked bytes by deterministic
+                parsers; the build asserts zero AI tokens were used. Continuous
+                integration rebuilds every receipt from the locks and compares
+                byte-for-byte, so a tampered artifact or a drifted source
+                cannot ship silently.
+              </li>
+              <li>
+                <strong>Citations are audited.</strong> For the hand-built
+                receipt previews, an auditor re-locates every figure on the
+                cited page of the hash-locked source extract and grades the
+                match (verbatim, normalized, row-bound, and weaker tiers). The
+                measured results are disclosed on each receipt as its
+                source-check line; hard failures block publication.
+              </li>
+              <li>
+                <strong>Deployment is sealed and human-approved.</strong> A
+                release is a bundle whose manifest hashes every file in both
+                directions. It reaches the public site only through a pipeline
+                that re-verifies those hashes, requires a named human&apos;s
+                recorded publication approval, and deploys through a protected
+                environment a person must approve &mdash; then re-checks that
+                the live site serves exactly the promoted bytes, with automatic
+                rollback if it does not.
+              </li>
+              <li>
+                <strong>Everything is inspectable.</strong> The code, the
+                evidence ledgers, the lock files, the audit results, and this
+                page&apos;s own history are in the public repository linked in
+                the footer. If you can read a diff, you can re-run our checks.
+              </li>
+            </ul>
           </section>
 
           <section id="help/faq" className="help-section" tabIndex={-1}>
