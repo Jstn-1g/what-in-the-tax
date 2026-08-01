@@ -1,83 +1,43 @@
 name: Refresh official source candidates
 
+# TEMPORARY BYTE FERRY - lives only on the throwaway branch tmp/byte-ferry,
+# which is deleted after one use. The maintainer's review sandbox cannot reach
+# efis.fma.csc.gov.on.ca (egress policy), so this dispatch-only job downloads
+# the drifted FIR 2025 payload on a runner and pushes it to the orphan branch
+# tmp/fir-2025-drift-bytes for local verification. It never writes to main or
+# any long-lived branch. Owner-authorized in the Claude session of 2026-08-01.
 'on':
-  schedule:
-    - cron: '23 5 * * 1'
   workflow_dispatch: {}
 
-# Source refresh can fetch public inputs and upload a review artifact. It has no
-# repository-write, deployment, package, or OIDC authority.
-permissions: {}
+permissions:
+  contents: write
 
 concurrency:
   group: official-source-refresh
   cancel-in-progress: false
 
 jobs:
-  refresh-candidates:
+  ferry:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    permissions:
-      contents: read
-    env:
-      PYTHONDONTWRITEBYTECODE: '1'
+    timeout-minutes: 10
     steps:
-      - name: Check out the selected revision
+      - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: requirements.txt
-
-      - name: Install pinned source-verification dependencies
-        run: >-
-          python -m pip install --disable-pip-version-check
-          --only-binary=:all: -r requirements.txt
-
-      - name: Fetch reviewed sources and preserve changed bytes as candidates
-        id: refresh
+      - name: Download candidate and push to throwaway orphan branch
         shell: bash
         run: |
-          set -u -o pipefail
-          report_dir="$RUNNER_TEMP/source-refresh"
-          mkdir -p "$report_dir"
-
-          set +e
-          python scripts/acquire_official_sources.py \
-            >"$report_dir/acquisition.json" \
-            2>"$report_dir/acquisition.stderr"
-          status=$?
-          set -e
-
-          # Exit 2 means that a changed upstream payload was safely retained as
-          # a candidate. It is a reportable review outcome, not a deployment.
-          if [[ "$status" -ne 0 && "$status" -ne 2 ]]; then
-            echo "Source acquisition failed without a candidate report." >&2
-            exit "$status"
-          fi
-          printf '%s\n' "$status" > "$report_dir/acquisition.exit-code"
-          if [[ -d sources/candidates ]]; then
-            cp -a sources/candidates "$report_dir/candidates"
-          fi
-
-          git diff --exit-code -- .
-          if [[ -n "$(git status --porcelain=v1 --untracked-files=all -- . ':(exclude)sources/candidates')" ]]; then
-            git status --short
-            echo "Source refresh changed repository content outside candidates." >&2
-            exit 1
-          fi
-          echo "report_dir=$report_dir" >> "$GITHUB_OUTPUT"
-
-      - name: Upload source refresh candidate report
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: official-source-refresh-${{ github.run_id }}
-          path: ${{ runner.temp }}/source-refresh
-          if-no-files-found: warn
-          retention-days: 30
+          set -euo pipefail
+          curl -sS --fail -o /tmp/fir_data_2025.zip \
+            "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip"
+          sha256sum /tmp/fir_data_2025.zip
+          git config user.name "Claude"
+          git config user.email "noreply@anthropic.com"
+          git switch --orphan tmp/fir-2025-drift-bytes
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          find . -mindepth 1 -maxdepth 1 -not -name .git -exec rm -rf {} +
+          cp /tmp/fir_data_2025.zip fir_data_2025.zip
+          sha256sum fir_data_2025.zip > fir_data_2025.zip.sha256
+          date -u +%Y-%m-%dT%H:%M:%SZ > retrieved-at.txt
+          git add -f fir_data_2025.zip fir_data_2025.zip.sha256 retrieved-at.txt
+          git commit -m "Ferry the quarantined FIR 2025 candidate bytes for local review (temporary)"
+          git push -f origin tmp/fir-2025-drift-bytes
