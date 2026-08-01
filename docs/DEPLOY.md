@@ -222,6 +222,11 @@ produces no error and no buttons - the card silently keeps saying "Support
 options are coming at launch", which is also what it correctly shows whenever
 either variable is unset.
 
+The live one-time link is committed in `web/.env.production`, which Vite loads
+automatically for production builds, so every pipeline that runs `npm run
+build` - the release workflow included - produces the same donate actions
+without per-environment configuration.
+
 `normalizeSupportUrl` refuses anything that is not an `https://buy.stripe.com`
 URL with no credentials and no fragment, and it specifically rejects any path
 segment beginning with `test_`. Test-mode Payment Links therefore cannot reach
