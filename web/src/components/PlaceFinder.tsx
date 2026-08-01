@@ -1,3 +1,4 @@
+import { repoBaseUrl } from '../repoLink'
 import {
   useDeferredValue,
   useId,
@@ -409,7 +410,17 @@ export default function PlaceFinder<T extends PlaceSearchRecord>({
             No match in the current receipt previews or loaded Ontario records.
             We will not substitute another community&apos;s data. If this was a
             former municipality — many were amalgamated in the 1990s and 2000s
-            — its records appear under the municipality it joined.
+            — its records appear under the municipality it joined. The project
+            is open source: coverage grows through{' '}
+            <a
+              href={`${repoBaseUrl()}/blob/main/CONTRIBUTING.md`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              contributed official evidence
+              <span className="visually-hidden"> (opens in a new tab)</span>
+            </a>
+            , reviewed before anything ships.
           </p>
         ) : null}
       </div>

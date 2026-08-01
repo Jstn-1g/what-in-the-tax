@@ -1,5 +1,6 @@
 import { useMemo, useState, type ReactNode } from 'react'
 import { money, pct } from '../lib/format'
+import { repoBaseUrl } from '../repoLink'
 import RepoLinks from './RepoLinks'
 import {
   buildEvidenceIndex,
@@ -863,6 +864,30 @@ export default function TaxReceiptScreen({
             ))}
           </ul>
         </section>
+
+        <aside className="contribute-callout">
+          <p>
+            <strong>Spot a number that looks wrong?</strong> This receipt is
+            open source. <a
+              href={`${repoBaseUrl()}/issues/new?template=wrong-number.yml`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Report it
+              <span className="visually-hidden"> (opens in a new tab)</span>
+            </a>{' '}
+            and it gets checked against the record &mdash; or{' '}
+            <a
+              href={`${repoBaseUrl()}/blob/main/CONTRIBUTING.md`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              contribute evidence
+              <span className="visually-hidden"> (opens in a new tab)</span>
+            </a>{' '}
+            for a community you know.
+          </p>
+        </aside>
 
         <footer className="footer">
           <p>

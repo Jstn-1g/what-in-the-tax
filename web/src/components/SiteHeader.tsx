@@ -1,9 +1,29 @@
 import ThemeToggle from './ThemeToggle'
+import { repoBaseUrl } from '../repoLink'
 
 type SiteHeaderProps = {
   currentPlace?: string
   onChoosePlace: () => void
   onOpenHelp: () => void
+}
+
+function ContributeIcon() {
+  // A branch/fork mark rather than any trademarked logo: two commits joining
+  // a line, the visual for "this is built in the open".
+  return (
+    <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+      <circle cx="6" cy="6" r="2.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="6" cy="18" r="2.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="18" cy="6" r="2.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M6 8.4v7.2M18 8.4c0 3.4-3 4.6-6 4.9-2 .2-3.6.8-4.6 2"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
 }
 
 function PlaceIcon() {
@@ -55,6 +75,16 @@ export default function SiteHeader({
         </button>
         <nav className="site-actions" aria-label="Main navigation">
           <ThemeToggle />
+          <a
+            className="site-action site-action-contribute"
+            href={`${repoBaseUrl()}/blob/main/CONTRIBUTING.md`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <ContributeIcon />
+            <span>Contribute</span>
+            <span className="visually-hidden"> (opens in a new tab)</span>
+          </a>
           <button
             type="button"
             className="site-action site-action-help"

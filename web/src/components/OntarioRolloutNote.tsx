@@ -1,3 +1,4 @@
+import { repoBaseUrl } from '../repoLink'
 import type { OntarioMunicipalHistoryRegistry } from '../lib/ontarioMunicipalHistory'
 
 export type OntarioRolloutNoteProps = {
@@ -85,6 +86,27 @@ export default function OntarioRolloutNote({
           Missing evidence stays visible instead of being estimated. Historical
           comparisons use one common year and basis rather than mixing each
           community&apos;s newest filing.
+        </p>
+        <p>
+          This record is built in the open. Anyone can{' '}
+          <a
+            href={`${repoBaseUrl()}/blob/main/CONTRIBUTING.md`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            contribute official sources and evidence
+            <span className="visually-hidden"> (opens in a new tab)</span>
+          </a>{' '}
+          or{' '}
+          <a
+            href={`${repoBaseUrl()}/issues/new?template=wrong-number.yml`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            report a wrong number
+            <span className="visually-hidden"> (opens in a new tab)</span>
+          </a>
+          ; every contribution passes the same checks before it ships.
         </p>
       </div>
 

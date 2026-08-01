@@ -1,0 +1,491 @@
+{
+  "schemaVersion": "fir-functional-receipt-0.1.0",
+  "grade": "FIR",
+  "badge": "FIR baseline filing (not a local by-law receipt)",
+  "isReceipt": false,
+  "slug": "london-on",
+  "assessmentCode": "3936",
+  "sgcCode": "39036",
+  "name": "London C",
+  "tier": "single-tier",
+  "fiscalYear": 2025,
+  "currency": "CAD",
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 40 - Consolidated Statement of Operations: Expenses",
+    "measure": "Total Expenses Before Adjustments (column 01, measure 07)",
+    "note": "PSAB accrual FIR actuals for the stated fiscal year, filed by the municipality. Not a current tax by-law, tax bill, or audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "localZip": "source-pdfs/fir/fir_data_2025.zip",
+    "localZipSha256": "3bbf699ef9beb570a30ebe3c1df7f82735e01e94a75c00e68807057b3570292e",
+    "archiveMember": "fir_data_2025.csv",
+    "archiveMemberSha256": "af246395948c7912d856961370c73bce0e475795564e7279b4b7a29c672c87e6"
+  },
+  "totals": {
+    "grandTotalCad": 1639802997.0,
+    "grandTotalSlc": "slc.40X.L9910.C01.07",
+    "populationFir": 472800.0,
+    "perCapitaCad": 3468.28,
+    "sharesReported": true
+  },
+  "functions": [
+    {
+      "code": "0299",
+      "slc": "slc.40X.L0299.C01.07",
+      "label": "General government",
+      "amountCad": 129628442.0,
+      "components": [
+        {
+          "code": "0240",
+          "slc": "slc.40X.L0240.C01.07",
+          "label": "Governance",
+          "amountCad": 4737275.0
+        },
+        {
+          "code": "0250",
+          "slc": "slc.40X.L0250.C01.07",
+          "label": "Corporate Management",
+          "amountCad": 66408532.0
+        },
+        {
+          "code": "0260",
+          "slc": "slc.40X.L0260.C01.07",
+          "label": "Program Support",
+          "amountCad": 58482635.0
+        }
+      ],
+      "shareOfTotal": 0.079051
+    },
+    {
+      "code": "0499",
+      "slc": "slc.40X.L0499.C01.07",
+      "label": "Protection services",
+      "amountCad": 315445898.0,
+      "components": [
+        {
+          "code": "0410",
+          "slc": "slc.40X.L0410.C01.07",
+          "label": "Fire",
+          "amountCad": 80838006.0
+        },
+        {
+          "code": "0420",
+          "slc": "slc.40X.L0420.C01.07",
+          "label": "Police",
+          "amountCad": 198474662.0
+        },
+        {
+          "code": "0421",
+          "slc": "slc.40X.L0421.C01.07",
+          "label": "Court security",
+          "amountCad": 5397860.0
+        },
+        {
+          "code": "0422",
+          "slc": "slc.40X.L0422.C01.07",
+          "label": "Prisoner transportation",
+          "amountCad": 541644.0
+        },
+        {
+          "code": "0430",
+          "slc": "slc.40X.L0430.C01.07",
+          "label": "Conservation authority",
+          "amountCad": 2933312.0
+        },
+        {
+          "code": "0440",
+          "slc": "slc.40X.L0440.C01.07",
+          "label": "Protective inspection and control",
+          "amountCad": 11500905.0
+        },
+        {
+          "code": "0445",
+          "slc": "slc.40X.L0445.C01.07",
+          "label": "Building permit and inspection services",
+          "amountCad": 9092488.0
+        },
+        {
+          "code": "0450",
+          "slc": "slc.40X.L0450.C01.07",
+          "label": "Emergency measures",
+          "amountCad": 2390842.0
+        },
+        {
+          "code": "0460",
+          "slc": "slc.40X.L0460.C01.07",
+          "label": "Provincial Offences Act (POA)",
+          "amountCad": 4276179.0
+        }
+      ],
+      "shareOfTotal": 0.192368
+    },
+    {
+      "code": "0699",
+      "slc": "slc.40X.L0699.C01.07",
+      "label": "Transportation services",
+      "amountCad": 292398115.0,
+      "components": [
+        {
+          "code": "0611",
+          "slc": "slc.40X.L0611.C01.07",
+          "label": "Roads - paved",
+          "amountCad": 86311044.0
+        },
+        {
+          "code": "0612",
+          "slc": "slc.40X.L0612.C01.07",
+          "label": "Roads - unpaved",
+          "amountCad": 576851.0
+        },
+        {
+          "code": "0613",
+          "slc": "slc.40X.L0613.C01.07",
+          "label": "Roads - bridges and culverts",
+          "amountCad": 6462767.0
+        },
+        {
+          "code": "0614",
+          "slc": "slc.40X.L0614.C01.07",
+          "label": "Roadways - traffic operations & roadside",
+          "amountCad": 26416242.0
+        },
+        {
+          "code": "0621",
+          "slc": "slc.40X.L0621.C01.07",
+          "label": "Winter control - except sidewalks,parking lots",
+          "amountCad": 22820206.0
+        },
+        {
+          "code": "0622",
+          "slc": "slc.40X.L0622.C01.07",
+          "label": "Winter control - sidewalks,parking lots only",
+          "amountCad": 3554282.0
+        },
+        {
+          "code": "0631",
+          "slc": "slc.40X.L0631.C01.07",
+          "label": "Transit - conventional",
+          "amountCad": 112232756.0
+        },
+        {
+          "code": "0632",
+          "slc": "slc.40X.L0632.C01.07",
+          "label": "Transit - Accessible",
+          "amountCad": 15622000.0
+        },
+        {
+          "code": "0640",
+          "slc": "slc.40X.L0640.C01.07",
+          "label": "Parking",
+          "amountCad": 4159630.0
+        },
+        {
+          "code": "0650",
+          "slc": "slc.40X.L0650.C01.07",
+          "label": "Street lighting",
+          "amountCad": 14185377.0
+        },
+        {
+          "code": "0698",
+          "slc": "slc.40X.L0698.C01.07",
+          "label": "Other",
+          "amountCad": 56960.0
+        }
+      ],
+      "shareOfTotal": 0.178313
+    },
+    {
+      "code": "0899",
+      "slc": "slc.40X.L0899.C01.07",
+      "label": "Environmental services",
+      "amountCad": 233013828.0,
+      "components": [
+        {
+          "code": "0811",
+          "slc": "slc.40X.L0811.C01.07",
+          "label": "Wastewater collection/conveyance",
+          "amountCad": 33007270.0
+        },
+        {
+          "code": "0812",
+          "slc": "slc.40X.L0812.C01.07",
+          "label": "Wastewater treatment & disposal",
+          "amountCad": 46906068.0
+        },
+        {
+          "code": "0821",
+          "slc": "slc.40X.L0821.C01.07",
+          "label": "Urban storm sewer system",
+          "amountCad": 41164954.0
+        },
+        {
+          "code": "0822",
+          "slc": "slc.40X.L0822.C01.07",
+          "label": "Rural storm sewer system",
+          "amountCad": 107254.0
+        },
+        {
+          "code": "0831",
+          "slc": "slc.40X.L0831.C01.07",
+          "label": "Water treatment",
+          "amountCad": 18369559.0
+        },
+        {
+          "code": "0832",
+          "slc": "slc.40X.L0832.C01.07",
+          "label": "Water distribution/transmission",
+          "amountCad": 55959394.0
+        },
+        {
+          "code": "0840",
+          "slc": "slc.40X.L0840.C01.07",
+          "label": "Solid waste collection",
+          "amountCad": 11406996.0
+        },
+        {
+          "code": "0850",
+          "slc": "slc.40X.L0850.C01.07",
+          "label": "Solid waste disposal",
+          "amountCad": -978064.0
+        },
+        {
+          "code": "0860",
+          "slc": "slc.40X.L0860.C01.07",
+          "label": "Waste diversion",
+          "amountCad": 25300495.0
+        },
+        {
+          "code": "0898",
+          "slc": "slc.40X.L0898.C01.07",
+          "label": "Other",
+          "amountCad": 1769902.0
+        }
+      ],
+      "shareOfTotal": 0.142099
+    },
+    {
+      "code": "1099",
+      "slc": "slc.40X.L1099.C01.07",
+      "label": "Health services",
+      "amountCad": 47471559.0,
+      "components": [
+        {
+          "code": "1010",
+          "slc": "slc.40X.L1010.C01.07",
+          "label": "Public health services",
+          "amountCad": 15042137.0
+        },
+        {
+          "code": "1030",
+          "slc": "slc.40X.L1030.C01.07",
+          "label": "Ambulance services",
+          "amountCad": 32429422.0
+        }
+      ],
+      "shareOfTotal": 0.02895
+    },
+    {
+      "code": "1299",
+      "slc": "slc.40X.L1299.C01.07",
+      "label": "Social and family services",
+      "amountCad": 376222011.0,
+      "components": [
+        {
+          "code": "1210",
+          "slc": "slc.40X.L1210.C01.07",
+          "label": "General assistance",
+          "amountCad": 214431314.0
+        },
+        {
+          "code": "1220",
+          "slc": "slc.40X.L1220.C01.07",
+          "label": "Assistance to Seniors",
+          "amountCad": 39394126.0
+        },
+        {
+          "code": "1230",
+          "slc": "slc.40X.L1230.C01.07",
+          "label": "Child Care and Early Years Learning",
+          "amountCad": 121758965.0
+        },
+        {
+          "code": "1298",
+          "slc": "slc.40X.L1298.C01.07",
+          "label": "Other",
+          "amountCad": 637606.0
+        }
+      ],
+      "shareOfTotal": 0.229431
+    },
+    {
+      "code": "1499",
+      "slc": "slc.40X.L1499.C01.07",
+      "label": "Social Housing",
+      "amountCad": 78515690.0,
+      "components": [
+        {
+          "code": "1410",
+          "slc": "slc.40X.L1410.C01.07",
+          "label": "Public housing",
+          "amountCad": 41768195.0
+        },
+        {
+          "code": "1420",
+          "slc": "slc.40X.L1420.C01.07",
+          "label": "Non-profit/Cooperative housing",
+          "amountCad": 23970070.0
+        },
+        {
+          "code": "1430",
+          "slc": "slc.40X.L1430.C01.07",
+          "label": "Rent Supplement programs",
+          "amountCad": 1281139.0
+        },
+        {
+          "code": "1497",
+          "slc": "slc.40X.L1497.C01.07",
+          "label": "Other",
+          "amountCad": 2428929.0
+        },
+        {
+          "code": "1498",
+          "slc": "slc.40X.L1498.C01.07",
+          "label": "Other",
+          "amountCad": 9067357.0
+        }
+      ],
+      "shareOfTotal": 0.047881
+    },
+    {
+      "code": "1699",
+      "slc": "slc.40X.L1699.C01.07",
+      "label": "Recreation and cultural services",
+      "amountCad": 107090508.0,
+      "components": [
+        {
+          "code": "1610",
+          "slc": "slc.40X.L1610.C01.07",
+          "label": "Parks",
+          "amountCad": 22764224.0
+        },
+        {
+          "code": "1620",
+          "slc": "slc.40X.L1620.C01.07",
+          "label": "Recreation programs",
+          "amountCad": 20462603.0
+        },
+        {
+          "code": "1631",
+          "slc": "slc.40X.L1631.C01.07",
+          "label": "Recreation facilities - Golf Course, Marina, Ski Hill",
+          "amountCad": 4690660.0
+        },
+        {
+          "code": "1634",
+          "slc": "slc.40X.L1634.C01.07",
+          "label": "Recreation facilities - Other",
+          "amountCad": 18704322.0
+        },
+        {
+          "code": "1640",
+          "slc": "slc.40X.L1640.C01.07",
+          "label": "Libraries",
+          "amountCad": 30001979.0
+        },
+        {
+          "code": "1645",
+          "slc": "slc.40X.L1645.C01.07",
+          "label": "Museums",
+          "amountCad": 675525.0
+        },
+        {
+          "code": "1650",
+          "slc": "slc.40X.L1650.C01.07",
+          "label": "Cultural services",
+          "amountCad": 9647388.0
+        },
+        {
+          "code": "1698",
+          "slc": "slc.40X.L1698.C01.07",
+          "label": "Other",
+          "amountCad": 143807.0
+        }
+      ],
+      "shareOfTotal": 0.065307
+    },
+    {
+      "code": "1899",
+      "slc": "slc.40X.L1899.C01.07",
+      "label": "Planning and development",
+      "amountCad": 60016946.0,
+      "components": [
+        {
+          "code": "1810",
+          "slc": "slc.40X.L1810.C01.07",
+          "label": "Planning and zoning",
+          "amountCad": 13585253.0
+        },
+        {
+          "code": "1820",
+          "slc": "slc.40X.L1820.C01.07",
+          "label": "Commercial and industrial",
+          "amountCad": 45836825.0
+        },
+        {
+          "code": "1830",
+          "slc": "slc.40X.L1830.C01.07",
+          "label": "Residential development",
+          "amountCad": 262.0
+        },
+        {
+          "code": "1840",
+          "slc": "slc.40X.L1840.C01.07",
+          "label": "Agriculture and reforestation",
+          "amountCad": 594606.0
+        }
+      ],
+      "shareOfTotal": 0.0366
+    }
+  ],
+  "other": {
+    "code": "1999",
+    "label": "Other",
+    "amountCad": 0,
+    "publishedRollupLine": null,
+    "components": [],
+    "note": "Schedule 40 publishes no rollup row for this group, so the figure is the sum of its own component lines. It may be negative where the filing records recoveries or adjustments."
+  },
+  "identities": {
+    "componentsSumToGroupTotals": true,
+    "functionsPlusOtherEqualGrandTotal": true,
+    "toleranceCad": 0.51,
+    "assertedAtBuildTime": true
+  },
+  "gates": {
+    "hasGrandTotal": true,
+    "hasPopulation": true,
+    "passed": true
+  },
+  "comparability": {
+    "crossMunicipalityComparable": false,
+    "reason": "FIR functional receipt is a composition, not a comparison instrument",
+    "basis": {
+      "fiscalYear": 2025,
+      "sourceId": "mmah-fir",
+      "measure": "totalExpensesBeforeAdjustments",
+      "tier": "single-tier"
+    },
+    "declaredPopulationFloor": 5000,
+    "belowPopulationFloor": false,
+    "blockers": [
+      {
+        "code": "tier-scope-differs",
+        "detail": "Functional scope depends on tier. A lower-tier municipality's figures exclude upper-tier services billed to the same resident, so lower-, upper- and single-tier receipts are not interchangeable."
+      }
+    ],
+    "note": "Any cross-municipality reading requires one common fiscal year, one common basis, and the same tier - and even then this is a filing, not a rate or bill comparison."
+  },
+  "disclaimer": "This is a machine-built FIR baseline receipt. It is not a property-tax bill, not a by-law citation, and not a finding. Amounts are the municipality's own filed actuals for a past fiscal year. For by-law-grade receipts see the gold packs."
+}

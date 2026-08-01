@@ -31,6 +31,14 @@ export default function RepoLinks() {
         Corrections log
         <span className="visually-hidden"> (opens in a new tab)</span>
       </a>
+      <a
+        href={`${repoBase}/blob/main/CONTRIBUTING.md`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        How to contribute
+        <span className="visually-hidden"> (opens in a new tab)</span>
+      </a>
     </>
   )
 }

@@ -5,13 +5,13 @@
   "jurisdiction": "CA-ON",
   "fiscalYear": 2025,
   "sourceZip": "fir_data_2025.zip",
-  "sourceZipSha256": "e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
-  "sourceArchiveMemberSha256": "578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e",
+  "sourceZipSha256": "3bbf699ef9beb570a30ebe3c1df7f82735e01e94a75c00e68807057b3570292e",
+  "sourceArchiveMemberSha256": "af246395948c7912d856961370c73bce0e475795564e7279b4b7a29c672c87e6",
   "method": "schedule-40-functional-breakdown",
   "aiTokensUsed": 0,
   "crossMunicipalityComparable": false,
   "declaredPopulationFloor": 5000,
-  "municipalityCount": 133,
+  "municipalityCount": 142,
   "skipped": [],
   "municipalities": [
     {
@@ -46,6 +46,17 @@
       "belowPopulationFloor": true,
       "functionCount": 6,
       "path": "fir/2025/0201.json"
+    },
+    {
+      "assessmentCode": "0208",
+      "slug": "hawkesbury-on",
+      "name": "Hawkesbury T",
+      "tier": "lower-tier",
+      "grandTotalCad": 26957659.0,
+      "populationFir": 10194.0,
+      "belowPopulationFloor": false,
+      "functionCount": 6,
+      "path": "fir/2025/0208.json"
     },
     {
       "assessmentCode": "0209",
@@ -169,6 +180,17 @@
       "path": "fir/2025/0928.json"
     },
     {
+      "assessmentCode": "0940",
+      "slug": "lanark-highlands-on",
+      "name": "Lanark Highlands Tp",
+      "tier": "lower-tier",
+      "grandTotalCad": 11205982.0,
+      "populationFir": 5737.0,
+      "belowPopulationFloor": false,
+      "functionCount": 7,
+      "path": "fir/2025/0940.json"
+    },
+    {
       "assessmentCode": "1011",
       "slug": "kingston-on",
       "name": "Kingston C",
@@ -279,6 +301,17 @@
       "path": "fir/2025/1805.json"
     },
     {
+      "assessmentCode": "1813",
+      "slug": "oshawa-on",
+      "name": "Oshawa C",
+      "tier": "lower-tier",
+      "grandTotalCad": 251843301.0,
+      "populationFir": 187500.0,
+      "belowPopulationFloor": false,
+      "functionCount": 8,
+      "path": "fir/2025/1813.json"
+    },
+    {
       "assessmentCode": "1817",
       "slug": "clarington-m-on",
       "name": "Clarington M",
@@ -288,6 +321,17 @@
       "belowPopulationFloor": false,
       "functionCount": 7,
       "path": "fir/2025/1817.json"
+    },
+    {
+      "assessmentCode": "1820",
+      "slug": "scugog-on",
+      "name": "Scugog Tp",
+      "tier": "lower-tier",
+      "grandTotalCad": 27412402.0,
+      "populationFir": 17972.0,
+      "belowPopulationFloor": false,
+      "functionCount": 6,
+      "path": "fir/2025/1820.json"
     },
     {
       "assessmentCode": "1829",
@@ -851,6 +895,28 @@
       "path": "fir/2025/3829.json"
     },
     {
+      "assessmentCode": "3831",
+      "slug": "point-edward-v-on",
+      "name": "Point Edward V",
+      "tier": "lower-tier",
+      "grandTotalCad": 8224557.0,
+      "populationFir": 1930.0,
+      "belowPopulationFloor": true,
+      "functionCount": 6,
+      "path": "fir/2025/3831.json"
+    },
+    {
+      "assessmentCode": "3936",
+      "slug": "london-on",
+      "name": "London C",
+      "tier": "single-tier",
+      "grandTotalCad": 1639802997.0,
+      "populationFir": 472800.0,
+      "belowPopulationFloor": false,
+      "functionCount": 9,
+      "path": "fir/2025/3936.json"
+    },
+    {
       "assessmentCode": "3946",
       "slug": "adelaide-metcalfe-on",
       "name": "Adelaide-Metcalfe Tp",
@@ -884,6 +950,17 @@
       "path": "fir/2025/4300.json"
     },
     {
+      "assessmentCode": "4312",
+      "slug": "bradford-west-gwillimbury-on",
+      "name": "Bradford West Gwillimbury T",
+      "tier": "lower-tier",
+      "grandTotalCad": 108115057.36,
+      "populationFir": 44839.0,
+      "belowPopulationFloor": false,
+      "functionCount": 7,
+      "path": "fir/2025/4312.json"
+    },
+    {
       "assessmentCode": "4324",
       "slug": "new-tecumseth-on",
       "name": "New Tecumseth T",
@@ -904,6 +981,17 @@
       "belowPopulationFloor": false,
       "functionCount": 9,
       "path": "fir/2025/4342.json"
+    },
+    {
+      "assessmentCode": "4348",
+      "slug": "ramara-on",
+      "name": "Ramara Tp",
+      "tier": "lower-tier",
+      "grandTotalCad": 23993273.0,
+      "populationFir": 10377.0,
+      "belowPopulationFloor": false,
+      "functionCount": 7,
+      "path": "fir/2025/4348.json"
     },
     {
       "assessmentCode": "4364",
@@ -1355,6 +1443,17 @@
       "belowPopulationFloor": true,
       "functionCount": 8,
       "path": "fir/2025/5828.json"
+    },
+    {
+      "assessmentCode": "5841",
+      "slug": "red-rock-on",
+      "name": "Red Rock Tp",
+      "tier": "single-tier",
+      "grandTotalCad": 4819875.0,
+      "populationFir": 895.0,
+      "belowPopulationFloor": true,
+      "functionCount": 8,
+      "path": "fir/2025/5841.json"
     },
     {
       "assessmentCode": "5911",

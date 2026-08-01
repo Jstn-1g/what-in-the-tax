@@ -153,35 +153,40 @@ FIR_RELEASES = {
     # recomputation trustworthy rather than merely agreeable.
     2025: FirReleaseLock(
         year=2025,
-        # Re-pinned for the 2026-07-30 re-publication the owner adopted in
-        # issue #47: Ottawa C filed (the +1 single-tier), and eight
-        # municipalities revised already-filed rows.
-        sha256="e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
-        member_sha256="578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e",
-        row_count=211_304,
-        record_count=133,
-        tier_counts={"lower-tier": 76, "single-tier": 41, "upper-tier": 16},
-        posted_date="2026-07-30",
+        # Re-pinned for the 2026-08-01 re-export: nine more municipalities
+        # filed their 2025 returns (including London C, Oshawa C, Bradford
+        # West Gwillimbury T, Ramara Tp, Point Edward V and Red Rock Tp).
+        # Every previously emitted 2025 figure recomputes unchanged.
+        sha256="3bbf699ef9beb570a30ebe3c1df7f82735e01e94a75c00e68807057b3570292e",
+        member_sha256="af246395948c7912d856961370c73bce0e475795564e7279b4b7a29c672c87e6",
+        row_count=226_337,
+        record_count=142,
+        tier_counts={"lower-tier": 83, "single-tier": 43, "upper-tier": 16},
+        posted_date="2026-08-01",
     ),
     2024: FirReleaseLock(
         year=2024,
-        sha256="5244f9e637cdef1b83f0d98b587f5f26783b2e2a2e6ec903d965f86126d2c304",
-        member_sha256="e211edfd8510c3cbace9831c98c9f27c406603f09fd7a3f3a073db69181660d9",
-        row_count=629_193,
-        record_count=403,
-        # Unchanged: the extra row is Atikokan Tp splitting one revenue line in
-        # two, not a new filer.
-        tier_counts={"lower-tier": 220, "single-tier": 153, "upper-tier": 30},
-        posted_date="2026-07-29",
+        # Re-pinned for the 2026-08-01 re-export: Douro-Dummer Tp filed its
+        # 2024 return (+1,210 rows, the lone lower-tier addition). Every
+        # previously emitted 2024 figure recomputes unchanged.
+        sha256="43aa5a474c52ed962cbc2a4a5fdfe673d17c4e9810556cec900b44f02e954ee5",
+        member_sha256="09ff1374092eb399c7219ae1fbdb022c7f861c059673033851f29b98c1fd223a",
+        row_count=630_403,
+        record_count=404,
+        tier_counts={"lower-tier": 221, "single-tier": 153, "upper-tier": 30},
+        posted_date="2026-08-01",
     ),
     2023: FirReleaseLock(
         year=2023,
-        sha256="30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+        # Re-pinned container for the upstream re-zip (server Last-Modified
+        # 2026-07-27); the member CSV is byte-identical, so every row count
+        # and figure below is unchanged.
+        sha256="aedcf2e84846ad9fcfaa5cb5421d079b5440580d735dfe850f608a9e44e574b5",
         member_sha256="e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef",
         row_count=682_127,
         record_count=436,
         tier_counts={"lower-tier": 238, "single-tier": 168, "upper-tier": 30},
-        posted_date="2026-07-24",
+        posted_date="2026-07-27",
     ),
 }
 FIR_YEARS = tuple(sorted(FIR_RELEASES, reverse=True))

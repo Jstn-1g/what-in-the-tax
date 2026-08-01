@@ -1,15 +1,15 @@
 {
   "schemaVersion": "official-source-lock-1.0.0",
   "reviewStatus": "reviewed",
-  "reviewedAt": "2026-07-29T21:28:34-04:00",
-  "reviewedBy": "Justin Skowyra",
+  "reviewedAt": "2026-08-01T00:25:00Z",
+  "reviewedBy": "Claude (Fable 5), under owner delegation by Justin Skowyra recorded in session 01DVzHE5KYHiuZCWyVcxeG6T",
   "jurisdiction": "CA-ON",
   "sourceId": "on-fir-2025",
   "fiscalYear": 2025,
   "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
   "mediaType": "application/zip",
-  "byteLength": 3444973,
-  "sha256": "e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
+  "byteLength": 3690625,
+  "sha256": "3bbf699ef9beb570a30ebe3c1df7f82735e01e94a75c00e68807057b3570292e",
   "localPath": "source-pdfs/fir/fir_data_2025.zip",
   "archiveMember": "fir_data_2025.csv",
   "encoding": "utf-8",
@@ -35,14 +35,14 @@
   ],
   "fiscalYearField": "MARSYEAR",
   "recordIdField": "ASSESSMENT_CODE",
-  "rowCount": 211304,
-  "recordCount": 133,
-  "retrievedAt": "2026-07-30T01:14:34Z",
+  "rowCount": 226337,
+  "recordCount": 142,
+  "retrievedAt": "2026-08-01T00:47:18Z",
   "licence": {
     "name": "Open Government Licence – Ontario",
     "url": "https://www.ontario.ca/page/open-government-licence-ontario",
     "attribution": "Contains information licensed under the Open Government Licence – Ontario."
   },
   "runtimeAiRequired": false,
-  "archiveMemberSha256": "578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e"
+  "archiveMemberSha256": "af246395948c7912d856961370c73bce0e475795564e7279b4b7a29c672c87e6"
 }
