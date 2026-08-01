@@ -2930,7 +2930,9 @@ main#main-content {
 .fir-filing__year[aria-current='page'] {
   background: var(--green);
   border-color: var(--green);
-  color: var(--white);
+  /* --on-fill, not a literal white: the green fill flips light in dark theme,
+     and this pair is the one contrast.test.ts already checks on --green. */
+  color: var(--on-fill);
 }
 
 .fir-filing__years-note {
