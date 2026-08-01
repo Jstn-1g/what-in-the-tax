@@ -1,13 +1,13 @@
 {
   "schemaVersion": "auditback-release-publication-approval-1.0.0",
   "releaseId": "ontario-directory-2026-07-26-1",
-  "candidateOnly": true,
-  "decision": null,
-  "publisher": null,
-  "publisherContact": null,
-  "approvedBy": null,
-  "approvedAt": null,
-  "releaseReference": null,
-  "license": null,
-  "correctionsUrl": null
+  "candidateOnly": false,
+  "decision": "approved",
+  "publisher": "What in the Tax?",
+  "publisherContact": "mailto:corrections@whatinthetax.com",
+  "approvedBy": "Justin Skowyra",
+  "approvedAt": "2026-08-01T02:31:16Z",
+  "releaseReference": "https://github.com/Jstn-1g/what-in-the-tax/commit/8e97c71acf3be863253e404c5c2b456478fa08d5",
+  "license": "Code: MIT. Data: Contains information licensed under the Open Government Licence - Ontario; includes data adapted from Statistics Canada.",
+  "correctionsUrl": "https://github.com/Jstn-1g/what-in-the-tax/blob/main/CORRECTIONS.md"
 }
