@@ -143,16 +143,17 @@ class OntarioMunicipalHistoryTests(unittest.TestCase):
         self.assertEqual(444, index["coverage"]["currentMunicipalities"])
         self.assertEqual(436, index["coverage"]["withFirHistory"])
         self.assertEqual(8, index["coverage"]["withoutFirHistory"])
-        # Ottawa C filed 2025 in the 2026-07-30 re-publication (issue #47),
-        # so it moves from "latest 2024" to "latest 2025": 132 -> 133 and
-        # 271 -> 270. The pair still totals 436, which is what says these two
+        # The 2026-08-01 re-export added nine 2025 filers and one 2024 filer
+        # (Douro-Dummer Tp, previously latest-2023). Latest-year counts move
+        # 133 -> 142, 270 -> 262 (nine left for 2025, Douro-Dummer arrived),
+        # and 33 -> 32; the trio still totals 436, which is what says these
         # numbers moved together rather than one of them drifting.
         self.assertEqual(
-            {"2025": 133, "2024": 270, "2023": 33, "unavailable": 8},
+            {"2025": 142, "2024": 262, "2023": 32, "unavailable": 8},
             index["coverage"]["latestFirYearCounts"],
         )
         self.assertEqual(
-            {"2025": 133, "2024": 403, "2023": 436},
+            {"2025": 142, "2024": 404, "2023": 436},
             index["coverage"]["firYearRecordCounts"],
         )
         self.assertFalse(index["isReceipt"])

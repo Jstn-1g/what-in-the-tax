@@ -37,10 +37,11 @@ describe('Ontario data verification status', () => {
     expect(content).toContain('444')
     expect(content).toContain('436')
     expect(content).toContain('2026-06-03')
-    // Ontario re-posted the 2025 returns on 2026-07-30 (server Last-Modified
-    // 00:16 GMT; Ottawa filed, adopted in issue #47); the note cites the
-    // snapshot it was built from.
-    expect(content).toContain('2026-07-30')
+    // Ontario re-exported the 2025 returns on 2026-08-01 (server
+    // Last-Modified 00:29 GMT; nine more municipalities filed, adopted in
+    // this session's drift review); the note cites the snapshot it was
+    // built from.
+    expect(content).toContain('2026-08-01')
     expect(content).toContain('2025, 2024, 2023')
     expect(content).toContain('No AI calls and no live government requests')
     expect(content).toContain(

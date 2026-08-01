@@ -141,13 +141,13 @@ describe('Ontario current directory with FIR history', () => {
       withFirHistory: 436,
       withoutFirHistory: 8,
       latestFirYearCounts: {
-        // Ottawa C filed 2025 in the 2026-07-30 re-publication (issue #47),
-        // so it moves from the 2024 bucket to the 2025 one: 132 -> 133 and
-        // 271 -> 270. The pair still totals 403, which is what says they
-        // moved together rather than one of them drifting.
-        '2025': 133,
-        '2024': 270,
-        '2023': 33,
+        // The 2026-08-01 re-export added nine 2025 filers and one 2024
+        // filer (Douro-Dummer Tp, previously latest-2023): 133 -> 142,
+        // 270 -> 262, 33 -> 32. The trio still totals 436, which is what
+        // says they moved together rather than one of them drifting.
+        '2025': 142,
+        '2024': 262,
+        '2023': 32,
         unavailable: 8,
       },
     })

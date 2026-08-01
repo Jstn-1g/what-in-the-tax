@@ -8,8 +8,8 @@
   "fiscalYear": 2025,
   "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
   "mediaType": "application/zip",
-  "byteLength": 3623530,
-  "sha256": "bdd64b7e9bdcaa73c090e20b787a2a756e5b128e55de5f720b5af9e3d4b01172",
+  "byteLength": 3690625,
+  "sha256": "3bbf699ef9beb570a30ebe3c1df7f82735e01e94a75c00e68807057b3570292e",
   "localPath": "source-pdfs/fir/fir_data_2025.zip",
   "archiveMember": "fir_data_2025.csv",
   "encoding": "utf-8",
@@ -35,14 +35,14 @@
   ],
   "fiscalYearField": "MARSYEAR",
   "recordIdField": "ASSESSMENT_CODE",
-  "rowCount": 222223,
-  "recordCount": 139,
-  "retrievedAt": "2026-08-01T00:21:15Z",
+  "rowCount": 226337,
+  "recordCount": 142,
+  "retrievedAt": "2026-08-01T00:47:18Z",
   "licence": {
     "name": "Open Government Licence – Ontario",
     "url": "https://www.ontario.ca/page/open-government-licence-ontario",
     "attribution": "Contains information licensed under the Open Government Licence – Ontario."
   },
   "runtimeAiRequired": false,
-  "archiveMemberSha256": "82f891c8958599d22bbaec497c13019cdada210f779eb61c8f6092023af5a750"
+  "archiveMemberSha256": "af246395948c7912d856961370c73bce0e475795564e7279b4b7a29c672c87e6"
 }

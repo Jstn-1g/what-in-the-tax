@@ -18,7 +18,7 @@
     "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
     "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
     "archive": "fir_data_2023.zip",
-    "archiveSha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+    "archiveSha256": "aedcf2e84846ad9fcfaa5cb5421d079b5440580d735dfe850f608a9e44e574b5",
     "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef"
   },
   "residential": {

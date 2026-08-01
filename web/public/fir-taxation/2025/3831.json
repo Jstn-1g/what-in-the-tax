@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "fir-taxation-receipt-0.1.0",
+  "grade": "FIR",
+  "isReceipt": false,
+  "jurisdiction": "CA-ON",
+  "assessmentCode": "3831",
+  "slug": "point-edward-v-on",
+  "name": "Point Edward V",
+  "tier": "LT",
+  "sgcCode": "38031",
+  "fiscalYear": 2025,
+  "source": {
+    "id": "mmah-fir",
+    "title": "Ontario MMAH Financial Information Return (Multi-Year Report data)",
+    "urlPattern": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_{year}.zip",
+    "schedule": "Schedule 26A - Taxation and Payments-in-Lieu Summary",
+    "measure": "Taxable property, column block 01",
+    "note": "Taxes levied for the stated fiscal year as filed by the municipality. Not a current tax by-law, an individual tax bill, or an audit.",
+    "url": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
+    "archive": "fir_data_2025.zip",
+    "archiveSha256": "3bbf699ef9beb570a30ebe3c1df7f82735e01e94a75c00e68807057b3570292e",
+    "archiveMemberSha256": "af246395948c7912d856961370c73bce0e475795564e7279b4b7a29c672c87e6"
+  },
+  "residential": {
+    "taxableAssessmentCvaCad": 221136900.0,
+    "totalTaxesCad": 3207243.0,
+    "municipalLowerOrSingleTierCad": 1710326.0,
+    "municipalUpperTierCad": 1158578.0,
+    "educationCad": 338339.0,
+    "shares": {
+      "municipalLowerOrSingleTier": 0.53327,
+      "municipalUpperTier": 0.361238,
+      "education": 0.105492
+    },
+    "educationRate": 0.00153
+  },
+  "classes": [
+    {
+      "code": "0010",
+      "label": "Residential",
+      "taxableAssessmentCvaCad": 221136900.0,
+      "taxableAssessmentWeightedDiscountedCad": 221136900.0,
+      "totalTaxesCad": 3207243.0,
+      "municipalLowerOrSingleTierCad": 1710326.0,
+      "municipalUpperTierCad": 1158578.0,
+      "educationCad": 338339.0
+    },
+    {
+      "code": "0050",
+      "label": "Multi-residential",
+      "taxableAssessmentCvaCad": 3568000.0,
+      "taxableAssessmentWeightedDiscountedCad": 7136000.0,
+      "totalTaxesCad": 98038.0,
+      "municipalLowerOrSingleTierCad": 55192.0,
+      "municipalUpperTierCad": 37387.0,
+      "educationCad": 5459.0
+    },
+    {
+      "code": "0210",
+      "label": "Commercial",
+      "taxableAssessmentCvaCad": 113401606.0,
+      "taxableAssessmentWeightedDiscountedCad": 180183215.41,
+      "totalTaxesCad": 3274735.0,
+      "municipalLowerOrSingleTierCad": 1393580.0,
+      "municipalUpperTierCad": 944014.0,
+      "educationCad": 937141.0
+    },
+    {
+      "code": "0320",
+      "label": "Office building",
+      "taxableAssessmentCvaCad": 2592500.0,
+      "taxableAssessmentWeightedDiscountedCad": 3981556.32,
+      "totalTaxesCad": 74468.0,
+      "municipalLowerOrSingleTierCad": 30794.0,
+      "municipalUpperTierCad": 20860.0,
+      "educationCad": 22814.0
+    },
+    {
+      "code": "0510",
+      "label": "Industrial",
+      "taxableAssessmentCvaCad": 1321700.0,
+      "taxableAssessmentWeightedDiscountedCad": 2498877.34,
+      "totalTaxesCad": 44050.0,
+      "municipalLowerOrSingleTierCad": 19327.0,
+      "municipalUpperTierCad": 13092.0,
+      "educationCad": 11631.0
+    },
+    {
+      "code": "0710",
+      "label": "Pipelines",
+      "taxableAssessmentCvaCad": 980000.0,
+      "taxableAssessmentWeightedDiscountedCad": 1315507.9,
+      "totalTaxesCad": 25690.0,
+      "municipalLowerOrSingleTierCad": 10174.0,
+      "municipalUpperTierCad": 6892.0,
+      "educationCad": 8624.0
+    }
+  ],
+  "checks": {
+    "partsSumToTotalPerClass": true,
+    "educationRateWithinProvincialConstant": true,
+    "provincialEducationRate": 0.00153,
+    "educationRateToleranceAbsolute": 5e-05,
+    "identityToleranceCad": 0.51
+  },
+  "crossMunicipalityComparable": false,
+  "disclaimer": "Levies as filed by the municipality for this fiscal year. Shares describe how the total was split between the taxing bodies, not what any individual property owner paid.",
+  "aiTokensUsed": 0
+}

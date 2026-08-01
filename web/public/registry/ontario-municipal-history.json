@@ -2,7 +2,7 @@
   "schemaVersion": "ontario-municipal-history-index-2.0.0",
   "artifactKind": "current-municipality-directory-with-fir-history",
   "jurisdiction": "CA-ON",
-  "sourceSnapshotDate": "2026-07-30",
+  "sourceSnapshotDate": "2026-08-01",
   "isReceipt": false,
   "sources": {
     "currentMunicipalities": {
@@ -22,31 +22,31 @@
         {
           "fiscalYear": 2025,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip",
-          "sha256": "e2bbd3e800ccb267002a606f9c7ba9925faa5844c5115191e320ee4971c6af6e",
-          "archiveMemberSha256": "578cbb694e31287000555781dec558e65804d93bd56c553427fb17b03115724e",
-          "postedDate": "2026-07-30",
-          "sourceLastUpdated": "2026-07-29",
-          "rowCount": 211304,
-          "uniqueAssessmentCodes": 133,
+          "sha256": "3bbf699ef9beb570a30ebe3c1df7f82735e01e94a75c00e68807057b3570292e",
+          "archiveMemberSha256": "af246395948c7912d856961370c73bce0e475795564e7279b4b7a29c672c87e6",
+          "postedDate": "2026-08-01",
+          "sourceLastUpdated": "2026-07-31",
+          "rowCount": 226337,
+          "uniqueAssessmentCodes": 142,
           "coverageBasis": "Unique assessment codes in this hash-pinned bulk file; Ontario's webpage file count can differ."
         },
         {
           "fiscalYear": 2024,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip",
-          "sha256": "5244f9e637cdef1b83f0d98b587f5f26783b2e2a2e6ec903d965f86126d2c304",
-          "archiveMemberSha256": "e211edfd8510c3cbace9831c98c9f27c406603f09fd7a3f3a073db69181660d9",
-          "postedDate": "2026-07-29",
-          "sourceLastUpdated": "2026-07-28",
-          "rowCount": 629193,
-          "uniqueAssessmentCodes": 403,
+          "sha256": "43aa5a474c52ed962cbc2a4a5fdfe673d17c4e9810556cec900b44f02e954ee5",
+          "archiveMemberSha256": "09ff1374092eb399c7219ae1fbdb022c7f861c059673033851f29b98c1fd223a",
+          "postedDate": "2026-08-01",
+          "sourceLastUpdated": "2026-07-31",
+          "rowCount": 630403,
+          "uniqueAssessmentCodes": 404,
           "coverageBasis": "Unique assessment codes in this hash-pinned bulk file; Ontario's webpage file count can differ."
         },
         {
           "fiscalYear": 2023,
           "downloadUrl": "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip",
-          "sha256": "30c84a4c8af73ddd56e1414e01cae3246a22af305fce1e519db202e907cfeddf",
+          "sha256": "aedcf2e84846ad9fcfaa5cb5421d079b5440580d735dfe850f608a9e44e574b5",
           "archiveMemberSha256": "e41731b62a252ac7cb894d0f091af57a6660ba945dc86f5cdbeb62558bc40eef",
-          "postedDate": "2026-07-24",
+          "postedDate": "2026-07-27",
           "sourceLastUpdated": "2026-07-24",
           "rowCount": 682127,
           "uniqueAssessmentCodes": 436,
@@ -62,14 +62,14 @@
     "withFirHistory": 436,
     "withoutFirHistory": 8,
     "latestFirYearCounts": {
-      "2025": 133,
-      "2024": 270,
-      "2023": 33,
+      "2025": 142,
+      "2024": 262,
+      "2023": 32,
       "unavailable": 8
     },
     "firYearRecordCounts": {
-      "2025": 133,
-      "2024": 403,
+      "2025": 142,
+      "2024": 404,
       "2023": 436
     },
     "tierCounts": {
@@ -1124,8 +1124,13 @@
       "typeLabel": "Town",
       "tier": "lower-tier",
       "geographicArea": "Simcoe",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-30",
+          "sourceName": "Bradford West Gwillimbury T"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-11-14",
@@ -1137,7 +1142,7 @@
           "sourceName": "Bradford West Gwillimbury T"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-2110",
@@ -2661,15 +2666,20 @@
       "typeLabel": "Township",
       "tier": "lower-tier",
       "geographicArea": "Peterborough",
-      "latestFirYear": 2023,
+      "latestFirYear": 2024,
       "firYears": [
+        {
+          "fiscalYear": 2024,
+          "lastUpdated": "2026-07-31",
+          "sourceName": "Douro-Dummer Tp"
+        },
         {
           "fiscalYear": 2023,
           "lastUpdated": "2025-06-20",
           "sourceName": "Douro-Dummer Tp"
         }
       ],
-      "fallbackReason": "No 2025 or 2024 record in the corresponding locked FIR bulk files."
+      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
     },
     {
       "directoryId": "on-0919",
@@ -3547,7 +3557,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-29",
+          "lastUpdated": "2026-07-30",
           "sourceName": "Front of Yonge Tp"
         },
         {
@@ -4485,8 +4495,13 @@
       "typeLabel": "Town",
       "tier": "lower-tier",
       "geographicArea": "Prescott and Russell",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-31",
+          "sourceName": "Hawkesbury T"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2026-06-04",
@@ -4498,7 +4513,7 @@
           "sourceName": "Hawkesbury T"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-4798",
@@ -5697,8 +5712,13 @@
       "typeLabel": "Township",
       "tier": "lower-tier",
       "geographicArea": "Lanark",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-31",
+          "sourceName": "Lanark Highlands Tp"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-12-03",
@@ -5710,7 +5730,7 @@
           "sourceName": "Lanark Highlands Tp"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-5462",
@@ -6029,8 +6049,13 @@
       "typeLabel": "City",
       "tier": "single-tier",
       "geographicArea": "Middlesex",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-30",
+          "sourceName": "London C"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-09-26",
@@ -6042,7 +6067,7 @@
           "sourceName": "London C"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-1104",
@@ -8116,8 +8141,13 @@
       "typeLabel": "City",
       "tier": "lower-tier",
       "geographicArea": "Durham",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-30",
+          "sourceName": "Oshawa C"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-08-18",
@@ -8129,7 +8159,7 @@
           "sourceName": "Oshawa C"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-1506",
@@ -8343,7 +8373,7 @@
       "firYears": [
         {
           "fiscalYear": 2025,
-          "lastUpdated": "2026-07-24",
+          "lastUpdated": "2026-07-30",
           "sourceName": "Peel R"
         },
         {
@@ -8812,8 +8842,13 @@
       "typeLabel": "Village",
       "tier": "lower-tier",
       "geographicArea": "Lambton",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-30",
+          "sourceName": "Point Edward V"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-10-01",
@@ -8825,7 +8860,7 @@
           "sourceName": "Point Edward V"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-2711",
@@ -9113,8 +9148,13 @@
       "typeLabel": "Township",
       "tier": "lower-tier",
       "geographicArea": "Simcoe",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-30",
+          "sourceName": "Ramara Tp"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-11-25",
@@ -9126,7 +9166,7 @@
           "sourceName": "Ramara Tp"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-6041",
@@ -9165,8 +9205,13 @@
       "typeLabel": "Township",
       "tier": "single-tier",
       "geographicArea": "Thunder Bay",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-31",
+          "sourceName": "Red Rock Tp"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2026-03-02",
@@ -9178,7 +9223,7 @@
           "sourceName": "Red Rock Tp"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-4700",
@@ -9492,8 +9537,13 @@
       "typeLabel": "Township",
       "tier": "lower-tier",
       "geographicArea": "Durham",
-      "latestFirYear": 2024,
+      "latestFirYear": 2025,
       "firYears": [
+        {
+          "fiscalYear": 2025,
+          "lastUpdated": "2026-07-31",
+          "sourceName": "Scugog Tp"
+        },
         {
           "fiscalYear": 2024,
           "lastUpdated": "2025-11-06",
@@ -9505,7 +9555,7 @@
           "sourceName": "Scugog Tp"
         }
       ],
-      "fallbackReason": "No 2025 record in the locked 2025 FIR bulk file."
+      "fallbackReason": null
     },
     {
       "directoryId": "on-4903",
