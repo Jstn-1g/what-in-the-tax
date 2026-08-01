@@ -43,7 +43,7 @@ export function supportOptionsFor(
 ): SupportOption[] {
   return [
     {
-      label: 'Contribute once',
+      label: 'Donate',
       url: normalizeSupportUrl(onceUrl),
       className: 'button button-primary',
     },

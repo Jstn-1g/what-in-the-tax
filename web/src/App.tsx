@@ -200,8 +200,13 @@ function ProductFooter() {
         <a href={`${import.meta.env.BASE_URL}privacy.txt`}>Privacy</a>
         <RepoLinks />
         {supportUrl ? (
-          <a href={supportUrl} target="_blank" rel="noreferrer">
-            Support this project
+          <a
+            className="button button-primary"
+            href={supportUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Donate
             <span className="visually-hidden"> (opens in a new tab)</span>
           </a>
         ) : null}

@@ -49,7 +49,7 @@ describe('supportOptionsFor', () => {
       supportOptionsFor('https://buy.stripe.com/once_example'),
     ).toEqual([
       {
-        label: 'Contribute once',
+        label: 'Donate',
         url: 'https://buy.stripe.com/once_example',
         className: 'button button-primary',
       },

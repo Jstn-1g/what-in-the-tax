@@ -938,15 +938,15 @@ button {
   margin: 0;
 }
 
-/* The footer's project links: privacy, the repository once it is public, and
-   the support link. One row, wrapping on narrow screens, styled as quiet
-   links rather than buttons - the footer states facts about the project and
-   these are two more of them. */
+/* The footer's project links: privacy, the repository, and the donate button.
+   One row, wrapping on narrow screens. The informational links stay quiet -
+   the footer states facts about the project - while the donate action renders
+   as a real button on every page shape. */
 .product-footer__links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 1.1rem;
-  align-items: baseline;
+  align-items: center;
   white-space: nowrap;
 }
 
@@ -958,6 +958,17 @@ button {
 
 .product-footer__links a:hover {
   color: var(--ink);
+}
+
+/* The quiet-link rules above outrank .button on specificity, so the footer's
+   donate button restates its fill colours to stay a button in both states. */
+.product-footer__links a.button {
+  color: var(--on-fill);
+  text-decoration: none;
+}
+
+.product-footer__links a.button:hover {
+  color: var(--on-fill);
 }
 
 /* Contribution call-to-action. Same note-paper family as the support card,
