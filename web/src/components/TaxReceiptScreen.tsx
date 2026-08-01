@@ -912,6 +912,7 @@ export default function TaxReceiptScreen({
             </p>
           ) : null}
           <nav className="product-footer__links" aria-label="Project links">
+            <a href="#help/about">About this site</a>
             <a href={`${import.meta.env.BASE_URL}privacy.txt`}>Privacy</a>
             <RepoLinks />
           </nav>
