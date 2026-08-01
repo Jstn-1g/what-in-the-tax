@@ -10,8 +10,32 @@ const SECTIONS = [
   { id: 'governing-bodies', title: 'Which governing bodies can appear' },
   { id: 'sources-corrections', title: 'Sources and corrections' },
   { id: 'technical', title: 'How it works, technically' },
+  { id: 'contributing', title: 'Contributing and credits' },
   { id: 'faq', title: 'FAQ' },
 ] as const
+
+// Attribution links render as plain names until the exact URLs are supplied;
+// a wrong personal link would be worse than a missing one.
+const BUILDER_LINKS: { eversko: string | null; linkedin: string | null } = {
+  eversko: null,
+  linkedin: null,
+}
+
+function BuilderLink({
+  href,
+  children,
+}: {
+  href: string | null
+  children: string
+}) {
+  if (!href) return <strong>{children}</strong>
+  return (
+    <a href={href} target="_blank" rel="noreferrer">
+      {children}
+      <span className="visually-hidden"> (opens in a new tab)</span>
+    </a>
+  )
+}
 
 export default function HelpGuide({
   onBack,
@@ -350,6 +374,76 @@ export default function HelpGuide({
                 evidence ledgers, the lock files, the audit results, and this
                 page&apos;s own history are in the public repository linked in
                 the footer. If you can read a diff, you can re-run our checks.
+              </li>
+            </ul>
+          </section>
+
+          <section id="help/contributing" className="help-section" tabIndex={-1}>
+            <h2>Contributing and credits</h2>
+            <p>
+              Every change here lands through a public pull request that must
+              pass the same gates as everything already published. The short
+              version of the process:
+            </p>
+            <ul className="help-technical-list">
+              <li>
+                <strong>Find what is needed.</strong> Three places list real
+                work: the{' '}
+                <a
+                  href="https://github.com/Jstn-1g/what-in-the-tax/issues"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  open issues
+                  <span className="visually-hidden"> (opens in a new tab)</span>
+                </a>{' '}
+                (each labelled with what kind of decision or evidence it
+                needs), the gaps shown on any receipt &mdash; each one is a
+                missing piece of official evidence someone could contribute
+                &mdash; and the per-province rollout manifests in the
+                repository, which record exactly which stage every province is
+                at and what evidence would advance it.
+              </li>
+              <li>
+                <strong>Open a pull request.</strong> Fork the repository,
+                make the change on a branch, and open a PR &mdash; the
+                template walks through what a reviewable change must declare.{' '}
+                <a
+                  href="https://github.com/Jstn-1g/what-in-the-tax/blob/main/CONTRIBUTING.md"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  CONTRIBUTING.md
+                  <span className="visually-hidden"> (opens in a new tab)</span>
+                </a>{' '}
+                is the full guide: evidence rules first, then the mechanics.
+                The golden rule: every figure must trace to an official public
+                source, and missing evidence is declared as a gap, never
+                estimated.
+              </li>
+              <li>
+                <strong>Checks run, a person reviews.</strong> Continuous
+                integration rebuilds every receipt from the hash-locked
+                sources and refuses anything that does not reproduce; a
+                maintainer reviews what machines cannot judge. Nothing merges
+                on trust, including the maintainer&apos;s own changes.
+              </li>
+              <li>
+                <strong>Built with.</strong> The site is React, TypeScript and
+                Vite; the evidence pipeline is deterministic Python; checks
+                run on GitHub Actions; hosting is a Cloudflare Worker serving
+                static files. No database, no accounts, no analytics, and no
+                AI in the data path &mdash; the build asserts zero AI tokens.
+              </li>
+              <li>
+                <strong>Built by.</strong> Created and maintained by{' '}
+                <BuilderLink href={BUILDER_LINKS.linkedin}>
+                  Justin Skowyra
+                </BuilderLink>{' '}
+                of <BuilderLink href={BUILDER_LINKS.eversko}>Eversko</BuilderLink>,
+                with AI-assisted engineering under human review &mdash; every
+                published number still traces to an official source, and every
+                release is approved by a named person.
               </li>
             </ul>
           </section>

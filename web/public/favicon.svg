@@ -1,6 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <rect width="48" height="48" rx="5" fill="#ffffff"/>
-  <path d="M9 4.5h23l7 7v30l-4-3-4 3-4-3-4 3-4-3-4 3-6-4Z" fill="none" stroke="#071a3c" stroke-width="2.7" stroke-linejoin="round"/>
-  <path d="M32 5v7h7" fill="none" stroke="#071a3c" stroke-width="2.7" stroke-linejoin="round"/>
-  <path d="M19 18.5a5.5 5.5 0 0 1 10.5 2.2c0 4.2-5.4 4.6-5.4 8.1M24 34h.01" fill="none" stroke="#d83a2e" stroke-width="2.9" stroke-linecap="round"/>
+  <!-- Navy tile so the mark reads on light and dark browser chrome alike;
+       cream receipt with a torn zigzag foot; the project's question mark in
+       by-law red; a small red maple leaf pinned to the corner. Solid fills,
+       not strokes, so it stays legible at 16px. -->
+  <rect width="48" height="48" rx="9" fill="#0b2347"/>
+  <path d="M11 6h19l7 7v24l-3.3-2.4-3.4 2.4-3.3-2.4-3.4 2.4-3.3-2.4-3.4 2.4-3.3-2.4-2.6 1.9Z" fill="#f7f1df"/>
+  <path d="M30 6v7h7Z" fill="#d9cfae"/>
+  <path d="M18.5 18.2a5.5 5.5 0 0 1 10.6 2.1c0 4.2-5.4 4.6-5.4 8.1" fill="none" stroke="#c92f23" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M23.7 32.9v.01" fill="none" stroke="#c92f23" stroke-width="3.8" stroke-linecap="round"/>
+  <g transform="translate(23.2 -4.4) scale(0.115)">
+    <path d="m130 52 9 22 15-9-6 24 19-2-9 20 17 9-25 18 5 20-20-9-5 31-5-31-20 9 5-20-25-18 17-9-9-20 19 2-6-24 15 9Z" fill="#d83a2e"/>
+  </g>
 </svg>
