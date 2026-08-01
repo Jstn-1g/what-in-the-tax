@@ -1,0 +1,28 @@
+# Throwaway diagnostic: reads the *public* production site's JS bundle and
+# prints any Stripe Payment Link URLs inlined in it, plus the same from the
+# current branch-preview build. Exists only because the maintainer's sandbox
+# has no egress to the site. Runs on manual dispatch only; deleted with its
+# branch after use. Touches no secrets and writes nothing.
+name: tmp stripe probe
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Extract Stripe links from deployed bundles
+        run: |
+          set -euo pipefail
+          for base in "https://whatinthetax.com" "https://claude-tax-open-source-launch-1en2eb-tax-receipt-prototype.jstn0513.workers.dev"; do
+            echo "=== $base ==="
+            html="$(curl -fsSL "$base/" || true)"
+            js="$(printf '%s' "$html" | grep -o 'assets/index-[^\"]*\.js' | head -1 || true)"
+            echo "bundle: ${js:-none-found}"
+            if [ -n "$js" ]; then
+              curl -fsSL "$base/$js" | grep -o 'https://[a-z]*\.stripe\.com/[A-Za-z0-9_]*' | sort -u || echo "no stripe links in bundle"
+            fi
+          done
