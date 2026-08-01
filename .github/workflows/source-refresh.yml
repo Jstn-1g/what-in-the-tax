@@ -1,9 +1,9 @@
 name: Refresh official source candidates
 
-# TEMPORARY BYTE FERRY v3 - lives only on the throwaway branch tmp/byte-ferry,
-# deleted after use. Captures the upstream Last-Modified headers for the
-# re-exported FIR files so the adoption records the server's posted dates
-# rather than guesses. Appends to the existing orphan bytes branch.
+# TEMPORARY BYTE FERRY v4 - lives only on the throwaway branch tmp/byte-ferry,
+# deleted after use. Ontario re-exported fir_data_2025.zip at 00:29:39 UTC,
+# minutes after the first ferry run; this re-carries the current 2025 payload
+# plus fresh headers so the adoption pins the settled bytes.
 'on':
   workflow_dispatch: {}
 
@@ -23,18 +23,23 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: tmp/fir-2025-drift-bytes
-      - name: Capture Last-Modified headers
+      - name: Re-download 2025 and refresh headers
         shell: bash
         run: |
           set -euo pipefail
+          curl -sS --fail -o fir_data_2025.zip \
+            "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip"
+          sha256sum fir_data_2025.zip > fir_data_2025.zip.sha256
+          cat fir_data_2025.zip.sha256
           for y in 2023 2024 2025; do
             echo "== fir_data_${y}.zip"
             curl -sSI "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_${y}.zip" \
               | tr -d '\r' | grep -iE '^(last-modified|etag|content-length):' || true
           done > headers.txt
           cat headers.txt
+          date -u +%Y-%m-%dT%H:%M:%SZ > retrieved-at.txt
           git config user.name "Claude"
           git config user.email "noreply@anthropic.com"
-          git add headers.txt
-          git commit -m "Record upstream Last-Modified headers for the FIR re-export (temporary)"
+          git add -f fir_data_2025.zip fir_data_2025.zip.sha256 headers.txt retrieved-at.txt
+          git commit -m "Re-ferry the settled FIR 2025 payload after the 00:29 UTC re-export (temporary)"
           git push origin HEAD:tmp/fir-2025-drift-bytes
