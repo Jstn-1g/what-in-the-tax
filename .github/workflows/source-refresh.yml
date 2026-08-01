@@ -1,11 +1,10 @@
 name: Refresh official source candidates
 
-# TEMPORARY BYTE FERRY - lives only on the throwaway branch tmp/byte-ferry,
-# which is deleted after one use. The maintainer's review sandbox cannot reach
-# efis.fma.csc.gov.on.ca (egress policy), so this dispatch-only job downloads
-# the drifted FIR 2025 payload on a runner and pushes it to the orphan branch
-# tmp/fir-2025-drift-bytes for local verification. It never writes to main or
-# any long-lived branch. Owner-authorized in the Claude session of 2026-08-01.
+# TEMPORARY BYTE FERRY v2 - lives only on the throwaway branch tmp/byte-ferry,
+# deleted after use. Carries the locked Ontario inputs to a git ref so the
+# maintainer's sandbox (which cannot reach the Ontario hosts) can regenerate
+# the emitted receipts locally. All payloads are verified against the reviewed
+# in-tree locks after transfer. Never writes to main or any long-lived branch.
 'on':
   workflow_dispatch: {}
 
@@ -23,21 +22,26 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Download candidate and push to throwaway orphan branch
+      - name: Download locked inputs and push to throwaway orphan branch
         shell: bash
         run: |
           set -euo pipefail
-          curl -sS --fail -o /tmp/fir_data_2025.zip \
-            "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2025.zip"
-          sha256sum /tmp/fir_data_2025.zip
+          mkdir -p /tmp/ferry
+          curl -sS --fail -o /tmp/ferry/fir_data_2023.zip \
+            "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2023.zip"
+          curl -sS --fail -o /tmp/ferry/fir_data_2024.zip \
+            "https://efis.fma.csc.gov.on.ca/fir/MultiYearReport/fir_data_2024.zip"
+          curl -sS --fail -o "/tmp/ferry/municipalities_-_en_2026-0526.csv" \
+            "https://data.ontario.ca/dataset/62e83cbc-0731-4d66-abdc-2f2b31bcd76c/resource/6783a586-6b05-4a73-9663-e60a6963c91e/download/municipalities_-_en_2026-0526.csv"
+          sha256sum /tmp/ferry/*
           git config user.name "Claude"
           git config user.email "noreply@anthropic.com"
           git switch --orphan tmp/fir-2025-drift-bytes
           git rm -rf --cached . >/dev/null 2>&1 || true
           find . -mindepth 1 -maxdepth 1 -not -name .git -exec rm -rf {} +
-          cp /tmp/fir_data_2025.zip fir_data_2025.zip
-          sha256sum fir_data_2025.zip > fir_data_2025.zip.sha256
+          cp /tmp/ferry/* .
+          sha256sum fir_data_2023.zip fir_data_2024.zip "municipalities_-_en_2026-0526.csv" > ferried.sha256
           date -u +%Y-%m-%dT%H:%M:%SZ > retrieved-at.txt
-          git add -f fir_data_2025.zip fir_data_2025.zip.sha256 retrieved-at.txt
-          git commit -m "Ferry the quarantined FIR 2025 candidate bytes for local review (temporary)"
+          git add -f .
+          git commit -m "Ferry the locked Ontario inputs for local regeneration (temporary)"
           git push -f origin tmp/fir-2025-drift-bytes
