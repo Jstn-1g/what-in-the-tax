@@ -22,6 +22,9 @@ corpus/*/pdf/
 .env
 .env.*
 !.env.example
+# Committed production build config - public Payment Link URLs only, never
+# secrets; see docs/DEPLOY.md "Contribution links".
+!web/.env.production
 
 # Cloudflare Wrangler
 .wrangler
