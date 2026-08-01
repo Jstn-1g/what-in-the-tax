@@ -1,7 +1,7 @@
 {
   "schemaVersion": "auditback-data-release-plan-1.0.0",
   "releaseId": "ontario-directory-2026-07-26-1",
-  "releaseTimestamp": "2026-07-27T02:16:00Z",
+  "releaseTimestamp": "2026-08-01T03:13:18Z",
   "toolVersions": {
     "engine": "ontario-municipal-history-index/2.0.0",
     "extractor": "official-source-acquisition/1.0.0",
