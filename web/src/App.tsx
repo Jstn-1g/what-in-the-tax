@@ -4,7 +4,7 @@ import HelpGuide from './components/HelpGuide'
 import OntarioRolloutNote from './components/OntarioRolloutNote'
 import PlaceFinder from './components/PlaceFinder'
 import SiteHeader from './components/SiteHeader'
-import SupportCard, { normalizeSupportUrl } from './components/SupportCard'
+import { normalizeSupportUrl } from './components/SupportCard'
 
 import ContributeCard from './components/ContributeCard'
 import RepoLinks from './components/RepoLinks'
@@ -200,13 +200,8 @@ function ProductFooter() {
         <a href={`${import.meta.env.BASE_URL}privacy.txt`}>Privacy</a>
         <RepoLinks />
         {supportUrl ? (
-          <a
-            className="button button-primary"
-            href={supportUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Donate
+          <a href={supportUrl} target="_blank" rel="noreferrer">
+            Support this project
             <span className="visually-hidden"> (opens in a new tab)</span>
           </a>
         ) : null}
@@ -879,7 +874,6 @@ export default function App() {
                   )}
                 />
               ) : null}
-              <SupportCard />
             </>
           ) : null}
         </main>
