@@ -43,7 +43,13 @@
       "region-of-waterloo-on"
     ],
     "assessmentCode": "3006",
-    "note": "Lower-tier in Region of Waterloo. Assessment code pending Schedule 02 lock."
+    "note": "Lower-tier in Region of Waterloo. Assessment code matched locked registry geography/ontario-waterloo-test-ring.json.",
+    "assessmentCodeEvidence": {
+      "registryId": "waterloo-first-ring-on",
+      "effectiveDate": "2024-02-15",
+      "registryPath": "geography/ontario-waterloo-test-ring.json",
+      "sourceLockPath": "geography/ontario-waterloo-test-ring.sources.lock.json"
+    }
   },
   "evidencePolicy": {
     "rules": [
@@ -86,14 +92,26 @@
   ],
   "facts": [
     {
+      "id": "CAM-LEVY-2026",
+      "sourceId": "cam-2026-budget",
+      "page": 21,
+      "label": "City of Cambridge 2026 Total Operating Budget (tax-supported)",
+      "amountCad": 127649000,
+      "unit": "cad",
+      "measureType": "absolute_levy",
+      "excerpt": "Total Operating Budget $108,205,246 $117,743,703 $124,614,600 $124,951,800 $374,200 $3,214,900 ($891,900) $127,649,000 2.44%",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
       "id": "CAM-AVG-ASSESSMENT-2026",
       "sourceId": "cam-2026-budget",
-      "page": 1,
+      "page": 13,
       "label": "City of Cambridge published average residential assessment",
       "amountCad": 344000,
       "unit": "cad",
       "measureType": "published_average",
-      "excerpt": "based on a property assessment value of $344,000",
+      "excerpt": "levy increase of $42, based on a property assessment value of $344,000",
       "status": "approved",
       "kind": "FACT"
     },
@@ -156,19 +174,19 @@
     {
       "id": "CAM-TAX-INCREASE-PCT-2026",
       "sourceId": "cam-2026-budget",
-      "page": 1,
+      "page": 21,
       "label": "2026 property tax rate increase (local)",
       "amountCad": 2.44,
       "unit": "percent",
       "measureType": "rate_increase",
-      "excerpt": "tax levy increase of $3 million or 2.44 per cent",
+      "excerpt": "net tax levy increase of 2.44 per cent to maintain existing service levels",
       "status": "approved",
       "kind": "FACT"
     },
     {
       "id": "CAM-LEVY-INCREASE-CAD-2026",
       "sourceId": "cam-2026-budget",
-      "page": 1,
+      "page": 19,
       "label": "City of Cambridge 2026 tax levy increase dollars (published)",
       "amountCad": 3000000,
       "unit": "cad",
@@ -180,12 +198,12 @@
     {
       "id": "CAM-AVG-HOUSEHOLD-INCREASE-CAD-2026",
       "sourceId": "cam-2026-budget",
-      "page": 1,
+      "page": 13,
       "label": "2026 average-household local tax increase dollars",
       "amountCad": 42,
       "unit": "cad",
       "measureType": "average_household_increase",
-      "excerpt": "average household tax levy increase of $42, based on a property assessment value of $344,000",
+      "excerpt": "levy increase of $42, based on a property assessment value of $344,000",
       "status": "approved",
       "kind": "FACT"
     },
@@ -569,16 +587,6 @@
   ],
   "gaps": [
     {
-      "id": "GAP-CAM-LEVY-ABSOLUTE",
-      "title": "Absolute net tax levy dollar total not yet locked from budget tables",
-      "detail": "Pack cites the published $3 million / 2.44% levy increase. The absolute tax-supported levy headline from the operating tables is not yet bound as FACT.\n",
-      "blocks": [],
-      "neededEvidence": [
-        "Printed net tax levy absolute dollars from Cambridge 2026 budget"
-      ],
-      "kind": "GAP"
-    },
-    {
       "id": "GAP-CAM-DEPT-SCHEDULE",
       "title": "Local department household allocation not transcribed",
       "detail": "This Tier 0 pack cites the local rate \u00d7 $344,000 as a single line. A published department / service split for household illustration has not been bound into the allocation base yet.",
@@ -597,16 +605,6 @@
       "blocks": [],
       "neededEvidence": [
         "Approved formula mapping Region urban HH lines onto the local published average assessment bill"
-      ],
-      "kind": "GAP"
-    },
-    {
-      "id": "GAP-CAM-FIR-CODE-VERIFY",
-      "title": "FIR / MAH assessment code not yet locked from Schedule 02",
-      "detail": "Pack uses working code 3006 pending a hand-checked FIR Schedule 02 row.",
-      "blocks": [],
-      "neededEvidence": [
-        "FIR Schedule 02 MAH code for City of Cambridge"
       ],
       "kind": "GAP"
     },
@@ -639,6 +637,12 @@
       "title": "Region of Waterloo urban household schedule imported from shared pack",
       "resolvedAt": "2026-07-25",
       "resolution": "urban column imported from corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml. Lines appear under regionIllustrationAt354500 at $354,500. Bill-stack Region total remains rate \u00d7 $344,000 ($2,895.90). Narrowed remainder: GAP-CAM-REGION-ASSESSMENT-BRIDGE."
+    },
+    {
+      "id": "GAP-CAM-LEVY-ABSOLUTE",
+      "title": "Absolute tax-supported operating budget bound from Operating Budget table",
+      "resolvedAt": "2026-08-02",
+      "resolution": "Bound FACT CAM-LEVY-2026 = $127,649,000 from the City of Cambridge 2026 Approved Budget Operating Budget table (extract p.21), printed as \"Total Operating Budget \u2026 $127,649,000 2.44%\". The 2.44% matches the published net tax levy increase. Narrowed remainder: department schedule still open.\n"
     }
   ]
 }

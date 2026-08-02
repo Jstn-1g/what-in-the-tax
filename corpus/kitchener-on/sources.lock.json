@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/kitchener/evidence-ledger.json",
-  "ledgerSha256": "6cc32ff89711be1262732d4f1022c179320cfb849c1b30e434b77e45c80869b4",
+  "ledgerSha256": "0f0e86de9e3cedb2710d4f1e19ab114d12813ae07e41e5ed0532ca76591922f3",
   "sources": [
     {
       "id": "kit-2026-appendix-b",

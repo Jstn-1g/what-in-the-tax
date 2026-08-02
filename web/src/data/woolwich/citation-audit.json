@@ -1,18 +1,31 @@
 {
   "ok": true,
   "counts": {
-    "verbatim": 5,
-    "row-bound": 23,
-    "numbers-only": 4
+    "verbatim": 8,
+    "numbers-only": 4,
+    "row-bound": 21
   },
   "bindingIssueCounts": {
-    "extract-sha256-missing": 32,
-    "source-bytes-missing": 26,
-    "source-sha256-missing": 26,
-    "source-path-missing": 4,
-    "source-file-missing": 2
+    "extract-sha256-missing": 33,
+    "source-bytes-missing": 29,
+    "source-sha256-missing": 29,
+    "amount-not-on-cited-page": 5,
+    "source-path-missing": 4
   },
   "results": [
+    {
+      "id": "WOO-LEVY-2026",
+      "sourceId": "woo-2026-budget",
+      "page": 27,
+      "amountCad": 18364309,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
     {
       "id": "WOO-REFERENCE-ASSESSMENT-2026",
       "sourceId": "row-2026-book",
@@ -32,6 +45,7 @@
       "page": 1,
       "amountCad": 0.00322187,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -44,6 +58,7 @@
       "page": 1,
       "amountCad": 0.00738314,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -56,6 +71,7 @@
       "page": 1,
       "amountCad": 0.00153,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -68,6 +84,7 @@
       "page": 1,
       "amountCad": 0.01213501,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -77,26 +94,29 @@
     {
       "id": "WOO-TAX-INCREASE-PCT-2026",
       "sourceId": "woo-2026-budget",
-      "page": 1,
+      "page": 17,
       "amountCad": 7.8,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
-        "source-file-missing"
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "WOO-AVG-HOUSEHOLD-INCREASE-CAD-2026",
       "sourceId": "woo-2026-budget",
-      "page": 1,
+      "page": 2,
       "amountCad": 99.83,
       "bindingIssues": [
         "extract-sha256-missing",
-        "source-file-missing"
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
-      "tier": "row-bound",
-      "note": "amount and label words co-occur on one line of the cited page"
+      "tier": "verbatim",
+      "note": ""
     },
     {
       "id": "ROW-WOOLWICH-HH-TOTAL-2026",
@@ -451,20 +471,21 @@
       "sourceFile": {
         "declaredPath": "source-pdfs/woolwich/2026-budget-book-final.pdf",
         "declaredSha256": null,
-        "actualSha256": null,
+        "actualSha256": "f1cc397212d355fe8cd30b752bfde1ae964c4118f08da3747366e178fa0eb454",
         "declaredBytes": null,
-        "actualBytes": null
+        "actualBytes": 11539861
       },
       "extractFile": {
         "declaredPath": "data/_extracts/woolwich/2026-budget-excerpt.txt",
         "declaredSha256": null,
-        "actualSha256": "193ae2bb88092bfcf5e36c72be7a26e2edf0903caaf44d65b27094df506eb7d8"
+        "actualSha256": "4e833dbbfe2bec1c5b1f9c105cd7268c150da18a5414810e3e53979baa802b89"
       },
       "issues": [
-        "source-file-missing",
+        "source-sha256-missing",
+        "source-bytes-missing",
         "extract-sha256-missing"
       ],
-      "sourceReadable": false,
+      "sourceReadable": true,
       "extractReadable": true
     },
     {

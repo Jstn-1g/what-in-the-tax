@@ -12,7 +12,7 @@ aliases:
   - Kitchener
   - Kitchener, Ontario
   - Kitchener ON
-assessmentCode: "3012"  # pending FIR Schedule 02 lock (see GAP)
+assessmentCode: "3012"  # locked via geography/ontario-waterloo-test-ring.json
 fiscalYear: 2026
 currency: CAD
 locale: en-CA

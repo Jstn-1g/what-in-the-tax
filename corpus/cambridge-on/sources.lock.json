@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/cambridge/evidence-ledger.json",
-  "ledgerSha256": "1df012d79824ed41ed944f84dc40a9c0de831c5b25eb1f05906eba7a20d59a10",
+  "ledgerSha256": "4d5b21d9e5ca394f1e9dea94a6b9d30766dcbfd4b492d864f57ebdd41243bd56",
   "sources": [
     {
       "id": "cam-2026-budget",
@@ -10,14 +10,11 @@
       "asOf": "2025-12",
       "license": "unknown",
       "localPath": "source-pdfs/cambridge/2026approvedbudget_final_web-remedated.pdf",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "e7a7405e5499b4ce7776070747c3b553a8bcaaa3643ada586e73cb22606026b4",
+      "bytes": 18080772,
       "extractedText": "data/_extracts/cambridge/2026-budget-excerpt.txt",
-      "extractedTextSha256": "d60a8513e040fcf7b28e97ecf771eb30549a875a7334717efbc759563fa4fec8",
-      "lockStatus": "missing",
-      "missing": [
-        "localPath"
-      ]
+      "extractedTextSha256": "3134c31107d4f16186ede223ccebc19fbf4ea249c037b0e1ea00b780db8f9a25",
+      "lockStatus": "source-and-extract"
     },
     {
       "id": "cam-2026-tax-rates",

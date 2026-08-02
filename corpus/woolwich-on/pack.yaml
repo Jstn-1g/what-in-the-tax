@@ -27,7 +27,8 @@ publication:
   refreshDueBy: "2027-04-30"
   notes: >
     Dual-tier woolwich area key — Region RT rate 0.00738314 ≠ urban 0.00841834.
-    Assessment illustration uses Region $354,500 pending township CVA bind.
+    Absolute NET LEVY bound from Appendix 4. Assessment illustration still uses
+    Region $354,500 pending township CVA bind.
 
 artifacts:
   ledger: data/woolwich/evidence-ledger.json
@@ -36,11 +37,12 @@ artifacts:
   extractsRoot: data/_extracts/woolwich/
 
 controlTotal:
-  measureType: average_household_increase
+  measureType: absolute_levy
+  levyCad: 18364309
   averageHouseholdIncreaseCad: 99.83
   assessmentMeasureType: reference_scenario
-  label: Published average-household tax increase
+  label: Published 2026 NET LEVY ($18,364,309)
   note: >
-    The $354,500 receipt basis is a regional reference scenario, not a
-    published Woolwich average. Absolute township levy headline not yet locked;
-    Tier 0.
+    Bound from Appendix 4 corporate operating summary. The $354,500 receipt
+    basis remains a regional reference scenario, not a published Woolwich
+    average. Department household allocation remains open.

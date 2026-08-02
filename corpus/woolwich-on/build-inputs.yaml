@@ -26,7 +26,7 @@ sources:
     authority: Township of Woolwich
     note: RT Residential township/region/education rates. Region rate differs from urban.
   - id: woo-2026-budget
-    title: Township of Woolwich 2026 Budget (excerpt) + mayor release
+    title: Township of Woolwich 2026 Budget Book
     url: https://www.woolwich.ca/media/pytjesxk/2026-budget-book-final.pdf
     localPath: source-pdfs/woolwich/2026-budget-book-final.pdf
     extractedText: data/_extracts/woolwich/2026-budget-excerpt.txt
@@ -42,13 +42,22 @@ rates:
 
 controlTotal:
   sourceId: woo-2026-budget
+  measureType: absolute_levy
+  levyCad: 18364309
+  levyPage: 27
+  levyLabel: Township of Woolwich 2026 NET LEVY (corporate operating summary)
+  levyExcerpt: "NET LEVY 11,924,258$        12,917,851$        15,316,104$        14,847,218$        16,730,901$        10,873,406$        17,928,728$    420,256$           18,364,309$"
   assessmentMeasureType: reference_scenario
   assessmentSourceId: row-2026-book
   assessmentPage: 12
   assessmentExcerpt: "Based on an average residential property valued at $354,500"
   taxIncreasePct: 7.8
+  taxIncreasePage: 17
+  taxIncreaseExcerpt: "The 2026 Budget proposes a 7.8% total tax increase."
   averageHouseholdIncreaseCad: 99.83
-  increaseExcerpt: "7.8% total tax increase ... increase of $99.83 annually for the average household"
+  averageHouseholdIncreasePage: 2
+  averageHouseholdIncreaseExcerpt: "H = (F+G) TOTAL ESTIMATED TAX INCREASE 1,411,643$     7.8% 99.83$    8.32$"
+  increaseExcerpt: "H = (F+G) TOTAL ESTIMATED TAX INCREASE 1,411,643$     7.8% 99.83$    8.32$"
   status: approved
 
 departments: []
@@ -58,8 +67,17 @@ extraGaps:
     title: Woolwich-published average residential CVA not bound from budget book
     detail: >
       Bill illustration uses Region-published $354,500 (household schedule basis).
-      Woolwich documents discuss average assessment but the excerpts retained do not
-      print a single township average CVA distinct from the Region table.
+      Woolwich documents discuss average assessment but the budget book extract
+      does not print a single township average CVA distinct from the Region table.
     blocks: []
     neededEvidence:
       - "Township-published average residential assessment for 2026 tax illustrations"
+
+extraClosedGaps:
+  - id: GAP-WOO-LEVY-ABSOLUTE
+    title: Absolute NET LEVY bound from corporate operating summary
+    resolvedAt: "2026-08-02"
+    resolution: >
+      Bound FACT WOO-LEVY-2026 = $18,364,309 from Appendix 4 corporate operating
+      summary (extract p.27), final 2026 BUDGET column on the NET LEVY row.
+      Department household allocation remains open.

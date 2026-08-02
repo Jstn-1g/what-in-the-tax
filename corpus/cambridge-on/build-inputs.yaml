@@ -8,6 +8,7 @@ parentBodies:
   - region-of-waterloo-on
 regionAreaKey: urban
 assessmentCode: "3006"
+assessmentCodeRegistry: geography/ontario-waterloo-test-ring.json
 defaultAssessmentCad: 344000
 idPrefix: CAM
 localBucketLabel: City portion
@@ -40,33 +41,30 @@ rates:
 
 controlTotal:
   sourceId: cam-2026-budget
-  levyIncreaseCad: 3000000
-  levyIncreaseLabel: City of Cambridge 2026 tax levy increase dollars (published)
-  levyPage: 1
-  levyExcerpt: "tax levy increase of $3 million or 2.44 per cent"
+  measureType: absolute_levy
+  levyCad: 127649000
+  levyPage: 21
+  levyLabel: City of Cambridge 2026 Total Operating Budget (tax-supported)
+  levyExcerpt: "Total Operating Budget $108,205,246 $117,743,703 $124,614,600 $124,951,800 $374,200 $3,214,900 ($891,900) $127,649,000 2.44%"
   assessmentMeasureType: published_average
   assessmentSourceId: cam-2026-budget
-  assessmentPage: 1
-  assessmentExcerpt: "based on a property assessment value of $344,000"
+  assessmentPage: 13
+  assessmentExcerpt: "levy increase of $42, based on a property assessment value of $344,000"
   taxIncreasePct: 2.44
-  taxIncreaseExcerpt: "tax levy increase of $3 million or 2.44 per cent"
+  taxIncreaseExcerpt: "net tax levy increase of 2.44 per cent to maintain existing service levels"
+  levyIncreaseCad: 3000000
+  levyIncreasePage: 19
+  levyIncreaseLabel: City of Cambridge 2026 tax levy increase dollars (published)
   levyIncreaseExcerpt: "tax levy increase of $3 million or 2.44 per cent"
   averageHouseholdIncreaseCad: 42
-  averageHouseholdIncreaseExcerpt: "average household tax levy increase of $42, based on a property assessment value of $344,000"
-  increaseExcerpt: "average household tax levy increase of $42, based on a property assessment value of $344,000"
+  averageHouseholdIncreasePage: 13
+  averageHouseholdIncreaseExcerpt: "levy increase of $42, based on a property assessment value of $344,000"
+  increaseExcerpt: "levy increase of $42, based on a property assessment value of $344,000"
   status: approved
 
 departments: []
 
 extraGaps:
-  - id: GAP-CAM-LEVY-ABSOLUTE
-    title: Absolute net tax levy dollar total not yet locked from budget tables
-    detail: >
-      Pack cites the published $3 million / 2.44% levy increase. The absolute
-      tax-supported levy headline from the operating tables is not yet bound as FACT.
-    blocks: []
-    neededEvidence:
-      - "Printed net tax levy absolute dollars from Cambridge 2026 budget"
   - id: GAP-CAM-BUDGET-RATE-TIMING
     title: Final-rate illustration differs from the earlier budget impact table
     detail: >
@@ -77,3 +75,14 @@ extraGaps:
     blocks: []
     neededEvidence:
       - "City reconciliation between the approved-budget impact table and final 2026 tax rates"
+
+extraClosedGaps:
+  - id: GAP-CAM-LEVY-ABSOLUTE
+    title: Absolute tax-supported operating budget bound from Operating Budget table
+    resolvedAt: "2026-08-02"
+    resolution: >
+      Bound FACT CAM-LEVY-2026 = $127,649,000 from the City of Cambridge 2026
+      Approved Budget Operating Budget table (extract p.21), printed as
+      "Total Operating Budget … $127,649,000 2.44%". The 2.44% matches the
+      published net tax levy increase. Narrowed remainder: department schedule
+      still open.

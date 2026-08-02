@@ -9,6 +9,7 @@ parentBodies:
   - region-of-waterloo-on
 regionAreaKey: urban
 assessmentCode: "3016"
+assessmentCodeRegistry: geography/ontario-waterloo-test-ring.json
 defaultAssessmentCad: 405000
 idPrefix: WAT
 localBucketLabel: City portion
@@ -38,7 +39,7 @@ sources:
     extractedText: data/_extracts/waterloo/2026-operating-budget-excerpt.txt
     asOf: "2025-12"
     authority: City of Waterloo
-    note: Net tax levy and average assessment illustration.
+    note: Net tax levy and major service-delivery area schedule.
 
 rates:
   sourceId: wat-2026-tax-rates
@@ -56,18 +57,63 @@ controlTotal:
   sourceId: wat-2026-budget
   measureType: absolute_levy
   levyCad: 114990811
-  levyPage: 1
-  levyExcerpt: "resulting in a net Tax Levy of $114,990,811"
-  allocationBaseCad: null
+  levyPage: 19
+  levyExcerpt: "The 2026 property tax increase is 6.41%, resulting in a net Tax Levy of $114,990,811."
+  allocationBaseCad: 114990811
+  allocPage: 20
+  allocExcerpt: "TOTAL 99,609,666       6,953,003       107,028,307   7,418,641      114,990,811  7,962,504"
   assessmentMeasureType: published_average
   assessmentSourceId: wat-2026-tax-rates
   assessmentPage: 1
   assessmentExcerpt: "For a home valued at $405,000 in Waterloo, this works out to $5,800.65"
   taxIncreasePct: 6.41
   averageHouseholdIncreaseCad: 106.92
-  increasePage: 1
-  increaseExcerpt: "Property Tax Increase - City of Waterloo $ 106.92 6.41%"
+  increasePage: 23
+  increaseExcerpt: "*Property Tax Increase - City of Waterloo 90.74$       6.14% 99.44$       6.34% 106.92$     6.41%"
   status: approved
 
-# Figure #2 service-area pie is image-only in the PDF extract — Tier 0 GAP for departments.
-departments: []
+departments:
+  - id: WAT-DEPT-FIRE-ENFORCEMENT-2026
+    label: Fire Rescue and Municipal Enforcement
+    amountCad: 27732310
+    page: 20
+    excerpt: "Fire Rescue and Municipal Enforcement             23,278,418 1,782,536                    25,275,959 1,997,541                 27,732,310 2,456,351"
+  - id: WAT-DEPT-PARKS-REC-READI-2026
+    label: Parks, Recreation/Programming, Culture and READI
+    amountCad: 22197564
+    page: 20
+    excerpt: "READI             20,095,743 1,506,904                    20,913,623 817,880                    22,197,564 1,283,941"
+  - id: WAT-DEPT-CAPITAL-TRANSFERS-2026
+    label: Operating Transfers to Capital/Reserves
+    amountCad: 23493048
+    page: 20
+    excerpt: "Operating Transfers to Capital/Reserves             19,437,807 1,655,929                    21,389,174 1,951,367                 23,493,048 2,103,874"
+  - id: WAT-DEPT-TRANSPORT-DEV-2026
+    label: Transportation and Development Services
+    amountCad: 15084314
+    page: 20
+    excerpt: "Transportation and Development Services             12,919,439 1,078,211                    14,112,369 1,192,930                 15,084,314 971,945"
+  - id: WAT-DEPT-FACILITIES-2026
+    label: Facility Design and Management
+    amountCad: 9864245
+    page: 20
+    excerpt: "Facility Design and Management               8,975,536 341,811                         9,417,891 442,355                      9,864,245 446,354"
+  - id: WAT-DEPT-LIBRARY-2026
+    label: Waterloo Public Library
+    amountCad: 8497020
+    page: 20
+    excerpt: "Waterloo Public Library               7,786,637 421,737                         8,153,567 366,930                      8,497,020 343,453"
+  - id: WAT-DEPT-CIVIC-ADMIN-2026
+    label: Civic Administration
+    amountCad: 8122310
+    page: 20
+    excerpt: "Civic Administration               7,116,086 165,875                         7,765,724 649,638                      8,122,310 356,586"
+
+extraClosedGaps:
+  - id: GAP-WAT-DEPT-SCHEDULE
+    title: Major service-delivery area schedule bound from Operating Budget
+    resolvedAt: "2026-08-02"
+    resolution: >
+      Bound seven 2026 Budget ($) Net service-delivery lines from the Approved
+      Operating Budget (extract p.20). Lines sum exactly to the published net
+      Tax Levy $114,990,811. Image-only Figure #2 pie remains unused.

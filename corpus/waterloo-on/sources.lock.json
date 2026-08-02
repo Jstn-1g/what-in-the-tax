@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/waterloo/evidence-ledger.json",
-  "ledgerSha256": "fe507f9ed765136edb7733a0d564424b64a356e3479c8c5a3720fd83231606f4",
+  "ledgerSha256": "14044d87dd4d29b0106b2985fa71203fb3499727989512a834394ffc37ed09af",
   "sources": [
     {
       "id": "row-2026-book",
@@ -23,14 +23,11 @@
       "asOf": "2025-12",
       "license": "unknown",
       "localPath": "source-pdfs/waterloo/2024-2026-approved-operating-budget-book.pdf",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "3f0dbcfabc00178e579bac13c849ff6a4da2b1e37a9caa3401d999b1b7ac3e9f",
+      "bytes": 5892000,
       "extractedText": "data/_extracts/waterloo/2026-operating-budget-excerpt.txt",
-      "extractedTextSha256": "efdb7c72b657e63c54b8a479542297b52613d0de26d3d6198ba0fbbc95068f1b",
-      "lockStatus": "missing",
-      "missing": [
-        "localPath"
-      ]
+      "extractedTextSha256": "64b0fa371e658abd02c447aab1f0a64b1040e13c1103a9307159f65a69d02c3d",
+      "lockStatus": "source-and-extract"
     },
     {
       "id": "wat-2026-tax-rates",

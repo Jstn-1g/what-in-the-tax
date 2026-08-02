@@ -26,7 +26,17 @@ import sys
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from lib.taxing_bodies import build_taxing_bodies  # noqa: E402
+from build_lower_tier_pack import resolve_assessment_code_evidence  # noqa: E402
+
 DATA = ROOT / "data" / "kitchener"
+ASSESSMENT_CODE = "3012"
+ASSESSMENT_CODE_EVIDENCE = resolve_assessment_code_evidence(
+    {
+        "assessmentCodeRegistry": "geography/ontario-waterloo-test-ring.json",
+    },
+    slug="kitchener-on",
+    assessment_code=ASSESSMENT_CODE,
+)
 WEB_DATA = ROOT / "web" / "src" / "data" / "kitchener"
 REGION_SCHEDULE = (
     ROOT / "corpus" / "region-of-waterloo-on" / "schedules" / "household-tax-supported-2026.yaml"
@@ -565,16 +575,6 @@ gaps = [
         ],
     ),
     gap(
-        id="GAP-KIT-FIR-CODE-VERIFY",
-        title="FIR / MAH assessment code not yet locked from Schedule 02",
-        detail=(
-            "Pack uses working code 3012 pending a hand-checked FIR Schedule 02 row for "
-            "City of Kitchener. Do not treat as sealed identity."
-        ),
-        blocks=[],
-        neededEvidence=["FIR Schedule 02 MAH code for City of Kitchener"],
-    ),
-    gap(
         id="GAP-KIT-PEER-FIR-FAIRNESS",
         title="Peer per-capita fairness check not yet run for Kitchener",
         detail="Tier 0 draft: no peer FIR findings published.",
@@ -595,7 +595,17 @@ closed_gaps = [
             f"Bill-stack Region total remains rate × ${AVG_ASSESSMENT:,} "
             f"(${REGION_PORTION:,.2f}). Narrowed remainder: GAP-KIT-REGION-ASSESSMENT-BRIDGE."
         ),
-    }
+    },
+    {
+        "id": "GAP-KIT-FIR-CODE-VERIFY",
+        "title": "FIR / MAH assessment code locked from regional identity registry",
+        "resolvedAt": "2026-08-02",
+        "resolution": (
+            f"Assessment code {ASSESSMENT_CODE} matched locked registry "
+            f"{ASSESSMENT_CODE_EVIDENCE['registryPath']} "
+            f"(source lock {ASSESSMENT_CODE_EVIDENCE['sourceLockPath']})."
+        ),
+    },
 ]
 
 findings: list[dict] = []
@@ -614,8 +624,12 @@ ledger = {
         "aliases": ["Kitchener", "Kitchener ON"],
         "level": "lower-tier",
         "upperTier": ["region-of-waterloo-on"],
-        "assessmentCode": "3012",
-        "note": "Lower-tier in Region of Waterloo. Assessment code pending Schedule 02 lock.",
+        "assessmentCode": ASSESSMENT_CODE,
+        "note": (
+            "Lower-tier in Region of Waterloo. Assessment code matched locked registry "
+            f"{ASSESSMENT_CODE_EVIDENCE['registryPath']}."
+        ),
+        "assessmentCodeEvidence": ASSESSMENT_CODE_EVIDENCE,
     },
     "evidencePolicy": {
         "rules": [

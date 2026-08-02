@@ -1,337 +1,643 @@
 {
- "counts": {
-  "verbatim": 16,
-  "numbers-only": 4,
-  "row-bound": 21
- },
- "results": [
-  {
-   "id": "KIT-LEVY-2026",
-   "sourceId": "kit-2026-budget-summary",
-   "page": 4,
-   "amountCad": 171432000,
-   "tier": "verbatim",
-   "note": ""
+  "ok": true,
+  "counts": {
+    "verbatim": 16,
+    "numbers-only": 4,
+    "row-bound": 21
   },
-  {
-   "id": "KIT-AVG-ASSESSMENT-2026",
-   "sourceId": "kit-2026-budget-summary",
-   "page": 4,
-   "amountCad": 326000,
-   "tier": "verbatim",
-   "note": ""
+  "bindingIssueCounts": {
+    "extract-sha256-missing": 41,
+    "source-bytes-missing": 41,
+    "source-sha256-missing": 41,
+    "amount-not-on-cited-page": 4
   },
-  {
-   "id": "KIT-TAX-INCREASE-PCT-2026",
-   "sourceId": "kit-2026-budget-summary",
-   "page": 4,
-   "amountCad": 2.2,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-TAX-INCREASE-CAD-2026",
-   "sourceId": "kit-2026-budget-summary",
-   "page": 4,
-   "amountCad": 29,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-TAXRATE-RES-CITY-2026",
-   "sourceId": "kit-2026-tax-rates",
-   "page": 1,
-   "amountCad": 0.00411164,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-TAXRATE-RES-REGION-2026",
-   "sourceId": "kit-2026-tax-rates",
-   "page": 1,
-   "amountCad": 0.00841834,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-TAXRATE-RES-EDUCATION-2026",
-   "sourceId": "kit-2026-tax-rates",
-   "page": 1,
-   "amountCad": 0.00153,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-TAXRATE-RES-TOTAL-2026",
-   "sourceId": "kit-2026-tax-rates",
-   "page": 1,
-   "amountCad": 0.01405998,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-NET-DEPT-EXP-2026",
-   "sourceId": "kit-2026-appendix-b",
-   "page": 3,
-   "amountCad": 170039303,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-FIRE-2026",
-   "sourceId": "kit-2026-appendix-b",
-   "page": 2,
-   "amountCad": 44407986,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-DEPT-CAO-2026",
-   "sourceId": "kit-2026-appendix-b",
-   "page": 2,
-   "amountCad": 1443066,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-DEPT-CSD-2026",
-   "sourceId": "kit-2026-appendix-b",
-   "page": 2,
-   "amountCad": 66995305,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-DEPT-FIN-2026",
-   "sourceId": "kit-2026-appendix-b",
-   "page": 2,
-   "amountCad": 5390745,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-DEPT-COR-2026",
-   "sourceId": "kit-2026-appendix-b",
-   "page": 2,
-   "amountCad": 19607218,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-DEPT-DSD-2026",
-   "sourceId": "kit-2026-appendix-b",
-   "page": 2,
-   "amountCad": 17106029,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "KIT-DEPT-INS-2026",
-   "sourceId": "kit-2026-appendix-b",
-   "page": 3,
-   "amountCad": 59496940,
-   "tier": "verbatim",
-   "note": ""
-  },
-  {
-   "id": "ROW-URBAN-HH-TOTAL-2026",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 2984,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-HH-PIL-2026",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": -78,
-   "tier": "numbers-only",
-   "note": "all 2 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-HH-URBAN-01",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 900,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-02",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 582,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-03",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 429,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-04",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 240,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-05",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 213,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-06",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 89,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-07",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 134,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-08",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 53,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-09",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 51,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-10",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 39,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-11",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 49,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-12",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 45,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-13",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 24,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-14",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 33,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-15",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 30,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-16",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 17,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-17",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 19,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-18",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 31,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-HH-URBAN-19",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 21,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-20",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 24,
-   "tier": "numbers-only",
-   "note": "all 1 numeric token(s) present on the cited page, but NOT on a line with the label words \u2014 the figure's BINDING to this label is unverified (exposure surface for label-shift extraction errors)"
-  },
-  {
-   "id": "ROW-HH-URBAN-21",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 0,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-22",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 16,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  },
-  {
-   "id": "ROW-HH-URBAN-23",
-   "sourceId": "row-2026-book",
-   "page": 12,
-   "amountCad": 20,
-   "tier": "row-bound",
-   "note": "amount and label words co-occur on one line of the cited page (binding verified; wording not verbatim)"
-  }
- ]
+  "results": [
+    {
+      "id": "KIT-LEVY-2026",
+      "sourceId": "kit-2026-budget-summary",
+      "page": 4,
+      "amountCad": 171432000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-AVG-ASSESSMENT-2026",
+      "sourceId": "kit-2026-budget-summary",
+      "page": 4,
+      "amountCad": 326000,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-TAX-INCREASE-PCT-2026",
+      "sourceId": "kit-2026-budget-summary",
+      "page": 4,
+      "amountCad": 2.2,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-TAX-INCREASE-CAD-2026",
+      "sourceId": "kit-2026-budget-summary",
+      "page": 4,
+      "amountCad": 29,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-TAXRATE-RES-CITY-2026",
+      "sourceId": "kit-2026-tax-rates",
+      "page": 1,
+      "amountCad": 0.00411164,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-TAXRATE-RES-REGION-2026",
+      "sourceId": "kit-2026-tax-rates",
+      "page": 1,
+      "amountCad": 0.00841834,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-TAXRATE-RES-EDUCATION-2026",
+      "sourceId": "kit-2026-tax-rates",
+      "page": 1,
+      "amountCad": 0.00153,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-TAXRATE-RES-TOTAL-2026",
+      "sourceId": "kit-2026-tax-rates",
+      "page": 1,
+      "amountCad": 0.01405998,
+      "bindingIssues": [
+        "amount-not-on-cited-page",
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-NET-DEPT-EXP-2026",
+      "sourceId": "kit-2026-appendix-b",
+      "page": 3,
+      "amountCad": 170039303,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-FIRE-2026",
+      "sourceId": "kit-2026-appendix-b",
+      "page": 2,
+      "amountCad": 44407986,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-DEPT-CAO-2026",
+      "sourceId": "kit-2026-appendix-b",
+      "page": 2,
+      "amountCad": 1443066,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-DEPT-CSD-2026",
+      "sourceId": "kit-2026-appendix-b",
+      "page": 2,
+      "amountCad": 66995305,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-DEPT-FIN-2026",
+      "sourceId": "kit-2026-appendix-b",
+      "page": 2,
+      "amountCad": 5390745,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-DEPT-COR-2026",
+      "sourceId": "kit-2026-appendix-b",
+      "page": 2,
+      "amountCad": 19607218,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-DEPT-DSD-2026",
+      "sourceId": "kit-2026-appendix-b",
+      "page": 2,
+      "amountCad": 17106029,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "KIT-DEPT-INS-2026",
+      "sourceId": "kit-2026-appendix-b",
+      "page": 3,
+      "amountCad": 59496940,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "ROW-URBAN-HH-TOTAL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 2984,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-HH-PIL-2026",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": -78,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-HH-URBAN-01",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 900,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-02",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 582,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-03",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 429,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-04",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 240,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-05",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 213,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-06",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 89,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-07",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 134,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-08",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 53,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-09",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 51,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-10",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 39,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-11",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 49,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-12",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 45,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-13",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 24,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-14",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 33,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-15",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 30,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-16",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 17,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-17",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 19,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-18",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 31,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-HH-URBAN-19",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 21,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-20",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 24,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "numbers-only",
+      "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
+    },
+    {
+      "id": "ROW-HH-URBAN-21",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 0,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-22",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 16,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    },
+    {
+      "id": "ROW-HH-URBAN-23",
+      "sourceId": "row-2026-book",
+      "page": 12,
+      "amountCad": 20,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "row-bound",
+      "note": "amount and label words co-occur on one line of the cited page"
+    }
+  ],
+  "sourceBindings": [
+    {
+      "sourceId": "kit-2026-budget-summary",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/kitchener/2026-budget-summary.pdf",
+        "declaredSha256": null,
+        "actualSha256": "58528658c9660c8389ae2886f6d8ae0313a78d09395982016b2459534d005725",
+        "declaredBytes": null,
+        "actualBytes": 12601881
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/kitchener/2026-budget-summary.txt",
+        "declaredSha256": null,
+        "actualSha256": "3796c4c172f0b2484c5910f0d499152a5fa3765a4668a5fdb2660cbf89fb3ae7"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "kit-2026-appendix-b",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/kitchener/2026-appendix-b-operating.pdf",
+        "declaredSha256": null,
+        "actualSha256": "e975f97faf14f875ee874411375278a8e744e2399078df908ab810bd573cc805",
+        "declaredBytes": null,
+        "actualBytes": 4054869
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/kitchener/2026-appendix-b-operating.txt",
+        "declaredSha256": null,
+        "actualSha256": "883df290cbcfd71fe4104e424131bb68293c80bcf1bf1e4b4c432a4b392d94c9"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "kit-2026-tax-rates",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/kitchener/2026-final-tax-rates.pdf",
+        "declaredSha256": null,
+        "actualSha256": "89427f76b3609646e4cf9e5c1477d0f8f5a22bcd5f2ec87d4704aa54b0636077",
+        "declaredBytes": null,
+        "actualBytes": 102295
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/kitchener/2026-final-tax-rates.txt",
+        "declaredSha256": null,
+        "actualSha256": "53a94f3845aea0d5559e11a59c348aaf84ecd40bedd571db98033672da99312c"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    },
+    {
+      "sourceId": "row-2026-book",
+      "sourceFile": {
+        "declaredPath": "source-pdfs/2026_final_budget_book_region.pdf",
+        "declaredSha256": null,
+        "actualSha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
+        "declaredBytes": null,
+        "actualBytes": 5442331
+      },
+      "extractFile": {
+        "declaredPath": "data/_extracts/2026_final_budget_book_region.txt",
+        "declaredSha256": null,
+        "actualSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423"
+      },
+      "issues": [
+        "source-sha256-missing",
+        "source-bytes-missing",
+        "extract-sha256-missing"
+      ],
+      "sourceReadable": true,
+      "extractReadable": true
+    }
+  ]
 }

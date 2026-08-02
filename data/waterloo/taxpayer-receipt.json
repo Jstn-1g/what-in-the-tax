@@ -20,26 +20,86 @@
     "supportedAverageHousehold": {
       "description": "Published average residential assessment ($405,000).",
       "township": {
-        "basis": "City of Waterloo local portion at published average assessment \u2014 unallocated pending department schedule",
+        "basis": "City of Waterloo local portion at published average assessment \u2014 department pro-rata",
         "amountCad": 1771.58,
         "assessmentCad": 405000,
         "evidenceStatus": "DERIVED",
         "sourceFactId": "DRV-WAT-BILL-CITY",
         "lineItems": [
           {
-            "id": "WAT-LOCAL-RATE-PORTION",
-            "label": "City of Waterloo (combined \u2014 rate \u00d7 published average assessment)",
-            "amountCad": 1771.58,
-            "classification": "city_levy_unallocated",
+            "id": "WAT-DEPT-FIRE-ENFORCEMENT-2026",
+            "label": "Fire Rescue and Municipal Enforcement",
+            "amountCad": 427.25,
+            "classification": "city_levy_allocated",
             "evidenceStatus": "DERIVED",
-            "sourceFactId": "DRV-WAT-BILL-CITY",
-            "note": "Department allocation base not transcribed for this Tier 0 pack (see GAP-WAT-DEPT-SCHEDULE).",
-            "gapId": "GAP-WAT-DEPT-SCHEDULE"
+            "sourceFactId": "DRV-WAT-DEPT-FIRE-ENFORCEMENT-2026-HH",
+            "note": "Pro-rata of department allocation base ($114,990,811) against local tax $1,771.58"
+          },
+          {
+            "id": "WAT-DEPT-PARKS-REC-READI-2026",
+            "label": "Parks, Recreation/Programming, Culture and READI",
+            "amountCad": 341.98,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-WAT-DEPT-PARKS-REC-READI-2026-HH",
+            "note": "Pro-rata of department allocation base ($114,990,811) against local tax $1,771.58"
+          },
+          {
+            "id": "WAT-DEPT-CAPITAL-TRANSFERS-2026",
+            "label": "Operating Transfers to Capital/Reserves",
+            "amountCad": 361.94,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-WAT-DEPT-CAPITAL-TRANSFERS-2026-HH",
+            "note": "Pro-rata of department allocation base ($114,990,811) against local tax $1,771.58"
+          },
+          {
+            "id": "WAT-DEPT-TRANSPORT-DEV-2026",
+            "label": "Transportation and Development Services",
+            "amountCad": 232.39,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-WAT-DEPT-TRANSPORT-DEV-2026-HH",
+            "note": "Pro-rata of department allocation base ($114,990,811) against local tax $1,771.58"
+          },
+          {
+            "id": "WAT-DEPT-FACILITIES-2026",
+            "label": "Facility Design and Management",
+            "amountCad": 151.97,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-WAT-DEPT-FACILITIES-2026-HH",
+            "note": "Pro-rata of department allocation base ($114,990,811) against local tax $1,771.58"
+          },
+          {
+            "id": "WAT-DEPT-LIBRARY-2026",
+            "label": "Waterloo Public Library",
+            "amountCad": 130.91,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-WAT-DEPT-LIBRARY-2026-HH",
+            "note": "Pro-rata of department allocation base ($114,990,811) against local tax $1,771.58"
+          },
+          {
+            "id": "WAT-DEPT-CIVIC-ADMIN-2026",
+            "label": "Civic Administration",
+            "amountCad": 125.13,
+            "classification": "city_levy_allocated",
+            "evidenceStatus": "DERIVED",
+            "sourceFactId": "DRV-WAT-DEPT-CIVIC-ADMIN-2026-HH",
+            "note": "Pro-rata of department allocation base ($114,990,811) against local tax $1,771.58"
+          },
+          {
+            "id": "WAT-ALLOC-ROUNDING",
+            "label": "Allocation rounding",
+            "amountCad": 0.01,
+            "classification": "reconciling_item",
+            "evidenceStatus": "RECONCILING",
+            "note": "Cent rounding so department shares sum to the local portion."
           }
         ],
         "uiLabel": "City portion",
-        "note": "Local rate \u00d7 $405,000 = $1,771.58. Published local increase $106.92 / 6.41% is local-portion only.",
-        "gapId": "GAP-WAT-DEPT-SCHEDULE"
+        "note": "Local rate \u00d7 $405,000 = $1,771.58. Published local increase $106.92 / 6.41% is local-portion only."
       },
       "region": {
         "basis": "Printed REGION rate on local 2026 rates sheet at $405,000",
@@ -408,7 +468,7 @@
       "combinedTotalNote": "Local $1,771.58 + Region $3,409.43 + Education $619.65 + source rounding -0.01 = $5,800.65 at $405,000.",
       "warnings": [
         "Local published increase (if shown) is local portion only \u2014 not the full combined bill change.",
-        "Local department split is GAP until a suitable table is transcribed.",
+        "Department shares are a pro-rata model when an allocation base is present \u2014 not a published per-household split.",
         "Region bill line is rate \u00d7 $405,000; Region urban schedule at $354,500 is informational only (GAP-WAT-REGION-ASSESSMENT-BRIDGE).",
         "Utilities (water / sanitary / storm) are billed separately and are not part of this property-tax receipt."
       ]

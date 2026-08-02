@@ -44,7 +44,13 @@
       "region-of-waterloo-on"
     ],
     "assessmentCode": "3016",
-    "note": "Lower-tier in Region of Waterloo. Assessment code pending Schedule 02 lock."
+    "note": "Lower-tier in Region of Waterloo. Assessment code matched locked registry geography/ontario-waterloo-test-ring.json.",
+    "assessmentCodeEvidence": {
+      "registryId": "waterloo-first-ring-on",
+      "effectiveDate": "2024-02-15",
+      "registryPath": "geography/ontario-waterloo-test-ring.json",
+      "sourceLockPath": "geography/ontario-waterloo-test-ring.sources.lock.json"
+    }
   },
   "evidencePolicy": {
     "rules": [
@@ -74,7 +80,7 @@
       "extractedText": "data/_extracts/waterloo/2026-operating-budget-excerpt.txt",
       "asOf": "2025-12",
       "authority": "City of Waterloo",
-      "note": "Net tax levy and average assessment illustration."
+      "note": "Net tax levy and major service-delivery area schedule."
     },
     {
       "id": "row-2026-book",
@@ -91,12 +97,12 @@
     {
       "id": "WAT-LEVY-2026",
       "sourceId": "wat-2026-budget",
-      "page": 1,
+      "page": 19,
       "label": "City of Waterloo 2026 published net tax levy",
       "amountCad": 114990811,
       "unit": "cad",
       "measureType": "absolute_levy",
-      "excerpt": "resulting in a net Tax Levy of $114,990,811",
+      "excerpt": "The 2026 property tax increase is 6.41%, resulting in a net Tax Levy of $114,990,811.",
       "status": "approved",
       "kind": "FACT"
     },
@@ -171,24 +177,104 @@
     {
       "id": "WAT-TAX-INCREASE-PCT-2026",
       "sourceId": "wat-2026-budget",
-      "page": 1,
+      "page": 23,
       "label": "2026 property tax rate increase (local)",
       "amountCad": 6.41,
       "unit": "percent",
       "measureType": "rate_increase",
-      "excerpt": "Property Tax Increase - City of Waterloo $ 106.92 6.41%",
+      "excerpt": "*Property Tax Increase - City of Waterloo 90.74$       6.14% 99.44$       6.34% 106.92$     6.41%",
       "status": "approved",
       "kind": "FACT"
     },
     {
       "id": "WAT-AVG-HOUSEHOLD-INCREASE-CAD-2026",
       "sourceId": "wat-2026-budget",
-      "page": 1,
+      "page": 23,
       "label": "2026 average-household local tax increase dollars",
       "amountCad": 106.92,
       "unit": "cad",
       "measureType": "average_household_increase",
-      "excerpt": "Property Tax Increase - City of Waterloo $ 106.92 6.41%",
+      "excerpt": "*Property Tax Increase - City of Waterloo 90.74$       6.14% 99.44$       6.34% 106.92$     6.41%",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-NET-DEPT-EXP-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "label": "Net departmental expenditures 2026 (allocation base)",
+      "amountCad": 114990811,
+      "excerpt": "TOTAL 99,609,666       6,953,003       107,028,307   7,418,641      114,990,811  7,962,504",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-DEPT-FIRE-ENFORCEMENT-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "label": "Fire Rescue and Municipal Enforcement \u2014 2026 department total",
+      "amountCad": 27732310,
+      "excerpt": "Fire Rescue and Municipal Enforcement             23,278,418 1,782,536                    25,275,959 1,997,541                 27,732,310 2,456,351",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-DEPT-PARKS-REC-READI-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "label": "Parks, Recreation/Programming, Culture and READI \u2014 2026 department total",
+      "amountCad": 22197564,
+      "excerpt": "READI             20,095,743 1,506,904                    20,913,623 817,880                    22,197,564 1,283,941",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-DEPT-CAPITAL-TRANSFERS-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "label": "Operating Transfers to Capital/Reserves \u2014 2026 department total",
+      "amountCad": 23493048,
+      "excerpt": "Operating Transfers to Capital/Reserves             19,437,807 1,655,929                    21,389,174 1,951,367                 23,493,048 2,103,874",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-DEPT-TRANSPORT-DEV-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "label": "Transportation and Development Services \u2014 2026 department total",
+      "amountCad": 15084314,
+      "excerpt": "Transportation and Development Services             12,919,439 1,078,211                    14,112,369 1,192,930                 15,084,314 971,945",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-DEPT-FACILITIES-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "label": "Facility Design and Management \u2014 2026 department total",
+      "amountCad": 9864245,
+      "excerpt": "Facility Design and Management               8,975,536 341,811                         9,417,891 442,355                      9,864,245 446,354",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-DEPT-LIBRARY-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "label": "Waterloo Public Library \u2014 2026 department total",
+      "amountCad": 8497020,
+      "excerpt": "Waterloo Public Library               7,786,637 421,737                         8,153,567 366,930                      8,497,020 343,453",
+      "status": "approved",
+      "kind": "FACT"
+    },
+    {
+      "id": "WAT-DEPT-CIVIC-ADMIN-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "label": "Civic Administration \u2014 2026 department total",
+      "amountCad": 8122310,
+      "excerpt": "Civic Administration               7,116,086 165,875                         7,765,724 649,638                      8,122,310 356,586",
       "status": "approved",
       "kind": "FACT"
     },
@@ -516,6 +602,23 @@
   ],
   "derived": [
     {
+      "id": "DRV-WAT-ALLOCATION-BASE-2026",
+      "label": "Department net-expenditure allocation base",
+      "amountCad": 114990811,
+      "formula": "sum(department totals) == WAT-NET-DEPT-EXP-2026",
+      "inputs": [
+        "WAT-DEPT-FIRE-ENFORCEMENT-2026",
+        "WAT-DEPT-PARKS-REC-READI-2026",
+        "WAT-DEPT-CAPITAL-TRANSFERS-2026",
+        "WAT-DEPT-TRANSPORT-DEV-2026",
+        "WAT-DEPT-FACILITIES-2026",
+        "WAT-DEPT-LIBRARY-2026",
+        "WAT-DEPT-CIVIC-ADMIN-2026",
+        "WAT-NET-DEPT-EXP-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
       "id": "DRV-WAT-BILL-CITY",
       "label": "Local portion at published average assessment",
       "amountCad": 1771.58,
@@ -591,21 +694,93 @@
         "sealedEligible": true
       },
       "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-DEPT-FIRE-ENFORCEMENT-2026-HH",
+      "label": "Household share \u2014 Fire Rescue and Municipal Enforcement",
+      "amountCad": 427.25,
+      "formula": "DRV-WAT-BILL-CITY * (WAT-DEPT-FIRE-ENFORCEMENT-2026 / DRV-WAT-ALLOCATION-BASE-2026)",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "WAT-DEPT-FIRE-ENFORCEMENT-2026",
+        "DRV-WAT-ALLOCATION-BASE-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-DEPT-PARKS-REC-READI-2026-HH",
+      "label": "Household share \u2014 Parks, Recreation/Programming, Culture and READI",
+      "amountCad": 341.98,
+      "formula": "DRV-WAT-BILL-CITY * (WAT-DEPT-PARKS-REC-READI-2026 / DRV-WAT-ALLOCATION-BASE-2026)",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "WAT-DEPT-PARKS-REC-READI-2026",
+        "DRV-WAT-ALLOCATION-BASE-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-DEPT-CAPITAL-TRANSFERS-2026-HH",
+      "label": "Household share \u2014 Operating Transfers to Capital/Reserves",
+      "amountCad": 361.94,
+      "formula": "DRV-WAT-BILL-CITY * (WAT-DEPT-CAPITAL-TRANSFERS-2026 / DRV-WAT-ALLOCATION-BASE-2026)",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "WAT-DEPT-CAPITAL-TRANSFERS-2026",
+        "DRV-WAT-ALLOCATION-BASE-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-DEPT-TRANSPORT-DEV-2026-HH",
+      "label": "Household share \u2014 Transportation and Development Services",
+      "amountCad": 232.39,
+      "formula": "DRV-WAT-BILL-CITY * (WAT-DEPT-TRANSPORT-DEV-2026 / DRV-WAT-ALLOCATION-BASE-2026)",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "WAT-DEPT-TRANSPORT-DEV-2026",
+        "DRV-WAT-ALLOCATION-BASE-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-DEPT-FACILITIES-2026-HH",
+      "label": "Household share \u2014 Facility Design and Management",
+      "amountCad": 151.97,
+      "formula": "DRV-WAT-BILL-CITY * (WAT-DEPT-FACILITIES-2026 / DRV-WAT-ALLOCATION-BASE-2026)",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "WAT-DEPT-FACILITIES-2026",
+        "DRV-WAT-ALLOCATION-BASE-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-DEPT-LIBRARY-2026-HH",
+      "label": "Household share \u2014 Waterloo Public Library",
+      "amountCad": 130.91,
+      "formula": "DRV-WAT-BILL-CITY * (WAT-DEPT-LIBRARY-2026 / DRV-WAT-ALLOCATION-BASE-2026)",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "WAT-DEPT-LIBRARY-2026",
+        "DRV-WAT-ALLOCATION-BASE-2026"
+      ],
+      "kind": "DERIVED"
+    },
+    {
+      "id": "DRV-WAT-DEPT-CIVIC-ADMIN-2026-HH",
+      "label": "Household share \u2014 Civic Administration",
+      "amountCad": 125.13,
+      "formula": "DRV-WAT-BILL-CITY * (WAT-DEPT-CIVIC-ADMIN-2026 / DRV-WAT-ALLOCATION-BASE-2026)",
+      "inputs": [
+        "DRV-WAT-BILL-CITY",
+        "WAT-DEPT-CIVIC-ADMIN-2026",
+        "DRV-WAT-ALLOCATION-BASE-2026"
+      ],
+      "kind": "DERIVED"
     }
   ],
   "gaps": [
-    {
-      "id": "GAP-WAT-DEPT-SCHEDULE",
-      "title": "Local department household allocation not transcribed",
-      "detail": "This Tier 0 pack cites the local rate \u00d7 $405,000 as a single line. A published department / service split for household illustration has not been bound into the allocation base yet.",
-      "blocks": [
-        "township_department_lines"
-      ],
-      "neededEvidence": [
-        "Department net expenditure table suitable for pro-rata"
-      ],
-      "kind": "GAP"
-    },
     {
       "id": "GAP-WAT-REGION-ASSESSMENT-BRIDGE",
       "title": "No DERIVED bridge from Region $354,500 urban schedule to local $405,000 rate bill",
@@ -613,16 +788,6 @@
       "blocks": [],
       "neededEvidence": [
         "Approved formula mapping Region urban HH lines onto the local published average assessment bill"
-      ],
-      "kind": "GAP"
-    },
-    {
-      "id": "GAP-WAT-FIR-CODE-VERIFY",
-      "title": "FIR / MAH assessment code not yet locked from Schedule 02",
-      "detail": "Pack uses working code 3016 pending a hand-checked FIR Schedule 02 row.",
-      "blocks": [],
-      "neededEvidence": [
-        "FIR Schedule 02 MAH code for City of Waterloo"
       ],
       "kind": "GAP"
     },
@@ -645,6 +810,12 @@
       "title": "Region of Waterloo urban household schedule imported from shared pack",
       "resolvedAt": "2026-07-25",
       "resolution": "urban column imported from corpus/region-of-waterloo-on/schedules/household-tax-supported-2026.yaml. Lines appear under regionIllustrationAt354500 at $354,500. Bill-stack Region total remains rate \u00d7 $405,000 ($3,409.43). Narrowed remainder: GAP-WAT-REGION-ASSESSMENT-BRIDGE."
+    },
+    {
+      "id": "GAP-WAT-DEPT-SCHEDULE",
+      "title": "Major service-delivery area schedule bound from Operating Budget",
+      "resolvedAt": "2026-08-02",
+      "resolution": "Bound seven 2026 Budget ($) Net service-delivery lines from the Approved Operating Budget (extract p.20). Lines sum exactly to the published net Tax Levy $114,990,811. Image-only Figure #2 pie remains unused.\n"
     }
   ]
 }

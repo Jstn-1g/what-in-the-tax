@@ -10,9 +10,12 @@ SOURCE = ROOT / "source-pdfs" / "brant"
 OUT = ROOT / "data" / "_extracts" / "brant"
 OUT.mkdir(parents=True, exist_ok=True)
 
+# Overview PDF remains on disk for searchTrail work; it is not a receipt-driving
+# source in build_brant_evidence_model.py, so it must not land under
+# data/_extracts/brant/ (extract_pdf_text.py --check treats unclaimed extracts
+# as provenance defects). Mine it via --uncited when needed.
 FILES = [
     "2026-approved-budget-accessible.pdf",
-    "1-budget-overview-accessible.pdf",
     "2026-tax-rates.pdf",
 ]
 

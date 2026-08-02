@@ -27,7 +27,8 @@ publication:
   refreshDueBy: "2027-04-30"
   notes: >
     Dual-tier urban (same Region urban schedule as Kitchener/Cambridge).
-    Department pie is image-only — local share unallocated until table bound.
+    Major service-delivery area schedule bound from Operating Budget p.20;
+    image-only Figure #2 pie is unused.
 
 artifacts:
   ledger: data/waterloo/evidence-ledger.json
@@ -38,6 +39,9 @@ artifacts:
 controlTotal:
   measureType: absolute_levy
   levyCad: 114990811
+  allocationBaseCad: 114990811
   assessmentMeasureType: published_average
   label: Published net tax levy (2026 Operating Budget Summary)
-  note: Household department split is GAP (image-only Figure #2).
+  note: >
+    Seven service-delivery lines sum exactly to the published levy
+    $114,990,811.

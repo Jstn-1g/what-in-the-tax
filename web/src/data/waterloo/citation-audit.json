@@ -1,26 +1,27 @@
 {
   "ok": true,
   "counts": {
-    "verbatim": 8,
+    "verbatim": 16,
     "numbers-only": 4,
     "row-bound": 21
   },
   "bindingIssueCounts": {
-    "extract-sha256-missing": 33,
-    "source-file-missing": 3,
+    "extract-sha256-missing": 41,
+    "source-bytes-missing": 36,
+    "source-sha256-missing": 36,
     "source-path-missing": 5,
-    "source-bytes-missing": 25,
-    "source-sha256-missing": 25
+    "amount-not-on-cited-page": 4
   },
   "results": [
     {
       "id": "WAT-LEVY-2026",
       "sourceId": "wat-2026-budget",
-      "page": 1,
+      "page": 19,
       "amountCad": 114990811,
       "bindingIssues": [
         "extract-sha256-missing",
-        "source-file-missing"
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
       "tier": "verbatim",
       "note": ""
@@ -43,6 +44,7 @@
       "page": 1,
       "amountCad": 0.00437426,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -55,6 +57,7 @@
       "page": 1,
       "amountCad": 0.00841834,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -67,6 +70,7 @@
       "page": 1,
       "amountCad": 0.00153,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -79,6 +83,7 @@
       "page": 1,
       "amountCad": 0.0143226,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -88,11 +93,12 @@
     {
       "id": "WAT-TAX-INCREASE-PCT-2026",
       "sourceId": "wat-2026-budget",
-      "page": 1,
+      "page": 23,
       "amountCad": 6.41,
       "bindingIssues": [
         "extract-sha256-missing",
-        "source-file-missing"
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
       "tier": "verbatim",
       "note": ""
@@ -100,11 +106,116 @@
     {
       "id": "WAT-AVG-HOUSEHOLD-INCREASE-CAD-2026",
       "sourceId": "wat-2026-budget",
-      "page": 1,
+      "page": 23,
       "amountCad": 106.92,
       "bindingIssues": [
         "extract-sha256-missing",
-        "source-file-missing"
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WAT-NET-DEPT-EXP-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "amountCad": 114990811,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WAT-DEPT-FIRE-ENFORCEMENT-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "amountCad": 27732310,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WAT-DEPT-PARKS-REC-READI-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "amountCad": 22197564,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WAT-DEPT-CAPITAL-TRANSFERS-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "amountCad": 23493048,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WAT-DEPT-TRANSPORT-DEV-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "amountCad": 15084314,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WAT-DEPT-FACILITIES-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "amountCad": 9864245,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WAT-DEPT-LIBRARY-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "amountCad": 8497020,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
+      ],
+      "tier": "verbatim",
+      "note": ""
+    },
+    {
+      "id": "WAT-DEPT-CIVIC-ADMIN-2026",
+      "sourceId": "wat-2026-budget",
+      "page": 20,
+      "amountCad": 8122310,
+      "bindingIssues": [
+        "extract-sha256-missing",
+        "source-bytes-missing",
+        "source-sha256-missing"
       ],
       "tier": "verbatim",
       "note": ""
@@ -462,20 +573,21 @@
       "sourceFile": {
         "declaredPath": "source-pdfs/waterloo/2024-2026-approved-operating-budget-book.pdf",
         "declaredSha256": null,
-        "actualSha256": null,
+        "actualSha256": "3f0dbcfabc00178e579bac13c849ff6a4da2b1e37a9caa3401d999b1b7ac3e9f",
         "declaredBytes": null,
-        "actualBytes": null
+        "actualBytes": 5892000
       },
       "extractFile": {
         "declaredPath": "data/_extracts/waterloo/2026-operating-budget-excerpt.txt",
         "declaredSha256": null,
-        "actualSha256": "efdb7c72b657e63c54b8a479542297b52613d0de26d3d6198ba0fbbc95068f1b"
+        "actualSha256": "64b0fa371e658abd02c447aab1f0a64b1040e13c1103a9307159f65a69d02c3d"
       },
       "issues": [
-        "source-file-missing",
+        "source-sha256-missing",
+        "source-bytes-missing",
         "extract-sha256-missing"
       ],
-      "sourceReadable": false,
+      "sourceReadable": true,
       "extractReadable": true
     },
     {

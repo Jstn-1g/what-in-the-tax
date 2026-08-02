@@ -695,7 +695,12 @@ def build_pack(cfg: dict) -> tuple[dict, dict]:
             fact(
                 id=f"{prefix}-TAX-INCREASE-PCT-{fiscal_year}",
                 sourceId=budget_source_id,
-                page=int(control.get("increasePage", control.get("levyPage", 1))),
+                page=int(
+                    control.get(
+                        "taxIncreasePage",
+                        control.get("increasePage", control.get("levyPage", 1)),
+                    )
+                ),
                 label=f"{fiscal_year} property tax rate increase (local)",
                 amountCad=_decimal(
                     control["taxIncreasePct"],

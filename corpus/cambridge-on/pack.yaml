@@ -26,7 +26,8 @@ publication:
   contact: null
   refreshDueBy: "2027-04-30"
   notes: >
-    Dual-tier urban. Department schedule GAP-tolerant. Absolute levy dollar pending.
+    Dual-tier urban. Absolute tax-supported operating budget bound from the
+    Approved Budget table. Department schedule still GAP-tolerant.
 
 artifacts:
   ledger: data/cambridge/evidence-ledger.json
@@ -35,8 +36,11 @@ artifacts:
   extractsRoot: data/_extracts/cambridge/
 
 controlTotal:
-  measureType: levy_increase
+  measureType: absolute_levy
+  levyCad: 127649000
   levyIncreaseCad: 3000000
   assessmentMeasureType: published_average
-  label: Published 2026 tax levy increase ($3 million / 2.44%)
-  note: Absolute levy headline not yet locked — see GAP-CAM-LEVY-ABSOLUTE.
+  label: Published 2026 Total Operating Budget ($127,649,000 / 2.44%)
+  note: >
+    Bound from Operating Budget table "Total Operating Budget … $127,649,000
+    2.44%". Department household allocation remains open.

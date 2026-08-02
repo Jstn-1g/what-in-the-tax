@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/woolwich/evidence-ledger.json",
-  "ledgerSha256": "db791837d40597700549c4f95912c787fe5392dad634ba2abb59b9b4e9a5b515",
+  "ledgerSha256": "7d1cdef16dfcf3ec14c222c08274e2a24c1338128bf1761c48f657144183fb26",
   "sources": [
     {
       "id": "row-2026-book",
@@ -23,14 +23,11 @@
       "asOf": "2026-01",
       "license": "unknown",
       "localPath": "source-pdfs/woolwich/2026-budget-book-final.pdf",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "f1cc397212d355fe8cd30b752bfde1ae964c4118f08da3747366e178fa0eb454",
+      "bytes": 11539861,
       "extractedText": "data/_extracts/woolwich/2026-budget-excerpt.txt",
-      "extractedTextSha256": "193ae2bb88092bfcf5e36c72be7a26e2edf0903caaf44d65b27094df506eb7d8",
-      "lockStatus": "missing",
-      "missing": [
-        "localPath"
-      ]
+      "extractedTextSha256": "4e833dbbfe2bec1c5b1f9c105cd7268c150da18a5414810e3e53979baa802b89",
+      "lockStatus": "source-and-extract"
     },
     {
       "id": "woo-2026-tax-rates",
