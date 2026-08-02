@@ -5,6 +5,23 @@
 [![License: MIT](https://img.shields.io/badge/code%20license-MIT-1f6f43)](LICENSE)
 [![Corrections welcome](https://img.shields.io/badge/wrong%20number%3F-report%20it-c92f23)](https://github.com/Jstn-1g/what-in-the-tax/issues/new?template=wrong-number.yml)
 
+## Product at a glance
+
+- **Problem:** official municipal finance filings are difficult for residents to
+  translate into a clear answer to “where did my property tax go?”
+- **What I built:** a reproducible evidence pipeline and a static resident-facing
+  explorer that keeps every source, formula, gap, and publication boundary visible.
+- **My role:** product direction, evidence model, Python data pipelines, React and
+  TypeScript experience, CI controls, documentation, and release review.
+- **Proof:** the live Ontario explorer, source-linked evidence, corrections workflow,
+  and generated coverage/audit results below can all be inspected independently.
+- **Stack:** Python, TypeScript, React, Vite, GitHub Actions, and Cloudflare.
+
+[Open the live product](https://whatinthetax.com) ·
+[View the public-preview release](https://github.com/Jstn-1g/what-in-the-tax/releases/tag/v1.0.0) ·
+[Contribute](CONTRIBUTING.md) ·
+[Report a wrong number](https://github.com/Jstn-1g/what-in-the-tax/issues/new?template=wrong-number.yml)
+
 What in the Tax? is an evidence-first public-finance model and resident-facing
 property-tax receipt guide, live at [whatinthetax.com](https://whatinthetax.com).
 Created and maintained by Justin Skowyra (Eversko), with AI-assisted
