@@ -5,6 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/code%20license-MIT-1f6f43)](LICENSE)
 [![Corrections welcome](https://img.shields.io/badge/wrong%20number%3F-report%20it-c92f23)](https://github.com/Jstn-1g/what-in-the-tax/issues/new?template=wrong-number.yml)
 
+[![What in the Tax? homepage showing the community search and evidence-first Ontario property-tax explainer.](web/public/what-in-the-tax-share.png)](https://whatinthetax.com)
+
 ## Product at a glance
 
 - **Problem:** official municipal finance filings are difficult for residents to

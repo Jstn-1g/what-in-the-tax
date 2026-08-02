@@ -102,6 +102,25 @@ but revision 3 does not satisfy this document: its embedded pack metadata disagr
 manifest, its claimed Git tags do not exist, its source bytes/extracts are not fully locked, and
 the web deployment is built from mutable source copies rather than the sealed directory.
 
+### Share previews and the search-discovery gate
+
+The preview may serve a canonical link and Open Graph/Twitter metadata so a deliberately shared
+URL has a useful, current preview. Those tags identify the preferred URL and presentation; they do
+not authorize search indexing or change a pack's lifecycle. The share image must be self-hosted,
+have accurate alt text, declare its MIME type and dimensions, and show the current interface rather
+than a stale campaign or donation state.
+
+While the site remains a draft preview, both publication controls stay closed:
+
+- `web/index.html` keeps `<meta name="robots" content="noindex, nofollow">`;
+- `web/public/_headers` keeps `X-Robots-Tag: noindex, nofollow` for every response; and
+- no sitemap is advertised or submitted.
+
+Search discovery is a separate, explicit launch action. Only after the applicable seal and human
+publication gates above pass may one reviewed change remove both noindex controls, add a generated
+sitemap containing only approved canonical routes, reference it from `robots.txt`, and verify the
+deployed headers and sitemap bytes. A share-card improvement must never bundle or imply that action.
+
 `corpus/north-dumfries-on/pack.yaml` is therefore reset to `draft`. Citation matching may be
 green while publication remains blocked; a citation audit is one gate, not a seal. The next
 candidate must use a new revision and must be promoted as the exact CI-built public artifact,
