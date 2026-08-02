@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/evidence-ledger.json",
-  "ledgerSha256": "a85386bd1476c290a4acfad51d9213d2c5fc30a3e94b4a855d1c66f2f1806a06",
+  "ledgerSha256": "0a3341e94041213cd52c967554a120588ec17d658cdab019e61d807038ec86e9",
   "sources": [
     {
       "id": "mmah-fir-2023",
@@ -86,7 +86,7 @@
       "url": "https://www.regionofwaterloo.ca/media/ynro4cd2/2026_final_budget_book.pdf",
       "authority": "final",
       "asOf": null,
-      "license": "unknown",
+      "license": "not-determined",
       "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
       "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
       "bytes": 5442331,

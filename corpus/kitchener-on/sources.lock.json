@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/kitchener/evidence-ledger.json",
-  "ledgerSha256": "6cc32ff89711be1262732d4f1022c179320cfb849c1b30e434b77e45c80869b4",
+  "ledgerSha256": "f37b9b96f8cd5f311da48c89d2bebc00eb6a9f0243c886429bdced6d8b0a37be",
   "sources": [
     {
       "id": "kit-2026-appendix-b",
@@ -47,7 +47,7 @@
       "url": "https://www.regionofwaterloo.ca/",
       "authority": "Region of Waterloo",
       "asOf": "2026",
-      "license": "unknown",
+      "license": "not-determined",
       "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
       "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
       "bytes": 5442331,

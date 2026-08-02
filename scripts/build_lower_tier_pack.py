@@ -30,7 +30,7 @@ except ImportError:  # pragma: no cover
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from lib.region_schedule import load_region_schedule  # noqa: E402
+from lib.region_schedule import ledger_shared_source, load_region_schedule  # noqa: E402
 from lib.taxing_bodies import build_taxing_bodies  # noqa: E402
 from lib.path_safety import (  # noqa: E402
     PathSafetyError,
@@ -507,19 +507,16 @@ def build_pack(cfg: dict) -> tuple[dict, dict]:
 
     region_source_id = f"row-{fiscal_year}-book"
     sources.append(
-        {
-            "id": region_source_id,
-            "title": region["source"]["title"],
-            "url": "https://www.regionofwaterloo.ca/",
-            "localPath": f"source-pdfs/{fiscal_year}_final_budget_book_region.pdf",
-            "extractedText": region["extractPath"],
-            "asOf": fiscal_year,
-            "authority": "Region of Waterloo",
-            "note": (
+        ledger_shared_source(
+            region["source"],
+            url="https://www.regionofwaterloo.ca/",
+            as_of=fiscal_year,
+            authority="Region of Waterloo",
+            note=(
                 f"Shared pack schedule area={area_key}. "
                 f"Dollars at Region average ${hh_assessment:,} — not local ${assessment:,}."
             ),
-        }
+        )
     )
 
     rate_source_id = rates_cfg.get("sourceId") or next(

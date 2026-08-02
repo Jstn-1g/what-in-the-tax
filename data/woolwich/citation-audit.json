@@ -6,9 +6,8 @@
     "numbers-only": 4
   },
   "bindingIssueCounts": {
-    "extract-sha256-missing": 32,
-    "source-bytes-missing": 26,
-    "source-sha256-missing": 26,
+    "amount-not-on-cited-page": 5,
+    "extract-sha256-missing": 6,
     "source-path-missing": 4,
     "source-file-missing": 2
   },
@@ -18,11 +17,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 354500,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "verbatim",
       "note": ""
     },
@@ -32,6 +27,7 @@
       "page": 1,
       "amountCad": 0.00322187,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -44,6 +40,7 @@
       "page": 1,
       "amountCad": 0.00738314,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -56,6 +53,7 @@
       "page": 1,
       "amountCad": 0.00153,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -68,6 +66,7 @@
       "page": 1,
       "amountCad": 0.01213501,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-path-missing"
       ],
@@ -80,6 +79,7 @@
       "page": 1,
       "amountCad": 7.8,
       "bindingIssues": [
+        "amount-not-on-cited-page",
         "extract-sha256-missing",
         "source-file-missing"
       ],
@@ -103,11 +103,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 2617,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "numbers-only",
       "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
     },
@@ -116,11 +112,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": -78,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "numbers-only",
       "note": "all 2 numeric token(s) are on the cited page, but their binding to the label is unverified"
     },
@@ -129,11 +121,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 900,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -142,11 +130,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 136,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -155,11 +139,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 429,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -168,11 +148,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 240,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -181,11 +157,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 213,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -194,11 +166,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 89,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -207,11 +175,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 134,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -220,11 +184,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 53,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -233,11 +193,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 51,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -246,11 +202,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 39,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -259,11 +211,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 49,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -272,11 +220,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 45,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -285,11 +229,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 24,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -298,11 +238,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 33,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -311,11 +247,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 30,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -324,11 +256,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 17,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -337,11 +265,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 19,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -350,11 +274,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 31,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "numbers-only",
       "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
     },
@@ -363,11 +283,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 21,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -376,11 +292,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 24,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "numbers-only",
       "note": "all 1 numeric token(s) are on the cited page, but their binding to the label is unverified"
     },
@@ -389,11 +301,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 79,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -402,11 +310,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 16,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     },
@@ -415,11 +319,7 @@
       "sourceId": "row-2026-book",
       "page": 12,
       "amountCad": 20,
-      "bindingIssues": [
-        "extract-sha256-missing",
-        "source-bytes-missing",
-        "source-sha256-missing"
-      ],
+      "bindingIssues": [],
       "tier": "row-bound",
       "note": "amount and label words co-occur on one line of the cited page"
     }
@@ -471,21 +371,17 @@
       "sourceId": "row-2026-book",
       "sourceFile": {
         "declaredPath": "source-pdfs/2026_final_budget_book_region.pdf",
-        "declaredSha256": null,
+        "declaredSha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
         "actualSha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
-        "declaredBytes": null,
+        "declaredBytes": 5442331,
         "actualBytes": 5442331
       },
       "extractFile": {
         "declaredPath": "data/_extracts/2026_final_budget_book_region.txt",
-        "declaredSha256": null,
+        "declaredSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423",
         "actualSha256": "7e26d5eb06e8b054986c456eb33b8c0f324a4bddf8dc4a12864d0f6bbe2d6423"
       },
-      "issues": [
-        "source-sha256-missing",
-        "source-bytes-missing",
-        "extract-sha256-missing"
-      ],
+      "issues": [],
       "sourceReadable": true,
       "extractReadable": true
     }

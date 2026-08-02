@@ -99,6 +99,53 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def ledger_shared_source(
+    schedule_source: dict[str, Any],
+    *,
+    note: str | None = None,
+    as_of: str | int | None = None,
+    authority: str | None = None,
+    url: str | None = None,
+) -> dict[str, Any]:
+    """Build an evidence-ledger source entry with hash bindings from the locked schedule."""
+
+    entry: dict[str, Any] = {
+        "id": schedule_source["id"],
+        "title": schedule_source["title"],
+        "url": url if url is not None else schedule_source.get("url"),
+        "publisher": schedule_source.get("publisher"),
+        "authority": authority
+        or schedule_source.get("adoptionStatus")
+        or schedule_source.get("authority")
+        or "final",
+        "documentKind": schedule_source.get("documentKind"),
+        "adoptionStatus": schedule_source.get("adoptionStatus"),
+        "fiscalYear": schedule_source.get("fiscalYear"),
+        "currency": schedule_source.get("currency"),
+        "publicationDate": schedule_source.get("publicationDate"),
+        "retrievedAt": schedule_source.get("retrievedAt"),
+        "retrievalStatus": schedule_source.get("retrievalStatus"),
+        "license": schedule_source.get("license"),
+        "localPath": schedule_source["localPath"],
+        "sha256": schedule_source["sha256"],
+        "bytes": schedule_source["bytes"],
+        "extractedText": schedule_source["extractPath"],
+        "extractedTextSha256": schedule_source["extractedTextSha256"],
+        "extractedTextBytes": schedule_source.get("extractedTextBytes"),
+        "pageCount": schedule_source.get("pdfPageCount"),
+        "citedPages": schedule_source.get("citedPages"),
+    }
+    if as_of is not None:
+        entry["asOf"] = as_of
+    elif schedule_source.get("asOf") is not None:
+        entry["asOf"] = schedule_source["asOf"]
+    if note is not None:
+        entry["note"] = note
+    elif schedule_source.get("note"):
+        entry["note"] = schedule_source["note"]
+    return entry
+
+
 def _repo_path(root: Path, declared: Any, label: str) -> Path:
     if not isinstance(declared, str) or not declared.strip():
         raise RegionScheduleError(f"{label} must be a non-empty repository-relative path")

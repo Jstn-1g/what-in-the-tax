@@ -1,14 +1,14 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/woolwich/evidence-ledger.json",
-  "ledgerSha256": "db791837d40597700549c4f95912c787fe5392dad634ba2abb59b9b4e9a5b515",
+  "ledgerSha256": "8dd794961e91b2ca2366277692b91d0bc0e25afc8a9aaf697c0d125ca3bec23a",
   "sources": [
     {
       "id": "row-2026-book",
       "url": "https://www.regionofwaterloo.ca/",
       "authority": "Region of Waterloo",
       "asOf": "2026",
-      "license": "unknown",
+      "license": "not-determined",
       "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
       "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
       "bytes": 5442331,
