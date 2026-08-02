@@ -25,6 +25,7 @@ import sys
 
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from lib.region_schedule import ledger_shared_source  # noqa: E402
 from lib.taxing_bodies import build_taxing_bodies  # noqa: E402
 DATA = ROOT / "data" / "kitchener"
 WEB_DATA = ROOT / "web" / "src" / "data" / "kitchener"
@@ -148,21 +149,18 @@ REGION_HH_PAGE = _region_sched["page"]
 REGION_URBAN_AFTER_PIL = _urban["taxSupportedTotalCad"]
 
 sources.append(
-    {
-        "id": "row-2026-book",
-        "title": _region_sched["source"]["title"],
-        "url": "https://www.regionofwaterloo.ca/",
-        "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
-        "extractedText": _region_sched["extractPath"],
-        "asOf": "2026",
-        "authority": "Region of Waterloo",
-        "note": (
+    ledger_shared_source(
+        _region_sched["source"],
+        url="https://www.regionofwaterloo.ca/",
+        as_of="2026",
+        authority="Region of Waterloo",
+        note=(
             "Shared pack schedule: corpus/region-of-waterloo-on/schedules/"
             "household-tax-supported-2026.yaml (urban column). "
             f"Dollars are at Region average ${REGION_HH_ASSESSMENT:,} — not the "
             f"City average ${AVG_ASSESSMENT:,}."
         ),
-    }
+    )
 )
 
 facts = [

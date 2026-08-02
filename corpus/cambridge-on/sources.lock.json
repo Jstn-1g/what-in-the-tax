@@ -1,7 +1,7 @@
 {
   "schemaVersion": "source-lock-1.0.0",
   "ledgerPath": "data/cambridge/evidence-ledger.json",
-  "ledgerSha256": "1df012d79824ed41ed944f84dc40a9c0de831c5b25eb1f05906eba7a20d59a10",
+  "ledgerSha256": "8b018ac19dde5fe6bc953a93de1a6c7755951233917841d9a883bf4bea4d396e",
   "sources": [
     {
       "id": "cam-2026-budget",
@@ -37,7 +37,7 @@
       "url": "https://www.regionofwaterloo.ca/",
       "authority": "Region of Waterloo",
       "asOf": "2026",
-      "license": "unknown",
+      "license": "not-determined",
       "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
       "sha256": "769cb5648ab03bcd5091813f7160050ff2c6b1949c001981e04cde152c6041ce",
       "bytes": 5442331,

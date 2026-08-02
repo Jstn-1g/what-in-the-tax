@@ -20,6 +20,7 @@ import sys
 
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from lib.region_schedule import ledger_shared_source  # noqa: E402
 from lib.taxing_bodies import build_taxing_bodies  # noqa: E402
 DATA = ROOT / "data"
 
@@ -86,6 +87,25 @@ def derived(**kwargs):
 REGION_SCHEDULE_PATH = (
     ROOT / "corpus" / "region-of-waterloo-on" / "schedules" / "household-tax-supported-2026.yaml"
 )
+
+
+def _load_region_schedule_source() -> dict:
+    """Return the locked Region budget-book source metadata from the shared schedule."""
+
+    try:
+        import yaml
+    except ImportError as exc:  # pragma: no cover
+        raise SystemExit("PyYAML required (pip install pyyaml)") from exc
+    if not REGION_SCHEDULE_PATH.exists():
+        raise SystemExit(
+            f"missing {REGION_SCHEDULE_PATH}\n"
+            "Run: python scripts/parse_row_household_schedule.py"
+        )
+    doc = yaml.safe_load(REGION_SCHEDULE_PATH.read_text(encoding="utf-8"))
+    source = doc.get("source")
+    if not isinstance(source, dict):
+        raise SystemExit(f"{REGION_SCHEDULE_PATH} is missing a source block")
+    return source
 
 
 def _load_region_rural_hh() -> list[tuple[str, int, int, int]]:
@@ -1506,14 +1526,10 @@ sources = [
         "asOf": "2026-04-27",
         "authority": "final",
     },
-    {
-        "id": "row-2026-book",
-        "title": "Region of Waterloo 2026 Final Budget Book",
-        "url": "https://www.regionofwaterloo.ca/media/ynro4cd2/2026_final_budget_book.pdf",
-        "localPath": "source-pdfs/2026_final_budget_book_region.pdf",
-        "extractedText": "data/_extracts/2026_final_budget_book_region.txt",
-        "authority": "final",
-    },
+    ledger_shared_source(
+        _load_region_schedule_source(),
+        authority="final",
+    ),
     {
         "id": "row-2026-summary",
         "title": "Region of Waterloo 2026 Plan and Budget Summary Booklet",
