@@ -24,6 +24,26 @@
 [Contribute](CONTRIBUTING.md) ·
 [Report a wrong number](https://github.com/Jstn-1g/what-in-the-tax/issues/new?template=wrong-number.yml)
 
+## See the resident journey
+
+### 1. Find a community
+
+[![What in the Tax? community search showing current receipt and filing context without collecting an address or account number.](docs/assets/what-in-the-tax-community-search.png)](https://whatinthetax.com)
+
+Search an Ontario community, then open either a current draft receipt preview
+or its newest available Financial Information Return history. The browser is a
+static reader and does not ask for an address, roll number, or tax account.
+
+### 2. Read a clearly labelled receipt preview
+
+[![Draft Woolwich property-tax receipt illustrating township, regional, and education portions at a reference assessment.](docs/assets/what-in-the-tax-draft-receipt.png)](https://whatinthetax.com/?pack=woolwich-on)
+
+The Woolwich screen uses a clearly labelled **$354,500 reference residential
+assessment** to separate the township, Region of Waterloo, and education
+portions. It is a draft illustration—not a bill or a published Woolwich average—and
+the interface keeps the evidence year and reference basis beside the
+estimate.
+
 What in the Tax? is an evidence-first public-finance model and resident-facing
 property-tax receipt guide, live at [whatinthetax.com](https://whatinthetax.com).
 Created and maintained by Justin Skowyra (Eversko), with AI-assisted
