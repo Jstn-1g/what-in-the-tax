@@ -1,42 +1,62 @@
 name: Dependabot safe auto-merge
 
 on:
-  pull_request_target:
+  pull_request:
+    branches:
+      - main
     types:
       - opened
       - synchronize
       - reopened
       - ready_for_review
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 concurrency:
   group: dependabot-auto-merge-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
-  enable-auto-merge:
+  metadata:
     if: >-
       github.repository == 'Jstn-1g/what-in-the-tax' &&
       github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
       github.event.pull_request.base.ref == 'main' &&
       github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      update_type: ${{ steps.dependabot.outputs.update-type }}
+      maintainer_changes: ${{ steps.dependabot.outputs.maintainer-changes }}
+      package_ecosystem: ${{ steps.dependabot.outputs.package-ecosystem }}
     steps:
       - name: Read verified Dependabot metadata
-        id: metadata
+        id: dependabot
         uses: dependabot/fetch-metadata@d7267f607e9d3fb96fc2fbe83e0af444713e90b7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge for verified patch updates
-        if: >-
-          steps.metadata.outputs.update-type == 'version-update:semver-patch' &&
-          steps.metadata.outputs.maintainer-changes == 'false'
+  enable-auto-merge:
+    needs: metadata
+    if: >-
+      github.repository == 'Jstn-1g/what-in-the-tax' &&
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      needs.metadata.outputs.update_type == 'version-update:semver-patch' &&
+      needs.metadata.outputs.maintainer_changes == 'false' &&
+      needs.metadata.outputs.package_ecosystem != 'github-actions'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Enable auto-merge after required checks
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash "$PR_URL"
+        run: gh pr merge --auto --merge "$PR_URL"
