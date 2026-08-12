@@ -34,18 +34,96 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: |
           set -euo pipefail
+          changed_paths="$(mktemp)"
+          trap 'rm -f "$changed_paths"' EXIT
+          if ! git diff --name-only -z "$BASE_SHA" "$HEAD_SHA" -- > "$changed_paths"; then
+            echo "::error::Could not classify pull-request paths." >&2
+            exit 1
+          fi
+          if [[ ! -s "$changed_paths" ]]; then
+            echo "::error::Refusing an empty changed-path classification." >&2
+            exit 1
+          fi
+
           code_only=1
-          while IFS= read -r path; do
+          bootstrap_93=1
+          bootstrap_94=1
+          seen_93_dependabot=0
+          seen_93_workflow=0
+          seen_94_acquisition=0
+          seen_94_tests=0
+          seen_94_workflow=0
+          while IFS= read -r -d '' path; do
             case "$path" in
-              package.json|package-lock.json|requirements.txt|web/package.json|web/package-lock.json|.github/dependabot.yml|.github/workflows/dependabot-auto-merge.yml|.github/workflows/release-validation.yml|scripts/acquire_official_sources.py|tests/test_official_source_acquisition.py)
+              package.json|package-lock.json|requirements.txt|web/package.json|web/package-lock.json)
                 ;;
               *)
                 code_only=0
                 ;;
             esac
-          done < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+
+            case "$path" in
+              .github/dependabot.yml)
+                seen_93_dependabot=1
+                ;;
+              .github/workflows/dependabot-auto-merge.yml)
+                seen_93_workflow=1
+                ;;
+              *)
+                bootstrap_93=0
+                ;;
+            esac
+
+            case "$path" in
+              .github/workflows/release-validation.yml)
+                seen_94_workflow=1
+                ;;
+              scripts/acquire_official_sources.py)
+                seen_94_acquisition=1
+                ;;
+              tests/test_official_source_acquisition.py)
+                seen_94_tests=1
+                ;;
+              *)
+                bootstrap_94=0
+                ;;
+            esac
+          done < "$changed_paths"
+
+          # These owner-authored PRs bootstrap the two controls needed to
+          # unblock dependency fixes while unrelated reviewed source bytes are
+          # unavailable. PR numbers cannot be reused, and each exception
+          # requires the exact expected path set on its named owner branch.
+          if [[
+            "$PR_NUMBER" == "93" &&
+            "$PR_AUTHOR" == "$REPOSITORY_OWNER" &&
+            "$HEAD_REPOSITORY" == "$REPOSITORY" &&
+            "$HEAD_REF" == "codex/dependabot-safe-auto-merge-20260811" &&
+            $bootstrap_93 -eq 1 &&
+            $seen_93_dependabot -eq 1 &&
+            $seen_93_workflow -eq 1
+          ]]; then
+            code_only=1
+          elif [[
+            "$PR_NUMBER" == "94" &&
+            "$PR_AUTHOR" == "$REPOSITORY_OWNER" &&
+            "$HEAD_REPOSITORY" == "$REPOSITORY" &&
+            "$HEAD_REF" == "codex/retry-official-source-downloads-20260811" &&
+            $bootstrap_94 -eq 1 &&
+            $seen_94_acquisition -eq 1 &&
+            $seen_94_tests -eq 1 &&
+            $seen_94_workflow -eq 1
+          ]]; then
+            code_only=1
+          fi
           echo "code_only=$code_only" >> "$GITHUB_OUTPUT"
 
       - name: Resolve the release identity from the reviewed plan
