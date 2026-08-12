@@ -3,10 +3,13 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import ssl
 import tempfile
 import unittest
+import urllib.error
 import zipfile
 from pathlib import Path
+from unittest.mock import call, patch
 
 from scripts.acquire_official_sources import (
     ATTRIBUTION_REQUIRED_FROM,
@@ -154,6 +157,28 @@ class _FakeOpener:
     def open(self, request, timeout):
         self.calls += 1
         return self.response
+
+
+class _ReadFailureResponse(_FakeResponse):
+    def __init__(self, exc: BaseException) -> None:
+        super().__init__(b"")
+        self.exc = exc
+
+    def read(self, size: int = -1) -> bytes:
+        raise self.exc
+
+
+class _SequenceOpener:
+    def __init__(self, *outcomes) -> None:
+        self.outcomes = outcomes
+        self.calls = 0
+
+    def open(self, request, timeout):
+        outcome = self.outcomes[self.calls]
+        self.calls += 1
+        if isinstance(outcome, BaseException):
+            raise outcome
+        return outcome
 
 
 class OfficialSourceAcquisitionTests(unittest.TestCase):
@@ -333,8 +358,99 @@ class OfficialSourceAcquisitionTests(unittest.TestCase):
             b"small",
             content_length=str(MAX_DOWNLOAD_BYTES + 1),
         )
-        with self.assertRaisesRegex(OfficialSourceError, "download bound"):
-            download_source(OFFICIAL_URL, opener=_FakeOpener(response))
+        opener = _FakeOpener(response)
+        with (
+            patch("scripts.acquire_official_sources.time.sleep") as sleep,
+            self.assertRaisesRegex(OfficialSourceError, "download bound"),
+        ):
+            download_source(OFFICIAL_URL, opener=opener)
+
+        self.assertEqual(opener.calls, 1)
+        sleep.assert_not_called()
+
+    def test_download_retries_a_transient_read_timeout(self) -> None:
+        opener = _SequenceOpener(
+            _ReadFailureResponse(TimeoutError("read timed out")),
+            _FakeResponse(b"reviewed payload"),
+        )
+        with patch("scripts.acquire_official_sources.time.sleep") as sleep:
+            download = download_source(OFFICIAL_URL, opener=opener)
+
+        self.assertEqual(download.data, b"reviewed payload")
+        self.assertEqual(opener.calls, 2)
+        sleep.assert_called_once_with(2)
+
+    def test_download_stops_after_three_transient_failures(self) -> None:
+        opener = _SequenceOpener(
+            *(
+                _ReadFailureResponse(TimeoutError("read timed out"))
+                for _ in range(3)
+            )
+        )
+        with (
+            patch("scripts.acquire_official_sources.time.sleep") as sleep,
+            self.assertRaisesRegex(OfficialSourceError, "after 3 attempt"),
+        ):
+            download_source(OFFICIAL_URL, opener=opener)
+
+        self.assertEqual(opener.calls, 3)
+        self.assertEqual(sleep.call_count, 2)
+        self.assertEqual(sleep.call_args_list, [call(2), call(4)])
+
+    def test_download_honors_bounded_retry_after_and_closes_http_error(self) -> None:
+        body = io.BytesIO(b"temporarily unavailable")
+        opener = _SequenceOpener(
+            urllib.error.HTTPError(
+                OFFICIAL_URL,
+                503,
+                "Service Unavailable",
+                hdrs={"Retry-After": "17"},
+                fp=body,
+            ),
+            _FakeResponse(b"reviewed payload"),
+        )
+        with patch("scripts.acquire_official_sources.time.sleep") as sleep:
+            download = download_source(OFFICIAL_URL, opener=opener)
+
+        self.assertEqual(download.data, b"reviewed payload")
+        self.assertTrue(body.closed)
+        sleep.assert_called_once_with(17.0)
+
+    def test_download_does_not_retry_a_nontransient_http_error(self) -> None:
+        body = io.BytesIO(b"not found")
+        opener = _SequenceOpener(
+            urllib.error.HTTPError(
+                OFFICIAL_URL,
+                404,
+                "Not Found",
+                hdrs=None,
+                fp=body,
+            )
+        )
+        with (
+            patch("scripts.acquire_official_sources.time.sleep") as sleep,
+            self.assertRaisesRegex(OfficialSourceError, "after 1 attempt"),
+        ):
+            download_source(OFFICIAL_URL, opener=opener)
+
+        self.assertEqual(opener.calls, 1)
+        self.assertTrue(body.closed)
+        sleep.assert_not_called()
+
+    def test_download_does_not_retry_certificate_validation_failure(self) -> None:
+        opener = _SequenceOpener(
+            urllib.error.URLError(
+                ssl.SSLCertVerificationError("certificate verify failed")
+            )
+        )
+        with (
+            patch("scripts.acquire_official_sources.time.sleep") as sleep,
+            self.assertRaisesRegex(OfficialSourceError, "after 1 attempt"),
+        ):
+            download_source(OFFICIAL_URL, opener=opener)
+
+        self.assertEqual(opener.calls, 1)
+        sleep.assert_not_called()
 
     def test_zip_member_path_count_and_compression_are_bounded(self) -> None:
         safe = _zip_bytes(_csv_bytes([("2025", "3001", "ok")]))
