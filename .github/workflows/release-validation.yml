@@ -330,6 +330,9 @@ jobs:
           npm --prefix web audit --omit=dev --audit-level=high
 
       - name: Verify and build the sealed release bundle
+        if: >-
+          steps.acquire.outputs.drift != '1' ||
+          steps.scope.outputs.code_only != '1'
         shell: bash
         run: |
           set -euo pipefail
@@ -354,6 +357,9 @@ jobs:
           ) > "release/$RELEASE_ID.bundle.sha256"
 
       - name: Upload the exact sealed release bundle
+        if: >-
+          steps.acquire.outputs.drift != '1' ||
+          steps.scope.outputs.code_only != '1'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: sealed-${{ env.RELEASE_ID }}-${{ github.sha }}
@@ -387,6 +393,7 @@ jobs:
           echo "::warning::Reviewed official-source bytes changed upstream." >&2
           echo "This dependency or CI-only pull request did not touch source" >&2
           echo "locks, evidence, generated data, or release content, so its" >&2
-          echo "code gates remain mergeable. Push validation on main still" >&2
+          echo "code gates remain mergeable. Bundle assembly was not attempted" >&2
+          echo "without the reviewed archives. Push validation on main still" >&2
           echo "fails until a named human reviews the quarantined candidates." >&2
 
