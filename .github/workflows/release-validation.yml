@@ -172,10 +172,15 @@ jobs:
           python scripts/build_fir_taxation_receipts.py --year 2025 --check
 
       - name: Run all Python tests and reject skipped release-critical tests
+        env:
+          ALLOW_UNAVAILABLE_REVIEWED_SOURCES: >-
+            ${{ steps.acquire.outputs.drift == '1' &&
+                steps.scope.outputs.code_only == '1' }}
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
+          import os
           import sys
           import unittest
 
@@ -186,11 +191,45 @@ jobs:
               "test_ontario_",
               "test_release_",
           )
-          skipped_critical = [
-              (test.id(), reason)
-              for test, reason in result.skipped
-              if test.id().startswith(critical_prefixes)
-          ]
+          # A quarantined upstream refresh means the reviewed, gitignored FIR
+          # archives are deliberately absent from a fresh runner. For a PR
+          # whose changed-file scope is restricted to dependency/CI plumbing,
+          # allow only the two tests that declare that exact condition. Every
+          # other critical skip, including either test with a different reason,
+          # remains fatal. Pushes and source/data PRs never receive this waiver.
+          unavailable_reviewed_sources = {
+              (
+                  "test_ontario_fir_public_index.OntarioFirPublicIndexTests."
+                  "test_local_locked_source_reproduces_checked_in_index",
+                  "locked FIR source archive is intentionally not stored in git",
+              ),
+              (
+                  "test_ontario_municipal_history.OntarioMunicipalHistoryTests."
+                  "test_locked_sources_reproduce_checked_artifact",
+                  "locked Ontario source files are intentionally acquired outside Git",
+              ),
+          }
+          allow_unavailable = (
+              os.environ.get("ALLOW_UNAVAILABLE_REVIEWED_SOURCES", "").lower()
+              == "true"
+          )
+          allowed_critical = []
+          skipped_critical = []
+          for test, reason in result.skipped:
+              skip = (test.id(), reason)
+              if not skip[0].startswith(critical_prefixes):
+                  continue
+              if allow_unavailable and skip in unavailable_reviewed_sources:
+                  allowed_critical.append(skip)
+              else:
+                  skipped_critical.append(skip)
+          if allowed_critical:
+              print(
+                  "Allowed unavailable reviewed-source tests for this code-only PR:",
+                  file=sys.stderr,
+              )
+              for test_id, reason in allowed_critical:
+                  print(f"  - {test_id}: {reason}", file=sys.stderr)
           if skipped_critical:
               print("Release-critical tests were skipped:", file=sys.stderr)
               for test_id, reason in skipped_critical:
@@ -350,3 +389,4 @@ jobs:
           echo "locks, evidence, generated data, or release content, so its" >&2
           echo "code gates remain mergeable. Push validation on main still" >&2
           echo "fails until a named human reviews the quarantined candidates." >&2
+
