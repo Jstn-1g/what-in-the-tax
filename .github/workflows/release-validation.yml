@@ -1,8 +1,10 @@
 name: Validate sealed release candidate
 
 'on':
-  pull_request: {}
-  push: {}
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch: {}
 
 # Every job starts without repository, deployment, package, or OIDC privileges.
