@@ -24,7 +24,29 @@ jobs:
       - name: Check out the selected revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          fetch-depth: 2
           persist-credentials: false
+
+      - name: Classify dependency and CI-only pull requests
+        if: github.event_name == 'pull_request'
+        id: scope
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          code_only=1
+          while IFS= read -r path; do
+            case "$path" in
+              package.json|package-lock.json|requirements.txt|web/package.json|web/package-lock.json|.github/dependabot.yml|.github/workflows/dependabot-auto-merge.yml|.github/workflows/release-validation.yml|scripts/acquire_official_sources.py|tests/test_official_source_acquisition.py)
+                ;;
+              *)
+                code_only=0
+                ;;
+            esac
+          done < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          echo "code_only=$code_only" >> "$GITHUB_OUTPUT"
 
       - name: Resolve the release identity from the reviewed plan
         shell: bash
@@ -122,6 +144,9 @@ jobs:
           fi
 
       - name: Verify Ontario derived directories are fresh
+        if: >-
+          steps.acquire.outputs.drift != '1' ||
+          steps.scope.outputs.code_only != '1'
         shell: bash
         run: |
           set -euo pipefail
@@ -300,7 +325,10 @@ jobs:
           retention-days: 14
 
       - name: Fail the validation if a reviewed official source drifted
-        if: always() && steps.acquire.outputs.drift == '1'
+        if: >-
+          always() &&
+          steps.acquire.outputs.drift == '1' &&
+          steps.scope.outputs.code_only != '1'
         shell: bash
         run: |
           echo "An upstream official source no longer matches its reviewed lock." >&2
@@ -309,3 +337,16 @@ jobs:
           echo "Every other gate above ran; this job fails because the drift" >&2
           echo "itself is unreviewed." >&2
           exit 1
+
+      - name: Report unrelated official-source drift
+        if: >-
+          always() &&
+          steps.acquire.outputs.drift == '1' &&
+          steps.scope.outputs.code_only == '1'
+        shell: bash
+        run: |
+          echo "::warning::Reviewed official-source bytes changed upstream." >&2
+          echo "This dependency or CI-only pull request did not touch source" >&2
+          echo "locks, evidence, generated data, or release content, so its" >&2
+          echo "code gates remain mergeable. Push validation on main still" >&2
+          echo "fails until a named human reviews the quarantined candidates." >&2
