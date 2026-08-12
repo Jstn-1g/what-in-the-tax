@@ -1,5 +1,5 @@
 PyYAML==6.0.3
-pypdf==6.14.2
+pypdf==6.15.0
 # pypdf needs this to open an AES-encrypted PDF, and one of the committed
 # gold-pack sources is encrypted. Without it extract_pdf_text raises
 # DependencyError in CI while working on any developer machine that
