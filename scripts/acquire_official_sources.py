@@ -15,12 +15,16 @@ from __future__ import annotations
 
 import argparse
 import csv
+import email.utils
 import hashlib
+import http.client
 import io
 import json
 import os
 import re
+import ssl
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -42,6 +46,11 @@ MAX_ARCHIVE_COMPRESSION_RATIO = 100
 MAX_CSV_FIELD_CHARS = 1024 * 1024
 DOWNLOAD_CHUNK_BYTES = 64 * 1024
 DOWNLOAD_TIMEOUT_SECONDS = 30
+DOWNLOAD_ATTEMPTS = 3
+DOWNLOAD_RETRY_BASE_SECONDS = 2
+DOWNLOAD_RETRY_MAX_SECONDS = 30
+
+_RETRYABLE_HTTP_STATUS_CODES = frozenset({408, 425, 429, 500, 502, 503, 504})
 
 SOURCE_ID_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{0,127}$")
 JURISDICTION_RE = re.compile(r"^[A-Z]{2}(?:-[A-Z0-9]{1,3})+$")
@@ -839,6 +848,49 @@ def _response_media_type(response) -> str:
     return content_type.split(";", 1)[0].strip().casefold()
 
 
+def _is_retryable_download_error(exc: BaseException) -> bool:
+    """Return whether a transport failure may succeed on a fresh request."""
+
+    if isinstance(exc, urllib.error.HTTPError):
+        return exc.code in _RETRYABLE_HTTP_STATUS_CODES
+    if isinstance(exc, urllib.error.URLError):
+        return _is_retryable_download_error(exc.reason)
+    if isinstance(exc, ssl.SSLCertVerificationError):
+        return False
+    if isinstance(exc, ssl.SSLError):
+        return isinstance(exc, (ssl.SSLEOFError, ssl.SSLZeroReturnError))
+    return isinstance(
+        exc,
+        (TimeoutError, ConnectionError, http.client.HTTPException),
+    )
+
+
+def _download_retry_delay(exc: BaseException, attempt: int) -> float:
+    """Use bounded server guidance, then deterministic exponential backoff."""
+
+    fallback = min(
+        DOWNLOAD_RETRY_MAX_SECONDS,
+        DOWNLOAD_RETRY_BASE_SECONDS * (2 ** (attempt - 1)),
+    )
+    if not isinstance(exc, urllib.error.HTTPError) or exc.headers is None:
+        return fallback
+    value = exc.headers.get("Retry-After")
+    if value is None:
+        return fallback
+    value = value.strip()
+    try:
+        delay = float(int(value, 10))
+    except ValueError:
+        try:
+            retry_at = email.utils.parsedate_to_datetime(value)
+        except (TypeError, ValueError, OverflowError):
+            return fallback
+        if retry_at.tzinfo is None:
+            retry_at = retry_at.replace(tzinfo=timezone.utc)
+        delay = (retry_at - datetime.now(timezone.utc)).total_seconds()
+    return min(DOWNLOAD_RETRY_MAX_SECONDS, max(0.0, delay))
+
+
 def download_source(
     url: str,
     *,
@@ -850,58 +902,83 @@ def download_source(
     validate_source_url(url)
     if opener is None:
         opener = urllib.request.build_opener(_AllowlistedRedirectHandler())
-    request = urllib.request.Request(
-        url,
-        headers={
-            "Accept": "application/zip, application/csv, text/csv, application/pdf",
-            "User-Agent": "TaxReceiptOfficialSourceAcquirer/1.0",
-        },
-        method="GET",
-    )
-    try:
-        response_context = opener.open(request, timeout=timeout)
-        with response_context as response:
-            final_url = response.geturl()
-            validate_source_url(final_url)
-            content_encoding = response.headers.get("Content-Encoding", "identity")
-            if content_encoding.casefold() not in ("", "identity"):
-                raise OfficialSourceError(
-                    "compressed HTTP transfer encodings are not accepted"
+    for attempt in range(1, DOWNLOAD_ATTEMPTS + 1):
+        request = urllib.request.Request(
+            url,
+            headers={
+                "Accept": (
+                    "application/zip, application/csv, text/csv, application/pdf"
+                ),
+                "User-Agent": "TaxReceiptOfficialSourceAcquirer/1.0",
+            },
+            method="GET",
+        )
+        try:
+            response_context = opener.open(request, timeout=timeout)
+            with response_context as response:
+                final_url = response.geturl()
+                validate_source_url(final_url)
+                content_encoding = response.headers.get(
+                    "Content-Encoding", "identity"
                 )
-            content_length = response.headers.get("Content-Length")
-            if content_length is not None:
-                try:
-                    declared_length = int(content_length)
-                except ValueError as exc:
+                if content_encoding.casefold() not in ("", "identity"):
                     raise OfficialSourceError(
-                        "HTTP Content-Length is invalid"
-                    ) from exc
-                if declared_length < 0 or declared_length > MAX_DOWNLOAD_BYTES:
-                    raise OfficialSourceError(
-                        "HTTP response exceeds the download bound"
+                        "compressed HTTP transfer encodings are not accepted"
                     )
-            media_type = _response_media_type(response)
-            chunks: list[bytes] = []
-            total = 0
-            while True:
-                chunk = response.read(DOWNLOAD_CHUNK_BYTES)
-                if not chunk:
-                    break
-                total += len(chunk)
-                if total > MAX_DOWNLOAD_BYTES:
-                    raise OfficialSourceError(
-                        "HTTP response exceeds the download bound"
-                    )
-                chunks.append(chunk)
-    except OfficialSourceError:
-        raise
-    except (OSError, urllib.error.URLError) as exc:
-        raise OfficialSourceError(f"official source download failed: {exc}") from exc
-    return Download(
-        data=b"".join(chunks),
-        final_url=final_url,
-        media_type=media_type,
-    )
+                content_length = response.headers.get("Content-Length")
+                if content_length is not None:
+                    try:
+                        declared_length = int(content_length)
+                    except ValueError as exc:
+                        raise OfficialSourceError(
+                            "HTTP Content-Length is invalid"
+                        ) from exc
+                    if declared_length < 0 or declared_length > MAX_DOWNLOAD_BYTES:
+                        raise OfficialSourceError(
+                            "HTTP response exceeds the download bound"
+                        )
+                media_type = _response_media_type(response)
+                chunks: list[bytes] = []
+                total = 0
+                while True:
+                    chunk = response.read(DOWNLOAD_CHUNK_BYTES)
+                    if not chunk:
+                        break
+                    total += len(chunk)
+                    if total > MAX_DOWNLOAD_BYTES:
+                        raise OfficialSourceError(
+                            "HTTP response exceeds the download bound"
+                        )
+                    chunks.append(chunk)
+            return Download(
+                data=b"".join(chunks),
+                final_url=final_url,
+                media_type=media_type,
+            )
+        except OfficialSourceError:
+            # Content, redirect, and size failures are deterministic security
+            # gates. Retrying must never turn one into an accepted response.
+            raise
+        except (
+            OSError,
+            urllib.error.URLError,
+            http.client.HTTPException,
+        ) as exc:
+            retryable = _is_retryable_download_error(exc)
+            delay = _download_retry_delay(exc, attempt)
+            if isinstance(exc, urllib.error.HTTPError):
+                exc.close()
+            if (
+                attempt == DOWNLOAD_ATTEMPTS
+                or not retryable
+            ):
+                raise OfficialSourceError(
+                    "official source download failed after "
+                    f"{attempt} attempt(s): {exc}"
+                ) from exc
+            time.sleep(delay)
+
+    raise AssertionError("download retry loop exited without a result")
 
 
 def _utc_now() -> str:
