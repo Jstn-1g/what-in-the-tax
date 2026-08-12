@@ -1,6 +1,6 @@
 # Watches every dependency surface for updates and advisories. Versions stay
-# exact-pinned in the manifests; these PRs are proposals reviewed like any
-# other change, never auto-merged.
+# exact-pinned in the manifests. Verified patch PRs may auto-merge only after
+# required branch checks pass; minor and major updates stay under manual review.
 version: 2
 updates:
   - package-ecosystem: "pip"
