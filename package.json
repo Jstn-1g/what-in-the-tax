@@ -9,7 +9,7 @@
     "cloudflare:deploy-version": "wrangler versions deploy"
   },
   "devDependencies": {
-    "wrangler": "4.116.0"
+    "wrangler": "4.123.0"
   },
   "overrides": {
     "undici": "7.29.0"
