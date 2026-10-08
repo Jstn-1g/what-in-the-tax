@@ -88,13 +88,18 @@ narrowly scoped Cloudflare token stored outside the repository and limited to
 the intended account and Workers script. Never put it in `wrangler.jsonc`, a
 committed environment file, or command history.
 
-The current exact audited Wrangler release is `4.116.0`. Until Wrangler is added
-to the project lockfile, use that explicit version instead of an unversioned
-`npx wrangler`:
+The current exact audited Wrangler release is `4.123.0`, pinned in the root
+manifest and lockfile. Install that repository lock and use its local binary
+instead of allowing an unversioned `npx wrangler` invocation to select a newer
+release:
 
 ```powershell
 $ErrorActionPreference = "Stop"
-$WranglerVersion = "4.116.0"
+
+npm ci --ignore-scripts --no-audit --no-fund
+if ($LASTEXITCODE -ne 0) { throw "Wrangler dependency install failed" }
+node scripts/verify_pinned_wrangler.mjs
+if ($LASTEXITCODE -ne 0) { throw "Wrangler pin verification failed" }
 
 python -m pip install --disable-pip-version-check --only-binary=:all: -r requirements.txt
 if ($LASTEXITCODE -ne 0) { throw "Python dependency install failed" }
@@ -137,9 +142,9 @@ npm --prefix web audit --omit=dev --audit-level=high
 if ($LASTEXITCODE -ne 0) { throw "Production dependency audit failed" }
 npm --prefix web run build
 if ($LASTEXITCODE -ne 0) { throw "Web build failed" }
-npx --yes "wrangler@$WranglerVersion" deploy --dry-run
+npx --no-install wrangler deploy --dry-run
 if ($LASTEXITCODE -ne 0) { throw "Wrangler dry run failed" }
-npx --yes "wrangler@$WranglerVersion" deploy
+npx --no-install wrangler deploy
 if ($LASTEXITCODE -ne 0) { throw "Cloudflare deploy failed" }
 ```
 
